@@ -41,8 +41,21 @@ vim.opt.modeline = true -- use modeline overrides
 vim.opt.spell = false -- set spell
 vim.opt.spelllang = { 'en_us' } -- set us spell
 
-vim.keymap.set("n", "<leader>1", ":NerdTreeToggle<CR>")
-vim.keymap.set("n", "<leader>2", ":NerdTreeToggle<CR>")
+vim.keymap.set("n", "<leader>1", ":NvimTreeToggle<CR>")
+-- vim.keymap.set("n", "<leader>2", ":NerdTreeToggle<CR>")
+
+-- nerd commenter stuff
+vim.cmd([[
+let g:NERDCustomDelimiters={
+    \ 'nim': { 'left': '# ', 'right': '' },
+    \ 'python': { 'left': '# ', 'right': '' },
+    \ 'ruby': { 'left': '# ', 'right': '' },
+    \ 'json': { 'left': '// ', 'right': '' },
+    \ 'javascript': { 'left': '// ', 'right': '' },
+    \ 'cs': { 'left': '// ', 'right': '' },
+    \ 'lua': { 'left': '-- ', 'right': '' }
+\ }
+]])
 
 -- tabs... got lazy again
 vim.cmd([[
@@ -158,6 +171,7 @@ cmp.setup({
       { name = "path" },
       { name = "spell" },
       { name = "dictionary" },
+      { name = "zsh" },
     }, {
       { name = "buffer" },
     })
@@ -205,3 +219,6 @@ require("gitsigns").setup()
 
 -- lualine
 require('lualine').setup()
+
+-- nerdtree lua
+require("nvim-tree").setup()
