@@ -129,7 +129,11 @@ vim.cmd([[
     " Fix issue when doing syntax highlight
     au BufEnter *.html :syntax sync fromstart
 
+    " Jsonc (json with comments) support
     au FileType json syntax match Comment +\/\/.\+$+
+
+    " Support for csharp script
+    au BufRead,BufNewFile *.csx set filetype=cs
 ]])
 
 -- telescope
@@ -285,6 +289,9 @@ require("lspconfig").elixirls.setup {
 
 -- nim
 require("lspconfig").nimls.setup {}
+
+-- ts and js
+require'lspconfig'.tsserver.setup {}
 
 -- gitsigns
 require("gitsigns").setup()
