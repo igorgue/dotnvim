@@ -1,0 +1,1 @@
+require("global_settings")
