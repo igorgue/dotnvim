@@ -10,51 +10,57 @@ return require("packer").startup(function()
     use "onsails/lspkind.nvim" -- Nice kinds on lsp menus
 
     -- mattn's pluggins
-    use "mattn/gist-vim"
-    use "mattn/webapi-vim"
-    use "mhinz/vim-startify"
+    use "mattn/gist-vim" -- submit a gist
+    use "mattn/webapi-vim" -- requirement for gist
+    use "mhinz/vim-startify" -- shows a nice startup page
 
     -- oldies
 	use "preservim/nerdcommenter" -- comment and uncomment
-    use "preservim/tagbar"
+    use "preservim/tagbar" -- show a tagbar from the ctags
 
     -- tpope
 	use "tpope/vim-sensible" -- sensible default vim settings by tpope
 	use "tpope/vim-surround" -- wrap objects with text
-    use "tpope/vim-git"
-    use "tpope/vim-fugitive"
+    use "tpope/vim-git" -- git stuff from tpope
+    use "tpope/vim-fugitive" -- more git stuff
 
     use "sainnhe/edge" -- light theme
 
     use 'sheerun/vim-polyglot' -- syntax hi collection
 
     -- kyazdani42's plugins
-    use "kyazdani42/nvim-web-devicons"
+    use "kyazdani42/nvim-web-devicons" -- devicons
     use {
-        'kyazdani42/nvim-tree.lua',
+        'kyazdani42/nvim-tree.lua', -- a file manager
         requires = {
             'kyazdani42/nvim-web-devicons', -- optional, for file icons
         },
         tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
 
-    use "neovim/nvim-lspconfig"
-    use "norcalli/nvim-colorizer.lua"
+    use "neovim/nvim-lspconfig" -- lsp config for neovim
+    use "norcalli/nvim-colorizer.lua" -- colors
     use {
-        "numirias/semshi", {run = ":UpdateRemotePlugins"}
+        "numirias/semshi", {run = ":UpdateRemotePlugins"} -- colors for Python
     }
-    use "nvim-lua/plenary.nvim"
-    use "nvim-telescope/telescope.nvim"
+    use "nvim-lua/plenary.nvim" -- dunno...
+    use "nvim-telescope/telescope.nvim" -- Opens files and stuff
     use {
         "nvim-treesitter/nvim-treesitter", {run = ":TSUpdate"}
     }
-    use "p00f/nvim-ts-rainbow"
-    use "lewis6991/gitsigns.nvim"
+    use "p00f/nvim-ts-rainbow" -- shows rainbow matching braces
+    use "lewis6991/gitsigns.nvim" -- changes on git
 
+    -- lualine
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
+
+    -- js and ts
+    use "pangloss/vim-javascript"
+    use "peitalin/vim-jsx-typescript"
+    use "leafgarland/typescript-vim"
 
     -- hrsh7th's nvim lsp plugins
     use "hrsh7th/cmp-buffer"

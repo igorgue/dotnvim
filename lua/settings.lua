@@ -128,6 +128,8 @@ vim.cmd([[
 
     " Fix issue when doing syntax highlight
     au BufEnter *.html :syntax sync fromstart
+
+    au FileType json syntax match Comment +\/\/.\+$+
 ]])
 
 -- telescope
@@ -292,6 +294,9 @@ require('lualine').setup()
 
 -- nerdtree lua
 require("nvim-tree").setup()
+
+-- gist
+vim.g.gist_clip_command = "xsel --clipboard --input"
 
 -- rainbow treesitter
 require("nvim-treesitter.configs").setup {
