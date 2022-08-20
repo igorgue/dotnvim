@@ -3,6 +3,7 @@ require("global_settings")
 
 local home = os.getenv("HOME") or ""
 local pid = vim.fn.getpid()
+local util = require("lspconfig").util
 
 -- my theme: danger
 vim.opt.background = "dark"
@@ -298,6 +299,13 @@ require'lspconfig'.omnisharp.setup {
     -- Only run analyzers against open files when 'enableRoslynAnalyzers' is
     -- true
     -- analyze_open_documents_only = true,
+
+    root_dir = function(file, _)
+        if file:sub(-#".csx") == ".csx" then
+            return util.path.dirname(file)
+        end
+        return util.root_pattern("*.sln")(file) or util.root_pattern("*.csproj")(file)
+    end,
 }
 
 -- elixir
