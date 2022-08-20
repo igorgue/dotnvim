@@ -1,6 +1,9 @@
 require("os")
 require("global_settings")
 
+local home = os.getenv("HOME")
+local pid = vim.fn.getpid()
+
 -- my theme: danger
 vim.opt.background = "dark"
 vim.cmd("colorscheme danger")
@@ -232,10 +235,9 @@ require("lspconfig").pyright.setup {
 }
 
 -- csharp
-local pid = vim.fn.getpid()
 -- use vscode omnisharp install
 -- local omnisharp_bin = os.getenv("HOME") .. "/.vscode/extensions/ms-dotnettools.csharp-1.25.0-linux-x64/.omnisharp/1.39.0-net6.0/OmniSharp.dll"
-local omnisharp_bin = os.getenv("HOME") .. "/Opt/omnisharp-linux-x64-net6.0/OmniSharp.dll"
+local omnisharp_bin = home .. "/Opt/omnisharp-linux-x64-net6.0/OmniSharp.dll"
 require'lspconfig'.omnisharp.setup {
     cmd = { "dotnet", omnisharp_bin, "--hostPID", tostring(pid) },
     capabilities = capabilities,
@@ -275,6 +277,15 @@ require'lspconfig'.omnisharp.setup {
     -- true
     -- analyze_open_documents_only = true,
 }
+
+-- elixir
+local elixir_ls_bin = home .. "/.elixir-ls/release/language_server.sh"
+require("lspconfig").elixirls.setup {
+    cmd = { elixir_ls_bin }
+}
+
+-- nim
+require("lspconfig").nimls.setup {}
 
 -- gitsigns
 require("gitsigns").setup()
