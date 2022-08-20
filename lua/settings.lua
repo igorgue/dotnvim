@@ -43,47 +43,44 @@ vim.opt.lazyredraw = true -- better redrawing of text
 vim.opt.termguicolors = true -- 24 bit term gui colors
 vim.opt.modeline = true -- use modeline overrides
 vim.opt.spell = false -- set spell
-vim.opt.spelllang = { 'en_us' } -- set us spell
+vim.opt.spelllang = { "en_us" } -- set us spell
 
 vim.keymap.set("n", "<leader>1", ":NvimTreeToggle<CR>")
 vim.keymap.set("n", "<leader>2", ":TagbarToggle<CR>")
 
 -- nerd commenter stuff
-vim.cmd([[
-let g:NERDCustomDelimiters={
-    \ 'nim': { 'left': '# ', 'right': '' },
-    \ 'python': { 'left': '# ', 'right': '' },
-    \ 'ruby': { 'left': '# ', 'right': '' },
-    \ 'json': { 'left': '// ', 'right': '' },
-    \ 'javascript': { 'left': '// ', 'right': '' },
-    \ 'cs': { 'left': '// ', 'right': '' },
-    \ 'lua': { 'left': '-- ', 'right': '' }
-\ }
-]])
+vim.g.NERDCustomDelimiters = {
+    nim = { left = "# ", right = "" },
+    python = { left = "# ", right = "" },
+    ruby = { left = "# ", right = "" },
+    json = { left = "// ", right = "" },
+    cs = { left = "// ", right = "" },
+    lua = { left = "-- ", right = "" },
+    sql = { left = "-- ", right = "" },
+}
 
--- tabs... got lazy again
-vim.cmd([[
-    nnoremap <silent> <Tab>j :tabnext<CR>
-    nnoremap <silent> <Tab>l :tabnext<CR>
+-- tabs...
+vim.api.nvim_set_keymap("n", "<Tab>j", ":tabnext<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Tab>l", ":tabnext<CR>", { noremap = true, silent = true })
 
-    nnoremap <silent> <Tab>h :tabprevious<CR>
-    nnoremap <silent> <Tab>k :tabprevious<CR>
+vim.api.nvim_set_keymap("n", "<Tab>h", ":tabprevious<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Tab>k", ":tabprevious<CR>", { noremap = true, silent = true })
 
-    nnoremap <silent> <Tab>x :tabclose<CR>
-    nnoremap <silent> <Tab>q :tabclose<CR>
+vim.api.nvim_set_keymap("n", "<Tab>x", ":tabclose<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Tab>q", ":tabclose<CR>", { noremap = true, silent = true })
 
-    nnoremap <silent> <Tab>n :tabnew<CR>
-    nnoremap <silent> tj :tabnext<CR>
-    nnoremap <silent> tl :tabnext<CR>
+vim.api.nvim_set_keymap("n", "<Tab>n", ":tabnew<CR>", { noremap = true, silent = true })
 
-    nnoremap <silent> th :tabprevious<CR>
-    nnoremap <silent> tk :tabprevious<CR>
+vim.api.nvim_set_keymap("n", "tj", ":tabnext<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "tl", ":tabnext<CR>", { noremap = true, silent = true })
 
-    nnoremap <silent> tx :tabclose<CR>
-    nnoremap <silent> tq :tabclose<CR>
+vim.api.nvim_set_keymap("n", "th", ":tabprevious<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "tk", ":tabprevious<CR>", { noremap = true, silent = true })
 
-    nnoremap <silent> tn :tabnew<CR>
-]])
+vim.api.nvim_set_keymap("n", "tx", ":tabclose<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "tq", ":tabclose<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "tn", ":tabnew<CR>", { noremap = true, silent = true })
 
 -- autocomplete options
 vim.opt.completeopt=menu,menuone,noselect
