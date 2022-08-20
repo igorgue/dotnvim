@@ -1,3 +1,4 @@
+require("os")
 require("global_settings")
 
 -- my theme: danger
@@ -42,7 +43,7 @@ vim.opt.spell = false -- set spell
 vim.opt.spelllang = { 'en_us' } -- set us spell
 
 vim.keymap.set("n", "<leader>1", ":NvimTreeToggle<CR>")
--- vim.keymap.set("n", "<leader>2", ":NerdTreeToggle<CR>")
+vim.keymap.set("n", "<leader>2", ":TagbarToggle<CR>")
 
 -- nerd commenter stuff
 vim.cmd([[
@@ -134,6 +135,22 @@ vim.api.nvim_set_keymap('n', '<C-p>', ':Telescope git_files<CR>', {})
 vim.api.nvim_set_keymap('n', '<S-C-p>', ':Telescope live_grep<CR>', {})
 vim.api.nvim_set_keymap('n', '<C-n>', ':Telescope find_files<CR>', {})
 
+-- windowze config
+if vim.fn.has("win32") == 1 then
+    vim.opt.shell = "powershell"
+    vim.opt.shellcmdflag = [[-NoLogo\ -NoProfile\ -ExecutionPolicy\ RemoteSigned\ -Command]]
+    vim.opt.shellpipe = [[\|]]
+    vim.opt.shellredir = [[\|\ Out-File\ -Encoding\ UTF8]]
+    vim.opt.shellquote = ""
+    vim.opt.shellxquote = ""
+else
+    if vim.fn.executable("zsh") == 1 then
+        vim.opt.shell = "zsh"
+    else
+        vim.opt.shell = "bash"
+    end
+end
+
 -- setup nvim-cmp.
 local cmp = require"cmp"
 
@@ -209,9 +226,54 @@ sources = cmp.config.sources({
 -- Setup lspconfig.
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
--- Replace <YOUR_LSP_SERVER> with each lsp server you"ve enabled.
-require("lspconfig")["pyright"].setup {
+-- python
+require("lspconfig").pyright.setup {
     capabilities = capabilities
+}
+
+-- csharp
+local pid = vim.fn.getpid()
+-- use vscode omnisharp install
+-- local omnisharp_bin = os.getenv("HOME") .. "/.vscode/extensions/ms-dotnettools.csharp-1.25.0-linux-x64/.omnisharp/1.39.0-net6.0/OmniSharp.dll"
+local omnisharp_bin = os.getenv("HOME") .. "/Opt/omnisharp-linux-x64-net6.0/OmniSharp.dll"
+require'lspconfig'.omnisharp.setup {
+    cmd = { "dotnet", omnisharp_bin, "--hostPID", tostring(pid) },
+    capabilities = capabilities,
+
+    -- Enables support for reading code style, naming convention and analyzer
+    -- settings from .editorconfig.
+    enable_editorconfig_support = true,
+
+    -- If true, MSBuild project system will only load projects for files that
+    -- were opened in the editor. This setting is useful for big C# codebases
+    -- and allows for faster initialization of code navigation features only
+    -- for projects that are relevant to code that is being edited. With this
+    -- setting enabled OmniSharp may load fewer projects and may thus display
+    -- incomplete reference lists for symbols.
+    -- enable_ms_build_load_projects_on_demand = true,
+
+    -- Enables support for roslyn analyzers, code fixes and rulesets.
+    enable_roslyn_analyzers = true,
+
+    -- Specifies whether 'using' directives should be grouped and sorted during
+    -- document formatting.
+    organize_imports_on_format = true,
+
+    -- Enables support for showing unimported types and unimported extension
+    -- methods in completion lists. When committed, the appropriate using
+    -- directive will be added at the top of the current file. This option can
+    -- have a negative impact on initial completion responsiveness,
+    -- particularly for the first few completion sessions after opening a
+    -- solution.
+    enable_import_completion = true,
+
+    -- Specifies whether to include preview versions of the .NET SDK when
+    -- determining which version to use for project loading.
+    sdk_include_prereleases = true,
+
+    -- Only run analyzers against open files when 'enableRoslynAnalyzers' is
+    -- true
+    -- analyze_open_documents_only = true,
 }
 
 -- gitsigns
@@ -222,3 +284,18 @@ require('lualine').setup()
 
 -- nerdtree lua
 require("nvim-tree").setup()
+
+-- rainbow treesitter
+require("nvim-treesitter.configs").setup {
+    highlight = {
+    },
+    -- ...
+    rainbow = {
+        enable = true,
+        -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+        extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+        max_file_lines = nil, -- Do not enable for files with more than n lines, int
+        -- colors = {}, -- table of hex strings
+        -- termcolors = {} -- table of colour name strings
+    }
+}

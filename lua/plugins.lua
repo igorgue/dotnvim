@@ -7,7 +7,7 @@ return require("packer").startup(function()
     }
     use "neovim/nvim-lspconfig" -- native LSP support
     use "L3MON4D3/LuaSnip" -- Lua based snippets
-    use "onsails/lspkind.nvim"
+    use "onsails/lspkind.nvim" -- Nice kinds on lsp menus
 
     -- mattn's pluggins
     use "mattn/gist-vim"
@@ -24,8 +24,9 @@ return require("packer").startup(function()
     use "tpope/vim-git"
     use "tpope/vim-fugitive"
 
-    -- light theme
-    use "sainnhe/edge"
+    use "sainnhe/edge" -- light theme
+
+    use 'sheerun/vim-polyglot' -- syntax hi collection
 
     -- kyazdani42's plugins
     use "kyazdani42/nvim-web-devicons"
