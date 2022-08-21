@@ -1,7 +1,7 @@
 require("os")
 require("global_settings")
 
-local home = os.getenv("HOME")
+local home = os.getenv("HOME") or ""
 local pid = vim.fn.getpid()
 
 -- my theme: danger
@@ -159,6 +159,37 @@ end
 
 -- setup nvim-cmp.
 local cmp = require"cmp"
+local sources = {}
+
+if vim.fn.has("win32") == 1 then
+    sources = cmp.config.sources({
+      { name = "nvim_lsp" },
+      { name = "luasnip" }, -- For luasnip users.
+      { name = "nvim_lua" },
+      { name = "nvim_lsp_signature_help" },
+      { name = "treesitter" },
+      { name = "path" },
+      { name = "spell" },
+      { name = "dictionary" },
+      -- { name = "zsh" }, -- problems in windows
+    }, {
+      { name = "buffer" },
+    })
+else
+    sources = cmp.config.sources({
+      { name = "nvim_lsp" },
+      { name = "luasnip" }, -- For luasnip users.
+      { name = "nvim_lua" },
+      { name = "nvim_lsp_signature_help" },
+      { name = "treesitter" },
+      { name = "path" },
+      { name = "spell" },
+      { name = "dictionary" },
+      { name = "zsh" }, -- problems in windows
+    }, {
+      { name = "buffer" },
+    })
+end
 
 cmp.setup({
     snippet = {
@@ -185,19 +216,7 @@ cmp.setup({
       ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
       ["<Tab>"] = cmp.mapping.confirm({ select = true }),
     }),
-    sources = cmp.config.sources({
-      { name = "nvim_lsp" },
-      { name = "luasnip" }, -- For luasnip users.
-      { name = "nvim_lua" },
-      { name = "nvim_lsp_signature_help" },
-      { name = "treesitter" },
-      { name = "path" },
-      { name = "spell" },
-      { name = "dictionary" },
-      { name = "zsh" },
-    }, {
-      { name = "buffer" },
-    })
+    sources = sources
 })
 
 -- Set configuration for specific filetype.
@@ -300,7 +319,9 @@ require("gitsigns").setup()
 require('lualine').setup()
 
 -- nerdtree lua
-require("nvim-tree").setup()
+require("nvim-tree").setup {
+    filters = { custom = { "^.git$" } }
+}
 
 -- gist
 vim.g.gist_clip_command = "xsel --clipboard --input"

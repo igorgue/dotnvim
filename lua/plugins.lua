@@ -1,6 +1,6 @@
 return require("packer").startup(function()
-	use "igorgue/danger" -- danger colorscheme
-	use "wbthomason/packer.nvim" -- packer update itself
+    use "igorgue/danger" -- danger colorscheme
+    use "wbthomason/packer.nvim" -- packer update itself
     use { -- nice interface for LSP functions (among other things)
         "nvim-telescope/telescope.nvim",
         requires = { {"nvim-lua/plenary.nvim"} }
@@ -15,12 +15,12 @@ return require("packer").startup(function()
     use "mhinz/vim-startify" -- shows a nice startup page
 
     -- oldies
-	use "preservim/nerdcommenter" -- comment and uncomment
+    use "preservim/nerdcommenter" -- comment and uncomment
     use "preservim/tagbar" -- show a tagbar from the ctags
 
     -- tpope
-	use "tpope/vim-sensible" -- sensible default vim settings by tpope
-	use "tpope/vim-surround" -- wrap objects with text
+    use "tpope/vim-sensible" -- sensible default vim settings by tpope
+    use "tpope/vim-surround" -- wrap objects with text
     use "tpope/vim-git" -- git stuff from tpope
     use "tpope/vim-fugitive" -- more git stuff
 

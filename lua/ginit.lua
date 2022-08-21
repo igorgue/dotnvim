@@ -22,4 +22,3 @@ end
 if vim.fn.exists(":GuiScrollBar") ~= 0 then
     vim.api.nvim_command("GuiScrollBar 0")
 end
-
