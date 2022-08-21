@@ -267,7 +267,7 @@ require'lspconfig'.omnisharp.setup {
 
     -- Enables support for reading code style, naming convention and analyzer
     -- settings from .editorconfig.
-    enable_editorconfig_support = true,
+    -- enable_editorconfig_support = true,
 
     -- If true, MSBuild project system will only load projects for files that
     -- were opened in the editor. This setting is useful for big C# codebases
@@ -278,7 +278,7 @@ require'lspconfig'.omnisharp.setup {
     -- enable_ms_build_load_projects_on_demand = true,
 
     -- Enables support for roslyn analyzers, code fixes and rulesets.
-    enable_roslyn_analyzers = true,
+    -- enable_roslyn_analyzers = true,
 
     -- Specifies whether 'using' directives should be grouped and sorted during
     -- document formatting.
