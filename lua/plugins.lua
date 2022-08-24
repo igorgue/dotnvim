@@ -49,6 +49,7 @@ return require("packer").startup(function()
     }
     use "nvim-lua/plenary.nvim" -- dunno...
     use "nvim-telescope/telescope.nvim" -- Opens files and stuff
+    use "gbrlsnchs/telescope-lsp-handlers.nvim"
     use {
         "nvim-treesitter/nvim-treesitter", {run = ":TSUpdate"}
     }

@@ -139,6 +139,10 @@ vim.cmd([[
 ]])
 
 -- telescope
+local telescope = require("telescope")
+
+telescope.load_extension("lsp_handlers")
+
 vim.api.nvim_set_keymap("n", "<C-p>", ":Telescope git_files<CR>", {})
 vim.api.nvim_set_keymap("n", "<S-C-p>", ":Telescope live_grep<CR>", {})
 vim.api.nvim_set_keymap("n", "<C-n>", ":Telescope find_files<CR>", {})
