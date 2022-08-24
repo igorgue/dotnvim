@@ -3,7 +3,6 @@ require("global_settings")
 
 local home = os.getenv("HOME") or ""
 local pid = vim.fn.getpid()
-local util = require("lspconfig").util
 
 -- my theme: danger
 vim.opt.background = "dark"
@@ -28,7 +27,7 @@ vim.opt.tags = "tags;$HOME/.config/nvim/tags/;$HOME/tmp/tags/" -- find ctags
 vim.opt.listchars = [[tab:▸\ ,eol:¬]] -- listchars for invisibles
 vim.opt.mouse = "a" -- fix mouse
 vim.opt.ls = 2 -- status line always show
-vim.opt.scrolloff = 5 -- show 5 lines before cursor always 
+vim.opt.scrolloff = 5 -- show 5 lines before cursor always
 vim.opt.showcmd = true -- display incomplete commands
 vim.opt.showmode = true -- display current mode
 vim.opt.linebreak = true -- show line breaks
@@ -92,8 +91,6 @@ vim.cmd([[
     " Remember last location in file
     au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
       \| exe "normal g'\"" | endif
-
-    au BufRead,BufNewFile {*.local} set ft=vim
 
     " Make Python follow PEP8 (http://www.python.org/dev/peps/pep-0008/)
     au FileType python set softtabstop=4 tabstop=4 shiftwidth=4
@@ -169,80 +166,62 @@ local sources = {}
 
 if vim.fn.has("win32") == 1 then
     sources = cmp.config.sources({
-      { name = "nvim_lsp" },
-      { name = "luasnip" }, -- For luasnip users.
-      { name = "nvim_lua" },
-      { name = "nvim_lsp_signature_help" },
-      { name = "treesitter" },
-      { name = "path" },
-      { name = "spell" },
-      { name = "dictionary" },
-      -- { name = "zsh" }, -- problems in windows
+        { name = "nvim_lsp" },
+        { name = "luasnip" }, -- For luasnip users.
+        { name = "nvim_lua" },
+        { name = "nvim_lsp_signature_help" },
+        { name = "treesitter" },
+        { name = "path" },
+        { name = "spell" },
+        { name = "dictionary" },
+        -- { name = "zsh" }, -- problems in windows
     }, {
-      { name = "buffer" },
+        { name = "buffer" },
     })
 else
     sources = cmp.config.sources({
-      { name = "nvim_lsp" },
-      { name = "luasnip" }, -- For luasnip users.
-      { name = "nvim_lua" },
-      { name = "nvim_lsp_signature_help" },
-      { name = "treesitter" },
-      { name = "path" },
-      { name = "spell" },
-      { name = "dictionary" },
-      { name = "zsh" }, -- problems in windows
+        { name = "nvim_lsp" },
+        { name = "luasnip" }, -- For luasnip users.
+        { name = "nvim_lua" },
+        { name = "nvim_lsp_signature_help" },
+        { name = "treesitter" },
+        { name = "path" },
+        { name = "spell" },
+        { name = "dictionary" },
+        { name = "zsh" }, -- problems in windows
     }, {
-      { name = "buffer" },
+        { name = "buffer" },
     })
 end
 
 local winhighlight = "Normal:Normal,FloatBorder:VertSplit,CursorLine:CursorLine,Search:Search"
 local luasnip = require("luasnip")
 local mapping = {
-  ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-  ["<C-f>"] = cmp.mapping.scroll_docs(4),
-  -- ["<Tab>"] = cmp.mapping.select_next_item(),
-  -- ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-  ["<C-Space>"] = cmp.mapping.complete(),
-  ["<C-e>"] = cmp.mapping.abort(),
-  ["<CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
+    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<Tab>"] = cmp.mapping.select_next_item(),
+    ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-e>"] = cmp.mapping.abort(),
+    ["<CR>"] = cmp.mapping.confirm()
 }
 
 -- cmp plugin
 cmp.setup({
     snippet = {
-      expand = function(args)
-        require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
-      end,
+        expand = function(args)
+            require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+        end,
     },
     window = {
-      completion = cmp.config.window.bordered({ winhighlight = winhighlight }),
-      documentation = cmp.config.window.bordered({ winhighlight = winhighlight }),
+        completion = cmp.config.window.bordered({ winhighlight = winhighlight }),
+        documentation = cmp.config.window.bordered({ winhighlight = winhighlight }),
     },
     formatting = {
-      fields = { 'kind', 'abbr', 'menu', },
-      format = require("lspkind").cmp_format({
-        with_text = false,
-      })
+        fields = { "kind", "abbr", "menu", },
+        format = require("lspkind").cmp_format({
+            with_text = false,
+        })
     },
     mapping = cmp.mapping.preset.insert(mapping),
     sources = sources
@@ -251,9 +230,9 @@ cmp.setup({
 -- Set configuration for specific filetype.
 cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
-      { name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
+        { name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
     }, {
-      { name = "buffer" },
+        { name = "buffer" },
     })
 })
 
@@ -261,19 +240,19 @@ cmp.setup.filetype("gitcommit", {
 cmp.setup.cmdline("/", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-      { name = "nvim_lsp_document_symbol" }
+        { name = "nvim_lsp_document_symbol" }
     }, {
-      { name = "buffer" }
+        { name = "buffer" }
     }
 })
 
 -- Use cmdline & path source for ":" (if you enabled `native_menu`, this won"t work anymore).
 cmp.setup.cmdline(":", {
-mapping = cmp.mapping.preset.cmdline(),
-sources = cmp.config.sources({
-      { name = "path" }
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = "path" }
     }, {
-      { name = "cmdline" }
+        { name = "cmdline" }
     })
 })
 
@@ -284,100 +263,89 @@ require("mason").setup()
 -- "null-ls" linting
 require("null-ls").setup({})
 
+require("lint").linters_by_ft = {
+    python = {"flake8"}
+}
+
 -- lsp config mason
 require("mason-lspconfig").setup({
-    ensure_installed = { "omnisharp", "csharp-language-server", "elixir-ls", "pyright" },
+    ensure_installed = { "omnisharp", "elixir-ls", "pyright", "nimlsp" },
     automatic_instalation = true,
 })
 
 -- formatter mason
 -- Utilities for creating configurations
-local util = require "formatter.util"
+local formatter_util = require "formatter.util"
 
 -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
 require("formatter").setup {
-  -- Enable or disable logging
-  logging = true,
-  -- Set the log level
-  log_level = vim.log.levels.WARN,
-  -- All formatter configurations are opt-in
-  filetype = {
-    -- Formatter configurations for filetype "lua" go here
-    -- and will be executed in order
-    lua = {
-      -- "formatter.filetypes.lua" defines default configurations for the
-      -- "lua" filetype
-      require("formatter.filetypes.lua").stylua,
+    -- Enable or disable logging
+    logging = true,
+    -- Set the log level
+    log_level = vim.log.levels.WARN,
+    -- All formatter configurations are opt-in
+    filetype = {
+        -- Formatter configurations for filetype "lua" go here
+        -- and will be executed in order
+        lua = {
+            -- "formatter.filetypes.lua" defines default configurations for the
+            -- "lua" filetype
+            require("formatter.filetypes.lua").stylua,
+        },
 
-      -- You can also define your own configuration
-      function()
-        -- Supports conditional formatting
-        if util.get_current_buffer_file_name() == "special.lua" then
-          return nil
-        end
+        python = {
+            require("formatter.filetypes.python").black
+        },
 
-        -- Full specification of configurations is down below and in Vim help
-        -- files
-        return {
-          exe = "stylua",
-          args = {
-            "--search-parent-directories",
-            "--stdin-filepath",
-            util.escape_path(util.get_current_buffer_file_path()),
-            "--",
-            "-",
-          },
-          stdin = true,
+        -- Use the special "*" filetype for defining formatter configurations on
+        -- any filetype
+        ["*"] = {
+            -- "formatter.filetypes.any" defines default configurations for any
+            -- filetype
+            require("formatter.filetypes.any").remove_trailing_whitespace
         }
-      end
-    },
-
-    -- Use the special "*" filetype for defining formatter configurations on
-    -- any filetype
-    ["*"] = {
-      -- "formatter.filetypes.any" defines default configurations for any
-      -- filetype
-      require("formatter.filetypes.any").remove_trailing_whitespace
     }
-  }
 }
 
 -- setup LSP
+local lspconfig_util = require("lspconfig").util
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  -- XXX since we use cmp we don't need this I think
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- Enable completion triggered by <c-x><c-o>
+    -- XXX since we use cmp we don't need this I think
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+    -- Mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local bufopts = { noremap=true, silent=true, buffer=bufnr }
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+    vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
+    vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+    vim.keymap.set("n", "<space>wl", function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, bufopts)
+vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
+vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
+vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
+vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+vim.keymap.set("n", "<space>f", vim.lsp.buf.formatting, bufopts)
 end
 
 -- python
@@ -390,17 +358,17 @@ require("lspconfig").pyright.setup {
 vim.cmd([[
     let g:semshi#simplify_markup=0
 
-    exe 'hi pythonBuiltinFunc guifg=none ctermfg=none'
-    exe 'hi pythonBuiltinObj guifg=none ctermfg=none'
-    exe 'hi pythonBuiltinType guifg=none ctermfg=none'
+    exe "hi pythonBuiltinFunc guifg=none ctermfg=none"
+    exe "hi pythonBuiltinObj guifg=none ctermfg=none"
+    exe "hi pythonBuiltinType guifg=none ctermfg=none"
 ]])
 
 -- csharp
 -- use vscode omnisharp install
 -- local omnisharp_dll = os.getenv("HOME") .. "/.vscode/extensions/ms-dotnettools.csharp-1.25.0-linux-x64/.omnisharp/1.39.0-net6.0/OmniSharp.dll"
-require'lspconfig'.omnisharp.setup {
+require("lspconfig").omnisharp.setup {
     handlers = {
-        ["textDocument/definition"] = require('omnisharp_extended').handler,
+        ["textDocument/definition"] = require("omnisharp_extended").handler,
     },
     -- NOTE to use the same install as vscode
     -- cmd = { "dotnet", omnisharp_dll, "--hostPID", tostring(pid) },
@@ -444,9 +412,9 @@ require'lspconfig'.omnisharp.setup {
 
     root_dir = function(file, _)
         if file:sub(-#".csx") == ".csx" then
-            return util.path.dirname(file)
+            return lspconfig_util.path.dirname(file)
         end
-        return util.root_pattern("*.sln")(file) or util.root_pattern("*.csproj")(file)
+        return lspconfig_util.root_pattern("*.sln")(file) or lspconfig_util.root_pattern("*.csproj")(file)
     end,
 }
 
@@ -477,7 +445,7 @@ augroup omnisharp_commands
   autocmd FileType cs imap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
 
   " Navigate up and down by method/property/field
-  
+
   " Find all code errors/warnings for the current solution and populate the quickfix window
   autocmd FileType cs nmap <silent> <buffer> <Leader>osgcc <Plug>(omnisharp_global_code_check)
   " Contextual code actions (uses fzf, vim-clap, CtrlP or unite.vim selector when available)
@@ -497,7 +465,7 @@ augroup omnisharp_commands
 augroup END
 ]])
 
-local omnisharp_bin = home .. "/.local/share/nvim/mason/packages/omnisharp/OmniSharp.dll"
+local omnisharp_bin = home .. "/.local/share/nvim/mason/packages/omnisharp/omnisharp"
 vim.g.OmniSharp_server_path = omnisharp_bin
 vim.g.OmniSharp_diagnostic_showid = 1
 vim.g.OmniSharp_highlighting = 3
@@ -526,7 +494,12 @@ require("lspconfig").nimls.setup {
 }
 
 -- ts and js
-require'lspconfig'.tsserver.setup {
+require("lspconfig").tsserver.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+}
+
+require("lspconfig").html.setup {
     on_attach = on_attach,
     capabilities = capabilities
 }
@@ -535,7 +508,7 @@ require'lspconfig'.tsserver.setup {
 require("gitsigns").setup()
 
 -- lualine
-require('lualine').setup()
+require("lualine").setup()
 
 -- nerdtree lua
 require("nvim-tree").setup {
@@ -552,7 +525,7 @@ require("nvim-treesitter.configs").setup {
         -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
         extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
         max_file_lines = nil, -- Do not enable for files with more than n lines, int
-        colors = { "#ff8787", "#ffd7ff", "#00af87", "#875fff", "#9e9e9e" }, -- table of hex strings
+        colors = { "#ff8787", "#ffd75f", "#00af87", "#875fff", "#9e9e9e" }, -- table of hex strings
         termcolors = { "210", "225", "36", "104", "247" }, -- table of colour name strings
     }
 }

@@ -1,4 +1,5 @@
 return require("packer").startup(function()
+    -- use "~/Code/danger" -- danger colorscheme
     use "igorgue/danger" -- danger colorscheme
     use "wbthomason/packer.nvim" -- packer update itself
     use { -- nice interface for LSP functions (among other things)
@@ -43,7 +44,6 @@ return require("packer").startup(function()
         tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
 
-    use "folke/lsp-colors.nvim"
     use "norcalli/nvim-colorizer.lua" -- colors
     use {
         "numirias/semshi", {run = ":UpdateRemotePlugins"} -- colors for Python
