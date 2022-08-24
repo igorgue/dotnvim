@@ -1,13 +1,18 @@
 return require("packer").startup(function()
-    use "igorgue/danger" -- danger colorscheme
+    use "~/Code/danger" -- danger colorscheme
     use "wbthomason/packer.nvim" -- packer update itself
     use { -- nice interface for LSP functions (among other things)
         "nvim-telescope/telescope.nvim",
         requires = { {"nvim-lua/plenary.nvim"} }
     }
+
     use "neovim/nvim-lspconfig" -- native LSP support
+
     use "L3MON4D3/LuaSnip" -- Lua based snippets
     use "onsails/lspkind.nvim" -- Nice kinds on lsp menus
+
+    -- oldest trick to select blocks with vii
+	use "michaeljsmith/vim-indent-object" -- selection of indentation blocks
 
     -- mattn's pluggins
     use "mattn/gist-vim" -- submit a gist
@@ -38,7 +43,6 @@ return require("packer").startup(function()
         tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
 
-    use "neovim/nvim-lspconfig" -- lsp config for neovim
     use "norcalli/nvim-colorizer.lua" -- colors
     use {
         "numirias/semshi", {run = ":UpdateRemotePlugins"} -- colors for Python
@@ -56,6 +60,27 @@ return require("packer").startup(function()
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
+
+    -- mason package manager for lsp and other services
+    use { "williamboman/mason.nvim" }
+
+    -- mason extensions
+    use "williamboman/mason-lspconfig.nvim"
+    use "jose-elias-alvarez/null-ls.nvim"
+    use "mfussenegger/nvim-dap"
+    use "mfussenegger/nvim-lint"
+    use "mhartington/formatter.nvim"
+
+    -- fzf
+    use {
+        "junegunn/fzf",
+        {run = "fzf#install()"}
+    }
+    use "junegunn/fzf.vim"
+
+    -- csharp
+    use "OmniSharp/omnisharp-vim"
+    use "Hoffs/omnisharp-extended-lsp.nvim"
 
     -- js and ts
     use "pangloss/vim-javascript"

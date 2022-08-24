@@ -45,6 +45,7 @@ vim.opt.termguicolors = true -- 24 bit term gui colors
 vim.opt.modeline = true -- use modeline overrides
 vim.opt.spell = false -- set spell
 vim.opt.spelllang = { "en_us" } -- set us spell
+vim.opt.updatetime = 12 -- very low update time for fast fps
 
 vim.keymap.set("n", "<leader>1", ":NvimTreeToggle<CR>")
 vim.keymap.set("n", "<leader>2", ":TagbarToggle<CR>")
@@ -138,9 +139,9 @@ vim.cmd([[
 ]])
 
 -- telescope
-vim.api.nvim_set_keymap('n', '<C-p>', ':Telescope git_files<CR>', {})
-vim.api.nvim_set_keymap('n', '<S-C-p>', ':Telescope live_grep<CR>', {})
-vim.api.nvim_set_keymap('n', '<C-n>', ':Telescope find_files<CR>', {})
+vim.api.nvim_set_keymap("n", "<C-p>", ":Telescope git_files<CR>", {})
+vim.api.nvim_set_keymap("n", "<S-C-p>", ":Telescope live_grep<CR>", {})
+vim.api.nvim_set_keymap("n", "<C-n>", ":Telescope find_files<CR>", {})
 
 -- windowze config
 if vim.fn.has("win32") == 1 then
@@ -159,7 +160,7 @@ else
 end
 
 -- setup nvim-cmp.
-local cmp = require"cmp"
+local cmp = require("cmp")
 local sources = {}
 
 if vim.fn.has("win32") == 1 then
@@ -192,16 +193,46 @@ else
     })
 end
 
+local winhighlight = "Normal:Normal,FloatBorder:VertSplit,CursorLine:CursorLine,Search:Search"
+local luasnip = require("luasnip")
+local mapping = {
+  ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+  ["<C-f>"] = cmp.mapping.scroll_docs(4),
+  -- ["<Tab>"] = cmp.mapping.select_next_item(),
+  -- ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+  ["<C-Space>"] = cmp.mapping.complete(),
+  ["<C-e>"] = cmp.mapping.abort(),
+  ["<CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+}
+
+-- cmp plugin
 cmp.setup({
     snippet = {
-      -- REQUIRED - you must specify a snippet engine
       expand = function(args)
         require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
       end,
     },
     window = {
-      completion = cmp.config.window.bordered(),
-      documentation = cmp.config.window.bordered(),
+      completion = cmp.config.window.bordered({ winhighlight = winhighlight }),
+      documentation = cmp.config.window.bordered({ winhighlight = winhighlight }),
     },
     formatting = {
       fields = { 'kind', 'abbr', 'menu', },
@@ -209,14 +240,7 @@ cmp.setup({
         with_text = false,
       })
     },
-    mapping = cmp.mapping.preset.insert({
-      ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-Space>"] = cmp.mapping.complete(),
-      ["<C-e>"] = cmp.mapping.abort(),
-      ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-      ["<Tab>"] = cmp.mapping.confirm({ select = true }),
-    }),
+    mapping = cmp.mapping.preset.insert(mapping),
     sources = sources
 })
 
@@ -249,25 +273,139 @@ sources = cmp.config.sources({
     })
 })
 
--- Setup lspconfig.
+-- mason
+require("mason").setup()
+
+-- mason extexnsions
+-- "null-ls" linting
+require("null-ls").setup({})
+
+-- lsp config mason
+require("mason-lspconfig").setup({
+    ensure_installed = { "omnisharp", "csharp-language-server", "elixir-ls", "pyright" },
+    automatic_instalation = true,
+})
+
+-- formatter mason
+-- Utilities for creating configurations
+local util = require "formatter.util"
+
+-- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
+require("formatter").setup {
+  -- Enable or disable logging
+  logging = true,
+  -- Set the log level
+  log_level = vim.log.levels.WARN,
+  -- All formatter configurations are opt-in
+  filetype = {
+    -- Formatter configurations for filetype "lua" go here
+    -- and will be executed in order
+    lua = {
+      -- "formatter.filetypes.lua" defines default configurations for the
+      -- "lua" filetype
+      require("formatter.filetypes.lua").stylua,
+
+      -- You can also define your own configuration
+      function()
+        -- Supports conditional formatting
+        if util.get_current_buffer_file_name() == "special.lua" then
+          return nil
+        end
+
+        -- Full specification of configurations is down below and in Vim help
+        -- files
+        return {
+          exe = "stylua",
+          args = {
+            "--search-parent-directories",
+            "--stdin-filepath",
+            util.escape_path(util.get_current_buffer_file_path()),
+            "--",
+            "-",
+          },
+          stdin = true,
+        }
+      end
+    },
+
+    -- Use the special "*" filetype for defining formatter configurations on
+    -- any filetype
+    ["*"] = {
+      -- "formatter.filetypes.any" defines default configurations for any
+      -- filetype
+      require("formatter.filetypes.any").remove_trailing_whitespace
+    }
+  }
+}
+
+-- setup LSP
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+-- Mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  -- XXX since we use cmp we don't need this I think
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+end
 
 -- python
 require("lspconfig").pyright.setup {
-    capabilities = capabilities
+    capabilities = capabilities,
+    on_attach = on_attach
 }
+
+-- semshi config
+vim.cmd([[
+    let g:semshi#simplify_markup=0
+
+    exe 'hi pythonBuiltinFunc guifg=none ctermfg=none'
+    exe 'hi pythonBuiltinObj guifg=none ctermfg=none'
+    exe 'hi pythonBuiltinType guifg=none ctermfg=none'
+]])
 
 -- csharp
 -- use vscode omnisharp install
--- local omnisharp_bin = os.getenv("HOME") .. "/.vscode/extensions/ms-dotnettools.csharp-1.25.0-linux-x64/.omnisharp/1.39.0-net6.0/OmniSharp.dll"
-local omnisharp_bin = home .. "/Opt/omnisharp-linux-x64-net6.0/OmniSharp.dll"
+-- local omnisharp_dll = os.getenv("HOME") .. "/.vscode/extensions/ms-dotnettools.csharp-1.25.0-linux-x64/.omnisharp/1.39.0-net6.0/OmniSharp.dll"
 require'lspconfig'.omnisharp.setup {
-    cmd = { "dotnet", omnisharp_bin, "--hostPID", tostring(pid) },
+    handlers = {
+        ["textDocument/definition"] = require('omnisharp_extended').handler,
+    },
+    -- NOTE to use the same install as vscode
+    -- cmd = { "dotnet", omnisharp_dll, "--hostPID", tostring(pid) },
     capabilities = capabilities,
+    on_attach = on_attach,
 
     -- Enables support for reading code style, naming convention and analyzer
     -- settings from .editorconfig.
-    -- enable_editorconfig_support = true,
+    enable_editorconfig_support = true,
 
     -- If true, MSBuild project system will only load projects for files that
     -- were opened in the editor. This setting is useful for big C# codebases
@@ -278,7 +416,7 @@ require'lspconfig'.omnisharp.setup {
     -- enable_ms_build_load_projects_on_demand = true,
 
     -- Enables support for roslyn analyzers, code fixes and rulesets.
-    -- enable_roslyn_analyzers = true,
+    enable_roslyn_analyzers = true,
 
     -- Specifies whether 'using' directives should be grouped and sorted during
     -- document formatting.
@@ -308,17 +446,86 @@ require'lspconfig'.omnisharp.setup {
     end,
 }
 
+-- omnisharp-vim config, related to ^^ (skips auto complete settings)
+vim.cmd([[
+augroup omnisharp_commands
+  autocmd!
+
+  " Show type information automatically when the cursor stops moving.
+  " Note that the type is echoed to the Vim command line, and will overwrite
+  " any other messages in this space including e.g. ALE linting messages.
+  autocmd CursorHold *.cs OmniSharpTypeLookup
+
+  autocmd FileType cs nmap <silent> <buffer> \[\[ <Plug>(omnisharp_navigate_up)
+  autocmd FileType cs nmap <silent> <buffer> \]\] <Plug>(omnisharp_navigate_down)
+
+  " The following commands are contextual, based on the cursor position.
+  autocmd FileType cs nmap <silent> <buffer> gd <Plug>(omnisharp_go_to_definition)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osfu <Plug>(omnisharp_find_usages)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osfi <Plug>(omnisharp_find_implementations)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>ospd <Plug>(omnisharp_preview_definition)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>ospi <Plug>(omnisharp_preview_implementations)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>ost <Plug>(omnisharp_type_lookup)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osd <Plug>(omnisharp_documentation)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osfs <Plug>(omnisharp_find_symbol)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osfx <Plug>(omnisharp_fix_usings)
+  autocmd FileType cs nmap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
+  autocmd FileType cs imap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
+
+  " Navigate up and down by method/property/field
+  
+  " Find all code errors/warnings for the current solution and populate the quickfix window
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osgcc <Plug>(omnisharp_global_code_check)
+  " Contextual code actions (uses fzf, vim-clap, CtrlP or unite.vim selector when available)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
+  autocmd FileType cs xmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
+  " Repeat the last code action performed (does not use a selector)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>os. <Plug>(omnisharp_code_action_repeat)
+  autocmd FileType cs xmap <silent> <buffer> <Leader>os. <Plug>(omnisharp_code_action_repeat)
+
+  autocmd FileType cs nmap <silent> <buffer> <Leader>os= <Plug>(omnisharp_code_format)
+
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osnm <Plug>(omnisharp_rename)
+
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osre <Plug>(omnisharp_restart_server)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osst <Plug>(omnisharp_start_server)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>ossp <Plug>(omnisharp_stop_server)
+augroup END
+]])
+
+local omnisharp_bin = home .. "/.local/share/nvim/mason/packages/omnisharp/OmniSharp.dll"
+vim.g.OmniSharp_server_path = omnisharp_bin
+vim.g.OmniSharp_diagnostic_showid = 1
+vim.g.OmniSharp_highlighting = 3
+vim.g.OmniSharp_diagnostic_overrides = "None"
+vim.g.OmniSharp_popup = 1
+vim.g.OmniSharp_selector_findusages = "fzf"
+vim.g.OmniSharp_selector_ui = "fzf"
+vim.g.OmniSharp_timeout = 60000
+vim.g.OmniSharp_server_type = "roslyn"
+vim.g.OmniSharp_server_use_net6 = 1
+vim.g.OmniSharp_server_stdio = 1
+
 -- elixir
-local elixir_ls_bin = home .. "/.elixir-ls/release/language_server.sh"
+-- XXX handled by mason
+-- local elixir_ls_bin = home .. "/Opt/elixir-ls/release/language_server.sh"
 require("lspconfig").elixirls.setup {
-    cmd = { elixir_ls_bin }
+    -- cmd = { elixir_ls_bin },
+    capabilities = capabilities,
+    on_attach = on_attach
 }
 
 -- nim
-require("lspconfig").nimls.setup {}
+require("lspconfig").nimls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+}
 
 -- ts and js
-require'lspconfig'.tsserver.setup {}
+require'lspconfig'.tsserver.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+}
 
 -- gitsigns
 require("gitsigns").setup()
@@ -332,19 +539,19 @@ require("nvim-tree").setup {
 }
 
 -- gist
-vim.g.gist_clip_command = "xsel --clipboard --input"
+vim.g.gist_clip_command = "xclip --selection clipboard"
 
 -- rainbow treesitter
 require("nvim-treesitter.configs").setup {
-    highlight = {
-    },
-    -- ...
     rainbow = {
         enable = true,
         -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
         extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
         max_file_lines = nil, -- Do not enable for files with more than n lines, int
-        -- colors = {}, -- table of hex strings
-        -- termcolors = {} -- table of colour name strings
+        colors = { "#ff8787", "#ffd7ff", "#00af87", "#875fff", "#9e9e9e" }, -- table of hex strings
+        termcolors = { "210", "225", "36", "104", "247" }, -- table of colour name strings
     }
 }
+
+-- colorizer
+require("colorizer").setup({"*"}, { mode = "foreground" })
