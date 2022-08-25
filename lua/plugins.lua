@@ -83,6 +83,9 @@ return require("packer").startup(function()
     use "OmniSharp/omnisharp-vim"
     use "Hoffs/omnisharp-extended-lsp.nvim"
 
+    -- elixir
+    use { "mhanberg/elixir.nvim", requires = { "neovim/nvim-lspconfig", "nvim-lua/plenary.nvim" }}
+
     -- js and ts
     use "pangloss/vim-javascript"
     use "peitalin/vim-jsx-typescript"
