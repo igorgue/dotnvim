@@ -25,7 +25,7 @@ vim.opt.undofile = true
 
 vim.opt.tags = "tags;$HOME/.config/nvim/tags/;$HOME/tmp/tags/" -- find ctags
 vim.opt.listchars = [[tab:▸\ ,eol:¬]] -- listchars for invisibles
-vim.opt.mouse = "a" -- fix mouse
+vim.opt.mouse:append({ a = true }) -- fix mouse
 vim.opt.ls = 2 -- status line always show
 vim.opt.scrolloff = 5 -- show 5 lines before cursor always
 vim.opt.showcmd = true -- display incomplete commands
@@ -139,6 +139,18 @@ vim.cmd([[
 local telescope = require("telescope")
 
 telescope.load_extension("lsp_handlers")
+
+
+local actions = require("telescope.actions")
+require("telescope").setup{
+  defaults = {
+    mappings = {
+      i = {
+        ["<esc>"] = actions.close,
+      },
+    },
+  }
+}
 
 vim.api.nvim_set_keymap("n", "<C-p>", ":Telescope git_files<CR>", {})
 vim.api.nvim_set_keymap("n", "<S-C-p>", ":Telescope live_grep<CR>", {})
@@ -316,6 +328,15 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
 
+-- toggle diagnostics
+vim.g.show_diagnostics = true
+function diagnostics_toggle()
+    vim.g.show_diagnostics = not(vim.g.show_diagnostics)
+
+    if vim.g.show_diagnostics then vim.diagnostic.show() else vim.diagnostic.hide() end
+end
+
+vim.keymap.set("n", "<space>d", function() diagnostics_toggle() end, opts)
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
@@ -345,7 +366,7 @@ vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
 vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
 vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
 vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-vim.keymap.set("n", "<space>f", vim.lsp.buf.formatting, bufopts)
+vim.keymap.set("n", "<space>f", vim.lsp.buf.format, bufopts)
 end
 
 -- python
@@ -508,7 +529,53 @@ require("lspconfig").html.setup {
 require("gitsigns").setup()
 
 -- lualine
-require("lualine").setup()
+local lualine_colors = {
+    black        = "#161925",
+    white        = "#dadada",
+    red          = "#ff8787",
+    green        = "#afd7af",
+    blue         = "#875fff",
+    yellow       = "#ffffd7",
+    gray         = "#bcbcbc",
+    darkgray     = "#454555",
+    lightgray    = "#394160",
+    inactivegray = "#344055",
+}
+
+local danger_lualine = {
+    normal = {
+        a = {bg = lualine_colors.gray, fg = lualine_colors.black, gui = "bold"},
+        b = {bg = lualine_colors.lightgray, fg = lualine_colors.white},
+        c = {bg = lualine_colors.darkgray, fg = lualine_colors.gray}
+    },
+    insert = {
+        a = {bg = lualine_colors.blue, fg = lualine_colors.black, gui = "bold"},
+        b = {bg = lualine_colors.lightgray, fg = lualine_colors.white},
+        c = {bg = lualine_colors.lightgray, fg = lualine_colors.white}
+    },
+    visual = {
+        a = {bg = lualine_colors.yellow, fg = lualine_colors.black, gui = "bold"},
+        b = {bg = lualine_colors.lightgray, fg = lualine_colors.white},
+        c = {bg = lualine_colors.inactivegray, fg = lualine_colors.black}
+    },
+    replace = {
+        a = {bg = lualine_colors.red, fg = lualine_colors.black, gui = "bold"},
+        b = {bg = lualine_colors.lightgray, fg = lualine_colors.white},
+        c = {bg = lualine_colors.black, fg = lualine_colors.white}
+    },
+    command = {
+        a = {bg = lualine_colors.green, fg = lualine_colors.black, gui = "bold"},
+        b = {bg = lualine_colors.lightgray, fg = lualine_colors.white},
+        c = {bg = lualine_colors.inactivegray, fg = lualine_colors.black}
+    },
+    inactive = {
+        a = {bg = lualine_colors.darkgray, fg = lualine_colors.gray, gui = "bold"},
+        b = {bg = lualine_colors.darkgray, fg = lualine_colors.gray},
+        c = {bg = lualine_colors.darkgray, fg = lualine_colors.gray}
+    }
+}
+
+require("lualine").setup { options = {theme = danger_lualine }}
 
 -- nerdtree lua
 require("nvim-tree").setup {
@@ -525,8 +592,7 @@ require("nvim-treesitter.configs").setup {
         -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
         extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
         max_file_lines = nil, -- Do not enable for files with more than n lines, int
-        colors = { "#ff8787", "#ffd75f", "#00af87", "#875fff", "#9e9e9e" }, -- table of hex strings
-        termcolors = { "210", "225", "36", "104", "247" }, -- table of colour name strings
+        colors = { "#8787d7", "#875fff", "#afd7ff", "#00af87", "#ffffd7", "#ff8787", "#ff5f00" },
     }
 }
 

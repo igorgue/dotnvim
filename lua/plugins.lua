@@ -32,16 +32,15 @@ return require("packer").startup(function()
 
     use "sainnhe/edge" -- light theme
 
-    use 'sheerun/vim-polyglot' -- syntax hi collection
+    use "sheerun/vim-polyglot" -- syntax hi collection
 
     -- kyazdani42's plugins
-    use "kyazdani42/nvim-web-devicons" -- devicons
     use {
-        'kyazdani42/nvim-tree.lua', -- a file manager
+        "kyazdani42/nvim-tree.lua", -- a file manager
         requires = {
-            'kyazdani42/nvim-web-devicons', -- optional, for file icons
+            "kyazdani42/nvim-web-devicons", -- optional, for file icons
         },
-        tag = 'nightly' -- optional, updated every week. (see issue #1193)
+        tag = "nightly" -- optional, updated every week. (see issue #1193)
     }
 
     use "norcalli/nvim-colorizer.lua" -- colors
@@ -59,8 +58,8 @@ return require("packer").startup(function()
 
     -- lualine
     use {
-        'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+        "nvim-lualine/lualine.nvim",
+        requires = { "kyazdani42/nvim-web-devicons", opt = true }
     }
 
     -- mason package manager for lsp and other services
