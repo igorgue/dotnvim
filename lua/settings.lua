@@ -45,6 +45,7 @@ vim.opt.modeline = true -- use modeline overrides
 vim.opt.spell = false -- set spell
 vim.opt.spelllang = { "en_us" } -- set us spell
 vim.opt.updatetime = 12 -- very low update time for fast fps
+vim.opt.showmode = false -- disable mode since we use lualine
 
 vim.keymap.set("n", "<leader>1", ":NvimTreeToggle<CR>")
 vim.keymap.set("n", "<leader>2", ":TagbarToggle<CR>")
