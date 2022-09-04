@@ -2,7 +2,6 @@ require("os")
 require("global_settings")
 
 local home = os.getenv("HOME") or ""
-local pid = vim.fn.getpid()
 
 -- my theme: danger
 vim.opt.background = "dark"
@@ -85,7 +84,7 @@ vim.api.nvim_set_keymap("n", "tq", ":tabclose<CR>", { noremap = true, silent = t
 vim.api.nvim_set_keymap("n", "tn", ":tabnew<CR>", { noremap = true, silent = true })
 
 -- autocomplete options
-vim.opt.completeopt=menu,menuone,noselect
+vim.opt.completeopt = "menu,menuone,noselect"
 
 -- autocommands... here I got lazy
 vim.cmd([[
@@ -187,6 +186,7 @@ if vim.fn.has("win32") == 1 then
         { name = "path" },
         { name = "spell" },
         { name = "dictionary" },
+        { name = "copilot" },
         -- { name = "zsh" }, -- problems in windows
     }, {
         { name = "buffer" },
@@ -212,8 +212,8 @@ local luasnip = require("luasnip")
 local mapping = {
     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<Tab>"] = cmp.mapping.select_next_item(),
-    ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+    -- ["<Tab>"] = cmp.mapping.select_next_item(),
+    -- ["<S-Tab>"] = cmp.mapping.select_prev_item(),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.abort(),
     ["<CR>"] = cmp.mapping.confirm()
@@ -223,7 +223,7 @@ local mapping = {
 cmp.setup({
     snippet = {
         expand = function(args)
-            require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+            luasnip.lsp_expand(args.body) -- For `luasnip` users.
         end,
     },
     window = {
@@ -372,6 +372,12 @@ end
 
 -- python
 require("lspconfig").pyright.setup {
+    capabilities = capabilities,
+    on_attach = on_attach
+}
+
+-- vala
+require("lspconfig").vala_ls.setup {
     capabilities = capabilities,
     on_attach = on_attach
 }
@@ -572,6 +578,43 @@ require("lspconfig").tsserver.setup {
     capabilities = capabilities
 }
 
+-- java
+require("lspconfig").jdtls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+}
+
+-- c
+require("lspconfig").clangd.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+}
+
+-- lua
+require'lspconfig'.sumneko_lua.setup {
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim', 'use'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
+
+-- html
 require("lspconfig").html.setup {
     on_attach = on_attach,
     capabilities = capabilities

@@ -7,6 +7,8 @@ return require("packer").startup(function()
         requires = { {"nvim-lua/plenary.nvim"} }
     }
 
+    use "github/copilot.vim" -- Github copilot
+
     use "neovim/nvim-lspconfig" -- native LSP support
 
     use "L3MON4D3/LuaSnip" -- Lua based snippets
@@ -93,6 +95,7 @@ return require("packer").startup(function()
 
     -- hrsh7th's nvim lsp plugins
     use "hrsh7th/cmp-buffer"
+    use "hrsh7th/cmp-copilot"
     use "hrsh7th/cmp-calc"
     use "hrsh7th/cmp-cmdline"
     use "hrsh7th/cmp-nvim-lsp"
