@@ -152,9 +152,9 @@ require("telescope").setup{
   }
 }
 
-vim.api.nvim_set_keymap("n", "<C-p>", ":Telescope git_files<CR>", {})
-vim.api.nvim_set_keymap("n", "<S-C-p>", ":Telescope live_grep<CR>", {})
-vim.api.nvim_set_keymap("n", "<C-n>", ":Telescope find_files<CR>", {})
+vim.api.nvim_set_keymap("n", "<space>p", ":Telescope git_files<CR>", {})
+vim.api.nvim_set_keymap("n", "<space>P", ":Telescope live_grep<CR>", {})
+vim.api.nvim_set_keymap("n", "<space>n", ":Telescope find_files<CR>", {})
 
 -- windowze config
 if vim.fn.has("win32") == 1 then
@@ -176,6 +176,8 @@ end
 local cmp = require("cmp")
 local sources = {}
 
+assert(cmp, not nil)
+
 if vim.fn.has("win32") == 1 then
     sources = cmp.config.sources({
         { name = "nvim_lsp" },
@@ -186,9 +188,6 @@ if vim.fn.has("win32") == 1 then
         { name = "path" },
         { name = "spell" },
         { name = "dictionary" },
-        { name = "copilot" },
-        -- { name = "zsh" }, -- problems in windows
-    }, {
         { name = "buffer" },
     })
 else
@@ -202,7 +201,6 @@ else
         { name = "spell" },
         { name = "dictionary" },
         { name = "zsh" }, -- problems in windows
-    }, {
         { name = "buffer" },
     })
 end
@@ -212,8 +210,25 @@ local luasnip = require("luasnip")
 local mapping = {
     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    -- ["<Tab>"] = cmp.mapping.select_next_item(),
-    -- ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+    -- Tab is used by Copilot, I found the pluggin doesn't work as well
+    ["<C-j>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+            cmp.select_next_item()
+        elseif luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
+        else
+            fallback()
+        end
+    end, { "i", "s" }),
+    ["<C-k>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+            cmp.select_prev_item()
+        elseif luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+        else
+            fallback()
+        end
+    end, { "i", "s" }),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.abort(),
     ["<CR>"] = cmp.mapping.confirm()
@@ -244,8 +259,7 @@ cmp.setup({
 cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
         { name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
-    }, {
-        { name = "buffer" },
+        { name = "buffer" }
     })
 })
 
@@ -253,8 +267,7 @@ cmp.setup.filetype("gitcommit", {
 cmp.setup.cmdline("/", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-        { name = "nvim_lsp_document_symbol" }
-    }, {
+        { name = "nvim_lsp_document_symbol" },
         { name = "buffer" }
     }
 })
@@ -263,8 +276,7 @@ cmp.setup.cmdline("/", {
 cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-        { name = "path" }
-    }, {
+        { name = "path" },
         { name = "cmdline" }
     })
 })
@@ -288,7 +300,7 @@ require("mason-lspconfig").setup({
 
 -- formatter mason
 -- Utilities for creating configurations
-local formatter_util = require "formatter.util"
+-- local formatter_util = require "formatter.util"
 
 -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
 require("formatter").setup {
@@ -331,7 +343,7 @@ local opts = { noremap=true, silent=true }
 
 -- toggle diagnostics
 vim.g.show_diagnostics = true
-function diagnostics_toggle()
+local function diagnostics_toggle()
     vim.g.show_diagnostics = not(vim.g.show_diagnostics)
 
     if vim.g.show_diagnostics then vim.diagnostic.show() else vim.diagnostic.hide() end
@@ -687,7 +699,7 @@ require("nvim-treesitter.configs").setup {
         -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
         extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
         max_file_lines = nil, -- Do not enable for files with more than n lines, int
-        colors = { "#8787d7", "#875fff", "#afd7ff", "#00af87", "#ffffd7", "#ff8787", "#ff5f00" },
+        colors = { "#875fff", "#afd7ff", "#00af87", "#ffffd7", "#ff8787", "#ff5f00", "#ff3525" },
     }
 }
 
