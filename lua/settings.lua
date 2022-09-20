@@ -294,7 +294,7 @@ require("lint").linters_by_ft = {
 
 -- lsp config mason
 require("mason-lspconfig").setup({
-    ensure_installed = { "omnisharp", "elixir-ls", "pyright", "nimlsp" },
+    ensure_installed = { },
     automatic_instalation = true,
 })
 
