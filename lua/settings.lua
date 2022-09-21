@@ -394,6 +394,12 @@ require("lspconfig").vala_ls.setup {
     on_attach = on_attach
 }
 
+-- dart
+require("lspconfig").dartls.setup {
+    capabilities = capabilities,
+    on_attach = on_attach
+}
+
 -- semshi config
 vim.cmd([[
     let g:semshi#simplify_markup=0
