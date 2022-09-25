@@ -3,10 +3,6 @@ require("global_settings")
 
 local home = os.getenv("HOME") or ""
 
--- my theme: danger
-vim.opt.background = "dark"
-vim.cmd("colorscheme danger")
-
 vim.opt.encoding = "utf-8"
 
 -- tab settings

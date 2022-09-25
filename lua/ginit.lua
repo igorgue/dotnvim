@@ -1,10 +1,15 @@
+-- FIXME `set_font` can only be called once in the init process
+-- if not it would give errors and you can only use it once nvim
+-- is started
 function set_font(name, size)
 	if vim.fn.exists(":GuiFont") ~= 0 then
 		vim.api.nvim_command("GuiFont! " .. name .. ":h" .. size)
 	end
+
+    -- TODO Add support for other Neovim GUIs here
 end
 
-set_font("Iosevka", 16)
+-- call `set_font` from the ginit_local.lua file to use your favorite font
 
 if vim.fn.exists(":GuiTabline") ~= 0 then
     vim.api.nvim_command("GuiTabline 0")
