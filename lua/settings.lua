@@ -105,6 +105,7 @@ vim.cmd([[
     " Code indentation
     au FileType nim setlocal tabstop=2 shiftwidth=2 softtabstop=2
     au FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    au FileType dart setlocal tabstop=2 shiftwidth=2 softtabstop=2
     au FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
     au FileType crystal setlocal tabstop=2 shiftwidth=2 softtabstop=2
     au FileType coffee setlocal tabstop=2 shiftwidth=2 softtabstop=2
