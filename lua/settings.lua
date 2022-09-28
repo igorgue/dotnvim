@@ -100,6 +100,7 @@ vim.cmd([[
     " Code indentation and file detection
     " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
     au BufRead,BufNewFile {Procfile,Procfile.*,Gemfile,Rakefile,Capfile,Vagrantfile,Thorfile,*.ru,*.feature} set ft=ruby
+    au BufRead,BufNewFile {*.crontab} set ft=crontab
     au BufNewFile,BufRead *.feature setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
     " Code indentation
@@ -331,8 +332,10 @@ require("formatter").setup {
 
 -- setup LSP
 local lspconfig_util = require("lspconfig").util
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+-- LSP Capabilities
+LspCapabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+LspCapabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -352,9 +355,9 @@ vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 
--- Use an on_attach function to only map the following keys
+-- Use an LSPOnAttach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+function LspOnAttach(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     -- XXX since we use cmp we don't need this I think
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -380,21 +383,21 @@ local on_attach = function(client, bufnr)
 end
 
 -- python
-require("lspconfig").pyright.setup {
-    capabilities = capabilities,
-    on_attach = on_attach
+require("lspconfig").pylsp.setup {
+    capabilities = LspCapabilities,
+    on_attach = LspOnAttach
 }
 
 -- vala
 require("lspconfig").vala_ls.setup {
-    capabilities = capabilities,
-    on_attach = on_attach
+    capabilities = LspCapabilities,
+    on_attach = LspOnAttach
 }
 
 -- dart
 require("lspconfig").dartls.setup {
-    capabilities = capabilities,
-    on_attach = on_attach
+    capabilities = LspCapabilities,
+    on_attach = LspOnAttach
 }
 
 -- semshi config
@@ -415,8 +418,8 @@ require("lspconfig").omnisharp.setup {
     },
     -- NOTE to use the same install as vscode
     -- cmd = { "dotnet", omnisharp_dll, "--hostPID", tostring(pid) },
-    capabilities = capabilities,
-    on_attach = on_attach,
+    capabilities = LspCapabilities,
+    on_attach = LspOnAttach,
 
     -- Enables support for reading code style, naming convention and analyzer
     -- settings from .editorconfig.
@@ -526,8 +529,8 @@ vim.g.OmniSharp_server_stdio = 1
 -- local elixir_ls_bin = home .. "/Opt/elixir-ls/release/language_server.sh"
 require("lspconfig").elixirls.setup {
     -- cmd = { elixir_ls_bin },
-    capabilities = capabilities,
-    on_attach = on_attach
+    capabilities = LspCapabilities,
+    on_attach = LspOnAttach
 }
 
 -- another plugin
@@ -546,7 +549,7 @@ elixir.setup({
   }),
 
   on_attach = function(client, bufnr)
-    local map_opts = { buffer = true, noremap = true}
+    local map_opts = { buffer = true, noremap = true }
 
     -- run the codelens under the cursor
     vim.keymap.set("n", "<space>r",  vim.lsp.codelens.run, map_opts)
@@ -577,32 +580,32 @@ elixir.setup({
     vim.cmd([[smap <expr> <C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']])
 
     -- update capabilities for nvim-cmp: https://github.com/hrsh7th/nvim-cmp
-    require("cmp_nvim_lsp").update_capabilities(capabilities)
+    require("cmp_nvim_lsp").update_capabilities(LspCapabilities)
   end
 })
 
 -- nim
 require("lspconfig").nimls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities
+    on_attach = LspOnAttach,
+    capabilities = LspCapabilities
 }
 
 -- ts and js
 require("lspconfig").tsserver.setup {
-    on_attach = on_attach,
-    capabilities = capabilities
+    on_attach = LspOnAttach,
+    capabilities = LspCapabilities
 }
 
 -- java
 require("lspconfig").jdtls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities
+    on_attach = LspOnAttach,
+    capabilities = LspCapabilities
 }
 
 -- c
 require("lspconfig").clangd.setup {
-    on_attach = on_attach,
-    capabilities = capabilities
+    on_attach = LspOnAttach,
+    capabilities = LspCapabilities
 }
 
 -- lua
@@ -631,8 +634,8 @@ require'lspconfig'.sumneko_lua.setup {
 
 -- html
 require("lspconfig").html.setup {
-    on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = LspCapabilities,
+    on_attach = LspOnAttach
 }
 
 -- gitsigns

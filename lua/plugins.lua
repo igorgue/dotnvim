@@ -106,6 +106,9 @@ return require("packer").startup(function()
     use "hrsh7th/nvim-cmp"
     use "f3fora/cmp-spell"
 
+    -- fzf-lsp
+    use "gfanto/fzf-lsp.nvim"
+
     -- 3rd party hrsh7th's plugins
     use "ray-x/cmp-treesitter"
     use "saadparwaiz1/cmp_luasnip" -- snippets required for hrsh7th"s plugins

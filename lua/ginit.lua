@@ -1,7 +1,7 @@
 -- FIXME `set_font` can only be called once in the init process
 -- if not it would give errors and you can only use it once nvim
 -- is started
-function set_font(name, size)
+function SetFont(name, size)
 	if vim.fn.exists(":GuiFont") ~= 0 then
 		vim.api.nvim_command("GuiFont! " .. name .. ":h" .. size)
 	end
