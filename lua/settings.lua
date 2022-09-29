@@ -703,6 +703,11 @@ vim.g.gist_clip_command = "xclip --selection clipboard"
 
 -- rainbow treesitter
 require("nvim-treesitter.configs").setup {
+    auto_install = true,
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
     rainbow = {
         enable = true,
         -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
