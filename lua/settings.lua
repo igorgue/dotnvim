@@ -204,7 +204,16 @@ else
 end
 
 local winhighlight = "Normal:Normal,FloatBorder:VertSplit,CursorLine:CursorLine,Search:Search"
+
 local luasnip = require("luasnip")
+require("luasnip.loaders.from_vscode").load()
+
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 local mapping = {
     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -214,6 +223,8 @@ local mapping = {
             cmp.select_next_item()
         elseif luasnip.expand_or_jumpable() then
             luasnip.expand_or_jump()
+        elseif has_words_before() then
+            cmp.complete()
         else
             fallback()
         end
@@ -526,6 +537,14 @@ vim.g.OmniSharp_timeout = 60000
 vim.g.OmniSharp_server_type = "roslyn"
 vim.g.OmniSharp_server_use_net6 = 1
 vim.g.OmniSharp_server_stdio = 1
+
+-- flutter
+require("flutter-tools").setup {}
+
+-- dart
+vim.g.dart_style_guide = 2
+vim.g.dart_html_in_string = true
+vim.g.dart_format_on_save = 1
 
 -- elixir
 -- XXX handled by mason

@@ -11,7 +11,9 @@ return require("packer").startup(function()
 
     use "neovim/nvim-lspconfig" -- native LSP support
 
-    use "L3MON4D3/LuaSnip" -- Lua based snippets
+    use({"L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*"}) -- Lua based snippets
+    use "rafamadriz/friendly-snippets" -- snippets for LuaSnip
+
     use "onsails/lspkind.nvim" -- Nice kinds on lsp menus
 
     -- oldest trick to select blocks with vii
@@ -81,12 +83,22 @@ return require("packer").startup(function()
     }
     use "junegunn/fzf.vim"
 
+    -- notify
+    use "rcarriga/nvim-notify"
+
     -- csharp
     use "OmniSharp/omnisharp-vim"
     use "Hoffs/omnisharp-extended-lsp.nvim"
 
     -- elixir
     use { "mhanberg/elixir.nvim", requires = { "neovim/nvim-lspconfig", "nvim-lua/plenary.nvim" }}
+
+    -- dart
+    use "dart-lang/dart-vim-plugin"
+
+    -- flutter
+    use "akinsho/flutter-tools.nvim"
+    use "Nash0x7E2/awesome-flutter-snippets" -- for LuaSnip
 
     -- js and ts
     use "pangloss/vim-javascript"
