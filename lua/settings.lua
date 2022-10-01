@@ -106,7 +106,7 @@ vim.cmd([[
     " Code indentation
     au FileType nim setlocal tabstop=2 shiftwidth=2 softtabstop=2
     au FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    au FileType dart setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    au FileType dart setlocal noexpandtab softtabstop=2 shiftwidth=2 softtabstop=2
     au FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
     au FileType crystal setlocal tabstop=2 shiftwidth=2 softtabstop=2
     au FileType coffee setlocal tabstop=2 shiftwidth=2 softtabstop=2
@@ -132,6 +132,8 @@ vim.cmd([[
     " Support for csharp script
     au BufRead,BufNewFile *.csx set filetype=cs
 ]])
+
+-- vim.notify = require("notify")
 
 -- telescope
 local telescope = require("telescope")
@@ -409,10 +411,48 @@ require("lspconfig").vala_ls.setup {
 }
 
 -- dart
+vim.g.dart_style_guide = 2
+vim.g.dart_html_in_string = true
+vim.g.dart_format_on_save = 1
+vim.g.dart_trailing_comma_indent = true
+vim.g.dartfmt_options = { "--fix" }
+
 require("lspconfig").dartls.setup {
     capabilities = LspCapabilities,
     on_attach = LspOnAttach
 }
+
+-- flutter
+require("flutter-tools").setup {
+    ui = {
+        border = "rounded",
+    },
+    widget_guides = {
+        enabled = true,
+    },
+    closing_tags = {
+        enabled = true,
+        highlight = "ErrorMsg",
+        prefix = " > ",
+    },
+    -- dev_log = {
+        -- enabled = true,
+        -- open_cmd = "tabedit",
+    -- },
+    lsp = {
+        on_attach = LspOnAttach,
+        capabilities = LspCapabilities,
+        settings = {
+            showTodos = true,
+            completeFunctionCalls = true,
+            updateImportsOnRename = true,
+            enableSnippets = true,
+        },
+    },
+}
+
+require("telescope").load_extension("flutter")
+
 
 -- semshi config
 vim.cmd([[
@@ -537,14 +577,6 @@ vim.g.OmniSharp_timeout = 60000
 vim.g.OmniSharp_server_type = "roslyn"
 vim.g.OmniSharp_server_use_net6 = 1
 vim.g.OmniSharp_server_stdio = 1
-
--- flutter
-require("flutter-tools").setup {}
-
--- dart
-vim.g.dart_style_guide = 2
-vim.g.dart_html_in_string = true
-vim.g.dart_format_on_save = 1
 
 -- elixir
 -- XXX handled by mason
