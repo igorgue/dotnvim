@@ -1,5 +1,5 @@
 return require("packer").startup(function()
-    -- use "~/Code/danger" -- danger colorscheme
+    -- use "~/Code/danger" -- danger colorscheme (for development)
     use "igorgue/danger" -- danger colorscheme
     use "wbthomason/packer.nvim" -- packer update itself
     use { -- nice interface for LSP functions (among other things)
@@ -11,7 +11,7 @@ return require("packer").startup(function()
 
     use "neovim/nvim-lspconfig" -- native LSP support
 
-    use({"L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*"}) -- Lua based snippets
+    use "L3MON4D3/LuaSnip" -- Lua based snippets
     use "rafamadriz/friendly-snippets" -- snippets for LuaSnip
 
     use "onsails/lspkind.nvim" -- Nice kinds on lsp menus
@@ -52,11 +52,11 @@ return require("packer").startup(function()
         "numirias/semshi", {run = ":UpdateRemotePlugins"} -- colors for Python
     }
     use "nvim-lua/plenary.nvim" -- dunno...
-    use "nvim-telescope/telescope.nvim" -- Opens files and stuff
     use "gbrlsnchs/telescope-lsp-handlers.nvim"
     use {
         "nvim-treesitter/nvim-treesitter", {run = ":TSUpdate"}
     }
+    use "David-Kunz/markid" -- markid, variables colors
     use "p00f/nvim-ts-rainbow" -- shows rainbow matching braces
     use "lewis6991/gitsigns.nvim" -- changes on git
 

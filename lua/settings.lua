@@ -106,7 +106,7 @@ vim.cmd([[
     " Code indentation
     au FileType nim setlocal tabstop=2 shiftwidth=2 softtabstop=2
     au FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    au FileType dart setlocal noexpandtab softtabstop=2 shiftwidth=2 softtabstop=2
+    au FileType dart setlocal tabstop=2 shiftwidth=2 softtabstop=2
     au FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
     au FileType crystal setlocal tabstop=2 shiftwidth=2 softtabstop=2
     au FileType coffee setlocal tabstop=2 shiftwidth=2 softtabstop=2
@@ -133,13 +133,18 @@ vim.cmd([[
     au BufRead,BufNewFile *.csx set filetype=cs
 ]])
 
--- vim.notify = require("notify")
+vim.notify = require("notify")
+vim.notify.setup({
+    render = "minimal",
+    timeout = 1500,
+    stages = "fade",
+})
 
 -- telescope
 local telescope = require("telescope")
 
 telescope.load_extension("lsp_handlers")
-
+telescope.load_extension("notify")
 
 local actions = require("telescope.actions")
 require("telescope").setup{
@@ -757,8 +762,10 @@ require("nvim-treesitter.configs").setup {
     auto_install = true,
     highlight = {
         enable = true,
-        additional_vim_regex_highlighting = false,
+        disable = { "dart", "python" },
+        additional_vim_regex_highlighting = true,
     },
+    markid = { enable = true },
     rainbow = {
         enable = true,
         -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
