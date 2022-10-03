@@ -404,7 +404,7 @@ function LspOnAttach(client, bufnr)
 end
 
 -- python
-require("lspconfig").pylsp.setup {
+require("lspconfig").pyright.setup {
     capabilities = LspCapabilities,
     on_attach = LspOnAttach
 }
