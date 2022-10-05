@@ -142,6 +142,61 @@ vim.notify.setup({
     stages = "fade",
 })
 
+function SynStack()
+    vim.cmd([[
+        echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+    ]])
+end
+vim.api.nvim_set_keymap("n", "<leader>x", ":lua SynStack()<CR>", {})
+
+-- sets tabline without the "X" for close, this is done for aesthetic reasons
+-- and this code is copied from :h setting-tabline
+vim.cmd([[
+    function MyTabLine()
+        let s = ''
+        for i in range(tabpagenr('$'))
+            " select the highlighting
+            if i + 1 == tabpagenr()
+                let s ..= '%#TabLineSel#'
+            else
+                let s ..= '%#TabLine#'
+            endif
+
+            " set the tab page number (for mouse clicks)
+            let s ..= '%' .. (i + 1) .. 'T'
+
+            " the label is made by MyTabLabel()
+            let s ..= ' %{MyTabLabel(' .. (i + 1) .. ')} '
+        endfor
+
+        " after the last tab fill with TabLineFill and reset tab page nr
+        let s ..= '%#TabLineFill#%T'
+
+        " right-align the label to close the current tab page
+        if tabpagenr('$') > 1
+            " Does not include the close button
+            let s ..= '%=%#TabLine#%999X'
+        endif
+
+        return s
+    endfunction
+
+    function MyTabLabel(n)
+        let buflist = tabpagebuflist(a:n)
+        let winnr = tabpagewinnr(a:n)
+        let name = bufname(buflist[winnr - 1])
+
+        " Modification for no name...
+        if name == ''
+            return '[No Name]'
+        endif
+
+        return name
+    endfunction
+
+    set tabline=%!MyTabLine()
+]])
+
 -- telescope
 local telescope = require("telescope")
 
@@ -441,25 +496,32 @@ require("flutter-tools").setup {
         enabled = true,
         prefix = " > ",
     },
-    -- dev_log = {
-    -- enabled = true,
-    -- open_cmd = "tabedit",
-    -- },
+    outline = {
+        open_cmd = "30vnew",
+        auto_open = true,
+    },
+    dev_log = {
+        enabled = true,
+        open_cmd = "tabedit",
+    },
     lsp = {
         on_attach = LspOnAttach,
         capabilities = LspCapabilities,
+        -- color = {
+            -- enabled = true,
+            -- background = true,
+        -- },
         settings = {
             showTodos = true,
             completeFunctionCalls = true,
             updateImportsOnRename = true,
             enableSnippets = true,
-            suggestFromUnimportedLibraries = true,
+            renameFilesWithClasses = true,
         },
     },
 }
 
 require("telescope").load_extension("flutter")
-
 
 -- semshi config
 vim.cmd([[
@@ -776,4 +838,33 @@ require("nvim-treesitter.configs").setup {
 }
 
 -- colorizer
-require("colorizer").setup({"*"}, { mode = "foreground" })
+require("colorizer").setup({"*"}, {
+    RGB      = true;         -- #RGB hex codes
+    RRGGBB   = true;         -- #RRGGBB hex codes
+    names    = true;         -- "Name" codes like Blue
+    RRGGBBAA = true;        -- #RRGGBBAA hex codes
+    rgb_fn   = true;        -- CSS rgb() and rgba() functions
+    hsl_fn   = true;        -- CSS hsl() and hsla() functions
+    css      = true;        -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+    css_fn   = true;        -- Enable all CSS *functions*: rgb_fn, hsl_fn
+
+    -- Available modes: foreground, background
+    mode     = "foreground"; -- Set the display mode.
+})
+
+-- fzf colors
+vim.g.fzf_colors = {
+    fg = { "fg", "Normal" },
+    bg = { "bg", "Normal" },
+    hl = { "fg", "Comment" },
+    ["fg+"] = { "fg", "CursorLine", "CursorColumn", "Normal" },
+    ["bg+"] = { "bg", "CursorLine", "CursorColumn" },
+    ["hl+"] = { "fg", "Statement" },
+    info = { "fg", "PreProc" },
+    border = { "fg", "VertSplit" },
+    prompt = { "fg", "Conditional" },
+    pointer = { "fg", "Exception" },
+    marker = { "fg", "Keyword" },
+    spinner = { "fg", "Label" },
+    header = { "fg", "Comment" },
+}
