@@ -42,8 +42,9 @@ vim.opt.spelllang = { "en_us" } -- set us spell
 vim.opt.updatetime = 12 -- very low update time for fast fps
 vim.opt.showmode = false -- disable mode since we use lualine
 
+-- some of the main or most used keymaps, a tree and a outline tree
 vim.keymap.set("n", "<leader>1", ":NvimTreeToggle<CR>")
-vim.keymap.set("n", "<leader>2", ":TagbarToggle<CR>")
+vim.keymap.set("n", "<leader>2", ":AerialToggle<CR>")
 
 -- nerd commenter stuff
 vim.g.NERDCustomDelimiters = {
@@ -432,7 +433,7 @@ vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 
 -- Use an LSPOnAttach function to only map the following keys
 -- after the language server attaches to the current buffer
-function LspOnAttach(_, bufnr)
+function LspOnAttach(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     -- XXX since we use cmp we don't need this I think
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -458,18 +459,45 @@ function LspOnAttach(_, bufnr)
     if vim.lsp.buf.formatting ~= nil then
         vim.keymap.set("n", "<space>f", vim.lsp.buf.formatting, bufopts)
     end
+
+    -- aerial
+    require("aerial").on_attach(client, bufnr)
 end
+
+-- diagnostics style
+vim.diagnostic.config({
+    float = { border = "rounded" },
+})
+
+-- lsp handlers
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        -- Enable underline, use default values
+        underline = true,
+        -- Enable virtual text, override spacing to 4
+        virtual_text = {
+            spacing = 4,
+            prefix = "⣿",
+        },
+        -- Disable a feature
+        signs = true,
+        -- Disable a feature
+        update_in_insert = false,
+    }
+)
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
 -- python
 require("lspconfig").pyright.setup {
     capabilities = LspCapabilities,
-    on_attach = LspOnAttach
+    on_attach = LspOnAttach,
 }
 
 -- vala
 require("lspconfig").vala_ls.setup {
     capabilities = LspCapabilities,
-    on_attach = LspOnAttach
+    on_attach = LspOnAttach,
 }
 
 -- dart
@@ -481,7 +509,7 @@ vim.g.dartfmt_options = { "--fix" }
 
 require("lspconfig").dartls.setup {
     capabilities = LspCapabilities,
-    on_attach = LspOnAttach
+    on_attach = LspOnAttach,
 }
 
 -- flutter
@@ -650,17 +678,20 @@ vim.g.OmniSharp_server_stdio = 1
 
 -- elixir
 -- XXX handled by mason
+-- XXX Doesn't work??? Idealy I'd like to work with this one...
 -- local elixir_ls_bin = home .. "/Opt/elixir-ls/release/language_server.sh"
-require("lspconfig").elixirls.setup {
-    -- cmd = { elixir_ls_bin },
-    capabilities = LspCapabilities,
-    on_attach = LspOnAttach
-}
+-- require("lspconfig").elixirls.setup {
+    -- -- cmd = { elixir_ls_bin },
+    -- capabilities = LspCapabilities,
+    -- on_attach = LspOnAttach
+-- }
 
 -- another plugin
 local elixir = require("elixir")
 elixir.setup({
     -- specify a repository and branch
+    -- repo = "elixir-lsp/elixir-ls",
+    -- branch = "master",
     repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
     branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
 
@@ -670,6 +701,24 @@ elixir.setup({
         fetchDeps = true,
         enableTestLenses = true,
         suggestSpecs = true,
+        suggestFromDocs = true,
+        suggestFromUsage = true,
+        suggestFunctionCalls = true,
+        suggestModules = true,
+        suggestVariables = true,
+        suggestCalls = true,
+        suggestMixTasks = true,
+        suggestNewMixTasks = true,
+        suggestMixAliases = true,
+        suggestNewMixAliases = true,
+        suggestProjectConfig = true,
+        suggestProjectDependencies = true,
+        suggestProjectTasks = true,
+        suggestProjectAliases = true,
+        suggestProjectMixTasks = true,
+        suggestProjectMixAliases = true,
+        suggestProjectNewMixTasks = true,
+        suggestProjectNewMixAliases = true,
     }),
 
     on_attach = function(_, _)
@@ -700,35 +749,35 @@ elixir.setup({
 
         -- update capabilities for nvim-cmp: https://github.com/hrsh7th/nvim-cmp
         require("cmp_nvim_lsp").update_capabilities(LspCapabilities)
-    end
+    end,
 })
 
 -- nim
 require("lspconfig").nimls.setup {
     on_attach = LspOnAttach,
-    capabilities = LspCapabilities
+    capabilities = LspCapabilities,
 }
 
 -- ts and js
 require("lspconfig").tsserver.setup {
     on_attach = LspOnAttach,
-    capabilities = LspCapabilities
+    capabilities = LspCapabilities,
 }
 
 -- java
 require("lspconfig").jdtls.setup {
     on_attach = LspOnAttach,
-    capabilities = LspCapabilities
+    capabilities = LspCapabilities,
 }
 
 -- c
 require("lspconfig").clangd.setup {
     on_attach = LspOnAttach,
-    capabilities = LspCapabilities
+    capabilities = LspCapabilities,
 }
 
 -- lua
-require'lspconfig'.sumneko_lua.setup {
+require("lspconfig").sumneko_lua.setup {
     capabilities = LspCapabilities,
     on_attach = LspOnAttach,
     settings = {
@@ -756,7 +805,7 @@ require'lspconfig'.sumneko_lua.setup {
 -- html
 require("lspconfig").html.setup {
     capabilities = LspCapabilities,
-    on_attach = LspOnAttach
+    on_attach = LspOnAttach,
 }
 
 -- gitsigns
@@ -809,7 +858,14 @@ local danger_lualine = {
     }
 }
 
-require("lualine").setup { options = {theme = danger_lualine }}
+require("lualine").setup({
+    options = {theme = danger_lualine },
+    sections = {
+        lualine_x = {{
+            "aerial", colored = true
+        }},
+    },
+})
 
 -- nerdtree lua
 require("nvim-tree").setup {
@@ -824,13 +880,12 @@ require("nvim-treesitter.configs").setup {
     auto_install = true,
     highlight = {
         enable = true,
-        disable = { "dart", "python" },
+        disable = { "dart", "python", "elixir" },
         additional_vim_regex_highlighting = true,
     },
     markid = { enable = true },
     rainbow = {
         enable = true,
-        -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
         extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
         max_file_lines = nil, -- Do not enable for files with more than n lines, int
         colors = { "#875fff", "#8787d7", "#00af87", "#ffd7ff", "#ff8787", "#ff5f00", "#ff3525" },
@@ -868,3 +923,7 @@ vim.g.fzf_colors = {
     spinner = { "fg", "Label" },
     header = { "fg", "Comment" },
 }
+
+-- aerial
+require("aerial").setup({})
+require("telescope").load_extension("aerial")

@@ -1,11 +1,9 @@
 return require("packer").startup(function()
-    -- use "~/Code/danger" -- danger colorscheme (for development)
     use "igorgue/danger" -- danger colorscheme
+    -- use "~/Code/danger" -- danger colorscheme (for development)
+
     use "wbthomason/packer.nvim" -- packer update itself
-    use { -- nice interface for LSP functions (among other things)
-        "nvim-telescope/telescope.nvim",
-        requires = { {"nvim-lua/plenary.nvim"} }
-    }
+    use "nvim-telescope/telescope.nvim" -- nice interface for LSP functions (among other things)
 
     use "github/copilot.vim" -- Github copilot
 
@@ -19,6 +17,8 @@ return require("packer").startup(function()
     -- oldest trick to select blocks with vii
 	use "michaeljsmith/vim-indent-object" -- selection of indentation blocks
 
+    use "stevearc/aerial.nvim" -- outline plugin
+
     -- mattn's pluggins
     use "mattn/gist-vim" -- submit a gist
     use "mattn/webapi-vim" -- requirement for gist
@@ -26,7 +26,6 @@ return require("packer").startup(function()
 
     -- oldies
     use "preservim/nerdcommenter" -- comment and uncomment
-    use "preservim/tagbar" -- show a tagbar from the ctags
 
     -- tpope
     use "tpope/vim-sensible" -- sensible default vim settings by tpope
@@ -41,30 +40,28 @@ return require("packer").startup(function()
     -- kyazdani42's plugins
     use {
         "kyazdani42/nvim-tree.lua", -- a file manager
-        requires = {
-            "kyazdani42/nvim-web-devicons", -- optional, for file icons
-        },
         tag = "nightly" -- optional, updated every week. (see issue #1193)
     }
+
+    use "kyazdani42/nvim-web-devicons" -- file icons
 
     use "norcalli/nvim-colorizer.lua" -- colors
     use {
         "numirias/semshi", {run = ":UpdateRemotePlugins"} -- colors for Python
     }
-    use "nvim-lua/plenary.nvim" -- dunno...
+    use "nvim-lua/plenary.nvim" -- utils for nvim
     use "gbrlsnchs/telescope-lsp-handlers.nvim"
     use {
-        "nvim-treesitter/nvim-treesitter", {run = ":TSUpdate"}
+        "nvim-treesitter/nvim-treesitter",
+        {run = ":TSUpdate"}
     }
+    use "nvim-treesitter/playground"
     use "David-Kunz/markid" -- markid, variables colors
     use "p00f/nvim-ts-rainbow" -- shows rainbow matching braces
     use "lewis6991/gitsigns.nvim" -- changes on git
 
     -- lualine
-    use {
-        "nvim-lualine/lualine.nvim",
-        requires = { "kyazdani42/nvim-web-devicons", opt = true }
-    }
+    use "nvim-lualine/lualine.nvim"
 
     -- mason package manager for lsp and other services
     use { "williamboman/mason.nvim" }
@@ -91,7 +88,7 @@ return require("packer").startup(function()
     use "Hoffs/omnisharp-extended-lsp.nvim"
 
     -- elixir
-    use { "mhanberg/elixir.nvim", requires = { "neovim/nvim-lspconfig", "nvim-lua/plenary.nvim" }}
+    use "mhanberg/elixir.nvim"
 
     -- dart
     use "dart-lang/dart-vim-plugin"
@@ -123,7 +120,7 @@ return require("packer").startup(function()
 
     -- 3rd party hrsh7th's plugins
     use "ray-x/cmp-treesitter"
-    use "saadparwaiz1/cmp_luasnip" -- snippets required for hrsh7th"s plugins
+    use "saadparwaiz1/cmp_luasnip" -- snippets required for hrsh7th's plugins
     use "tamago324/cmp-zsh"
     use "uga-rosa/cmp-dictionary"
 end)
