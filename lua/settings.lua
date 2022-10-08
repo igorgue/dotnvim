@@ -542,15 +542,28 @@ if vim.fn.executable("flutter") == 1 then
             prefix = " > ",
         },
         outline = {
-            open_cmd = "30vnew",
-            auto_open = true,
+            open_cmd = "botright 40vnew",
+            auto_open = false,
         },
         dev_log = {
             enabled = true,
-            open_cmd = "tabedit",
+            open_cmd = "botright 10sp",
         },
         lsp = {
-            on_attach = LspOnAttach,
+            on_attach = function(client, bufnr)
+                LspOnAttach(client, bufnr)
+
+                vim.keymap.set("n", "<leader>2", ":FlutterOutlineToggle<CR>", {buffer=true, noremap=true})
+
+                vim.cmd [[
+                    augroup FlutterTools
+                        autocmd!
+                        autocmd FileType flutterToolsOutline noremap <buffer> <leader>2 :FlutterOutlineToggle<CR>
+                    augroup END
+                ]]
+
+                require("flutter-tools").lsp_on_attach(client, bufnr)
+            end,
             capabilities = LspCapabilities,
             -- color = {
             -- enabled = true,
