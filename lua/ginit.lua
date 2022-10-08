@@ -1,19 +1,22 @@
 -- FIXME `set_font` can only be called once in the init process
 -- if not it would give errors and you can only use it once nvim
 -- is started
-FontName = "Iosevka"
-FontSize = 16
+vim.g.default_font_name = "Iosevka"
+vim.g.default_font_size = 14
+
+vim.g.font_name = vim.g.default_font_name
+vim.g.font_size = vim.g.default_font_size
 
 function SetFont(name, size)
-    FontName = name
-    FontSize = size
+    vim.g.font_name = name
+    vim.g.font_size = size
 
-    if tonumber(FontSize) <= 1 then
-        FontSize = 1
+    if tonumber(vim.g.font_size) <= 1 then
+        vim.g.font_size = 1
     end
 
 	if vim.fn.exists(":GuiFont") ~= 0 then
-		vim.api.nvim_command("GuiFont! " .. FontName .. ":h" .. FontSize)
+		vim.api.nvim_command("GuiFont! " .. vim.g.font_name .. ":h" .. vim.g.font_size)
 	end
 
     -- TODO Add support for other Neovim GUIs here
@@ -21,26 +24,33 @@ end
 vim.api.nvim_create_user_command("SetFont", "lua SetFont(<f-args>)", { nargs = "*" })
 
 function ShowFont()
-    require("notify").notify("Font: " .. FontName .. ":" .. FontSize)
+    require("notify").notify("Font: " .. vim.g.font_name .. ":" .. vim.g.font_size)
 end
 vim.api.nvim_create_user_command("ShowFont", "lua ShowFont()", {})
 vim.api.nvim_set_keymap("n", "<leader>ff", ":ShowFont<CR>", {noremap = true, silent = true})
 
 function ChangeFont(name)
-    SetFont(name, FontSize)
+    SetFont(name, vim.g.font_size)
 end
 
 function ChangeFontSize(size)
-    SetFont(FontName, size)
+    SetFont(vim.g.font_name, size)
 end
 
 function IncreaseFontSize()
-    ChangeFontSize(FontSize + 1)
+    ChangeFontSize(vim.g.font_size + 1)
 end
 
 function DecreaseFontSize()
-    ChangeFontSize(FontSize - 1)
+    ChangeFontSize(vim.g.font_size - 1)
 end
+
+function DefaultFont()
+    SetFont(vim.g.default_font_name, vim.g.default_font_size)
+end
+
+vim.api.nvim_create_user_command("DefaultFont", "lua DefaultFont()", {})
+vim.api.nvim_set_keymap("n", "<C-0>", ":DefaultFont<CR>", {noremap = true, silent = true})
 
 vim.api.nvim_set_keymap("n", "<C-=>", ":lua IncreaseFontSize()<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("n", "<C-+>", ":lua IncreaseFontSize()<CR>", {noremap = true, silent = true})
