@@ -50,6 +50,7 @@ vim.keymap.set("n", "<leader>2", ":AerialToggle<CR>")
 vim.g.NERDCustomDelimiters = {
     nim = { left = "# ", right = "" },
     python = { left = "# ", right = "" },
+    elixir = { left = "# ", right = "" },
     ruby = { left = "# ", right = "" },
     json = { left = "// ", right = "" },
     cs = { left = "// ", right = "" },
@@ -59,25 +60,24 @@ vim.g.NERDCustomDelimiters = {
 
 -- tabs...
 vim.api.nvim_set_keymap("n", "<Tab>j", ":tabnext<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Tab>l", ":tabnext<CR>", { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap("n", "<Tab>h", ":tabprevious<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Tab>k", ":tabprevious<CR>", { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap("n", "<Tab>x", ":tabclose<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Tab>q", ":tabclose<CR>", { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap("n", "<Tab>n", ":tabnew<CR>", { noremap = true, silent = true })
-
 vim.api.nvim_set_keymap("n", "tj", ":tabnext<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<Tab>l", ":tabnext<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "tl", ":tabnext<CR>", { noremap = true, silent = true })
 
+vim.api.nvim_set_keymap("n", "<Tab>h", ":tabprevious<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "th", ":tabprevious<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<Tab>k", ":tabprevious<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "tk", ":tabprevious<CR>", { noremap = true, silent = true })
 
+vim.api.nvim_set_keymap("n", "<Tab>x", ":tabclose<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "tx", ":tabclose<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<Tab>q", ":tabclose<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "tq", ":tabclose<CR>", { noremap = true, silent = true })
 
+vim.api.nvim_set_keymap("n", "<Tab>n", ":tabnew<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "tn", ":tabnew<CR>", { noremap = true, silent = true })
 
 -- autocomplete options
@@ -143,12 +143,14 @@ vim.notify.setup({
     stages = "fade",
 })
 
+-- show syntax highlighting group useful for theme development
 function SynStack()
     vim.cmd([[
         echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
     ]])
 end
 vim.api.nvim_set_keymap("n", "<leader>x", ":lua SynStack()<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>xx", ":TSHighlightCapturesUnderCursor<CR>", {})
 
 -- sets tabline without the "X" for close, this is done for aesthetic reasons
 -- and this code is copied from :h setting-tabline
@@ -251,7 +253,8 @@ if vim.fn.has("win32") == 1 then
         { name = "path" },
         { name = "spell" },
         { name = "dictionary" },
-        { name = "buffer" },
+    }, {
+        { name = "buffer" }
     })
 else
     sources = cmp.config.sources({
@@ -264,7 +267,8 @@ else
         { name = "spell" },
         { name = "dictionary" },
         { name = "zsh" }, -- problems in windows
-        { name = "buffer" },
+    }, {
+        { name = "buffer" }
     })
 end
 
@@ -430,6 +434,11 @@ local function diagnostics_toggle()
     if vim.g.show_diagnostics then vim.diagnostic.show() else vim.diagnostic.hide() end
 end
 
+-- as expressed in :h vim.lsp.codelens.refresh
+vim.cmd [[
+    autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
+]]
+
 vim.keymap.set("n", "<leader>d", function() diagnostics_toggle() end, opts)
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
@@ -462,6 +471,7 @@ function LspOnAttach(client, bufnr)
     vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
     vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
     vim.keymap.set("n", "<leader>cl",  vim.lsp.codelens.run, {buffer=true, noremap=true})
+    vim.keymap.set("n", "<leader>r",  vim.lsp.codelens.run, {buffer=true, noremap=true})
 
     vim.keymap.set("n", "<leader>wl", function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
@@ -701,8 +711,8 @@ require("lspconfig").elixirls.setup {
 local elixir = require("elixir")
 elixir.setup({
     -- specify a repository and branch
-    -- repo = "elixir-lsp/elixir-ls",
-    -- branch = "master",
+    repo = "elixir-lsp/elixir-ls",
+    branch = "master",
     -- repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
     -- branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
 
