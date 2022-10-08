@@ -528,47 +528,50 @@ vim.g.dart_format_on_save = 1
 vim.g.dart_trailing_comma_indent = true
 vim.g.dartfmt_options = { "--fix" }
 
-require("lspconfig").dartls.setup {
-    capabilities = LspCapabilities,
-    on_attach = LspOnAttach,
-}
-
 -- flutter
-require("flutter-tools").setup {
-    ui = {
-        border = "rounded",
-    },
-    widget_guides = {
-        enabled = true,
-    },
-    closing_tags = {
-        enabled = true,
-        prefix = " > ",
-    },
-    outline = {
-        open_cmd = "30vnew",
-        auto_open = true,
-    },
-    dev_log = {
-        enabled = true,
-        open_cmd = "tabedit",
-    },
-    lsp = {
-        on_attach = LspOnAttach,
-        capabilities = LspCapabilities,
-        -- color = {
+if vim.fn.executable("flutter") == 1 then
+    require("flutter-tools").setup {
+        ui = {
+            border = "rounded",
+        },
+        widget_guides = {
+            enabled = true,
+        },
+        closing_tags = {
+            enabled = true,
+            prefix = " > ",
+        },
+        outline = {
+            open_cmd = "30vnew",
+            auto_open = true,
+        },
+        dev_log = {
+            enabled = true,
+            open_cmd = "tabedit",
+        },
+        lsp = {
+            on_attach = LspOnAttach,
+            capabilities = LspCapabilities,
+            -- color = {
             -- enabled = true,
             -- background = true,
-        -- },
-        settings = {
-            showTodos = true,
-            completeFunctionCalls = true,
-            updateImportsOnRename = true,
-            enableSnippets = true,
-            renameFilesWithClasses = true,
+            -- },
+            settings = {
+                showTodos = true,
+                completeFunctionCalls = true,
+                updateImportsOnRename = true,
+                enableSnippets = true,
+                renameFilesWithClasses = true,
+            },
         },
-    },
-}
+    }
+else
+    -- If not flutter, use dartls which is optional
+    require("lspconfig").dartls.setup {
+        capabilities = LspCapabilities,
+        on_attach = LspOnAttach,
+    }
+end
 
 require("telescope").load_extension("flutter")
 
@@ -947,3 +950,6 @@ vim.g.fzf_colors = {
 -- aerial
 require("aerial").setup({})
 require("telescope").load_extension("aerial")
+
+-- LspInfo rounded borders
+require("lspconfig.ui.windows").default_options.border = "rounded"
