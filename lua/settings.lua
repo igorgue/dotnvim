@@ -498,7 +498,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         -- Enable virtual text, override spacing to 4
         virtual_text = {
             spacing = 4,
-            prefix = "⣿",
+            prefix = "ⓘ ",
         },
         -- Disable a feature
         signs = true,
@@ -539,7 +539,7 @@ if vim.fn.executable("flutter") == 1 then
         },
         closing_tags = {
             enabled = true,
-            prefix = " > ",
+            prefix = "➥  ",
         },
         outline = {
             open_cmd = "botright 40vnew",
