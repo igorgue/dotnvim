@@ -1,6 +1,6 @@
 return require("packer").startup(function()
-    -- use "igorgue/danger" -- danger colorscheme
-    use "~/Code/danger" -- danger colorscheme (for development)
+    use "igorgue/danger" -- danger colorscheme
+    -- use "~/Code/danger" -- danger colorscheme (for development)
 
     use "wbthomason/packer.nvim" -- packer update itself
     use "nvim-telescope/telescope.nvim" -- nice interface for LSP functions (among other things)
