@@ -215,9 +215,9 @@ require("telescope").setup{
     }
 }
 
-vim.api.nvim_set_keymap("n", "<space>p", ":Telescope git_files<CR>", {})
-vim.api.nvim_set_keymap("n", "<space>P", ":Telescope live_grep<CR>", {})
-vim.api.nvim_set_keymap("n", "<space>n", ":Telescope find_files<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>p", ":Telescope git_files<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>P", ":Telescope live_grep<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>n", ":Telescope find_files<CR>", {})
 
 -- windowze config
 if vim.fn.has("win32") == 1 then
@@ -244,7 +244,7 @@ assert(cmp, not nil)
 if vim.fn.has("win32") == 1 then
     sources = cmp.config.sources({
         { name = "nvim_lsp" },
-        { name = "luasnip" }, -- For luasnip users.
+        { name = "luasnip" },
         { name = "nvim_lua" },
         { name = "nvim_lsp_signature_help" },
         { name = "treesitter" },
@@ -256,7 +256,7 @@ if vim.fn.has("win32") == 1 then
 else
     sources = cmp.config.sources({
         { name = "nvim_lsp" },
-        { name = "luasnip" }, -- For luasnip users.
+        { name = "luasnip" },
         { name = "nvim_lua" },
         { name = "nvim_lsp_signature_help" },
         { name = "treesitter" },
@@ -368,7 +368,7 @@ require("mason").setup({
 require("null-ls").setup({})
 
 require("lint").linters_by_ft = {
-    python = {"flake8"}
+    python = {"mypy"}
 }
 
 -- lsp config mason
@@ -384,9 +384,9 @@ require("mason-lspconfig").setup({
 -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
 require("formatter").setup {
     -- Enable or disable logging
-    logging = true,
+    logging = false,
     -- Set the log level
-    log_level = vim.log.levels.WARN,
+    -- log_level = vim.log.levels.WARN,
     -- All formatter configurations are opt-in
     filetype = {
         -- Formatter configurations for filetype "lua" go here
@@ -430,11 +430,11 @@ local function diagnostics_toggle()
     if vim.g.show_diagnostics then vim.diagnostic.show() else vim.diagnostic.hide() end
 end
 
-vim.keymap.set("n", "<space>d", function() diagnostics_toggle() end, opts)
-vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
+vim.keymap.set("n", "<leader>d", function() diagnostics_toggle() end, opts)
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
 
 -- Use an LSPOnAttach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -447,22 +447,28 @@ function LspOnAttach(client, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
+    vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, bufopts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+    vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, bufopts)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+    vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, bufopts)
     vim.keymap.set("n", "<C-\\>", vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-    vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-    vim.keymap.set("n", "<space>wl", function()
+    vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
+    vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+    vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
+    vim.keymap.set("n", "<leader>cl",  vim.lsp.codelens.run, {buffer=true, noremap=true})
+
+    vim.keymap.set("n", "<leader>wl", function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, bufopts)
-    vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
-    vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
 
     if vim.lsp.buf.formatting ~= nil then
-        vim.keymap.set("n", "<space>f", vim.lsp.buf.formatting, bufopts)
+        vim.keymap.set("n", "<leader>f", vim.lsp.buf.formatting, bufopts)
     end
 
     -- aerial
@@ -636,35 +642,35 @@ augroup omnisharp_commands
 
   " The following commands are contextual, based on the cursor position.
   autocmd FileType cs nmap <silent> <buffer> gd <Plug>(omnisharp_go_to_definition)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osfu <Plug>(omnisharp_find_usages)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osfi <Plug>(omnisharp_find_implementations)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>ospd <Plug>(omnisharp_preview_definition)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>ospi <Plug>(omnisharp_preview_implementations)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>ost <Plug>(omnisharp_type_lookup)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osd <Plug>(omnisharp_documentation)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osfs <Plug>(omnisharp_find_symbol)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osfx <Plug>(omnisharp_fix_usings)
+  autocmd FileType cs nmap <silent> <buffer> <leader>osfu <Plug>(omnisharp_find_usages)
+  autocmd FileType cs nmap <silent> <buffer> <leader>osfi <Plug>(omnisharp_find_implementations)
+  autocmd FileType cs nmap <silent> <buffer> <leader>ospd <Plug>(omnisharp_preview_definition)
+  autocmd FileType cs nmap <silent> <buffer> <leader>ospi <Plug>(omnisharp_preview_implementations)
+  autocmd FileType cs nmap <silent> <buffer> <leader>ost <Plug>(omnisharp_type_lookup)
+  autocmd FileType cs nmap <silent> <buffer> <leader>osd <Plug>(omnisharp_documentation)
+  autocmd FileType cs nmap <silent> <buffer> <leader>osfs <Plug>(omnisharp_find_symbol)
+  autocmd FileType cs nmap <silent> <buffer> <leader>osfx <Plug>(omnisharp_fix_usings)
   autocmd FileType cs nmap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
   autocmd FileType cs imap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
 
   " Navigate up and down by method/property/field
 
   " Find all code errors/warnings for the current solution and populate the quickfix window
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osgcc <Plug>(omnisharp_global_code_check)
+  autocmd FileType cs nmap <silent> <buffer> <leader>osgcc <Plug>(omnisharp_global_code_check)
   " Contextual code actions (uses fzf, vim-clap, CtrlP or unite.vim selector when available)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
-  autocmd FileType cs xmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
+  autocmd FileType cs nmap <silent> <buffer> <leader>osca <Plug>(omnisharp_code_actions)
+  autocmd FileType cs xmap <silent> <buffer> <leader>osca <Plug>(omnisharp_code_actions)
   " Repeat the last code action performed (does not use a selector)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>os. <Plug>(omnisharp_code_action_repeat)
-  autocmd FileType cs xmap <silent> <buffer> <Leader>os. <Plug>(omnisharp_code_action_repeat)
+  autocmd FileType cs nmap <silent> <buffer> <leader>os. <Plug>(omnisharp_code_action_repeat)
+  autocmd FileType cs xmap <silent> <buffer> <leader>os. <Plug>(omnisharp_code_action_repeat)
 
-  autocmd FileType cs nmap <silent> <buffer> <Leader>os= <Plug>(omnisharp_code_format)
+  autocmd FileType cs nmap <silent> <buffer> <leader>os= <Plug>(omnisharp_code_format)
 
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osnm <Plug>(omnisharp_rename)
+  autocmd FileType cs nmap <silent> <buffer> <leader>osnm <Plug>(omnisharp_rename)
 
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osre <Plug>(omnisharp_restart_server)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osst <Plug>(omnisharp_start_server)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>ossp <Plug>(omnisharp_stop_server)
+  autocmd FileType cs nmap <silent> <buffer> <leader>osre <Plug>(omnisharp_restart_server)
+  autocmd FileType cs nmap <silent> <buffer> <leader>osst <Plug>(omnisharp_start_server)
+  autocmd FileType cs nmap <silent> <buffer> <leader>ossp <Plug>(omnisharp_stop_server)
 augroup END
 ]])
 
@@ -685,11 +691,11 @@ vim.g.OmniSharp_server_stdio = 1
 -- XXX handled by mason
 -- XXX Doesn't work??? Idealy I'd like to work with this one...
 -- local elixir_ls_bin = home .. "/Opt/elixir-ls/release/language_server.sh"
--- require("lspconfig").elixirls.setup {
-    -- -- cmd = { elixir_ls_bin },
-    -- capabilities = LspCapabilities,
-    -- on_attach = LspOnAttach
--- }
+require("lspconfig").elixirls.setup {
+    -- cmd = { elixir_ls_bin },
+    capabilities = LspCapabilities,
+    on_attach = LspOnAttach
+}
 
 -- another plugin
 local elixir = require("elixir")
@@ -697,8 +703,8 @@ elixir.setup({
     -- specify a repository and branch
     -- repo = "elixir-lsp/elixir-ls",
     -- branch = "master",
-    repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
-    branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
+    -- repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
+    -- branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
 
     -- default settings, use the `settings` function to override settings
     settings = elixir.settings({
@@ -726,24 +732,21 @@ elixir.setup({
         suggestProjectNewMixAliases = true,
     }),
 
-    on_attach = function(_, _)
+    on_attach = function(client, bufnr)
         local map_opts = { buffer = true, noremap = true }
 
-        -- run the codelens under the cursor
-        vim.keymap.set("n", "<space>r",  vim.lsp.codelens.run, map_opts)
         -- remove the pipe operator
-        vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", map_opts)
+        vim.keymap.set("n", "<leader>fp", ":ElixirFromPipe<cr>", map_opts)
         -- add the pipe operator
-        vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", map_opts)
-        vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", map_opts)
+        vim.keymap.set("n", "<leader>tp", ":ElixirToPipe<cr>", map_opts)
+        vim.keymap.set("v", "<leader>em", ":ElixirExpandMacro<cr>", map_opts)
 
         -- standard lsp keybinds
-        vim.keymap.set("n", "df", "<cmd>lua vim.lsp.buf.format()<cr>", map_opts)
-        vim.keymap.set("n", "gd", "<cmd>lua vim.diagnostic.open_float()<cr>", map_opts)
-        vim.keymap.set("n", "dt", "<cmd>lua vim.lsp.buf.definition()<cr>", map_opts)
-        vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", map_opts)
-        vim.keymap.set("n", "gD","<cmd>lua vim.lsp.buf.implementation()<cr>", map_opts)
-        vim.keymap.set("n", "1gD","<cmd>lua vim.lsp.buf.type_definition()<cr>", map_opts)
+        -- vim.keymap.set("n", "gd", "<cmd>lua vim.diagnostic.open_float()<cr>", map_opts)
+        -- vim.keymap.set("n", "dt", "<cmd>lua vim.lsp.buf.definition()<cr>", map_opts)
+        -- vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", map_opts)
+        -- vim.keymap.set("n", "gD","<cmd>lua vim.lsp.buf.implementation()<cr>", map_opts)
+        -- vim.keymap.set("n", "1gD","<cmd>lua vim.lsp.buf.type_definition()<cr>", map_opts)
         -- keybinds for fzf-lsp.nvim: https://github.com/gfanto/fzf-lsp.nvim
         -- you could also use telescope.nvim: https://github.com/nvim-telescope/telescope.nvim
         -- there are also core vim.lsp functions that put the same data in the loclist
@@ -751,6 +754,8 @@ elixir.setup({
         vim.keymap.set("n", "g0", ":DocumentSymbols<cr>", map_opts)
         vim.keymap.set("n", "gW", ":WorkspaceSymbols<cr>", map_opts)
         vim.keymap.set("n", "<leader>d", ":Diagnostics<cr>", map_opts)
+
+        LspOnAttach(client, bufnr)
 
         -- update capabilities for nvim-cmp: https://github.com/hrsh7th/nvim-cmp
         require("cmp_nvim_lsp").update_capabilities(LspCapabilities)

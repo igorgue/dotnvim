@@ -1,4 +1,4 @@
-vim.api.nvim_set_var("mapleader", ",") -- map leader to ,
+vim.api.nvim_set_var("mapleader", " ") -- map leader to " " (space)
 vim.api.nvim_create_user_command("W", "w", {}) -- make :W == :w
 
 -- mappings
