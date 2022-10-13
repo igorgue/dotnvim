@@ -898,7 +898,7 @@ require("lualine").setup({
     options = {theme = danger_lualine },
     sections = {
         lualine_x = {{
-            "aerial", colored = true
+            "aerial",
         }},
     },
 })

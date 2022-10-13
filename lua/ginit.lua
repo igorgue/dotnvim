@@ -1,11 +1,12 @@
 -- FIXME `set_font` can only be called once in the init process
 -- if not it would give errors and you can only use it once nvim
 -- is started
-vim.g.default_font_name = "Iosevka"
+vim.g.default_font_name = "Monospace"
 vim.g.default_font_size = 14
 
 vim.g.font_name = vim.g.default_font_name
 vim.g.font_size = vim.g.default_font_size
+vim.g.font_set_by_user = false
 
 function SetFont(name, size)
     vim.g.font_name = name
@@ -17,9 +18,17 @@ function SetFont(name, size)
 
 	if vim.fn.exists(":GuiFont") ~= 0 then
 		vim.api.nvim_command("GuiFont! " .. vim.g.font_name .. ":h" .. vim.g.font_size)
+
 	end
 
     -- TODO Add support for other Neovim GUIs here
+
+    -- show notification if font is set by user after initial startup
+    if vim.g.font_set_by_user then
+        vim.api.nvim_command("ShowFont")
+    else
+        vim.g.font_set_by_user = true
+    end
 end
 vim.api.nvim_create_user_command("SetFont", "lua SetFont(<f-args>)", { nargs = "*" })
 

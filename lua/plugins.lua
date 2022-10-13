@@ -20,8 +20,6 @@ return require("packer").startup(function()
     use "stevearc/aerial.nvim" -- outline plugin
 
     -- mattn's pluggins
-    use "mattn/gist-vim" -- submit a gist
-    use "mattn/webapi-vim" -- requirement for gist
     use "mhinz/vim-startify" -- shows a nice startup page
 
     -- oldies
