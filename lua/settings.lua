@@ -403,33 +403,26 @@ require("mason").setup({
 	},
 })
 
--- mason extexnsions
--- "null-ls" linting
-require("null-ls").setup({
-    sources = {
-        require("null-ls").builtins.diagnostics.mypy,
-        require("null-ls").builtins.diagnostics.credo,
-    }
+-- lsp config mason
+require("mason-lspconfig").setup({
+    ensure_installed = {},
+    automatic_instalation = true,
 })
+
+-- nvim diagnostics signs
+vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticError" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticWarning" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticInformation" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticHint" })
 
 -- trouble
 require("trouble").setup({
-    auto_open = true,
+    auto_open = false,
     auto_close = true,
-    auto_preview = true,
+    auto_preview = false,
     auto_fold = true,
     use_diagnostic_signs = true,
 })
-
--- lsp config mason
-require("mason-lspconfig").setup({
-	ensure_installed = {},
-	automatic_instalation = true,
-})
-
--- formatter mason
--- Utilities for creating configurations
--- local formatter_util = require "formatter.util"
 
 -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
 require("formatter").setup({

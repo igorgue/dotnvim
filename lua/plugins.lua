@@ -69,7 +69,6 @@ return require("packer").startup(function()
 
     -- mason extensions
     use "williamboman/mason-lspconfig.nvim"
-    use "jose-elias-alvarez/null-ls.nvim"
     use "mfussenegger/nvim-dap"
     use "mhartington/formatter.nvim"
 
