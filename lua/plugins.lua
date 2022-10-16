@@ -12,7 +12,7 @@ return require("packer").startup(function()
     use "L3MON4D3/LuaSnip" -- Lua based snippets
     use "rafamadriz/friendly-snippets" -- snippets for LuaSnip
 
-    use "onsails/lspkind.nvim" -- Nice kinds on lsp menus
+    use "onsails/lspkind.nvim" -- Nice kinds icons on lsp menus
 
     -- oldest trick to select blocks with vii
 	use "michaeljsmith/vim-indent-object" -- selection of indentation blocks
@@ -64,19 +64,14 @@ return require("packer").startup(function()
     -- mason package manager for lsp and other services
     use { "williamboman/mason.nvim" }
 
+    -- nice diagnistics menu
+    use "folke/trouble.nvim"
+
     -- mason extensions
     use "williamboman/mason-lspconfig.nvim"
     use "jose-elias-alvarez/null-ls.nvim"
     use "mfussenegger/nvim-dap"
-    use "mfussenegger/nvim-lint"
     use "mhartington/formatter.nvim"
-
-    -- fzf
-    use {
-        "junegunn/fzf",
-        {run = "fzf#install()"}
-    }
-    use "junegunn/fzf.vim"
 
     -- notify
     use "rcarriga/nvim-notify"
@@ -101,20 +96,15 @@ return require("packer").startup(function()
     use "leafgarland/typescript-vim"
 
     -- hrsh7th's nvim lsp plugins
+    use "hrsh7th/nvim-cmp"
     use "hrsh7th/cmp-buffer"
-    use "hrsh7th/cmp-copilot"
-    use "hrsh7th/cmp-calc"
     use "hrsh7th/cmp-cmdline"
     use "hrsh7th/cmp-nvim-lsp"
     use "hrsh7th/cmp-nvim-lsp-document-symbol"
     use "hrsh7th/cmp-nvim-lsp-signature-help"
     use "hrsh7th/cmp-nvim-lua" -- lua support
     use "hrsh7th/cmp-path"
-    use "hrsh7th/nvim-cmp"
     use "f3fora/cmp-spell"
-
-    -- fzf-lsp
-    use "gfanto/fzf-lsp.nvim"
 
     -- 3rd party hrsh7th's plugins
     use "ray-x/cmp-treesitter"
