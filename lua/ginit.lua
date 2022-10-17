@@ -16,10 +16,9 @@ function SetFont(name, size)
         vim.g.font_size = 1
     end
 
-	if vim.fn.exists(":GuiFont") ~= 0 then
-		vim.api.nvim_command("GuiFont! " .. vim.g.font_name .. ":h" .. vim.g.font_size)
-
-	end
+    if vim.fn.exists(":GuiFont") ~= 0 then
+        vim.api.nvim_command("GuiFont! " .. vim.g.font_name .. ":h" .. vim.g.font_size)
+    end
 
     -- TODO Add support for other Neovim GUIs here
 
@@ -30,13 +29,14 @@ function SetFont(name, size)
         vim.g.font_set_by_user = true
     end
 end
-vim.api.nvim_create_user_command("SetFont", "lua SetFont(<f-args>)", { nargs = "*" })
+vim.api.nvim_create_user_command("SetFont", function(opts)
+    SetFont(unpack(opts.fargs))
+end, { nargs = "*" })
 
 function ShowFont()
     require("notify").notify("Font: " .. vim.g.font_name .. ":" .. vim.g.font_size)
 end
-vim.api.nvim_create_user_command("ShowFont", "lua ShowFont()", {})
-vim.api.nvim_set_keymap("n", "<leader>ff", ":ShowFont<CR>", {noremap = true, silent = true})
+vim.api.nvim_create_user_command("ShowFont", ShowFont, { nargs = "*" })
 
 function ChangeFont(name)
     SetFont(name, vim.g.font_size)
@@ -59,12 +59,12 @@ function DefaultFont()
 end
 
 vim.api.nvim_create_user_command("DefaultFont", "lua DefaultFont()", {})
-vim.api.nvim_set_keymap("n", "<C-0>", ":DefaultFont<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<C-0>", ":DefaultFont<CR>", { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap("n", "<C-=>", ":lua IncreaseFontSize()<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("n", "<C-+>", ":lua IncreaseFontSize()<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("n", "<C-->", ":lua DecreaseFontSize()<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("n", "<C-_>", ":lua DecreaseFontSize()<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<C-=>", ":lua IncreaseFontSize()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-+>", ":lua IncreaseFontSize()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-->", ":lua DecreaseFontSize()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-_>", ":lua DecreaseFontSize()<CR>", { noremap = true, silent = true })
 
 -- call `SetFont` from the ginit_local.lua file to use your favorite font
 
@@ -75,10 +75,20 @@ end
 if vim.fn.exists(":GuiPopupmenu") ~= 0 then
     vim.api.nvim_command("GuiPopupmenu 0")
 
-    vim.api.nvim_set_keymap('n', '<RightMouse>', ":call GuiShowContextMenu()<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('i', '<RightMouse>', "<Esc>:call GuiShowContextMenu()<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('x', '<RightMouse>', ":call GuiShowContextMenu()<CR>gv", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('s', '<RightMouse>', "<C-G>:call GuiShowContextMenu()<CR>gv", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<RightMouse>", ":call GuiShowContextMenu()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap(
+        "i",
+        "<RightMouse>",
+        "<Esc>:call GuiShowContextMenu()<CR>",
+        { noremap = true, silent = true }
+    )
+    vim.api.nvim_set_keymap("x", "<RightMouse>", ":call GuiShowContextMenu()<CR>gv", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap(
+        "s",
+        "<RightMouse>",
+        "<C-G>:call GuiShowContextMenu()<CR>gv",
+        { noremap = true, silent = true }
+    )
 end
 
 if vim.fn.exists(":GuiScrollBar") ~= 0 then
