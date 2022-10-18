@@ -667,10 +667,10 @@ if vim.fn.executable("flutter") == 1 then
                 require("flutter-tools").lsp_on_attach(client, bufnr)
             end,
             capabilities = LspCapabilities,
-            -- color = {
-            -- enabled = true,
-            -- background = true,
-            -- },
+            color = {
+                enabled = true,
+                background = true,
+            },
             settings = {
                 showTodos = true,
                 completeFunctionCalls = true,
@@ -678,6 +678,13 @@ if vim.fn.executable("flutter") == 1 then
                 enableSnippets = true,
                 renameFilesWithClasses = true,
             },
+        },
+        debugger = {
+            enabled = false,
+            run_via_dap = false, -- use dap instead of a plenary job to run flutter apps
+            -- if empty dap will not stop on any exceptions, otherwise it will stop on those specified
+            -- see |:help dap.set_exception_breakpoints()| for more info
+            exception_breakpoints = {},
         },
     })
 
@@ -1016,6 +1023,12 @@ if vim.fn.executable("flutter") == 1 then
             -- The nvim-dap plugin populates this variable with the editor's current working directory
             cwd = "${workspaceFolder}",
             toolArgs = { "-d", "chrome" }, -- for Flutter apps toolArgs
+        },
+        {
+            type = "dart",
+            request = "attach",
+            name = "Attach Flutter Program",
+            cwd = "${workspaceFolder}",
         },
     }
 else
