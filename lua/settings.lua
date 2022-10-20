@@ -413,7 +413,13 @@ require("trouble").setup({
     use_diagnostic_signs = true,
 })
 
--- toggle trouble with <leader>t
+-- toggle trouble with <leader>t or <leader>q
+vim.api.nvim_set_keymap(
+    "n",
+    "<leader>q",
+    "<cmd>TroubleToggle document_diagnostics<cr>",
+    { noremap = true, silent = true }
+)
 vim.api.nvim_set_keymap(
     "n",
     "<leader>t",
@@ -542,16 +548,24 @@ end, opts)
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
 
 -- saga
 local saga = require("lspsaga")
 
+-- borders rounded and only show
 saga.init_lsp_saga({
     border_style = "rounded",
     code_action_icon = " ",
     code_action_lightbulb = {
         virtual_text = false,
+    },
+    rename_in_select = false,
+    symbol_in_winbar = {
+        enable = false,
+    },
+    show_outline = {
+        enable = false,
+        auto_refresh = false,
     },
 })
 
@@ -559,8 +573,7 @@ saga.init_lsp_saga({
 -- after the language server attaches to the current buffer
 function LspOnAttach(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
-    -- XXX since we use cmp we don't need this I think
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+    -- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -569,7 +582,6 @@ function LspOnAttach(client, bufnr)
     vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, bufopts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
     vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, bufopts)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
     vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, bufopts)
     vim.keymap.set("n", "<C-\\>", vim.lsp.buf.signature_help, bufopts)
@@ -586,18 +598,13 @@ function LspOnAttach(client, bufnr)
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, bufopts)
 
-    if vim.lsp.buf.formatting ~= nil then
-        vim.keymap.set("n", "<leader>f", function()
-            vim.lsp.buf.format()({ async = true })
-        end, bufopts)
-    end
-
     -- set keymaps from lsp saga
-    vim.keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", bufopts)
-    vim.keymap.set("v", "<leader>ca", "<cmd>Lspsaga range_code_action<CR>", bufopts)
+    vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", bufopts)
     vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", bufopts)
     vim.keymap.set("n", "<leader>cd", "<cmp>Lspsaga peek_definition<CR>", bufopts)
-    vim.keymap.set("n", "<leader>ch", "<cmd>Lspsaga lsp_finder<CR>", bufopts)
+    vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", bufopts)
+    vim.keymap.set("n", "<leader>gh", "<cmd>Lspsaga lsp_finder<CR>", bufopts)
+    vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", bufopts)
     vim.keymap.set("n", "<leader>ck", "<cmd>Lspsaga hover_doc<CR>", bufopts)
 
     -- aerial
@@ -834,11 +841,7 @@ vim.g.OmniSharp_server_use_net6 = 1
 vim.g.OmniSharp_server_stdio = 1
 
 -- elixir
--- XXX handled by mason
--- XXX Doesn't work??? Idealy I'd like to work with this one...
--- local elixir_ls_bin = home .. "/Opt/elixir-ls/release/language_server.sh"
 -- require("lspconfig").elixirls.setup {
---     -- cmd = { elixir_ls_bin },
 --     capabilities = LspCapabilities,
 --     on_attach = LspOnAttach
 -- }
@@ -847,35 +850,17 @@ vim.g.OmniSharp_server_stdio = 1
 local elixir = require("elixir")
 elixir.setup({
     -- specify a repository and branch
-    repo = "elixir-lsp/elixir-ls",
-    branch = "master",
-    -- repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
-    -- branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
+    -- repo = "elixir-lsp/elixir-ls",
+    -- branch = "master",
+    repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
+    branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
 
     -- default settings, use the `settings` function to override settings
     settings = elixir.settings({
         dialyzerEnabled = true,
-        fetchDeps = true,
-        enableTestLenses = true,
-        suggestSpecs = true,
-        suggestFromDocs = true,
-        suggestFromUsage = true,
-        suggestFunctionCalls = true,
-        suggestModules = true,
-        suggestVariables = true,
-        suggestCalls = true,
-        suggestMixTasks = true,
-        suggestNewMixTasks = true,
-        suggestMixAliases = true,
-        suggestNewMixAliases = true,
-        suggestProjectConfig = true,
-        suggestProjectDependencies = true,
-        suggestProjectTasks = true,
-        suggestProjectAliases = true,
-        suggestProjectMixTasks = true,
-        suggestProjectMixAliases = true,
-        suggestProjectNewMixTasks = true,
-        suggestProjectNewMixAliases = true,
+        fetchDeps = false,
+        enableTestLenses = false,
+        suggestSpecs = false,
     }),
 
     on_attach = function(client, bufnr)
@@ -895,9 +880,6 @@ elixir.setup({
         vim.keymap.set("n", "<leader>d", ":Diagnostics<cr>", map_opts)
 
         LspOnAttach(client, bufnr)
-
-        -- capabilities for nvim-cmp: https://github.com/hrsh7th/nvim-cmp
-        require("cmp_nvim_lsp").default_capabilities(LspCapabilities)
     end,
 })
 
@@ -1065,6 +1047,28 @@ end
 
 -- python dap
 require("dap-python").setup(home .. "/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
+
+-- elixir
+dap.adapters.elixir = {
+    type = "executable",
+    command = home .. "/.local/share/nvim/mason/packages/elixir-ls/debugger.sh",
+}
+
+dap.configurations.elixir = {
+  {
+    type = "mix_task",
+    name = "mix test",
+    task = 'test',
+    taskArgs = {"--trace"},
+    request = "launch",
+    startApps = true, -- for Phoenix projects
+    projectDir = "${workspaceFolder}",
+    requireFiles = {
+      "test/**/test_helper.exs",
+      "test/**/*_test.exs"
+    }
+  },
+}
 
 -- gitsigns
 require("gitsigns").setup()
