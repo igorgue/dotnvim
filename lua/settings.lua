@@ -5,6 +5,10 @@ local home = os.getenv("HOME") or ""
 
 vim.opt.encoding = "utf-8"
 
+-- disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- tab settings
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -46,19 +50,6 @@ vim.opt.showmode = false -- disable mode since we use lualine
 -- some of the main or most used keymaps, a tree and a outline tree
 vim.keymap.set("n", "<leader>1", ":NvimTreeToggle<CR>")
 vim.keymap.set("n", "<leader>2", ":AerialToggle<CR>")
-
--- nerd commenter stuff
-vim.g.NERDCustomDelimiters = {
-    cs = { left = "// ", right = "" },
-    dart = { left = "// ", right = "" },
-    elixir = { left = "# ", right = "" },
-    json = { left = "// ", right = "" },
-    lua = { left = "-- ", right = "" },
-    nim = { left = "# ", right = "" },
-    python = { left = "# ", right = "" },
-    ruby = { left = "# ", right = "" },
-    sql = { left = "-- ", right = "" },
-}
 
 -- tabs...
 vim.api.nvim_set_keymap("n", "<Tab>j", ":tabnext<CR>", { noremap = true, silent = true })
@@ -553,6 +544,17 @@ vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
 
+-- saga
+local saga = require("lspsaga")
+
+saga.init_lsp_saga({
+    border_style = "rounded",
+    code_action_icon = " ",
+    code_action_lightbulb = {
+        virtual_text = false,
+    },
+})
+
 -- Use an LSPOnAttach function to only map the following keys
 -- after the language server attaches to the current buffer
 function LspOnAttach(client, bufnr)
@@ -571,11 +573,10 @@ function LspOnAttach(client, bufnr)
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
     vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, bufopts)
     vim.keymap.set("n", "<C-\\>", vim.lsp.buf.signature_help, bufopts)
+    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
     vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
     vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
     vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
     vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
     vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
     vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run, { buffer = true, noremap = true })
@@ -586,8 +587,18 @@ function LspOnAttach(client, bufnr)
     end, bufopts)
 
     if vim.lsp.buf.formatting ~= nil then
-        vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, bufopts)
+        vim.keymap.set("n", "<leader>f", function()
+            vim.lsp.buf.format()({ async = true })
+        end, bufopts)
     end
+
+    -- set keymaps from lsp saga
+    vim.keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", bufopts)
+    vim.keymap.set("v", "<leader>ca", "<cmd>Lspsaga range_code_action<CR>", bufopts)
+    vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", bufopts)
+    vim.keymap.set("n", "<leader>cd", "<cmp>Lspsaga peek_definition<CR>", bufopts)
+    vim.keymap.set("n", "<leader>ch", "<cmd>Lspsaga lsp_finder<CR>", bufopts)
+    vim.keymap.set("n", "<leader>ck", "<cmd>Lspsaga hover_doc<CR>", bufopts)
 
     -- aerial
     require("aerial").on_attach(client, bufnr)
@@ -1116,11 +1127,20 @@ require("lualine").setup({
 
 -- nerdtree lua
 require("nvim-tree").setup({
-    filters = { custom = { "^.git$", "^.venv", "^.env" } },
+    filters = { dotfiles = true },
+    actions = {
+        open_file = {
+            quit_on_open = true,
+        },
+    },
+    renderer = {
+        icons = {
+            show = {
+                folder_arrow = false,
+            },
+        },
+    },
 })
-
--- gist
-vim.g.gist_clip_command = "xclip --selection clipboard"
 
 -- rainbow treesitter
 require("nvim-treesitter.configs").setup({
@@ -1177,3 +1197,6 @@ require("telescope").load_extension("aerial")
 
 -- LspInfo rounded borders
 require("lspconfig.ui.windows").default_options.border = "rounded"
+
+-- Comment.nvim
+require("Comment").setup()

@@ -22,8 +22,8 @@ return require("packer").startup(function()
     -- mattn's pluggins
     use("mhinz/vim-startify") -- shows a nice startup page
 
-    -- oldies
-    use("preservim/nerdcommenter") -- comment and uncomment
+    -- Comment.nvim
+    use("numToStr/Comment.nvim") -- comment plugin
 
     -- tpope
     use("tpope/vim-sensible") -- sensible default vim settings by tpope
@@ -60,7 +60,7 @@ return require("packer").startup(function()
     use("lewis6991/gitsigns.nvim") -- changes on git
 
     -- lualine
-    use("nvim-lualine/lualine.nvim")
+    use("nvim-lualine/lualine.nvim") -- status line
 
     -- mason package manager for lsp and other services
     use({ "williamboman/mason.nvim" })
@@ -70,6 +70,12 @@ return require("packer").startup(function()
 
     -- mason extensions
     use("williamboman/mason-lspconfig.nvim")
+
+    -- saga
+    use({
+        "glepnir/lspsaga.nvim",
+        branch = "main",
+    })
 
     -- formatter
     use("mhartington/formatter.nvim")
@@ -110,9 +116,9 @@ return require("packer").startup(function()
     use("hrsh7th/cmp-nvim-lsp-signature-help")
     use("hrsh7th/cmp-nvim-lua") -- lua support
     use("hrsh7th/cmp-path")
-    use("f3fora/cmp-spell")
 
     -- 3rd party hrsh7th's plugins
+    use("f3fora/cmp-spell")
     use("ray-x/cmp-treesitter")
     use("saadparwaiz1/cmp_luasnip") -- snippets required for hrsh7th's plugins
     use("tamago324/cmp-zsh")
