@@ -132,6 +132,8 @@ vim.cmd([[
     au BufRead,BufNewFile *.csx set filetype=cs
 ]])
 
+require("utils")
+
 vim.notify = require("notify")
 vim.notify.setup({
     render = "minimal",
@@ -139,15 +141,6 @@ vim.notify.setup({
     stages = "fade",
     background_colour = "#161925",
 })
-
--- show syntax highlighting group useful for theme development
-function SynStack()
-    vim.cmd([[
-        echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-    ]])
-end
-vim.api.nvim_set_keymap("n", "<leader>x", ":TSHighlightCapturesUnderCursor<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>xx", ":lua SynStack()<CR>", {})
 
 -- sets tabline without the "X" for close, this is done for aesthetic reasons
 -- and this code is copied from :h setting-tabline
@@ -585,7 +578,6 @@ function LspOnAttach(client, bufnr)
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
     vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, bufopts)
     vim.keymap.set("n", "<C-\\>", vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
     vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
     vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
     vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
