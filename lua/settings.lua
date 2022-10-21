@@ -841,10 +841,16 @@ vim.g.OmniSharp_server_use_net6 = 1
 vim.g.OmniSharp_server_stdio = 1
 
 -- elixir
--- require("lspconfig").elixirls.setup {
+-- require("lspconfig").elixirls.setup({
 --     capabilities = LspCapabilities,
---     on_attach = LspOnAttach
--- }
+--     on_attach = LspOnAttach,
+--     settings = {
+--         dialyzerEnabled = true,
+--         fetchDeps = true,
+--         enableTestLenses = true,
+--         suggestSpecs = true,
+--     },
+-- })
 
 -- another plugin
 local elixir = require("elixir")
@@ -858,9 +864,27 @@ elixir.setup({
     -- default settings, use the `settings` function to override settings
     settings = elixir.settings({
         dialyzerEnabled = true,
-        fetchDeps = false,
-        enableTestLenses = false,
-        suggestSpecs = false,
+        fetchDeps = true,
+        enableTestLenses = true,
+        suggestSpecs = true,
+		suggestFromDocs = true,
+		suggestFromUsage = true,
+		suggestFunctionCalls = true,
+		suggestModules = true,
+		suggestVariables = true,
+		suggestCalls = true,
+		suggestMixTasks = true,
+		suggestNewMixTasks = true,
+		suggestMixAliases = true,
+		suggestNewMixAliases = true,
+		suggestProjectConfig = true,
+		suggestProjectDependencies = true,
+		suggestProjectTasks = true,
+		suggestProjectAliases = true,
+		suggestProjectMixTasks = true,
+		suggestProjectMixAliases = true,
+		suggestProjectNewMixTasks = true,
+		suggestProjectNewMixAliases = true,
     }),
 
     on_attach = function(client, bufnr)
@@ -1055,19 +1079,19 @@ dap.adapters.elixir = {
 }
 
 dap.configurations.elixir = {
-  {
-    type = "mix_task",
-    name = "mix test",
-    task = 'test',
-    taskArgs = {"--trace"},
-    request = "launch",
-    startApps = true, -- for Phoenix projects
-    projectDir = "${workspaceFolder}",
-    requireFiles = {
-      "test/**/test_helper.exs",
-      "test/**/*_test.exs"
-    }
-  },
+    {
+        type = "mix_task",
+        name = "mix test",
+        task = "test",
+        taskArgs = { "--trace" },
+        request = "launch",
+        startApps = true, -- for Phoenix projects
+        projectDir = "${workspaceFolder}",
+        requireFiles = {
+            "test/**/test_helper.exs",
+            "test/**/*_test.exs",
+        },
+    },
 }
 
 -- gitsigns

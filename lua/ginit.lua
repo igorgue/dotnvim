@@ -74,7 +74,9 @@ end
 
 if vim.fn.exists(":GuiPopupmenu") ~= 0 then
     vim.api.nvim_command("GuiPopupmenu 0")
+end
 
+if vim.fn.exists(":GuiShowContextMenu") ~= 0 then
     vim.api.nvim_set_keymap("n", "<RightMouse>", ":call GuiShowContextMenu()<CR>", { noremap = true, silent = true })
     vim.api.nvim_set_keymap(
         "i",
