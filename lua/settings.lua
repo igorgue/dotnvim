@@ -132,7 +132,8 @@ vim.cmd([[
     au BufRead,BufNewFile *.csx set filetype=cs
 ]])
 
-require("utils")
+vim.api.nvim_set_keymap("n", "<leader>x", ":TSHighlightCapturesUnderCursor<CR>", { noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>X", ":lua require('ui_utils').SynStack()<CR>", { noremap = true, silent = true})
 
 vim.notify = require("notify")
 vim.notify.setup({
@@ -571,6 +572,7 @@ function LspOnAttach(client, bufnr)
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
+
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
     vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, bufopts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
@@ -583,8 +585,8 @@ function LspOnAttach(client, bufnr)
     vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
     vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
-    vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run, { buffer = true, noremap = true })
-    vim.keymap.set("n", "<leader>r", vim.lsp.codelens.run, { buffer = true, noremap = true })
+    vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run, bufopts)
+    vim.keymap.set("n", "<leader>r", vim.lsp.codelens.run, bufopts)
 
     vim.keymap.set("n", "<leader>wl", function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
@@ -1008,7 +1010,7 @@ vim.cmd([[
     nnoremap <silent> <F8> <Cmd>lua require('dap').step_out()<CR>
     nnoremap <silent> <Leader>b <Cmd>lua require('dap').toggle_breakpoint()<CR>
     nnoremap <silent> <Leader>B <Cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
-    nnoremap <silent> <Leader>lp <Cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+    nnoremap <silent> <Leader>L <Cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
     nnoremap <silent> <Leader>dr <Cmd>lua require('dap').repl.open()<CR>
     nnoremap <silent> <Leader>dl <Cmd>lua require('dap').run_last()<CR>
     nnoremap <silent> <Leader>dL <Cmd>lua require('dap').run_last()<CR>
@@ -1167,7 +1169,8 @@ require("nvim-treesitter.configs").setup({
     auto_install = true,
     highlight = {
         enable = true,
-        disable = { "dart", "python", "elixir" },
+        -- sometimes we need to disable some of them...
+        -- disable = { "dart", "python", "elixir" },
         additional_vim_regex_highlighting = true,
     },
     markid = { enable = true },
