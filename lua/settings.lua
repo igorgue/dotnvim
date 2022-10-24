@@ -1,6 +1,18 @@
 require("os")
 require("global_settings")
 
+local ui_utils = require("ui_utils")
+local file_utils = require("file_utils")
+local text_utils = require("text_utils")
+local lsp_utils = require("lsp_utils")
+
+local opts = { noremap = true, silent = true }
+
+local dbs = {}
+if vim.api.nvim_get_runtime_file("lua/dbs_local.lua", false)[1] then
+    dbs = require("dbs_local")
+end
+
 local home = os.getenv("HOME") or ""
 
 vim.opt.encoding = "utf-8"
@@ -24,9 +36,9 @@ vim.opt.wildignore:append(
 
 vim.opt.undofile = true
 
-vim.opt.tags = "tags;$HOME/.config/nvim/tags/;$HOME/tmp/tags/" -- find ctags
+vim.opt.tags = "tags;" .. home .. "/.config/nvim/tags/;" .. home .. "/tmp/tags/" -- find ctags
 vim.opt.listchars = [[tab:▸\ ,eol:¬]] -- listchars for invisibles
-vim.opt.mouse:append({ a = true }) -- fix mouse
+vim.opt.mouse:append({ a = true }) -- mouse all
 vim.opt.ls = 2 -- status line always show
 vim.opt.scrolloff = 5 -- show 5 lines before cursor always
 vim.opt.showcmd = true -- display incomplete commands
@@ -52,26 +64,26 @@ vim.keymap.set("n", "<leader>1", ":NvimTreeToggle<CR>")
 vim.keymap.set("n", "<leader>2", ":AerialToggle<CR>")
 
 -- tabs...
-vim.api.nvim_set_keymap("n", "<Tab>j", ":tabnext<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "tj", ":tabnext<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Tab>j", ":tabnext<CR>", opts)
+vim.api.nvim_set_keymap("n", "tj", ":tabnext<CR>", opts)
 
-vim.api.nvim_set_keymap("n", "<Tab>l", ":tabnext<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "tl", ":tabnext<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Tab>l", ":tabnext<CR>", opts)
+vim.api.nvim_set_keymap("n", "tl", ":tabnext<CR>", opts)
 
-vim.api.nvim_set_keymap("n", "<Tab>h", ":tabprevious<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "th", ":tabprevious<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Tab>h", ":tabprevious<CR>", opts)
+vim.api.nvim_set_keymap("n", "th", ":tabprevious<CR>", opts)
 
-vim.api.nvim_set_keymap("n", "<Tab>k", ":tabprevious<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "tk", ":tabprevious<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Tab>k", ":tabprevious<CR>", opts)
+vim.api.nvim_set_keymap("n", "tk", ":tabprevious<CR>", opts)
 
-vim.api.nvim_set_keymap("n", "<Tab>x", ":tabclose<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "tx", ":tabclose<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Tab>x", ":tabclose<CR>", opts)
+vim.api.nvim_set_keymap("n", "tx", ":tabclose<CR>", opts)
 
-vim.api.nvim_set_keymap("n", "<Tab>q", ":tabclose<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "tq", ":tabclose<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Tab>q", ":tabclose<CR>", opts)
+vim.api.nvim_set_keymap("n", "tq", ":tabclose<CR>", opts)
 
-vim.api.nvim_set_keymap("n", "<Tab>n", ":tabnew<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "tn", ":tabnew<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<Tab>n", ":tabnew<CR>", opts)
+vim.api.nvim_set_keymap("n", "tn", ":tabnew<CR>", opts)
 
 -- autocomplete options
 vim.opt.completeopt = "menu,menuone,noselect"
@@ -95,6 +107,7 @@ vim.cmd([[
     " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
     au BufRead,BufNewFile {Procfile,Procfile.*,Gemfile,Rakefile,Capfile,Vagrantfile,Thorfile,*.ru,*.feature} set ft=ruby
     au BufRead,BufNewFile {*.crontab} set ft=crontab
+    au BufRead,BufNewFile {*.redis} set ft=redis
     au BufNewFile,BufRead *.feature set tabstop=2 shiftwidth=2 softtabstop=2
 
     " Code indentation
@@ -120,9 +133,9 @@ vim.cmd([[
     " Fix issue when doing syntax highlight
     au BufEnter *.html :syntax sync fromstart
     au BufEnter *.dart :syntax sync fromstart
-    au BufEnter *.python :syntax sync fromstart
+    au BufEnter *.py :syntax sync fromstart
     au BufEnter *.lua :syntax sync fromstart
-    au BufEnter *.elixir :syntax sync fromstart
+    au BufEnter *.ex :syntax sync fromstart
     au BufEnter *.nim :syntax sync fromstart
 
     " Jsonc (json with comments) support
@@ -132,21 +145,34 @@ vim.cmd([[
     au BufRead,BufNewFile *.csx set filetype=cs
 ]])
 
-vim.api.nvim_set_keymap("n", "<leader>x", ":TSHighlightCapturesUnderCursor<CR>", { noremap = true, silent = true})
-vim.api.nvim_set_keymap("n", "<leader>X", ":lua require('ui_utils').SynStack()<CR>", { noremap = true, silent = true})
+-- go to config
+vim.api.nvim_create_user_command("Config", file_utils.edit_conf, {})
+vim.api.nvim_create_user_command("CdConfig", file_utils.cd_conf, {})
+
+-- theme helpers
+vim.api.nvim_set_keymap("n", "<leader>x", "<Cmd>TSHighlightCapturesUnderCursor<CR>", opts)
+vim.keymap.set("n", "<leader>X", ui_utils.syn_stack, opts)
 
 vim.notify = require("notify")
 vim.notify.setup({
     render = "minimal",
     timeout = 1500,
     stages = "fade",
-    background_colour = "#161925",
+})
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = "*",
+    callback = function()
+        vim.notify.setup({
+            background_colour = ui_utils.hi_co("Normal", "bg"),
+        })
+    end
 })
 
 -- sets tabline without the "X" for close, this is done for aesthetic reasons
 -- and this code is copied from :h setting-tabline
 vim.cmd([[
-    function MyTabLine()
+    function NoXTabLine()
         let s = ''
         for i in range(tabpagenr('$'))
             " select the highlighting
@@ -159,8 +185,8 @@ vim.cmd([[
             " set the tab page number (for mouse clicks)
             let s ..= '%' .. (i + 1) .. 'T'
 
-            " the label is made by MyTabLabel()
-            let s ..= ' %{MyTabLabel(' .. (i + 1) .. ')} '
+            " the label is made by NoXTabLabel()
+            let s ..= ' %{NoXTabLabel(' .. (i + 1) .. ')} '
         endfor
 
         " after the last tab fill with TabLineFill and reset tab page nr
@@ -175,7 +201,7 @@ vim.cmd([[
         return s
     endfunction
 
-    function MyTabLabel(n)
+    function NoXTabLabel(n)
         let buflist = tabpagebuflist(a:n)
         let winnr = tabpagewinnr(a:n)
         let name = bufname(buflist[winnr - 1])
@@ -188,7 +214,7 @@ vim.cmd([[
         return name
     endfunction
 
-    set tabline=%!MyTabLine()
+    set tabline=%!NoXTabLine()
 ]])
 
 -- telescope
@@ -247,6 +273,7 @@ if vim.fn.has("win32") == 1 then
         { name = "spell" },
         { name = "dictionary" },
         { name = "buffer" },
+        { name = "fonts", options = { space_filter = "-" } },
     })
 else
     sources = cmp.config.sources({
@@ -261,6 +288,7 @@ else
         { name = "dictionary" },
         { name = "zsh" }, -- problems in windows
         { name = "buffer" },
+        { name = "fonts", options = { space_filter = "-" } },
     })
 end
 
@@ -268,12 +296,6 @@ local winhighlight = "Normal:Normal,FloatBorder:VertSplit,CursorLine:CursorLine,
 
 local luasnip = require("luasnip")
 require("luasnip.loaders.from_vscode").load()
-
-local has_words_before = function()
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
 
 -- local mapping for nvim-cmp.
 -- <Tab> is used by Copilot, I found the pluggin doesn't work
@@ -284,7 +306,7 @@ local mapping = {
     ["<C-n>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
             cmp.select_next_item()
-        elseif has_words_before() then
+        elseif text_utils.has_words_before() then
             cmp.complete()
         else
             fallback()
@@ -345,6 +367,7 @@ cmp.setup({
                 spell = "[Spell]",
                 dictionary = "[Dictionary]",
                 zsh = "[Zsh]",
+                ["vim-dadbod-completion"] = "[DB]",
             },
         }),
     },
@@ -412,19 +435,19 @@ vim.api.nvim_set_keymap(
     "n",
     "<leader>q",
     "<cmd>TroubleToggle document_diagnostics<cr>",
-    { noremap = true, silent = true }
+    opts
 )
 vim.api.nvim_set_keymap(
     "n",
     "<leader>t",
     "<cmd>TroubleToggle document_diagnostics<cr>",
-    { noremap = true, silent = true }
+    opts
 )
 vim.api.nvim_set_keymap(
     "n",
     "<leader>T",
     "<cmd>TroubleToggle workspace_diagnostics<cr>",
-    { noremap = true, silent = true }
+    opts
 )
 
 -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
@@ -474,7 +497,17 @@ require("formatter").setup({
         },
 
         elixir = {
-            require("formatter.filetypes.elixir").mix_format,
+            function()
+                local buffn = formatter_util.escape_path(formatter_util.get_current_buffer_file_path())
+
+                return {
+                    exe = "mix",
+                    args = {
+                        "format",
+                        buffn,
+                    },
+                }
+            end,
         },
 
         markdown = {
@@ -505,8 +538,8 @@ require("formatter").setup({
     },
 })
 
-vim.api.nvim_set_keymap("n", "<leader>f", ":Format<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>F", ":FormatWrite<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>f", ":Format<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>F", ":FormatWrite<CR>", opts)
 
 -- setup LSP
 local lspconfig_util = require("lspconfig").util
@@ -517,28 +550,11 @@ LspCapabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap = true, silent = true }
-
--- toggle diagnostics
-vim.g.show_diagnostics = true
-local function diagnostics_toggle()
-    vim.g.show_diagnostics = not vim.g.show_diagnostics
-
-    if vim.g.show_diagnostics then
-        vim.diagnostic.show()
-    else
-        vim.diagnostic.hide()
-    end
-end
-
--- as expressed in :h vim.lsp.codelens.refresh
 vim.cmd([[
     autocmd BufEnter,CursorHold,InsertLeave <buffer> lua if next(vim.lsp.codelens.get()) ~= nil then vim.lsp.codelens.refresh() end
 ]])
 
-vim.keymap.set("n", "<leader>d", function()
-    diagnostics_toggle()
-end, opts)
+vim.keymap.set("n", "<leader>d", lsp_utils.diagnostics_toggle, opts)
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
@@ -710,17 +726,11 @@ else
 end
 
 -- semshi config
-vim.cmd([[
-    let g:semshi#simplify_markup=0
-
-    exe "hi pythonBuiltinFunc guifg=none ctermfg=none"
-    exe "hi pythonBuiltinObj guifg=none ctermfg=none"
-    exe "hi pythonBuiltinType guifg=none ctermfg=none"
-]])
+vim.g["semshi#simplify_markup"] = 0
 
 -- csharp
 -- use vscode omnisharp install
--- local omnisharp_dll = os.getenv("HOME") .. "/.vscode/extensions/ms-dotnettools.csharp-1.25.0-linux-x64/.omnisharp/1.39.0-net6.0/OmniSharp.dll"
+-- local omnisharp_dll = home .. "/.vscode/extensions/ms-dotnettools.csharp-1.25.0-linux-x64/.omnisharp/1.39.0-net6.0/OmniSharp.dll"
 require("lspconfig").omnisharp.setup({
     capabilities = LspCapabilities,
     on_attach = LspOnAttach,
@@ -731,40 +741,11 @@ require("lspconfig").omnisharp.setup({
     -- NOTE to use the same install as vscode
     -- cmd = { "dotnet", omnisharp_dll, "--hostPID", tostring(pid) },
 
-    -- Enables support for reading code style, naming convention and analyzer
-    -- settings from .editorconfig.
     enable_editorconfig_support = true,
-
-    -- If true, MSBuild project system will only load projects for files that
-    -- were opened in the editor. This setting is useful for big C# codebases
-    -- and allows for faster initialization of code navigation features only
-    -- for projects that are relevant to code that is being edited. With this
-    -- setting enabled OmniSharp may load fewer projects and may thus display
-    -- incomplete reference lists for symbols.
-    -- enable_ms_build_load_projects_on_demand = true,
-
-    -- Enables support for roslyn analyzers, code fixes and rulesets.
     enable_roslyn_analyzers = true,
-
-    -- Specifies whether 'using' directives should be grouped and sorted during
-    -- document formatting.
     organize_imports_on_format = true,
-
-    -- Enables support for showing unimported types and unimported extension
-    -- methods in completion lists. When committed, the appropriate using
-    -- directive will be added at the top of the current file. This option can
-    -- have a negative impact on initial completion responsiveness,
-    -- particularly for the first few completion sessions after opening a
-    -- solution.
     enable_import_completion = true,
-
-    -- Specifies whether to include preview versions of the .NET SDK when
-    -- determining which version to use for project loading.
     sdk_include_prereleases = true,
-
-    -- Only run analyzers against open files when 'enableRoslynAnalyzers' is
-    -- true
-    -- analyze_open_documents_only = true,
 
     root_dir = function(file, _)
         if file:sub(-#".csx") == ".csx" then
@@ -861,41 +842,40 @@ elixir.setup({
         fetchDeps = true,
         enableTestLenses = true,
         suggestSpecs = true,
-		suggestFromDocs = true,
-		suggestFromUsage = true,
-		suggestFunctionCalls = true,
-		suggestModules = true,
-		suggestVariables = true,
-		suggestCalls = true,
-		suggestMixTasks = true,
-		suggestNewMixTasks = true,
-		suggestMixAliases = true,
-		suggestNewMixAliases = true,
-		suggestProjectConfig = true,
-		suggestProjectDependencies = true,
-		suggestProjectTasks = true,
-		suggestProjectAliases = true,
-		suggestProjectMixTasks = true,
-		suggestProjectMixAliases = true,
-		suggestProjectNewMixTasks = true,
-		suggestProjectNewMixAliases = true,
+        suggestFromDocs = true,
+        suggestFromUsage = true,
+        suggestFunctionCalls = true,
+        suggestModules = true,
+        suggestVariables = true,
+        suggestCalls = true,
+        suggestMixTasks = true,
+        suggestNewMixTasks = true,
+        suggestMixAliases = true,
+        suggestNewMixAliases = true,
+        suggestProjectConfig = true,
+        suggestProjectDependencies = true,
+        suggestProjectTasks = true,
+        suggestProjectAliases = true,
+        suggestProjectMixTasks = true,
+        suggestProjectMixAliases = true,
+        suggestProjectNewMixTasks = true,
+        suggestProjectNewMixAliases = true,
     }),
 
+    capabilities = LspCapabilities,
     on_attach = function(client, bufnr)
-        local map_opts = { buffer = true, noremap = true }
-
         -- remove the pipe operator
-        vim.keymap.set("n", "<leader>fp", ":ElixirFromPipe<cr>", map_opts)
+        vim.keymap.set("n", "<leader>fp", ":ElixirFromPipe<cr>", opts)
 
         -- add the pipe operator
-        vim.keymap.set("n", "<leader>tp", ":ElixirToPipe<cr>", map_opts)
-        vim.keymap.set("v", "<leader>em", ":ElixirExpandMacro<cr>", map_opts)
+        vim.keymap.set("n", "<leader>tp", ":ElixirToPipe<cr>", opts)
+        vim.keymap.set("v", "<leader>em", ":ElixirExpandMacro<cr>", opts)
 
         -- keybinds
-        vim.keymap.set("n", "gr", ":References<cr>", map_opts)
-        vim.keymap.set("n", "g0", ":DocumentSymbols<cr>", map_opts)
-        vim.keymap.set("n", "gW", ":WorkspaceSymbols<cr>", map_opts)
-        vim.keymap.set("n", "<leader>d", ":Diagnostics<cr>", map_opts)
+        vim.keymap.set("n", "gr", ":References<cr>", opts)
+        vim.keymap.set("n", "g0", ":DocumentSymbols<cr>", opts)
+        vim.keymap.set("n", "gW", ":WorkspaceSymbols<cr>", opts)
+        vim.keymap.set("n", "<leader>d", ":Diagnostics<cr>", opts)
 
         LspOnAttach(client, bufnr)
     end,
@@ -962,10 +942,6 @@ local dap, dapui = require("dap"), require("dapui")
 
 dap.set_log_level("TRACE")
 
-vim.api.nvim_set_hl(0, "DapBreakpoint", { fg = "#ff3525" })
-vim.api.nvim_set_hl(0, "DapLogPoint", { fg = "#afd7ff" })
-vim.api.nvim_set_hl(0, "DapStopped", { fg = "#afd7af" })
-
 vim.fn.sign_define(
     "DapBreakpoint",
     { text = "", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
@@ -1008,12 +984,12 @@ vim.cmd([[
     nnoremap <silent> <F6> <Cmd>lua require('dap').step_over()<CR>
     nnoremap <silent> <F7> <Cmd>lua require('dap').step_into()<CR>
     nnoremap <silent> <F8> <Cmd>lua require('dap').step_out()<CR>
-    nnoremap <silent> <Leader>b <Cmd>lua require('dap').toggle_breakpoint()<CR>
-    nnoremap <silent> <Leader>B <Cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
-    nnoremap <silent> <Leader>L <Cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
-    nnoremap <silent> <Leader>dr <Cmd>lua require('dap').repl.open()<CR>
-    nnoremap <silent> <Leader>dl <Cmd>lua require('dap').run_last()<CR>
-    nnoremap <silent> <Leader>dL <Cmd>lua require('dap').run_last()<CR>
+    nnoremap <silent> <leader>b <Cmd>lua require('dap').toggle_breakpoint()<CR>
+    nnoremap <silent> <leader>B <Cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+    nnoremap <silent> <leader>L <Cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+    nnoremap <silent> <leader>dr <Cmd>lua require('dap').repl.open()<CR>
+    nnoremap <silent> <leader>dl <Cmd>lua require('dap').run_last()<CR>
+    nnoremap <silent> <leader>dL <Cmd>lua require('dap').run_last()<CR>
 ]])
 
 -- dap for dart debug adapter
@@ -1092,54 +1068,68 @@ dap.configurations.elixir = {
 require("gitsigns").setup()
 
 -- lualine
-local lualine_colors = {
-    black = "#161925",
-    white = "#dadada",
-    red = "#ff8787",
-    green = "#afd7af",
-    blue = "#875fff",
-    yellow = "#ffffd7",
-    gray = "#bcbcbc",
-    darkgray = "#454555",
-    lightgray = "#394160",
-    inactivegray = "#344055",
-}
+vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = "*",
+    callback = function()
+        local lualine_colors = {
+            black = ui_utils.hi_co("Normal", "bg"),
+            white = ui_utils.hi_co("Normal", "fg"),
+            red = ui_utils.hi_co("ErrorMsg", "fg"),
+            green = ui_utils.hi_co("Label", "fg"),
+            blue = ui_utils.hi_co("CursorLineNr", "fg"),
+            yellow = ui_utils.hi_co("Function", "fg"),
+            gray = ui_utils.hi_co("PMenu", "fg"),
+            darkgray = ui_utils.hi_co("LspCodeLens", "fg"),
+            lightgray = ui_utils.hi_co("Visual", "bg"),
+            inactivegray = ui_utils.hi_co("TabLine", "fg"),
+        }
 
-local danger_lualine = {
-    normal = {
-        a = { bg = lualine_colors.gray, fg = lualine_colors.black, gui = "bold" },
-        b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
-        c = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
-    },
-    insert = {
-        a = { bg = lualine_colors.blue, fg = lualine_colors.black, gui = "bold" },
-        b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
-        c = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
-    },
-    visual = {
-        a = { bg = lualine_colors.yellow, fg = lualine_colors.black, gui = "bold" },
-        b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
-        c = { bg = lualine_colors.inactivegray, fg = lualine_colors.black },
-    },
-    replace = {
-        a = { bg = lualine_colors.red, fg = lualine_colors.black, gui = "bold" },
-        b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
-        c = { bg = lualine_colors.black, fg = lualine_colors.white },
-    },
-    command = {
-        a = { bg = lualine_colors.green, fg = lualine_colors.black, gui = "bold" },
-        b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
-        c = { bg = lualine_colors.inactivegray, fg = lualine_colors.black },
-    },
-    inactive = {
-        a = { bg = lualine_colors.darkgray, fg = lualine_colors.gray, gui = "bold" },
-        b = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
-        c = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
-    },
-}
+        local theme = {
+            normal = {
+                a = { bg = lualine_colors.gray, fg = lualine_colors.black },
+                b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
+                c = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
+            },
+            insert = {
+                a = { bg = lualine_colors.blue, fg = lualine_colors.black },
+                b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
+                c = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
+            },
+            visual = {
+                a = { bg = lualine_colors.yellow, fg = lualine_colors.black },
+                b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
+                c = { bg = lualine_colors.inactivegray, fg = lualine_colors.black },
+            },
+            replace = {
+                a = { bg = lualine_colors.red, fg = lualine_colors.black },
+                b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
+                c = { bg = lualine_colors.black, fg = lualine_colors.white },
+            },
+            command = {
+                a = { bg = lualine_colors.green, fg = lualine_colors.black },
+                b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
+                c = { bg = lualine_colors.inactivegray, fg = lualine_colors.black },
+            },
+            inactive = {
+                a = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
+                b = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
+                c = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
+            },
+        }
 
+        require("lualine").setup({
+            options = { theme = theme },
+            sections = {
+                lualine_x = { {
+                    "aerial",
+                } },
+            },
+        })
+    end
+})
+
+-- load default first
 require("lualine").setup({
-    options = { theme = danger_lualine },
     sections = {
         lualine_x = { {
             "aerial",
@@ -1222,3 +1212,39 @@ require("lspconfig.ui.windows").default_options.border = "rounded"
 
 -- Comment.nvim
 require("Comment").setup()
+
+-- indent.blankline
+-- vim.g.indent_blankline_char = "▏"
+vim.g.indent_blankline_enabled = false
+
+require("indent_blankline").setup({
+    -- for example, context is off by default, use this to turn it on
+    show_current_context = true,
+    show_current_context_start = true,
+})
+
+vim.keymap.set("n", "<leader>l", function()
+    vim.cmd("IndentBlanklineToggle")
+    vim.cmd.set("list!")
+end)
+
+-- disable indentblankline in Startify
+vim.cmd([[
+    augroup DisableIndentBlankline
+        autocmd!
+        autocmd FileType startify IndentBlanklineDisable
+    augroup END
+]])
+
+-- dadbod ui
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "sql", "mysql", "plsql", "redis" },
+    callback = function()
+        cmp.setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
+    end,
+})
+
+-- set the connections, maps and config edit command
+vim.g.dbs = dbs
+vim.keymap.set("n", "<leader>db", "<Cmd>DBUIToggle<Cr>")
+vim.api.nvim_create_user_command("DBConfig", file_utils.edit_dbs_config, {})

@@ -9,20 +9,20 @@ vim.g.font_size = vim.g.default_font_size
 vim.g.font_set_by_user = false
 
 -- show syntax highlighting group useful for theme development
-function M.SynStack()
+function M.syn_stack()
     vim.cmd([[
         echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
     ]])
 end
 
-function M.HiCo(group, kind)
+function M.hi_co(group, kind)
     return vim.fn.synIDattr(vim.fn.hlID(group), kind)
 end
 
 -- FIXME `set_font` can only be called once in the init process
 -- if not it would give errors and you can only use it once nvim
 -- is started
-function M.SetFont(name, size)
+function M.set_font(name, size)
     vim.g.font_name = name
     vim.g.font_size = size
 
@@ -44,29 +44,28 @@ function M.SetFont(name, size)
     end
 end
 
-function M.ShowFont()
+function M.show_font()
     require("notify").notify("Font: " .. vim.g.font_name .. ":" .. vim.g.font_size)
 end
 
-function M.ChangeFont(name)
-    M.SetFont(name, vim.g.font_size)
+function M.change_font(name)
+    M.set_font(name, vim.g.font_size)
 end
 
-function M.ChangeFontSize(size)
-    M.SetFont(vim.g.font_name, size)
+function M.change_font_size(size)
+    M.set_font(vim.g.font_name, size)
 end
 
-function M.IncreaseFontSize()
-    M.ChangeFontSize(vim.g.font_size + 1)
+function M.increase_font_size()
+    M.change_font_size(vim.g.font_size + 1)
 end
 
-function M.DecreaseFontSize()
-    M.ChangeFontSize(vim.g.font_size - 1)
+function M.decrease_font_size()
+    M.change_font_size(vim.g.font_size - 1)
 end
 
-function M.DefaultFont()
-    M.SetFont(vim.g.default_font_name, vim.g.default_font_size)
+function M.default_font()
+    M.set_font(vim.g.default_font_name, vim.g.default_font_size)
 end
-
 
 return M

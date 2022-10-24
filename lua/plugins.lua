@@ -1,6 +1,6 @@
 return require("packer").startup(function()
-    use("igorgue/danger") -- danger colorscheme
-    -- use "~/Code/danger" -- danger colorscheme (for development)
+    -- use("igorgue/danger") -- danger colorscheme
+    use "~/Code/danger" -- danger colorscheme (for development)
 
     use("wbthomason/packer.nvim") -- packer update itself
     use("nvim-telescope/telescope.nvim") -- nice interface for LSP functions (among other things)
@@ -16,6 +16,9 @@ return require("packer").startup(function()
 
     -- oldest trick to select blocks with vii
     use("michaeljsmith/vim-indent-object") -- selection of indentation blocks
+
+    -- show indentation lines
+    use("lukas-reineke/indent-blankline.nvim")
 
     use("stevearc/aerial.nvim") -- outline plugin
 
@@ -123,4 +126,13 @@ return require("packer").startup(function()
     use("saadparwaiz1/cmp_luasnip") -- snippets required for hrsh7th's plugins
     use("tamago324/cmp-zsh")
     use("uga-rosa/cmp-dictionary")
+    use("amarakon/nvim-cmp-fonts")
+
+    -- dadbod
+    use("tpope/vim-dadbod")
+    use("kristijanhusak/vim-dadbod-ui")
+    use("kristijanhusak/vim-dadbod-completion")
+
+    -- redis
+    use("junegunn/vim-redis")
 end)
