@@ -23,6 +23,11 @@ end
 -- if not it would give errors and you can only use it once nvim
 -- is started
 function M.set_font(name, size)
+    -- only supports nvim-qt
+    if vim.fn.exists(":GuiFont") == 0 then
+        return
+    end
+
     vim.g.font_name = name
     vim.g.font_size = size
 
@@ -30,13 +35,8 @@ function M.set_font(name, size)
         vim.g.font_size = 1
     end
 
-    if vim.fn.exists(":GuiFont") ~= 0 then
-        vim.api.nvim_command("GuiFont! " .. vim.g.font_name .. ":h" .. vim.g.font_size)
-    end
-
-    -- TODO Add support for other Neovim GUIs here
-
     -- show notification if font is set by user after initial startup
+    vim.api.nvim_command("GuiFont! " .. vim.g.font_name .. ":h" .. vim.g.font_size)
     if vim.g.font_set_by_user then
         vim.api.nvim_command("ShowFont")
     else
@@ -66,6 +66,54 @@ end
 
 function M.default_font()
     M.set_font(vim.g.default_font_name, vim.g.default_font_size)
+end
+
+function M.lualine_theme()
+    local lualine_colors = {
+        black = M.hi_co("Normal", "bg"),
+        white = M.hi_co("Normal", "fg"),
+        red = M.hi_co("ErrorMsg", "fg"),
+        green = M.hi_co("Label", "fg"),
+        blue = M.hi_co("CursorLineNr", "fg"),
+        yellow = M.hi_co("Function", "fg"),
+        gray = M.hi_co("PMenu", "fg"),
+        darkgray = M.hi_co("LspCodeLens", "fg"),
+        lightgray = M.hi_co("Visual", "bg"),
+        inactivegray = M.hi_co("TabLine", "fg"),
+    }
+
+    return {
+        normal = {
+            a = { bg = lualine_colors.gray, fg = lualine_colors.black },
+            b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
+            c = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
+        },
+        insert = {
+            a = { bg = lualine_colors.blue, fg = lualine_colors.black },
+            b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
+            c = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
+        },
+        visual = {
+            a = { bg = lualine_colors.yellow, fg = lualine_colors.black },
+            b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
+            c = { bg = lualine_colors.inactivegray, fg = lualine_colors.black },
+        },
+        replace = {
+            a = { bg = lualine_colors.red, fg = lualine_colors.black },
+            b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
+            c = { bg = lualine_colors.black, fg = lualine_colors.white },
+        },
+        command = {
+            a = { bg = lualine_colors.green, fg = lualine_colors.black },
+            b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
+            c = { bg = lualine_colors.inactivegray, fg = lualine_colors.black },
+        },
+        inactive = {
+            a = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
+            b = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
+            c = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
+        },
+    }
 end
 
 return M

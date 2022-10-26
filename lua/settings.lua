@@ -37,7 +37,8 @@ vim.opt.wildignore:append(
 vim.opt.undofile = true
 
 vim.opt.tags = "tags;" .. home .. "/.config/nvim/tags/;" .. home .. "/tmp/tags/" -- find ctags
-vim.opt.listchars = [[tab:▸\ ,eol:¬]] -- listchars for invisibles
+-- vim.opt.listchars = [[tab:▸\ ,space:⋅,eol:↴]] -- listchars for invisibles
+vim.opt.listchars = [[tab:▸\ ,eol:↴]] -- listchars for invisibles
 vim.opt.mouse:append({ a = true }) -- mouse all
 vim.opt.ls = 2 -- status line always show
 vim.opt.scrolloff = 5 -- show 5 lines before cursor always
@@ -166,7 +167,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.notify.setup({
             background_colour = ui_utils.hi_co("Normal", "bg"),
         })
-    end
+    end,
 })
 
 -- sets tabline without the "X" for close, this is done for aesthetic reasons
@@ -430,25 +431,9 @@ require("trouble").setup({
     use_diagnostic_signs = true,
 })
 
--- toggle trouble with <leader>t or <leader>q
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>q",
-    "<cmd>TroubleToggle document_diagnostics<cr>",
-    opts
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>t",
-    "<cmd>TroubleToggle document_diagnostics<cr>",
-    opts
-)
-vim.api.nvim_set_keymap(
-    "n",
-    "<leader>T",
-    "<cmd>TroubleToggle workspace_diagnostics<cr>",
-    opts
-)
+-- toggle trouble with t (for local file) or T (for all files)
+vim.api.nvim_set_keymap("n", "<leader>t", "<cmd>TroubleToggle document_diagnostics<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>T", "<cmd>TroubleToggle workspace_diagnostics<cr>", opts)
 
 -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
 local formatter_util = require("formatter.util")
@@ -562,7 +547,6 @@ vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 -- saga
 local saga = require("lspsaga")
 
--- borders rounded and only show
 saga.init_lsp_saga({
     border_style = "rounded",
     code_action_icon = " ",
@@ -578,6 +562,16 @@ saga.init_lsp_saga({
         auto_refresh = false,
     },
 })
+
+-- set keymaps from lsp saga
+local sagaopts = { silent = true }
+
+vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", sagaopts)
+vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", sagaopts)
+vim.keymap.set("n", "<leader>cd", "<cmp>Lspsaga peek_definition<CR>", sagaopts)
+vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", sagaopts)
+vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", sagaopts)
+vim.keymap.set("n", "<leader>ck", "<cmd>Lspsaga hover_doc<CR>", sagaopts)
 
 -- Use an LSPOnAttach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -607,15 +601,6 @@ function LspOnAttach(client, bufnr)
     vim.keymap.set("n", "<leader>wl", function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, bufopts)
-
-    -- set keymaps from lsp saga
-    vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", bufopts)
-    vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", bufopts)
-    vim.keymap.set("n", "<leader>cd", "<cmp>Lspsaga peek_definition<CR>", bufopts)
-    vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", bufopts)
-    vim.keymap.set("n", "<leader>gh", "<cmd>Lspsaga lsp_finder<CR>", bufopts)
-    vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", bufopts)
-    vim.keymap.set("n", "<leader>ck", "<cmd>Lspsaga hover_doc<CR>", bufopts)
 
     -- aerial
     require("aerial").on_attach(client, bufnr)
@@ -726,7 +711,10 @@ else
 end
 
 -- semshi config
-vim.g["semshi#simplify_markup"] = 0
+vim.g["semshi#simplify_markup"] = false
+vim.g["semshi#mark_selected_nodes"] = 1
+vim.g["semshi#error_sign"] = false
+vim.g["semshi#always_update_all_highlights"] = true
 
 -- csharp
 -- use vscode omnisharp install
@@ -785,7 +773,6 @@ augroup omnisharp_commands
 
   " Find all code errors/warnings for the current solution and populate the quickfix window
   autocmd FileType cs nmap <silent> <buffer> <leader>osgcc <Plug>(omnisharp_global_code_check)
-  " Contextual code actions (uses fzf, vim-clap, CtrlP or unite.vim selector when available)
   autocmd FileType cs nmap <silent> <buffer> <leader>osca <Plug>(omnisharp_code_actions)
   autocmd FileType cs xmap <silent> <buffer> <leader>osca <Plug>(omnisharp_code_actions)
   " Repeat the last code action performed (does not use a selector)
@@ -808,24 +795,22 @@ vim.g.OmniSharp_diagnostic_showid = 1
 vim.g.OmniSharp_highlighting = 3
 vim.g.OmniSharp_diagnostic_overrides = "None"
 vim.g.OmniSharp_popup = 1
--- vim.g.OmniSharp_selector_findusages = "fzf"
--- vim.g.OmniSharp_selector_ui = "fzf"
 vim.g.OmniSharp_timeout = 60000
 vim.g.OmniSharp_server_type = "roslyn"
 vim.g.OmniSharp_server_use_net6 = 1
 vim.g.OmniSharp_server_stdio = 1
 
 -- elixir
--- require("lspconfig").elixirls.setup({
---     capabilities = LspCapabilities,
---     on_attach = LspOnAttach,
---     settings = {
---         dialyzerEnabled = true,
---         fetchDeps = true,
---         enableTestLenses = true,
---         suggestSpecs = true,
---     },
--- })
+require("lspconfig").elixirls.setup({
+    capabilities = LspCapabilities,
+    on_attach = LspOnAttach,
+    settings = {
+        dialyzerEnabled = true,
+        fetchDeps = true,
+        enableTestLenses = true,
+        suggestSpecs = true,
+    },
+})
 
 -- another plugin
 local elixir = require("elixir")
@@ -842,40 +827,24 @@ elixir.setup({
         fetchDeps = true,
         enableTestLenses = true,
         suggestSpecs = true,
-        suggestFromDocs = true,
-        suggestFromUsage = true,
-        suggestFunctionCalls = true,
-        suggestModules = true,
-        suggestVariables = true,
-        suggestCalls = true,
-        suggestMixTasks = true,
-        suggestNewMixTasks = true,
-        suggestMixAliases = true,
-        suggestNewMixAliases = true,
-        suggestProjectConfig = true,
-        suggestProjectDependencies = true,
-        suggestProjectTasks = true,
-        suggestProjectAliases = true,
-        suggestProjectMixTasks = true,
-        suggestProjectMixAliases = true,
-        suggestProjectNewMixTasks = true,
-        suggestProjectNewMixAliases = true,
     }),
 
     capabilities = LspCapabilities,
     on_attach = function(client, bufnr)
+        local elixir_opts = { noremap = true, silent = true, buffer = bufnr }
+
         -- remove the pipe operator
-        vim.keymap.set("n", "<leader>fp", ":ElixirFromPipe<cr>", opts)
+        vim.keymap.set("n", "<leader>fp", ":ElixirFromPipe<cr>", elixir_opts)
 
         -- add the pipe operator
-        vim.keymap.set("n", "<leader>tp", ":ElixirToPipe<cr>", opts)
-        vim.keymap.set("v", "<leader>em", ":ElixirExpandMacro<cr>", opts)
+        vim.keymap.set("n", "<leader>tp", ":ElixirToPipe<cr>", elixir_opts)
+        vim.keymap.set("v", "<leader>em", ":ElixirExpandMacro<cr>", elixir_opts)
 
         -- keybinds
-        vim.keymap.set("n", "gr", ":References<cr>", opts)
-        vim.keymap.set("n", "g0", ":DocumentSymbols<cr>", opts)
-        vim.keymap.set("n", "gW", ":WorkspaceSymbols<cr>", opts)
-        vim.keymap.set("n", "<leader>d", ":Diagnostics<cr>", opts)
+        vim.keymap.set("n", "gr", ":References<cr>", elixir_opts)
+        vim.keymap.set("n", "g0", ":DocumentSymbols<cr>", elixir_opts)
+        vim.keymap.set("n", "gW", ":WorkspaceSymbols<cr>", elixir_opts)
+        vim.keymap.set("n", "<leader>d", ":Diagnostics<cr>", elixir_opts)
 
         LspOnAttach(client, bufnr)
     end,
@@ -1071,61 +1040,15 @@ require("gitsigns").setup()
 vim.api.nvim_create_autocmd("ColorScheme", {
     pattern = "*",
     callback = function()
-        local lualine_colors = {
-            black = ui_utils.hi_co("Normal", "bg"),
-            white = ui_utils.hi_co("Normal", "fg"),
-            red = ui_utils.hi_co("ErrorMsg", "fg"),
-            green = ui_utils.hi_co("Label", "fg"),
-            blue = ui_utils.hi_co("CursorLineNr", "fg"),
-            yellow = ui_utils.hi_co("Function", "fg"),
-            gray = ui_utils.hi_co("PMenu", "fg"),
-            darkgray = ui_utils.hi_co("LspCodeLens", "fg"),
-            lightgray = ui_utils.hi_co("Visual", "bg"),
-            inactivegray = ui_utils.hi_co("TabLine", "fg"),
-        }
-
-        local theme = {
-            normal = {
-                a = { bg = lualine_colors.gray, fg = lualine_colors.black },
-                b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
-                c = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
-            },
-            insert = {
-                a = { bg = lualine_colors.blue, fg = lualine_colors.black },
-                b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
-                c = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
-            },
-            visual = {
-                a = { bg = lualine_colors.yellow, fg = lualine_colors.black },
-                b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
-                c = { bg = lualine_colors.inactivegray, fg = lualine_colors.black },
-            },
-            replace = {
-                a = { bg = lualine_colors.red, fg = lualine_colors.black },
-                b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
-                c = { bg = lualine_colors.black, fg = lualine_colors.white },
-            },
-            command = {
-                a = { bg = lualine_colors.green, fg = lualine_colors.black },
-                b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
-                c = { bg = lualine_colors.inactivegray, fg = lualine_colors.black },
-            },
-            inactive = {
-                a = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
-                b = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
-                c = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
-            },
-        }
-
         require("lualine").setup({
-            options = { theme = theme },
+            options = { theme = ui_utils.lualine_theme() },
             sections = {
                 lualine_x = { {
                     "aerial",
                 } },
             },
         })
-    end
+    end,
 })
 
 -- load default first
@@ -1160,7 +1083,7 @@ require("nvim-treesitter.configs").setup({
     highlight = {
         enable = true,
         -- sometimes we need to disable some of them...
-        -- disable = { "dart", "python", "elixir" },
+        disable = { "dart", "python", "elixir" },
         additional_vim_regex_highlighting = true,
     },
     markid = { enable = true },
@@ -1185,23 +1108,6 @@ require("colorizer").setup({ "*" }, {
     -- Available modes: foreground, background
     mode = "foreground", -- Set the display mode.
 })
-
--- fzf colors
-vim.g.fzf_colors = {
-    fg = { "fg", "Normal" },
-    bg = { "bg", "Normal" },
-    hl = { "fg", "Comment" },
-    ["fg+"] = { "fg", "CursorLine", "CursorColumn", "Normal" },
-    ["bg+"] = { "bg", "CursorLine", "CursorColumn" },
-    ["hl+"] = { "fg", "Statement" },
-    info = { "fg", "PreProc" },
-    border = { "fg", "VertSplit" },
-    prompt = { "fg", "Conditional" },
-    pointer = { "fg", "Exception" },
-    marker = { "fg", "Keyword" },
-    spinner = { "fg", "Label" },
-    header = { "fg", "Comment" },
-}
 
 -- aerial
 require("aerial").setup({})
@@ -1237,6 +1143,7 @@ vim.cmd([[
 ]])
 
 -- dadbod ui
+vim.g.dbs = dbs
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "sql", "mysql", "plsql", "redis" },
     callback = function()
@@ -1245,6 +1152,5 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- set the connections, maps and config edit command
-vim.g.dbs = dbs
 vim.keymap.set("n", "<leader>db", "<Cmd>DBUIToggle<Cr>")
 vim.api.nvim_create_user_command("DBConfig", file_utils.edit_dbs_config, {})
