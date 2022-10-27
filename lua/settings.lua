@@ -601,9 +601,6 @@ function LspOnAttach(client, bufnr)
     vim.keymap.set("n", "<leader>wl", function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, bufopts)
-
-    -- aerial
-    require("aerial").on_attach(client, bufnr)
 end
 
 -- diagnostics style
@@ -1019,17 +1016,17 @@ dap.adapters.elixir = {
 
 dap.configurations.elixir = {
     {
-        type = "mix_task",
-        name = "mix test",
-        task = "test",
+        type = "elixir",
+        name = "Run Elixir Program",
+        task = "phx.server",
         taskArgs = { "--trace" },
         request = "launch",
         startApps = true, -- for Phoenix projects
         projectDir = "${workspaceFolder}",
-        requireFiles = {
-            "test/**/test_helper.exs",
-            "test/**/*_test.exs",
-        },
+        -- requireFiles = {
+        --     "test/**/test_helper.exs",
+        --     "test/**/*_test.exs",
+        -- },
     },
 }
 
