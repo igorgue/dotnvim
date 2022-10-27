@@ -147,8 +147,10 @@ vim.cmd([[
 ]])
 
 -- go to config
-vim.api.nvim_create_user_command("Config", file_utils.edit_conf, {})
-vim.api.nvim_create_user_command("CdConfig", file_utils.cd_conf, {})
+vim.api.nvim_create_user_command("Conf", file_utils.cd_conf, {})
+vim.api.nvim_create_user_command("ConfInit", file_utils.edit_init, {})
+vim.api.nvim_create_user_command("ConfSettings", file_utils.edit_settings, {})
+vim.api.nvim_create_user_command("ConfPlugins", file_utils.edit_plugins, {})
 
 -- theme helpers
 vim.api.nvim_set_keymap("n", "<leader>x", "<Cmd>TSHighlightCapturesUnderCursor<CR>", opts)
@@ -356,19 +358,19 @@ cmp.setup({
         format = require("lspkind").cmp_format({
             with_text = false,
             menu = {
-                nvim_lsp = "[LSP]",
-                nvim_lua = "[Lua]",
-                luasnip = "[LuaSnip]",
-                buffer = "[Buffer]",
-                path = "[Path]",
-                calc = "[Calc]",
-                vsnip = "[VSnip]",
-                nvim_lsp_signature_help = "[LSP]",
-                treesitter = "[Treesitter]",
-                spell = "[Spell]",
-                dictionary = "[Dictionary]",
-                zsh = "[Zsh]",
-                ["vim-dadbod-completion"] = "[DB]",
+                nvim_lsp = "[lsp]",
+                nvim_lua = "[lua]",
+                luasnip = "[luasnip]",
+                buffer = "[buffer]",
+                path = "[path]",
+                calc = "[calc]",
+                vsnip = "[vsnip]",
+                nvim_lsp_signature_help = "[lsp]",
+                treesitter = "[treesitter]",
+                spell = "[spell]",
+                dictionary = "[dictionary]",
+                zsh = "[zsh]",
+                ["vim-dadbod-completion"] = "[db]",
             },
         }),
     },
@@ -625,6 +627,17 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 require("lspconfig").pyright.setup({
     capabilities = LspCapabilities,
     on_attach = LspOnAttach,
+    settings = {
+        python = {
+            analysis = {
+                autoSearchPaths = true,
+                diagnosticMode = "workspace",
+                useLibraryCodeForTypes = true,
+                typeCheckingMode = "basic",
+                reportUnnecessaryTypeIgnoreComment = true,
+            },
+        },
+    },
 })
 
 -- vala
@@ -659,7 +672,7 @@ if vim.fn.executable("flutter") == 1 then
         },
         dev_log = {
             enabled = true,
-            open_cmd = "botright 10sp",
+            open_cmd = "botright 5sp",
         },
         lsp = {
             on_attach = function(client, bufnr)
@@ -690,8 +703,8 @@ if vim.fn.executable("flutter") == 1 then
             },
         },
         debugger = {
-            enabled = false,
-            run_via_dap = false, -- use dap instead of a plenary job to run flutter apps
+            enabled = true,
+            run_via_dap = true, -- use dap instead of a plenary job to run flutter apps
             -- if empty dap will not stop on any exceptions, otherwise it will stop on those specified
             -- see |:help dap.set_exception_breakpoints()| for more info
             exception_breakpoints = {},
@@ -1141,6 +1154,8 @@ vim.cmd([[
 
 -- dadbod ui
 vim.g.dbs = dbs
+vim.g.db_ui_use_nerd_fonts = true
+
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "sql", "mysql", "plsql", "redis" },
     callback = function()
