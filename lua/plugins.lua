@@ -3,7 +3,10 @@ return require("packer").startup(function()
     -- use "~/Code/danger" -- danger colorscheme (for development)
 
     use("wbthomason/packer.nvim") -- packer update itself
-    use("nvim-telescope/telescope.nvim") -- nice interface for LSP functions (among other things)
+
+    use("nvim-telescope/telescope.nvim") -- nice interface for fuzzy finding things
+
+    use("gbrlsnchs/telescope-lsp-handlers.nvim") -- lsp handlers for telescope
 
     use("github/copilot.vim") -- Github copilot
 
@@ -33,6 +36,11 @@ return require("packer").startup(function()
     use("tpope/vim-surround") -- wrap objects with text
     use("tpope/vim-git") -- git stuff from tpope
     use("tpope/vim-fugitive") -- more git stuff
+    use("tpope/vim-dadbod") -- dadbod
+
+    -- dadbod plugins
+    use("kristijanhusak/vim-dadbod-ui")
+    use("kristijanhusak/vim-dadbod-completion")
 
     use("sainnhe/edge") -- light theme
 
@@ -52,14 +60,14 @@ return require("packer").startup(function()
         { run = ":UpdateRemotePlugins" }, -- colors for Python
     })
     use("nvim-lua/plenary.nvim") -- utils for nvim
-    use("gbrlsnchs/telescope-lsp-handlers.nvim")
-    use({
+    use({ -- framework for cool syntax plugins
         "nvim-treesitter/nvim-treesitter",
         { run = ":TSUpdate" },
     })
-    use("nvim-treesitter/playground")
-    use("David-Kunz/markid") -- markid, variables colors
-    use("p00f/nvim-ts-rainbow") -- shows rainbow matching braces
+    use("nvim-treesitter/playground") -- playground for treesitter
+    use("David-Kunz/markid") -- markid, variables colors for treesitter
+    use("p00f/nvim-ts-rainbow") -- shows rainbow matching braces for treesitter
+
     use("lewis6991/gitsigns.nvim") -- changes on git
 
     -- lualine
@@ -68,11 +76,11 @@ return require("packer").startup(function()
     -- mason package manager for lsp and other services
     use({ "williamboman/mason.nvim" })
 
-    -- nice diagnistics menu
-    use("folke/trouble.nvim")
-
     -- mason extensions
     use("williamboman/mason-lspconfig.nvim")
+
+    -- nice diagnistics menu for lsp
+    use("folke/trouble.nvim")
 
     -- saga
     use({
@@ -120,18 +128,13 @@ return require("packer").startup(function()
     use("hrsh7th/cmp-nvim-lua") -- lua support
     use("hrsh7th/cmp-path")
 
-    -- 3rd party hrsh7th's plugins
+    -- nvim-cmp's plugins
     use("f3fora/cmp-spell")
     use("ray-x/cmp-treesitter")
     use("saadparwaiz1/cmp_luasnip") -- snippets required for hrsh7th's plugins
     use("tamago324/cmp-zsh")
     use("uga-rosa/cmp-dictionary")
     use("amarakon/nvim-cmp-fonts")
-
-    -- dadbod
-    use("tpope/vim-dadbod")
-    use("kristijanhusak/vim-dadbod-ui")
-    use("kristijanhusak/vim-dadbod-completion")
 
     -- redis
     use("junegunn/vim-redis")
