@@ -32,7 +32,6 @@ return require("packer").startup(function()
     use("numToStr/Comment.nvim") -- comment plugin
 
     -- tpope
-    use("tpope/vim-sensible") -- sensible default vim settings by tpope
     use("tpope/vim-surround") -- wrap objects with text
     use("tpope/vim-git") -- git stuff from tpope
     use("tpope/vim-fugitive") -- more git stuff
@@ -43,8 +42,6 @@ return require("packer").startup(function()
     use("kristijanhusak/vim-dadbod-completion")
 
     use("sainnhe/edge") -- light theme
-
-    use("sheerun/vim-polyglot") -- syntax hi collection
 
     -- kyazdani42's plugins
     use({
@@ -79,8 +76,14 @@ return require("packer").startup(function()
     -- mason extensions
     use("williamboman/mason-lspconfig.nvim")
 
-    -- nice diagnistics menu for lsp
-    use("folke/trouble.nvim")
+    -- folke plugins
+    use("folke/trouble.nvim") -- nice diagnistics menu for lsp
+    use("folke/todo-comments.nvim") -- tasks comments, "todo" comments
+    use("folke/which-key.nvim") -- shows keybindings
+    use("folke/noice.nvim") -- noice for neovim
+
+    -- nui needed for noice
+    use("MunifTanjim/nui.nvim")
 
     -- saga
     use({

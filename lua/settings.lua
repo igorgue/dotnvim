@@ -47,12 +47,12 @@ vim.opt.linebreak = true -- show line breaks
 vim.opt.wrap = true -- wrap lines
 vim.opt.title = true -- title in the console
 vim.opt.ttyfast = true -- smoother changes
-vim.opt.shortmess = "atI" -- abbreviate messages
+vim.opt.shortmess = "atIF" -- abbreviate messages
 vim.opt.backupdir = "/tmp" -- backup directory
 vim.opt.showtabline = 1 -- always show the tab line
 vim.opt.hidden = true -- has to do with undo in buffer I think...
 vim.opt.cursorline = true -- show cursor where my cursor is...
-vim.opt.lazyredraw = true -- better redrawing of text
+vim.opt.lazyredraw = false -- better redrawing of text
 vim.opt.termguicolors = true -- 24 bit term gui colors
 vim.opt.modeline = true -- use modeline overrides
 vim.opt.spell = false -- set spell
@@ -159,8 +159,9 @@ vim.keymap.set("n", "<leader>X", ui_utils.syn_stack, opts)
 vim.notify = require("notify")
 vim.notify.setup({
     render = "minimal",
-    timeout = 1500,
+    timeout = 500,
     stages = "fade",
+    background_colour = "#000000",
 })
 
 vim.api.nvim_create_autocmd("ColorScheme", {
@@ -237,10 +238,11 @@ require("telescope").setup({
     },
 })
 
-vim.api.nvim_set_keymap("n", "<leader>p", ":Telescope git_files<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>P", ":Telescope live_grep<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>n", ":Telescope find_files<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>/", ":Telescope current_buffer_fuzzy_find<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>p", "<Cmd>Telescope git_files<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>P", "<Cmd>Telescope live_grep<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>n", "<Cmd>Telescope find_files<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>/", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>N", "<Cmd>Telescope notify<CR>", {})
 
 -- windowze config
 if vim.fn.has("win32") == 1 then
@@ -558,11 +560,11 @@ saga.init_lsp_saga({
     },
     rename_in_select = false,
     symbol_in_winbar = {
-        enable = false,
+        enable = true,
     },
     show_outline = {
         enable = false,
-        auto_refresh = false,
+        auto_refresh = true,
     },
 })
 
@@ -596,9 +598,9 @@ function LspOnAttach(client, bufnr)
     vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
     vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
     vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
+    -- vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
     vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
     vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
-    vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run, bufopts)
     vim.keymap.set("n", "<leader>r", vim.lsp.codelens.run, bufopts)
 
     vim.keymap.set("n", "<leader>wl", function()
@@ -1167,3 +1169,9 @@ vim.api.nvim_create_autocmd("FileType", {
 -- set the connections, maps and config edit command
 vim.keymap.set("n", "<leader>db", "<Cmd>DBUIToggle<Cr>")
 vim.api.nvim_create_user_command("DBConfig", file_utils.edit_dbs_config, {})
+
+-- todo comments
+require("todo-comments").setup()
+
+-- noice
+require("noice").setup()
