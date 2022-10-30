@@ -28,7 +28,7 @@ if vim.fn.exists(":GuiShowContextMenu") ~= 0 then
     vim.api.nvim_set_keymap("n", "<RightMouse>", ":call GuiShowContextMenu()<CR>", opts)
     vim.api.nvim_set_keymap("i", "<RightMouse>", "<Esc>:call GuiShowContextMenu()<CR>", opts)
     vim.api.nvim_set_keymap("x", "<RightMouse>", ":call GuiShowContextMenu()<CR>gv", opts)
-    vim.api.nvim_set_keymap("s", "<RightMouse>", "<C-G>:call GuiShowContextMenu()<CR>gv", opts)
+    vim.api.nvim_set_keymap("s", "<RightMouse>", "<C-G><Cmd>GuiShowContextMenu()<CR>gv", opts)
 end
 
 if vim.fn.exists(":GuiScrollBar") ~= 0 then

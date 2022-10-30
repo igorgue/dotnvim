@@ -19,7 +19,7 @@ function M.hi_co(group, kind)
     return vim.fn.synIDattr(vim.fn.hlID(group), kind)
 end
 
--- FIXME `set_font` can only be called once in the init process
+-- FIXME: `set_font` can only be called once in the init process
 -- if not it would give errors and you can only use it once nvim
 -- is started
 function M.set_font(name, size)
@@ -45,7 +45,7 @@ function M.set_font(name, size)
 end
 
 function M.show_font()
-    require("notify").notify("Font: " .. vim.g.font_name .. ":" .. vim.g.font_size)
+    vim.notify("Font: " .. vim.g.font_name .. ":" .. vim.g.font_size)
 end
 
 function M.change_font(name)
@@ -84,32 +84,32 @@ function M.lualine_theme()
 
     return {
         normal = {
-            a = { bg = lualine_colors.gray, fg = lualine_colors.black },
+            a = { bg = lualine_colors.gray, fg = lualine_colors.black, gui = "bold" },
             b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
             c = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
         },
         insert = {
-            a = { bg = lualine_colors.blue, fg = lualine_colors.black },
+            a = { bg = lualine_colors.blue, fg = lualine_colors.black, gui = "bold" },
             b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
             c = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
         },
         visual = {
-            a = { bg = lualine_colors.yellow, fg = lualine_colors.black },
+            a = { bg = lualine_colors.yellow, fg = lualine_colors.black, gui = "bold" },
             b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
             c = { bg = lualine_colors.inactivegray, fg = lualine_colors.black },
         },
         replace = {
-            a = { bg = lualine_colors.red, fg = lualine_colors.black },
+            a = { bg = lualine_colors.red, fg = lualine_colors.black, gui = "bold" },
             b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
             c = { bg = lualine_colors.black, fg = lualine_colors.white },
         },
         command = {
-            a = { bg = lualine_colors.green, fg = lualine_colors.black },
+            a = { bg = lualine_colors.green, fg = lualine_colors.black, gui = "bold" },
             b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
             c = { bg = lualine_colors.inactivegray, fg = lualine_colors.black },
         },
         inactive = {
-            a = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
+            a = { bg = lualine_colors.darkgray, fg = lualine_colors.gray, gui = "bold" },
             b = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
             c = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
         },

@@ -1,4 +1,3 @@
-require("os")
 require("global_settings")
 
 local ui_utils = require("ui_utils")
@@ -59,6 +58,7 @@ vim.opt.spell = false -- set spell
 vim.opt.spelllang = { "en_us" } -- set us spell
 vim.opt.updatetime = 12 -- very low update time for fast fps
 vim.opt.showmode = false -- disable mode since we use lualine
+vim.opt.laststatus = 3
 
 -- some of the main or most used keymaps, a tree and a outline tree
 vim.keymap.set("n", "<leader>1", ":NvimTreeToggle<CR>")
@@ -159,8 +159,8 @@ vim.keymap.set("n", "<leader>X", ui_utils.syn_stack, opts)
 vim.notify = require("notify")
 vim.notify.setup({
     render = "minimal",
-    timeout = 500,
-    stages = "fade",
+    timeout = 1250,
+    stages = "static",
     background_colour = "#000000",
 })
 
@@ -534,10 +534,6 @@ vim.api.nvim_set_keymap("n", "<leader>F", ":FormatWrite<CR>", opts)
 -- setup LSP
 local lspconfig_util = require("lspconfig").util
 
--- LSP Capabilities
-LspCapabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-LspCapabilities.textDocument.completion.completionItem.snippetSupport = true
-
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.cmd([[
@@ -578,36 +574,6 @@ vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", sagaopts)
 vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", sagaopts)
 vim.keymap.set("n", "<leader>ck", "<cmd>Lspsaga hover_doc<CR>", sagaopts)
 
--- Use an LSPOnAttach function to only map the following keys
--- after the language server attaches to the current buffer
-function LspOnAttach(client, bufnr)
-    -- Enable completion triggered by <c-x><c-o>
-    -- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-    -- Mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
-
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-    vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, bufopts)
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set("n", "<C-\\>", vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-    vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-    -- vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-    vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, bufopts)
-    vim.keymap.set("n", "<leader>r", vim.lsp.codelens.run, bufopts)
-
-    vim.keymap.set("n", "<leader>wl", function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, bufopts)
-end
-
 -- diagnostics style
 vim.diagnostic.config({
     float = { border = "rounded" },
@@ -628,8 +594,8 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 
 -- python
 require("lspconfig").pyright.setup({
-    capabilities = LspCapabilities,
-    on_attach = LspOnAttach,
+    capabilities = lsp_utils.capabilities,
+    on_attach = lsp_utils.on_attach,
     settings = {
         python = {
             analysis = {
@@ -645,8 +611,8 @@ require("lspconfig").pyright.setup({
 
 -- vala
 require("lspconfig").vala_ls.setup({
-    capabilities = LspCapabilities,
-    on_attach = LspOnAttach,
+    capabilities = lsp_utils.capabilities,
+    on_attach = lsp_utils.on_attach,
 })
 
 -- dart
@@ -661,6 +627,7 @@ if vim.fn.executable("flutter") == 1 then
     require("flutter-tools").setup({
         ui = {
             border = "rounded",
+            notification_style = "native",
         },
         widget_guides = {
             enabled = true,
@@ -679,7 +646,7 @@ if vim.fn.executable("flutter") == 1 then
         },
         lsp = {
             on_attach = function(client, bufnr)
-                LspOnAttach(client, bufnr)
+                lsp_utils.on_attach(client, bufnr)
 
                 vim.keymap.set("n", "<leader>2", ":FlutterOutlineToggle<CR>", { buffer = true, noremap = true })
 
@@ -692,13 +659,13 @@ if vim.fn.executable("flutter") == 1 then
 
                 require("flutter-tools").lsp_on_attach(client, bufnr)
             end,
-            capabilities = LspCapabilities,
+            capabilities = lsp_utils.capabilities,
             color = {
                 enabled = true,
                 background = true,
             },
             settings = {
-                showTodos = true,
+                showTodos = false,
                 completeFunctionCalls = true,
                 updateImportsOnRename = true,
                 enableSnippets = true,
@@ -707,10 +674,14 @@ if vim.fn.executable("flutter") == 1 then
         },
         debugger = {
             enabled = true,
-            run_via_dap = true, -- use dap instead of a plenary job to run flutter apps
-            -- if empty dap will not stop on any exceptions, otherwise it will stop on those specified
-            -- see |:help dap.set_exception_breakpoints()| for more info
-            exception_breakpoints = {},
+            -- run_via_dap = true, -- use dap instead of a plenary job to run flutter apps
+            -- -- if empty dap will not stop on any exceptions, otherwise it will stop on those specified
+            -- -- see |:help dap.set_exception_breakpoints()| for more info
+            -- exception_breakpoints = {},
+            register_configurations = function(_)
+                require("dap").configurations.dart = {}
+                require("dap.ext.vscode").load_launchjs()
+            end
         },
     })
 
@@ -718,8 +689,8 @@ if vim.fn.executable("flutter") == 1 then
 else
     -- If not flutter, use dartls which is optional
     require("lspconfig").dartls.setup({
-        capabilities = LspCapabilities,
-        on_attach = LspOnAttach,
+        capabilities = lsp_utils.capabilities,
+        on_attach = lsp_utils.on_attach,
     })
 end
 
@@ -733,8 +704,8 @@ vim.g["semshi#always_update_all_highlights"] = true
 -- use vscode omnisharp install
 -- local omnisharp_dll = home .. "/.vscode/extensions/ms-dotnettools.csharp-1.25.0-linux-x64/.omnisharp/1.39.0-net6.0/OmniSharp.dll"
 require("lspconfig").omnisharp.setup({
-    capabilities = LspCapabilities,
-    on_attach = LspOnAttach,
+    capabilities = lsp_utils.capabilities,
+    on_attach = lsp_utils.on_attach,
 
     handlers = {
         ["textDocument/definition"] = require("omnisharp_extended").handler,
@@ -815,8 +786,8 @@ vim.g.OmniSharp_server_stdio = 1
 
 -- elixir
 require("lspconfig").elixirls.setup({
-    capabilities = LspCapabilities,
-    on_attach = LspOnAttach,
+    capabilities = lsp_utils.capabilities,
+    on_attach = lsp_utils.on_attach,
     settings = {
         dialyzerEnabled = true,
         fetchDeps = true,
@@ -842,7 +813,7 @@ elixir.setup({
         suggestSpecs = true,
     }),
 
-    capabilities = LspCapabilities,
+    capabilities = lsp_utils.capabilities,
     on_attach = function(client, bufnr)
         local elixir_opts = { noremap = true, silent = true, buffer = bufnr }
 
@@ -859,38 +830,38 @@ elixir.setup({
         vim.keymap.set("n", "gW", ":WorkspaceSymbols<cr>", elixir_opts)
         vim.keymap.set("n", "<leader>d", ":Diagnostics<cr>", elixir_opts)
 
-        LspOnAttach(client, bufnr)
+        lsp_utils.on_attach(client, bufnr)
     end,
 })
 
 -- nim
 require("lspconfig").nimls.setup({
-    on_attach = LspOnAttach,
-    capabilities = LspCapabilities,
+    on_attach = lsp_utils.on_attach,
+    capabilities = lsp_utils.capabilities,
 })
 
 -- ts and js
 require("lspconfig").tsserver.setup({
-    on_attach = LspOnAttach,
-    capabilities = LspCapabilities,
+    on_attach = lsp_utils.on_attach,
+    capabilities = lsp_utils.capabilities,
 })
 
 -- java
 require("lspconfig").jdtls.setup({
-    on_attach = LspOnAttach,
-    capabilities = LspCapabilities,
+    on_attach = lsp_utils.on_attach,
+    capabilities = lsp_utils.capabilities,
 })
 
 -- c
 require("lspconfig").clangd.setup({
-    on_attach = LspOnAttach,
-    capabilities = LspCapabilities,
+    on_attach = lsp_utils.on_attach,
+    capabilities = lsp_utils.capabilities,
 })
 
 -- lua
 require("lspconfig").sumneko_lua.setup({
-    capabilities = LspCapabilities,
-    on_attach = LspOnAttach,
+    capabilities = lsp_utils.capabilities,
+    on_attach = lsp_utils.on_attach,
     settings = {
         Lua = {
             runtime = {
@@ -915,8 +886,8 @@ require("lspconfig").sumneko_lua.setup({
 
 -- html
 require("lspconfig").html.setup({
-    capabilities = LspCapabilities,
-    on_attach = LspOnAttach,
+    capabilities = lsp_utils.capabilities,
+    on_attach = lsp_utils.on_attach,
 })
 
 -- dap
@@ -975,51 +946,51 @@ vim.cmd([[
 ]])
 
 -- dap for dart debug adapter
-if vim.fn.executable("flutter") == 1 then
-    dap.adapters.dart = {
-        type = "executable",
-        command = "flutter",
-        args = { "debug_adapter" },
-    }
-
-    dap.configurations.dart = {
-        {
-            type = "dart",
-            request = "launch",
-            name = "Launch Flutter Program",
-            -- The nvim-dap plugin populates this variable with the filename of the current buffer
-            program = "${file}",
-            -- The nvim-dap plugin populates this variable with the editor's current working directory
-            cwd = "${workspaceFolder}",
-            toolArgs = { "-d", "chrome" }, -- for Flutter apps toolArgs
-        },
-        {
-            type = "dart",
-            request = "attach",
-            name = "Attach Flutter Program",
-            cwd = "${workspaceFolder}",
-        },
-    }
-else
-    dap.adapters.dart = {
-        type = "executable",
-        command = "dart",
-        args = { "debug_adapter" },
-    }
-
-    dap.configurations.dart = {
-        {
-            type = "dart",
-            request = "launch",
-            name = "Launch Dart Program",
-            -- The nvim-dap plugin populates this variable with the filename of the current buffer
-            program = "${file}",
-            -- The nvim-dap plugin populates this variable with the editor's current working directory
-            cwd = "${workspaceFolder}",
-            args = { "--help" }, -- for Dart apps this is args
-        },
-    }
-end
+-- if vim.fn.executable("flutter") == 1 then
+--     dap.adapters.dart = {
+--         type = "executable",
+--         command = "flutter",
+--         args = { "debug_adapter" },
+--     }
+--
+--     dap.configurations.dart = {
+--         {
+--             type = "dart",
+--             request = "launch",
+--             name = "Launch Flutter Program",
+--             -- The nvim-dap plugin populates this variable with the filename of the current buffer
+--             program = "${file}",
+--             -- The nvim-dap plugin populates this variable with the editor's current working directory
+--             cwd = "${workspaceFolder}",
+--             toolArgs = { "-d", "chrome" }, -- for Flutter apps toolArgs
+--         },
+--         {
+--             type = "dart",
+--             request = "attach",
+--             name = "Attach Flutter Program",
+--             cwd = "${workspaceFolder}",
+--         },
+--     }
+-- else
+--     dap.adapters.dart = {
+--         type = "executable",
+--         command = "dart",
+--         args = { "debug_adapter" },
+--     }
+--
+--     dap.configurations.dart = {
+--         {
+--             type = "dart",
+--             request = "launch",
+--             name = "Launch Dart Program",
+--             -- The nvim-dap plugin populates this variable with the filename of the current buffer
+--             program = "${file}",
+--             -- The nvim-dap plugin populates this variable with the editor's current working directory
+--             cwd = "${workspaceFolder}",
+--             args = { "--help" }, -- for Dart apps this is args
+--         },
+--     }
+-- end
 
 -- python dap
 require("dap-python").setup(home .. "/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
@@ -1054,11 +1025,20 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     pattern = "*",
     callback = function()
         require("lualine").setup({
-            options = { theme = ui_utils.lualine_theme() },
+            options = {
+                theme = ui_utils.lualine_theme(),
+                component_separators = "|",
+                section_separators = { left = "", right = "" },
+                globalstatus = true,
+            },
             sections = {
-                lualine_x = { {
-                    "aerial",
-                } },
+                lualine_a = {
+                    { "mode", separator = { left = "" }, right_padding = 2 },
+                },
+                lualine_x = { "aerial" },
+                lualine_z = {
+                    { "location", separator = { right = "" }, left_padding = 2 },
+                },
             },
         })
     end,
@@ -1066,10 +1046,18 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
 -- load default first
 require("lualine").setup({
+    options = {
+        component_separators = "|",
+        section_separators = { left = "", right = "" },
+    },
     sections = {
-        lualine_x = { {
-            "aerial",
-        } },
+        lualine_a = {
+            { "mode", separator = { left = "" }, right_padding = 2 },
+        },
+        lualine_x = { "aerial" },
+        lualine_z = {
+            { "location", separator = { right = "" }, left_padding = 2 },
+        },
     },
 })
 
@@ -1123,7 +1111,7 @@ require("colorizer").setup({ "*" }, {
 })
 
 -- aerial
-require("aerial").setup({})
+require("aerial").setup()
 require("telescope").load_extension("aerial")
 
 -- LspInfo rounded borders
@@ -1174,4 +1162,14 @@ vim.api.nvim_create_user_command("DBConfig", file_utils.edit_dbs_config, {})
 require("todo-comments").setup()
 
 -- noice
-require("noice").setup()
+require("noice").setup({
+    presets = {
+        bottom_search = true,
+        command_palette = true,
+        long_message_to_split = true, -- long messages will be sent to a split
+        inc_rename = true, -- enables an input dialog for inc-rename.nvim
+    }
+})
+
+-- whichkey
+require("which-key").setup()
