@@ -60,10 +60,6 @@ vim.opt.updatetime = 12 -- very low update time for fast fps
 vim.opt.showmode = false -- disable mode since we use lualine
 vim.opt.laststatus = 3
 
--- some of the main or most used keymaps, a tree and a outline tree
-vim.keymap.set("n", "<leader>1", ":NvimTreeToggle<CR>")
-vim.keymap.set("n", "<leader>2", ":AerialToggle<CR>")
-
 -- tabs...
 vim.api.nvim_set_keymap("n", "<Tab>j", ":tabnext<CR>", opts)
 vim.api.nvim_set_keymap("n", "tj", ":tabnext<CR>", opts)
@@ -159,7 +155,7 @@ vim.keymap.set("n", "<leader>X", ui_utils.syn_stack, opts)
 vim.notify = require("notify")
 vim.notify.setup({
     render = "minimal",
-    timeout = 1250,
+    timeout = 1500,
     stages = "static",
     background_colour = "#000000",
 })
@@ -226,6 +222,7 @@ local telescope = require("telescope")
 
 telescope.load_extension("lsp_handlers")
 telescope.load_extension("notify")
+telescope.load_extension("noice")
 
 local actions = require("telescope.actions")
 require("telescope").setup({
@@ -242,7 +239,7 @@ vim.api.nvim_set_keymap("n", "<leader>p", "<Cmd>Telescope git_files<CR>", {})
 vim.api.nvim_set_keymap("n", "<leader>P", "<Cmd>Telescope live_grep<CR>", {})
 vim.api.nvim_set_keymap("n", "<leader>n", "<Cmd>Telescope find_files<CR>", {})
 vim.api.nvim_set_keymap("n", "<leader>/", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>N", "<Cmd>Telescope notify<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>N", "<Cmd>Telescope noice<CR>", {})
 
 -- windowze config
 if vim.fn.has("win32") == 1 then
@@ -496,6 +493,12 @@ require("formatter").setup({
                         "format",
                         buffn,
                     },
+                    stdin = false,
+                    transform = function(text)
+                        vim.cmd("e!")
+
+                        return text
+                    end,
                 }
             end,
         },
@@ -557,16 +560,40 @@ saga.init_lsp_saga({
     rename_in_select = false,
     symbol_in_winbar = {
         enable = true,
+        show_file = false,
+        click_support = function(node, clicks, button, modifiers)
+            -- To see all avaiable details: vim.pretty_print(node)
+            local st = node.range.start
+            local en = node.range["end"]
+            if button == "l" then
+                if clicks == 2 then
+                -- double left click to do nothing
+                else -- jump to node's starting line+char
+                    vim.fn.cursor(st.line + 1, st.character + 1)
+                end
+            elseif button == "r" then
+                if modifiers == "s" then
+                    print("lspsaga") -- shift right click to print "lspsaga"
+                end -- jump to node's ending line+char
+                vim.fn.cursor(en.line + 1, en.character + 1)
+            elseif button == "m" then
+                -- middle click to visual select node
+                vim.fn.cursor(st.line + 1, st.character + 1)
+                vim.cmd("normal v")
+                vim.fn.cursor(en.line + 1, en.character + 1)
+            end
+        end,
     },
     show_outline = {
         enable = false,
-        auto_refresh = true,
+        auto_refresh = false,
     },
 })
 
 -- set keymaps from lsp saga
 local sagaopts = { silent = true }
 
+vim.keymap.set("n", "<leader>2", "<cmd>LSoutlineToggle<CR>", sagaopts)
 vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", sagaopts)
 vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", sagaopts)
 vim.keymap.set("n", "<leader>cd", "<cmp>Lspsaga peek_definition<CR>", sagaopts)
@@ -681,7 +708,7 @@ if vim.fn.executable("flutter") == 1 then
             register_configurations = function(_)
                 require("dap").configurations.dart = {}
                 require("dap.ext.vscode").load_launchjs()
-            end
+            end,
         },
     })
 
@@ -796,43 +823,43 @@ require("lspconfig").elixirls.setup({
     },
 })
 
--- another plugin
-local elixir = require("elixir")
-elixir.setup({
-    -- specify a repository and branch
-    -- repo = "elixir-lsp/elixir-ls",
-    -- branch = "master",
-    repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
-    branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
-
-    -- default settings, use the `settings` function to override settings
-    settings = elixir.settings({
-        dialyzerEnabled = true,
-        fetchDeps = true,
-        enableTestLenses = true,
-        suggestSpecs = true,
-    }),
-
-    capabilities = lsp_utils.capabilities,
-    on_attach = function(client, bufnr)
-        local elixir_opts = { noremap = true, silent = true, buffer = bufnr }
-
-        -- remove the pipe operator
-        vim.keymap.set("n", "<leader>fp", ":ElixirFromPipe<cr>", elixir_opts)
-
-        -- add the pipe operator
-        vim.keymap.set("n", "<leader>tp", ":ElixirToPipe<cr>", elixir_opts)
-        vim.keymap.set("v", "<leader>em", ":ElixirExpandMacro<cr>", elixir_opts)
-
-        -- keybinds
-        vim.keymap.set("n", "gr", ":References<cr>", elixir_opts)
-        vim.keymap.set("n", "g0", ":DocumentSymbols<cr>", elixir_opts)
-        vim.keymap.set("n", "gW", ":WorkspaceSymbols<cr>", elixir_opts)
-        vim.keymap.set("n", "<leader>d", ":Diagnostics<cr>", elixir_opts)
-
-        lsp_utils.on_attach(client, bufnr)
-    end,
-})
+-- -- another plugin
+-- local elixir = require("elixir")
+-- elixir.setup({
+--     -- specify a repository and branch
+--     -- repo = "elixir-lsp/elixir-ls",
+--     -- branch = "master",
+--     -- repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
+--     -- branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
+--
+--     -- default settings, use the `settings` function to override settings
+--     settings = elixir.settings({
+--         dialyzerEnabled = true,
+--         fetchDeps = true,
+--         enableTestLenses = true,
+--         suggestSpecs = true,
+--     }),
+--
+--     capabilities = lsp_utils.capabilities,
+--     on_attach = function(client, bufnr)
+--         local elixir_opts = { noremap = true, silent = true, buffer = bufnr }
+--
+--         -- remove the pipe operator
+--         vim.keymap.set("n", "<leader>fp", ":ElixirFromPipe<cr>", elixir_opts)
+--
+--         -- add the pipe operator
+--         vim.keymap.set("n", "<leader>tp", ":ElixirToPipe<cr>", elixir_opts)
+--         vim.keymap.set("v", "<leader>em", ":ElixirExpandMacro<cr>", elixir_opts)
+--
+--         -- keybinds
+--         vim.keymap.set("n", "gr", ":References<cr>", elixir_opts)
+--         vim.keymap.set("n", "g0", ":DocumentSymbols<cr>", elixir_opts)
+--         vim.keymap.set("n", "gW", ":WorkspaceSymbols<cr>", elixir_opts)
+--         vim.keymap.set("n", "<leader>d", ":Diagnostics<cr>", elixir_opts)
+--
+--         lsp_utils.on_attach(client, bufnr)
+--     end,
+-- })
 
 -- nim
 require("lspconfig").nimls.setup({
@@ -893,7 +920,7 @@ require("lspconfig").html.setup({
 -- dap
 local dap, dapui = require("dap"), require("dapui")
 
-dap.set_log_level("TRACE")
+-- dap.set_log_level("TRACE")
 
 vim.fn.sign_define(
     "DapBreakpoint",
@@ -1010,10 +1037,10 @@ dap.configurations.elixir = {
         request = "launch",
         startApps = true, -- for Phoenix projects
         projectDir = "${workspaceFolder}",
-        -- requireFiles = {
-        --     "test/**/test_helper.exs",
-        --     "test/**/*_test.exs",
-        -- },
+        requireFiles = {
+            "test/**/test_helper.exs",
+            "test/**/*_test.exs",
+        },
     },
 }
 
@@ -1021,47 +1048,18 @@ dap.configurations.elixir = {
 require("gitsigns").setup()
 
 -- lualine
-vim.api.nvim_create_autocmd("ColorScheme", {
+-- load default first
+require("lualine").setup(ui_utils.lualine_setup_options())
+
+-- overwrite with colorscheme specific my own defaults
+vim.api.nvim_create_autocmd("colorscheme", {
     pattern = "*",
     callback = function()
-        require("lualine").setup({
-            options = {
-                theme = ui_utils.lualine_theme(),
-                component_separators = "|",
-                section_separators = { left = "", right = "" },
-                globalstatus = true,
-            },
-            sections = {
-                lualine_a = {
-                    { "mode", separator = { left = "" }, right_padding = 2 },
-                },
-                lualine_x = { "aerial" },
-                lualine_z = {
-                    { "location", separator = { right = "" }, left_padding = 2 },
-                },
-            },
-        })
+        require("lualine").setup(ui_utils.lualine_setup_options())
     end,
 })
 
--- load default first
-require("lualine").setup({
-    options = {
-        component_separators = "|",
-        section_separators = { left = "", right = "" },
-    },
-    sections = {
-        lualine_a = {
-            { "mode", separator = { left = "" }, right_padding = 2 },
-        },
-        lualine_x = { "aerial" },
-        lualine_z = {
-            { "location", separator = { right = "" }, left_padding = 2 },
-        },
-    },
-})
-
--- nerdtree lua
+-- nvim tree lua
 require("nvim-tree").setup({
     filters = { dotfiles = true },
     actions = {
@@ -1078,13 +1076,16 @@ require("nvim-tree").setup({
     },
 })
 
+vim.keymap.set("n", "<leader>1", ":NvimTreeToggle<CR>")
+
 -- rainbow treesitter
 require("nvim-treesitter.configs").setup({
     auto_install = true,
     highlight = {
         enable = true,
         -- sometimes we need to disable some of them...
-        disable = { "dart", "python", "elixir" },
+        -- disable = { "dart", "python", "elixir" },
+        disable = { "dart", "python" },
         additional_vim_regex_highlighting = true,
     },
     markid = { enable = true },
@@ -1109,10 +1110,6 @@ require("colorizer").setup({ "*" }, {
     -- Available modes: foreground, background
     mode = "foreground", -- Set the display mode.
 })
-
--- aerial
-require("aerial").setup()
-require("telescope").load_extension("aerial")
 
 -- LspInfo rounded borders
 require("lspconfig.ui.windows").default_options.border = "rounded"
@@ -1168,8 +1165,13 @@ require("noice").setup({
         command_palette = true,
         long_message_to_split = true, -- long messages will be sent to a split
         inc_rename = true, -- enables an input dialog for inc-rename.nvim
-    }
+        lsp_doc_border = true,
+    },
+    lsp = {
+        override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
+        },
+    },
 })
-
--- whichkey
-require("which-key").setup()

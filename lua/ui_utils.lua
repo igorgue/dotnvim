@@ -116,4 +116,40 @@ function M.lualine_theme()
     }
 end
 
+function M.lualine_setup_options()
+    local theme = M.lualine_theme() or "auto"
+
+    return {
+        options = {
+            theme = theme,
+            component_separators = "",
+            section_separators = { left = "", right = "" },
+            globalstatus = true,
+        },
+        sections = {
+            lualine_a = {
+                {
+                    "mode",
+                    separator = { left = "" },
+                    fmt = function(str)
+                        return str:sub(1, 1)
+                    end,
+                },
+            },
+            lualine_b = { "branch", "diff", { "diagnostics", update_in_insert = true, } },
+            lualine_c = { { "filetype", icon_only = true }, { "filename", padding = 0, path = 1, symbols = { modified = "", readonly = "", new = "", unnamed = "" } } },
+            lualine_x = {
+                {
+                    require("noice").api.status.mode.get,
+                    cond = require("noice").api.status.mode.has,
+                },
+            },
+            lualine_y = { "location" },
+            lualine_z = {
+                { "progress", separator = { right = "" } },
+            },
+        },
+    }
+end
+
 return M

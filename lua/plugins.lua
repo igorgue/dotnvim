@@ -23,8 +23,6 @@ return require("packer").startup(function()
     -- show indentation lines
     use("lukas-reineke/indent-blankline.nvim")
 
-    use("stevearc/aerial.nvim") -- outline plugin
-
     -- mattn's pluggins
     use("mhinz/vim-startify") -- shows a nice startup page
 
@@ -79,7 +77,6 @@ return require("packer").startup(function()
     -- folke plugins
     use("folke/trouble.nvim") -- nice diagnistics menu for lsp
     use("folke/todo-comments.nvim") -- tasks comments, "todo" comments
-    use("folke/which-key.nvim") -- shows keybindings
     use("folke/noice.nvim") -- noice for neovim
 
     -- nui needed for noice
@@ -107,6 +104,7 @@ return require("packer").startup(function()
     use("Hoffs/omnisharp-extended-lsp.nvim")
 
     -- elixir
+    use("elixir-editors/vim-elixir")
     use("mhanberg/elixir.nvim")
 
     -- dart
