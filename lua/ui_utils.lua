@@ -136,13 +136,23 @@ function M.lualine_setup_options()
                     end,
                 },
             },
-            lualine_b = { "branch", "diff", { "diagnostics", update_in_insert = true, } },
-            lualine_c = { { "filetype", icon_only = true }, { "filename", padding = 0, path = 1, symbols = { modified = "", readonly = "", new = "", unnamed = "" } } },
+            lualine_b = { "branch", "diff", { "diagnostics", update_in_insert = true } },
+            lualine_c = {
+                { "filetype", icon_only = true },
+                {
+                    "filename",
+                    padding = 0,
+                    path = 1,
+                    symbols = { modified = "", readonly = "", new = "", unnamed = "" },
+                },
+            },
             lualine_x = {
                 {
                     require("noice").api.status.mode.get,
                     cond = require("noice").api.status.mode.has,
                 },
+                "fileformat",
+                "encoding",
             },
             lualine_y = { "location" },
             lualine_z = {
