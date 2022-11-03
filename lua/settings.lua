@@ -190,12 +190,11 @@ require("telescope").setup({
     },
 })
 
-vim.api.nvim_set_keymap("n", "<leader>p", "<Cmd>Telescope git_files<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>P", "<Cmd>Telescope live_grep<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>n", "<Cmd>Telescope find_files<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>/", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>N", "<Cmd>Telescope noice<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>m", "<Cmd>Telescope marks<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>Telescope git_files<cr>", {})
+vim.api.nvim_set_keymap("n", "<leader>P", "<cmd>Telescope live_grep<cr>", {})
+vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>Telescope find_files<cr>", {})
+vim.api.nvim_set_keymap("n", "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", {})
+vim.api.nvim_set_keymap("n", "<leader>m", "<cmd>Telescope marks<cr>", {})
 
 -- windowze config
 if vim.fn.has("win32") == 1 then
@@ -224,7 +223,6 @@ if vim.fn.has("win32") == 1 then
         { name = "nvim_lsp" },
         { name = "luasnip" },
         { name = "nvim_lua" },
-        { name = "nvim_lsp_signature_help" },
     }, {
         { name = "treesitter" },
         { name = "path" },
@@ -238,7 +236,6 @@ else
         { name = "nvim_lsp" },
         { name = "luasnip" },
         { name = "nvim_lua" },
-        { name = "nvim_lsp_signature_help" },
     }, {
         { name = "treesitter" },
         { name = "path" },
@@ -396,7 +393,7 @@ vim.api.nvim_set_keymap("n", "<leader>T", "<cmd>TroubleToggle workspace_diagnost
 local formatter_util = require("formatter.util")
 require("formatter").setup({
     -- Enable or disable logging
-    logging = true,
+    logging = false,
 
     -- All formatter configurations are opt-in
     filetype = {
@@ -419,7 +416,20 @@ require("formatter").setup({
         },
 
         dart = {
-            require("formatter.filetypes.dart").dartformat,
+            function(t)
+                t = t or {}
+
+                local args = { "--output show", "--fix" }
+                if t.line_length ~= nil then
+                    table.insert(args, "--line-length " .. t.line_length)
+                end
+
+                return {
+                    exe = "dart format",
+                    args = args,
+                    stdin = true,
+                }
+            end,
         },
 
         javascript = {
@@ -437,6 +447,23 @@ require("formatter").setup({
         python = {
             require("formatter.filetypes.python").black,
             require("formatter.filetypes.python").isort,
+        },
+
+        htmldjango = {
+            function()
+                local buffn = formatter_util.escape_path(formatter_util.get_current_buffer_file_path())
+
+                return {
+                    exe = "djlint",
+                    args = { "--reformat", buffn },
+                    stdin = false,
+                    transform = function(text)
+                        vim.cmd("e!")
+
+                        return text
+                    end,
+                }
+            end,
         },
 
         sql = {
@@ -607,7 +634,6 @@ require("lspconfig").vala_ls.setup({
 -- dart
 vim.g.dart_style_guide = 2
 vim.g.dart_html_in_string = true
--- vim.g.dart_format_on_save = 1
 vim.g.dart_trailing_comma_indent = true
 vim.g.dartfmt_options = { "--fix" }
 
@@ -657,7 +683,7 @@ if vim.fn.executable("flutter") == 1 then
                 showTodos = false,
                 completeFunctionCalls = true,
                 updateImportsOnRename = true,
-                enableSnippets = true,
+                enableSnippets = false, -- i have luasnip
                 renameFilesWithClasses = true,
             },
         },
@@ -684,10 +710,10 @@ else
 end
 
 -- semshi config
-vim.g["semshi#simplify_markup"] = true
-vim.g["semshi#mark_selected_nodes"] = 1
-vim.g["semshi#error_sign"] = false
-vim.g["semshi#always_update_all_highlights"] = false
+-- vim.g["semshi#simplify_markup"] = true
+-- vim.g["semshi#mark_selected_nodes"] = 1
+-- vim.g["semshi#error_sign"] = false
+-- vim.g["semshi#always_update_all_highlights"] = false
 
 -- csharp
 -- use vscode omnisharp install
@@ -962,7 +988,7 @@ require("gitsigns").setup()
 -- load default first
 require("lualine").setup(ui_utils.lualine_setup_options())
 
--- overwrite with colorscheme specific my own defaults
+-- overwrite with colorscheme specific, my own defaults
 vim.api.nvim_create_autocmd("colorscheme", {
     pattern = "*",
     callback = function()
@@ -996,14 +1022,78 @@ require("nvim-treesitter.configs").setup({
         enable = true,
         -- sometimes we need to disable some of them...
         -- disable = { "dart", "python", "elixir" },
-        disable = { "dart", "python" },
-        additional_vim_regex_highlighting = true,
+        -- disable = { "dart", "python" },
+        -- additional_vim_regex_highlighting = true,
     },
-    markid = { enable = true },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+        },
+    },
+    indent = {
+        enable = false,
+    },
+    markid = {
+        enable = true,
+        -- queries = {
+        --     default = '((identifier) @markid (#not-has-parent? @markid parameters typed_parameter typed_default_parameter))',
+        -- },
+    },
     rainbow = {
         enable = true,
         extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
         max_file_lines = nil, -- Do not enable for files with more than n lines, int
+    },
+    refactor = {
+        enable = true,
+        clear_on_cursor_move = false,
+        highlight_definitions = { enable = true },
+        -- highlight_current_scope = { enable = true },
+    },
+    pairs = {
+        enable = true,
+    },
+    autotag = {
+        enable = true,
+    },
+    matchup = {
+        enable = true,
+    },
+})
+
+vim.cmd([[
+    set foldmethod=expr
+    set foldexpr=nvim_treesitter#foldexpr()
+    set nofoldenable " disable folding at startup.
+]])
+
+-- some other treesitter plugins
+require("treesitter-context").setup()
+require("twilight").setup()
+require("nvim-dap-virtual-text").setup({})
+
+-- enable html parser in htmldjango file
+local import_parsers, parsers = pcall(require, "nvim-treesitter.parsers")
+if import_parsers then
+    local parsername = parsers.filetype_to_parsername
+    parsername.htmldjango = "html"
+end
+
+local import_tag, autotag = pcall(require, "nvim-ts-autotag")
+if not import_tag then
+    return
+end
+autotag.setup({
+    autotag = {
+        enable = true,
+    },
+    filetypes = {
+        "html",
+        "htmldjango",
     },
 })
 
@@ -1043,14 +1133,6 @@ vim.keymap.set("n", "<leader>l", function()
     vim.cmd.set("list!")
 end)
 
--- disable indentblankline in Startify
-vim.cmd([[
-    augroup DisableIndentBlankline
-        autocmd!
-        autocmd FileType startify IndentBlanklineDisable
-    augroup END
-]])
-
 -- dadbod ui
 vim.g.dbs = dbs
 vim.g.db_ui_use_nerd_fonts = true
@@ -1071,6 +1153,10 @@ require("todo-comments").setup()
 
 -- noice
 require("noice").setup({
+    cmdline = {
+        enabled = true,
+        view = "cmdline",
+    },
     presets = {
         bottom_search = true,
         command_palette = true,
@@ -1084,11 +1170,10 @@ require("noice").setup({
             ["vim.lsp.util.stylize_markdown"] = true,
             ["cmp.entry.get_documentation"] = true,
         },
-        signature = {
-            enabled = false
-        }
     },
 })
+
+vim.api.nvim_set_keymap("n", "<leader>N", "<cmd>Noice history<cr>", {})
 
 -- alpha
 require("alpha").setup(ui_utils.alpha_theme().config)
@@ -1103,7 +1188,7 @@ vim.cmd([[
     autocmd User AlphaReady set laststatus=0 | autocmd BufUnload <buffer> set laststatus=3
 ]])
 
--- nvim autocomand to set 'f' as the default key for telescope find_files command when Alpha is open
+-- nvim autocommand to set 'f' as the default key for telescope find_files command when Alpha is open
 -- FIXME: this doesn't work?
 -- vim.api.nvim_create_autocmd("User", {
 --     pattern = "AlphaReady",

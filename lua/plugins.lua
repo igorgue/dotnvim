@@ -1,4 +1,12 @@
-return require("packer").startup(function()
+local packer = require("packer")
+
+packer.init({
+    display = {
+        prompt_border = "rounded",
+    }
+})
+
+packer.startup(function()
     use("igorgue/danger") -- danger colorscheme
     -- use "~/Code/danger" -- danger colorscheme (for development)
 
@@ -42,34 +50,32 @@ return require("packer").startup(function()
     use("sainnhe/edge") -- light theme
 
     -- kyazdani42's plugins
-    use({
-        "kyazdani42/nvim-tree.lua", -- a file manager
-        tag = "nightly", -- optional, updated every week. (see issue #1193)
-    })
+    -- a file manager
+    use({ "kyazdani42/nvim-tree.lua", tag = "nightly" })
 
     use("kyazdani42/nvim-web-devicons") -- file icons
 
     use("norcalli/nvim-colorizer.lua") -- colors
-    use({
-        "numirias/semshi",
-        { run = ":UpdateRemotePlugins" }, -- colors for Python
-    })
+    -- use({ "numirias/semshi", run = ":UpdateRemotePlugins" }) -- colors for Python
     use("nvim-lua/plenary.nvim") -- utils for nvim
-    use({ -- framework for cool syntax plugins
-        "nvim-treesitter/nvim-treesitter",
-        { run = ":TSUpdate" },
-    })
+
+    -- framework for cool syntax plugins
+    use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+
     use("nvim-treesitter/playground") -- playground for treesitter
     use("David-Kunz/markid") -- markid, variables colors for treesitter
     use("p00f/nvim-ts-rainbow") -- shows rainbow matching braces for treesitter
+    use("nvim-treesitter/nvim-treesitter-refactor") -- refactor plugin
+    use("nvim-treesitter/nvim-treesitter-context") -- sticky context for treesitter
+    use("theHamsta/nvim-treesitter-pairs") -- pairs
+    use("theHamsta/nvim-dap-virtual-text") -- virtual text for dap
+    use("windwp/nvim-ts-autotag") -- auto close tags
+    use("andymass/vim-matchup") -- show matching pairs
 
     use("lewis6991/gitsigns.nvim") -- changes on git
 
     -- gist support
-    use({
-        "rudylee/nvim-gist",
-        { run = ":UpdateRemotePlugins" },
-    })
+    use({ "rudylee/nvim-gist", run = ":UpdateRemotePlugins" })
 
     -- lualine
     use("nvim-lualine/lualine.nvim") -- status line
@@ -84,15 +90,13 @@ return require("packer").startup(function()
     use("folke/trouble.nvim") -- nice diagnistics menu for lsp
     use("folke/todo-comments.nvim") -- tasks comments, "todo" comments
     use("folke/noice.nvim") -- noice for neovim
+    use("folke/twilight.nvim")
 
     -- nui needed for noice
     use("MunifTanjim/nui.nvim")
 
     -- saga
-    use({
-        "glepnir/lspsaga.nvim",
-        branch = "main",
-    })
+    use({ "glepnir/lspsaga.nvim", branch = "main" })
 
     -- formatter
     use("mhartington/formatter.nvim")
@@ -131,7 +135,7 @@ return require("packer").startup(function()
     use("hrsh7th/cmp-cmdline")
     use("hrsh7th/cmp-nvim-lsp")
     use("hrsh7th/cmp-nvim-lsp-document-symbol")
-    use("hrsh7th/cmp-nvim-lsp-signature-help")
+    -- use("hrsh7th/cmp-nvim-lsp-signature-help")
     use("hrsh7th/cmp-nvim-lua") -- lua support
     use("hrsh7th/cmp-path")
 
@@ -146,3 +150,5 @@ return require("packer").startup(function()
     -- redis
     use("junegunn/vim-redis")
 end)
+
+return packer
