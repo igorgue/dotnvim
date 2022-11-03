@@ -132,16 +132,15 @@ function M.lualine_setup_options()
                     "mode",
                     separator = { left = "" },
                     fmt = function(str)
-                        return str:sub(1, 1)
+                        return str:lower():sub(1, 1)
                     end,
                 },
             },
             lualine_b = { "branch", "diff", { "diagnostics", update_in_insert = true } },
             lualine_c = {
-                { "filetype", icon_only = true },
                 {
                     "filename",
-                    padding = 0,
+                    padding = 1,
                     path = 1,
                     symbols = { modified = "", readonly = "", new = "", unnamed = "" },
                 },
@@ -151,6 +150,7 @@ function M.lualine_setup_options()
                     require("noice").api.status.mode.get,
                     cond = require("noice").api.status.mode.has,
                 },
+                { "filetype", icon_only = true },
                 "fileformat",
                 "encoding",
             },
@@ -160,6 +160,83 @@ function M.lualine_setup_options()
             },
         },
     }
+end
+
+function M.setup_tabline()
+    -- sets tabline without the "X" for close, this is done for aesthetic reasons
+    -- and this code is copied from :h setting-tabline
+    vim.cmd([[
+        function NoXTabLine()
+            let s = ''
+            for i in range(tabpagenr('$'))
+                " select the highlighting
+                if i + 1 == tabpagenr()
+                    let s ..= '%#TabLineSel#'
+                else
+                    let s ..= '%#TabLine#'
+                endif
+
+                " set the tab page number (for mouse clicks)
+                let s ..= '%' .. (i + 1) .. 'T'
+
+                " the label is made by NoXTabLabel()
+                let s ..= ' %{NoXTabLabel(' .. (i + 1) .. ')} '
+            endfor
+
+            " after the last tab fill with TabLineFill and reset tab page nr
+            let s ..= '%#TabLineFill#%T'
+
+            " right-align the label to close the current tab page
+            if tabpagenr('$') > 1
+                " Does not include the close button
+                let s ..= '%=%#TabLine#%999X'
+            endif
+
+            return s
+        endfunction
+
+        function NoXTabLabel(n)
+            let buflist = tabpagebuflist(a:n)
+            let winnr = tabpagewinnr(a:n)
+            let name = bufname(buflist[winnr - 1])
+
+            " Modification for no name...
+            if name == ''
+                return '[No Name]'
+            endif
+
+            return name
+        endfunction
+
+        set tabline=%!NoXTabLine()
+    ]])
+end
+
+function M.alpha_theme()
+    local theme = require("alpha.themes.theta")
+    local dashboard = require("alpha.themes.dashboard")
+    local neovim_version = vim.version()
+
+    local version = neovim_version.major .. "." .. neovim_version.minor .. "." .. neovim_version.patch
+    if neovim_version.prerelease then
+        version = version .. "-dev"
+    end
+
+    theme.header.val = { "neovim v" .. version }
+
+    theme.config.layout[4].val[1].val = "recent"
+    theme.buttons.val = {
+        { type = "text", val = "shortcuts", opts = { hl = "specialcomment", position = "center" } },
+        { type = "padding", val = 1 },
+        dashboard.button("e", "  new file", "<cmd>ene<cr>"),
+        dashboard.button("space n", "  find file", "<cmd>Telescope find_files<cr>"),
+        dashboard.button("space P", "  live grep", "<cmd>Telescope live_grep<cr>"),
+        dashboard.button("c", "  configuration", "<cmd>Conf<cr><cmd>ConfSettings<cr>"),
+        dashboard.button("u", "  update plugins", "<cmd>PackerSync<cr>"),
+        dashboard.button("q", "  quit", "<cmd>qa<cr>"),
+    }
+
+    return theme
 end
 
 return M

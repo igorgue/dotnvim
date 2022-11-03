@@ -36,7 +36,6 @@ vim.opt.wildignore:append(
 vim.opt.undofile = true
 
 vim.opt.tags = "tags;" .. home .. "/.config/nvim/tags/;" .. home .. "/tmp/tags/" -- find ctags
--- vim.opt.listchars = [[tab:▸\ ,space:⋅,eol:↴]] -- listchars for invisibles
 vim.opt.listchars = [[tab:▸\ ,eol:↴]] -- listchars for invisibles
 vim.opt.mouse:append({ a = true }) -- mouse all
 vim.opt.ls = 2 -- status line always show
@@ -169,53 +168,9 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     end,
 })
 
--- sets tabline without the "X" for close, this is done for aesthetic reasons
--- and this code is copied from :h setting-tabline
-vim.cmd([[
-    function NoXTabLine()
-        let s = ''
-        for i in range(tabpagenr('$'))
-            " select the highlighting
-            if i + 1 == tabpagenr()
-                let s ..= '%#TabLineSel#'
-            else
-                let s ..= '%#TabLine#'
-            endif
-
-            " set the tab page number (for mouse clicks)
-            let s ..= '%' .. (i + 1) .. 'T'
-
-            " the label is made by NoXTabLabel()
-            let s ..= ' %{NoXTabLabel(' .. (i + 1) .. ')} '
-        endfor
-
-        " after the last tab fill with TabLineFill and reset tab page nr
-        let s ..= '%#TabLineFill#%T'
-
-        " right-align the label to close the current tab page
-        if tabpagenr('$') > 1
-            " Does not include the close button
-            let s ..= '%=%#TabLine#%999X'
-        endif
-
-        return s
-    endfunction
-
-    function NoXTabLabel(n)
-        let buflist = tabpagebuflist(a:n)
-        let winnr = tabpagewinnr(a:n)
-        let name = bufname(buflist[winnr - 1])
-
-        " Modification for no name...
-        if name == ''
-            return '[No Name]'
-        endif
-
-        return name
-    endfunction
-
-    set tabline=%!NoXTabLine()
-]])
+-- FIXME: not sure why this doesn't work, they did get rid of the X though...
+-- probably a change by noice
+ui_utils.setup_tabline()
 
 -- telescope
 local telescope = require("telescope")
@@ -240,6 +195,7 @@ vim.api.nvim_set_keymap("n", "<leader>P", "<Cmd>Telescope live_grep<CR>", {})
 vim.api.nvim_set_keymap("n", "<leader>n", "<Cmd>Telescope find_files<CR>", {})
 vim.api.nvim_set_keymap("n", "<leader>/", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", {})
 vim.api.nvim_set_keymap("n", "<leader>N", "<Cmd>Telescope noice<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>m", "<Cmd>Telescope marks<CR>", {})
 
 -- windowze config
 if vim.fn.has("win32") == 1 then
@@ -440,7 +396,7 @@ vim.api.nvim_set_keymap("n", "<leader>T", "<cmd>TroubleToggle workspace_diagnost
 local formatter_util = require("formatter.util")
 require("formatter").setup({
     -- Enable or disable logging
-    logging = false,
+    logging = true,
 
     -- All formatter configurations are opt-in
     filetype = {
@@ -460,6 +416,10 @@ require("formatter").setup({
                     stdin = true,
                 }
             end,
+        },
+
+        dart = {
+            require("formatter.filetypes.dart").dartformat,
         },
 
         javascript = {
@@ -585,8 +545,10 @@ saga.init_lsp_saga({
         end,
     },
     show_outline = {
-        enable = false,
-        auto_refresh = false,
+        auto_preview = true,
+        auto_enter = true,
+        auto_refresh = true,
+        win_with = "NvimTree",
     },
 })
 
@@ -645,7 +607,7 @@ require("lspconfig").vala_ls.setup({
 -- dart
 vim.g.dart_style_guide = 2
 vim.g.dart_html_in_string = true
-vim.g.dart_format_on_save = 1
+-- vim.g.dart_format_on_save = 1
 vim.g.dart_trailing_comma_indent = true
 vim.g.dartfmt_options = { "--fix" }
 
@@ -701,10 +663,10 @@ if vim.fn.executable("flutter") == 1 then
         },
         debugger = {
             enabled = true,
-            -- run_via_dap = true, -- use dap instead of a plenary job to run flutter apps
+            run_via_dap = true, -- use dap instead of a plenary job to run flutter apps
             -- -- if empty dap will not stop on any exceptions, otherwise it will stop on those specified
             -- -- see |:help dap.set_exception_breakpoints()| for more info
-            -- exception_breakpoints = {},
+            exception_breakpoints = {},
             register_configurations = function(_)
                 require("dap").configurations.dart = {}
                 require("dap.ext.vscode").load_launchjs()
@@ -722,10 +684,10 @@ else
 end
 
 -- semshi config
-vim.g["semshi#simplify_markup"] = false
+vim.g["semshi#simplify_markup"] = true
 vim.g["semshi#mark_selected_nodes"] = 1
 vim.g["semshi#error_sign"] = false
-vim.g["semshi#always_update_all_highlights"] = true
+vim.g["semshi#always_update_all_highlights"] = false
 
 -- csharp
 -- use vscode omnisharp install
@@ -812,54 +774,54 @@ vim.g.OmniSharp_server_use_net6 = 1
 vim.g.OmniSharp_server_stdio = 1
 
 -- elixir
-require("lspconfig").elixirls.setup({
-    capabilities = lsp_utils.capabilities,
-    on_attach = lsp_utils.on_attach,
-    settings = {
-        dialyzerEnabled = true,
-        fetchDeps = true,
-        enableTestLenses = true,
-        suggestSpecs = true,
-    },
-})
-
--- -- another plugin
--- local elixir = require("elixir")
--- elixir.setup({
---     -- specify a repository and branch
---     -- repo = "elixir-lsp/elixir-ls",
---     -- branch = "master",
---     -- repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
---     -- branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
---
---     -- default settings, use the `settings` function to override settings
---     settings = elixir.settings({
+-- require("lspconfig").elixirls.setup({
+--     capabilities = lsp_utils.capabilities,
+--     on_attach = lsp_utils.on_attach,
+--     settings = {
 --         dialyzerEnabled = true,
 --         fetchDeps = true,
 --         enableTestLenses = true,
 --         suggestSpecs = true,
---     }),
---
---     capabilities = lsp_utils.capabilities,
---     on_attach = function(client, bufnr)
---         local elixir_opts = { noremap = true, silent = true, buffer = bufnr }
---
---         -- remove the pipe operator
---         vim.keymap.set("n", "<leader>fp", ":ElixirFromPipe<cr>", elixir_opts)
---
---         -- add the pipe operator
---         vim.keymap.set("n", "<leader>tp", ":ElixirToPipe<cr>", elixir_opts)
---         vim.keymap.set("v", "<leader>em", ":ElixirExpandMacro<cr>", elixir_opts)
---
---         -- keybinds
---         vim.keymap.set("n", "gr", ":References<cr>", elixir_opts)
---         vim.keymap.set("n", "g0", ":DocumentSymbols<cr>", elixir_opts)
---         vim.keymap.set("n", "gW", ":WorkspaceSymbols<cr>", elixir_opts)
---         vim.keymap.set("n", "<leader>d", ":Diagnostics<cr>", elixir_opts)
---
---         lsp_utils.on_attach(client, bufnr)
---     end,
+--     },
 -- })
+
+-- -- another plugin
+local elixir = require("elixir")
+elixir.setup({
+    -- specify a repository and branch
+    -- repo = "elixir-lsp/elixir-ls",
+    -- branch = "master",
+    repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
+    branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
+
+    -- default settings, use the `settings` function to override settings
+    settings = elixir.settings({
+        dialyzerEnabled = true,
+        fetchDeps = true,
+        enableTestLenses = true,
+        suggestSpecs = true,
+    }),
+
+    capabilities = lsp_utils.capabilities,
+    on_attach = function(client, bufnr)
+        local elixir_opts = { noremap = true, silent = true, buffer = bufnr }
+
+        -- remove the pipe operator
+        vim.keymap.set("n", "<leader>fp", ":ElixirFromPipe<cr>", elixir_opts)
+
+        -- add the pipe operator
+        vim.keymap.set("n", "<leader>tp", ":ElixirToPipe<cr>", elixir_opts)
+        vim.keymap.set("v", "<leader>em", ":ElixirExpandMacro<cr>", elixir_opts)
+
+        -- keybinds
+        vim.keymap.set("n", "gr", ":References<cr>", elixir_opts)
+        vim.keymap.set("n", "g0", ":DocumentSymbols<cr>", elixir_opts)
+        vim.keymap.set("n", "gW", ":WorkspaceSymbols<cr>", elixir_opts)
+        vim.keymap.set("n", "<leader>d", ":Diagnostics<cr>", elixir_opts)
+
+        lsp_utils.on_attach(client, bufnr)
+    end,
+})
 
 -- nim
 require("lspconfig").nimls.setup({
@@ -892,18 +854,14 @@ require("lspconfig").sumneko_lua.setup({
     settings = {
         Lua = {
             runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
                 version = "LuaJIT",
             },
             diagnostics = {
-                -- Get the language server to recognize the `vim` global
                 globals = { "vim", "use" },
             },
             workspace = {
-                -- Make the server aware of Neovim runtime files
                 library = vim.api.nvim_get_runtime_file("", true),
             },
-            -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = {
                 enable = false,
             },
@@ -971,53 +929,6 @@ vim.cmd([[
     nnoremap <silent> <leader>dl <Cmd>lua require('dap').run_last()<CR>
     nnoremap <silent> <leader>dL <Cmd>lua require('dap').run_last()<CR>
 ]])
-
--- dap for dart debug adapter
--- if vim.fn.executable("flutter") == 1 then
---     dap.adapters.dart = {
---         type = "executable",
---         command = "flutter",
---         args = { "debug_adapter" },
---     }
---
---     dap.configurations.dart = {
---         {
---             type = "dart",
---             request = "launch",
---             name = "Launch Flutter Program",
---             -- The nvim-dap plugin populates this variable with the filename of the current buffer
---             program = "${file}",
---             -- The nvim-dap plugin populates this variable with the editor's current working directory
---             cwd = "${workspaceFolder}",
---             toolArgs = { "-d", "chrome" }, -- for Flutter apps toolArgs
---         },
---         {
---             type = "dart",
---             request = "attach",
---             name = "Attach Flutter Program",
---             cwd = "${workspaceFolder}",
---         },
---     }
--- else
---     dap.adapters.dart = {
---         type = "executable",
---         command = "dart",
---         args = { "debug_adapter" },
---     }
---
---     dap.configurations.dart = {
---         {
---             type = "dart",
---             request = "launch",
---             name = "Launch Dart Program",
---             -- The nvim-dap plugin populates this variable with the filename of the current buffer
---             program = "${file}",
---             -- The nvim-dap plugin populates this variable with the editor's current working directory
---             cwd = "${workspaceFolder}",
---             args = { "--help" }, -- for Dart apps this is args
---         },
---     }
--- end
 
 -- python dap
 require("dap-python").setup(home .. "/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
@@ -1173,5 +1084,36 @@ require("noice").setup({
             ["vim.lsp.util.stylize_markdown"] = true,
             ["cmp.entry.get_documentation"] = true,
         },
+        signature = {
+            enabled = false
+        }
     },
 })
+
+-- alpha
+require("alpha").setup(ui_utils.alpha_theme().config)
+
+vim.cmd([[
+    augroup DisableIndentBlankline
+        autocmd!
+        autocmd FileType alpha IndentBlanklineDisable
+    augroup END
+
+    autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=1
+    autocmd User AlphaReady set laststatus=0 | autocmd BufUnload <buffer> set laststatus=3
+]])
+
+-- nvim autocomand to set 'f' as the default key for telescope find_files command when Alpha is open
+-- FIXME: this doesn't work?
+-- vim.api.nvim_create_autocmd("User", {
+--     pattern = "AlphaReady",
+--     callback = function()
+--         vim.cmd([[
+--             augroup AlphaTelescope
+--                 autocmd!
+--                 autocmd FileType alpha nnoremap <silent> f <cmd>Telescope find_files<cr> | autocmd BufUnload <buffer> unmap <silent> f <cmd>Telescope find_files<cr>
+--                 autocmd FileType alpha nnoremap <silent> g <cmd>Telescope live_grep<cr> | autocmd BufUnload <buffer> unmap <silent> f <cmd>Telescope live_grep<cr>
+--             augroup END
+--         ]])
+--     end,
+-- })

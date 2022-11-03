@@ -1,26 +1,25 @@
 local M = {}
 
-function M.edit_dbs_config()
-    vim.cmd("e ~/.config/nvim/lua/dbs_local.lua")
-end
+local conf_dir = vim.fn.stdpath('config')
 
 function M.cd_conf()
-    vim.cmd("cd ~/.config/nvim")
+    vim.cmd("cd " .. conf_dir)
+end
+
+function M.edit_dbs_config()
+    vim.cmd("e " .. conf_dir .. "/lua/dbs_local.lua")
 end
 
 function M.edit_init()
-    M.cd_conf()
-    vim.cmd("e init.lua")
+    vim.cmd("e ".. conf_dir .. "/init.lua")
 end
 
 function M.edit_settings()
-    M.cd_conf()
-    vim.cmd("e lua/settings.lua")
+    vim.cmd("e " .. conf_dir .. "/lua/settings.lua")
 end
 
 function M.edit_plugins()
-    M.cd_conf()
-    vim.cmd("e lua/plugins.lua")
+    vim.cmd("e " .. conf_dir .. "/lua/plugins.lua")
 end
 
 return M

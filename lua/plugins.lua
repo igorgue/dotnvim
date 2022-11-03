@@ -23,8 +23,8 @@ return require("packer").startup(function()
     -- show indentation lines
     use("lukas-reineke/indent-blankline.nvim")
 
-    -- mattn's pluggins
-    use("mhinz/vim-startify") -- shows a nice startup page
+    -- start page
+    use("goolord/alpha-nvim")
 
     -- Comment.nvim
     use("numToStr/Comment.nvim") -- comment plugin
@@ -64,6 +64,12 @@ return require("packer").startup(function()
     use("p00f/nvim-ts-rainbow") -- shows rainbow matching braces for treesitter
 
     use("lewis6991/gitsigns.nvim") -- changes on git
+
+    -- gist support
+    use({
+        "rudylee/nvim-gist",
+        { run = ":UpdateRemotePlugins" },
+    })
 
     -- lualine
     use("nvim-lualine/lualine.nvim") -- status line
