@@ -1202,3 +1202,11 @@ vim.cmd([[
 --         ]])
 --     end,
 -- })
+
+-- color picker
+require("color-picker").setup()
+
+local pick_color_opts = { noremap = true, silent = true }
+
+vim.keymap.set("n", "<M-c>", "<cmd>PickColor<cr>", pick_color_opts)
+vim.keymap.set("i", "<M-c>", "<cmd>PickColorInsert<cr>", pick_color_opts)

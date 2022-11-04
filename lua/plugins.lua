@@ -149,6 +149,9 @@ packer.startup(function()
 
     -- redis
     use("junegunn/vim-redis")
+
+    -- color picker
+    use({"ziontee113/color-picker.nvim"})
 end)
 
 return packer
