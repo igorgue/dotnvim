@@ -16,6 +16,10 @@ packer.startup(function()
 
     use("gbrlsnchs/telescope-lsp-handlers.nvim") -- lsp handlers for telescope
 
+    use("ghassan0/telescope-glyph.nvim")
+
+    use("xiyaowong/telescope-emoji.nvim")
+
     use("github/copilot.vim") -- Github copilot
 
     use("neovim/nvim-lspconfig") -- native LSP support
@@ -150,8 +154,9 @@ packer.startup(function()
     -- redis
     use("junegunn/vim-redis")
 
-    -- color picker
-    use({"ziontee113/color-picker.nvim"})
+    -- ziontee113 plugins
+    use("ziontee113/color-picker.nvim")
+    use("ziontee113/query-secretary")
 end)
 
 return packer

@@ -168,19 +168,20 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     end,
 })
 
--- FIXME: not sure why this doesn't work, they did get rid of the X though...
--- probably a change by noice
 ui_utils.setup_tabline()
 
 -- telescope
 local telescope = require("telescope")
-
-telescope.load_extension("lsp_handlers")
-telescope.load_extension("notify")
-telescope.load_extension("noice")
-
 local actions = require("telescope.actions")
-require("telescope").setup({
+
+local function telescope_paste_char(char)
+    vim.fn.setreg("*", char.value)
+    vim.api.nvim_put({ char.value }, "c", false, true)
+
+    print([["*p to paste ]] .. char.value)
+end
+
+telescope.setup({
     defaults = {
         mappings = {
             i = {
@@ -188,7 +189,21 @@ require("telescope").setup({
             },
         },
     },
+    extensions = {
+        emoji = {
+            action = telescope_paste_char,
+        },
+        glyph = {
+            action = telescope_paste_char,
+        },
+    },
 })
+
+telescope.load_extension("lsp_handlers")
+telescope.load_extension("notify")
+telescope.load_extension("noice")
+telescope.load_extension("glyph")
+telescope.load_extension("emoji")
 
 vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>Telescope git_files<cr>", {})
 vim.api.nvim_set_keymap("n", "<leader>P", "<cmd>Telescope live_grep<cr>", {})
@@ -540,7 +555,7 @@ local saga = require("lspsaga")
 
 saga.init_lsp_saga({
     border_style = "rounded",
-    code_action_icon = " ",
+    code_action_icon = " ",
     code_action_lightbulb = {
         virtual_text = false,
     },
@@ -608,6 +623,15 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
+-- viml
+require("lspconfig").vimls.setup({
+    on_attach = lsp_utils.on_attach,
+    capabilities = lsp_utils.capabilities,
+    flags = {
+        debounce_text_changes = 150,
+    },
+})
+
 -- python
 require("lspconfig").pyright.setup({
     capabilities = lsp_utils.capabilities,
@@ -649,7 +673,7 @@ if vim.fn.executable("flutter") == 1 then
         },
         closing_tags = {
             enabled = true,
-            prefix = "➥  ",
+            prefix = "/> ",
         },
         outline = {
             open_cmd = "botright 40vnew",
@@ -700,7 +724,7 @@ if vim.fn.executable("flutter") == 1 then
         },
     })
 
-    require("telescope").load_extension("flutter")
+    telescope.load_extension("flutter")
 else
     -- If not flutter, use dartls which is optional
     require("lspconfig").dartls.setup({
@@ -800,18 +824,6 @@ vim.g.OmniSharp_server_use_net6 = 1
 vim.g.OmniSharp_server_stdio = 1
 
 -- elixir
--- require("lspconfig").elixirls.setup({
---     capabilities = lsp_utils.capabilities,
---     on_attach = lsp_utils.on_attach,
---     settings = {
---         dialyzerEnabled = true,
---         fetchDeps = true,
---         enableTestLenses = true,
---         suggestSpecs = true,
---     },
--- })
-
--- -- another plugin
 local elixir = require("elixir")
 elixir.setup({
     -- specify a repository and branch
@@ -1020,10 +1032,8 @@ require("nvim-treesitter.configs").setup({
     auto_install = true,
     highlight = {
         enable = true,
-        -- sometimes we need to disable some of them...
-        -- disable = { "dart", "python", "elixir" },
-        -- disable = { "dart", "python" },
-        -- additional_vim_regex_highlighting = true,
+        disable = { "dart", "python", "elixir" },
+        additional_vim_regex_highlighting = true,
     },
     incremental_selection = {
         enable = true,
@@ -1039,9 +1049,14 @@ require("nvim-treesitter.configs").setup({
     },
     markid = {
         enable = true,
-        -- queries = {
-        --     default = '((identifier) @markid (#not-has-parent? @markid parameters typed_parameter typed_default_parameter))',
-        -- },
+        queries = {
+            default = [[
+                (
+                 (identifier) @markid
+                 (#not-has-parent? @markid function_definition class_definition dotted_name)
+                )
+            ]],
+        },
     },
     rainbow = {
         enable = true,
@@ -1052,7 +1067,6 @@ require("nvim-treesitter.configs").setup({
         enable = true,
         clear_on_cursor_move = false,
         highlight_definitions = { enable = true },
-        -- highlight_current_scope = { enable = true },
     },
     pairs = {
         enable = true,
@@ -1064,12 +1078,6 @@ require("nvim-treesitter.configs").setup({
         enable = true,
     },
 })
-
-vim.cmd([[
-    set foldmethod=expr
-    set foldexpr=nvim_treesitter#foldexpr()
-    set nofoldenable " disable folding at startup.
-]])
 
 -- some other treesitter plugins
 require("treesitter-context").setup()
@@ -1208,5 +1216,11 @@ require("color-picker").setup()
 
 local pick_color_opts = { noremap = true, silent = true }
 
-vim.keymap.set("n", "<M-c>", "<cmd>PickColor<cr>", pick_color_opts)
-vim.keymap.set("i", "<M-c>", "<cmd>PickColorInsert<cr>", pick_color_opts)
+vim.keymap.set("n", "<C-c>", "<cmd>PickColor<cr>", pick_color_opts)
+vim.keymap.set("i", "<C-c>", "<cmd>PickColorInsert<cr>", pick_color_opts)
+
+-- treesitter secretary
+require("query-secretary").setup({})
+vim.api.nvim_create_user_command("TsQuerySecretary", function()
+    require("query-secretary").query_window_initiate()
+end, {})

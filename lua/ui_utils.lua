@@ -150,9 +150,9 @@ function M.lualine_setup_options()
                     require("noice").api.status.mode.get,
                     cond = require("noice").api.status.mode.has,
                 },
+                "encoding",
                 { "filetype", icon_only = true },
                 "fileformat",
-                "encoding",
             },
             lualine_y = { "location" },
             lualine_z = {

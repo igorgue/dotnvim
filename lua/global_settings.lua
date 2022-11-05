@@ -11,7 +11,7 @@ vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", {})
 vim.api.nvim_set_keymap("n", "<C-k>", "<C-w>k", {})
 vim.api.nvim_set_keymap("n", "<C-l>", "<C-w>l", {})
 
-vim.api.nvim_set_keymap("n", ";", ":", { noremap = true }) -- ; to :
+vim.api.nvim_set_keymap("n", ";", ":", { noremap = true }) -- ; to : miss some features but faster
 
 -- options
 vim.opt.startofline = false -- reopen at the start of line
