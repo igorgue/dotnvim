@@ -84,7 +84,7 @@ function M.lualine_theme()
 
     return {
         normal = {
-            a = { bg = lualine_colors.gray, fg = lualine_colors.black, gui = "bold" },
+            a = { bg = lualine_colors.lightgray, fg = lualine_colors.white, gui = "bold" },
             b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
             c = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
         },
@@ -130,7 +130,7 @@ function M.lualine_setup_options()
             lualine_a = {
                 {
                     "mode",
-                    separator = { left = "" },
+                    -- separator = { left = "" },
                     fmt = function(str)
                         return str:lower():sub(1, 1)
                     end,
@@ -156,7 +156,10 @@ function M.lualine_setup_options()
             },
             lualine_y = { "location" },
             lualine_z = {
-                { "progress", separator = { right = "" } },
+                {
+                    "progress",
+                    -- separator = { right = "" },
+                },
             },
         },
     }
@@ -233,6 +236,7 @@ function M.alpha_theme()
         dashboard.button("space P", "  live grep", "<cmd>Telescope live_grep<cr>"),
         dashboard.button("c", "  configuration", "<cmd>Conf<cr><cmd>ConfSettings<cr>"),
         dashboard.button("u", "  update plugins", "<cmd>PackerSync<cr>"),
+        dashboard.button("t", "  terminal", "<cmd>terminal<cr>"),
         dashboard.button("q", "  quit", "<cmd>qa<cr>"),
     }
 

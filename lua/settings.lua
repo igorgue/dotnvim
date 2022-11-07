@@ -1049,14 +1049,14 @@ require("nvim-treesitter.configs").setup({
     },
     markid = {
         enable = true,
-        queries = {
-            default = [[
-                (
-                 (identifier) @markid
-                 (#not-has-parent? @markid function_definition class_definition dotted_name)
-                )
-            ]],
-        },
+        -- queries = {
+        --     default = [[
+        --         (
+        --          (identifier) @markid
+        --          (#not-has-parent? @markid function_definition class_definition dotted_name)
+        --         )
+        --     ]],
+        -- },
     },
     rainbow = {
         enable = true,
@@ -1194,6 +1194,7 @@ vim.cmd([[
 
     autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=1
     autocmd User AlphaReady set laststatus=0 | autocmd BufUnload <buffer> set laststatus=3
+    autocmd User AlphaReady map <silent> <buffer> t <Cmd>terminal<CR>
 ]])
 
 -- nvim autocommand to set 'f' as the default key for telescope find_files command when Alpha is open
