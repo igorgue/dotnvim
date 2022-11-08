@@ -225,7 +225,7 @@ function M.alpha_theme()
         version = version .. "-dev"
     end
 
-    theme.header.val = { "neovim v" .. version }
+    theme.header.val = { "neovim " .. version }
 
     theme.config.layout[4].val[1].val = "recent"
     theme.buttons.val = {
