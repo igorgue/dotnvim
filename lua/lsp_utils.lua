@@ -28,7 +28,7 @@ function M.on_attach(_, bufnr)
     vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, bufopts)
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
     vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set("n", "<C-\\>", vim.lsp.buf.signature_help, bufopts) -- replaced by signature.nvim
+    vim.keymap.set("n", "<C-\\>", vim.lsp.buf.signature_help, bufopts)
     vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
     vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
     vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)

@@ -386,10 +386,10 @@ require("mason-lspconfig").setup({
 })
 
 -- nvim diagnostics signs
-vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticError" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticWarning" })
-vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticInformation" })
-vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticHint" })
+vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticError" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticWarning" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticInformation" })
+vim.fn.sign_define("DiagnosticSignHint", { text = " ", texthl = "DiagnosticHint" })
 
 -- trouble
 require("trouble").setup({
@@ -519,6 +519,7 @@ require("formatter").setup({
                         "--out:" .. buffn,
                         buffn,
                     },
+                    stdin = false,
                 }
             end,
         },
@@ -618,7 +619,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
         prefix = "",
     },
     signs = true,
-    update_in_insert = false,
+    update_in_insert = true,
 })
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
@@ -673,7 +674,7 @@ if vim.fn.executable("flutter") == 1 then
         },
         closing_tags = {
             enabled = true,
-            prefix = "/> ",
+            prefix = "  ",
         },
         outline = {
             open_cmd = "botright 40vnew",
@@ -707,15 +708,13 @@ if vim.fn.executable("flutter") == 1 then
                 showTodos = false,
                 completeFunctionCalls = true,
                 updateImportsOnRename = true,
-                enableSnippets = false, -- i have luasnip
+                enableSnippets = false,
                 renameFilesWithClasses = true,
             },
         },
         debugger = {
             enabled = true,
-            run_via_dap = true, -- use dap instead of a plenary job to run flutter apps
-            -- -- if empty dap will not stop on any exceptions, otherwise it will stop on those specified
-            -- -- see |:help dap.set_exception_breakpoints()| for more info
+            run_via_dap = true,
             exception_breakpoints = {},
             register_configurations = function(_)
                 require("dap").configurations.dart = {}
@@ -726,18 +725,11 @@ if vim.fn.executable("flutter") == 1 then
 
     telescope.load_extension("flutter")
 else
-    -- If not flutter, use dartls which is optional
     require("lspconfig").dartls.setup({
         capabilities = lsp_utils.capabilities,
         on_attach = lsp_utils.on_attach,
     })
 end
-
--- semshi config
--- vim.g["semshi#simplify_markup"] = true
--- vim.g["semshi#mark_selected_nodes"] = 1
--- vim.g["semshi#error_sign"] = false
--- vim.g["semshi#always_update_all_highlights"] = false
 
 -- csharp
 -- use vscode omnisharp install
@@ -920,19 +912,19 @@ local dap, dapui = require("dap"), require("dapui")
 
 vim.fn.sign_define(
     "DapBreakpoint",
-    { text = "", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+    { text = " ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
 )
 vim.fn.sign_define(
     "DapBreakpointCondition",
-    { text = "ﳁ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+    { text = " ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
 )
 vim.fn.sign_define(
     "DapBreakpointRejected",
-    { text = "", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+    { text = " ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
 )
 vim.fn.sign_define(
     "DapLogPoint",
-    { text = "", texthl = "DapLogPoint", linehl = "DapLogPoint", numhl = "DapLogPoint" }
+    { text = " ", texthl = "DapLogPoint", linehl = "DapLogPoint", numhl = "DapLogPoint" }
 )
 vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
 
@@ -992,6 +984,15 @@ dap.configurations.elixir = {
         },
     },
 }
+
+dap.adapters.dart = {
+    type = "executable",
+    command = "flutter",
+    args = { "debug-adapter" },
+}
+
+dap.configurations.dart = {}
+require("dap.ext.vscode").load_launchjs()
 
 -- gitsigns
 require("gitsigns").setup()
