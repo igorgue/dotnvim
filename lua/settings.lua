@@ -1164,10 +1164,10 @@ require("todo-comments").setup()
 require("noice").setup({
     cmdline = {
         enabled = true,
-        view = "cmdline",
+        -- view = "cmdline",
     },
     presets = {
-        bottom_search = true,
+        -- bottom_search = true,
         command_palette = true,
         long_message_to_split = true, -- long messages will be sent to a split
         inc_rename = true, -- enables an input dialog for inc-rename.nvim
