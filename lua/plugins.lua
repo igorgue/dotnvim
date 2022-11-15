@@ -14,8 +14,6 @@ packer.startup(function()
 
     use("nvim-telescope/telescope.nvim") -- nice interface for fuzzy finding things
 
-    use("gbrlsnchs/telescope-lsp-handlers.nvim") -- lsp handlers for telescope
-
     use("ghassan0/telescope-glyph.nvim")
 
     use("xiyaowong/telescope-emoji.nvim")
@@ -109,6 +107,7 @@ packer.startup(function()
     use("mfussenegger/nvim-dap")
     use("rcarriga/nvim-dap-ui")
     use("mfussenegger/nvim-dap-python")
+    use("mfussenegger/nvim-lint")
 
     -- notify
     use("rcarriga/nvim-notify")

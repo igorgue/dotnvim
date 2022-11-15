@@ -199,7 +199,6 @@ telescope.setup({
     },
 })
 
-telescope.load_extension("lsp_handlers")
 telescope.load_extension("notify")
 telescope.load_extension("noice")
 telescope.load_extension("glyph")
@@ -385,11 +384,23 @@ require("mason-lspconfig").setup({
     automatic_instalation = true,
 })
 
--- nvim diagnostics signs
+-- diagnostics signs
 vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticError" })
 vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticWarning" })
 vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticInformation" })
 vim.fn.sign_define("DiagnosticSignHint", { text = " ", texthl = "DiagnosticHint" })
+
+-- diagnostics config
+vim.diagnostic.config({
+    underline = false,
+    virtual_text = {
+        spacing = 0,
+        prefix = "",
+    },
+    signs = true,
+    update_in_insert = true,
+    severity_sort = true,
+})
 
 -- trouble
 require("trouble").setup({
@@ -628,29 +639,9 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 require("lspconfig").vimls.setup({
     on_attach = lsp_utils.on_attach,
     capabilities = lsp_utils.capabilities,
-    flags = {
-        debounce_text_changes = 150,
-    },
 })
 
 -- python
--- ↓ LSP server configuration schema
--- This is a read-only overview of the settings this server accepts. Note that some settings might not apply to neovim.
---
--- → pyright.disableLanguageServices              default: false
--- → pyright.disableOrganizeImports               default: false
--- → python.analysis.autoImportCompletions        default: true
--- → python.analysis.autoSearchPaths              default: true
--- → python.analysis.diagnosticMode               default: "openFilesOnly"
--- → python.analysis.diagnosticSeverityOverrides
--- → python.analysis.extraPaths                   default: []
--- → python.analysis.logLevel                     default: "Information"
--- → python.analysis.stubPath                     default: "typings"
--- → python.analysis.typeCheckingMode             default: "basic"
--- → python.analysis.typeshedPaths                default: []
--- → python.analysis.useLibraryCodeForTypes       default: false
--- → python.pythonPath                            default: "python"
--- → python.venvPath                              default: ""
 require("lspconfig").pyright.setup({
     capabilities = lsp_utils.capabilities,
     on_attach = lsp_utils.on_attach,
@@ -659,11 +650,11 @@ require("lspconfig").pyright.setup({
             analysis = {
                 autoSearchPaths = true,
                 diagnosticMode = "workspace",
-                typeCheckingMode = "basic",
+                typeCheckingMode = "off",
                 useLibraryCodeForTypes = true,
             },
         },
-    }
+    },
 })
 
 -- vala
@@ -1241,4 +1232,30 @@ vim.keymap.set("i", "<C-c>", "<cmd>PickColorInsert<cr>", pick_color_opts)
 require("query-secretary").setup({})
 vim.api.nvim_create_user_command("TsQuerySecretary", function()
     require("query-secretary").query_window_initiate()
+end, {})
+
+-- linters
+local lint = require("lint")
+
+lint.linters.djlint = {
+    cmd = "djlint",
+    stdin = true,
+    args = { "--lint", "-" },
+    ignore_exitcode = true,
+    parser = require("lint.parser").from_errorformat("%t%n\\ %l:%c\\ %m"),
+}
+
+lint.linters_by_ft = {
+    python = { "pylint", "flake8" },
+    htmldjango = { "djlint" },
+}
+
+vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "InsertLeave", "InsertEnter", "TextChanged" }, {
+    callback = function()
+        lint.try_lint()
+    end,
+})
+
+vim.api.nvim_create_user_command("Lint", function()
+    lint.try_lint()
 end, {})
