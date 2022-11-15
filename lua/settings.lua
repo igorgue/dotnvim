@@ -84,6 +84,9 @@ vim.api.nvim_set_keymap("n", "tn", ":tabnew<CR>", opts)
 -- autocomplete options
 vim.opt.completeopt = "menu,menuone,noselect"
 
+-- diff settings
+vim.opt.diffopt:append({ linematch = 60 })
+
 -- autocommands... here I got lazy
 vim.cmd([[
     " Remember last location in file
@@ -175,10 +178,7 @@ local telescope = require("telescope")
 local actions = require("telescope.actions")
 
 local function telescope_paste_char(char)
-    vim.fn.setreg("*", char.value)
     vim.api.nvim_put({ char.value }, "c", false, true)
-
-    print([["*p to paste ]] .. char.value)
 end
 
 telescope.setup({
@@ -634,6 +634,23 @@ require("lspconfig").vimls.setup({
 })
 
 -- python
+-- ↓ LSP server configuration schema
+-- This is a read-only overview of the settings this server accepts. Note that some settings might not apply to neovim.
+--
+-- → pyright.disableLanguageServices              default: false
+-- → pyright.disableOrganizeImports               default: false
+-- → python.analysis.autoImportCompletions        default: true
+-- → python.analysis.autoSearchPaths              default: true
+-- → python.analysis.diagnosticMode               default: "openFilesOnly"
+-- → python.analysis.diagnosticSeverityOverrides
+-- → python.analysis.extraPaths                   default: []
+-- → python.analysis.logLevel                     default: "Information"
+-- → python.analysis.stubPath                     default: "typings"
+-- → python.analysis.typeCheckingMode             default: "basic"
+-- → python.analysis.typeshedPaths                default: []
+-- → python.analysis.useLibraryCodeForTypes       default: false
+-- → python.pythonPath                            default: "python"
+-- → python.venvPath                              default: ""
 require("lspconfig").pyright.setup({
     capabilities = lsp_utils.capabilities,
     on_attach = lsp_utils.on_attach,
@@ -642,12 +659,11 @@ require("lspconfig").pyright.setup({
             analysis = {
                 autoSearchPaths = true,
                 diagnosticMode = "workspace",
-                useLibraryCodeForTypes = true,
                 typeCheckingMode = "basic",
-                reportUnnecessaryTypeIgnoreComment = true,
+                useLibraryCodeForTypes = true,
             },
         },
-    },
+    }
 })
 
 -- vala
