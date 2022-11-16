@@ -183,6 +183,8 @@ end
 
 telescope.setup({
     defaults = {
+        prompt_prefix = "   ",
+        selection_caret = "   ",
         mappings = {
             i = {
                 ["<esc>"] = actions.close,
@@ -348,20 +350,27 @@ cmp.setup({
 cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
         { name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
+        { name = "nvim_lsp_document_symbol" },
+        { name = "path" },
+        { name = "spell" },
+        { name = "dictionary" },
         { name = "buffer" },
     }),
 })
 
--- Use buffer source for `/` (if you enabled `native_menu`, this won"t work anymore).
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline("/", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
         { name = "nvim_lsp_document_symbol" },
+        { name = "path" },
+        { name = "spell" },
+        { name = "dictionary" },
         { name = "buffer" },
     },
 })
 
--- Use cmdline & path source for ":" (if you enabled `native_menu`, this won"t work anymore).
+-- Use cmdline & path source for ":" (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
@@ -1145,8 +1154,17 @@ require("indent_blankline").setup({
 })
 
 vim.keymap.set("n", "<leader>l", function()
-    vim.cmd("IndentBlanklineToggle")
-    vim.cmd.set("list!")
+    if vim.g.indent_blankline_enabled then
+        vim.cmd("IndentBlanklineDisable")
+        vim.cmd.set("nolist")
+
+        vim.g.indent_blankline_enabled = false
+    else
+        vim.cmd("IndentBlanklineEnable")
+        vim.cmd.set("list")
+
+        vim.g.indent_blankline_enabled = true
+    end
 end)
 
 -- dadbod ui
@@ -1177,7 +1195,7 @@ require("noice").setup({
         -- bottom_search = true,
         command_palette = true,
         long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = true, -- enables an input dialog for inc-rename.nvim
+        inc_rename = false, -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = true,
     },
     lsp = {

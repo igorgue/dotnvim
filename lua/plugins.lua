@@ -103,14 +103,14 @@ packer.startup(function()
     -- formatter
     use("mhartington/formatter.nvim")
 
-    -- dap
-    use("mfussenegger/nvim-dap")
-    use("rcarriga/nvim-dap-ui")
-    use("mfussenegger/nvim-dap-python")
-    use("mfussenegger/nvim-lint")
+    -- mfussenegger's plugins
+    use("mfussenegger/nvim-dap") -- debug adapter protocol
+    use("mfussenegger/nvim-dap-python") -- dap for python
+    use("mfussenegger/nvim-lint") -- linter plugin
 
-    -- notify
-    use("rcarriga/nvim-notify")
+    -- rcarriga plugins
+    use("rcarriga/nvim-dap-ui") -- dap ui
+    use("rcarriga/nvim-notify") -- general notifications
 
     -- csharp
     use("OmniSharp/omnisharp-vim")
@@ -134,11 +134,11 @@ packer.startup(function()
 
     -- hrsh7th's nvim lsp plugins
     use("hrsh7th/nvim-cmp")
+    use("hrsh7th/cmp-nvim-lua") -- lua support
     use("hrsh7th/cmp-buffer")
     use("hrsh7th/cmp-cmdline")
     use("hrsh7th/cmp-nvim-lsp")
     use("hrsh7th/cmp-nvim-lsp-document-symbol")
-    use("hrsh7th/cmp-nvim-lua") -- lua support
     use("hrsh7th/cmp-path")
 
     -- nvim-cmp's plugins
