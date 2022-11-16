@@ -3,7 +3,7 @@ local packer = require("packer")
 packer.init({
     display = {
         prompt_border = "rounded",
-    }
+    },
 })
 
 packer.startup(function()
@@ -138,7 +138,6 @@ packer.startup(function()
     use("hrsh7th/cmp-cmdline")
     use("hrsh7th/cmp-nvim-lsp")
     use("hrsh7th/cmp-nvim-lsp-document-symbol")
-    -- use("hrsh7th/cmp-nvim-lsp-signature-help")
     use("hrsh7th/cmp-nvim-lua") -- lua support
     use("hrsh7th/cmp-path")
 
