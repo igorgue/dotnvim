@@ -9,8 +9,10 @@ function M.diagnostics_toggle()
 
     if vim.g.show_diagnostics then
         vim.diagnostic.show()
+        -- vim.diagnostic.config({virtual_text = true})
     else
         vim.diagnostic.hide()
+        -- vim.diagnostic.config({virtual_text = false})
     end
 end
 

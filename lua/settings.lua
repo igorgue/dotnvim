@@ -1264,11 +1264,11 @@ lint.linters.djlint = {
 }
 
 lint.linters_by_ft = {
-    python = { "pylint", "flake8" },
+    python = { "pylint" },
     htmldjango = { "djlint" },
 }
 
-vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "InsertLeave", "InsertEnter", "TextChanged" }, {
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     callback = function()
         lint.try_lint()
     end,
