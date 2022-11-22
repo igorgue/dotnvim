@@ -86,31 +86,31 @@ function M.lualine_theme()
         normal = {
             a = { bg = lualine_colors.lightgray, fg = lualine_colors.white, gui = "bold" },
             b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
-            c = { bg = lualine_colors.darkgray, fg = lualine_colors.white, gui="bold" },
+            c = { bg = lualine_colors.lightgray, fg = lualine_colors.white, gui="bold" },
             x = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
         },
         insert = {
             a = { bg = lualine_colors.blue, fg = lualine_colors.black, gui = "bold" },
             b = { bg = lualine_colors.blue, fg = lualine_colors.black },
-            c = { bg = lualine_colors.lightgray, fg = lualine_colors.white, gui="bold" },
+            c = { bg = lualine_colors.blue, fg = lualine_colors.black, gui="bold" },
             x = { bg = lualine_colors.blue, fg = lualine_colors.black },
         },
         visual = {
             a = { bg = lualine_colors.yellow, fg = lualine_colors.black, gui = "bold" },
             b = { bg = lualine_colors.yellow, fg = lualine_colors.black },
-            c = { bg = lualine_colors.inactivegray, fg = lualine_colors.white, gui="bold" },
+            c = { bg = lualine_colors.yellow, fg = lualine_colors.black, gui="bold" },
             x = { bg = lualine_colors.yellow, fg = lualine_colors.black },
         },
         replace = {
             a = { bg = lualine_colors.red, fg = lualine_colors.black, gui = "bold" },
             b = { bg = lualine_colors.red, fg = lualine_colors.black },
-            c = { bg = lualine_colors.black, fg = lualine_colors.white, gui="bold" },
+            c = { bg = lualine_colors.red, fg = lualine_colors.black, gui="bold" },
             x = { bg = lualine_colors.red, fg = lualine_colors.black },
         },
         command = {
             a = { bg = lualine_colors.green, fg = lualine_colors.black, gui = "bold" },
             b = { bg = lualine_colors.green, fg = lualine_colors.black },
-            c = { bg = lualine_colors.lightgray, fg = lualine_colors.white, gui="bold" },
+            c = { bg = lualine_colors.green, fg = lualine_colors.black, gui="bold" },
             x = { bg = lualine_colors.green, fg = lualine_colors.black },
         },
         inactive = {
@@ -241,7 +241,7 @@ function M.alpha_theme()
         dashboard.button("space P", "  live grep", "<cmd>Telescope live_grep<cr>"),
         dashboard.button("c", "  configuration", "<cmd>Conf<cr><cmd>ConfSettings<cr>"),
         dashboard.button("u", "  update plugins", "<cmd>PackerSync<cr>"),
-        dashboard.button("t", "  terminal", "<cmd>terminal<cr>"),
+        dashboard.button("t", "  terminal", "<cmd>terminal<cr>i"),
         dashboard.button("q", "  quit", "<cmd>qa<cr>"),
     }
 

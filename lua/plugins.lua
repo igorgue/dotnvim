@@ -93,6 +93,7 @@ packer.startup(function()
     use("folke/todo-comments.nvim") -- tasks comments, "todo" comments
     use("folke/noice.nvim") -- noice for neovim
     use("folke/twilight.nvim")
+    use("folke/zen-mode.nvim")
 
     -- nui needed for noice
     use("MunifTanjim/nui.nvim")

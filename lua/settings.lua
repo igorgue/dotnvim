@@ -38,7 +38,6 @@ vim.opt.undofile = true
 vim.opt.tags = "tags;" .. home .. "/.config/nvim/tags/;" .. home .. "/tmp/tags/" -- find ctags
 vim.opt.listchars = [[tab:▸\ ,eol:↴]] -- listchars for invisibles
 vim.opt.mouse:append({ a = true }) -- mouse all
-vim.opt.ls = 2 -- status line always show
 vim.opt.scrolloff = 5 -- show 5 lines before cursor always
 vim.opt.showcmd = true -- display incomplete commands
 vim.opt.linebreak = true -- show line breaks
@@ -57,7 +56,7 @@ vim.opt.spell = false -- set spell
 vim.opt.spelllang = { "en_us" } -- set us spell
 vim.opt.updatetime = 12 -- very low update time for fast fps
 vim.opt.showmode = false -- disable mode since we use lualine
-vim.opt.laststatus = 3
+vim.opt.laststatus = 3 -- show only 1 status line
 
 -- tabs...
 vim.api.nvim_set_keymap("n", "<Tab>j", ":tabnext<CR>", opts)
@@ -1098,7 +1097,6 @@ require("nvim-treesitter.configs").setup({
 
 -- some other treesitter plugins
 require("treesitter-context").setup()
-require("twilight").setup()
 require("nvim-dap-virtual-text").setup({})
 
 -- enable html parser in htmldjango file
@@ -1170,6 +1168,7 @@ end)
 -- dadbod ui
 vim.g.dbs = dbs
 vim.g.db_ui_use_nerd_fonts = true
+vim.g.db_ui_save_location = vim.fn.stdpath("data") .. "/db_ui"
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "sql", "mysql", "plsql", "redis" },
@@ -1277,3 +1276,36 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 vim.api.nvim_create_user_command("Lint", function()
     lint.try_lint()
 end, {})
+
+require("twilight").setup({})
+require("zen-mode").setup(
+{
+    window = {
+        backdrop = 1,
+        width = 0.40,
+        height = 0.95,
+        options = {
+            signcolumn = "no",
+            cursorline = false,
+            cursorcolumn = false,
+            foldcolumn = "0",
+        }
+    },
+    plugins = {
+        options = {
+            enabled = true,
+            ruler = false,
+            showcmd = false,
+            laststatus = 0,
+        },
+        gitsigns = { enabled = false },
+        kitty = { enabled = true, font = "+2" },
+        twilight = { enabled = false },
+    }
+})
+
+-- with this map it looks good actually, this has to do with
+-- laststatus is set to 0 when zen mode is open, so instead
+-- of calling ZenMode, we can just do <leader>z
+vim.keymap.set("n", "<leader>z", "Gzt<cmd>ZenMode<cr><C-o>")
+vim.keymap.set("n", "<leader>Z", ":Twilight<CR>") -- twilight
