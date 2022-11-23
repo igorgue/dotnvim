@@ -36,6 +36,9 @@ packer.startup(function()
     -- start page
     use("goolord/alpha-nvim")
 
+    -- sessions manager
+    use("Shatur/neovim-session-manager")
+
     -- Comment.nvim
     use("numToStr/Comment.nvim") -- comment plugin
 

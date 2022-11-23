@@ -86,11 +86,24 @@ vim.opt.completeopt = "menu,menuone,noselect"
 -- diff settings
 vim.opt.diffopt:append({ linematch = 60 })
 
+vim.cmd([[
+    if &diff
+        lua require("lualine").setup(require("ui_utils").lualine_nvimdiff_setup_options())
+
+        augroup diff
+            autocmd!
+            " autocmd BufEnter * if &diff | set laststatus=2 | else | set laststatus=3 | endif
+            autocmd BufEnter * if &diff | map <leader>1 :diffget LOCAL<CR> | endif
+            autocmd BufEnter * if &diff | map <leader>2 :diffget BASE<CR> | endif
+            autocmd BufEnter * if &diff | map <leader>3 :diffget REMOTE<CR> | endif
+        augroup END
+    endif
+]])
+
 -- autocommands... here I got lazy
 vim.cmd([[
     " Remember last location in file
-    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-      \| exe "normal g'\"" | endif
+    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 
     " Make Python follow PEP8 (http://www.python.org/dev/peps/pep-0008/)
     au FileType python set softtabstop=4 tabstop=4 shiftwidth=4
@@ -1013,14 +1026,17 @@ require("dap.ext.vscode").load_launchjs()
 require("gitsigns").setup()
 
 -- lualine
--- load default first
 require("lualine").setup(ui_utils.lualine_setup_options())
 
 -- overwrite with colorscheme specific, my own defaults
-vim.api.nvim_create_autocmd("colorscheme", {
+vim.api.nvim_create_autocmd("ColorScheme", {
     pattern = "*",
     callback = function()
-        require("lualine").setup(ui_utils.lualine_setup_options())
+        if vim.api.nvim_win_get_option(0, "diff") then
+            require("lualine").setup(ui_utils.lualine_nvimdiff_setup_options())
+        else
+            require("lualine").setup(ui_utils.lualine_setup_options())
+        end
     end,
 })
 
@@ -1208,6 +1224,10 @@ require("noice").setup({
 
 vim.api.nvim_set_keymap("n", "<leader>N", "<cmd>Noice history<cr>", {})
 
+require("session_manager").setup({
+    autoload_mode = require("session_manager.config").AutoloadMode.Disabled,
+})
+
 -- alpha
 require("alpha").setup(ui_utils.alpha_theme().config)
 
@@ -1219,7 +1239,6 @@ vim.cmd([[
 
     autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=1
     autocmd User AlphaReady set laststatus=0 | autocmd BufUnload <buffer> set laststatus=3
-    autocmd User AlphaReady map <silent> <buffer> t <Cmd>terminal<CR>
 ]])
 
 -- nvim autocommand to set 'f' as the default key for telescope find_files command when Alpha is open
@@ -1278,8 +1297,7 @@ vim.api.nvim_create_user_command("Lint", function()
 end, {})
 
 require("twilight").setup({})
-require("zen-mode").setup(
-{
+require("zen-mode").setup({
     window = {
         backdrop = 1,
         width = 0.40,
@@ -1289,7 +1307,7 @@ require("zen-mode").setup(
             cursorline = false,
             cursorcolumn = false,
             foldcolumn = "0",
-        }
+        },
     },
     plugins = {
         options = {
@@ -1301,11 +1319,11 @@ require("zen-mode").setup(
         gitsigns = { enabled = false },
         kitty = { enabled = true, font = "+2" },
         twilight = { enabled = false },
-    }
+    },
 })
 
 -- with this map it looks good actually, this has to do with
 -- laststatus is set to 0 when zen mode is open, so instead
 -- of calling ZenMode, we can just do <leader>z
 vim.keymap.set("n", "<leader>z", "Gzt<cmd>ZenMode<cr><C-o>")
-vim.keymap.set("n", "<leader>Z", ":Twilight<CR>") -- twilight
+vim.keymap.set("n", "<leader>Z", "<cmd>Twilight<cr>") -- twilight

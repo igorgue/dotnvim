@@ -86,31 +86,31 @@ function M.lualine_theme()
         normal = {
             a = { bg = lualine_colors.lightgray, fg = lualine_colors.white, gui = "bold" },
             b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
-            c = { bg = lualine_colors.lightgray, fg = lualine_colors.white, gui="bold" },
+            c = { bg = lualine_colors.lightgray, fg = lualine_colors.white, gui = "bold" },
             x = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
         },
         insert = {
             a = { bg = lualine_colors.blue, fg = lualine_colors.black, gui = "bold" },
             b = { bg = lualine_colors.blue, fg = lualine_colors.black },
-            c = { bg = lualine_colors.blue, fg = lualine_colors.black, gui="bold" },
+            c = { bg = lualine_colors.blue, fg = lualine_colors.black, gui = "bold" },
             x = { bg = lualine_colors.blue, fg = lualine_colors.black },
         },
         visual = {
             a = { bg = lualine_colors.yellow, fg = lualine_colors.black, gui = "bold" },
             b = { bg = lualine_colors.yellow, fg = lualine_colors.black },
-            c = { bg = lualine_colors.yellow, fg = lualine_colors.black, gui="bold" },
+            c = { bg = lualine_colors.yellow, fg = lualine_colors.black, gui = "bold" },
             x = { bg = lualine_colors.yellow, fg = lualine_colors.black },
         },
         replace = {
             a = { bg = lualine_colors.red, fg = lualine_colors.black, gui = "bold" },
             b = { bg = lualine_colors.red, fg = lualine_colors.black },
-            c = { bg = lualine_colors.red, fg = lualine_colors.black, gui="bold" },
+            c = { bg = lualine_colors.red, fg = lualine_colors.black, gui = "bold" },
             x = { bg = lualine_colors.red, fg = lualine_colors.black },
         },
         command = {
             a = { bg = lualine_colors.green, fg = lualine_colors.black, gui = "bold" },
             b = { bg = lualine_colors.green, fg = lualine_colors.black },
-            c = { bg = lualine_colors.green, fg = lualine_colors.black, gui="bold" },
+            c = { bg = lualine_colors.green, fg = lualine_colors.black, gui = "bold" },
             x = { bg = lualine_colors.green, fg = lualine_colors.black },
         },
         inactive = {
@@ -170,6 +170,73 @@ function M.lualine_setup_options()
     }
 end
 
+function M.lualine_nvimdiff_setup_options()
+    local theme = M.lualine_theme() or "auto"
+    local lualine_colors = {
+        black = M.hi_co("Normal", "bg"),
+        white = M.hi_co("Normal", "fg"),
+        red = M.hi_co("ErrorMsg", "fg"),
+        green = M.hi_co("Label", "fg"),
+        blue = M.hi_co("CursorLineNr", "fg"),
+        yellow = M.hi_co("Function", "fg"),
+        gray = M.hi_co("PMenu", "fg"),
+        darkgray = M.hi_co("LspCodeLens", "fg"),
+        lightgray = M.hi_co("Visual", "bg"),
+        inactivegray = M.hi_co("TabLine", "fg"),
+    }
+
+    local defaults = {
+        a = { bg = lualine_colors.black, fg = lualine_colors.inactivegray },
+        b = { bg = lualine_colors.black, fg = lualine_colors.inactivegray },
+        c = { bg = lualine_colors.black, fg = lualine_colors.inactivegray },
+        x = { bg = lualine_colors.black, fg = lualine_colors.inactivegray },
+    }
+
+    theme.inactive = defaults
+    theme.normal = defaults
+    theme.insert = defaults
+    theme.visual = defaults
+    theme.visual.x = { bg = lualine_colors.blue, fg = lualine_colors.black }
+    theme.replace = defaults
+    theme.command = defaults
+    theme.inactive = defaults
+
+    return {
+        options = {
+            theme = theme,
+            component_separators = "",
+            section_separators = { left = "", right = "" },
+            globalstatus = true,
+        },
+        sections = {
+            lualine_a = {},
+            lualine_b = {},
+            lualine_c = {
+                "%=",
+                {
+                    "buffers",
+                    show_buffer_icons = false,
+                    hide_filename_extension = true,
+                    buffers_color = {
+                        -- Same values as the general color option can be used here.
+                        -- inactive = "lualine_x_inactive",
+                        active = "lualine_x_visual", -- Color for active buffer.
+                    },
+                    symbols = {
+                        modified = "", -- Text to show when the buffer is modified
+                        alternate_file = "", -- Text to show to identify the alternate file
+                        directory = "", -- Text to show when the buffer is a directory
+                    },
+
+                },
+            },
+            lualine_x = {},
+            lualine_y = {},
+            lualine_z = {},
+        },
+    }
+end
+
 function M.setup_tabline()
     -- sets tabline without the "X" for close, this is done for aesthetic reasons
     -- and this code is copied from :h setting-tabline
@@ -206,7 +273,7 @@ function M.setup_tabline()
         function NoXTabLabel(n)
             let buflist = tabpagebuflist(a:n)
             let winnr = tabpagewinnr(a:n)
-            let name = bufname(buflist[winnr - 1])
+            let name = fnamemodify(bufname(buflist[winnr - 1]), ":t")
 
             " Modification for no name...
             if name == ''
@@ -236,11 +303,12 @@ function M.alpha_theme()
     theme.buttons.val = {
         { type = "text", val = "shortcuts", opts = { hl = "specialcomment", position = "center" } },
         { type = "padding", val = 1 },
+        dashboard.button("s", "  last session", "<cmd>SessionManager load_last_session<cr>"),
         dashboard.button("e", "  new file", "<cmd>ene<cr>"),
-        dashboard.button("space n", "  find file", "<cmd>Telescope find_files<cr>"),
-        dashboard.button("space P", "  live grep", "<cmd>Telescope live_grep<cr>"),
-        dashboard.button("c", "  configuration", "<cmd>Conf<cr><cmd>ConfSettings<cr>"),
-        dashboard.button("u", "  update plugins", "<cmd>PackerSync<cr>"),
+        dashboard.button("f", "  find file", "<cmd>Telescope find_files<cr>"),
+        dashboard.button("F", "  search text", "<cmd>Telescope live_grep<cr>"),
+        dashboard.button("s", "  settings", "<cmd>Conf<cr><cmd>ConfSettings<cr>"),
+        dashboard.button("u", "  update", "<cmd>PackerSync<cr>"),
         dashboard.button("t", "  terminal", "<cmd>terminal<cr>i"),
         dashboard.button("q", "  quit", "<cmd>qa<cr>"),
     }
