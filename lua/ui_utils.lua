@@ -82,7 +82,7 @@ function M.lualine_theme()
         inactivegray = M.hi_co("TabLine", "fg"),
     }
 
-    return {
+    local theme = {
         normal = {
             a = { bg = lualine_colors.lightgray, fg = lualine_colors.white, gui = "bold" },
             b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
@@ -119,122 +119,111 @@ function M.lualine_theme()
             c = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
         },
     }
+
+    if vim.api.nvim_win_get_option(0, "diff") then
+        local defaults = {
+            a = { bg = lualine_colors.black, fg = lualine_colors.inactivegray },
+            b = { bg = lualine_colors.black, fg = lualine_colors.inactivegray },
+            c = { bg = lualine_colors.black, fg = lualine_colors.inactivegray },
+            x = { bg = lualine_colors.black, fg = lualine_colors.inactivegray },
+        }
+
+        theme.inactive = defaults
+        theme.normal = defaults
+        theme.insert = defaults
+        theme.visual = defaults
+        theme.visual.x = { bg = lualine_colors.blue, fg = lualine_colors.black }
+        theme.replace = defaults
+        theme.command = defaults
+        theme.inactive = defaults
+    end
+
+    return theme
 end
 
 function M.lualine_setup_options()
     local theme = M.lualine_theme() or "auto"
 
-    return {
-        options = {
-            theme = theme,
-            component_separators = "",
-            section_separators = { left = "", right = "" },
-            globalstatus = true,
-        },
-        sections = {
-            lualine_a = {
-                {
-                    "mode",
-                    -- separator = { left = "" },
-                    fmt = function(str)
-                        return str:lower():sub(1, 1)
-                    end,
-                },
+    if vim.api.nvim_win_get_option(0, "diff") then
+        return {
+            options = {
+                theme = theme,
+                component_separators = "",
+                section_separators = { left = "", right = "" },
+                globalstatus = true,
             },
-            lualine_b = { "branch", "diff", { "diagnostics", update_in_insert = true } },
-            lualine_c = {
-                "%=",
-                {
-                    "filename",
-                    path = 1,
-                    symbols = { modified = "", readonly = "", new = "", unnamed = "" },
-                },
-            },
-            lualine_x = {
-                {
-                    require("noice").api.status.mode.get,
-                    cond = require("noice").api.status.mode.has,
-                },
-                "encoding",
-                { "filetype", icon_only = true },
-                "fileformat",
-            },
-            lualine_y = { "location" },
-            lualine_z = {
-                {
-                    "progress",
-                    -- separator = { right = "" },
-                },
-            },
-        },
-    }
-end
-
-function M.lualine_nvimdiff_setup_options()
-    local theme = M.lualine_theme() or "auto"
-    local lualine_colors = {
-        black = M.hi_co("Normal", "bg"),
-        white = M.hi_co("Normal", "fg"),
-        red = M.hi_co("ErrorMsg", "fg"),
-        green = M.hi_co("Label", "fg"),
-        blue = M.hi_co("CursorLineNr", "fg"),
-        yellow = M.hi_co("Function", "fg"),
-        gray = M.hi_co("PMenu", "fg"),
-        darkgray = M.hi_co("LspCodeLens", "fg"),
-        lightgray = M.hi_co("Visual", "bg"),
-        inactivegray = M.hi_co("TabLine", "fg"),
-    }
-
-    local defaults = {
-        a = { bg = lualine_colors.black, fg = lualine_colors.inactivegray },
-        b = { bg = lualine_colors.black, fg = lualine_colors.inactivegray },
-        c = { bg = lualine_colors.black, fg = lualine_colors.inactivegray },
-        x = { bg = lualine_colors.black, fg = lualine_colors.inactivegray },
-    }
-
-    theme.inactive = defaults
-    theme.normal = defaults
-    theme.insert = defaults
-    theme.visual = defaults
-    theme.visual.x = { bg = lualine_colors.blue, fg = lualine_colors.black }
-    theme.replace = defaults
-    theme.command = defaults
-    theme.inactive = defaults
-
-    return {
-        options = {
-            theme = theme,
-            component_separators = "",
-            section_separators = { left = "", right = "" },
-            globalstatus = true,
-        },
-        sections = {
-            lualine_a = {},
-            lualine_b = {},
-            lualine_c = {
-                "%=",
-                {
-                    "buffers",
-                    show_buffer_icons = false,
-                    hide_filename_extension = true,
-                    buffers_color = {
-                        -- Same values as the general color option can be used here.
-                        -- inactive = "lualine_x_inactive",
-                        active = "lualine_x_visual", -- Color for active buffer.
+            sections = {
+                lualine_a = {},
+                lualine_b = {},
+                lualine_c = {
+                    "%=",
+                    {
+                        "buffers",
+                        show_buffer_icons = false,
+                        hide_filename_extension = true,
+                        buffers_color = {
+                            -- Same values as the general color option can be used here.
+                            -- inactive = "lualine_x_inactive",
+                            active = "lualine_x_visual", -- Color for active buffer.
+                        },
+                        symbols = {
+                            modified = "", -- Text to show when the buffer is modified
+                            alternate_file = "", -- Text to show to identify the alternate file
+                            directory = "", -- Text to show when the buffer is a directory
+                        },
                     },
-                    symbols = {
-                        modified = "", -- Text to show when the buffer is modified
-                        alternate_file = "", -- Text to show to identify the alternate file
-                        directory = "", -- Text to show when the buffer is a directory
+                },
+                lualine_x = {},
+                lualine_y = {},
+                lualine_z = {},
+            },
+        }
+    else
+        return {
+            options = {
+                theme = theme,
+                component_separators = "",
+                section_separators = { left = "", right = "" },
+                globalstatus = true,
+            },
+            sections = {
+                lualine_a = {
+                    {
+                        "mode",
+                        -- separator = { left = "" },
+                        fmt = function(str)
+                            return str:lower():sub(1, 1)
+                        end,
                     },
-
+                },
+                lualine_b = { "branch", "diff", { "diagnostics", update_in_insert = true } },
+                lualine_c = {
+                    "%=",
+                    {
+                        "filename",
+                        path = 1,
+                        symbols = { modified = "", readonly = "", new = "", unnamed = "" },
+                    },
+                },
+                lualine_x = {
+                    {
+                        require("noice").api.status.mode.get,
+                        cond = require("noice").api.status.mode.has,
+                    },
+                    "encoding",
+                    { "filetype", icon_only = true },
+                    "fileformat",
+                },
+                lualine_y = { "location" },
+                lualine_z = {
+                    {
+                        "progress",
+                        -- separator = { right = "" },
+                    },
                 },
             },
-            lualine_x = {},
-            lualine_y = {},
-            lualine_z = {},
-        },
-    }
+        }
+    end
 end
 
 function M.setup_tabline()
@@ -303,11 +292,11 @@ function M.alpha_theme()
     theme.buttons.val = {
         { type = "text", val = "shortcuts", opts = { hl = "specialcomment", position = "center" } },
         { type = "padding", val = 1 },
-        dashboard.button("s", "  last session", "<cmd>SessionManager load_last_session<cr>"),
         dashboard.button("e", "  new file", "<cmd>ene<cr>"),
+        dashboard.button("s", "  last session", "<cmd>RestoreSession<cr>"),
         dashboard.button("f", "  find file", "<cmd>Telescope find_files<cr>"),
         dashboard.button("F", "  search text", "<cmd>Telescope live_grep<cr>"),
-        dashboard.button("s", "  settings", "<cmd>Conf<cr><cmd>ConfSettings<cr>"),
+        dashboard.button("c", "  config", "<cmd>Conf<cr><cmd>ConfSettings<cr>"),
         dashboard.button("u", "  update", "<cmd>PackerSync<cr>"),
         dashboard.button("t", "  terminal", "<cmd>terminal<cr>i"),
         dashboard.button("q", "  quit", "<cmd>qa<cr>"),

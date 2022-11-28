@@ -12,10 +12,10 @@ packer.startup(function()
 
     use("wbthomason/packer.nvim") -- packer update itself
 
-    use("nvim-telescope/telescope.nvim") -- nice interface for fuzzy finding things
-
+    -- telescope and plugins
+    use("nvim-telescope/telescope.nvim")
+    use("nvim-telescope/telescope-ui-select.nvim")
     use("ghassan0/telescope-glyph.nvim")
-
     use("xiyaowong/telescope-emoji.nvim")
 
     use("github/copilot.vim") -- Github copilot
@@ -37,7 +37,7 @@ packer.startup(function()
     use("goolord/alpha-nvim")
 
     -- sessions manager
-    use("Shatur/neovim-session-manager")
+    use("rmagatti/auto-session")
 
     -- Comment.nvim
     use("numToStr/Comment.nvim") -- comment plugin
@@ -103,6 +103,7 @@ packer.startup(function()
 
     -- saga
     use({ "glepnir/lspsaga.nvim", branch = "main" })
+    use("glepnir/hlsearch.nvim")
 
     -- formatter
     use("mhartington/formatter.nvim")

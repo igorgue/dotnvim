@@ -88,8 +88,6 @@ vim.opt.diffopt:append({ linematch = 60 })
 
 vim.cmd([[
     if &diff
-        lua require("lualine").setup(require("ui_utils").lualine_nvimdiff_setup_options())
-
         augroup diff
             autocmd!
             " autocmd BufEnter * if &diff | set laststatus=2 | else | set laststatus=3 | endif
@@ -210,10 +208,14 @@ telescope.setup({
         glyph = {
             action = telescope_paste_char,
         },
+        ["ui-select"] = {
+            require("telescope.themes").get_dropdown({}),
+        },
     },
 })
 
 telescope.load_extension("notify")
+telescope.load_extension("ui-select")
 telescope.load_extension("noice")
 telescope.load_extension("glyph")
 telescope.load_extension("emoji")
@@ -580,8 +582,6 @@ vim.cmd([[
 
 vim.keymap.set("n", "<leader>d", lsp_utils.diagnostics_toggle, opts)
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 
 -- saga
 local saga = require("lspsaga")
@@ -637,6 +637,8 @@ vim.keymap.set("n", "<leader>cd", "<cmp>Lspsaga peek_definition<CR>", sagaopts)
 vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", sagaopts)
 vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", sagaopts)
 vim.keymap.set("n", "<leader>ck", "<cmd>Lspsaga hover_doc<CR>", sagaopts)
+vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
 
 -- diagnostics style
 vim.diagnostic.config({
@@ -1032,11 +1034,7 @@ require("lualine").setup(ui_utils.lualine_setup_options())
 vim.api.nvim_create_autocmd("ColorScheme", {
     pattern = "*",
     callback = function()
-        if vim.api.nvim_win_get_option(0, "diff") then
-            require("lualine").setup(ui_utils.lualine_nvimdiff_setup_options())
-        else
-            require("lualine").setup(ui_utils.lualine_setup_options())
-        end
+        require("lualine").setup(ui_utils.lualine_setup_options())
     end,
 })
 
@@ -1224,8 +1222,12 @@ require("noice").setup({
 
 vim.api.nvim_set_keymap("n", "<leader>N", "<cmd>Noice history<cr>", {})
 
-require("session_manager").setup({
-    autoload_mode = require("session_manager.config").AutoloadMode.Disabled,
+-- session manager
+require("auto-session").setup({
+    log_level = "error",
+    auto_save_enabled = true,
+    auto_restore_enabled = false,
+    auto_session_suppress_dirs = { "~/", "~/Documents", "~/Downloads", "/" },
 })
 
 -- alpha
@@ -1240,21 +1242,6 @@ vim.cmd([[
     autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=1
     autocmd User AlphaReady set laststatus=0 | autocmd BufUnload <buffer> set laststatus=3
 ]])
-
--- nvim autocommand to set 'f' as the default key for telescope find_files command when Alpha is open
--- FIXME: this doesn't work?
--- vim.api.nvim_create_autocmd("User", {
---     pattern = "AlphaReady",
---     callback = function()
---         vim.cmd([[
---             augroup AlphaTelescope
---                 autocmd!
---                 autocmd FileType alpha nnoremap <silent> f <cmd>Telescope find_files<cr> | autocmd BufUnload <buffer> unmap <silent> f <cmd>Telescope find_files<cr>
---                 autocmd FileType alpha nnoremap <silent> g <cmd>Telescope live_grep<cr> | autocmd BufUnload <buffer> unmap <silent> f <cmd>Telescope live_grep<cr>
---             augroup END
---         ]])
---     end,
--- })
 
 -- color picker
 require("color-picker").setup()
@@ -1317,13 +1304,20 @@ require("zen-mode").setup({
             laststatus = 0,
         },
         gitsigns = { enabled = false },
+        -- FIXME: this doesn't work
         kitty = { enabled = true, font = "+2" },
         twilight = { enabled = false },
     },
 })
 
--- with this map it looks good actually, this has to do with
--- laststatus is set to 0 when zen mode is open, so instead
--- of calling ZenMode, we can just do <leader>z
-vim.keymap.set("n", "<leader>z", "Gzt<cmd>ZenMode<cr><C-o>")
+vim.keymap.set("n", "<leader>z", function()
+    require("zen-mode").toggle()
+end)
 vim.keymap.set("n", "<leader>Z", "<cmd>Twilight<cr>") -- twilight
+
+-- autocommand for hlsearch.nvim for event BufRead
+vim.api.nvim_create_autocmd("BufRead", {
+    callback = function()
+        require("hlsearch").setup()
+    end,
+})
