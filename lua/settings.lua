@@ -1312,7 +1312,7 @@ require("zen-mode").setup({
     },
 })
 
-vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<cr>")
+vim.keymap.set("n", "<leader>z", "Gzt<cmd>ZenMode<cr><C-o>")
 vim.keymap.set("n", "<leader>Z", "<cmd>Twilight<cr>") -- twilight
 
 -- autocommand for hlsearch.nvim for event BufRead
