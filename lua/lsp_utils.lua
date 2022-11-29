@@ -2,6 +2,17 @@ local M = {}
 
 vim.g.show_diagnostics = true
 
+M.diagnostic_config = {
+    underline = true,
+    virtual_text = {
+        spacing = 0,
+        prefix = "",
+    },
+    signs = true,
+    update_in_insert = true,
+    severity_sort = true,
+}
+
 -- toggle diagnostics
 -- as expressed in :h vim.lsp.codelens.refresh
 function M.diagnostics_toggle()

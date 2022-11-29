@@ -161,9 +161,8 @@ packer.startup(function()
     use("ziontee113/color-picker.nvim")
     use("ziontee113/query-secretary")
 
-    -- scrollbar
-    use("petertriho/nvim-scrollbar")
-    use("kevinhwang91/nvim-hlslens")
+    -- schemastore
+    use("b0o/schemastore.nvim")
 end)
 
 return packer

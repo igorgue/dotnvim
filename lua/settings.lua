@@ -164,7 +164,7 @@ vim.keymap.set("n", "<leader>X", ui_utils.syn_stack, opts)
 vim.notify = require("notify")
 vim.notify.setup({
     render = "minimal",
-    timeout = 1500,
+    timeout = 1720,
     stages = "static",
     background_colour = "#000000",
 })
@@ -333,23 +333,51 @@ cmp.setup({
         preview = cmp.config.window.bordered({ winhighlight = winhighlight }),
     },
     formatting = {
-        fields = { "kind", "abbr", "menu" },
+        -- fields = { "kind", "abbr", "menu" },
         format = require("lspkind").cmp_format({
-            with_text = false,
+            mode = "symbol",
+            ellipsis_char = "…",
             menu = {
-                nvim_lsp = "[lsp]",
-                nvim_lua = "[lua]",
-                luasnip = "[luasnip]",
-                buffer = "[buffer]",
-                path = "[path]",
-                calc = "[calc]",
-                vsnip = "[vsnip]",
-                nvim_lsp_signature_help = "[lsp]",
-                treesitter = "[treesitter]",
-                spell = "[spell]",
-                dictionary = "[dictionary]",
-                zsh = "[zsh]",
-                ["vim-dadbod-completion"] = "[db]",
+                nvim_lsp = "",
+                nvim_lua = "",
+                luasnip = "",
+                buffer = "",
+                path = "",
+                calc = "",
+                vsnip = "",
+                nvim_lsp_signature_help = "",
+                treesitter = "",
+                spell = "",
+                dictionary = "",
+                zsh = "",
+                ["vim-dadbod-completion"] = ""
+            },
+            symbol_map = {
+                Text = "",
+                Method = "",
+                Function = "",
+                Constructor = "",
+                Field = "ﰠ",
+                Variable = "ﰠ",
+                Class = "ﴯ",
+                Interface = "",
+                Module = "",
+                Property = "ﰠ",
+                Unit = "塞",
+                Value = "",
+                Enum = "",
+                Keyword = "",
+                Snippet = "",
+                Color = "",
+                File = "",
+                Reference = "",
+                Folder = "",
+                EnumMember = "",
+                Constant = "",
+                Struct = "פּ",
+                Event = "",
+                Operator = "",
+                TypeParameter = "ﰠ",
             },
         }),
     },
@@ -411,16 +439,7 @@ vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticIn
 vim.fn.sign_define("DiagnosticSignHint", { text = " ", texthl = "DiagnosticHint" })
 
 -- diagnostics config
-vim.diagnostic.config({
-    underline = false,
-    virtual_text = {
-        spacing = 0,
-        prefix = "",
-    },
-    signs = true,
-    update_in_insert = true,
-    severity_sort = true,
-})
+vim.diagnostic.config(lsp_utils.diagnostic_config)
 
 -- trouble
 require("trouble").setup({
@@ -578,7 +597,6 @@ vim.cmd([[
 ]])
 
 vim.keymap.set("n", "<leader>d", lsp_utils.diagnostics_toggle, opts)
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
 
 -- saga
 local saga = require("lspsaga")
@@ -636,6 +654,7 @@ vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", sagaopts)
 vim.keymap.set("n", "<leader>ck", "<cmd>Lspsaga hover_doc<CR>", sagaopts)
 vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
 vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
+vim.keymap.set("n", "<leader>e", "<cmd>Lspsaga show_line_diagnostics<CR>", sagaopts)
 
 -- diagnostics style
 vim.diagnostic.config({
@@ -643,15 +662,8 @@ vim.diagnostic.config({
 })
 
 -- lsp handlers
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    underline = false,
-    virtual_text = {
-        spacing = 0,
-        prefix = "",
-    },
-    signs = true,
-    update_in_insert = true,
-})
+vim.lsp.handlers["textDocument/publishDiagnostics"] =
+    vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, lsp_utils.diagnostic_config)
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
@@ -670,9 +682,21 @@ require("lspconfig").pyright.setup({
             analysis = {
                 autoSearchPaths = true,
                 diagnosticMode = "workspace",
-                typeCheckingMode = "off",
+                typeCheckingMode = "basic",
                 useLibraryCodeForTypes = true,
             },
+        },
+    },
+})
+
+-- json
+require("lspconfig").jsonls.setup({
+    capabilities = lsp_utils.capabilities,
+    on_attach = lsp_utils.on_attach,
+    settings = {
+        json = {
+            schemas = require("schemastore").json.schemas(),
+            validate = { enable = true },
         },
     },
 })
@@ -1199,10 +1223,8 @@ require("todo-comments").setup()
 require("noice").setup({
     cmdline = {
         enabled = true,
-        -- view = "cmdline",
     },
     presets = {
-        -- bottom_search = true,
         command_palette = true,
         long_message_to_split = true, -- long messages will be sent to a split
         inc_rename = false, -- enables an input dialog for inc-rename.nvim
@@ -1215,11 +1237,6 @@ require("noice").setup({
             ["cmp.entry.get_documentation"] = true,
         },
     },
-    views = {
-        virtualtext = {
-            format = "",
-        },
-    }
 })
 
 vim.api.nvim_set_keymap("n", "<leader>N", "<cmd>Noice history<cr>", {})
@@ -1289,7 +1306,7 @@ require("twilight").setup({})
 require("zen-mode").setup({
     window = {
         backdrop = 1,
-        width = 0.40,
+        width = 0.70,
         height = 0.95,
         options = {
             signcolumn = "no",
@@ -1307,12 +1324,30 @@ require("zen-mode").setup({
         },
         gitsigns = { enabled = false },
         -- FIXME: this doesn't work, but still keep it
-        -- kitty = { enabled = true, font = "+2" },
+        -- must reduce the font size manually
+        kitty = { enabled = true, font = "+2" },
         twilight = { enabled = false },
     },
 })
 
 vim.keymap.set("n", "<leader>z", "Gzt<cmd>ZenMode<cr><C-o>")
+vim.keymap.set("n", "<leader>z", function()
+    vim.cmd("normal! Gzt")
+
+    -- if filetype is python use 0.45 else 0.70 for width
+    local zen_mode_width = 0.70
+    if vim.bo.filetype == "python" then
+        zen_mode_width = 0.45
+    end
+
+    require("zen-mode").toggle({
+        window = {
+            width = zen_mode_width,
+        },
+    })
+
+    vim.cmd("normal! <C-o>")
+end)
 vim.keymap.set("n", "<leader>Z", "<cmd>Twilight<cr>") -- twilight
 
 -- autocommand for hlsearch.nvim for event BufRead
@@ -1321,26 +1356,3 @@ vim.api.nvim_create_autocmd("BufRead", {
         require("hlsearch").setup()
     end,
 })
-
--- scrollbar
-require("scrollbar").setup()
-require("scrollbar.handlers.search").setup({
-    override_lens = function() end,
-})
-require("scrollbar.handlers.gitsigns").setup()
-
--- lens
-require('hlslens').setup()
-
-local kopts = {noremap = true, silent = true}
-
-vim.api.nvim_set_keymap('n', 'n',
-    [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
-    kopts)
-vim.api.nvim_set_keymap('n', 'N',
-    [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
-    kopts)
-vim.api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
-vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
-vim.api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
-vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
