@@ -160,6 +160,10 @@ packer.startup(function()
     -- ziontee113 plugins
     use("ziontee113/color-picker.nvim")
     use("ziontee113/query-secretary")
+
+    -- scrollbar
+    use("petertriho/nvim-scrollbar")
+    use("kevinhwang91/nvim-hlslens")
 end)
 
 return packer

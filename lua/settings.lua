@@ -96,10 +96,7 @@ vim.cmd([[
             autocmd BufEnter * if &diff | map <leader>3 :diffget REMOTE<CR> | endif
         augroup END
     endif
-]])
 
--- autocommands... here I got lazy
-vim.cmd([[
     " Remember last location in file
     au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 
@@ -1218,6 +1215,11 @@ require("noice").setup({
             ["cmp.entry.get_documentation"] = true,
         },
     },
+    views = {
+        virtualtext = {
+            format = "",
+        },
+    }
 })
 
 vim.api.nvim_set_keymap("n", "<leader>N", "<cmd>Noice history<cr>", {})
@@ -1304,15 +1306,13 @@ require("zen-mode").setup({
             laststatus = 0,
         },
         gitsigns = { enabled = false },
-        -- FIXME: this doesn't work
-        kitty = { enabled = true, font = "+2" },
+        -- FIXME: this doesn't work, but still keep it
+        -- kitty = { enabled = true, font = "+2" },
         twilight = { enabled = false },
     },
 })
 
-vim.keymap.set("n", "<leader>z", function()
-    require("zen-mode").toggle()
-end)
+vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<cr>")
 vim.keymap.set("n", "<leader>Z", "<cmd>Twilight<cr>") -- twilight
 
 -- autocommand for hlsearch.nvim for event BufRead
@@ -1321,3 +1321,22 @@ vim.api.nvim_create_autocmd("BufRead", {
         require("hlsearch").setup()
     end,
 })
+
+-- scrollbar
+require("scrollbar").setup({})
+
+-- lens
+require('hlslens').setup()
+
+local kopts = {noremap = true, silent = true}
+
+vim.api.nvim_set_keymap('n', 'n',
+    [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
+    kopts)
+vim.api.nvim_set_keymap('n', 'N',
+    [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
+    kopts)
+vim.api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+vim.api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
