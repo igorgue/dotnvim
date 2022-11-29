@@ -1323,7 +1323,11 @@ vim.api.nvim_create_autocmd("BufRead", {
 })
 
 -- scrollbar
-require("scrollbar").setup({})
+require("scrollbar").setup()
+require("scrollbar.handlers.search").setup({
+    override_lens = function() end,
+})
+require("scrollbar.handlers.gitsigns").setup()
 
 -- lens
 require('hlslens').setup()
