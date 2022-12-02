@@ -321,6 +321,34 @@ local mapping = {
 }
 
 -- cmp plugin
+local cmp_symbols = {
+    Text = "",
+    Method = "",
+    Function = "",
+    Constructor = "",
+    Field = "",
+    Variable = "",
+    Class = "",
+    Interface = "",
+    Module = "",
+    Property = "",
+    Unit = "塞",
+    Value = "",
+    Enum = "",
+    Keyword = "",
+    Snippet = "",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "",
+    Event = "",
+    Operator = "",
+    TypeParameter = "",
+}
+
 cmp.setup({
     snippet = {
         expand = function(args)
@@ -333,7 +361,6 @@ cmp.setup({
         preview = cmp.config.window.bordered({ winhighlight = winhighlight }),
     },
     formatting = {
-        -- fields = { "kind", "abbr", "menu" },
         format = require("lspkind").cmp_format({
             mode = "symbol",
             ellipsis_char = "…",
@@ -350,35 +377,9 @@ cmp.setup({
                 spell = "",
                 dictionary = "",
                 zsh = "",
-                ["vim-dadbod-completion"] = ""
+                ["vim-dadbod-completion"] = "",
             },
-            symbol_map = {
-                Text = "",
-                Method = "",
-                Function = "",
-                Constructor = "",
-                Field = "ﰠ",
-                Variable = "ﰠ",
-                Class = "ﴯ",
-                Interface = "",
-                Module = "",
-                Property = "ﰠ",
-                Unit = "塞",
-                Value = "",
-                Enum = "",
-                Keyword = "",
-                Snippet = "",
-                Color = "",
-                File = "",
-                Reference = "",
-                Folder = "",
-                EnumMember = "",
-                Constant = "",
-                Struct = "פּ",
-                Event = "",
-                Operator = "",
-                TypeParameter = "ﰠ",
-            },
+            symbol_map = cmp_symbols,
         }),
     },
     mapping = cmp.mapping.preset.insert(mapping),
@@ -533,6 +534,10 @@ require("formatter").setup({
 
         sql = {
             require("formatter.filetypes.sql").sqlformat,
+        },
+
+        rust = {
+            require("formatter.filetypes.rust").rustfmt,
         },
 
         elixir = {
@@ -705,6 +710,30 @@ require("lspconfig").jsonls.setup({
 require("lspconfig").vala_ls.setup({
     capabilities = lsp_utils.capabilities,
     on_attach = lsp_utils.on_attach,
+})
+
+-- rust
+require("lspconfig").rust_analyzer.setup({
+    capabilities = lsp_utils.capabilities,
+    on_attach = lsp_utils.on_attach,
+    settings = {
+        ["rust-analyzer"] = {
+            imports = {
+                granularity = {
+                    group = "module",
+                },
+                prefix = "self",
+            },
+            cargo = {
+                buildScripts = {
+                    enable = true,
+                },
+            },
+            procMacro = {
+                enable = true,
+            },
+        },
+    },
 })
 
 -- dart
@@ -1287,9 +1316,17 @@ lint.linters.djlint = {
     parser = require("lint.parser").from_errorformat("%t%n\\ %l:%c\\ %m"),
 }
 
+lint.linters.clippy = {
+    cmd = "cargo",
+    stdin = true,
+    args = { "clippy" },
+    ignore_exitcode = true,
+}
+
 lint.linters_by_ft = {
     python = { "pylint" },
     htmldjango = { "djlint" },
+    rust = { "clippy" },
 }
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {

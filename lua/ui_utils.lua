@@ -296,9 +296,13 @@ function M.alpha_theme()
         dashboard.button("s", "  last session", "<cmd>RestoreSession<cr>"),
         dashboard.button("f", "  find file", "<cmd>Telescope find_files<cr>"),
         dashboard.button("F", "  search text", "<cmd>Telescope live_grep<cr>"),
+
         dashboard.button("c", "  config", "<cmd>Conf<cr><cmd>ConfSettings<cr>"),
         dashboard.button("u", "  update", "<cmd>PackerSync<cr>"),
+
         dashboard.button("t", "  terminal", "<cmd>terminal<cr>i"),
+        dashboard.button("d", "  dbui", "<cmd>enew<cr><cmd>DBUI<cr>"),
+
         dashboard.button("q", "  quit", "<cmd>qa<cr>"),
     }
 

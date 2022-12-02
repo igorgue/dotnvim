@@ -22,7 +22,7 @@ packer.startup(function()
 
     use("neovim/nvim-lspconfig") -- native LSP support
 
-    use("L3MON4D3/LuaSnip") -- Lua based snippets
+    use({ "L3MON4D3/LuaSnip", run = "make install_jsregexp" }) -- Lua based snippets
     use("rafamadriz/friendly-snippets") -- snippets for LuaSnip
 
     use("onsails/lspkind.nvim") -- Nice kinds icons on lsp menus
