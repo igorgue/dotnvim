@@ -613,6 +613,8 @@ saga.init_lsp_saga({
         virtual_text = false,
     },
     rename_in_select = false,
+    rename_action_quit = "q",
+    hover_action_quit = "q",
     symbol_in_winbar = {
         enable = true,
         show_file = false,
@@ -660,11 +662,6 @@ vim.keymap.set("n", "<leader>ck", "<cmd>Lspsaga hover_doc<CR>", sagaopts)
 vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
 vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
 vim.keymap.set("n", "<leader>e", "<cmd>Lspsaga show_line_diagnostics<CR>", sagaopts)
-
--- diagnostics style
-vim.diagnostic.config({
-    float = { border = "rounded" },
-})
 
 -- lsp handlers
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
@@ -1340,10 +1337,13 @@ vim.api.nvim_create_user_command("Lint", function()
 end, {})
 
 require("twilight").setup({})
-require("zen-mode").setup({
+
+local zen_mode = require("zen-mode")
+local zen_mode_view = require("zen-mode.view")
+zen_mode.setup({
     window = {
         backdrop = 1,
-        width = 0.70,
+        width = 0.60,
         height = 0.95,
         options = {
             signcolumn = "no",
@@ -1359,31 +1359,38 @@ require("zen-mode").setup({
             showcmd = false,
             laststatus = 0,
         },
-        gitsigns = { enabled = false },
-        -- FIXME: this doesn't work, but still keep it
-        -- must reduce the font size manually
+        gitsigns = { enabled = true },
+        tmux = { enabled = true },
         kitty = { enabled = true, font = "+2" },
         twilight = { enabled = false },
+        diagnostics = { enabled = true },
     },
 })
 
-vim.keymap.set("n", "<leader>z", "Gzt<cmd>ZenMode<cr><C-o>")
+-- FIXME: this is done like this because of a bug in zen-mode
+-- shows the last line becuase I don't use status lines
 vim.keymap.set("n", "<leader>z", function()
-    vim.cmd("normal! Gzt")
+    if zen_mode_view.is_open() then
+        zen_mode.close()
+    else
+        local current_line = vim.fn.line(".")
+        vim.cmd("normal! Gzt")
 
-    -- if filetype is python use 0.45 else 0.70 for width
-    local zen_mode_width = 0.70
-    if vim.bo.filetype == "python" then
-        zen_mode_width = 0.45
+        -- if filetype is python use 0.45 else 0.70 for width
+        local zen_mode_width = 0.70
+        if vim.bo.filetype == "python" then
+            zen_mode_width = 0.45
+        end
+
+        zen_mode.toggle({
+            window = {
+                width = zen_mode_width,
+            },
+        })
+
+        -- go to current_line
+        vim.cmd("normal! " .. current_line .. "G")
     end
-
-    require("zen-mode").toggle({
-        window = {
-            width = zen_mode_width,
-        },
-    })
-
-    vim.cmd("normal! <C-o>")
 end)
 vim.keymap.set("n", "<leader>Z", "<cmd>Twilight<cr>") -- twilight
 

@@ -3,6 +3,7 @@ local M = {}
 vim.g.show_diagnostics = true
 
 M.diagnostic_config = {
+    float = { border = "rounded" },
     underline = true,
     virtual_text = {
         spacing = 0,
@@ -19,11 +20,9 @@ function M.diagnostics_toggle()
     vim.g.show_diagnostics = not vim.g.show_diagnostics
 
     if vim.g.show_diagnostics then
-        vim.diagnostic.show()
-        -- vim.diagnostic.config({virtual_text = true})
+        vim.diagnostic.enable(0)
     else
-        vim.diagnostic.hide()
-        -- vim.diagnostic.config({virtual_text = false})
+        vim.diagnostic.disable(0)
     end
 end
 
