@@ -54,7 +54,20 @@ function M.on_attach(_, bufnr)
     end, bufopts)
 end
 
-M.capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-M.capabilities.textDocument.completion.completionItem.snippetSupport = true
+M.capabilities = vim.tbl_deep_extend(
+  "force",
+  require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  {
+    textDocument = {
+      completion = {
+        editsNearCursor = true,
+        completionItem = {
+          snippetSupport = true,
+        },
+      },
+    },
+    offsetEncoding = "utf-8",
+  }
+)
 
 return M

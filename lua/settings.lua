@@ -502,6 +502,10 @@ require("formatter").setup({
             require("formatter.filetypes.javascript").prettier,
         },
 
+        c = {
+            require("formatter.filetypes.c").clangformat,
+        },
+
         typescript = {
             require("formatter.filetypes.javascript").prettier,
         },
@@ -689,6 +693,12 @@ require("lspconfig").pyright.setup({
             },
         },
     },
+})
+
+-- c
+require("lspconfig").clangd.setup({
+    capabilities = lsp_utils.capabilities,
+    on_attach = lsp_utils.on_attach,
 })
 
 -- json
@@ -1320,10 +1330,18 @@ lint.linters.clippy = {
     ignore_exitcode = true,
 }
 
+lint.linters.cpplint = {
+    cmd = "cpplint",
+    stdin = true,
+    args = { },
+    ignore_exitcode = true,
+}
+
 lint.linters_by_ft = {
     python = { "pylint" },
     htmldjango = { "djlint" },
     rust = { "clippy" },
+    c = { "cpplint" },
 }
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
