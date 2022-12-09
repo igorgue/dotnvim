@@ -516,7 +516,7 @@ require("formatter").setup({
 
         python = {
             require("formatter.filetypes.python").black,
-            require("formatter.filetypes.python").isort,
+            -- require("formatter.filetypes.python").isort,
         },
 
         htmldjango = {
@@ -617,7 +617,7 @@ saga.init_lsp_saga({
         virtual_text = false,
     },
     rename_in_select = false,
-    rename_action_quit = "q",
+    rename_action_quit = "<esc>",
     hover_action_quit = "q",
     symbol_in_winbar = {
         enable = true,
@@ -1333,7 +1333,7 @@ lint.linters.clippy = {
 lint.linters.cpplint = {
     cmd = "cpplint",
     stdin = true,
-    args = { },
+    args = {},
     ignore_exitcode = true,
 }
 
