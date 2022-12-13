@@ -286,6 +286,11 @@ function M.alpha_theme()
         version = version .. "-dev"
     end
 
+    -- create command to send notifications
+    vim.api.nvim_create_user_command("NotifyUpdate", function()
+        vim.notify("Updating...")
+    end, {})
+
     theme.header.val = { "neovim " .. version }
 
     theme.config.layout[4].val[1].val = "recent"
@@ -298,7 +303,7 @@ function M.alpha_theme()
         dashboard.button("F", "  search text", "<cmd>Telescope live_grep<cr>"),
 
         dashboard.button("c", "  config", "<cmd>Conf<cr><cmd>ConfSettings<cr>"),
-        dashboard.button("u", "  update", "<cmd>PackerSync<cr>"),
+        dashboard.button("u", "  update", "<cmd>NotifyUpdate<cr><cmd>PackerSync<cr>"),
 
         dashboard.button("t", "  terminal", "<cmd>terminal<cr>i"),
         dashboard.button("d", "  dbui", "<cmd>enew<cr><cmd>DBUI<cr>"),

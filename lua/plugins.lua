@@ -139,7 +139,7 @@ packer.startup(function()
 
     -- hrsh7th's nvim lsp plugins
     use("hrsh7th/nvim-cmp")
-    use("hrsh7th/cmp-nvim-lua") -- lua support
+    use("hrsh7th/cmp-nvim-lua")
     use("hrsh7th/cmp-buffer")
     use("hrsh7th/cmp-cmdline")
     use("hrsh7th/cmp-nvim-lsp")
@@ -163,6 +163,9 @@ packer.startup(function()
 
     -- schemastore
     use("b0o/schemastore.nvim")
+
+    -- openai plugin
+    use("aduros/ai.vim")
 end)
 
 return packer

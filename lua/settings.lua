@@ -365,19 +365,19 @@ cmp.setup({
             mode = "symbol",
             ellipsis_char = "…",
             menu = {
-                nvim_lsp = "",
-                nvim_lua = "",
-                luasnip = "",
-                buffer = "",
-                path = "",
-                calc = "",
-                vsnip = "",
-                nvim_lsp_signature_help = "",
-                treesitter = "",
-                spell = "",
-                dictionary = "",
-                zsh = "",
-                ["vim-dadbod-completion"] = "",
+                nvim_lsp = "lsp",
+                nvim_lua = "lua",
+                luasnip = "snip",
+                buffer = "buf",
+                path = "path",
+                calc = "calc",
+                vsnip = "snip",
+                nvim_lsp_signature_help = "sign",
+                treesitter = "ts",
+                spell = "spel",
+                dictionary = "dict",
+                zsh = "zsh",
+                ["vim-dadbod-completion"] = "db",
             },
             symbol_map = cmp_symbols,
         }),
@@ -656,7 +656,7 @@ saga.init_lsp_saga({
 -- set keymaps from lsp saga
 local sagaopts = { silent = true }
 
-vim.keymap.set("n", "<leader>2", "<cmd>LSoutlineToggle<CR>", sagaopts)
+vim.keymap.set("n", "<leader>2", "<cmd>Lspsaga outline<CR>", sagaopts)
 vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", sagaopts)
 vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", sagaopts)
 vim.keymap.set("n", "<leader>cd", "<cmp>Lspsaga peek_definition<CR>", sagaopts)
@@ -1098,11 +1098,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 -- nvim tree lua
 require("nvim-tree").setup({
     filters = { dotfiles = true },
-    actions = {
-        open_file = {
-            quit_on_open = true,
-        },
-    },
     renderer = {
         icons = {
             show = {
@@ -1285,6 +1280,10 @@ require("auto-session").setup({
     auto_session_suppress_dirs = { "~/", "~/Documents", "~/Downloads", "/" },
 })
 
+-- <leader>+s to save session
+vim.keymap.set("n", "<leader>ss", "<cmd>SaveSession<cr>")
+vim.keymap.set("n", "<leader>sr", "<cmd>RestoreSession<cr>")
+
 -- alpha
 require("alpha").setup(ui_utils.alpha_theme().config)
 
@@ -1303,8 +1302,8 @@ require("color-picker").setup()
 
 local pick_color_opts = { noremap = true, silent = true }
 
-vim.keymap.set("n", "<C-c>", "<cmd>PickColor<cr>", pick_color_opts)
-vim.keymap.set("i", "<C-c>", "<cmd>PickColorInsert<cr>", pick_color_opts)
+vim.keymap.set("n", "<M-c>", "<cmd>PickColor<cr>", pick_color_opts)
+vim.keymap.set("i", "<M-c>", "<cmd>PickColorInsert<cr>", pick_color_opts)
 
 -- treesitter secretary
 require("query-secretary").setup({})
@@ -1344,7 +1343,7 @@ lint.linters_by_ft = {
     c = { "cpplint" },
 }
 
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertLeave", "TextChanged" }, {
     callback = function()
         lint.try_lint()
     end,
@@ -1418,3 +1417,10 @@ vim.api.nvim_create_autocmd("BufRead", {
         require("hlsearch").setup()
     end,
 })
+
+-- ai.vim
+vim.g.ai_no_mappings = 1
+
+-- my own mappings
+vim.keymap.set({"n", "v"}, "<leader>a", ":AI ", { noremap = true })
+vim.keymap.set("i", "<M-a>", "<esc>:AI<cr>a", { noremap = true })
