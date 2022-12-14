@@ -42,8 +42,7 @@ function M.on_attach(_, bufnr)
     vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
     vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
     -- vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts) -- replaced by lspsaga
-    -- vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-    vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", bufopts)
+    -- vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts) -- replaced by telescope
     vim.keymap.set("n", "<leader>r", vim.lsp.codelens.run, bufopts)
 
     vim.keymap.set("n", "<leader>wl", function()

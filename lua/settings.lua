@@ -217,11 +217,13 @@ telescope.load_extension("noice")
 telescope.load_extension("glyph")
 telescope.load_extension("emoji")
 
-vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>Telescope git_files<cr>", {})
-vim.api.nvim_set_keymap("n", "<leader>P", "<cmd>Telescope live_grep<cr>", {})
-vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>Telescope find_files<cr>", {})
-vim.api.nvim_set_keymap("n", "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", {})
-vim.api.nvim_set_keymap("n", "<leader>m", "<cmd>Telescope marks<cr>", {})
+vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", opts)
+
+vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>Telescope git_files<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>P", "<cmd>Telescope live_grep<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>Telescope find_files<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>m", "<cmd>Telescope marks<cr>", opts)
 
 -- windowze config
 if vim.fn.has("win32") == 1 then
@@ -349,6 +351,7 @@ local cmp_symbols = {
     TypeParameter = "",
 }
 
+---@diagnostic disable-next-line: redundant-parameter
 cmp.setup({
     snippet = {
         expand = function(args)
@@ -775,7 +778,7 @@ if vim.fn.executable("flutter") == 1 then
             on_attach = function(client, bufnr)
                 lsp_utils.on_attach(client, bufnr)
 
-                vim.keymap.set("n", "<leader>2", ":FlutterOutlineToggle<CR>", { buffer = true, noremap = true })
+                vim.keymap.set("n", "<leader>2", ":FlutterOutlineToggle<CR>", { buffer = true, noremap = true, silent = true })
 
                 vim.cmd([[
                     augroup FlutterTools
@@ -1107,7 +1110,7 @@ require("nvim-tree").setup({
     },
 })
 
-vim.keymap.set("n", "<leader>1", ":NvimTreeToggle<CR>")
+vim.keymap.set("n", "<leader>1", ":NvimTreeToggle<CR>", opts)
 
 -- rainbow treesitter
 require("nvim-treesitter.configs").setup({
@@ -1229,7 +1232,7 @@ vim.keymap.set("n", "<leader>l", function()
 
         vim.g.indent_blankline_enabled = true
     end
-end)
+end, opts)
 
 -- dadbod ui
 vim.g.dbs = dbs
@@ -1244,7 +1247,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- set the connections, maps and config edit command
-vim.keymap.set("n", "<leader>db", "<Cmd>DBUIToggle<Cr>")
+vim.keymap.set("n", "<leader>db", "<Cmd>DBUIToggle<Cr>", opts)
 vim.api.nvim_create_user_command("DBConfig", file_utils.edit_dbs_config, {})
 
 -- todo comments
@@ -1270,7 +1273,7 @@ require("noice").setup({
     },
 })
 
-vim.api.nvim_set_keymap("n", "<leader>N", "<cmd>Noice history<cr>", {})
+vim.api.nvim_set_keymap("n", "<leader>N", "<cmd>Noice history<cr>", opts)
 
 -- session manager
 require("auto-session").setup({
@@ -1281,8 +1284,8 @@ require("auto-session").setup({
 })
 
 -- <leader>+s to save session
-vim.keymap.set("n", "<leader>ss", "<cmd>SaveSession<cr>")
-vim.keymap.set("n", "<leader>sr", "<cmd>RestoreSession<cr>")
+vim.keymap.set("n", "<leader>ss", "<cmd>SaveSession<cr>", opts)
+vim.keymap.set("n", "<leader>sr", "<cmd>RestoreSession<cr>", opts)
 
 -- alpha
 require("alpha").setup(ui_utils.alpha_theme().config)
@@ -1300,10 +1303,8 @@ vim.cmd([[
 -- color picker
 require("color-picker").setup()
 
-local pick_color_opts = { noremap = true, silent = true }
-
-vim.keymap.set("n", "<M-c>", "<cmd>PickColor<cr>", pick_color_opts)
-vim.keymap.set("i", "<M-c>", "<cmd>PickColorInsert<cr>", pick_color_opts)
+vim.keymap.set("n", "<M-c>", "<cmd>PickColor<cr>", opts)
+vim.keymap.set("i", "<M-c>", "<cmd>PickColorInsert<cr>", opts)
 
 -- treesitter secretary
 require("query-secretary").setup({})
@@ -1385,7 +1386,7 @@ zen_mode.setup({
 })
 
 -- FIXME: this is done like this because of a bug in zen-mode
--- shows the last line becuase I don't use status lines
+-- shows the last line because I don't use status lines
 vim.keymap.set("n", "<leader>z", function()
     if zen_mode_view.is_open() then
         zen_mode.close()
@@ -1408,8 +1409,8 @@ vim.keymap.set("n", "<leader>z", function()
         -- go to current_line
         vim.cmd("normal! " .. current_line .. "G")
     end
-end)
-vim.keymap.set("n", "<leader>Z", "<cmd>Twilight<cr>") -- twilight
+end, opts)
+vim.keymap.set("n", "<leader>Z", "<cmd>Twilight<cr>", opts) -- twilight
 
 -- autocommand for hlsearch.nvim for event BufRead
 vim.api.nvim_create_autocmd("BufRead", {
@@ -1422,5 +1423,6 @@ vim.api.nvim_create_autocmd("BufRead", {
 vim.g.ai_no_mappings = 1
 
 -- my own mappings
-vim.keymap.set({"n", "v"}, "<leader>a", ":AI ", { noremap = true })
-vim.keymap.set("i", "<M-a>", "<esc>:AI<cr>a", { noremap = true })
+local ai_opts = { noremap = true }
+vim.keymap.set({ "n", "v" }, "<leader>a", ":AI ", ai_opts)
+vim.keymap.set("i", "<M-a>", "<esc>:AI<cr>a", ai_opts)
