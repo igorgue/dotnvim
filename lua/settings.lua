@@ -14,12 +14,6 @@ end
 
 local home = os.getenv("HOME") or ""
 
-vim.opt.encoding = "utf-8"
-
--- disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 -- tab settings
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -608,7 +602,7 @@ vim.cmd([[
     autocmd BufEnter,CursorHold,InsertLeave <buffer> lua if next(vim.lsp.codelens.get()) ~= nil then vim.lsp.codelens.refresh() end
 ]])
 
-vim.keymap.set("n", "<leader>d", lsp_utils.diagnostics_toggle, opts)
+vim.keymap.set("n", "<leader>D", lsp_utils.diagnostics_toggle, opts)
 
 -- saga
 local saga = require("lspsaga")
@@ -668,7 +662,7 @@ vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", sagaopts)
 vim.keymap.set("n", "<leader>ck", "<cmd>Lspsaga hover_doc<CR>", sagaopts)
 vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
 vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
-vim.keymap.set("n", "<leader>e", "<cmd>Lspsaga show_line_diagnostics<CR>", sagaopts)
+vim.keymap.set("n", "<leader>d", "<cmd>Lspsaga show_line_diagnostics<CR>", sagaopts)
 
 -- lsp handlers
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
@@ -778,7 +772,12 @@ if vim.fn.executable("flutter") == 1 then
             on_attach = function(client, bufnr)
                 lsp_utils.on_attach(client, bufnr)
 
-                vim.keymap.set("n", "<leader>2", ":FlutterOutlineToggle<CR>", { buffer = true, noremap = true, silent = true })
+                vim.keymap.set(
+                    "n",
+                    "<leader>2",
+                    ":FlutterOutlineToggle<CR>",
+                    { buffer = true, noremap = true, silent = true }
+                )
 
                 vim.cmd([[
                     augroup FlutterTools
@@ -1247,7 +1246,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- set the connections, maps and config edit command
-vim.keymap.set("n", "<leader>db", "<Cmd>DBUIToggle<Cr>", opts)
 vim.api.nvim_create_user_command("DBConfig", file_utils.edit_dbs_config, {})
 
 -- todo comments
@@ -1276,6 +1274,8 @@ require("noice").setup({
 vim.api.nvim_set_keymap("n", "<leader>N", "<cmd>Noice history<cr>", opts)
 
 -- session manager
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 require("auto-session").setup({
     log_level = "error",
     auto_save_enabled = true,
@@ -1284,8 +1284,8 @@ require("auto-session").setup({
 })
 
 -- <leader>+s to save session
-vim.keymap.set("n", "<leader>ss", "<cmd>SaveSession<cr>", opts)
-vim.keymap.set("n", "<leader>sr", "<cmd>RestoreSession<cr>", opts)
+vim.keymap.set("n", "<leader>s", "<cmd>SaveSession<cr>", opts)
+vim.keymap.set("n", "<leader>S", "<cmd>Autosession search<cr>", opts)
 
 -- alpha
 require("alpha").setup(ui_utils.alpha_theme().config)
@@ -1422,7 +1422,20 @@ vim.api.nvim_create_autocmd("BufRead", {
 -- ai.vim
 vim.g.ai_no_mappings = 1
 
--- my own mappings
 local ai_opts = { noremap = true }
 vim.keymap.set({ "n", "v" }, "<leader>a", ":AI ", ai_opts)
 vim.keymap.set("i", "<M-a>", "<esc>:AI<cr>a", ai_opts)
+
+vim.api.nvim_create_user_command("Nap", function()
+    vim.cmd([[
+        terminal ]] .. home .. [[/go/bin/nap
+        normal! a
+    ]])
+end, {})
+
+vim.api.nvim_create_user_command("Ranger", function()
+    vim.cmd([[
+        terminal ranger
+        normal! a
+    ]])
+end, {})

@@ -14,6 +14,12 @@ if vim.g.vscode then
     end
 end
 
+if not pcall(function()
+    require("pre_init")
+end) then
+    print("Unable to load pre_init, likely you're calling a plugin, missing or broken.")
+end
+
 require("plugins")
 require("settings")
 
