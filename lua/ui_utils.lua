@@ -84,22 +84,28 @@ function M.lualine_theme()
 
     local theme = {
         normal = {
-            a = { bg = lualine_colors.lightgray, fg = lualine_colors.white, gui = "bold" },
-            b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
-            c = { bg = lualine_colors.lightgray, fg = lualine_colors.white, gui = "bold" },
-            x = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
+            a = { bg = lualine_colors.black, fg = lualine_colors.white, gui = "bold" },
+            b = { bg = lualine_colors.black, fg = lualine_colors.white },
+            c = { bg = lualine_colors.black, fg = lualine_colors.white, gui = "bold" },
+            x = { bg = lualine_colors.black, fg = lualine_colors.white },
+            y = { bg = lualine_colors.black, fg = lualine_colors.white, gui = "bold" },
+            z = { bg = lualine_colors.black, fg = lualine_colors.white, gui = "bold" },
         },
         insert = {
             a = { bg = lualine_colors.blue, fg = lualine_colors.black, gui = "bold" },
             b = { bg = lualine_colors.blue, fg = lualine_colors.black },
             c = { bg = lualine_colors.blue, fg = lualine_colors.black, gui = "bold" },
             x = { bg = lualine_colors.blue, fg = lualine_colors.black },
+            y = { bg = lualine_colors.blue, fg = lualine_colors.black, gui = "bold" },
+            z = { bg = lualine_colors.blue, fg = lualine_colors.black, gui = "bold" },
         },
         visual = {
-            a = { bg = lualine_colors.yellow, fg = lualine_colors.black, gui = "bold" },
-            b = { bg = lualine_colors.yellow, fg = lualine_colors.black },
-            c = { bg = lualine_colors.yellow, fg = lualine_colors.black, gui = "bold" },
-            x = { bg = lualine_colors.yellow, fg = lualine_colors.black },
+            a = { bg = lualine_colors.lightgray, fg = lualine_colors.white, gui = "bold" },
+            b = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
+            c = { bg = lualine_colors.lightgray, fg = lualine_colors.white, gui = "bold" },
+            x = { bg = lualine_colors.lightgray, fg = lualine_colors.white },
+            y = { bg = lualine_colors.lightgray, fg = lualine_colors.white, gui = "bold" },
+            z = { bg = lualine_colors.lightgray, fg = lualine_colors.white, gui = "bold" },
         },
         replace = {
             a = { bg = lualine_colors.red, fg = lualine_colors.black, gui = "bold" },
@@ -112,6 +118,8 @@ function M.lualine_theme()
             b = { bg = lualine_colors.green, fg = lualine_colors.black },
             c = { bg = lualine_colors.green, fg = lualine_colors.black, gui = "bold" },
             x = { bg = lualine_colors.green, fg = lualine_colors.black },
+            y = { bg = lualine_colors.green, fg = lualine_colors.black, gui = "bold" },
+            z = { bg = lualine_colors.green, fg = lualine_colors.black, gui = "bold" },
         },
         inactive = {
             a = { bg = lualine_colors.darkgray, fg = lualine_colors.gray },
@@ -298,7 +306,8 @@ function M.alpha_theme()
         { type = "text", val = "shortcuts", opts = { hl = "specialcomment", position = "center" } },
         { type = "padding", val = 1 },
         dashboard.button("e", "  new file", "<cmd>ene<cr>"),
-        dashboard.button("s", "  last session", "<cmd>RestoreSession<cr>"),
+        dashboard.button("s", "菱 last session", "<cmd>RestoreSession<cr>"),
+        dashboard.button("l", "  open session", "<cmd>Autosession search<cr>"),
         dashboard.button("f", "  find file", "<cmd>Telescope find_files<cr>"),
         dashboard.button("F", "  search text", "<cmd>Telescope live_grep<cr>"),
 

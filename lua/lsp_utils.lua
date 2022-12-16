@@ -2,6 +2,8 @@ local M = {}
 
 vim.g.show_diagnostics = true
 
+x = 10
+
 M.diagnostic_config = {
     float = { border = "rounded" },
     underline = true,

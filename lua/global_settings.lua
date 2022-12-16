@@ -20,5 +20,5 @@ vim.opt.sm = true -- substitute with magic
 vim.opt.hlsearch = true -- search
 vim.opt.incsearch = true -- incremental
 vim.opt.ignorecase = true -- ignoring case
-vim.opt.smartcase = true -- with smartness
+vim.opt.smartcase = false -- with smartness
 vim.opt.wildignorecase = true -- and with wildcard ignore case

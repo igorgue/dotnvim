@@ -14,6 +14,7 @@ if vim.g.vscode then
     end
 end
 
+-- there might be errors likely related to missing colorscheme and / or plugins
 if not pcall(function()
     require("pre_init")
 end) then

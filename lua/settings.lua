@@ -387,11 +387,13 @@ cmp.setup({
 cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
         { name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
+        { name = "nvim_lsp" },
+        { name = "nvim_lua" },
         { name = "nvim_lsp_document_symbol" },
-        { name = "path" },
-        { name = "spell" },
-        { name = "dictionary" },
         { name = "buffer" },
+        { name = "dictionary" },
+        { name = "spell" },
+        { name = "path" },
     }),
 })
 
@@ -399,9 +401,8 @@ cmp.setup.filetype("gitcommit", {
 cmp.setup.cmdline("/", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
+        { name = "nvim_lsp" },
         { name = "nvim_lsp_document_symbol" },
-        { name = "path" },
-        { name = "spell" },
         { name = "dictionary" },
         { name = "buffer" },
     },
@@ -411,8 +412,10 @@ cmp.setup.cmdline("/", {
 cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-        { name = "path" },
         { name = "cmdline" },
+        { name = "path", options = { trailing_slash = true, label_trailing_slash = true } },
+        { name = "dictionary" },
+        { name = "buffer" },
     }),
 })
 
@@ -602,7 +605,7 @@ vim.cmd([[
     autocmd BufEnter,CursorHold,InsertLeave <buffer> lua if next(vim.lsp.codelens.get()) ~= nil then vim.lsp.codelens.refresh() end
 ]])
 
-vim.keymap.set("n", "<leader>D", lsp_utils.diagnostics_toggle, opts)
+vim.keymap.set("n", "<leader>e", lsp_utils.diagnostics_toggle, opts)
 
 -- saga
 local saga = require("lspsaga")
@@ -1044,9 +1047,8 @@ vim.cmd([[
     nnoremap <silent> <leader>b <Cmd>lua require('dap').toggle_breakpoint()<CR>
     nnoremap <silent> <leader>B <Cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
     nnoremap <silent> <leader>L <Cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
-    nnoremap <silent> <leader>dr <Cmd>lua require('dap').repl.open()<CR>
-    nnoremap <silent> <leader>dl <Cmd>lua require('dap').run_last()<CR>
-    nnoremap <silent> <leader>dL <Cmd>lua require('dap').run_last()<CR>
+    nnoremap <silent> <m-r> <Cmd>lua require('dap').repl.open()<CR>
+    nnoremap <silent> <m-l> <Cmd>lua require('dap').run_last()<CR>
 ]])
 
 -- python dap
@@ -1116,8 +1118,8 @@ require("nvim-treesitter.configs").setup({
     auto_install = true,
     highlight = {
         enable = true,
-        disable = { "dart", "python", "elixir" },
-        additional_vim_regex_highlighting = true,
+        -- disable = { "dart", "python", "elixir" },
+        -- additional_vim_regex_highlighting = true,
     },
     incremental_selection = {
         enable = true,
@@ -1390,25 +1392,27 @@ zen_mode.setup({
 vim.keymap.set("n", "<leader>z", function()
     if zen_mode_view.is_open() then
         zen_mode.close()
-    else
-        local current_line = vim.fn.line(".")
-        vim.cmd("normal! Gzt")
 
-        -- if filetype is python use 0.45 else 0.70 for width
-        local zen_mode_width = 0.70
-        if vim.bo.filetype == "python" then
-            zen_mode_width = 0.45
-        end
-
-        zen_mode.toggle({
-            window = {
-                width = zen_mode_width,
-            },
-        })
-
-        -- go to current_line
-        vim.cmd("normal! " .. current_line .. "G")
+        return
     end
+
+    local current_line = vim.fn.line(".")
+    vim.cmd("normal! Gzt")
+
+    -- if filetype is python use 0.45 else 0.70 for width
+    local zen_mode_width = 0.70
+    if vim.bo.filetype == "python" then
+        zen_mode_width = 0.45
+    end
+
+    zen_mode.toggle({
+        window = {
+            width = zen_mode_width,
+        },
+    })
+
+    -- go to current_line
+    vim.cmd("normal! " .. current_line .. "G")
 end, opts)
 vim.keymap.set("n", "<leader>Z", "<cmd>Twilight<cr>", opts) -- twilight
 

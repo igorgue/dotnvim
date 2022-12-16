@@ -1,18 +1,21 @@
 return require("packer").startup({
     function()
+        -- colorschemes
         -- use "~/Code/danger" -- danger colorscheme (for development)
         use("igorgue/danger") -- danger colorscheme
         use("sainnhe/edge") -- light colorscheme
 
         use("wbthomason/packer.nvim") -- packer update itself
 
-        -- telescope and plugins
+        -- telescope (picker) and plugins
         use("nvim-telescope/telescope.nvim")
         use("nvim-telescope/telescope-ui-select.nvim")
         use("ghassan0/telescope-glyph.nvim")
         use("xiyaowong/telescope-emoji.nvim")
 
+        -- AI plugins
         use("github/copilot.vim") -- Github copilot
+        use("aduros/ai.vim") -- openai plugin
 
         use("neovim/nvim-lspconfig") -- native LSP support
 
@@ -53,7 +56,6 @@ return require("packer").startup({
         use("kyazdani42/nvim-web-devicons") -- file icons
 
         use("norcalli/nvim-colorizer.lua") -- colors
-        -- use({ "numirias/semshi", run = ":UpdateRemotePlugins" }) -- colors for Python
         use("nvim-lua/plenary.nvim") -- utils for nvim
 
         -- framework for cool syntax plugins
@@ -70,10 +72,6 @@ return require("packer").startup({
         use("andymass/vim-matchup") -- show matching pairs
 
         use("lewis6991/gitsigns.nvim") -- changes on git
-
-        -- gist support
-        use({ "rudylee/nvim-gist", run = ":UpdateRemotePlugins" })
-
         -- lualine
         use("nvim-lualine/lualine.nvim") -- status line
 
@@ -155,9 +153,6 @@ return require("packer").startup({
 
         -- schemastore
         use("b0o/schemastore.nvim")
-
-        -- openai plugin
-        use("aduros/ai.vim")
     end,
     config = {
         display = {
