@@ -137,6 +137,10 @@ vim.api.nvim_create_user_command("Conf", file_utils.cd_conf, {})
 vim.api.nvim_create_user_command("ConfInit", file_utils.edit_init, {})
 vim.api.nvim_create_user_command("ConfSettings", file_utils.edit_settings, {})
 vim.api.nvim_create_user_command("ConfPlugins", file_utils.edit_plugins, {})
+vim.api.nvim_create_user_command("CdPwd", file_utils.refresh_dir, {})
+
+-- and a simple keybind
+vim.keymap.set("n", "<leader>4", "<cmd>CdPwd<cr>", opts)
 
 -- theme helpers
 vim.api.nvim_set_keymap("n", "<leader>x", "<Cmd>TSHighlightCapturesUnderCursor<CR>", opts)

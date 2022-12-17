@@ -22,4 +22,11 @@ function M.edit_plugins()
     vim.cmd("e " .. conf_dir .. "/lua/plugins.lua")
 end
 
+function M.refresh_dir()
+    vim.cmd([[
+        cd
+        cd -
+    ]])
+end
+
 return M
