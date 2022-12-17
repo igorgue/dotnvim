@@ -53,25 +53,12 @@ vim.opt.showmode = false -- disable mode since we use lualine
 vim.opt.laststatus = 3 -- show only 1 status line
 
 -- tabs...
-vim.api.nvim_set_keymap("n", "<Tab>j", ":tabnext<CR>", opts)
 vim.api.nvim_set_keymap("n", "tj", ":tabnext<CR>", opts)
-
-vim.api.nvim_set_keymap("n", "<Tab>l", ":tabnext<CR>", opts)
 vim.api.nvim_set_keymap("n", "tl", ":tabnext<CR>", opts)
-
-vim.api.nvim_set_keymap("n", "<Tab>h", ":tabprevious<CR>", opts)
 vim.api.nvim_set_keymap("n", "th", ":tabprevious<CR>", opts)
-
-vim.api.nvim_set_keymap("n", "<Tab>k", ":tabprevious<CR>", opts)
 vim.api.nvim_set_keymap("n", "tk", ":tabprevious<CR>", opts)
-
-vim.api.nvim_set_keymap("n", "<Tab>x", ":tabclose<CR>", opts)
 vim.api.nvim_set_keymap("n", "tx", ":tabclose<CR>", opts)
-
-vim.api.nvim_set_keymap("n", "<Tab>q", ":tabclose<CR>", opts)
 vim.api.nvim_set_keymap("n", "tq", ":tabclose<CR>", opts)
-
-vim.api.nvim_set_keymap("n", "<Tab>n", ":tabnew<CR>", opts)
 vim.api.nvim_set_keymap("n", "tn", ":tabnew<CR>", opts)
 
 -- autocomplete options
