@@ -1117,7 +1117,7 @@ vim.keymap.set("n", "<leader>1", ":NvimTreeToggle<CR>", opts)
 require("nvim-treesitter.configs").setup({
     auto_install = true,
     highlight = {
-        enable = true,
+        enable = false,
         -- disable = { "dart", "python", "elixir" },
         -- additional_vim_regex_highlighting = true,
     },

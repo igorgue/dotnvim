@@ -75,6 +75,7 @@ function M.lualine_theme()
         red = M.hi_co("ErrorMsg", "fg"),
         green = M.hi_co("Label", "fg"),
         blue = M.hi_co("CursorLineNr", "fg"),
+        lightblue = M.hi_co("CursorLineNr", "bg"),
         yellow = M.hi_co("Function", "fg"),
         gray = M.hi_co("PMenu", "fg"),
         darkgray = M.hi_co("LspCodeLens", "fg"),
@@ -84,12 +85,12 @@ function M.lualine_theme()
 
     local theme = {
         normal = {
-            a = { bg = lualine_colors.black, fg = lualine_colors.white, gui = "bold" },
-            b = { bg = lualine_colors.black, fg = lualine_colors.white },
-            c = { bg = lualine_colors.black, fg = lualine_colors.white, gui = "bold" },
-            x = { bg = lualine_colors.black, fg = lualine_colors.white },
-            y = { bg = lualine_colors.black, fg = lualine_colors.white, gui = "bold" },
-            z = { bg = lualine_colors.black, fg = lualine_colors.white, gui = "bold" },
+            a = { bg = lualine_colors.lightblue, fg = lualine_colors.white, gui = "bold" },
+            b = { bg = lualine_colors.lightblue, fg = lualine_colors.white },
+            c = { bg = lualine_colors.lightblue, fg = lualine_colors.white, gui = "bold" },
+            x = { bg = lualine_colors.lightblue, fg = lualine_colors.white },
+            y = { bg = lualine_colors.lightblue, fg = lualine_colors.white, gui = "bold" },
+            z = { bg = lualine_colors.lightblue, fg = lualine_colors.white, gui = "bold" },
         },
         insert = {
             a = { bg = lualine_colors.blue, fg = lualine_colors.black, gui = "bold" },
