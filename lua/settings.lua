@@ -53,13 +53,13 @@ vim.opt.showmode = false -- disable mode since we use lualine
 vim.opt.laststatus = 3 -- show only 1 status line
 
 -- tabs...
-vim.api.nvim_set_keymap("n", "tj", ":tabnext<CR>", opts)
-vim.api.nvim_set_keymap("n", "tl", ":tabnext<CR>", opts)
-vim.api.nvim_set_keymap("n", "th", ":tabprevious<CR>", opts)
-vim.api.nvim_set_keymap("n", "tk", ":tabprevious<CR>", opts)
-vim.api.nvim_set_keymap("n", "tx", ":tabclose<CR>", opts)
-vim.api.nvim_set_keymap("n", "tq", ":tabclose<CR>", opts)
-vim.api.nvim_set_keymap("n", "tn", ":tabnew<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>tj", "<cmd>tabnext<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>tl", "<cmd>tabnext<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>th", "<cmd>tabprevious<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>tk", "<cmd>tabprevious<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>tx", "<cmd>tabclose<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>tq", "<cmd>tabclose<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>tn", "<cmd>tabnew<CR>", opts)
 
 -- autocomplete options
 vim.opt.completeopt = "menu,menuone,noselect"
@@ -201,8 +201,6 @@ telescope.load_extension("ui-select")
 telescope.load_extension("noice")
 telescope.load_extension("glyph")
 telescope.load_extension("emoji")
-
-vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", opts)
 
 vim.api.nvim_set_keymap("n", "<leader>p", "<cmd>Telescope git_files<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>P", "<cmd>Telescope live_grep<cr>", opts)
@@ -596,8 +594,6 @@ vim.cmd([[
     autocmd BufEnter,CursorHold,InsertLeave <buffer> lua if next(vim.lsp.codelens.get()) ~= nil then vim.lsp.codelens.refresh() end
 ]])
 
-vim.keymap.set("n", "<leader>e", lsp_utils.diagnostics_toggle, opts)
-
 -- saga
 local saga = require("lspsaga")
 
@@ -643,20 +639,6 @@ saga.init_lsp_saga({
         win_with = "NvimTree",
     },
 })
-
--- set keymaps from lsp saga
-local sagaopts = { silent = true }
-
-vim.keymap.set("n", "<leader>2", "<cmd>Lspsaga outline<CR>", sagaopts)
-vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", sagaopts)
-vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", sagaopts)
-vim.keymap.set("n", "<leader>cd", "<cmp>Lspsaga peek_definition<CR>", sagaopts)
-vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", sagaopts)
-vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", sagaopts)
-vim.keymap.set("n", "<leader>ck", "<cmd>Lspsaga hover_doc<CR>", sagaopts)
-vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
-vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
-vim.keymap.set("n", "<leader>d", "<cmd>Lspsaga show_line_diagnostics<CR>", sagaopts)
 
 -- lsp handlers
 vim.lsp.handlers["textDocument/publishDiagnostics"] =

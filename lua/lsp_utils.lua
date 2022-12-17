@@ -34,6 +34,7 @@ function M.on_attach(_, bufnr)
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local sagaopts = { silent = true }
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
@@ -43,9 +44,23 @@ function M.on_attach(_, bufnr)
     vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
     vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
     vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-    -- vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts) -- replaced by lspsaga
-    -- vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts) -- replaced by telescope
     vim.keymap.set("n", "<leader>r", vim.lsp.codelens.run, bufopts)
+
+    -- lsp saga
+    vim.keymap.set("n", "<leader>2", "<cmd>Lspsaga outline<CR>", sagaopts)
+    vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", sagaopts)
+    vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", sagaopts)
+    vim.keymap.set("n", "<leader>cd", "<cmp>Lspsaga peek_definition<CR>", sagaopts)
+    vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", sagaopts)
+    vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", sagaopts)
+    vim.keymap.set("n", "<leader>ck", "<cmd>Lspsaga hover_doc<CR>", sagaopts)
+    vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", bufopts)
+    vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", bufopts)
+    vim.keymap.set("n", "<leader>d", "<cmd>Lspsaga show_line_diagnostics<CR>", sagaopts)
+
+    -- telescope
+    vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", bufopts)
+    vim.keymap.set("n", "<leader>e", M.diagnostics_toggle, bufopts)
 
     vim.keymap.set("n", "<leader>wl", function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
@@ -53,19 +68,19 @@ function M.on_attach(_, bufnr)
 end
 
 M.capabilities = vim.tbl_deep_extend(
-  "force",
-  require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-  {
-    textDocument = {
-      completion = {
-        editsNearCursor = true,
-        completionItem = {
-          snippetSupport = true,
+    "force",
+    require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+    {
+        textDocument = {
+            completion = {
+                editsNearCursor = true,
+                completionItem = {
+                    snippetSupport = true,
+                },
+            },
         },
-      },
-    },
-    offsetEncoding = "utf-8",
-  }
+        offsetEncoding = "utf-8",
+    }
 )
 
 return M
