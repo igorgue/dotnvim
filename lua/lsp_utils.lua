@@ -2,8 +2,6 @@ local M = {}
 
 vim.g.show_diagnostics = true
 
-x = 10
-
 M.diagnostic_config = {
     float = { border = "rounded" },
     underline = true,
@@ -60,6 +58,9 @@ function M.on_attach(_, bufnr)
 
     -- telescope
     vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", bufopts)
+    vim.keymap.set("n", "ws", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", bufopts)
+
+    -- toggle diagnostics
     vim.keymap.set("n", "<leader>e", M.diagnostics_toggle, bufopts)
 
     vim.keymap.set("n", "<leader>wl", function()
@@ -79,7 +80,7 @@ M.capabilities = vim.tbl_deep_extend(
                 },
             },
         },
-        offsetEncoding = "utf-8",
+        dynamicRegistration = true,
     }
 )
 

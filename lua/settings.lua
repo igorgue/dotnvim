@@ -53,13 +53,13 @@ vim.opt.showmode = false -- disable mode since we use lualine
 vim.opt.laststatus = 3 -- show only 1 status line
 
 -- tabs...
-vim.api.nvim_set_keymap("n", "<leader>tj", "<cmd>tabnext<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>tl", "<cmd>tabnext<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>th", "<cmd>tabprevious<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>tk", "<cmd>tabprevious<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>tx", "<cmd>tabclose<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>tq", "<cmd>tabclose<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>tn", "<cmd>tabnew<CR>", opts)
+vim.keymap.set("n", "<leader>tj", "<cmd>tabnext<CR>", opts)
+vim.keymap.set("n", "<leader>tl", "<cmd>tabnext<CR>", opts)
+vim.keymap.set("n", "<leader>th", "<cmd>tabprevious<CR>", opts)
+vim.keymap.set("n", "<leader>tk", "<cmd>tabprevious<CR>", opts)
+vim.keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", opts)
+vim.keymap.set("n", "<leader>tq", "<cmd>tabclose<CR>", opts)
+vim.keymap.set("n", "<leader>tn", "<cmd>tabnew<CR>", opts)
 
 -- autocomplete options
 vim.opt.completeopt = "menu,menuone,noselect"
@@ -143,13 +143,13 @@ vim.api.nvim_create_user_command("CdPwd", file_utils.refresh_dir, {})
 vim.keymap.set("n", "<leader>4", "<cmd>CdPwd<cr>", opts)
 
 -- theme helpers
-vim.api.nvim_set_keymap("n", "<leader>x", "<Cmd>TSHighlightCapturesUnderCursor<CR>", opts)
+vim.keymap.set("n", "<leader>x", "<Cmd>TSHighlightCapturesUnderCursor<CR>", opts)
 vim.keymap.set("n", "<leader>X", ui_utils.syn_stack, opts)
 
 vim.notify = require("notify")
 vim.notify.setup({
     render = "minimal",
-    timeout = 1720,
+    timeout = 2500,
     stages = "static",
     background_colour = "#000000",
 })
@@ -448,7 +448,7 @@ vim.api.nvim_set_keymap("n", "<leader>T", "<cmd>TroubleToggle workspace_diagnost
 local formatter_util = require("formatter.util")
 require("formatter").setup({
     -- Enable or disable logging
-    logging = false,
+    logging = true,
 
     -- All formatter configurations are opt-in
     filetype = {
@@ -482,6 +482,23 @@ require("formatter").setup({
                 return {
                     exe = "dart format",
                     args = args,
+                    stdin = true,
+                }
+            end,
+        },
+
+        java = {
+            function()
+                local buffn = formatter_util.escape_path(formatter_util.get_current_buffer_file_path())
+                local indent_size = vim.api.nvim_buf_get_option(0, "tabstop")
+
+                return {
+                    exe = "clang-format",
+                    args = {
+                        '-style="{IndentWidth: ' .. indent_size .. '}"',
+                        "-assume-filename=java",
+                        buffn,
+                    },
                     stdin = true,
                 }
             end,
@@ -582,8 +599,8 @@ require("formatter").setup({
     },
 })
 
-vim.api.nvim_set_keymap("n", "<leader>f", ":Format<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>F", ":FormatWrite<CR>", opts)
+vim.keymap.set("n", "<leader>f", ":Format<CR>", opts)
+vim.keymap.set("n", "<leader>F", ":FormatWrite<CR>", opts)
 
 -- setup LSP
 local lspconfig_util = require("lspconfig").util
@@ -609,28 +626,28 @@ saga.init_lsp_saga({
     symbol_in_winbar = {
         enable = true,
         show_file = false,
-        click_support = function(node, clicks, button, modifiers)
-            -- To see all avaiable details: vim.pretty_print(node)
-            local st = node.range.start
-            local en = node.range["end"]
-            if button == "l" then
-                if clicks == 2 then
-                -- double left click to do nothing
-                else -- jump to node's starting line+char
-                    vim.fn.cursor(st.line + 1, st.character + 1)
-                end
-            elseif button == "r" then
-                if modifiers == "s" then
-                    print("lspsaga") -- shift right click to print "lspsaga"
-                end -- jump to node's ending line+char
-                vim.fn.cursor(en.line + 1, en.character + 1)
-            elseif button == "m" then
-                -- middle click to visual select node
-                vim.fn.cursor(st.line + 1, st.character + 1)
-                vim.cmd("normal v")
-                vim.fn.cursor(en.line + 1, en.character + 1)
-            end
-        end,
+        -- click_support = function(node, clicks, button, modifiers)
+        --     -- To see all avaiable details: vim.pretty_print(node)
+        --     local st = node.range.start
+        --     local en = node.range["end"]
+        --     if button == "l" then
+        --         if clicks == 2 then
+        --         -- double left click to do nothing
+        --         else -- jump to node's starting line+char
+        --             vim.fn.cursor(st.line + 1, st.character + 1)
+        --         end
+        --     elseif button == "r" then
+        --         if modifiers == "s" then
+        --             print("lspsaga") -- shift right click to print "lspsaga"
+        --         end -- jump to node's ending line+char
+        --         vim.fn.cursor(en.line + 1, en.character + 1)
+        --     elseif button == "m" then
+        --         -- middle click to visual select node
+        --         vim.fn.cursor(st.line + 1, st.character + 1)
+        --         vim.cmd("normal v")
+        --         vim.fn.cursor(en.line + 1, en.character + 1)
+        --     end
+        -- end,
     },
     show_outline = {
         auto_preview = true,
@@ -886,8 +903,8 @@ elixir.setup({
     -- specify a repository and branch
     -- repo = "elixir-lsp/elixir-ls",
     -- branch = "master",
-    repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
-    branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
+    -- repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
+    -- branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
 
     -- default settings, use the `settings` function to override settings
     settings = elixir.settings({
@@ -895,6 +912,10 @@ elixir.setup({
         fetchDeps = true,
         enableTestLenses = true,
         suggestSpecs = true,
+        mixEnv = "dev",
+        trace = {
+            server = "on",
+        },
     }),
 
     capabilities = lsp_utils.capabilities,
@@ -907,12 +928,6 @@ elixir.setup({
         -- add the pipe operator
         vim.keymap.set("n", "<leader>tp", ":ElixirToPipe<cr>", elixir_opts)
         vim.keymap.set("v", "<leader>em", ":ElixirExpandMacro<cr>", elixir_opts)
-
-        -- keybinds
-        vim.keymap.set("n", "gr", ":References<cr>", elixir_opts)
-        vim.keymap.set("n", "g0", ":DocumentSymbols<cr>", elixir_opts)
-        vim.keymap.set("n", "gW", ":WorkspaceSymbols<cr>", elixir_opts)
-        vim.keymap.set("n", "<leader>d", ":Diagnostics<cr>", elixir_opts)
 
         lsp_utils.on_attach(client, bufnr)
     end,
@@ -948,17 +963,11 @@ require("lspconfig").sumneko_lua.setup({
     on_attach = lsp_utils.on_attach,
     settings = {
         Lua = {
-            runtime = {
-                version = "LuaJIT",
-            },
             diagnostics = {
-                globals = { "vim", "use" },
+                globals = { "use" },
             },
-            workspace = {
-                library = vim.api.nvim_get_runtime_file("", true),
-            },
-            telemetry = {
-                enable = false,
+            completion = {
+                callSnippets = "Replace",
             },
         },
     },
@@ -1090,9 +1099,9 @@ vim.keymap.set("n", "<leader>1", ":NvimTreeToggle<CR>", opts)
 require("nvim-treesitter.configs").setup({
     auto_install = true,
     highlight = {
-        enable = false,
-        -- disable = { "dart", "python", "elixir" },
-        -- additional_vim_regex_highlighting = true,
+        enable = true,
+        disable = { "elixir" },
+        additional_vim_regex_highlighting = true,
     },
     incremental_selection = {
         enable = true,
@@ -1178,6 +1187,9 @@ require("colorizer").setup({ "*" }, {
     mode = "foreground", -- Set the display mode.
 })
 
+-- neovim dev plugin
+require("neodev").setup({})
+
 -- LspInfo rounded borders
 require("lspconfig.ui.windows").default_options.border = "rounded"
 
@@ -1185,13 +1197,14 @@ require("lspconfig.ui.windows").default_options.border = "rounded"
 require("Comment").setup()
 
 -- indent.blankline
--- vim.g.indent_blankline_char = "▏"
+vim.g.indent_blankline_char = "▏"
 vim.g.indent_blankline_enabled = false
 
 require("indent_blankline").setup({
     -- for example, context is off by default, use this to turn it on
     show_current_context = true,
     show_current_context_start = true,
+    show_end_of_line = true,
 })
 
 vim.keymap.set("n", "<leader>l", function()
@@ -1214,7 +1227,7 @@ vim.g.db_ui_use_nerd_fonts = true
 vim.g.db_ui_save_location = vim.fn.stdpath("data") .. "/db_ui"
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "sql", "mysql", "plsql", "redis" },
+    pattern = { "sql", "mysql", "plsql" },
     callback = function()
         cmp.setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
     end,
@@ -1303,6 +1316,7 @@ lint.linters.clippy = {
     stdin = true,
     args = { "clippy" },
     ignore_exitcode = true,
+    parser = require("lint.parser").from_errorformat("%t%n\\ %l:%c\\ %m"),
 }
 
 lint.linters.cpplint = {
@@ -1310,6 +1324,7 @@ lint.linters.cpplint = {
     stdin = true,
     args = {},
     ignore_exitcode = true,
+    parser = require("lint.parser").from_errorformat("%t%n\\ %l:%c\\ %m"),
 }
 
 lint.linters_by_ft = {
@@ -1372,11 +1387,13 @@ vim.keymap.set("n", "<leader>z", function()
     local current_line = vim.fn.line(".")
     vim.cmd("normal! Gzt")
 
-    -- if filetype is python use 0.45 else 0.70 for width
-    local zen_mode_width = 0.70
-    if vim.bo.filetype == "python" then
-        zen_mode_width = 0.45
-    end
+    -- for all filetypes use 0.45
+    local zen_mode_width = 0.45
+
+    -- how to specific width per file type
+    -- if vim.bo.filetype == "java" then
+    --     zen_mode_width = 0.45
+    -- end
 
     zen_mode.toggle({
         window = {
@@ -1400,9 +1417,9 @@ vim.api.nvim_create_autocmd("BufRead", {
 vim.g.ai_no_mappings = 1
 
 local ai_opts = { noremap = true }
-vim.keymap.set({ "n", "v" }, "<leader>a", ":AI ", ai_opts)
 vim.keymap.set("i", "<M-a>", "<esc>:AI<cr>a", ai_opts)
 
+-- cmd mappings
 vim.api.nvim_create_user_command("Nap", function()
     vim.cmd([[
         terminal ]] .. home .. [[/go/bin/nap
@@ -1416,3 +1433,7 @@ vim.api.nvim_create_user_command("Ranger", function()
         normal! a
     ]])
 end, {})
+
+-- move line up and down
+vim.keymap.set("n", "<C-Up>", "ddkP", opts)
+vim.keymap.set("n", "<C-Down>", "ddp", opts)

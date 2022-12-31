@@ -87,6 +87,7 @@ return require("packer").startup({
         use("folke/noice.nvim") -- noice for neovim
         use("folke/twilight.nvim")
         use("folke/zen-mode.nvim")
+        use("folke/neodev.nvim")
 
         -- nui needed for noice
         use("MunifTanjim/nui.nvim")
@@ -153,6 +154,9 @@ return require("packer").startup({
 
         -- schemastore
         use("b0o/schemastore.nvim")
+
+        -- gist
+        use({"rudylee/nvim-gist", run = ":UpdateRemotePlugins" })
     end,
     config = {
         display = {
