@@ -33,14 +33,12 @@ vim.opt.tags = "tags;" .. home .. "/.config/nvim/tags/;" .. home .. "/tmp/tags/"
 vim.opt.listchars = [[tab:▸\ ,eol:↴]] -- listchars for invisibles
 vim.opt.mouse:append({ a = true }) -- mouse all
 vim.opt.scrolloff = 5 -- show 5 lines before cursor always
-vim.opt.showcmd = true -- display incomplete commands
 vim.opt.linebreak = true -- show line breaks
 vim.opt.wrap = true -- wrap lines
 vim.opt.title = true -- title in the console
 vim.opt.ttyfast = true -- smoother changes
-vim.opt.shortmess = "atIF" -- abbreviate messages
+vim.opt.shortmess = "atSTIF" -- abbreviate messages
 vim.opt.backupdir = "/tmp" -- backup directory
-vim.opt.showtabline = 1 -- always show the tab line
 vim.opt.hidden = true -- has to do with undo in buffer I think...
 vim.opt.cursorline = true -- show cursor where my cursor is...
 vim.opt.lazyredraw = false -- better redrawing of text
@@ -49,8 +47,12 @@ vim.opt.modeline = true -- use modeline overrides
 vim.opt.spell = false -- set spell
 vim.opt.spelllang = { "en_us" } -- set us spell
 vim.opt.updatetime = 12 -- very low update time for fast fps
+vim.opt.showcmd = true -- display incomplete commands
 vim.opt.showmode = false -- disable mode since we use lualine
+vim.opt.showbreak = "﬌" -- show line breaks
+vim.opt.showtabline = 1 -- only show tabs if there's at least 2
 vim.opt.laststatus = 3 -- show only 1 status line
+vim.opt.statuscolumn = "%=%l%s%C"
 
 -- tabs...
 vim.keymap.set("n", "<leader>tj", "<cmd>tabnext<CR>", opts)
@@ -611,49 +613,69 @@ vim.cmd([[
     autocmd BufEnter,CursorHold,InsertLeave <buffer> lua if next(vim.lsp.codelens.get()) ~= nil then vim.lsp.codelens.refresh() end
 ]])
 
--- saga
-local saga = require("lspsaga")
-
-saga.init_lsp_saga({
-    border_style = "rounded",
-    code_action_icon = " ",
-    code_action_lightbulb = {
+-- lspsaga
+require("lspsaga").setup({
+    ui = {
+        theme = "round",
+        border = "rounded",
+        code_action = " ",
+        -- winblend = 20,
+        colors = {
+            normal_bg = "#161925",
+            title_bg = '#afd7af',
+            red = '#ff3525',
+            magenta = '#875fff',
+            orange = '#ff5f00',
+            yellow = '#ffd75f',
+            green = '#00af87',
+            cyan = '#cbe6ff',
+            blue = '#8787d7',
+            purple = '#875fff',
+            white = '#875fff',
+            black = '#626262',
+        },
+    },
+    lightbulb = {
+        enable = true,
+        enable_in_insert = true,
+        sign = true,
         virtual_text = false,
     },
-    rename_in_select = false,
-    rename_action_quit = "<esc>",
-    hover_action_quit = "q",
+    rename = {
+        quit = "<esc>",
+        exec = "<CR>",
+        in_select = false,
+    },
     symbol_in_winbar = {
         enable = true,
         show_file = false,
-        -- click_support = function(node, clicks, button, modifiers)
-        --     -- To see all avaiable details: vim.pretty_print(node)
-        --     local st = node.range.start
-        --     local en = node.range["end"]
-        --     if button == "l" then
-        --         if clicks == 2 then
-        --         -- double left click to do nothing
-        --         else -- jump to node's starting line+char
-        --             vim.fn.cursor(st.line + 1, st.character + 1)
-        --         end
-        --     elseif button == "r" then
-        --         if modifiers == "s" then
-        --             print("lspsaga") -- shift right click to print "lspsaga"
-        --         end -- jump to node's ending line+char
-        --         vim.fn.cursor(en.line + 1, en.character + 1)
-        --     elseif button == "m" then
-        --         -- middle click to visual select node
-        --         vim.fn.cursor(st.line + 1, st.character + 1)
-        --         vim.cmd("normal v")
-        --         vim.fn.cursor(en.line + 1, en.character + 1)
-        --     end
-        -- end,
+        click_support = function(node, clicks, button, modifiers)
+            -- To see all avaiable details: vim.pretty_print(node)
+            local st = node.range.start
+            local en = node.range["end"]
+            if button == "l" then
+                if clicks == 2 then
+                -- double left click to do nothing
+                else -- jump to node's starting line+char
+                    vim.fn.cursor(st.line + 1, st.character + 1)
+                end
+            elseif button == "r" then
+                if modifiers == "s" then
+                    print("lspsaga") -- shift right click to print "lspsaga"
+                end -- jump to node's ending line+char
+                vim.fn.cursor(en.line + 1, en.character + 1)
+            elseif button == "m" then
+                -- middle click to visual select node
+                vim.fn.cursor(st.line + 1, st.character + 1)
+                vim.cmd("normal v")
+                vim.fn.cursor(en.line + 1, en.character + 1)
+            end
+        end,
     },
-    show_outline = {
-        auto_preview = true,
-        auto_enter = true,
-        auto_refresh = true,
-        win_with = "NvimTree",
+    outline = {
+        auto_preview = false,
+        auto_enter = false,
+        auto_refresh = false,
     },
 })
 
@@ -901,18 +923,27 @@ vim.g.OmniSharp_server_stdio = 1
 local elixir = require("elixir")
 elixir.setup({
     -- specify a repository and branch
-    -- repo = "elixir-lsp/elixir-ls",
-    -- branch = "master",
+    repo = "elixir-lsp/elixir-ls",
+    branch = "master",
     -- repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
     -- branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
+
+    -- cmd = { home .. "/.local/share/nvim/mason/packages/elixir-ls/language_server.sh" },
 
     -- default settings, use the `settings` function to override settings
     settings = elixir.settings({
         dialyzerEnabled = true,
-        fetchDeps = true,
+        dialyzerFormat = "dialyxir_long",
+        -- dialyzerWarnOpts = []
         enableTestLenses = true,
-        suggestSpecs = true,
+        -- envVariables =
+        fetchDeps = true,
+        -- languageServerOverridePath =
         mixEnv = "dev",
+        -- mixTarget = "host",
+        -- projectDir = "",
+        signatureAfterComplete = true,
+        suggestSpecs = true,
         trace = {
             server = "on",
         },
@@ -932,6 +963,31 @@ elixir.setup({
         lsp_utils.on_attach(client, bufnr)
     end,
 })
+
+-- require("lspconfig").elixirls.setup({
+--     on_attach = lsp_utils.on_attach,
+--     capabilities = lsp_utils.capabilities,
+--     cmd = { home .. "/.local/share/nvim/mason/packages/elixir-ls/language_server.sh" },
+--     settings = {
+--         elixirLS = {
+--             dialyzerEnabled = false,
+--             -- dialyzerFormat = dialyxir_long"
+--             -- dialyzerWarnOpts = []
+--             enableTestLenses = false,
+--             -- envVariables =
+--             fetchDeps = false,
+--             -- languageServerOverridePath =
+--             -- mixEnv = "dev",
+--             -- mixTarget = "debug",
+--             -- projectDir = "",
+--             signatureAfterComplete = false,
+--             suggestSpecs = false,
+--             trace = {
+--                 server = "off",
+--             },
+--         },
+--     },
+-- })
 
 -- nim
 require("lspconfig").nimls.setup({
@@ -1000,7 +1056,7 @@ vim.fn.sign_define(
     "DapLogPoint",
     { text = " ", texthl = "DapLogPoint", linehl = "DapLogPoint", numhl = "DapLogPoint" }
 )
-vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
+vim.fn.sign_define("DapStopped", { text = " ", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
 
 -- dap ui
 dapui.setup({
@@ -1100,8 +1156,8 @@ require("nvim-treesitter.configs").setup({
     auto_install = true,
     highlight = {
         enable = true,
-        disable = { "elixir" },
-        additional_vim_regex_highlighting = true,
+        -- disable = { "elixir" },
+        -- additional_vim_regex_highlighting = true,
     },
     incremental_selection = {
         enable = true,
@@ -1351,8 +1407,8 @@ local zen_mode_view = require("zen-mode.view")
 zen_mode.setup({
     window = {
         backdrop = 1,
-        width = 0.60,
-        height = 0.95,
+        width = 0.50,
+        height = 0.90,
         options = {
             signcolumn = "no",
             cursorline = false,
@@ -1379,6 +1435,7 @@ zen_mode.setup({
 -- shows the last line because I don't use status lines
 vim.keymap.set("n", "<leader>z", function()
     if zen_mode_view.is_open() then
+        vim.cmd("set wrap")
         zen_mode.close()
 
         return
@@ -1400,6 +1457,7 @@ vim.keymap.set("n", "<leader>z", function()
             width = zen_mode_width,
         },
     })
+    vim.cmd("set nowrap")
 
     -- go to current_line
     vim.cmd("normal! " .. current_line .. "G")

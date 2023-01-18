@@ -157,6 +157,12 @@ return require("packer").startup({
 
         -- gist
         use({"rudylee/nvim-gist", run = ":UpdateRemotePlugins" })
+
+        -- gx support without netrw
+        use("arp242/xdg_open.vim")
+
+        -- startup time
+        use("dstein64/vim-startuptime")
     end,
     config = {
         display = {
