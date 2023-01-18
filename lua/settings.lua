@@ -52,7 +52,12 @@ vim.opt.showmode = false -- disable mode since we use lualine
 vim.opt.showbreak = "﬌" -- show line breaks
 vim.opt.showtabline = 1 -- only show tabs if there's at least 2
 vim.opt.laststatus = 3 -- show only 1 status line
-vim.opt.statuscolumn = "%=%l%s%C"
+
+if vim.version().minor == 9 then
+    -- merges number with sign column
+    vim.opt.statuscolumn = "%=%l%s%C"
+    -- vim.opt.number = true
+end
 
 -- tabs...
 vim.keymap.set("n", "<leader>tj", "<cmd>tabnext<CR>", opts)
@@ -647,7 +652,7 @@ require("lspsaga").setup({
         in_select = false,
     },
     symbol_in_winbar = {
-        enable = true,
+        enable = false,
         show_file = false,
         click_support = function(node, clicks, button, modifiers)
             -- To see all avaiable details: vim.pretty_print(node)
