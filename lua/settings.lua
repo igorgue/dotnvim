@@ -40,7 +40,7 @@ vim.opt.ttyfast = true -- smoother changes
 vim.opt.shortmess = "atSTIF" -- abbreviate messages
 vim.opt.backupdir = "/tmp" -- backup directory
 vim.opt.hidden = true -- has to do with undo in buffer I think...
-vim.opt.cursorline = true -- show cursor where my cursor is...
+vim.opt.cursorline = false -- show cursor where my cursor is...
 vim.opt.lazyredraw = false -- better redrawing of text
 vim.opt.termguicolors = true -- 24 bit term gui colors
 vim.opt.modeline = true -- use modeline overrides
@@ -1019,6 +1019,9 @@ require("lspconfig").clangd.setup({
 })
 
 -- lua
+-- vim.lsp.set_log_level("debug")
+
+-- FIXME: stackoverflow error...
 require("lspconfig").sumneko_lua.setup({
     capabilities = lsp_utils.capabilities,
     on_attach = lsp_utils.on_attach,
@@ -1174,7 +1177,7 @@ require("nvim-treesitter.configs").setup({
         },
     },
     indent = {
-        enable = false,
+        enable = true,
     },
     markid = {
         enable = true,
