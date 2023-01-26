@@ -156,13 +156,22 @@ return require("packer").startup({
         use("b0o/schemastore.nvim")
 
         -- gist
-        use({"rudylee/nvim-gist", run = ":UpdateRemotePlugins" })
+        use({ "rudylee/nvim-gist", run = ":UpdateRemotePlugins" })
 
         -- gx support without netrw
         use("arp242/xdg_open.vim")
 
         -- startup time
         use("dstein64/vim-startuptime")
+
+        use({
+            "danielfalk/smart-open.nvim",
+            branch = "0.1.x",
+            config = function()
+                require("telescope").load_extension("smart_open")
+            end,
+            requires = { "kkharji/sqlite.lua" },
+        })
     end,
     config = {
         display = {

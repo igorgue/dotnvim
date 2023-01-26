@@ -37,7 +37,7 @@ vim.opt.linebreak = true -- show line breaks
 vim.opt.wrap = true -- wrap lines
 vim.opt.title = true -- title in the console
 vim.opt.ttyfast = true -- smoother changes
-vim.opt.shortmess = "atSTIF" -- abbreviate messages
+vim.opt.shortmess = "atTIF" -- abbreviate messages
 vim.opt.backupdir = "/tmp" -- backup directory
 vim.opt.hidden = true -- has to do with undo in buffer I think...
 vim.opt.cursorline = false -- show cursor where my cursor is...
@@ -155,19 +155,11 @@ vim.keymap.set("n", "<leader>X", ui_utils.syn_stack, opts)
 
 vim.notify = require("notify")
 vim.notify.setup({
-    render = "minimal",
+    fps = 60,
+    -- render = "minimal", -- "default", "minimal", "simple"
     timeout = 2500,
     stages = "static",
-    background_colour = "#000000",
-})
-
-vim.api.nvim_create_autocmd("ColorScheme", {
-    pattern = "*",
-    callback = function()
-        vim.notify.setup({
-            background_colour = ui_utils.hi_co("Normal", "bg"),
-        })
-    end,
+    -- background_colour = "#000000",
 })
 
 ui_utils.setup_tabline()
@@ -188,6 +180,9 @@ telescope.setup({
             i = {
                 ["<esc>"] = actions.close,
             },
+        },
+        layout_config = {
+            prompt_position = "top",
         },
     },
     extensions = {
@@ -627,17 +622,17 @@ require("lspsaga").setup({
         -- winblend = 20,
         colors = {
             normal_bg = "#161925",
-            title_bg = '#afd7af',
-            red = '#ff3525',
-            magenta = '#875fff',
-            orange = '#ff5f00',
-            yellow = '#ffd75f',
-            green = '#00af87',
-            cyan = '#cbe6ff',
-            blue = '#8787d7',
-            purple = '#875fff',
-            white = '#875fff',
-            black = '#626262',
+            title_bg = "#afd7af",
+            red = "#ff3525",
+            magenta = "#875fff",
+            orange = "#ff5f00",
+            yellow = "#ffd75f",
+            green = "#00af87",
+            cyan = "#cbe6ff",
+            blue = "#8787d7",
+            purple = "#875fff",
+            white = "#875fff",
+            black = "#626262",
         },
     },
     lightbulb = {
@@ -736,12 +731,155 @@ require("lspconfig").vala_ls.setup({
     on_attach = lsp_utils.on_attach,
 })
 
+-- ↓ LSP server configuration schema (press enter to collapse)
+--   This is a read-only overview of the settings this server accepts. Note that some settings might not apply to neovim.
+--
+--   → $generated-end
+--   → $generated-start
+--   → rust-analyzer.assist.emitMustUse                                      default: false
+--   → rust-analyzer.assist.expressionFillDefault                            default: "todo"
+--   → rust-analyzer.cachePriming.enable                                     default: true
+--   → rust-analyzer.cachePriming.numThreads                                 default: 0
+--   → rust-analyzer.cargo.autoreload                                        default: true
+--   → rust-analyzer.cargo.buildScripts.enable                               default: true
+--   → rust-analyzer.cargo.buildScripts.invocationLocation                   default: "workspace"
+--   → rust-analyzer.cargo.buildScripts.invocationStrategy                   default: "per_workspace"
+--   → rust-analyzer.cargo.buildScripts.overrideCommand                      default: null
+--   → rust-analyzer.cargo.buildScripts.useRustcWrapper                      default: true
+--   → rust-analyzer.cargo.extraEnv                                          default: {}
+--   → rust-analyzer.cargo.features                                          default: []
+--   → rust-analyzer.cargo.noDefaultFeatures                                 default: false
+--   → rust-analyzer.cargo.sysroot                                           default: "discover"
+--   → rust-analyzer.cargo.target                                            default: null
+--   → rust-analyzer.cargo.unsetTest                                         default: ["core"]
+--   → rust-analyzer.cargoRunner                                             default: null
+--   → rust-analyzer.check.allTargets                                        default: true
+--   → rust-analyzer.check.command                                           default: "check"
+--   → rust-analyzer.check.extraArgs                                         default: []
+--   → rust-analyzer.check.extraEnv                                          default: {}
+--   → rust-analyzer.check.features                                          default: null
+--   → rust-analyzer.check.invocationLocation                                default: "workspace"
+--   → rust-analyzer.check.invocationStrategy                                default: "per_workspace"
+--   → rust-analyzer.check.noDefaultFeatures                                 default: null
+--   → rust-analyzer.check.overrideCommand                                   default: null
+--   → rust-analyzer.check.targets                                           default: null
+--   → rust-analyzer.checkOnSave                                             default: true
+--   → rust-analyzer.completion.autoimport.enable                            default: true
+--   → rust-analyzer.completion.autoself.enable                              default: true
+--   → rust-analyzer.completion.callable.snippets                            default: "fill_arguments"
+--   → rust-analyzer.completion.postfix.enable                               default: true
+--   → rust-analyzer.completion.privateEditable.enable                       default: false
+--   → rust-analyzer.completion.snippets.custom                              default: {"Arc::new":{"postfix":"arc","body":"Arc::new(${receiver})","description":"Put the expression into an `Arc`","scope":"expr","requires":"std::sync::Arc"},"Err":{"postfix":"err","body":"Err(${receiver})","scope":"expr","description":"Wrap the expression in a `Result::Err`"},"Box::pin":{"postfix":"pinbox","body":"Box::pin(${receiver})","description":"Put the expression into a pinned `Box`","scope":"expr","requires":"std::boxed::Box"},"Ok":{"postfix":"ok","body":"Ok(${receiver})","scope":"expr","description":"Wrap the expression in a `Result::Ok`"},"Some":{"postfix":"some","body":"Some(${receiver})","scope":"expr","description":"Wrap the expression in an `Option::Some`"},"Rc::new":{"postfix":"rc","body":"Rc::new(${receiver})","description":"Put the expression into an `Rc`","scope":"expr","requires":"std::rc::Rc"}}
+--   → rust-analyzer.debug.engine                                            default: "auto"
+--   → rust-analyzer.debug.engineSettings                                    default: {}
+--   → rust-analyzer.debug.openDebugPane                                     default: false
+--   → rust-analyzer.debug.sourceFileMap                                     default: {"\/rustc\/<id>":"${env:USERPROFILE}\/.rustup\/toolchains\/<toolchain-id>\/lib\/rustlib\/src\/rust"}
+--   → rust-analyzer.diagnostics.disabled                                    default: []
+--   → rust-analyzer.diagnostics.enable                                      default: true
+--   → rust-analyzer.diagnostics.experimental.enable                         default: false
+--   → rust-analyzer.diagnostics.previewRustcOutput                          default: false
+--   → rust-analyzer.diagnostics.remapPrefix                                 default: {}
+--   → rust-analyzer.diagnostics.useRustcErrorCode                           default: false
+--   → rust-analyzer.diagnostics.warningsAsHint                              default: []
+--   → rust-analyzer.diagnostics.warningsAsInfo                              default: []
+--   → rust-analyzer.files.excludeDirs                                       default: []
+--   → rust-analyzer.files.watcher                                           default: "client"
+--   → rust-analyzer.highlightRelated.breakPoints.enable                     default: true
+--   → rust-analyzer.highlightRelated.exitPoints.enable                      default: true
+--   → rust-analyzer.highlightRelated.references.enable                      default: true
+--   → rust-analyzer.highlightRelated.yieldPoints.enable                     default: true
+--   → rust-analyzer.hover.actions.debug.enable                              default: true
+--   → rust-analyzer.hover.actions.enable                                    default: true
+--   → rust-analyzer.hover.actions.gotoTypeDef.enable                        default: true
+--   → rust-analyzer.hover.actions.implementations.enable                    default: true
+--   → rust-analyzer.hover.actions.references.enable                         default: false
+--   → rust-analyzer.hover.actions.run.enable                                default: true
+--   → rust-analyzer.hover.documentation.enable                              default: true
+--   → rust-analyzer.hover.documentation.keywords.enable                     default: true
+--   → rust-analyzer.hover.links.enable                                      default: true
+--   → rust-analyzer.imports.granularity.enforce                             default: false
+--   → rust-analyzer.imports.granularity.group                               default: "crate"
+--   → rust-analyzer.imports.group.enable                                    default: true
+--   → rust-analyzer.imports.merge.glob                                      default: true
+--   → rust-analyzer.imports.prefer.no.std                                   default: false
+--   → rust-analyzer.imports.prefix                                          default: "plain"
+--   → rust-analyzer.inlayHints.bindingModeHints.enable                      default: false
+--   → rust-analyzer.inlayHints.chainingHints.enable                         default: true
+--   → rust-analyzer.inlayHints.closingBraceHints.enable                     default: true
+--   → rust-analyzer.inlayHints.closingBraceHints.minLines                   default: 25
+--   → rust-analyzer.inlayHints.closureReturnTypeHints.enable                default: "never"
+--   → rust-analyzer.inlayHints.discriminantHints.enable                     default: "never"
+--   → rust-analyzer.inlayHints.expressionAdjustmentHints.enable             default: "never"
+--   → rust-analyzer.inlayHints.expressionAdjustmentHints.hideOutsideUnsafe  default: false
+--   → rust-analyzer.inlayHints.expressionAdjustmentHints.mode               default: "prefix"
+--   → rust-analyzer.inlayHints.lifetimeElisionHints.enable                  default: "never"
+--   → rust-analyzer.inlayHints.lifetimeElisionHints.useParameterNames       default: false
+--   → rust-analyzer.inlayHints.maxLength                                    default: 25
+--   → rust-analyzer.inlayHints.parameterHints.enable                        default: true
+--   → rust-analyzer.inlayHints.reborrowHints.enable                         default: "never"
+--   → rust-analyzer.inlayHints.renderColons                                 default: true
+--   → rust-analyzer.inlayHints.typeHints.enable                             default: true
+--   → rust-analyzer.inlayHints.typeHints.hideClosureInitialization          default: false
+--   → rust-analyzer.inlayHints.typeHints.hideNamedConstructor               default: false
+--   → rust-analyzer.joinLines.joinAssignments                               default: true
+--   → rust-analyzer.joinLines.joinElseIf                                    default: true
+--   → rust-analyzer.joinLines.removeTrailingComma                           default: true
+--   → rust-analyzer.joinLines.unwrapTrivialBlock                            default: true
+--   → rust-analyzer.lens.debug.enable                                       default: true
+--   → rust-analyzer.lens.enable                                             default: true
+--   → rust-analyzer.lens.forceCustomCommands                                default: true
+--   → rust-analyzer.lens.implementations.enable                             default: true
+--   → rust-analyzer.lens.location                                           default: "above_name"
+--   → rust-analyzer.lens.references.adt.enable                              default: false
+--   → rust-analyzer.lens.references.enumVariant.enable                      default: false
+--   → rust-analyzer.lens.references.method.enable                           default: false
+--   → rust-analyzer.lens.references.trait.enable                            default: false
+--   → rust-analyzer.lens.run.enable                                         default: true
+--   → rust-analyzer.linkedProjects                                          default: []
+--   → rust-analyzer.lru.capacity                                            default: null
+--   → rust-analyzer.notifications.cargoTomlNotFound                         default: true
+--   → rust-analyzer.numThreads                                              default: null
+--   → rust-analyzer.procMacro.attributes.enable                             default: true
+--   → rust-analyzer.procMacro.enable                                        default: true
+--   → rust-analyzer.procMacro.ignored                                       default: {}
+--   → rust-analyzer.procMacro.server                                        default: null
+--   → rust-analyzer.references.excludeImports                               default: false
+--   → rust-analyzer.restartServerOnConfigChange                             default: false
+--   → rust-analyzer.runnableEnv                                             default: null
+--   → rust-analyzer.runnables.command                                       default: null
+--   → rust-analyzer.runnables.extraArgs                                     default: []
+--   → rust-analyzer.rustc.source                                            default: null
+--   → rust-analyzer.rustfmt.extraArgs                                       default: []
+--   → rust-analyzer.rustfmt.overrideCommand                                 default: null
+--   → rust-analyzer.rustfmt.rangeFormatting.enable                          default: false
+--   → rust-analyzer.semanticHighlighting.doc.comment.inject.enable          default: true
+--   → rust-analyzer.semanticHighlighting.operator.enable                    default: true
+--   → rust-analyzer.semanticHighlighting.operator.specialization.enable     default: false
+--   → rust-analyzer.semanticHighlighting.punctuation.enable                 default: false
+--   → rust-analyzer.semanticHighlighting.punctuation.separate.macro.bang    default: false
+--   → rust-analyzer.semanticHighlighting.punctuation.specialization.enable  default: false
+--   → rust-analyzer.semanticHighlighting.strings.enable                     default: true
+--   → rust-analyzer.server.extraEnv                                         default: null
+--   → rust-analyzer.server.path                                             default: null
+--   → rust-analyzer.signatureInfo.detail                                    default: "full"
+--   → rust-analyzer.signatureInfo.documentation.enable                      default: true
+--   → rust-analyzer.trace.extension                                         default: false
+--   → rust-analyzer.trace.server                                            default: "off"
+--   → rust-analyzer.typing.autoClosingAngleBrackets.enable                  default: false
+--   → rust-analyzer.typing.continueCommentsOnNewline                        default: true
+--   → rust-analyzer.workspace.symbol.search.kind                            default: "only_types"
+--   → rust-analyzer.workspace.symbol.search.limit                           default: 128
+--   → rust-analyzer.workspace.symbol.search.scope                           default: "workspace"
+
 -- rust
 require("lspconfig").rust_analyzer.setup({
     capabilities = lsp_utils.capabilities,
     on_attach = lsp_utils.on_attach,
     settings = {
         ["rust-analyzer"] = {
+            assist = {
+                emitMustUse = true,
+            },
             imports = {
                 granularity = {
                     group = "module",
@@ -755,6 +893,67 @@ require("lspconfig").rust_analyzer.setup({
             },
             procMacro = {
                 enable = true,
+            },
+            checkOnSave = {
+                "--target-dir",
+                "/tmp/rust-analyzer",
+            },
+            diagnostics = {
+                experimental = {
+                    enable = true,
+                },
+            },
+            hover = {
+                actions = {
+                    references = {
+                        enable = true,
+                    },
+                },
+            },
+            lens = {
+                references = {
+                    enumVariant = {
+                        enable = true,
+                    },
+                    method = {
+                        enable = true,
+                    },
+                    trait = {
+                        enable = true,
+                    },
+                    adt = {
+                        enable = true,
+                    },
+                },
+            },
+            rustfmt = {
+                rangeFormatting = {
+                    enable = true,
+                },
+            },
+            semanticHighlighting = {
+                operator = {
+                    enable = true,
+                },
+                strings = {
+                    enable = true,
+                },
+                doc = {
+                    comment = {
+                        inject = {
+                            enable = true,
+                        },
+                    },
+                },
+            },
+            trace = {
+                server = "verbose",
+                extension = true,
+            },
+            typing = {
+                autoClosingAngleBrackets = {
+                    enable = true,
+                },
             },
         },
     },
@@ -969,6 +1168,71 @@ elixir.setup({
     end,
 })
 
+require("lspconfig").tailwindcss.setup({
+    init_options = {
+        userLanguages = {
+            elixir = "phoenix-heex",
+            eruby = "erb",
+            heex = "phoenix-heex",
+            svelte = "html",
+        },
+    },
+    handlers = {
+        ["tailwindcss/getConfiguration"] = function(_, _, params, _, bufnr, _)
+            vim.lsp.buf_notify(bufnr, "tailwindcss/getConfigurationResponse", { _id = params._id })
+        end,
+    },
+    settings = {
+        includeLanguages = {
+            typescript = "javascript",
+            typescriptreact = "javascript",
+            ["html-eex"] = "html",
+            ["phoenix-heex"] = "html",
+            heex = "html",
+            eelixir = "html",
+            elixir = "html",
+            elm = "html",
+            erb = "html",
+            svelte = "html",
+        },
+        tailwindCSS = {
+            lint = {
+                cssConflict = "warning",
+                invalidApply = "error",
+                invalidConfigPath = "error",
+                invalidScreen = "error",
+                invalidTailwindDirective = "error",
+                invalidVariant = "error",
+                recommendedVariantOrder = "warning",
+            },
+            experimental = {
+                classRegex = {
+                    [[class= "([^"]*)]],
+                    [[class: "([^"]*)]],
+                    '~H""".*class="([^"]*)".*"""',
+                },
+            },
+            validate = true,
+        },
+    },
+    filetypes = {
+        "css",
+        "scss",
+        "sass",
+        "html",
+        "heex",
+        "elixir",
+        "eruby",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "svelte",
+    },
+    on_attach = lsp_utils.on_attach,
+    capabilities = lsp_utils.capabilities,
+})
+
 -- require("lspconfig").elixirls.setup({
 --     on_attach = lsp_utils.on_attach,
 --     capabilities = lsp_utils.capabilities,
@@ -1020,13 +1284,19 @@ require("lspconfig").clangd.setup({
 
 -- lua
 -- vim.lsp.set_log_level("debug")
-
 -- FIXME: stackoverflow error...
 require("lspconfig").sumneko_lua.setup({
     capabilities = lsp_utils.capabilities,
     on_attach = lsp_utils.on_attach,
     settings = {
         Lua = {
+            codeLens = {
+                enable = true,
+            },
+            hint = {
+                enable = true,
+                -- setType = true,
+            },
             diagnostics = {
                 globals = { "use" },
             },
@@ -1269,6 +1539,9 @@ require("indent_blankline").setup({
     show_current_context = true,
     show_current_context_start = true,
     show_end_of_line = true,
+    -- show_first_indent_level = true,
+    -- show_trailing_blankline_indent = true,
+    use_treesitter = true,
 })
 
 vim.keymap.set("n", "<leader>l", function()
@@ -1433,7 +1706,8 @@ zen_mode.setup({
         },
         gitsigns = { enabled = true },
         tmux = { enabled = true },
-        kitty = { enabled = true, font = "+2" },
+        kitty = { enabled = false, font = "+2" },
+        alacritty = { enabled = true, font = "+2" },
         twilight = { enabled = false },
         diagnostics = { enabled = true },
     },
@@ -1503,3 +1777,17 @@ end, {})
 -- move line up and down
 vim.keymap.set("n", "<C-Up>", "ddkP", opts)
 vim.keymap.set("n", "<C-Down>", "ddp", opts)
+
+-- move to the next gitsign hunk
+vim.keymap.set("n", "<leader>h", "<cmd>lua require('gitsigns').next_hunk()<cr>", opts)
+vim.keymap.set("n", "<leader>g]", "<cmd>lua require('gitsigns').next_hunk()<cr>", opts)
+vim.keymap.set("n", "<leader>g[", "<cmd>lua require('gitsigns').prev_hunk()<cr>", opts)
+
+-- open Telescope buffers with <leader><leader>
+vim.keymap.set("n", "<leader><leader>", "<cmd>Telescope buffers<cr>", opts)
+
+-- open Telescope smart_open with <leader>j
+vim.keymap.set("n", "<leader>j", "<cmd>Telescope smart_open<cr>", opts)
+
+-- dismiss all notifications with <leader>5
+vim.keymap.set("n", "<leader>5", "<cmd>lua require('notify').dismiss()<cr>", opts)
