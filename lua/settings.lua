@@ -244,6 +244,7 @@ if vim.fn.has("win32") == 1 then
         { name = "dictionary" },
         { name = "buffer" },
         { name = "fonts", options = { space_filter = "-" } },
+        { name = "crates" },
     })
 else
     sources = cmp.config.sources({
@@ -258,6 +259,7 @@ else
         { name = "zsh" }, -- problems in windows
         { name = "buffer" },
         { name = "fonts", options = { space_filter = "-" } },
+        { name = "crates" },
     })
 end
 
@@ -276,7 +278,7 @@ local mapping = {
         if cmp.visible() then
             cmp.select_next_item()
         elseif text_utils.has_words_before() then
-            cmp.complete()
+            cmp.mapping.complete()
         else
             fallback()
         end
@@ -356,8 +358,8 @@ cmp.setup({
                 nvim_lsp = "lsp",
                 nvim_lua = "lua",
                 luasnip = "snip",
-                buffer = "buf",
                 path = "path",
+                buffer = "buf",
                 calc = "calc",
                 vsnip = "snip",
                 nvim_lsp_signature_help = "sign",
@@ -389,7 +391,7 @@ cmp.setup.filetype("gitcommit", {
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline("/", {
+cmp.setup.cmdline({ "/", "?" }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
         { name = "nvim_lsp" },
@@ -403,10 +405,8 @@ cmp.setup.cmdline("/", {
 cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-        { name = "cmdline" },
         { name = "path", options = { trailing_slash = true, label_trailing_slash = true } },
-        { name = "dictionary" },
-        { name = "buffer" },
+        { name = "cmdline" },
     }),
 })
 
@@ -731,230 +731,209 @@ require("lspconfig").vala_ls.setup({
     on_attach = lsp_utils.on_attach,
 })
 
--- ↓ LSP server configuration schema (press enter to collapse)
---   This is a read-only overview of the settings this server accepts. Note that some settings might not apply to neovim.
---
---   → $generated-end
---   → $generated-start
---   → rust-analyzer.assist.emitMustUse                                      default: false
---   → rust-analyzer.assist.expressionFillDefault                            default: "todo"
---   → rust-analyzer.cachePriming.enable                                     default: true
---   → rust-analyzer.cachePriming.numThreads                                 default: 0
---   → rust-analyzer.cargo.autoreload                                        default: true
---   → rust-analyzer.cargo.buildScripts.enable                               default: true
---   → rust-analyzer.cargo.buildScripts.invocationLocation                   default: "workspace"
---   → rust-analyzer.cargo.buildScripts.invocationStrategy                   default: "per_workspace"
---   → rust-analyzer.cargo.buildScripts.overrideCommand                      default: null
---   → rust-analyzer.cargo.buildScripts.useRustcWrapper                      default: true
---   → rust-analyzer.cargo.extraEnv                                          default: {}
---   → rust-analyzer.cargo.features                                          default: []
---   → rust-analyzer.cargo.noDefaultFeatures                                 default: false
---   → rust-analyzer.cargo.sysroot                                           default: "discover"
---   → rust-analyzer.cargo.target                                            default: null
---   → rust-analyzer.cargo.unsetTest                                         default: ["core"]
---   → rust-analyzer.cargoRunner                                             default: null
---   → rust-analyzer.check.allTargets                                        default: true
---   → rust-analyzer.check.command                                           default: "check"
---   → rust-analyzer.check.extraArgs                                         default: []
---   → rust-analyzer.check.extraEnv                                          default: {}
---   → rust-analyzer.check.features                                          default: null
---   → rust-analyzer.check.invocationLocation                                default: "workspace"
---   → rust-analyzer.check.invocationStrategy                                default: "per_workspace"
---   → rust-analyzer.check.noDefaultFeatures                                 default: null
---   → rust-analyzer.check.overrideCommand                                   default: null
---   → rust-analyzer.check.targets                                           default: null
---   → rust-analyzer.checkOnSave                                             default: true
---   → rust-analyzer.completion.autoimport.enable                            default: true
---   → rust-analyzer.completion.autoself.enable                              default: true
---   → rust-analyzer.completion.callable.snippets                            default: "fill_arguments"
---   → rust-analyzer.completion.postfix.enable                               default: true
---   → rust-analyzer.completion.privateEditable.enable                       default: false
---   → rust-analyzer.completion.snippets.custom                              default: {"Arc::new":{"postfix":"arc","body":"Arc::new(${receiver})","description":"Put the expression into an `Arc`","scope":"expr","requires":"std::sync::Arc"},"Err":{"postfix":"err","body":"Err(${receiver})","scope":"expr","description":"Wrap the expression in a `Result::Err`"},"Box::pin":{"postfix":"pinbox","body":"Box::pin(${receiver})","description":"Put the expression into a pinned `Box`","scope":"expr","requires":"std::boxed::Box"},"Ok":{"postfix":"ok","body":"Ok(${receiver})","scope":"expr","description":"Wrap the expression in a `Result::Ok`"},"Some":{"postfix":"some","body":"Some(${receiver})","scope":"expr","description":"Wrap the expression in an `Option::Some`"},"Rc::new":{"postfix":"rc","body":"Rc::new(${receiver})","description":"Put the expression into an `Rc`","scope":"expr","requires":"std::rc::Rc"}}
---   → rust-analyzer.debug.engine                                            default: "auto"
---   → rust-analyzer.debug.engineSettings                                    default: {}
---   → rust-analyzer.debug.openDebugPane                                     default: false
---   → rust-analyzer.debug.sourceFileMap                                     default: {"\/rustc\/<id>":"${env:USERPROFILE}\/.rustup\/toolchains\/<toolchain-id>\/lib\/rustlib\/src\/rust"}
---   → rust-analyzer.diagnostics.disabled                                    default: []
---   → rust-analyzer.diagnostics.enable                                      default: true
---   → rust-analyzer.diagnostics.experimental.enable                         default: false
---   → rust-analyzer.diagnostics.previewRustcOutput                          default: false
---   → rust-analyzer.diagnostics.remapPrefix                                 default: {}
---   → rust-analyzer.diagnostics.useRustcErrorCode                           default: false
---   → rust-analyzer.diagnostics.warningsAsHint                              default: []
---   → rust-analyzer.diagnostics.warningsAsInfo                              default: []
---   → rust-analyzer.files.excludeDirs                                       default: []
---   → rust-analyzer.files.watcher                                           default: "client"
---   → rust-analyzer.highlightRelated.breakPoints.enable                     default: true
---   → rust-analyzer.highlightRelated.exitPoints.enable                      default: true
---   → rust-analyzer.highlightRelated.references.enable                      default: true
---   → rust-analyzer.highlightRelated.yieldPoints.enable                     default: true
---   → rust-analyzer.hover.actions.debug.enable                              default: true
---   → rust-analyzer.hover.actions.enable                                    default: true
---   → rust-analyzer.hover.actions.gotoTypeDef.enable                        default: true
---   → rust-analyzer.hover.actions.implementations.enable                    default: true
---   → rust-analyzer.hover.actions.references.enable                         default: false
---   → rust-analyzer.hover.actions.run.enable                                default: true
---   → rust-analyzer.hover.documentation.enable                              default: true
---   → rust-analyzer.hover.documentation.keywords.enable                     default: true
---   → rust-analyzer.hover.links.enable                                      default: true
---   → rust-analyzer.imports.granularity.enforce                             default: false
---   → rust-analyzer.imports.granularity.group                               default: "crate"
---   → rust-analyzer.imports.group.enable                                    default: true
---   → rust-analyzer.imports.merge.glob                                      default: true
---   → rust-analyzer.imports.prefer.no.std                                   default: false
---   → rust-analyzer.imports.prefix                                          default: "plain"
---   → rust-analyzer.inlayHints.bindingModeHints.enable                      default: false
---   → rust-analyzer.inlayHints.chainingHints.enable                         default: true
---   → rust-analyzer.inlayHints.closingBraceHints.enable                     default: true
---   → rust-analyzer.inlayHints.closingBraceHints.minLines                   default: 25
---   → rust-analyzer.inlayHints.closureReturnTypeHints.enable                default: "never"
---   → rust-analyzer.inlayHints.discriminantHints.enable                     default: "never"
---   → rust-analyzer.inlayHints.expressionAdjustmentHints.enable             default: "never"
---   → rust-analyzer.inlayHints.expressionAdjustmentHints.hideOutsideUnsafe  default: false
---   → rust-analyzer.inlayHints.expressionAdjustmentHints.mode               default: "prefix"
---   → rust-analyzer.inlayHints.lifetimeElisionHints.enable                  default: "never"
---   → rust-analyzer.inlayHints.lifetimeElisionHints.useParameterNames       default: false
---   → rust-analyzer.inlayHints.maxLength                                    default: 25
---   → rust-analyzer.inlayHints.parameterHints.enable                        default: true
---   → rust-analyzer.inlayHints.reborrowHints.enable                         default: "never"
---   → rust-analyzer.inlayHints.renderColons                                 default: true
---   → rust-analyzer.inlayHints.typeHints.enable                             default: true
---   → rust-analyzer.inlayHints.typeHints.hideClosureInitialization          default: false
---   → rust-analyzer.inlayHints.typeHints.hideNamedConstructor               default: false
---   → rust-analyzer.joinLines.joinAssignments                               default: true
---   → rust-analyzer.joinLines.joinElseIf                                    default: true
---   → rust-analyzer.joinLines.removeTrailingComma                           default: true
---   → rust-analyzer.joinLines.unwrapTrivialBlock                            default: true
---   → rust-analyzer.lens.debug.enable                                       default: true
---   → rust-analyzer.lens.enable                                             default: true
---   → rust-analyzer.lens.forceCustomCommands                                default: true
---   → rust-analyzer.lens.implementations.enable                             default: true
---   → rust-analyzer.lens.location                                           default: "above_name"
---   → rust-analyzer.lens.references.adt.enable                              default: false
---   → rust-analyzer.lens.references.enumVariant.enable                      default: false
---   → rust-analyzer.lens.references.method.enable                           default: false
---   → rust-analyzer.lens.references.trait.enable                            default: false
---   → rust-analyzer.lens.run.enable                                         default: true
---   → rust-analyzer.linkedProjects                                          default: []
---   → rust-analyzer.lru.capacity                                            default: null
---   → rust-analyzer.notifications.cargoTomlNotFound                         default: true
---   → rust-analyzer.numThreads                                              default: null
---   → rust-analyzer.procMacro.attributes.enable                             default: true
---   → rust-analyzer.procMacro.enable                                        default: true
---   → rust-analyzer.procMacro.ignored                                       default: {}
---   → rust-analyzer.procMacro.server                                        default: null
---   → rust-analyzer.references.excludeImports                               default: false
---   → rust-analyzer.restartServerOnConfigChange                             default: false
---   → rust-analyzer.runnableEnv                                             default: null
---   → rust-analyzer.runnables.command                                       default: null
---   → rust-analyzer.runnables.extraArgs                                     default: []
---   → rust-analyzer.rustc.source                                            default: null
---   → rust-analyzer.rustfmt.extraArgs                                       default: []
---   → rust-analyzer.rustfmt.overrideCommand                                 default: null
---   → rust-analyzer.rustfmt.rangeFormatting.enable                          default: false
---   → rust-analyzer.semanticHighlighting.doc.comment.inject.enable          default: true
---   → rust-analyzer.semanticHighlighting.operator.enable                    default: true
---   → rust-analyzer.semanticHighlighting.operator.specialization.enable     default: false
---   → rust-analyzer.semanticHighlighting.punctuation.enable                 default: false
---   → rust-analyzer.semanticHighlighting.punctuation.separate.macro.bang    default: false
---   → rust-analyzer.semanticHighlighting.punctuation.specialization.enable  default: false
---   → rust-analyzer.semanticHighlighting.strings.enable                     default: true
---   → rust-analyzer.server.extraEnv                                         default: null
---   → rust-analyzer.server.path                                             default: null
---   → rust-analyzer.signatureInfo.detail                                    default: "full"
---   → rust-analyzer.signatureInfo.documentation.enable                      default: true
---   → rust-analyzer.trace.extension                                         default: false
---   → rust-analyzer.trace.server                                            default: "off"
---   → rust-analyzer.typing.autoClosingAngleBrackets.enable                  default: false
---   → rust-analyzer.typing.continueCommentsOnNewline                        default: true
---   → rust-analyzer.workspace.symbol.search.kind                            default: "only_types"
---   → rust-analyzer.workspace.symbol.search.limit                           default: 128
---   → rust-analyzer.workspace.symbol.search.scope                           default: "workspace"
-
 -- rust
-require("lspconfig").rust_analyzer.setup({
-    capabilities = lsp_utils.capabilities,
-    on_attach = lsp_utils.on_attach,
-    settings = {
-        ["rust-analyzer"] = {
-            assist = {
-                emitMustUse = true,
-            },
-            imports = {
-                granularity = {
-                    group = "module",
-                },
-                prefix = "self",
-            },
-            cargo = {
-                buildScripts = {
-                    enable = true,
-                },
-            },
-            procMacro = {
+-- require("lspconfig").rust_analyzer.setup({
+--     capabilities = lsp_utils.capabilities,
+--     on_attach = lsp_utils.on_attach,
+--     settings = {
+--         ["rust-analyzer"] = {
+--             standalone = false,
+--             assist = {
+--                 emitMustUse = true,
+--             },
+--             imports = {
+--                 granularity = {
+--                     group = "module",
+--                 },
+--                 prefix = "self",
+--             },
+--             cargo = {
+--                 buildScripts = {
+--                     enable = true,
+--                 },
+--             },
+--             procMacro = {
+--                 enable = true,
+--             },
+--             check = {
+--                 extraArgs = { "--target-dir", "/tmp/rust-analyzer" },
+--             },
+--             diagnostics = {
+--                 experimental = {
+--                     enable = true,
+--                 },
+--             },
+--             hover = {
+--                 actions = {
+--                     references = {
+--                         enable = true,
+--                     },
+--                 },
+--             },
+--             lens = {
+--                 references = {
+--                     enumVariant = {
+--                         enable = true,
+--                     },
+--                     method = {
+--                         enable = true,
+--                     },
+--                     trait = {
+--                         enable = true,
+--                     },
+--                     adt = {
+--                         enable = true,
+--                     },
+--                 },
+--             },
+--             rustfmt = {
+--                 rangeFormatting = {
+--                     enable = true,
+--                 },
+--             },
+--             semanticHighlighting = {
+--                 operator = {
+--                     enable = true,
+--                 },
+--                 strings = {
+--                     enable = true,
+--                 },
+--                 doc = {
+--                     comment = {
+--                         inject = {
+--                             enable = true,
+--                         },
+--                     },
+--                 },
+--                 punctuation = {
+--                     enable = true,
+--                     separate = {
+--                         macro = {
+--                             bang = true,
+--                         },
+--                     },
+--                     specialization = {
+--                         enable = true,
+--                     },
+--                 },
+--                 specialization = {
+--                     enable = true,
+--                 },
+--             },
+--             trace = {
+--                 server = "verbose",
+--                 extension = true,
+--             },
+--             typing = {
+--                 autoClosingAngleBrackets = {
+--                     enable = true,
+--                 },
+--             },
+--         },
+--     },
+-- })
+
+require("rust-tools").setup({
+    tools = {
+        executor = require("rust-tools.executors").quickfix,
+    },
+    server = {
+        capabilities = lsp_utils.capabilities,
+        on_attach = lsp_utils.on_attach,
+        standalone = true,
+        assist = {
+            emitMustUse = true,
+        },
+        cargo = {
+            buildScripts = {
                 enable = true,
             },
-            checkOnSave = {
-                "--target-dir",
-                "/tmp/rust-analyzer",
+        },
+        procMacro = {
+            enable = true,
+        },
+        check = {
+            command = "rustups run stable rust-analyzer",
+            extraArgs = { "--target-dir", "/tmp/rust-analyzer" },
+            extraEnv = { "DATABASE_URL", "sqlite://../database/sismos.db" },
+        },
+        diagnostics = {
+            experimental = {
+                enable = true,
             },
-            diagnostics = {
-                experimental = {
-                    enable = true,
-                },
-            },
-            hover = {
-                actions = {
-                    references = {
-                        enable = true,
-                    },
-                },
-            },
-            lens = {
+        },
+        hover = {
+            actions = {
                 references = {
-                    enumVariant = {
-                        enable = true,
-                    },
-                    method = {
-                        enable = true,
-                    },
-                    trait = {
-                        enable = true,
-                    },
-                    adt = {
-                        enable = true,
-                    },
+                    enable = false,
                 },
             },
-            rustfmt = {
-                rangeFormatting = {
+        },
+        lens = {
+            references = {
+                enumVariant = {
+                    enable = true,
+                },
+                method = {
+                    enable = true,
+                },
+                trait = {
+                    enable = true,
+                },
+                adt = {
                     enable = true,
                 },
             },
-            semanticHighlighting = {
-                operator = {
-                    enable = true,
-                },
-                strings = {
-                    enable = true,
-                },
-                doc = {
-                    comment = {
-                        inject = {
-                            enable = true,
-                        },
+        },
+        rustfmt = {
+            rangeFormatting = {
+                enable = false,
+            },
+        },
+        semanticHighlighting = {
+            operator = {
+                enable = true,
+            },
+            strings = {
+                enable = true,
+            },
+            doc = {
+                comment = {
+                    inject = {
+                        enable = true,
                     },
                 },
             },
-            trace = {
-                server = "verbose",
-                extension = true,
-            },
-            typing = {
-                autoClosingAngleBrackets = {
+            punctuation = {
+                enable = true,
+                separate = {
+                    macro = {
+                        bang = true,
+                    },
+                },
+                specialization = {
                     enable = true,
                 },
             },
+            specialization = {
+                enable = true,
+            },
+        },
+        trace = {
+            server = "verbose",
+            extension = true,
+        },
+        typing = {
+            autoClosingAngleBrackets = {
+                enable = true,
+            },
+        },
+    },
+    dap = {
+        adapter = {
+            type = "executable",
+            command = home .. "/.local/share/nvim/mason/bin/codelldb",
+            name = "codelldb",
         },
     },
 })
@@ -1168,6 +1147,11 @@ elixir.setup({
     end,
 })
 
+require("lspconfig").cssls.setup({
+    capabilities = lsp_utils.capabilities,
+    on_attach = lsp_utils.on_attach,
+})
+
 require("lspconfig").tailwindcss.setup({
     init_options = {
         userLanguages = {
@@ -1175,6 +1159,7 @@ require("lspconfig").tailwindcss.setup({
             eruby = "erb",
             heex = "phoenix-heex",
             svelte = "html",
+            rust = "html",
         },
     },
     handlers = {
@@ -1194,6 +1179,7 @@ require("lspconfig").tailwindcss.setup({
             elm = "html",
             erb = "html",
             svelte = "html",
+            rust = "html",
         },
         tailwindCSS = {
             lint = {
@@ -1227,6 +1213,7 @@ require("lspconfig").tailwindcss.setup({
         "javascriptreact",
         "typescript",
         "typescriptreact",
+        "rust",
         "svelte",
     },
     on_attach = lsp_utils.on_attach,
@@ -1392,6 +1379,7 @@ dap.configurations.elixir = {
     },
 }
 
+-- dart
 dap.adapters.dart = {
     type = "executable",
     command = "flutter",
@@ -1400,6 +1388,32 @@ dap.adapters.dart = {
 
 dap.configurations.dart = {}
 require("dap.ext.vscode").load_launchjs()
+
+-- rust
+dap.adapters.codelldb = {
+    type = "server",
+    port = "${port}",
+    executable = {
+        command = home .. "/.local/share/nvim/mason/bin/codelldb",
+        args = { "--port", "${port}" },
+    },
+}
+
+dap.configurations.cpp = {
+    {
+        name = "Launch file",
+        type = "codelldb",
+        request = "launch",
+        program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        end,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+    },
+}
+
+dap.configurations.c = dap.configurations.cpp
+dap.configurations.rust = dap.configurations.cpp
 
 -- gitsigns
 require("gitsigns").setup()
@@ -1435,7 +1449,7 @@ require("nvim-treesitter.configs").setup({
     highlight = {
         enable = true,
         -- disable = { "elixir" },
-        -- additional_vim_regex_highlighting = true,
+        additional_vim_regex_highlighting = false,
     },
     incremental_selection = {
         enable = true,
@@ -1705,9 +1719,9 @@ zen_mode.setup({
             laststatus = 0,
         },
         gitsigns = { enabled = true },
-        tmux = { enabled = true },
+        tmux = { enabled = false },
         kitty = { enabled = false, font = "+2" },
-        alacritty = { enabled = true, font = "+2" },
+        alacritty = { enabled = false, font = "+2" },
         twilight = { enabled = false },
         diagnostics = { enabled = true },
     },
@@ -1773,6 +1787,47 @@ vim.api.nvim_create_user_command("Ranger", function()
         normal! a
     ]])
 end, {})
+
+vim.api.nvim_create_user_command("Screenshot", function()
+    vim.cmd([[
+        !gnome-screenshot -w -d 5 &
+    ]])
+end, {})
+
+require("marks").setup({
+    -- whether to map keybinds or not. default true
+    default_mappings = true,
+    -- which builtin marks to show. default {}
+    builtin_marks = {},
+    -- whether movements cycle back to the beginning/end of buffer. default true
+    cyclic = true,
+    -- whether the shada file is updated after modifying uppercase marks. default false
+    force_write_shada = false,
+    -- how often (in ms) to redraw signs/recompute mark positions.
+    -- higher values will have better performance but may cause visual lag,
+    -- while lower values may cause performance penalties. default 150.
+    refresh_interval = 250,
+    -- sign priorities for each type of mark - builtin marks, uppercase marks, lowercase
+    -- marks, and bookmarks.
+    -- can be either a table with all/none of the keys, or a single number, in which case
+    -- the priority applies to all marks.
+    -- default 10.
+    sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
+    -- disables mark tracking for specific filetypes. default {}
+    excluded_filetypes = {},
+    -- marks.nvim allows you to configure up to 10 bookmark groups, each with its own
+    -- sign/virttext. Bookmarks can be used to group together positions and quickly move
+    -- across multiple buffers. default sign is '!@#$%^&*()' (from 0 to 9), and
+    -- default virt_text is "".
+    -- bookmark_0 = {
+    -- sign = "⚑",
+    -- virt_text = "hello world",
+    -- explicitly prompt for a virtual line annotation when setting a bookmark from this group.
+    -- defaults to false.
+    -- annotate = false,
+    -- },
+    mappings = {},
+})
 
 -- move line up and down
 vim.keymap.set("n", "<C-Up>", "ddkP", opts)

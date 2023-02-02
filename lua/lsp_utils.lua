@@ -26,7 +26,7 @@ function M.diagnostics_toggle()
     end
 end
 
-function M.on_attach(_, bufnr)
+function M.on_attach(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 

@@ -172,6 +172,20 @@ return require("packer").startup({
             end,
             requires = { "kkharji/sqlite.lua" },
         })
+
+        -- handle vim marks in sign column
+        use("chentoast/marks.nvim")
+
+        -- rust
+        use("simrat39/rust-tools.nvim")
+        use({
+            "saecki/crates.nvim",
+            event = { "BufRead Cargo.toml" },
+            requires = { { "nvim-lua/plenary.nvim" } },
+            config = function()
+                require("crates").setup()
+            end,
+        })
     end,
     config = {
         display = {

@@ -215,6 +215,16 @@ function M.lualine_setup_options()
                     },
                 },
                 lualine_x = {
+                    -- stylua: ignore
+                    {
+                        function() return require("noice").api.status.command.get() end,
+                        cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
+                    },
+                    -- stylua: ignore
+                    {
+                      function() return require("noice").api.status.mode.get() end,
+                      cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+                    },
                     {
                         require("noice").api.status.mode.get,
                         cond = require("noice").api.status.mode.has,
@@ -289,6 +299,15 @@ function M.alpha_theme()
     local theme = require("alpha.themes.theta")
     local dashboard = require("alpha.themes.dashboard")
     local neovim_version = vim.version()
+
+    if neovim_version == nil then
+        neovim_version = {
+            major = 0,
+            minor = 0,
+            patch = 0,
+            prerelease = true,
+        }
+    end
 
     local version = neovim_version.major .. "." .. neovim_version.minor .. "." .. neovim_version.patch
     if neovim_version.prerelease then
