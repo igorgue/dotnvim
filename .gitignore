@@ -1,3 +1,4 @@
 *_local.lua
 plugin
 .luarc.json
+node_modules
