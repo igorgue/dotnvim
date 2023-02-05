@@ -7,7 +7,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     lazy = false,
-    opts = function(_, _)
+    opts = function(_, opts)
       -- other ui changes
       require("lspconfig.ui.windows").default_options.border = "rounded"
       local format = require("lazyvim.plugins.lsp.format").format
@@ -26,8 +26,8 @@ return {
         { "<leader>cD", "<cmd>Lspsaga peek_definition<cr>", desc = "Peek definition" },
         { "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<cr>", desc = "Show line diagnostics" },
         { "<leader>cf", format, desc = "Format Document", has = "documentFormatting" },
-  -- stylua: ignore
-  { "<leader>cf", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting", },
+        -- stylua: ignore
+        { "<leader>cf", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting", },
         { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
         { "<leader>co", "<cmd>Lspsaga outline<cr>", desc = "Code outline" },
         { "<leader>cr", "<cmd>Lspsaga rename<cr>", desc = "Rename" },
@@ -38,6 +38,8 @@ return {
         { "[w", keymaps.diagnostic_goto(false, "WARN"), desc = "Prev Warning" },
         { "]w", keymaps.diagnostic_goto(true, "WARN"), desc = "Next Warning" },
       }
+
+      return opts
     end,
   },
   {
