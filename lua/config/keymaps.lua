@@ -4,7 +4,5 @@
 
 local api = vim.api
 
-api.nvim_del_keymap("n", "<")
 api.nvim_del_keymap("v", "<")
-api.nvim_del_keymap("n", ">")
 api.nvim_del_keymap("v", ">")

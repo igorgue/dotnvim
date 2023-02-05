@@ -9,9 +9,10 @@ return {
     lazy = false,
     opts = function(_, opts)
       -- other ui changes
-      require("lspconfig.ui.windows").default_options.border = "rounded"
-      local format = require("lazyvim.plugins.lsp.format").format
       local keymaps = require("lazyvim.plugins.lsp.keymaps")
+      local ui_windows = require("lspconfig.ui.windows")
+      local format = require("lazyvim.plugins.lsp.format").format
+
       keymaps._keys = {
         { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },
         { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
@@ -39,22 +40,21 @@ return {
         { "]w", keymaps.diagnostic_goto(true, "WARN"), desc = "Next Warning" },
       }
 
-      return opts
-    end,
-    servers = {
-      pyright = {
+      ui_windows.default_options.border = "rounded"
+
+      opts.servers.pyright = {
         settings = {
           python = {
             analysis = {
               autoSearchPaths = true,
               diagnosticMode = "workspace",
-              typeCheckingMode = "basic",
+              typeCheckingMode = "strict",
               useLibraryCodeForTypes = true,
             },
           },
         },
-      },
-    },
+      }
+    end,
   },
   {
     "glepnir/lspsaga.nvim",
@@ -126,5 +126,61 @@ return {
         auto_refresh = false,
       },
     },
+  },
+  {
+    "mhanberg/elixir.nvim",
+    dependencies = {
+      "elixir-editors/vim-elixir",
+    },
+    config = true,
+    opts = function(_, _)
+      local elixir = require("elixir")
+
+      elixir.setup({
+        -- specify a repository and branch
+        repo = "elixir-lsp/elixir-ls",
+        branch = "master",
+        -- repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
+        -- branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
+
+        -- cmd = { home .. "/.local/share/nvim/mason/packages/elixir-ls/language_server.sh" },
+
+        -- default settings, use the `settings` function to override settings
+        settings = require("elixir").settings({
+          dialyzerEnabled = true,
+          dialyzerFormat = "dialyxir_long",
+          -- dialyzerWarnOpts = []
+          enableTestLenses = true,
+          -- envVariables =
+          fetchDeps = true,
+          -- languageServerOverridePath =
+          mixEnv = "dev",
+          -- mixTarget = "host",
+          -- projectDir = "",
+          signatureAfterComplete = true,
+          suggestSpecs = true,
+          trace = {
+            server = "on",
+          },
+        }),
+
+        capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+        on_attach = function(_, _)
+          require("lazyvim.util").on_attach(function(_, bufnr)
+            local keymap = vim.keymap
+            local elixir_opts = { noremap = true, silent = true, buffer = bufnr }
+
+            -- remove the pipe operator
+            keymap.set("n", "<leader>fp", ":ElixirFromPipe<cr>", elixir_opts)
+
+            -- add the pipe operator
+            keymap.set("n", "<leader>tp", ":ElixirToPipe<cr>", elixir_opts)
+            keymap.set("v", "<leader>em", ":ElixirExpandMacro<cr>", elixir_opts)
+          end)
+        end,
+      })
+
+      return true
+    end,
   },
 }

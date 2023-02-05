@@ -8,6 +8,7 @@ local fn = vim.fn
 
 opt.number = false
 opt.relativenumber = false
+opt.cursorline = false
 opt.list = false
 opt.wrap = true
 opt.showbreak = "↪"
