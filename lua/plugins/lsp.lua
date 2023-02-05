@@ -6,7 +6,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    lazy = false,
+    lazy = true,
     opts = function(_, opts)
       -- other ui changes
       local keymaps = require("lazyvim.plugins.lsp.keymaps")
@@ -132,8 +132,7 @@ return {
     dependencies = {
       "elixir-editors/vim-elixir",
     },
-    config = true,
-    opts = function(_, _)
+    config = function()
       local elixir = require("elixir")
 
       elixir.setup({
@@ -179,8 +178,6 @@ return {
           end)
         end,
       })
-
-      return true
     end,
   },
 }
