@@ -180,4 +180,118 @@ return {
       })
     end,
   },
+  {
+    "simrat39/rust-tools.nvim",
+    opts = {
+      tools = {
+        executor = function()
+          require("rust-tools.executors").quickfix()
+        end,
+      },
+      server = {
+        standalone = true,
+        assist = {
+          emitMustUse = true,
+        },
+        cargo = {
+          buildScripts = {
+            enable = true,
+          },
+        },
+        procMacro = {
+          enable = true,
+        },
+        check = {
+          command = "rustups run stable rust-analyzer",
+          extraArgs = { "--target-dir", "/tmp/rust-analyzer" },
+          extraEnv = { "DATABASE_URL", "sqlite://../database/sismos.db" },
+        },
+        diagnostics = {
+          experimental = {
+            enable = true,
+          },
+        },
+        hover = {
+          actions = {
+            references = {
+              enable = false,
+            },
+          },
+        },
+        lens = {
+          references = {
+            enumVariant = {
+              enable = true,
+            },
+            method = {
+              enable = true,
+            },
+            trait = {
+              enable = true,
+            },
+            adt = {
+              enable = true,
+            },
+          },
+        },
+        rustfmt = {
+          rangeFormatting = {
+            enable = false,
+          },
+        },
+        semanticHighlighting = {
+          operator = {
+            enable = true,
+          },
+          strings = {
+            enable = true,
+          },
+          doc = {
+            comment = {
+              inject = {
+                enable = true,
+              },
+            },
+          },
+          punctuation = {
+            enable = true,
+            separate = {
+              macro = {
+                bang = true,
+              },
+            },
+            specialization = {
+              enable = true,
+            },
+          },
+          specialization = {
+            enable = true,
+          },
+        },
+        trace = {
+          server = "verbose",
+          extension = true,
+        },
+        typing = {
+          autoClosingAngleBrackets = {
+            enable = true,
+          },
+        },
+      },
+      -- dap = {
+      --   adapter = {
+      --     type = "executable",
+      --     command = home .. "/.local/share/nvim/mason/bin/codelldb",
+      --     name = "codelldb",
+      --   },
+      -- },
+    },
+  },
+  {
+    "Saecki/crates.nvim",
+    event = "BufRead Cargo.toml",
+    config = function()
+      require("crates").setup()
+    end,
+  },
 }
