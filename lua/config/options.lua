@@ -9,6 +9,16 @@ local fn = vim.fn
 opt.number = false
 opt.relativenumber = false
 opt.list = false
+opt.wrap = true
+opt.showbreak = "↪"
+opt.listchars = { tab = "▸ ", trail = "·", extends = "»", precedes = "«", eol = "↲" }
+opt.updatetime = 12
+
+if vim.version().minor == 9 then
+  vim.opt.statuscolumn = "%=%l%s%C"
+end
+
+opt.diffopt:append({ linematch = 60 })
 
 local diagnostic_config = {
   float = { border = "rounded" },
@@ -27,7 +37,7 @@ lsp.handlers["textDocument/publishDiagnostics"] = lsp.with(lsp.diagnostic.on_pub
 lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, { border = "rounded" })
 lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_help, { border = "rounded" })
 
-vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticError" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticWarning" })
-vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticInformation" })
-vim.fn.sign_define("DiagnosticSignHint", { text = " ", texthl = "DiagnosticHint" })
+fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticError" })
+fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticWarning" })
+fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticInformation" })
+fn.sign_define("DiagnosticSignHint", { text = " ", texthl = "DiagnosticHint" })

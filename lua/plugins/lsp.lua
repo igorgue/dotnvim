@@ -41,6 +41,18 @@ return {
 
       return opts
     end,
+    servers = {
+      pyright = {
+        settings = {
+          python = {
+            analysis = {
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+            },
+          },
+        },
+      },
+    },
   },
   {
     "glepnir/lspsaga.nvim",
