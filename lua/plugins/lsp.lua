@@ -145,15 +145,14 @@ return {
               enable = true,
               setType = true,
             },
-            diagnostics = {
-              -- globals = { "use" },
-            },
             completion = {
               callSnippets = "Replace",
             },
           },
         },
       }
+
+      return opts
     end,
   },
   {

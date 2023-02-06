@@ -8,6 +8,7 @@ return {
     "nvim-treesitter/nvim-treesitter-refactor",
     "nvim-treesitter/nvim-treesitter-context",
     "theHamsta/nvim-treesitter-pairs",
+    "theHamsta/nvim-dap-virtual-text",
     "windwp/nvim-ts-autotag",
     "andymass/vim-matchup",
   },
@@ -15,7 +16,7 @@ return {
     require("nvim-treesitter.configs").setup(opts)
 
     require("treesitter-context").setup()
-    -- require("nvim-dap-virtual-text").setup({})
+    require("nvim-dap-virtual-text").setup({})
 
     -- enable html parser in htmldjango file
     local import_parsers, parsers = pcall(require, "nvim-treesitter.parsers")
