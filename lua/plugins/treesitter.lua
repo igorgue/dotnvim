@@ -1,5 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  lazy = true,
   dependencies = {
     "nvim-treesitter/playground",
     "David-Kunz/markid",
@@ -10,6 +11,33 @@ return {
     "windwp/nvim-ts-autotag",
     "andymass/vim-matchup",
   },
+  config = function(_, opts)
+    require("nvim-treesitter.configs").setup(opts)
+
+    require("treesitter-context").setup()
+    -- require("nvim-dap-virtual-text").setup({})
+
+    -- enable html parser in htmldjango file
+    local import_parsers, parsers = pcall(require, "nvim-treesitter.parsers")
+    if import_parsers then
+      local parsername = parsers.filetype_to_parsername
+      parsername.htmldjango = "html"
+    end
+
+    local import_tag, autotag = pcall(require, "nvim-ts-autotag")
+    if not import_tag then
+      return
+    end
+    autotag.setup({
+      autotag = {
+        enable = true,
+      },
+      filetypes = {
+        "html",
+        "htmldjango",
+      },
+    })
+  end,
   opts = {
     auto_install = true,
     highlight = {

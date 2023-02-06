@@ -5,6 +5,7 @@ local opt = vim.opt
 local lsp = vim.lsp
 local diagnostic = vim.diagnostic
 local fn = vim.fn
+local g = vim.g
 
 opt.number = false
 opt.relativenumber = false
@@ -42,3 +43,23 @@ fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticError
 fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticWarning" })
 fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticInformation" })
 fn.sign_define("DiagnosticSignHint", { text = " ", texthl = "DiagnosticHint" })
+fn.sign_define(
+  "DapBreakpoint",
+  { text = " ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+)
+fn.sign_define(
+  "DapBreakpointCondition",
+  { text = " ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+)
+fn.sign_define(
+  "DapBreakpointRejected",
+  { text = " ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+)
+fn.sign_define("DapLogPoint", { text = " ", texthl = "DapLogPoint", linehl = "DapLogPoint", numhl = "DapLogPoint" })
+fn.sign_define("DapStopped", { text = " ", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
+
+-- dart
+vim.g.dart_style_guide = 2
+vim.g.dart_html_in_string = true
+vim.g.dart_trailing_comma_indent = true
+vim.g.dartfmt_options = { "--fix" }

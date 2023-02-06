@@ -30,7 +30,6 @@ return {
         -- stylua: ignore
         { "<leader>cf", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting", },
         { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-        { "<leader>co", "<cmd>Lspsaga outline<cr>", desc = "Code outline" },
         { "<leader>cr", "<cmd>Lspsaga rename<cr>", desc = "Rename" },
         { "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "Diagnostics next" },
         { "[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "Diagnostics prev" },
@@ -61,7 +60,6 @@ return {
     event = "BufRead",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = true,
-    priority = 9001,
     opts = {
       ui = {
         theme = "round",
@@ -125,6 +123,12 @@ return {
         auto_enter = false,
         auto_refresh = false,
       },
+      finder = {
+        max_height = 0.8,
+      },
+    },
+    keys = {
+      { "<leader>co", "<cmd>Lspsaga outline<cr>", desc = "Code outline" },
     },
   },
   {
@@ -132,6 +136,7 @@ return {
     dependencies = {
       "elixir-editors/vim-elixir",
     },
+    lazy = true,
     config = function()
       local elixir = require("elixir")
 
@@ -182,6 +187,7 @@ return {
   },
   {
     "simrat39/rust-tools.nvim",
+    lazy = true,
     opts = {
       tools = {
         executor = function()
@@ -202,9 +208,8 @@ return {
           enable = true,
         },
         check = {
-          command = "rustups run stable rust-analyzer",
+          command = "rustup run stable rust-analyzer",
           extraArgs = { "--target-dir", "/tmp/rust-analyzer" },
-          extraEnv = { "DATABASE_URL", "sqlite://../database/sismos.db" },
         },
         diagnostics = {
           experimental = {
@@ -214,7 +219,7 @@ return {
         hover = {
           actions = {
             references = {
-              enable = false,
+              enable = true,
             },
           },
         },
@@ -236,7 +241,7 @@ return {
         },
         rustfmt = {
           rangeFormatting = {
-            enable = false,
+            enable = true,
           },
         },
         semanticHighlighting = {
@@ -278,27 +283,93 @@ return {
           },
         },
       },
-      -- dap = {
-      --   adapter = {
-      --     type = "executable",
-      --     command = home .. "/.local/share/nvim/mason/bin/codelldb",
-      --     name = "codelldb",
-      --   },
-      -- },
+      dap = {
+        adapter = {
+          type = "executable",
+          command = "codelldb",
+          name = "codelldb",
+        },
+      },
     },
   },
   {
     "Saecki/crates.nvim",
     event = "BufRead Cargo.toml",
+    lazy = true,
     config = function()
       require("crates").setup()
     end,
   },
   {
     "akinsho/flutter-tools.nvim",
+    lazy = true,
     dependencies = {
       "dart-lang/dart-vim-plugin",
       "Nash0x7E2/awesome-flutter-snippets",
+    },
+    opts = {
+      ui = {
+        border = "rounded",
+        notification_style = "native",
+      },
+      widget_guides = {
+        enabled = true,
+      },
+      closing_tags = {
+        enabled = true,
+        prefix = "  ",
+      },
+      outline = {
+        open_cmd = "botright 40vnew",
+        auto_open = false,
+      },
+      dev_log = {
+        enabled = true,
+        open_cmd = "botright 5sp",
+      },
+      lsp = {
+        capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+        on_attach = function(_, _)
+          require("lazyvim.util").on_attach(function(client, bufnr)
+            vim.keymap.set(
+              "n",
+              "<leader>co",
+              ":FlutterOutlineToggle<CR>",
+              { buffer = true, noremap = true, silent = true }
+            )
+
+            vim.cmd([[
+              augroup FlutterTools
+                  autocmd!
+                  autocmd FileType flutterToolsOutline noremap <buffer> <leader>2 :FlutterOutlineToggle<CR>
+              augroup END
+            ]])
+
+            require("telescope").load_extension("flutter")
+            require("flutter-tools").lsp_on_attach(client, bufnr)
+          end)
+        end,
+        color = {
+          enabled = true,
+          background = true,
+        },
+        settings = {
+          showTodos = false,
+          completeFunctionCalls = true,
+          updateImportsOnRename = true,
+          enableSnippets = false,
+          renameFilesWithClasses = true,
+        },
+      },
+      debugger = {
+        enabled = true,
+        run_via_dap = true,
+        exception_breakpoints = {},
+        register_configurations = function(_)
+          require("dap").configurations.dart = {}
+          require("dap.ext.vscode").load_launchjs()
+        end,
+      },
     },
   },
 }
