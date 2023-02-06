@@ -63,3 +63,8 @@ g.dart_style_guide = 2
 g.dart_html_in_string = true
 g.dart_trailing_comma_indent = true
 g.dartfmt_options = { "--fix" }
+
+-- dadbod
+g.dbs = {}
+g.db_ui_use_nerd_fonts = true
+g.db_ui_save_location = fn.stdpath("data") .. "/db_ui"

@@ -51,8 +51,9 @@ return {
 
       local logo = "neovim " .. version
 
+      dashboard.section.header.val = vim.split(logo, "\n")
+
       dashboard.section.buttons.val = {
-        { type = "text", val = "shortcuts", opts = { hl = "specialcomment", position = "center" } },
         { type = "padding", val = 1 },
         dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
         dashboard.button("n", " " .. " New file", ":ene<CR>"),
@@ -64,9 +65,8 @@ return {
         dashboard.button("t", " " .. " Terminal", "<cmd>terminal<cr>i"),
         dashboard.button("d", " " .. " Database Manager", "<cmd>enew<cr><cmd>DBUI<cr>"),
         dashboard.button("q", " " .. " Quit", ":qa<CR>"),
+        { type = "padding", val = 1 },
       }
-
-      dashboard.section.header.val = vim.split(logo, "\n")
     end,
   },
   {
