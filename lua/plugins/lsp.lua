@@ -48,7 +48,7 @@ return {
             analysis = {
               autoSearchPaths = true,
               diagnosticMode = "workspace",
-              typeCheckingMode = "strict",
+              typeCheckingMode = "basic",
               useLibraryCodeForTypes = true,
             },
           },
@@ -293,5 +293,12 @@ return {
     config = function()
       require("crates").setup()
     end,
+  },
+  {
+    "akinsho/flutter-tools.nvim",
+    dependencies = {
+      "dart-lang/dart-vim-plugin",
+      "Nash0x7E2/awesome-flutter-snippets",
+    },
   },
 }
