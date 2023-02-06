@@ -18,7 +18,9 @@ return {
         { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
         { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Goto Implementation" },
         { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
-        { "gr", "<cmd>Lspsaga lsp_references<cr>", desc = "References" },
+        -- FIXME: Broken in Python
+        -- { "gr", "<cmd>Lspsaga lsp_references<cr>", desc = "References" },
+        { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
         { "gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
         { "K", "<cmd>Lspsaga hover_doc<cr>", desc = "Hover doc" },
         { "<c-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
