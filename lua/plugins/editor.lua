@@ -19,6 +19,20 @@ return {
   },
   { "arp242/xdg_open.vim", lazy = true },
   {
+    "lewis6991/gitsigns.nvim",
+    lazy = true,
+    opts = {
+      signs = {
+        add = { text = "│" },
+        change = { text = "│" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+        untracked = { text = "┆" },
+      },
+    },
+  },
+  {
     "echasnovski/mini.pairs",
     enabled = false,
   },

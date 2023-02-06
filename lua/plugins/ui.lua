@@ -22,7 +22,7 @@ return {
     lazy = true,
     opts = {
       render = "default",
-      fps = 60,
+      fps = 120,
       timeout = 2500,
       stages = "static",
       background_colour = "#161925",
@@ -50,6 +50,21 @@ return {
       end
 
       local logo = "neovim " .. version
+
+      dashboard.section.buttons.val = {
+        { type = "text", val = "shortcuts", opts = { hl = "specialcomment", position = "center" } },
+        { type = "padding", val = 1 },
+        dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
+        dashboard.button("n", " " .. " New file", ":ene<CR>"),
+        dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
+        dashboard.button("g", " " .. " Find text", ":Telescope live_grep <CR>"),
+        dashboard.button("c", " " .. " Config", ":e $MYVIMRC <CR>"),
+        dashboard.button("s", "勒" .. " Restore Session", [[:lua require("persistence").load() <cr>]]),
+        dashboard.button("l", "鈴" .. " Lazy", ":Lazy<CR>"),
+        dashboard.button("t", " " .. " Terminal", "<cmd>terminal<cr>i"),
+        dashboard.button("d", " " .. " Database Manager", "<cmd>enew<cr><cmd>DBUI<cr>"),
+        dashboard.button("q", " " .. " Quit", ":qa<CR>"),
+      }
 
       dashboard.section.header.val = vim.split(logo, "\n")
     end,

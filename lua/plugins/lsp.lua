@@ -1,6 +1,5 @@
 return {
   {
-    -- navic
     "SmiteshP/nvim-navic",
     enabled = false,
   },
@@ -8,7 +7,6 @@ return {
     "neovim/nvim-lspconfig",
     lazy = true,
     opts = function(_, opts)
-      -- other ui changes
       local keymaps = require("lazyvim.plugins.lsp.keymaps")
       local ui_windows = require("lspconfig.ui.windows")
       local format = require("lazyvim.plugins.lsp.format").format
@@ -53,6 +51,109 @@ return {
           },
         },
       }
+
+      opts.servers.cssls = {}
+
+      opts.servers.tailwindcss = {
+        init_options = {
+          userLanguages = {
+            elixir = "phoenix-heex",
+            eruby = "erb",
+            heex = "phoenix-heex",
+            svelte = "html",
+            rust = "html",
+          },
+        },
+        handlers = {
+          ["tailwindcss/getConfiguration"] = function(_, _, params, _, bufnr, _)
+            vim.lsp.buf_notify(bufnr, "tailwindcss/getConfigurationResponse", { _id = params._id })
+          end,
+        },
+        settings = {
+          includeLanguages = {
+            typescript = "javascript",
+            typescriptreact = "javascript",
+            ["html-eex"] = "html",
+            ["phoenix-heex"] = "html",
+            heex = "html",
+            eelixir = "html",
+            elixir = "html",
+            elm = "html",
+            erb = "html",
+            svelte = "html",
+            rust = "html",
+          },
+          tailwindCSS = {
+            lint = {
+              cssConflict = "warning",
+              invalidApply = "error",
+              invalidConfigPath = "error",
+              invalidScreen = "error",
+              invalidTailwindDirective = "error",
+              invalidVariant = "error",
+              recommendedVariantOrder = "warning",
+            },
+            experimental = {
+              classRegex = {
+                [[class= "([^"]*)]],
+                [[class: "([^"]*)]],
+                '~H""".*class="([^"]*)".*"""',
+              },
+            },
+            validate = true,
+          },
+        },
+        filetypes = {
+          "css",
+          "scss",
+          "sass",
+          "html",
+          "heex",
+          "elixir",
+          "eruby",
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact",
+          "rust",
+          "svelte",
+        },
+      }
+
+      -- opts.servers.html = {
+      --   filetypes = {
+      --     "html",
+      --     "heex",
+      --     "elixir",
+      --     "eruby",
+      --     "javascript",
+      --     "javascriptreact",
+      --     "typescript",
+      --     "typescriptreact",
+      --     "rust",
+      --     "svelte",
+      --   },
+      -- }
+
+      opts.servers.sumneko_lua = {
+        settings = {
+          Lua = {
+            codeLens = {
+              enable = true,
+            },
+            hint = {
+              enable = true,
+              setType = true,
+            },
+            diagnostics = {
+              -- globals = { "use" },
+            },
+            completion = {
+              callSnippets = "Replace",
+            },
+          },
+        },
+      }
     end,
   },
   {
@@ -60,6 +161,30 @@ return {
     event = "BufRead",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = true,
+    config = function(_, opts)
+      require("lspsaga").setup(opts)
+
+      require("lazyvim.util").on_attach(function(_, _)
+        local keymap = vim.keymap
+
+        pcall(function()
+          vim.api.nvim_del_keymap("n", "<leader>co")
+        end)
+
+        if vim.bo.filetype == "dart" then
+          keymap.set(
+            "n",
+            "<leader>co",
+            "<cmd>FlutterOutlineToggle<cr>",
+            { buffer = true, noremap = true, silent = true }
+          )
+
+          return
+        end
+
+        keymap.set("n", "<leader>co", "<cmd>Lspsaga outline<cr>", { silent = true })
+      end)
+    end,
     opts = {
       ui = {
         theme = "round",
@@ -99,22 +224,24 @@ return {
           -- To see all avaiable details: vim.pretty_print(node)
           local st = node.range.start
           local en = node.range["end"]
+          local fn = vim.fn
+
           if button == "l" then
             if clicks == 2 then
               -- double left click to do nothing
             else -- jump to node's starting line+char
-              vim.fn.cursor({ st.line + 1, st.character + 1 })
+              fn.cursor({ st.line + 1, st.character + 1 })
             end
           elseif button == "r" then
             if modifiers == "s" then
               print("lspsaga") -- shift right click to print "lspsaga"
             end -- jump to node's ending line+char
-            vim.fn.cursor({ en.line + 1, en.character + 1 })
+            fn.cursor({ en.line + 1, en.character + 1 })
           elseif button == "m" then
             -- middle click to visual select node
-            vim.fn.cursor({ st.line + 1, st.character + 1 })
+            fn.cursor({ st.line + 1, st.character + 1 })
             vim.cmd("normal v")
-            vim.fn.cursor({ en.line + 1, en.character + 1 })
+            fn.cursor({ en.line + 1, en.character + 1 })
           end
         end,
       },
@@ -128,7 +255,7 @@ return {
       },
     },
     keys = {
-      { "<leader>co", "<cmd>Lspsaga outline<cr>", desc = "Code outline" },
+      { "<leader>co", nil, desc = "Code outline" },
     },
   },
   {
@@ -136,7 +263,7 @@ return {
     dependencies = {
       "elixir-editors/vim-elixir",
     },
-    lazy = true,
+    lazy = false,
     config = function()
       local elixir = require("elixir")
 
@@ -145,8 +272,8 @@ return {
         repo = "elixir-lsp/elixir-ls",
         branch = "master",
         -- repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
-        -- branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
 
+        -- branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
         -- cmd = { home .. "/.local/share/nvim/mason/packages/elixir-ls/language_server.sh" },
 
         -- default settings, use the `settings` function to override settings
@@ -167,8 +294,6 @@ return {
             server = "on",
           },
         }),
-
-        capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
         on_attach = function(_, _)
           require("lazyvim.util").on_attach(function(_, bufnr)
             local keymap = vim.keymap
@@ -302,7 +427,7 @@ return {
   },
   {
     "akinsho/flutter-tools.nvim",
-    lazy = true,
+    lazy = false,
     dependencies = {
       "dart-lang/dart-vim-plugin",
       "Nash0x7E2/awesome-flutter-snippets",
@@ -328,22 +453,18 @@ return {
         open_cmd = "botright 5sp",
       },
       lsp = {
-        capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
         on_attach = function(_, _)
           require("lazyvim.util").on_attach(function(client, bufnr)
+            pcall(function()
+              vim.api.nvim_del_keymap("n", "<leader>co")
+            end)
+
             vim.keymap.set(
               "n",
               "<leader>co",
               ":FlutterOutlineToggle<CR>",
               { buffer = true, noremap = true, silent = true }
             )
-
-            vim.cmd([[
-              augroup FlutterTools
-                  autocmd!
-                  autocmd FileType flutterToolsOutline noremap <buffer> <leader>2 :FlutterOutlineToggle<CR>
-              augroup END
-            ]])
 
             require("telescope").load_extension("flutter")
             require("flutter-tools").lsp_on_attach(client, bufnr)
@@ -361,15 +482,15 @@ return {
           renameFilesWithClasses = true,
         },
       },
-      debugger = {
-        enabled = true,
-        run_via_dap = true,
-        exception_breakpoints = {},
-        register_configurations = function(_)
-          require("dap").configurations.dart = {}
-          require("dap.ext.vscode").load_launchjs()
-        end,
-      },
+      -- debugger = {
+      --   enabled = true,
+      --   run_via_dap = true,
+      --   exception_breakpoints = {},
+      --   register_configurations = function(_)
+      --     require("dap").configurations.dart = {}
+      --     require("dap.ext.vscode").load_launchjs()
+      --   end,
+      -- },
     },
   },
 }

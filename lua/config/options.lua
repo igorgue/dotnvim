@@ -59,7 +59,7 @@ fn.sign_define("DapLogPoint", { text = " ", texthl = "DapLogPoint", linehl = 
 fn.sign_define("DapStopped", { text = " ", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
 
 -- dart
-vim.g.dart_style_guide = 2
-vim.g.dart_html_in_string = true
-vim.g.dart_trailing_comma_indent = true
-vim.g.dartfmt_options = { "--fix" }
+g.dart_style_guide = 2
+g.dart_html_in_string = true
+g.dart_trailing_comma_indent = true
+g.dartfmt_options = { "--fix" }
