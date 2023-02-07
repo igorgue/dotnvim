@@ -28,6 +28,7 @@ return {
         { "<leader>cf", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting", },
         { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
         { "<leader>cr", "<cmd>Lspsaga rename<cr>", desc = "Rename" },
+        { "<leader>cL", vim.lsp.codelens.run, desc = "Run codelense" },
         { "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "Diagnostics next" },
         { "[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "Diagnostics prev" },
         { "[e", keymaps.diagnostic_goto(false, "ERROR"), desc = "Prev Error" },
@@ -317,6 +318,7 @@ return {
         end,
       },
       server = {
+        cmd = { "rustup", "run", "stable", "rust-analyzer" },
         standalone = true,
         assist = {
           emitMustUse = true,
@@ -330,8 +332,8 @@ return {
           enable = true,
         },
         check = {
-          command = "rustup run stable rust-analyzer",
-          extraArgs = { "--target-dir", "/tmp/rust-analyzer" },
+          features = "all",
+          extraArgs = { "--target-dir", "/home/igor/Code/tmp/rust-analyzer" },
         },
         diagnostics = {
           experimental = {
