@@ -19,7 +19,7 @@ return {
     },
     version = false,
     event = "InsertEnter",
-    lazy = true,
+    lazy = false,
     opts = function(_, _)
       local cmp = require("cmp")
       local sources = {}
