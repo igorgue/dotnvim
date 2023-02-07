@@ -31,9 +31,7 @@ return {
     },
     keys = function()
       return {
-        { "<leader>h", "<cmd>lua require('gitsigns').next_hunk()<cr>", desc = "Next hunk" },
-        { "<leader>[g", "<cmd>lua require('gitsigns').next_hunk()<cr>", desc = "Next hunk" },
-        { "<leader>]g", "<cmd>lua require('gitsigns').prev_hunk()<cr>", desc = "Previous hunk" },
+        { "<leader>h", "<cmd>lua require('gitsigns').next_hunk()<cr>", desc = "Next git hunk" },
       }
     end,
   },
@@ -42,7 +40,25 @@ return {
     enabled = false,
   },
   {
+    "echasnovski/mini.ai",
+    enabled = false,
+  },
+  {
+    "echasnovski/mini.comment",
+    enabled = false,
+  },
+  {
+    "ggandor/leap.nvim",
+    enabled = false,
+  },
+  {
     "RRethy/vim-illuminate",
     enabled = false,
+  },
+  {
+    "numToStr/Comment.nvim",
+    config = function()
+      require("Comment").setup()
+    end,
   },
 }

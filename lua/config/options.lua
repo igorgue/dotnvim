@@ -16,6 +16,9 @@ opt.showbreak = "↪"
 opt.listchars = { tab = "▸ ", trail = "·", extends = "»", precedes = "«", eol = "↲" }
 opt.fillchars = { eob = " " }
 opt.updatetime = 12
+opt.sm = true
+opt.smartcase = false
+opt.wildignorecase = true
 
 if vim.version().minor == 9 then
   vim.opt.statuscolumn = "%=%l%s%C"

@@ -3,7 +3,7 @@
 -- Add any additional keymaps here
 local api = vim.api
 -- local default_opts = { noremap = true, silent = true }
--- local keymap = vim.keymap
+local keymap = vim.keymap
 
 pcall(function()
   api.nvim_del_keymap("n", "<")
@@ -11,3 +11,11 @@ pcall(function()
   api.nvim_del_keymap("v", "<")
   api.nvim_del_keymap("v", ">")
 end)
+
+-- refresh key...
+keymap.set("n", "<leader>r", function()
+  require("notify").dismiss({})
+  vim.cmd("nohlsearch")
+  vim.cmd("cd ~")
+  vim.cmd("cd -")
+end, { noremap = true, silent = true })
