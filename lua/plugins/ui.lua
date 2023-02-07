@@ -1,13 +1,24 @@
 return {
+  { "igorgue/danger", priority = 19001 },
   {
-    { "igorgue/danger", priority = 19001 },
-    {
-      "LazyVim/LazyVim",
-      opts = {
-        colorscheme = "danger",
-      },
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "danger",
     },
   },
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   enabled = false,
+  -- },
+  -- {
+  --   "tokyonight.nvim",
+  --   name = "tokyonight-danger.nvim",
+  --   priority = 19001,
+  --   dev = true,
+  --   config = function()
+  --     vim.cmd("colorscheme tokyonight")
+  --   end,
+  -- },
   { "akinsho/bufferline.nvim", enabled = false },
   {
     "lukas-reineke/indent-blankline.nvim",
