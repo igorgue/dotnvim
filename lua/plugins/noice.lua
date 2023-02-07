@@ -1,6 +1,5 @@
 return {
   "folke/noice.nvim",
-  lazy = true,
   opts = {
     cmdline = {
       enabled = true,

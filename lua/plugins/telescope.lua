@@ -10,7 +10,6 @@ return {
       "danielfalk/smart-open.nvim",
       "kkharji/sqlite.lua",
     },
-    lazy = true,
     opts = function(_, _)
       local actions = require("telescope.actions")
       local function telescope_paste_char(char)

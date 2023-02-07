@@ -5,7 +5,6 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    lazy = true,
     opts = function(_, opts)
       local keymaps = require("lazyvim.plugins.lsp.keymaps")
       local ui_windows = require("lspconfig.ui.windows")
@@ -159,7 +158,6 @@ return {
     "glepnir/lspsaga.nvim",
     event = "BufRead",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    lazy = true,
     config = function(_, opts)
       require("lspsaga").setup(opts)
 
@@ -262,7 +260,7 @@ return {
     dependencies = {
       "elixir-editors/vim-elixir",
     },
-    lazy = false,
+    priority = 9001,
     config = function()
       local elixir = require("elixir")
 
@@ -311,7 +309,7 @@ return {
   },
   {
     "simrat39/rust-tools.nvim",
-    lazy = true,
+    priority = 9001,
     opts = {
       tools = {
         executor = function()
@@ -419,14 +417,14 @@ return {
   {
     "Saecki/crates.nvim",
     event = "BufRead Cargo.toml",
-    lazy = true,
+    priority = 9001,
     config = function()
       require("crates").setup()
     end,
   },
   {
     "akinsho/flutter-tools.nvim",
-    lazy = false,
+    priority = 9001,
     dependencies = {
       "dart-lang/dart-vim-plugin",
       "Nash0x7E2/awesome-flutter-snippets",

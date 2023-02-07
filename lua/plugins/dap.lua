@@ -1,6 +1,5 @@
 return {
   "mfussenegger/nvim-dap",
-  lazy = true,
   dependencies = {
     "mfussenegger/nvim-dap-python",
     "rcarriga/nvim-dap-ui",
@@ -89,14 +88,14 @@ return {
     { "<F6>", "<Cmd>lua require('dap').step_over()<CR>", desc = "Debug step over" },
     { "<F7>", "<Cmd>lua require('dap').step_into()<CR>", desc = "Debug step into" },
     { "<F8>", "<Cmd>lua require('dap').step_out()<CR>", desc = "Debug step out" },
-    { "<leader>b", "<Cmd>lua require('dap').toggle_breakpoint()<CR>", desc = "Debug toggle breakpoint" },
+    { "<leader>db", "<Cmd>lua require('dap').toggle_breakpoint()<CR>", desc = "Debug toggle breakpoint" },
     {
-      "<leader>B",
+      "<leader>dB",
       "<Cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
       desc = "Debug breakpoint condition",
     },
     {
-      "<leader>L",
+      "<leader>dl",
       "<Cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
       desc = "Debug log point message",
     },

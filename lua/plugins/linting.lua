@@ -1,6 +1,5 @@
 return {
   "jose-elias-alvarez/null-ls.nvim",
-  lazy = true,
   opts = function()
     local nls = require("null-ls")
     return {

@@ -1,6 +1,5 @@
 return {
   "windwp/nvim-spectre",
-  lazy = true,
   opts = {
     highlight = {
       ui = "String",

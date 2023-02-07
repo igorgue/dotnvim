@@ -2,8 +2,8 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 local api = vim.api
-local default_opts = { noremap = true, silent = true }
-local keymap = vim.keymap
+-- local default_opts = { noremap = true, silent = true }
+-- local keymap = vim.keymap
 
 pcall(function()
   api.nvim_del_keymap("n", "<")
@@ -11,5 +11,3 @@ pcall(function()
   api.nvim_del_keymap("v", "<")
   api.nvim_del_keymap("v", ">")
 end)
-
-keymap.set("n", "<leader>x", "<Cmd>TSHighlightCapturesUnderCursor<CR>", default_opts)

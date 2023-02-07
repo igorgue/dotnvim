@@ -1,6 +1,6 @@
 return {
   {
-    { "igorgue/danger", lazy = true },
+    { "igorgue/danger", priority = 19001 },
     {
       "LazyVim/LazyVim",
       opts = {
@@ -19,7 +19,6 @@ return {
   },
   {
     "rcarriga/nvim-notify",
-    lazy = true,
     opts = {
       render = "default",
       fps = 120,
@@ -30,7 +29,6 @@ return {
   },
   {
     "goolord/alpha-nvim",
-    lazy = true,
     opts = function(_, _)
       local dashboard = require("alpha.themes.dashboard")
       local neovim_version = vim.version()
@@ -71,7 +69,6 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
-    lazy = true,
     opts = function(_)
       local icons = require("lazyvim.config").icons
 
@@ -234,7 +231,6 @@ return {
   },
   {
     "norcalli/nvim-colorizer.lua",
-    lazy = false,
     config = function(_, _)
       require("colorizer").setup({ "*" }, {
         RGB = true, -- #RGB hex codes
@@ -252,7 +248,6 @@ return {
   },
   {
     "ziontee113/color-picker.nvim",
-    lazy = true,
     config = function(_, _)
       require("color-picker").setup()
     end,

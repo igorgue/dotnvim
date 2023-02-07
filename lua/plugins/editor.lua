@@ -1,7 +1,6 @@
 return {
   {
     "michaeljsmith/vim-indent-object",
-    lazy = true,
     keys = {
       { "vai", nil, desc = "An indent level and line above" },
       { "vii", nil, desc = "Inner indent level (no line above)" },
@@ -17,10 +16,9 @@ return {
       { "ciI", nil, desc = "Inner indent level (no lines above/below)" },
     },
   },
-  { "arp242/xdg_open.vim", lazy = true },
+  "arp242/xdg_open.vim",
   {
     "lewis6991/gitsigns.nvim",
-    lazy = true,
     opts = {
       signs = {
         add = { text = "│" },

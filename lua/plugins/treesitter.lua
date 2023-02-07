@@ -1,6 +1,5 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  lazy = true,
   dependencies = {
     "nvim-treesitter/playground",
     "David-Kunz/markid",
@@ -43,7 +42,6 @@ return {
     auto_install = true,
     highlight = {
       enable = true,
-      -- disable = { "elixir" },
       additional_vim_regex_highlighting = false,
     },
     incremental_selection = {
@@ -88,5 +86,8 @@ return {
     matchup = {
       enable = true,
     },
+  },
+  keys = {
+    { "<leader>ux", "<Cmd>TSHighlightCapturesUnderCursor<CR>", desc = "Show TS and VIM highlight groups" },
   },
 }
