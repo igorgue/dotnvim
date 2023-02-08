@@ -34,3 +34,10 @@ api.nvim_create_autocmd("FileType", {
     require("cmp").setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
   end,
 })
+
+api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "rust" },
+  callback = function()
+    vim.b.autoformat = false
+  end,
+})

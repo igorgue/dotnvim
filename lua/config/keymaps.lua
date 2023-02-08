@@ -4,13 +4,12 @@
 local api = vim.api
 -- local default_opts = { noremap = true, silent = true }
 local keymap = vim.keymap
+local nvim_del_keymap = api.nvim_del_keymap
 
-pcall(function()
-  api.nvim_del_keymap("n", "<")
-  api.nvim_del_keymap("n", ">")
-  api.nvim_del_keymap("v", "<")
-  api.nvim_del_keymap("v", ">")
-end)
+pcall(nvim_del_keymap, "n", "<")
+pcall(nvim_del_keymap, "n", ">")
+pcall(nvim_del_keymap, "v", "<")
+pcall(nvim_del_keymap, "v", ">")
 
 -- refresh key...
 keymap.set("n", "<leader>r", function()

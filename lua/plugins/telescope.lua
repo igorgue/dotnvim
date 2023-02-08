@@ -9,6 +9,10 @@ return {
       "xiyaowong/telescope-emoji.nvim",
       "danielfalk/smart-open.nvim",
       "kkharji/sqlite.lua",
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+      },
     },
     opts = function(_, _)
       local actions = require("telescope.actions")
@@ -57,6 +61,7 @@ return {
       telescope.load_extension("glyph")
       telescope.load_extension("emoji")
       telescope.load_extension("smart_open")
+      telescope.load_extension("fzf")
     end,
     keys = {
       { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },

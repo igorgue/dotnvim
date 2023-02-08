@@ -248,6 +248,7 @@ return {
   },
   {
     "norcalli/nvim-colorizer.lua",
+    priority = 1,
     config = function(_, _)
       require("colorizer").setup({ "*" }, {
         RGB = true, -- #RGB hex codes
@@ -273,4 +274,5 @@ return {
       { "<M-c>", "<cmd>PickColorInsert<cr>", desc = "Pick color", mode = "i" },
     },
   },
+  "mattn/webapi-vim",
 }

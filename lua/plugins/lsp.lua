@@ -120,20 +120,20 @@ return {
         },
       }
 
-      -- opts.servers.html = {
-      --   filetypes = {
-      --     "html",
-      --     "heex",
-      --     "elixir",
-      --     "eruby",
-      --     "javascript",
-      --     "javascriptreact",
-      --     "typescript",
-      --     "typescriptreact",
-      --     "rust",
-      --     "svelte",
-      --   },
-      -- }
+      opts.servers.html = {
+        filetypes = {
+          "html",
+          -- "heex",
+          -- "elixir",
+          -- "eruby",
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact",
+          "rust",
+          "svelte",
+        },
+      }
 
       opts.servers.sumneko_lua = {
         settings = {
@@ -152,6 +152,10 @@ return {
         },
       }
 
+      opts.setup.clangd = function(_, clangd_opts)
+        clangd_opts.capabilities.offsetEncoding = { "utf-8" }
+      end
+
       return opts
     end,
   },
@@ -165,9 +169,7 @@ return {
       require("lazyvim.util").on_attach(function(_, _)
         local keymap = vim.keymap
 
-        pcall(function()
-          vim.api.nvim_del_keymap("n", "<leader>co")
-        end)
+        pcall(vim.api.nvim_del_keymap, "n", "<leader>co")
 
         if vim.bo.filetype == "dart" then
           keymap.set(
@@ -310,6 +312,9 @@ return {
   },
   {
     "simrat39/rust-tools.nvim",
+    dependencies = {
+      "rust-lang/rust.vim",
+    },
     priority = 9001,
     opts = {
       tools = {
@@ -406,6 +411,34 @@ return {
             enable = true,
           },
         },
+        on_attach = function()
+          local rt = require("rust-tools")
+
+          rt.inlay_hints.enable()
+
+          require("lazyvim.util").on_attach(function(_, bufnr)
+            local keymap = vim.keymap
+            local api = vim.api
+            local nvim_del_keymap = api.nvim_del_keymap
+            local opts = { noremap = true, silent = true, buffer = bufnr }
+
+            pcall(nvim_del_keymap, "n", "K")
+            pcall(nvim_del_keymap, "n", "<leader>ca")
+
+            keymap.set("n", "K", rt.hover_actions.hover_actions, opts)
+            keymap.set("v", "K", rt.hover_range.hover_range, opts)
+            keymap.set("n", "<leader>ca", rt.code_action_group.code_action_group, opts)
+            keymap.set("n", "<leader>cR", rt.runnables.runnables, opts)
+            keymap.set("n", "<leader>ce", rt.expand_macro.expand_macro, opts)
+            -- stylua: ignore
+            keymap.set("n", "<leader>cm", function() rt.move_item.move_item(true) end, opts)
+            -- stylua: ignore
+            keymap.set("n", "<leader>cM", function() rt.move_item.move_item(false) end, opts)
+            keymap.set("n", "<leader>cC", rt.open_cargo_toml.open_cargo_toml, opts)
+            keymap.set("n", "<leader>cp", rt.parent_module.parent_module, opts)
+            keymap.set("n", "<leader>cj", rt.join_lines.join_lines, opts)
+          end)
+        end,
       },
       dap = {
         adapter = {
@@ -414,6 +447,18 @@ return {
           name = "codelldb",
         },
       },
+    },
+    keys = {
+      { "K", nil, desc = "Rust hover actions" },
+      { "K", nil, desc = "Rust hover range actions", mode = "v" },
+      { "<leader>ca", nil, desc = "Rust code actions" },
+      { "<leader>cR", nil, desc = "Rust runables" },
+      { "<leader>ce", nil, desc = "Rust expand macro" },
+      { "<leader>cm", nil, desc = "Rust move up" },
+      { "<leader>cM", nil, desc = "Rust move down" },
+      { "<leader>cC", nil, desc = "Rust open Cargo.toml" },
+      { "<leader>cp", nil, desc = "Rust parent module" },
+      { "<leader>cj", nil, desc = "Rust join lines" },
     },
   },
   {
@@ -454,9 +499,7 @@ return {
       lsp = {
         on_attach = function(_, _)
           require("lazyvim.util").on_attach(function(client, bufnr)
-            pcall(function()
-              vim.api.nvim_del_keymap("n", "<leader>co")
-            end)
+            pcall(vim.api.nvim_del_keymap, "n", "<leader>co")
 
             vim.keymap.set(
               "n",
@@ -481,15 +524,15 @@ return {
           renameFilesWithClasses = true,
         },
       },
-      -- debugger = {
-      --   enabled = true,
-      --   run_via_dap = true,
-      --   exception_breakpoints = {},
-      --   register_configurations = function(_)
-      --     require("dap").configurations.dart = {}
-      --     require("dap.ext.vscode").load_launchjs()
-      --   end,
-      -- },
+      debugger = {
+        enabled = true,
+        run_via_dap = true,
+        exception_breakpoints = {},
+        register_configurations = function(_)
+          require("dap").configurations.dart = {}
+          require("dap.ext.vscode").load_launchjs()
+        end,
+      },
     },
   },
 }

@@ -72,3 +72,7 @@ g.dartfmt_options = { "--fix" }
 g.dbs = {}
 g.db_ui_use_nerd_fonts = true
 g.db_ui_save_location = fn.stdpath("data") .. "/db_ui"
+
+-- rust
+g.rustfmt_autosave = true
+g.rust_clip_command = "xclip -selection clipboard"
