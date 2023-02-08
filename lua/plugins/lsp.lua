@@ -5,6 +5,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
+    priority = 9001,
     opts = function(_, opts)
       local keymaps = require("lazyvim.plugins.lsp.keymaps")
       local ui_windows = require("lspconfig.ui.windows")
@@ -263,7 +264,7 @@ return {
     dependencies = {
       "elixir-editors/vim-elixir",
     },
-    priority = 9001,
+    priority = 40,
     config = function()
       local elixir = require("elixir")
 
@@ -315,11 +316,19 @@ return {
     dependencies = {
       "rust-lang/rust.vim",
     },
-    priority = 9001,
+    priority = 40,
     opts = {
       tools = {
         executor = function()
           require("rust-tools.executors").quickfix()
+        end,
+        reload_workspace_from_cargo_toml = true,
+        on_initialized = function(status)
+          if status.health ~= "ok" then
+            vim.notify("rust-tools: initialized, status: " .. vim.inspect(status), vim.log.levels.ERROR)
+
+            return
+          end
         end,
       },
       server = {
@@ -421,11 +430,12 @@ return {
             local keymap = vim.keymap
             local api = vim.api
             local nvim_del_keymap = api.nvim_del_keymap
-            local opts = { noremap = true, silent = true, buffer = bufnr }
+            local map_opts = { noremap = true, silent = true, buffer = bufnr }
 
             pcall(nvim_del_keymap, "n", "K")
             pcall(nvim_del_keymap, "v", "K")
-            pcall(nvim_del_keymap, "n", "<leader>ca")
+            pcall(nvim_del_keymap, "n", "<C-k>")
+            pcall(nvim_del_keymap, "n", "<leader>cA")
             pcall(nvim_del_keymap, "n", "<leader>cR")
             pcall(nvim_del_keymap, "n", "<leader>ce")
             pcall(nvim_del_keymap, "n", "<leader>cm")
@@ -434,29 +444,22 @@ return {
             pcall(nvim_del_keymap, "n", "<leader>cp")
             pcall(nvim_del_keymap, "n", "<leader>cj")
 
-            keymap.set("n", "K", rt.hover_actions.hover_actions, opts)
-            keymap.set("v", "K", rt.hover_range.hover_range, opts)
+            keymap.set("n", "K", rt.hover_actions.hover_actions, map_opts)
+            keymap.set("v", "K", rt.hover_range.hover_range, map_opts)
+            keymap.set("n", "<C-k>", "<cmd>Lspsaga hover_doc<cr>", map_opts)
 
             which_key.register({
               c = {
-                a = { rt.code_action_group.code_action_group, "Rust code actions" },
-                R = { rt.runnables.runnables, "Rust runables" },
-                e = { rt.expand_macro.expand_macro, "Rust expand macro" },
-                m = {
-                  function()
-                    rt.move_item.move_item(true)
-                  end,
-                  "Rust move up",
-                },
-                M = {
-                  function()
-                    rt.move_item.move_item(false)
-                  end,
-                  "Rust move down",
-                },
-                C = { rt.open_cargo_toml.open_cargo_toml, "Rust open cargo.toml" },
-                p = { rt.parent_module.parent_module, "Rust parent module" },
-                j = { rt.join_lines.join_lines, "Rust join lines" },
+                A = { rt.code_action_group.code_action_group, "Rust code actions", opts = map_opts },
+                R = { rt.runnables.runnables, "Rust runables", opts = map_opts },
+                e = { rt.expand_macro.expand_macro, "Rust expand macro", opts = map_opts },
+                -- stylua: ignore
+                m = { function() rt.move_item.move_item(true) end, "Rust move up", opts = map_opts },
+                -- stylua: ignore
+                M = { function() rt.move_item.move_item(false) end, "Rust move down", opts = map_opts},
+                C = { rt.open_cargo_toml.open_cargo_toml, "Rust open cargo.toml", opts = map_opts },
+                p = { rt.parent_module.parent_module, "Rust parent module", opts = map_opts },
+                j = { rt.join_lines.join_lines, "Rust join lines", opts = map_opts },
               },
             }, {
               prefix = "<leader>",
@@ -476,14 +479,14 @@ return {
   {
     "Saecki/crates.nvim",
     event = "BufRead Cargo.toml",
-    priority = 9001,
+    priority = 40,
     config = function()
       require("crates").setup()
     end,
   },
   {
     "akinsho/flutter-tools.nvim",
-    priority = 9001,
+    priority = 40,
     dependencies = {
       "dart-lang/dart-vim-plugin",
       "Nash0x7E2/awesome-flutter-snippets",
