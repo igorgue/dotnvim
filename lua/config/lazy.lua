@@ -27,6 +27,7 @@ require("lazy").setup({
   },
   -- install = { colorscheme = { "tokyonight", "catppuccin", "habamax" } },
   install = { colorscheme = {} },
+  -- install = { colorscheme = {} },
   checker = { enabled = true }, -- automatically check for plugin updates
   ui = {
     border = "rounded",
@@ -45,8 +46,5 @@ require("lazy").setup({
         "zipPlugin",
       },
     },
-  },
-  dev = {
-    path = "~/Code",
   },
 })

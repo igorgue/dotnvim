@@ -8,16 +8,22 @@ return {
   },
   -- {
   --   "folke/tokyonight.nvim",
-  --   enabled = false,
+  --   lazy = false,
+  --   -- config = function() end,
   -- },
   -- {
-  --   "tokyonight.nvim",
-  --   name = "tokyonight-danger.nvim",
-  --   priority = 19001,
-  --   dev = true,
+  --   "igorgue/tokyonight.nvim",
+  --   name = "tokyonight-danger",
+  --   priority = 1,
   --   config = function()
-  --     vim.cmd("colorscheme tokyonight")
+  --     vim.cmd("colorscheme tokyonight-danger")
   --   end,
+  -- },
+  -- {
+  --   "LazyVim/LazyVim",
+  --   opts = {
+  --     colorscheme = "tokyonight",
+  --   },
   -- },
   { "akinsho/bufferline.nvim", enabled = false },
   {
