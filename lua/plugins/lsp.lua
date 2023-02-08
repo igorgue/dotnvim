@@ -297,15 +297,27 @@ return {
         }),
         on_attach = function(_, _)
           require("lazyvim.util").on_attach(function(_, bufnr)
-            local keymap = vim.keymap
+            local which_key = require("which-key")
             local elixir_opts = { noremap = true, silent = true, buffer = bufnr }
+            local nvim_del_keymap = vim.api.nvim_del_keymap
 
-            -- remove the pipe operator
-            keymap.set("n", "<leader>fp", ":ElixirFromPipe<cr>", elixir_opts)
+            pcall(nvim_del_keymap, "n", "<leader>cp")
+            pcall(nvim_del_keymap, "n", "<leader>cP")
+            pcall(nvim_del_keymap, "n", "<leader>cm")
+            pcall(nvim_del_keymap, "n", "<leader>cR")
+            pcall(nvim_del_keymap, "n", "<leader>cO")
 
-            -- add the pipe operator
-            keymap.set("n", "<leader>tp", ":ElixirToPipe<cr>", elixir_opts)
-            keymap.set("v", "<leader>em", ":ElixirExpandMacro<cr>", elixir_opts)
+            which_key.register({
+              c = {
+                p = { "<cmd>ElixirToPipe<cr>", "Elixir to pipe", opts = elixir_opts },
+                P = { "<cmd>ElixirFromPipe<cr>", "Elixir from pipe", opts = elixir_opts },
+                m = { "<cmd>ElixirExpandMacro<cr>", "Elixir expand macro", opts = elixir_opts },
+                R = { "<cmd>ElixirRestart<cr>", "Elixir restart", opts = elixir_opts },
+                O = { "<cmd>ElixirOutputPanel<cr>", "Elixir LSP output panel", opts = elixir_opts },
+              },
+            }, {
+              prefix = "<leader>",
+            })
           end)
         end,
       })
@@ -514,17 +526,27 @@ return {
       lsp = {
         on_attach = function(_, _)
           require("lazyvim.util").on_attach(function(client, bufnr)
-            pcall(vim.api.nvim_del_keymap, "n", "<leader>co")
+            local which_key = require("which-key")
+            local nvim_del_keymap = vim.api.nvim_del_keymap
 
-            vim.keymap.set(
-              "n",
-              "<leader>co",
-              ":FlutterOutlineToggle<CR>",
-              { buffer = true, noremap = true, silent = true }
-            )
+            pcall(nvim_del_keymap, "n", "<leader>cR")
+            pcall(nvim_del_keymap, "n", "<leader>cF")
+            pcall(nvim_del_keymap, "n", "<leader>cp")
+            pcall(nvim_del_keymap, "n", "<leader>cP")
+
+            which_key.register({
+              c = {
+                R = { "<cmd>FlutterRun<cr>", "Flutter run" },
+                F = { "<cmd>FlutterRestart<cr>", "Flutter restart" },
+                p = { "<cmd>FlutterPubGet<cr>", "Flutter pub get" },
+                P = { "<cmd>FlutterPubUpgrade<cr>", "Flutter pub upgrade" },
+              },
+            }, {
+              prefix = "<leader>",
+            })
 
             require("telescope").load_extension("flutter")
-            require("flutter-tools").lsp_on_attach(client, bufnr)
+            require("flutter-tools").on_attach(client, bufnr)
           end)
         end,
         color = {
@@ -535,7 +557,7 @@ return {
           showTodos = false,
           completeFunctionCalls = true,
           updateImportsOnRename = true,
-          enableSnippets = false,
+          enableSnippets = true,
           renameFilesWithClasses = true,
         },
       },
