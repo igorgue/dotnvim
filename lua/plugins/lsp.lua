@@ -417,26 +417,50 @@ return {
           rt.inlay_hints.enable()
 
           require("lazyvim.util").on_attach(function(_, bufnr)
+            local which_key = require("which-key")
             local keymap = vim.keymap
             local api = vim.api
             local nvim_del_keymap = api.nvim_del_keymap
             local opts = { noremap = true, silent = true, buffer = bufnr }
 
             pcall(nvim_del_keymap, "n", "K")
+            pcall(nvim_del_keymap, "v", "K")
             pcall(nvim_del_keymap, "n", "<leader>ca")
+            pcall(nvim_del_keymap, "n", "<leader>cR")
+            pcall(nvim_del_keymap, "n", "<leader>ce")
+            pcall(nvim_del_keymap, "n", "<leader>cm")
+            pcall(nvim_del_keymap, "n", "<leader>cM")
+            pcall(nvim_del_keymap, "n", "<leader>cC")
+            pcall(nvim_del_keymap, "n", "<leader>cp")
+            pcall(nvim_del_keymap, "n", "<leader>cj")
 
             keymap.set("n", "K", rt.hover_actions.hover_actions, opts)
             keymap.set("v", "K", rt.hover_range.hover_range, opts)
-            keymap.set("n", "<leader>ca", rt.code_action_group.code_action_group, opts)
-            keymap.set("n", "<leader>cR", rt.runnables.runnables, opts)
-            keymap.set("n", "<leader>ce", rt.expand_macro.expand_macro, opts)
-            -- stylua: ignore
-            keymap.set("n", "<leader>cm", function() rt.move_item.move_item(true) end, opts)
-            -- stylua: ignore
-            keymap.set("n", "<leader>cM", function() rt.move_item.move_item(false) end, opts)
-            keymap.set("n", "<leader>cC", rt.open_cargo_toml.open_cargo_toml, opts)
-            keymap.set("n", "<leader>cp", rt.parent_module.parent_module, opts)
-            keymap.set("n", "<leader>cj", rt.join_lines.join_lines, opts)
+
+            which_key.register({
+              c = {
+                a = { rt.code_action_group.code_action_group, "Rust code actions" },
+                R = { rt.runnables.runnables, "Rust runables" },
+                e = { rt.expand_macro.expand_macro, "Rust expand macro" },
+                m = {
+                  function()
+                    rt.move_item.move_item(true)
+                  end,
+                  "Rust move up",
+                },
+                M = {
+                  function()
+                    rt.move_item.move_item(false)
+                  end,
+                  "Rust move down",
+                },
+                C = { rt.open_cargo_toml.open_cargo_toml, "Rust open cargo.toml" },
+                p = { rt.parent_module.parent_module, "Rust parent module" },
+                j = { rt.join_lines.join_lines, "Rust join lines" },
+              },
+            }, {
+              prefix = "<leader>",
+            })
           end)
         end,
       },
@@ -447,18 +471,6 @@ return {
           name = "codelldb",
         },
       },
-    },
-    keys = {
-      { "K", nil, desc = "Rust hover actions" },
-      { "K", nil, desc = "Rust hover range actions", mode = "v" },
-      { "<leader>ca", nil, desc = "Rust code actions" },
-      { "<leader>cR", nil, desc = "Rust runables" },
-      { "<leader>ce", nil, desc = "Rust expand macro" },
-      { "<leader>cm", nil, desc = "Rust move up" },
-      { "<leader>cM", nil, desc = "Rust move down" },
-      { "<leader>cC", nil, desc = "Rust open Cargo.toml" },
-      { "<leader>cp", nil, desc = "Rust parent module" },
-      { "<leader>cj", nil, desc = "Rust join lines" },
     },
   },
   {
