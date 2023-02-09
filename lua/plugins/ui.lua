@@ -70,11 +70,11 @@ return {
 
       dashboard.section.buttons.val = {
         { type = "padding", val = 1 },
-        dashboard.button("e", " " .. " New file", ":ene<cr>"),
+        dashboard.button("n", " " .. " New file", ":ene<cr>"),
         dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <cr>"),
-        dashboard.button("o", "勒" .. " Open session", [[:lua require("persistence").load() <cr>]]),
+        dashboard.button("s", "勒" .. " Load Session", [[:lua require("persistence").load() <cr>]]),
         dashboard.button("f", " " .. " Find file", ":Telescope find_files <cr>"),
-        dashboard.button("s", " " .. " Smart open", ":Telescope smart_open <cr>"),
+        dashboard.button("o", " " .. " Smart Open", ":Telescope smart_open <cr>"),
         dashboard.button("g", " " .. " Find text", ":Telescope live_grep <cr>"),
         dashboard.button("c", " " .. " Config", ":e $MYVIMRC <cr>"),
         dashboard.button("l", "鈴" .. " Lazy", ":Lazy<cr>"),
