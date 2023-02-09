@@ -75,7 +75,7 @@ return {
         dashboard.button("s", "勒" .. " Load Session", [[:lua require("persistence").load() <cr>]]),
         dashboard.button("f", " " .. " Find file", ":Telescope find_files <cr>"),
         dashboard.button("o", " " .. " Smart Open", ":Telescope smart_open <cr>"),
-        dashboard.button("g", " " .. " Find text", ":Telescope live_grep <cr>"),
+        dashboard.button("g", " " .. " Grep text", ":Telescope live_grep <cr>"),
         dashboard.button("c", " " .. " Config", ":e $MYVIMRC <cr>"),
         dashboard.button("l", "鈴" .. " Lazy", ":Lazy<cr>"),
         dashboard.button("t", " " .. " Terminal", "<cmd>terminal<cr>i"),
