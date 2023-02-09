@@ -1,3 +1,3 @@
 return {
-  { "github/copilot.vim" },
+  { "github/copilot.vim", event = "VeryLazy" },
 }

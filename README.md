@@ -1,6 +1,6 @@
-# LazyVim
+# Igor's LazyVim
 
-A starter template for [LazyVim](https://github.com/LazyVim/LazyVim)
+Using a starter template for [LazyVim](https://github.com/LazyVim/LazyVim) to archive better
 
 ## 🚀 Getting Started
 

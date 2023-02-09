@@ -5,7 +5,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    priority = 9001,
+    event = "VeryLazy",
     opts = function(_, opts)
       local keymaps = require("lazyvim.plugins.lsp.keymaps")
       local ui_windows = require("lspconfig.ui.windows")
@@ -164,28 +164,20 @@ return {
     "glepnir/lspsaga.nvim",
     event = "BufRead",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function(_, opts)
+    config = function(client, opts)
+      local keymap = vim.keymap
+      local default_opts = { silent = true, noremap = true }
+
       require("lspsaga").setup(opts)
 
-      require("lazyvim.util").on_attach(function(_, _)
-        local keymap = vim.keymap
+      pcall(vim.api.nvim_del_keymap, "n", "<leader>co")
 
-        pcall(vim.api.nvim_del_keymap, "n", "<leader>co")
-
-        -- TODO: This doesn't belong here
-        if vim.bo.filetype == "dart" then
-          keymap.set(
-            "n",
-            "<leader>co",
-            "<cmd>FlutterOutlineToggle<cr>",
-            { buffer = true, noremap = true, silent = true }
-          )
-
-          return
-        end
-
-        keymap.set("n", "<leader>co", "<cmd>Lspsaga outline<cr>", { silent = true })
-      end)
+      -- TODO: This doesn't belong here
+      if client.name == "dartls" then
+        keymap.set("n", "<leader>co", "<cmd>FlutterOutlineToggle<cr>", default_opts)
+      else
+        keymap.set("n", "<leader>co", "<cmd>Lspsaga outline<cr>", default_opts)
+      end
     end,
     opts = {
       ui = {
@@ -265,6 +257,7 @@ return {
     dependencies = {
       "elixir-editors/vim-elixir",
     },
+    lazy = false,
     priority = 40,
     config = function()
       local elixir = require("elixir")
@@ -329,6 +322,7 @@ return {
     dependencies = {
       "rust-lang/rust.vim",
     },
+    lazy = false,
     priority = 40,
     opts = {
       tools = {
@@ -492,13 +486,11 @@ return {
   {
     "Saecki/crates.nvim",
     event = "BufRead Cargo.toml",
-    priority = 40,
-    config = function()
-      require("crates").setup()
-    end,
+    config = true,
   },
   {
     "akinsho/flutter-tools.nvim",
+    lazy = false,
     priority = 40,
     dependencies = {
       "dart-lang/dart-vim-plugin",

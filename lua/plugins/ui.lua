@@ -1,5 +1,5 @@
 return {
-  { "igorgue/danger", priority = 19001 },
+  { "igorgue/danger", event = "VeryLazy" },
   {
     "LazyVim/LazyVim",
     opts = {
@@ -249,7 +249,7 @@ return {
   },
   {
     "norcalli/nvim-colorizer.lua",
-    priority = 1,
+    event = "VeryLazy",
     config = function(_, _)
       require("colorizer").setup({ "*" }, {
         RGB = true, -- #RGB hex codes
@@ -267,13 +267,15 @@ return {
   },
   {
     "ziontee113/color-picker.nvim",
-    config = function(_, _)
-      require("color-picker").setup()
-    end,
+    event = { "BufReadPost", "BufNewFile" },
+    config = true,
     keys = {
       { "<M-c>", "<cmd>PickColor<cr>", desc = "Pick color" },
       { "<M-c>", "<cmd>PickColorInsert<cr>", desc = "Pick color", mode = "i" },
     },
   },
-  "mattn/webapi-vim",
+  {
+    "mattn/webapi-vim",
+    event = "VeryLazy",
+  },
 }

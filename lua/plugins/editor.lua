@@ -1,6 +1,7 @@
 return {
   {
     "michaeljsmith/vim-indent-object",
+    event = "VeryLazy",
     keys = {
       { "vai", nil, desc = "An indent level and line above" },
       { "vii", nil, desc = "Inner indent level (no line above)" },
@@ -16,7 +17,10 @@ return {
       { "ciI", nil, desc = "Inner indent level (no lines above/below)" },
     },
   },
-  "arp242/xdg_open.vim",
+  {
+    "arp242/xdg_open.vim",
+    event = "VeryLazy",
+  },
   {
     "lewis6991/gitsigns.nvim",
     opts = {
@@ -36,6 +40,20 @@ return {
     end,
   },
   {
+    "echasnovski/mini.surround",
+    config = function()
+      require("mini.surround").setup()
+    end,
+    keys = {
+      { "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], desc = "Add surrounding", mode = "x" },
+    },
+  },
+  {
+    "numToStr/Comment.nvim",
+    event = "VeryLazy",
+    config = true,
+  },
+  {
     "echasnovski/mini.pairs",
     enabled = false,
   },
@@ -48,26 +66,11 @@ return {
     enabled = false,
   },
   {
-    "echasnovski/mini.surround",
-    config = function()
-      require("mini.surround").setup()
-    end,
-    keys = {
-      { "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], desc = "Add surrounding", mode = "x", noremap = true },
-    },
-  },
-  {
     "ggandor/leap.nvim",
     enabled = false,
   },
   {
     "RRethy/vim-illuminate",
     enabled = false,
-  },
-  {
-    "numToStr/Comment.nvim",
-    config = function()
-      require("Comment").setup()
-    end,
   },
 }

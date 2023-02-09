@@ -2,7 +2,7 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 local api = vim.api
--- local default_opts = { noremap = true, silent = true }
+local default_opts = { noremap = true, silent = true }
 local keymap = vim.keymap
 local nvim_del_keymap = api.nvim_del_keymap
 
@@ -17,4 +17,4 @@ keymap.set("n", "<leader>r", function()
   vim.cmd("nohlsearch")
   vim.cmd("cd ~")
   vim.cmd("cd -")
-end, { noremap = true, silent = true })
+end, default_opts)

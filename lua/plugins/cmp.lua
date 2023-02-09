@@ -17,7 +17,6 @@ return {
       "amarakon/nvim-cmp-fonts",
       "onsails/lspkind.nvim",
     },
-    lazy = false,
     event = "InsertEnter",
     opts = function(_, _)
       local cmp = require("cmp")
