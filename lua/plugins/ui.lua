@@ -76,10 +76,10 @@ return {
         dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <cr>"),
         dashboard.button("g", " " .. " Find text", ":Telescope live_grep <cr>"),
         dashboard.button("c", " " .. " Config", ":e $MYVIMRC <cr>"),
-        dashboard.button("s", "勒" .. " Restore Session", [[:lua require("persistence").load() <cr>]]),
+        dashboard.button("s", "勒" .. " Last session", [[:lua require("persistence").load() <cr>]]),
         dashboard.button("l", "鈴" .. " Lazy", ":Lazy<cr>"),
         dashboard.button("t", " " .. " Terminal", "<cmd>terminal<cr>i"),
-        dashboard.button("d", " " .. " Database Manager", "<cmd>enew<cr><cmd>DBUI<cr>"),
+        dashboard.button("d", " " .. " Database", "<cmd>enew<cr><cmd>DBUI<cr>"),
         dashboard.button("q", " " .. " Quit", ":qa<cr>"),
         { type = "padding", val = 1 },
       }

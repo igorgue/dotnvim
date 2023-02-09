@@ -172,6 +172,7 @@ return {
 
         pcall(vim.api.nvim_del_keymap, "n", "<leader>co")
 
+        -- TODO: This doesn't belong here
         if vim.bo.filetype == "dart" then
           keymap.set(
             "n",
