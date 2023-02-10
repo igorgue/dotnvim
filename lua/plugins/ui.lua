@@ -1,6 +1,6 @@
 return {
-  -- { dir = "~/Code/danger", event = "VeryLazy" },
-  { "igorgue/danger", event = "VeryLazy" },
+  { dir = "~/Code/danger", event = "VeryLazy" },
+  -- { "igorgue/danger", event = "VeryLazy" },
   {
     "LazyVim/LazyVim",
     opts = {
@@ -102,6 +102,51 @@ return {
   {
     "goolord/alpha-nvim",
     opts = function(_, _)
+      -- local dashboard = require("alpha.themes.dashboard")
+      -- local neovim_version = vim.version()
+      --
+      -- if neovim_version == nil then
+      --   neovim_version = {
+      --     major = 0,
+      --     minor = 0,
+      --     patch = 0,
+      --     prerelease = true,
+      --   }
+      -- end
+      --
+      -- local version = neovim_version.major .. "." .. neovim_version.minor .. "." .. neovim_version.patch
+      -- if neovim_version.prerelease then
+      --   version = version .. "-dev"
+      -- end
+      --
+      -- local logo = "neovim " .. version
+      --
+      -- dashboard.section.header.val = vim.split(logo, "\n")
+      --
+      -- dashboard.section.buttons.val = {
+      --   { type = "padding", val = 1 },
+      --   dashboard.button("n", " " .. " New file", ":ene<cr>"),
+      --   dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <cr>"),
+      --   dashboard.button("s", "勒" .. " Load Session", [[:lua require("persistence").load() <cr>]]),
+      --   dashboard.button("f", " " .. " Find file", ":Telescope find_files <cr>"),
+      --   dashboard.button("o", " " .. " Smart Open", ":Telescope smart_open <cr>"),
+      --   dashboard.button("g", " " .. " Grep text", ":Telescope live_grep <cr>"),
+      --   dashboard.button("c", " " .. " Config", ":e $MYVIMRC <cr>"),
+      --   dashboard.button("l", "鈴" .. " Lazy", ":Lazy<cr>"),
+      --   dashboard.button("t", " " .. " Terminal", "<cmd>terminal<cr>i"),
+      --   dashboard.button("d", " " .. " Database", "<cmd>enew<cr><cmd>DBUI<cr>"),
+      --   dashboard.button("q", " " .. " Quit", ":qa<cr>"),
+      --   { type = "padding", val = 1 },
+      -- }
+      --
+      -- for _, button in ipairs(dashboard.section.buttons.val) do
+      --   button.opts.hl = "AlphaButtons"
+      --   button.opts.hl_shortcut = "AlphaShortcut"
+      -- end
+      --
+      -- dashboard.section.footer.opts.hl = "Type"
+      -- dashboard.section.header.opts.hl = "AlphaHeader"
+      -- dashboard.section.buttons.opts.hl = "AlphaButtons"
       local dashboard = require("alpha.themes.dashboard")
       local neovim_version = vim.version()
 
@@ -122,7 +167,6 @@ return {
       local logo = "neovim " .. version
 
       dashboard.section.header.val = vim.split(logo, "\n")
-
       dashboard.section.buttons.val = {
         { type = "padding", val = 1 },
         dashboard.button("n", " " .. " New file", ":ene<cr>"),
@@ -138,6 +182,17 @@ return {
         dashboard.button("q", " " .. " Quit", ":qa<cr>"),
         { type = "padding", val = 1 },
       }
+      for _, button in ipairs(dashboard.section.buttons.val) do
+        if button.opts ~= nil then
+          button.opts.hl = "AlphaButtons"
+          button.opts.hl_shortcut = "AlphaShortcut"
+        end
+      end
+      dashboard.section.footer.opts.hl = "AlphaFooter"
+      dashboard.section.header.opts.hl = "AlphaHeader"
+      dashboard.section.buttons.opts.hl = "AlphaButtons"
+      dashboard.opts.layout[1].val = 8
+      return dashboard
     end,
   },
   {

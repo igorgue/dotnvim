@@ -52,6 +52,7 @@ return {
         },
       }
 
+      opts.servers.vimls = {}
       opts.servers.cssls = {}
 
       opts.servers.tailwindcss = {
