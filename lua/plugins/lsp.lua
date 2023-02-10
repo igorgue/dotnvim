@@ -5,7 +5,6 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    event = "VeryLazy",
     opts = function(_, opts)
       local keymaps = require("lazyvim.plugins.lsp.keymaps")
       local ui_windows = require("lspconfig.ui.windows")
