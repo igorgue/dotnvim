@@ -79,14 +79,31 @@ return {
     end,
   },
   { "akinsho/bufferline.nvim", enabled = false },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    dependencies = {
+      "echasnovski/mini.indentscope",
+    },
+    keys = {
+      {
+        "<leader>L",
+        function()
+          if vim.opt.list:get() then
+            vim.opt.list = false
+            vim.g.miniindentscope_disable = true
+          else
+            vim.opt.list = true
+            vim.g.miniindentscope_disable = false
+          end
+        end,
+        desc = "Toggle list",
+      },
+    },
+  },
   -- {
-  --   "lukas-reineke/indent-blankline.nvim",
+  --   "echasnovski/mini.indentscope",
   --   enabled = false,
   -- },
-  {
-    "echasnovski/mini.indentscope",
-    enabled = false,
-  },
   {
     "rcarriga/nvim-notify",
     opts = {

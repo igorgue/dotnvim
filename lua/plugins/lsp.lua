@@ -212,7 +212,7 @@ return {
         in_select = false,
       },
       symbol_in_winbar = {
-        enable = false,
+        enable = true,
         show_file = false,
         click_support = function(node, clicks, button, modifiers)
           -- To see all avaiable details: vim.pretty_print(node)
@@ -250,6 +250,7 @@ return {
     },
     keys = {
       { "<leader>co", nil, desc = "Code outline" },
+      { "<leader>t", "<cmd>Lspsaga term_toggle<cr>", desc = "Terminal" },
     },
   },
   {

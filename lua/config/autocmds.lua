@@ -25,7 +25,7 @@ api.nvim_create_user_command("Screenshot", function()
 end, {})
 
 vim.cmd([[
-    autocmd BufEnter,CursorHold,InsertLeave <buffer> lua if next(vim.lsp.codelens.get()) ~= nil then vim.lsp.codelens.refresh() end
+    autocmd BufWritePost,BufReadPost,BufEnter,CursorHold,InsertLeave <buffer> lua if next(vim.lsp.codelens.get()) ~= nil then vim.lsp.codelens.refresh() end
 ]])
 
 api.nvim_create_autocmd("FileType", {
@@ -39,6 +39,13 @@ api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "rust" },
   callback = function()
     vim.b.autoformat = false
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
+  group = vim.api.nvim_create_augroup("ColorizerReload", { clear = true }),
+  callback = function()
+    vim.cmd("ColorizerAttachToBuffer")
   end,
 })
 
