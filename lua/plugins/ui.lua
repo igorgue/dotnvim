@@ -137,17 +137,17 @@ return {
 
       dashboard.section.buttons.val = {
         { type = "padding", val = 1 },
-        dashboard.button("n", " " .. " New file", ":ene <bar> startinsert <cr>"),
-        dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <cr>"),
-        dashboard.button("s", "勒" .. " Load Session", [[:lua require("persistence").load() <cr>]]),
-        dashboard.button("f", " " .. " Find file", ":Telescope find_files <cr>"),
-        dashboard.button("o", " " .. " Smart Open", ":Telescope smart_open <cr>"),
-        dashboard.button("g", " " .. " Grep text", ":Telescope live_grep <cr>"),
-        dashboard.button("c", " " .. " Config", ":e $MYVIMRC <cr>"),
-        dashboard.button("l", "鈴" .. " Lazy", ":Lazy<cr>"),
-        dashboard.button("t", " " .. " Terminal", "<cmd>Lspsaga term_toggle<cr>"),
-        dashboard.button("d", " " .. " Database", "<cmd>enew<cr><cmd>DBUI<cr>"),
-        dashboard.button("q", " " .. " Quit", ":qa<cr>"),
+        dashboard.button("n", " " .. " new file", ":ene <bar> startinsert <cr>"),
+        dashboard.button("r", " " .. " recent files", ":Telescope oldfiles <cr>"),
+        dashboard.button("s", "勒" .. " load session", [[:lua require("persistence").load() <cr>]]),
+        dashboard.button("f", " " .. " find file", ":Telescope find_files <cr>"),
+        dashboard.button("o", " " .. " smart open", ":Telescope smart_open <cr>"),
+        dashboard.button("g", " " .. " grep text", ":Telescope live_grep <cr>"),
+        dashboard.button("c", " " .. " config", ":e $MYVIMRC <cr>"),
+        dashboard.button("l", "鈴" .. " lazy", ":Lazy<cr>"),
+        dashboard.button("t", " " .. " terminal", "<cmd>Lspsaga term_toggle<cr>"),
+        dashboard.button("d", " " .. " database", "<cmd>enew<cr><cmd>DBUI<cr>"),
+        dashboard.button("q", " " .. " quit", ":qa<cr>"),
         { type = "padding", val = 1 },
       }
 
