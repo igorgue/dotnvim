@@ -41,3 +41,9 @@ api.nvim_create_autocmd({ "FileType" }, {
     vim.b.autoformat = false
   end,
 })
+
+vim.api.nvim_create_autocmd("BufRead", {
+  group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
+  pattern = "Cargo.toml",
+  callback = function() end,
+})

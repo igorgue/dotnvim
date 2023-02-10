@@ -257,8 +257,7 @@ return {
     dependencies = {
       "elixir-editors/vim-elixir",
     },
-    lazy = false,
-    priority = 40,
+    ft = "elixir",
     config = function()
       local elixir = require("elixir")
 
@@ -322,8 +321,7 @@ return {
     dependencies = {
       "rust-lang/rust.vim",
     },
-    lazy = false,
-    priority = 40,
+    ft = "rust",
     opts = {
       tools = {
         executor = function()
@@ -485,13 +483,18 @@ return {
   },
   {
     "Saecki/crates.nvim",
-    event = "BufRead Cargo.toml",
-    config = true,
+    event = "BufReadPost Cargo.toml",
+    config = function(_, opts)
+      local cmp = require("cmp")
+
+      require("crates").setup(opts)
+
+      cmp.setup.buffer({ sources = { { name = "crates" }, { name = "buffer" } } })
+    end,
   },
   {
     "akinsho/flutter-tools.nvim",
-    lazy = false,
-    priority = 40,
+    ft = "dart",
     dependencies = {
       "dart-lang/dart-vim-plugin",
       "Nash0x7E2/awesome-flutter-snippets",

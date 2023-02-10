@@ -32,7 +32,7 @@ return {
           { name = "dictionary" },
           { name = "buffer" },
           { name = "fonts", options = { space_filter = "-" } },
-          { name = "crates" },
+          -- { name = "crates" },
         })
       else
         sources = cmp.config.sources({
@@ -47,7 +47,7 @@ return {
           { name = "zsh" }, -- problems in windows
           { name = "buffer" },
           { name = "fonts", options = { space_filter = "-" } },
-          { name = "crates" },
+          -- { name = "crates" },
         })
       end
 

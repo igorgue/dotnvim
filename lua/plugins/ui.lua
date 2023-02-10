@@ -9,8 +9,6 @@ return {
   },
   {
     "folke/tokyonight.nvim",
-    -- lazy = false,
-    -- priority = 9001,
     config = function()
       local colors = require("tokyonight.colors")
 
@@ -169,7 +167,7 @@ return {
       dashboard.section.header.val = vim.split(logo, "\n")
       dashboard.section.buttons.val = {
         { type = "padding", val = 1 },
-        dashboard.button("n", " " .. " New file", ":ene<cr>"),
+        dashboard.button("n", " " .. " New file", ":ene <bar> startinsert <cr>"),
         dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <cr>"),
         dashboard.button("s", "勒" .. " Load Session", [[:lua require("persistence").load() <cr>]]),
         dashboard.button("f", " " .. " Find file", ":Telescope find_files <cr>"),
