@@ -1,6 +1,6 @@
 return {
   "tpope/vim-fugitive",
-  event = "VeryLazy",
+  event = "BufReadPost",
   dependencies = {
     "tpope/vim-git",
   },

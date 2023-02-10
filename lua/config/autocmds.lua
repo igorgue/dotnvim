@@ -42,8 +42,9 @@ api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufRead", {
-  group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
-  pattern = "Cargo.toml",
-  callback = function() end,
+vim.api.nvim_create_autocmd("BufWritePost", {
+  group = vim.api.nvim_create_augroup("ColorizerReload", { clear = true }),
+  callback = function()
+    vim.cmd("ColorizerAttachToBuffer")
+  end,
 })

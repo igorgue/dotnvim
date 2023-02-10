@@ -162,7 +162,7 @@ return {
   },
   {
     "glepnir/lspsaga.nvim",
-    event = "BufRead",
+    event = "BufReadPost",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function(client, opts)
       local keymap = vim.keymap
@@ -570,6 +570,6 @@ return {
   },
   {
     "raimon49/requirements.txt.vim",
-    event = "VeryLazy",
+    event = "BufReadPost requirements*.txt",
   },
 }

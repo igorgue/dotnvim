@@ -1,7 +1,7 @@
 return {
   {
     "michaeljsmith/vim-indent-object",
-    event = "VeryLazy",
+    event = "BufReadPost",
     keys = {
       { "vai", nil, desc = "An indent level and line above" },
       { "vii", nil, desc = "Inner indent level (no line above)" },
@@ -19,7 +19,7 @@ return {
   },
   {
     "arp242/xdg_open.vim",
-    event = "VeryLazy",
+    event = "BufReadPost",
   },
   {
     "lewis6991/gitsigns.nvim",
@@ -50,7 +50,7 @@ return {
   },
   {
     "numToStr/Comment.nvim",
-    event = "VeryLazy",
+    event = "BufReadPost",
     config = true,
   },
   {

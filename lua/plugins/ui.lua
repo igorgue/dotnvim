@@ -357,7 +357,7 @@ return {
   },
   {
     "norcalli/nvim-colorizer.lua",
-    event = "VeryLazy",
+    event = { "BufReadPost", "BufNewFile" },
     config = function(_, _)
       require("colorizer").setup({ "*" }, {
         RGB = true, -- #RGB hex codes
@@ -384,6 +384,14 @@ return {
   },
   {
     "mattn/webapi-vim",
-    event = "VeryLazy",
+    event = "BufReadPost",
+  },
+  {
+    "s1n7ax/nvim-window-picker",
+    event = "BufReadPost",
+    tag = "v1.5",
+    config = function()
+      require("window-picker").setup()
+    end,
   },
 }

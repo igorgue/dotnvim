@@ -1,6 +1,6 @@
 return {
   "mfussenegger/nvim-dap",
-  event = "VeryLazy",
+  event = "BufReadPost",
   dependencies = {
     "mfussenegger/nvim-dap-python",
     "rcarriga/nvim-dap-ui",
