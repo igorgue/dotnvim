@@ -353,7 +353,6 @@ return {
         },
         check = {
           features = "all",
-          extraArgs = { "--target-dir", "/home/igor/Code/tmp/rust-analyzer" },
         },
         diagnostics = {
           experimental = {
@@ -485,12 +484,9 @@ return {
   {
     "Saecki/crates.nvim",
     event = "BufReadPost Cargo.toml",
-    config = function(_, opts)
-      local cmp = require("cmp")
-
-      require("crates").setup(opts)
-
-      cmp.setup.buffer({ sources = { { name = "crates" }, { name = "buffer" } } })
+    config = function(_, _)
+      require("crates").setup()
+      require("cmp").setup.buffer({ sources = { { name = "crates" }, { name = "buffer" } } })
     end,
   },
   {

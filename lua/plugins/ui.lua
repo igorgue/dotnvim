@@ -1,6 +1,6 @@
 return {
-  { dir = "~/Code/danger", event = "VeryLazy" },
-  -- { "igorgue/danger", event = "VeryLazy" },
+  { "igorgue/danger", event = "VeryLazy" },
+  -- { dir = "~/Code/danger", event = "VeryLazy" },
   {
     "LazyVim/LazyVim",
     opts = {
