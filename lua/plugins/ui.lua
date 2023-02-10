@@ -1,6 +1,6 @@
 return {
   { dir = "~/Code/danger", event = "VeryLazy" },
-  -- { "igorgue/danger" },
+  -- { "igorgue/danger", event = "VeryLazy" },
   {
     "LazyVim/LazyVim",
     opts = {
@@ -57,9 +57,6 @@ return {
       colors.danger.blue7 = "#c7a0c3"
       colors.danger.blue = "#875fff"
 
-      colors.danger.bg_float = "#161925"
-      colors.danger.border_highlight = "#875fff"
-
       colors.danger.git = {
         add = "#00af87",
         change = "#ff5f00",
@@ -74,8 +71,6 @@ return {
 
       -- load your style
       require("tokyonight").load({ style = "danger" })
-
-      vim.api.nvim_set_hl(0, "WhichKeyFloat", { fg = "#dadada", bg = "#ff5f00" })
     end,
   },
   { "akinsho/bufferline.nvim", enabled = false },
