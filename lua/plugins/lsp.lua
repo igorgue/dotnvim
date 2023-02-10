@@ -52,7 +52,10 @@ return {
         },
       }
 
+      opts.servers.bashls = {}
+
       opts.servers.vimls = {}
+
       opts.servers.cssls = {}
 
       opts.servers.tailwindcss = {
