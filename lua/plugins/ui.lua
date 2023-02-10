@@ -80,8 +80,10 @@ return {
       "echasnovski/mini.indentscope",
     },
     keys = {
+      -- NOTE: Remap of Lazy because this is better
+      { "<leader>L", "<cmd>Lazy<cr>", desc = "Lazy" },
       {
-        "<leader>L",
+        "<leader>l",
         function()
           if vim.opt.list:get() then
             vim.opt.list = false
