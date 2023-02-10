@@ -81,7 +81,7 @@ return {
         })
       end
 
-      local winhighlight = "Normal:Normal,FloatBorder:VertSplit,CursorLine:CursorLine,Search:Search"
+      local winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:Search"
 
       local luasnip = require("luasnip")
       require("luasnip.loaders.from_vscode").load()

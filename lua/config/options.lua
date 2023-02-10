@@ -73,3 +73,6 @@ g.db_ui_save_location = fn.stdpath("data") .. "/db_ui"
 -- rust
 g.rustfmt_autosave = true
 g.rust_clip_command = "xclip -selection clipboard"
+
+-- indent blankline
+g.indent_blankline_disable_with_nolist = true
