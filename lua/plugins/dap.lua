@@ -1,6 +1,13 @@
 return {
   "mfussenegger/nvim-dap",
-  event = "BufReadPost",
+  -- NOTE: When dap is attached on BufReadPre, or VeryLazy
+  --      it will break file type detection on file open directly
+  --      like `nvim file.py`
+  -- event = "BufReadPre" -- would be ideal...
+  -- then we don't lazy lead it
+  -- lazy = false,
+  -- ft = { "python", "elixir", "dart", "rust" },
+  lazy = false,
   dependencies = {
     "mfussenegger/nvim-dap-python",
     "rcarriga/nvim-dap-ui",

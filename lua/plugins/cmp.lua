@@ -23,39 +23,37 @@ return {
       if vim.fn.has("win32") == 1 then
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "luasnip" },
           { name = "nvim_lua" },
+          { name = "luasnip" },
         }, {
           { name = "treesitter" },
+          { name = "buffer" },
           { name = "path" },
           { name = "spell" },
           { name = "dictionary" },
-          { name = "buffer" },
           { name = "fonts", options = { space_filter = "-" } },
-          -- { name = "crates" },
         })
       else
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "luasnip" },
           { name = "nvim_lua" },
+          { name = "luasnip" },
         }, {
           { name = "treesitter" },
+          { name = "buffer" },
           { name = "path" },
           { name = "spell" },
           { name = "dictionary" },
           { name = "zsh" }, -- problems in windows
-          { name = "buffer" },
           { name = "fonts", options = { space_filter = "-" } },
-          -- { name = "crates" },
         })
       end
 
       if vim.fn.has("win32") == 1 then
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "luasnip" },
           { name = "nvim_lua" },
+          { name = "luasnip" },
         }, {
           { name = "treesitter" },
           { name = "path" },
@@ -67,8 +65,8 @@ return {
       else
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "luasnip" },
           { name = "nvim_lua" },
+          { name = "luasnip" },
         }, {
           { name = "treesitter" },
           { name = "path" },

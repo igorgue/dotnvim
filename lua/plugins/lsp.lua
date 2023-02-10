@@ -172,7 +172,6 @@ return {
 
       pcall(vim.api.nvim_del_keymap, "n", "<leader>co")
 
-      -- TODO: This doesn't belong here
       if client.name == "dartls" then
         keymap.set("n", "<leader>co", "<cmd>FlutterOutlineToggle<cr>", default_opts)
       else
@@ -569,7 +568,13 @@ return {
     },
   },
   {
+    "folke/neodev.nvim",
+    opts = {
+      library = { plugins = { "nvim-dap-ui" }, types = true },
+    },
+  },
+  {
     "raimon49/requirements.txt.vim",
-    event = "BufReadPost requirements*.txt",
+    event = "BufReadPre requirements*.txt",
   },
 }
