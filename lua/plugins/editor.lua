@@ -73,4 +73,8 @@ return {
     "RRethy/vim-illuminate",
     enabled = false,
   },
+  {
+    "tpope/vim-repeat",
+    enabled = false,
+  },
 }

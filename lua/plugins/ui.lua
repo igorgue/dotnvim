@@ -131,7 +131,7 @@ return {
         dashboard.button("g", " " .. " Grep text", ":Telescope live_grep <cr>"),
         dashboard.button("c", " " .. " Config", ":e $MYVIMRC <cr>"),
         dashboard.button("l", "鈴" .. " Lazy", ":Lazy<cr>"),
-        dashboard.button("t", " " .. " Terminal", "<cmd>terminal<cr>i"),
+        dashboard.button("t", " " .. " Terminal", "<cmd>Lspsaga term_toggle<cr>"),
         dashboard.button("d", " " .. " Database", "<cmd>enew<cr><cmd>DBUI<cr>"),
         dashboard.button("q", " " .. " Quit", ":qa<cr>"),
         { type = "padding", val = 1 },
@@ -317,6 +317,7 @@ return {
   {
     "norcalli/nvim-colorizer.lua",
     event = { "BufReadPost", "BufNewFile" },
+    cmd = { "ColorizerToggle", "ColorizerAttachToBuffer", "ColorizerReloadAllBuffers" },
     config = function(_, _)
       require("colorizer").setup({ "*" }, {
         RGB = true, -- #RGB hex codes

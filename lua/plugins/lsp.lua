@@ -164,6 +164,7 @@ return {
     "glepnir/lspsaga.nvim",
     event = "BufReadPost",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = "Lspsaga",
     config = function(client, opts)
       local keymap = vim.keymap
       local default_opts = { silent = true, noremap = true }
