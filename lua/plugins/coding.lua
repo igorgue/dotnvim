@@ -250,14 +250,6 @@ return {
     end,
   },
   {
-    "tpope/vim-dadbod",
-    cmd = "DBUI",
-    dependencies = {
-      "kristijanhusak/vim-dadbod-ui",
-      "kristijanhusak/vim-dadbod-completion",
-    },
-  },
-  {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function()
       local nls = require("null-ls")

@@ -1,6 +1,7 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    ft = { "html", "css", "javascript", "typescript", "rust", "elixir", "heex" },
     opts = {
       servers = {
         html = {

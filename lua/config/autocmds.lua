@@ -48,10 +48,3 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
     vim.cmd("ColorizerAttachToBuffer")
   end,
 })
-
-vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
-  group = vim.api.nvim_create_augroup("ColorizerReload", { clear = true }),
-  callback = function()
-    vim.cmd("ColorizerAttachToBuffer")
-  end,
-})

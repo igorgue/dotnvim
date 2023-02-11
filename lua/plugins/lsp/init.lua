@@ -37,22 +37,6 @@ return {
 
       opts.servers.vimls = {}
       opts.servers.bashls = {}
-      opts.servers.sumneko_lua = {
-        settings = {
-          Lua = {
-            codeLens = {
-              enable = true,
-            },
-            hint = {
-              enable = true,
-              setType = true,
-            },
-            completion = {
-              callSnippets = "Replace",
-            },
-          },
-        },
-      }
 
       opts.setup.clangd = function(_, clangd_opts)
         clangd_opts.capabilities.offsetEncoding = { "utf-8" }
@@ -152,12 +136,6 @@ return {
     keys = {
       { "<leader>co", nil, desc = "Code outline" },
       { "<leader>t", "<cmd>Lspsaga term_toggle<cr>", desc = "Terminal" },
-    },
-  },
-  {
-    "folke/neodev.nvim",
-    opts = {
-      library = { plugins = { "nvim-dap-ui" }, types = true },
     },
   },
   {
