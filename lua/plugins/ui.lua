@@ -6,6 +6,20 @@ return {
     opts = {
       colorscheme = "danger",
     },
+    -- extra global keys
+    keys = {
+      { "<leader>L", "<cmd>Lazy<cr>", desc = "Lazy" },
+      {
+        "<leader>r",
+        function()
+          require("notify").dismiss({})
+          vim.cmd("nohlsearch")
+          vim.cmd("cd ~")
+          vim.cmd("cd -")
+        end,
+        desc = "Refresh",
+      },
+    },
   },
   {
     "folke/tokyonight.nvim",
@@ -80,8 +94,6 @@ return {
       "echasnovski/mini.indentscope",
     },
     keys = {
-      -- NOTE: Remap of Lazy because this is better
-      { "<leader>L", "<cmd>Lazy<cr>", desc = "Lazy" },
       {
         "<leader>l",
         function()
