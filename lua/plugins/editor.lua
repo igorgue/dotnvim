@@ -49,6 +49,27 @@ return {
     },
   },
   {
+    "windwp/nvim-spectre",
+    opts = {
+      highlight = {
+        ui = "String",
+        search = "IncSearch",
+        replace = "DiffChange",
+        border = "FloatBorder",
+      },
+    },
+  },
+  {
+    "folke/which-key.nvim",
+    opts = {
+      window = {
+        border = "none",
+        margin = { 0, 0, 0, 0 },
+        padding = { 0, 0, 0, 0 },
+      },
+    },
+  },
+  {
     "numToStr/Comment.nvim",
     event = { "BufReadPost", "BufNewFile" },
     config = true,
