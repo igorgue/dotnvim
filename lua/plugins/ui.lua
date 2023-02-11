@@ -367,4 +367,56 @@ return {
       require("window-picker").setup()
     end,
   },
+  {
+    "folke/zen-mode.nvim",
+    dependencies = { { "folke/twilight.nvim", event = "BufReadPost", cmd = { "Twilight", "TwilightEnable" } } },
+    event = "BufReadPost",
+    cmd = "ZenMode",
+    keys = {
+      { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen mode" },
+    },
+    config = function(_, opts)
+      require("zen-mode").setup(opts)
+    end,
+    opts = {
+      window = {
+        options = {
+          signcolumn = "no", -- disable signcolumn
+          number = false, -- disable number column
+          relativenumber = false, -- disable relative numbers
+          cursorline = false, -- disable cursorline
+          cursorcolumn = false, -- disable cursor column
+          foldcolumn = "0", -- disable fold column
+          list = false, -- disable whitespace characters
+        },
+      },
+      plugins = {
+        options = {
+          enabled = true,
+          ruler = true,
+          showcmd = true,
+        },
+        twilight = {
+          enabled = true,
+        },
+        gitsigns = {
+          enabled = true,
+        },
+        kitty = {
+          enabled = false, -- NOTE: this is not working
+          font = "+2",
+        },
+        alacritty = {
+          enabled = false, -- NOTE: this is not working, also
+          font = "+2",
+        },
+      },
+      on_open = function(_)
+        vim.opt.laststatus = 0
+      end,
+      on_close = function()
+        vim.opt.laststatus = 3
+      end,
+    },
+  },
 }
