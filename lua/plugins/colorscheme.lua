@@ -5,8 +5,7 @@ return {
       colorscheme = "danger",
     },
   },
-  { "igorgue/danger", event = "VeryLazy" },
-  -- { dir = "~/Code/danger", event = "VeryLazy" },
+  { "igorgue/danger", lazy = false, priority = 9001 },
   {
     "folke/tokyonight.nvim",
     config = function()

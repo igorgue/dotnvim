@@ -38,63 +38,24 @@ return {
     },
     opts = function(_, _)
       local cmp = require("cmp")
-      local sources = {}
-      if vim.fn.has("win32") == 1 then
-        sources = cmp.config.sources({
+      local sources = {
+        {
           { name = "nvim_lsp" },
           { name = "nvim_lua" },
           { name = "luasnip" },
-        }, {
+        },
+        {
           { name = "treesitter" },
           { name = "buffer" },
           { name = "path" },
           { name = "spell" },
           { name = "dictionary" },
           { name = "fonts", options = { space_filter = "-" } },
-        })
-      else
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "nvim_lua" },
-          { name = "luasnip" },
-        }, {
-          { name = "treesitter" },
-          { name = "buffer" },
-          { name = "path" },
-          { name = "spell" },
-          { name = "dictionary" },
-          { name = "zsh" }, -- problems in windows
-          { name = "fonts", options = { space_filter = "-" } },
-        })
-      end
+        },
+      }
 
-      if vim.fn.has("win32") == 1 then
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "nvim_lua" },
-          { name = "luasnip" },
-        }, {
-          { name = "treesitter" },
-          { name = "path" },
-          { name = "spell" },
-          { name = "dictionary" },
-          { name = "buffer" },
-          { name = "fonts", options = { space_filter = "-" } },
-        })
-      else
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "nvim_lua" },
-          { name = "luasnip" },
-        }, {
-          { name = "treesitter" },
-          { name = "path" },
-          { name = "spell" },
-          { name = "dictionary" },
-          { name = "zsh" }, -- problems in windows
-          { name = "buffer" },
-          { name = "fonts", options = { space_filter = "-" } },
-        })
+      if vim.fn.has("win32") ~= 1 then
+        table.insert(sources[2], { name = "zsh" })
       end
 
       local winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:Search"
@@ -248,7 +209,7 @@ return {
           }),
         },
         mapping = cmp.mapping.preset.insert(mapping),
-        sources = sources,
+        sources = cmp.config.sources(sources[1], sources[2]),
       }
     end,
   },
@@ -278,8 +239,8 @@ return {
       history = true,
       delete_check_events = "TextChanged",
     },
-  -- stylua: ignore
-  keys = function() return {} end,
+    -- stylua: ignore
+    keys = function() return {} end,
   },
   {
     "nvim-treesitter/nvim-treesitter",
