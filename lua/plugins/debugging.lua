@@ -11,8 +11,7 @@ return {
   },
   config = function()
     local dap, dapui = require("dap"), require("dapui")
-    local home = os.getenv("HOME") or ""
-    local mason = home .. "/.local/share/nvim/mason/packages"
+    local mason = (os.getenv("HOME") or "") .. "/.local/share/nvim/mason"
 
     dapui.setup({
       floating = {
@@ -30,7 +29,7 @@ return {
       dapui.close({})
     end
 
-    require("dap-python").setup(mason .. "/debugpy/venv/bin/python")
+    require("dap-python").setup(mason .. "/packages/debugpy/venv/bin/python")
 
     dap.adapters.elixir = {
       type = "executable",
@@ -68,7 +67,7 @@ return {
       type = "server",
       port = "${port}",
       executable = {
-        command = home .. "/.local/share/nvim/mason/bin/codelldb",
+        command = mason .. "/bin/codelldb",
         args = { "--port", "${port}" },
       },
     }
