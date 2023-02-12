@@ -4,7 +4,7 @@ return {
   --       on file open directly like `nvim file.py`
   --       Other than that it works on keys
   --      or ft
-  -- lazy = false,
+  lazy = false,
   dependencies = {
     "mfussenegger/nvim-dap-python",
     "rcarriga/nvim-dap-ui",
