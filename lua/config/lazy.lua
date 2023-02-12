@@ -12,6 +12,7 @@ require("lazy").setup({
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
 
     -- import/override with your plugins
+    { import = "plugins" },
     { import = "plugins.lang.html_css" },
     { import = "plugins.lang.sql" },
     { import = "plugins.lang.lua" },
@@ -19,7 +20,6 @@ require("lazy").setup({
     { import = "plugins.lang.elixir" },
     { import = "plugins.lang.python" },
     { import = "plugins.lang.rust" },
-    { import = "plugins" },
 
     -- import any extras modules here
     { import = "lazyvim.plugins.extras.lang.typescript" },
