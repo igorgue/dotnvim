@@ -1,13 +1,10 @@
 return {
   "mfussenegger/nvim-dap",
-  -- NOTE: When dap is attached on BufReadPre, or VeryLazy
-  --      it will break file type detection on file open directly
-  --      like `nvim file.py`
-  -- event = "BufReadPre" -- would be ideal...
-  -- then we don't lazy lead it
+  -- NOTE: When dap is loaded lazyly, it will break filetype detection
+  --       on file open directly like `nvim file.py`
+  --       Other than that it works on keys
+  --      or ft
   -- lazy = false,
-  -- ft = { "python", "elixir", "dart", "rust" },
-  lazy = false,
   dependencies = {
     "mfussenegger/nvim-dap-python",
     "rcarriga/nvim-dap-ui",
@@ -15,6 +12,7 @@ return {
   config = function()
     local dap, dapui = require("dap"), require("dapui")
     local home = os.getenv("HOME") or ""
+    local mason = home .. "/.local/share/nvim/mason/packages"
 
     dapui.setup({
       floating = {
@@ -32,11 +30,11 @@ return {
       dapui.close({})
     end
 
-    require("dap-python").setup(home .. "/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
+    require("dap-python").setup(mason .. "/debugpy/venv/bin/python")
 
     dap.adapters.elixir = {
       type = "executable",
-      command = home .. "/.local/share/nvim/mason/packages/elixir-ls/debugger.sh",
+      command = mason .. "/packages/elixir-ls/debugger.sh",
     }
 
     dap.configurations.elixir = {
