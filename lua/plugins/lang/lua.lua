@@ -4,7 +4,6 @@ return {
     ft = "lua",
     opts = {
       servers = {
-        sumneko_lua = nil,
         lua_ls = {
           settings = {
             Lua = {
