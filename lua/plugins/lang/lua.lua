@@ -4,9 +4,16 @@ return {
     ft = "lua",
     opts = {
       servers = {
-        sumneko_lua = {
+        sumneko_lua = nil,
+        lua_ls = {
           settings = {
             Lua = {
+              runtime = {
+                version = "LuaJIT",
+              },
+              diagnostics = {
+                globals = { "vim" },
+              },
               codeLens = {
                 enable = true,
               },
@@ -16,6 +23,9 @@ return {
               },
               completion = {
                 callSnippets = "Replace",
+              },
+              telemetry = {
+                enable = false,
               },
             },
           },

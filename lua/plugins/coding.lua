@@ -1,9 +1,12 @@
 return {
-  "tpope/vim-fugitive",
-  event = "BufReadPost",
-  cmd = "Git",
-  dependencies = {
-    "tpope/vim-git",
+  {
+
+    "tpope/vim-fugitive",
+    event = "BufReadPost",
+    cmd = { "Git", "Gread", "Gwrite" },
+    dependencies = {
+      "tpope/vim-git",
+    },
   },
   { "github/copilot.vim", event = { "BufReadPost", "BufNewFile" } },
   {
