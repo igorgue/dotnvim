@@ -48,3 +48,13 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
     vim.cmd("ColorizerAttachToBuffer")
   end,
 })
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    -- FIXME: Fix this since it doesn't work
+    --        we need to find a away to reload
+    --        lualine on color scheme change
+    require("lualine").setup()
+  end,
+})

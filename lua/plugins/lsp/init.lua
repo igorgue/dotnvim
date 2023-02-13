@@ -63,6 +63,9 @@ return {
       else
         keymap.set("n", "<leader>co", "<cmd>Lspsaga outline<cr>", default_opts)
       end
+
+      -- HACK: for saga colors to work with colorscheme
+      vim.cmd("colorscheme " .. vim.g.colors_name)
     end,
     opts = {
       ui = {
