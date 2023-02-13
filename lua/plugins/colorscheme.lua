@@ -2,7 +2,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "danger_light",
+      colorscheme = "danger",
     },
   },
   { "igorgue/danger" },
