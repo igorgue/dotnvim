@@ -70,20 +70,20 @@ return {
         border = "rounded",
         code_action = " ",
         -- winblend = 20,
-        colors = {
-          normal_bg = "#161925",
-          title_bg = "#afd7af",
-          red = "#ff3525",
-          magenta = "#875fff",
-          orange = "#ff5f00",
-          yellow = "#ffd75f",
-          green = "#00af87",
-          cyan = "#cbe6ff",
-          blue = "#8787d7",
-          purple = "#875fff",
-          white = "#875fff",
-          black = "#626262",
-        },
+        -- colors = {
+        --   normal_bg = "#161925",
+        --   title_bg = "#afd7af",
+        --   red = "#ff3525",
+        --   magenta = "#875fff",
+        --   orange = "#ff5f00",
+        --   yellow = "#ffd75f",
+        --   green = "#00af87",
+        --   cyan = "#cbe6ff",
+        --   blue = "#8787d7",
+        --   purple = "#875fff",
+        --   white = "#875fff",
+        --   black = "#626262",
+        -- },
       },
       lightbulb = {
         enable = true,
@@ -123,6 +123,7 @@ return {
             fn.cursor({ en.line + 1, en.character + 1 })
           end
         end,
+        color_mode = true,
       },
       outline = {
         auto_preview = false,
