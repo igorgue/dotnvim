@@ -17,9 +17,10 @@ opt.listchars = { tab = "▸ ", trail = "·", extends = "»", precedes = "«", e
 opt.fillchars = { eob = " " }
 opt.updatetime = 12
 
-if vim.version().minor == 9 then
-  vim.opt.statuscolumn = "%=%l%s%C"
-end
+-- FIXME: This breaks relative line numbers
+-- if vim.version().minor == 9 then
+--   vim.opt.statuscolumn = "%=%l%s%C"
+-- end
 
 opt.diffopt:append({ linematch = 60 })
 
