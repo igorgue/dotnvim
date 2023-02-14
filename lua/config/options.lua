@@ -13,7 +13,7 @@ opt.cursorline = false
 opt.list = false
 opt.wrap = true
 opt.showbreak = "↪ "
-opt.listchars = { tab = "▸ ", trail = "·", extends = "»", precedes = "«", eol = "↲ " }
+opt.listchars = { tab = "▸ ", trail = "·", extends = "»", precedes = "«", eol = "↲" }
 opt.fillchars = { eob = " " }
 opt.updatetime = 12
 
