@@ -217,11 +217,17 @@ return {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function()
       local nls = require("null-ls")
+      local rustywind = nls.builtins.formatting.rustywind
+
+      rustywind.filetypes[#rustywind.filetypes + 1] = "rust"
 
       return {
         sources = {
           nls.builtins.formatting.prettierd,
           nls.builtins.formatting.stylua,
+          nls.builtins.formatting.isort,
+          nls.builtins.formatting.black,
+          rustywind,
           nls.builtins.diagnostics.pylint,
         },
       }

@@ -35,12 +35,12 @@ api.nvim_create_autocmd("FileType", {
   end,
 })
 
-api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "rust" },
-  callback = function()
-    vim.b.autoformat = false
-  end,
-})
+-- api.nvim_create_autocmd({ "FileType" }, {
+--   pattern = { "rust" },
+--   callback = function()
+--     vim.b.autoformat = false
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
   group = vim.api.nvim_create_augroup("ColorizerReload", { clear = true }),

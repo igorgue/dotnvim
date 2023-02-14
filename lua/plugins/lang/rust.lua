@@ -13,7 +13,7 @@ return {
         reload_workspace_from_cargo_toml = true,
         on_initialized = function(status)
           if status.health ~= "ok" then
-            vim.notify("rust-tools: initialized, status: " .. vim.inspect(status), vim.log.levels.ERROR)
+            vim.notify("rust-tools: failed, status: " .. vim.inspect(status), vim.log.levels.ERROR)
 
             return
           end
