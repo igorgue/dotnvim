@@ -7,7 +7,7 @@ return {
   },
   {
     "igorgue/danger",
-    -- { dir = "~/Code/danger" },
+    -- dir = "~/Code/danger",
     keys = {
       {
         "<leader>D",
