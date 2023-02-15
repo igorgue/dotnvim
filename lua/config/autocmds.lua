@@ -6,27 +6,23 @@ local api = vim.api
 
 api.nvim_create_user_command("Nap", function()
   vim.cmd([[
-        terminal ]] .. home .. [[/go/bin/nap
-        normal! a
-    ]])
+      terminal ]] .. home .. [[/go/bin/nap
+      normal! a
+  ]])
 end, {})
 
 api.nvim_create_user_command("Ranger", function()
   vim.cmd([[
-        terminal ranger
-        normal! a
-    ]])
+      terminal ranger
+      normal! a
+  ]])
 end, {})
 
 api.nvim_create_user_command("Screenshot", function()
   vim.cmd([[
-        !gnome-screenshot -w -d 5 &
-    ]])
+      !gnome-screenshot -w -d 5 &
+  ]])
 end, {})
-
-vim.cmd([[
-    autocmd BufWritePost,BufReadPost,BufEnter,CursorHold,InsertLeave <buffer> lua if next(vim.lsp.codelens.get()) ~= nil then vim.lsp.codelens.refresh() end
-]])
 
 api.nvim_create_autocmd("FileType", {
   pattern = { "sql", "mysql", "plsql" },
@@ -39,5 +35,14 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
   group = vim.api.nvim_create_augroup("ColorizerReload", { clear = true }),
   callback = function()
     vim.cmd("ColorizerAttachToBuffer")
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "BufEnter", "CursorHold", "InsertLeave" }, {
+  buffer = 0,
+  callback = function()
+    if next(vim.lsp.codelens.get(0)) ~= nil then
+      vim.lsp.codelens.refresh()
+    end
   end,
 })

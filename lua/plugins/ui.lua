@@ -393,12 +393,13 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      "nvim-telescope/telescope-ui-select.nvim",
+      "nvim-telescope/telescope-smart-history.nvim",
       "nvim-telescope/telescope-symbols.nvim",
-      "ghassan0/telescope-glyph.nvim",
-      "xiyaowong/telescope-emoji.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
       "danielfalk/smart-open.nvim",
+      "ghassan0/telescope-glyph.nvim",
       "kkharji/sqlite.lua",
+      "xiyaowong/telescope-emoji.nvim",
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
@@ -420,10 +421,17 @@ return {
             i = {
               ["<esc>"] = actions.close,
               ["<C-c>"] = actions.close,
+              ["<C-j>"] = actions.cycle_history_next,
+              ["<C-k>"] = actions.cycle_history_prev,
             },
           },
           layout_config = {
             prompt_position = "top",
+          },
+          history = {
+            path = vim.fn.stdpath("data") .. "/smart_history.sqlite3",
+            cycle_wrap = true,
+            limit = 100,
           },
         },
         extensions = {

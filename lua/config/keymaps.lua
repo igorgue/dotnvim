@@ -10,8 +10,6 @@ pcall(nvim_del_keymap, "n", "<")
 pcall(nvim_del_keymap, "n", ">")
 pcall(nvim_del_keymap, "v", "<")
 pcall(nvim_del_keymap, "v", ">")
-pcall(nvim_del_keymap, "x", "<")
-pcall(nvim_del_keymap, "x", ">")
 pcall(nvim_del_keymap, "n", "<leader>l")
 
 -- refresh key...
