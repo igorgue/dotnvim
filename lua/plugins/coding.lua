@@ -10,15 +10,6 @@ return {
   },
   { "github/copilot.vim", event = { "BufReadPost", "BufNewFile" } },
   {
-    "mason.nvim",
-    opts = {
-      ui = {
-        border = "rounded",
-        winhighlight = "Normal:Normal,FloatBorder:VertSplit,CursorLine:CursorLine,Search:Search",
-      },
-    },
-  },
-  {
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/nvim-cmp",
@@ -220,6 +211,7 @@ return {
       local rustywind = nls.builtins.formatting.rustywind
 
       rustywind.filetypes[#rustywind.filetypes + 1] = "rust"
+      rustywind.filetypes[#rustywind.filetypes + 1] = "elixir"
 
       return {
         sources = {
@@ -232,6 +224,23 @@ return {
         },
       }
     end,
+    keys = {
+      {
+        "<leader>cF",
+        function()
+          if vim.b.autoformat == nil then
+            vim.b.autoformat = false
+          else
+            vim.b.autoformat = nil
+          end
+
+          vim.notify("Enabled: " .. (vim.b.autoformat == nil and "ON" or "OFF"), vim.log.levels.INFO, {
+            title = "Autoformat",
+          })
+        end,
+        desc = "Toggle autoformat",
+      },
+    },
   },
   {
     "L3MON4D3/LuaSnip",

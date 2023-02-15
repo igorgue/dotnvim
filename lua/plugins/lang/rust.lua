@@ -125,11 +125,11 @@ return {
             pcall(nvim_del_keymap, "n", "<leader>cA")
             pcall(nvim_del_keymap, "n", "<leader>cR")
             pcall(nvim_del_keymap, "n", "<leader>ce")
-            pcall(nvim_del_keymap, "n", "<leader>cm")
-            pcall(nvim_del_keymap, "n", "<leader>cM")
+            pcall(nvim_del_keymap, "n", "<leader>cj")
+            pcall(nvim_del_keymap, "n", "<leader>ck")
             pcall(nvim_del_keymap, "n", "<leader>cC")
             pcall(nvim_del_keymap, "n", "<leader>cp")
-            pcall(nvim_del_keymap, "n", "<leader>cj")
+            pcall(nvim_del_keymap, "n", "<leader>cJ")
 
             keymap.set("n", "K", rt.hover_actions.hover_actions, map_opts)
             keymap.set("v", "K", rt.hover_range.hover_range, map_opts)
@@ -141,12 +141,12 @@ return {
                 R = { rt.runnables.runnables, "Rust runables", opts = map_opts },
                 e = { rt.expand_macro.expand_macro, "Rust expand macro", opts = map_opts },
                 -- stylua: ignore
-                m = { function() rt.move_item.move_item(true) end, "Rust move up", opts = map_opts },
+                k = { function() rt.move_item.move_item(true) end, "Rust move up", opts = map_opts },
                 -- stylua: ignore
-                M = { function() rt.move_item.move_item(false) end, "Rust move down", opts = map_opts},
+                j = { function() rt.move_item.move_item(false) end, "Rust move down", opts = map_opts},
                 C = { rt.open_cargo_toml.open_cargo_toml, "Rust open cargo.toml", opts = map_opts },
                 p = { rt.parent_module.parent_module, "Rust parent module", opts = map_opts },
-                j = { rt.join_lines.join_lines, "Rust join lines", opts = map_opts },
+                J = { rt.join_lines.join_lines, "Rust join lines", opts = map_opts },
               },
             }, {
               prefix = "<leader>",

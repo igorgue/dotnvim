@@ -19,9 +19,6 @@ return {
   { "akinsho/bufferline.nvim", enabled = false },
   {
     "lukas-reineke/indent-blankline.nvim",
-    dependencies = {
-      "echasnovski/mini.indentscope",
-    },
     keys = {
       {
         "<leader>l",
@@ -31,23 +28,19 @@ return {
             vim.g.miniindentscope_disable = true
             vim.opt.cursorline = false
             vim.opt.number = false
-            vim.opt.relativenumber = false
+            -- vim.opt.relativenumber = false
           else
             vim.opt.list = true
             vim.g.miniindentscope_disable = false
             vim.opt.cursorline = true
             vim.opt.number = true
-            vim.opt.relativenumber = true
+            -- vim.opt.relativenumber = true
           end
         end,
-        desc = "Toggle list",
+        desc = "Toggle list / indent lines",
       },
     },
   },
-  -- {
-  --   "echasnovski/mini.indentscope",
-  --   enabled = false,
-  -- },
   {
     "rcarriga/nvim-notify",
     opts = {
@@ -404,7 +397,6 @@ return {
       "nvim-telescope/telescope-symbols.nvim",
       "ghassan0/telescope-glyph.nvim",
       "xiyaowong/telescope-emoji.nvim",
-      "xiyaowong/telescope-emoji.nvim",
       "danielfalk/smart-open.nvim",
       "kkharji/sqlite.lua",
       {
@@ -414,8 +406,10 @@ return {
     },
     opts = function(_, _)
       local actions = require("telescope.actions")
+      local themes = require("telescope.themes")
+
       local function telescope_paste_char(char)
-        vim.api.nvim_put({ char.value }, "c", false, true)
+        vim.api.nvim_put({ char.value }, "c", true, true)
       end
 
       return {
@@ -442,8 +436,14 @@ return {
           symbols = {
             action = telescope_paste_char,
           },
+          fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = "smart_case",
+          },
           ["ui-select"] = {
-            require("telescope.themes").get_dropdown({}),
+            themes.get_dropdown({}),
           },
         },
       }
@@ -462,8 +462,21 @@ return {
       telescope.load_extension("fzf")
     end,
     keys = {
+      -- I want to be able to do smart open, on many keys,
+      -- fs matches file keybindings, the other ones are
+      -- for convinience
       { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },
       { "<leader>j", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },
+      { "<leader>o", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },
+    },
+  },
+  {
+    "mason.nvim",
+    opts = {
+      ui = {
+        border = "rounded",
+        winhighlight = "Normal:Normal,FloatBorder:VertSplit,CursorLine:CursorLine,Search:Search",
+      },
     },
   },
 }
