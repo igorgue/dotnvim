@@ -47,7 +47,6 @@ return {
       render = "default",
       fps = 120,
       timeout = 1000,
-      background_colour = "#161925",
     },
   },
   {
