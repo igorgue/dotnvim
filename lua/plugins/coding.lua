@@ -211,12 +211,13 @@ return {
       local rustywind = nls.builtins.formatting.rustywind
 
       rustywind.filetypes[#rustywind.filetypes + 1] = "rust"
-      rustywind.filetypes[#rustywind.filetypes + 1] = "elixir"
+      -- rustywind.filetypes[#rustywind.filetypes + 1] = "elixir"
 
       return {
         sources = {
           nls.builtins.formatting.prettierd,
           nls.builtins.formatting.stylua,
+          nls.builtins.formatting.mix,
           nls.builtins.formatting.isort,
           nls.builtins.formatting.black,
           rustywind,
@@ -262,7 +263,7 @@ return {
     dependencies = {
       "nvim-treesitter/playground",
       "David-Kunz/markid",
-      "p00f/nvim-ts-rainbow",
+      "HiPhish/nvim-ts-rainbow2",
       "nvim-treesitter/nvim-treesitter-refactor",
       "nvim-treesitter/nvim-treesitter-context",
       "theHamsta/nvim-treesitter-pairs",
@@ -328,8 +329,9 @@ return {
       },
       rainbow = {
         enable = true,
-        extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-        max_file_lines = nil, -- Do not enable for files with more than n lines, int
+        query = "rainbow-parens",
+        -- strategy = require("ts-rainbow.strategy.global"),
+        max_file_lines = 3000,
       },
       refactor = {
         enable = true,
