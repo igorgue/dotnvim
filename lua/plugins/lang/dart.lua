@@ -27,8 +27,8 @@ return {
         open_cmd = "botright 5sp",
       },
       lsp = {
-        on_attach = function(_, _)
-          require("lazyvim.util").on_attach(function(client, bufnr)
+        on_attach = function(client, bufnr)
+          require("lazyvim.util").on_attach(function(_, _)
             local which_key = require("which-key")
             local nvim_del_keymap = vim.api.nvim_del_keymap
 
@@ -49,8 +49,9 @@ return {
             })
 
             require("telescope").load_extension("flutter")
-            require("flutter-tools").on_attach(client, bufnr)
           end)
+
+          require("flutter-tools").on_attach(client, bufnr)
         end,
         color = {
           enabled = true,
