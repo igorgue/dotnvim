@@ -53,23 +53,7 @@ return {
     "goolord/alpha-nvim",
     opts = function(_, _)
       local dashboard = require("alpha.themes.dashboard")
-      local neovim_version = vim.version()
-
-      if neovim_version == nil then
-        neovim_version = {
-          major = 0,
-          minor = 0,
-          patch = 0,
-          prerelease = true,
-        }
-      end
-
-      local version = neovim_version.major .. "." .. neovim_version.minor .. "." .. neovim_version.patch
-      if neovim_version.prerelease then
-        version = version .. "-dev"
-      end
-
-      local logo = "NVIM " .. version
+      local logo = "NVIM " .. require("utils").version()
 
       dashboard.section.header.val = vim.split(logo, "\n")
 
