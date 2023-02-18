@@ -129,8 +129,4 @@ return {
       { "<leader>t", "<cmd>Lspsaga term_toggle<cr>", desc = "Terminal" },
     },
   },
-  {
-    "SmiteshP/nvim-navic",
-    enabled = false,
-  },
 }

@@ -1,41 +1,22 @@
 local M = {}
 
--- core utils
-M.version = function()
-  local neovim_version = vim.version()
-
-  if neovim_version == nil then
-    neovim_version = {
-      major = 0,
-      minor = 0,
-      patch = 0,
-      prerelease = true,
-    }
-  end
-
-  return neovim_version.major .. "." .. neovim_version.minor .. "." .. neovim_version.patch
-end
-
--- ui utils
-local ui = {}
-
-ui.hi_co = function(group, kind)
+M.hi_co = function(group, kind)
   return vim.fn.synIDattr(vim.fn.hlID(group), kind)
 end
 
-ui.lualine_theme = function()
+M.lualine_theme = function()
   local lualine_colors = {
-    black = ui.hi_co("Normal", "bg"),
-    white = ui.hi_co("Normal", "fg"),
-    red = ui.hi_co("Error", "fg"),
-    green = ui.hi_co("Label", "fg"),
-    blue = ui.hi_co("CursorLineNr", "fg"),
-    lightblue = ui.hi_co("CursorLineNr", "bg"),
-    yellow = ui.hi_co("Function", "fg"),
-    gray = ui.hi_co("Pnu", "fg"),
-    darkgray = ui.hi_co("LspCodeLens", "fg"),
-    lightgray = ui.hi_co("Visual", "bg"),
-    inactivegray = ui.hi_co("TabLine", "fg"),
+    black = M.hi_co("Normal", "bg"),
+    white = M.hi_co("Normal", "fg"),
+    red = M.hi_co("Error", "fg"),
+    green = M.hi_co("Label", "fg"),
+    blue = M.hi_co("CursorLineNr", "fg"),
+    lightblue = M.hi_co("CursorLineNr", "bg"),
+    yellow = M.hi_co("Function", "fg"),
+    gray = M.hi_co("Pnu", "fg"),
+    darkgray = M.hi_co("LspCodeLens", "fg"),
+    lightgray = M.hi_co("Visual", "bg"),
+    inactivegray = M.hi_co("TabLine", "fg"),
   }
 
   local theme = {
@@ -104,7 +85,5 @@ ui.lualine_theme = function()
 
   return theme
 end
-
-M.ui = ui
 
 return M

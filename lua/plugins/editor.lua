@@ -74,24 +74,4 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     config = true,
   },
-  {
-    "echasnovski/mini.pairs",
-    enabled = false,
-  },
-  {
-    "echasnovski/mini.ai",
-    enabled = false,
-  },
-  {
-    "echasnovski/mini.comment",
-    enabled = false,
-  },
-  {
-    "ggandor/leap.nvim",
-    enabled = false,
-  },
-  {
-    "RRethy/vim-illuminate",
-    enabled = false,
-  },
 }
