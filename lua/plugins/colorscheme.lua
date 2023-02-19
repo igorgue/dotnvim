@@ -10,7 +10,6 @@ return {
     -- dir = "~/Code/danger",
     opts = {
       style = "dark",
-      kitty = false,
       alacritty = true,
     },
     keys = {
