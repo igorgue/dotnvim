@@ -22,7 +22,7 @@ return {
             vim.cmd("colorscheme danger_dark")
           end
         end,
-        "Toggle Danger light / dark",
+        desc = "Toggle Danger dark mode",
       },
     },
   },
