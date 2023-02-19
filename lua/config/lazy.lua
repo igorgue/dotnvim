@@ -13,13 +13,13 @@ require("lazy").setup({
 
     -- import/override with your plugins
     { import = "plugins" },
-    { import = "plugins.lang.html_css" },
-    { import = "plugins.lang.sql" },
-    { import = "plugins.lang.lua" },
-    { import = "plugins.lang.dart" },
-    { import = "plugins.lang.elixir" },
-    { import = "plugins.lang.python" },
-    { import = "plugins.lang.rust" },
+    { import = "plugins.extras.lang.html_css" },
+    { import = "plugins.extras.lang.sql" },
+    { import = "plugins.extras.lang.lua" },
+    { import = "plugins.extras.lang.dart" },
+    { import = "plugins.extras.lang.elixir" },
+    { import = "plugins.extras.lang.python" },
+    { import = "plugins.extras.lang.rust" },
 
     -- import any extras modules here
     { import = "lazyvim.plugins.extras.lang.typescript" },
