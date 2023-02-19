@@ -65,9 +65,7 @@ return {
       end
 
       -- HACK: for saga colors to work with colorscheme
-      pcall(function()
-        vim.cmd("colorscheme " .. vim.g.colors_name)
-      end)
+      pcall(vim.cmd, "colorscheme " .. vim.g.colors_name)
     end,
     opts = {
       ui = {

@@ -318,14 +318,6 @@ return {
       },
       markid = {
         enable = true,
-        -- queries = {
-        --     default = [[
-        --         (
-        --          (identifier) @markid
-        --          (#not-has-parent? @markid function_definition class_definition dotted_name)
-        --         )
-        --     ]],
-        -- },
       },
       rainbow = {
         enable = true,

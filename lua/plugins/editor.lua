@@ -41,9 +41,6 @@ return {
   },
   {
     "echasnovski/mini.surround",
-    config = function()
-      require("mini.surround").setup()
-    end,
     keys = {
       { "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], desc = "Add surrounding", mode = "x" },
     },

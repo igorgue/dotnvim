@@ -232,7 +232,7 @@ return {
           showcmd = true,
         },
         twilight = {
-          enabled = true,
+          enabled = false,
         },
         gitsigns = {
           enabled = true,
