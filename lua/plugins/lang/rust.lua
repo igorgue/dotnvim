@@ -121,7 +121,7 @@ return {
 
             pcall(nvim_del_keymap, "n", "K")
             pcall(nvim_del_keymap, "v", "K")
-            pcall(nvim_del_keymap, "n", "<C-k>")
+            pcall(nvim_del_keymap, "n", "<C-K>")
             pcall(nvim_del_keymap, "n", "<leader>cA")
             pcall(nvim_del_keymap, "n", "<leader>cR")
             pcall(nvim_del_keymap, "n", "<leader>ce")
@@ -133,7 +133,7 @@ return {
 
             keymap.set("n", "K", rt.hover_actions.hover_actions, map_opts)
             keymap.set("v", "K", rt.hover_range.hover_range, map_opts)
-            keymap.set("n", "<C-k>", "<cmd>Lspsaga hover_doc<cr>", map_opts)
+            keymap.set("n", "<C-K>", "<cmd>Lspsaga hover_doc<cr>", map_opts)
 
             which_key.register({
               c = {
