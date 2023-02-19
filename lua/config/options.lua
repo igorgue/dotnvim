@@ -80,3 +80,9 @@ g.indent_blankline_disable_with_nolist = true
 
 -- indent scope
 g.miniindentscope_disable = true
+
+-- copilot
+g.copilot_filetypes = {
+  TelescopeResults = false,
+  TelescopePrompt = false,
+}
