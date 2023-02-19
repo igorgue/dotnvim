@@ -130,10 +130,9 @@ return {
         TypeParameter = " ",
       }
 
-      -- Set configuration for specific filetype.
       cmp.setup.filetype("gitcommit", {
         sources = cmp.config.sources({
-          { name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
+          { name = "cmp_git" },
           { name = "nvim_lsp" },
           { name = "nvim_lua" },
           { name = "nvim_lsp_document_symbol" },
@@ -144,7 +143,6 @@ return {
         }),
       })
 
-      -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline("/", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
@@ -155,7 +153,6 @@ return {
         },
       })
 
-      -- Use cmdline & path source for ":" (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
@@ -169,7 +166,7 @@ return {
       return {
         snippet = {
           expand = function(args)
-            luasnip.lsp_expand(args.body) -- For `luasnip` users.
+            luasnip.lsp_expand(args.body)
           end,
         },
         window = {
@@ -340,7 +337,7 @@ return {
       },
     },
     keys = {
-      { "<leader>ux", "<Cmd>TSHighlightCapturesUnderCursor<CR>", desc = "Show TS and VIM highlight groups" },
+      { "<leader>ux", "<Cmd>TSHighlightCapturesUnderCursor<CR>", desc = "Show highlight groups" },
     },
   },
 }

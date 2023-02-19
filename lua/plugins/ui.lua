@@ -45,7 +45,7 @@ return {
     opts = {
       render = "default",
       fps = 120,
-      timeout = 1000,
+      timeout = 500,
     },
   },
   {
@@ -232,7 +232,7 @@ return {
           showcmd = true,
         },
         twilight = {
-          enabled = false,
+          enabled = false, -- NOTE: performs poorly
         },
         gitsigns = {
           enabled = true,
@@ -290,11 +290,9 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-telescope/telescope-smart-history.nvim",
-      "nvim-telescope/telescope-symbols.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
       "danielfalk/smart-open.nvim",
       "ghassan0/telescope-glyph.nvim",
-      "kkharji/sqlite.lua",
       "xiyaowong/telescope-emoji.nvim",
       {
         "nvim-telescope/telescope-fzf-native.nvim",
@@ -335,9 +333,6 @@ return {
             action = telescope_paste_char,
           },
           glyph = {
-            action = telescope_paste_char,
-          },
-          symbols = {
             action = telescope_paste_char,
           },
           fzf = {
