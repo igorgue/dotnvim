@@ -1,19 +1,19 @@
 local M = {}
 
-M.hi_co = function(group, kind)
+function M.hi_co(group, kind)
   return vim.fn.synIDattr(vim.fn.hlID(group), kind)
 end
 
-M.lualine_theme = function()
+function M.lualine_theme()
   local lualine_colors = {
     black = M.hi_co("Normal", "bg"),
     white = M.hi_co("Normal", "fg"),
-    red = M.hi_co("Error", "fg"),
-    green = M.hi_co("Label", "fg"),
+    red = M.hi_co("DiffDelete", "bg"),
+    green = M.hi_co("DiffAdd", "bg"),
     blue = M.hi_co("CursorLineNr", "fg"),
     lightblue = M.hi_co("CursorLineNr", "bg"),
-    yellow = M.hi_co("Function", "fg"),
-    gray = M.hi_co("Pnu", "fg"),
+    yellow = M.hi_co("DiffChange", "bg"),
+    gray = M.hi_co("Pmenu", "fg"),
     darkgray = M.hi_co("LspCodeLens", "fg"),
     lightgray = M.hi_co("Visual", "bg"),
     inactivegray = M.hi_co("TabLine", "fg"),
