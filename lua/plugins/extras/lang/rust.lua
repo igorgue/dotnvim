@@ -132,7 +132,6 @@ return {
 
             keymap.set("n", "K", rt.hover_actions.hover_actions, map_opts)
             keymap.set("v", "K", rt.hover_range.hover_range, map_opts)
-            keymap.set("n", "<m-k>", "<cmd>Lspsaga hover_doc<cr>", map_opts)
 
             which_key.register({
               c = {
