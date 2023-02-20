@@ -1,11 +1,8 @@
 # Igor's LazyVim
 
-Using a starter template for [LazyVim](https://github.com/LazyVim/LazyVim) to archive better
+![rust-btw](https://user-images.githubusercontent.com/7014/219984419-84b6829f-2926-4576-96b6-cbe20708b007.png) *Rust configuration at `lua/plugins/extras/rust.lua`*
 
 ## 🚀 Getting Started
-
-This repo contains an example setup for
-[LazyVim](https://github.com/LazyVim/LazyVim)
 
 ### 1. Make a backup of your current Neovim files:
 
@@ -17,7 +14,7 @@ mv ~/.local/share/nvim ~/.local/share/nvim.bak
 ### 2. Clone the starter
 
 ```sh
-git clone https://github.com/LazyVim/starter ~/.config/nvim
+git clone https://github.com/igorgue/dotnvim ~/.config/nvim
 ```
 
 ### 3. Start Neovim!
@@ -32,14 +29,30 @@ Refer to the comments in the files on how to customize **LazyVim**.
 
 <pre>
 ~/.config/nvim
-├── lua
-│   ├── config
-│   │   ├── autocmds.lua
-│   │   ├── keymaps.lua
-│   │   ├── lazy.lua
-│   │   └── options.lua
-│   └── plugins
-│       └── example.lua
-├── init.lua
-└── stylua.toml
+lua
+├── config
+│   ├── autocmds.lua
+│   ├── keymaps.lua
+│   ├── lazy.lua
+│   └── options.lua
+├── plugins
+│   ├── coding.lua
+│   ├── colorscheme.lua
+│   ├── debugging.lua
+│   ├── disabled.lua
+│   ├── editor.lua
+│   ├── extras
+│   │   └── lang
+│   │       ├── dart.lua
+│   │       ├── elixir.lua
+│   │       ├── html_css.lua
+│   │       ├── lua.lua
+│   │       ├── python.lua
+│   │       ├── rust.lua
+│   │       └── sql.lua
+│   ├── lsp.lua
+│   └── ui.lua
+└── utils
+    ├── init.lua
+    └── ui.lua
 </pre>
