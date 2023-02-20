@@ -1,4 +1,4 @@
-# Igor's LazyVim
+# My Neovim Configuration
 
 ![rust-btw](https://user-images.githubusercontent.com/7014/219984419-84b6829f-2926-4576-96b6-cbe20708b007.png) *Rust configuration at `lua/plugins/extras/rust.lua`*
 
