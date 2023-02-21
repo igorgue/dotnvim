@@ -5,7 +5,7 @@
   "SchemaStore.nvim": { "branch": "main", "commit": "a4798a9fb5fd3ac8e132065597b397cab347d3ca" },
   "alpha-nvim": { "branch": "main", "commit": "b3eef69e95674905bf26c7740dd4bbb09b355494" },
   "awesome-flutter-snippets": { "branch": "master", "commit": "48d4b8ba44dc0133c2299d9d810eceb5efa441a7" },
-  "catppuccin": { "branch": "main", "commit": "fe32c776d86e8ba608e6294c43302c985835bfea" },
+  "catppuccin": { "branch": "main", "commit": "43deef415770a265c395a1879dacb724a109b4de" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
   "cmp-cmdline": { "branch": "main", "commit": "8fcc934a52af96120fe26358985c10c035984b53" },
   "cmp-dictionary": { "branch": "main", "commit": "fb3fba41fe14f4e96551e46ec74dfd1d46fb864a" },
