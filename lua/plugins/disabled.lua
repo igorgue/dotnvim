@@ -3,6 +3,8 @@ return {
   { "echasnovski/mini.ai", enabled = false },
   { "echasnovski/mini.comment", enabled = false },
   { "echasnovski/mini.pairs", enabled = false },
+  { "ggandor/leap.nvim", enabled = false },
+  { "ggandor/flit.nvim", enabled = false },
   { "RRethy/vim-illuminate", enabled = false },
   { "SmiteshP/nvim-navic", enabled = false },
 }
