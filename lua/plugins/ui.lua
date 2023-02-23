@@ -210,9 +210,6 @@ return {
     keys = {
       { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen mode" },
     },
-    config = function(_, opts)
-      require("zen-mode").setup(opts)
-    end,
     opts = {
       window = {
         options = {
@@ -371,7 +368,7 @@ return {
     },
   },
   {
-    "mason.nvim",
+    "williamboman/mason.nvim",
     opts = {
       ui = {
         border = "rounded",

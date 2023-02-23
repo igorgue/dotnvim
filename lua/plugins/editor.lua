@@ -33,11 +33,9 @@ return {
         untracked = { text = "┆" },
       },
     },
-    keys = function()
-      return {
-        { "<leader>h", "<cmd>lua require('gitsigns').next_hunk()<cr>", desc = "Next git hunk" },
-      }
-    end,
+    keys = {
+      { "<leader>h", "<cmd>lua require('gitsigns').next_hunk()<cr>", desc = "Next git hunk" },
+    },
   },
   {
     "echasnovski/mini.surround",

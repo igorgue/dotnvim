@@ -224,23 +224,6 @@ return {
         },
       }
     end,
-    keys = {
-      {
-        "<leader>cF",
-        function()
-          if vim.b.autoformat == nil then
-            vim.b.autoformat = false
-          else
-            vim.b.autoformat = nil
-          end
-
-          vim.notify("Enabled: " .. (vim.b.autoformat == nil and "ON" or "OFF"), vim.log.levels.INFO, {
-            title = "Autoformat",
-          })
-        end,
-        desc = "Toggle autoformat",
-      },
-    },
   },
   {
     "L3MON4D3/LuaSnip",
