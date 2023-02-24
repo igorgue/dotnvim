@@ -3,25 +3,31 @@
 -- Add any additional autocmds here
 local home = os.getenv("HOME") or ""
 local api = vim.api
+local util = require("lazyvim.util")
 
+-- commands
 api.nvim_create_user_command("Nap", function()
-  vim.cmd([[
-      terminal ]] .. home .. [[/go/bin/nap
-      normal! a
-  ]])
+  util.float_term("nap", { cwd = util.get_root() })
 end, {})
 
 api.nvim_create_user_command("Ranger", function()
-  vim.cmd([[
-      terminal ranger
-      normal! a
-  ]])
+  util.float_term("ranger", { cwd = util.get_root() })
 end, {})
 
+api.nvim_create_user_command("Btop", function()
+  util.float_term("btop", { cwd = util.get_root() })
+end, {})
+
+-- autocmds
 api.nvim_create_user_command("Screenshot", function()
-  vim.cmd([[
-      !gnome-screenshot -w -d 5 &
-  ]])
+  local notify = require("notify")
+
+  notify.notify("In 3...2...1", vim.log.levels.INFO, { title = "Screenshot" })
+
+  vim.defer_fn(function()
+    notify.dismiss({})
+    vim.cmd("silent !gnome-screenshot -w &")
+  end, 3000)
 end, {})
 
 api.nvim_create_autocmd("FileType", {
