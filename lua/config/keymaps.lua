@@ -13,8 +13,20 @@ pcall(nvim_del_keymap, "v", "<")
 pcall(nvim_del_keymap, "v", ">")
 pcall(nvim_del_keymap, "n", "<leader>l")
 
--- extra which key stuff
+-- prefixes with some names
 wk.register({
   d = { name = "+debug" },
   z = { name = "+fold" },
+})
+
+wk.register({
+  f = {
+    R = { "<cmd>Ranger<cr>", "Ranger file explorer" },
+    N = { "<cmd>Nap<cr>", "Nap notes" },
+  },
+  u = {
+    S = { "<cmd>Screenshot<cr>", "Screenshot" },
+  },
+}, {
+  prefix = "<leader>",
 })
