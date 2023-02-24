@@ -12,6 +12,7 @@ pcall(nvim_del_keymap, "n", ">")
 pcall(nvim_del_keymap, "v", "<")
 pcall(nvim_del_keymap, "v", ">")
 pcall(nvim_del_keymap, "n", "<leader>l")
+pcall(nvim_del_keymap, "n", "<leader><space>")
 
 wk.register({
   ["<leader><cr>"] = { name = "+applications" },

@@ -361,10 +361,7 @@ return {
       telescope.load_extension("fzf")
     end,
     keys = {
-      -- I want to be able to do smart open, on many keys,
-      -- fs matches file keybindings, the other ones are
-      -- for convinience
-      { "<leader><leader>", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },
+      { "<leader><space>", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },
       { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },
     },
   },
