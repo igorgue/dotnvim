@@ -23,10 +23,13 @@ wk.register({
     R = { "<cmd>Ranger<cr>", "Ranger file explorer" },
   },
   u = {
-    S = { "<cmd>Screenshot<cr>", "Screenshot" },
-    t = { "<cmd>Btop<cr>", "Btop" },
-    D = { "<cmd>DBUI<cr>", "DBUI" },
+    S = { "<cmd>Screenshot<cr>", "Take a screenshot" },
+    t = { "<cmd>Btop<cr>", "Btop process manager" },
+    D = { "<cmd>DBUI<cr>", "Database manager" },
     N = { "<cmd>Nap<cr>", "Nap notes" },
+  },
+  c = {
+    ["#"] = { "<cmd>Cloc<cr>", "Count lines" },
   },
 }, {
   prefix = "<leader>",

@@ -1,7 +1,6 @@
 -- Autocmds are automatically loaded on the VeryLazy event
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
-local home = os.getenv("HOME") or ""
 local api = vim.api
 local util = require("lazyvim.util")
 
@@ -16,6 +15,12 @@ end, {})
 
 api.nvim_create_user_command("Btop", function()
   util.float_term("btop", { cwd = util.get_root() })
+end, {})
+
+api.nvim_create_user_command("Cloc", function()
+  local out = vim.fn.system("cloc --quiet .")
+
+  require("notify").notify(out, vim.log.levels.INFO, { title = "Lines of code in project" })
 end, {})
 
 -- autocmds
