@@ -15,7 +15,9 @@ opt.wrap = true
 opt.showbreak = "↪ "
 opt.listchars = { tab = "▸ ", trail = "·", extends = "»", precedes = "«", eol = "↲" }
 opt.fillchars = { eob = " " }
-opt.updatetime = 12
+opt.timeout = true
+opt.timeoutlen = 250
+opt.pumblend = 4
 
 -- FIXME: This breaks relative line numbers
 -- if vim.version().minor == 9 then

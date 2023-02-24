@@ -58,9 +58,12 @@ return {
     "folke/which-key.nvim",
     opts = {
       window = {
-        border = "none",
+        position = "top",
+        -- border = "rounded",
+        -- margin = { 1, 5, 0, 8 },
         margin = { 0, 0, 0, 0 },
-        padding = { 0, 0, 0, 0 },
+        padding = { 0, 1, 1, 0 },
+        winblend = 7,
       },
     },
   },
