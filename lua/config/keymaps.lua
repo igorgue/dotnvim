@@ -14,22 +14,20 @@ pcall(nvim_del_keymap, "v", ">")
 pcall(nvim_del_keymap, "n", "<leader>l")
 
 wk.register({
+  ["<leader><cr>"] = { name = "+applications" },
   ["<leader>d"] = { name = "+debug" },
   z = { name = "+fold" },
 })
 
 wk.register({
-  f = {
-    R = { "<cmd>Ranger<cr>", "Ranger file explorer" },
-  },
-  u = {
-    S = { "<cmd>Screenshot<cr>", "Take a screenshot" },
-    t = { "<cmd>Btop<cr>", "Btop process manager" },
-    D = { "<cmd>DBUI<cr>", "Database manager" },
-    N = { "<cmd>Nap<cr>", "Nap notes" },
-  },
   c = {
     ["#"] = { "<cmd>Cloc<cr>", "Count lines" },
+  },
+  ["<cr>"] = {
+    b = { "<cmd>Btop<cr>", "Btop process manager" },
+    n = { "<cmd>Nap<cr>", "Nap code snippets" },
+    s = { "<cmd>Screenshot<cr>", "Take a screenshot" },
+    r = { "<cmd>Ranger<cr>", "Ranger visual file manager" },
   },
 }, {
   prefix = "<leader>",

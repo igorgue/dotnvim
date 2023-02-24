@@ -1,6 +1,5 @@
 return {
   {
-
     "tpope/vim-fugitive",
     event = "BufReadPost",
     cmd = { "Git", "Gread", "Gwrite" },

@@ -4,7 +4,7 @@ return {
     dependencies = {
       "elixir-editors/vim-elixir",
     },
-    ft = "elixir",
+    ft = { "elixir", "eex", "heex", "surface" },
     config = function()
       local elixir = require("elixir")
       local mason = (os.getenv("HOME") or "") .. "/.local/share/nvim/mason"
@@ -32,6 +32,8 @@ return {
           -- projectDir = "",
           signatureAfterComplete = true,
           suggestSpecs = true,
+          log_level = vim.lsp.protocol.MessageType.Log,
+          message_level = vim.lsp.protocol.MessageType.Log,
           trace = {
             server = "on",
           },

@@ -7,10 +7,12 @@ return {
       {
         "<leader>r",
         function()
-          require("notify").dismiss({})
-          vim.cmd("nohlsearch")
           vim.cmd("cd ~")
           vim.cmd("cd -")
+          vim.cmd("nohlsearch")
+          vim.cmd("diffupdate")
+          vim.cmd("normal! <C-L>")
+          require("notify").dismiss({})
         end,
         desc = "Refresh",
       },
@@ -362,9 +364,8 @@ return {
       -- I want to be able to do smart open, on many keys,
       -- fs matches file keybindings, the other ones are
       -- for convinience
+      { "<leader><leader>", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },
       { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },
-      { "<leader>j", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },
-      { "<leader>o", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },
     },
   },
   {
