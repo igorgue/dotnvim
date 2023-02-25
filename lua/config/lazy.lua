@@ -20,6 +20,7 @@ require("lazy").setup({
     { import = "plugins.extras.lang.elixir" },
     { import = "plugins.extras.lang.python" },
     { import = "plugins.extras.lang.rust" },
+    { import = "plugins.extras.lang.java" },
 
     -- import any extras modules here
     { import = "lazyvim.plugins.extras.lang.typescript" },

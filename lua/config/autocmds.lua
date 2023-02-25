@@ -18,9 +18,11 @@ api.nvim_create_user_command("Btop", function()
 end, {})
 
 api.nvim_create_user_command("Cloc", function()
-  local out = vim.fn.system("cloc --quiet --exclude-list=.gitignore .")
+  vim.schedule(function()
+    local out = vim.fn.system("cloc --quiet --exclude-list=.gitignore .")
 
-  require("notify").notify(out, vim.log.levels.INFO, { title = "Lines of code in project" })
+    require("notify").notify(out, vim.log.levels.INFO, { title = "Lines of code in project" })
+  end)
 end, {})
 
 -- autocmds

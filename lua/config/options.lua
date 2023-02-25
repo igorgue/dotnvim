@@ -19,9 +19,10 @@ opt.timeout = true
 opt.timeoutlen = 250
 opt.pumblend = 4
 
--- FIXME: This breaks relative line numbers
+-- FIXME: Figure out a way to get the space back
+-- when disabling number with nonumber
 -- if vim.version().minor == 9 then
---   vim.opt.statuscolumn = "%=%l%s%C"
+--   vim.opt.statuscolumn = "%=%l%r%s%C"
 -- end
 
 opt.diffopt:append({ linematch = 60 })
