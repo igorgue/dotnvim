@@ -293,6 +293,7 @@ return {
       "danielfalk/smart-open.nvim",
       "ghassan0/telescope-glyph.nvim",
       "kkharji/sqlite.lua",
+      "nvim-telescope/telescope-symbols.nvim",
       "xiyaowong/telescope-emoji.nvim",
       {
         "nvim-telescope/telescope-fzf-native.nvim",

@@ -80,6 +80,7 @@ g.rust_clip_command = "xclip -selection clipboard"
 
 -- indent blankline
 g.indent_blankline_disable_with_nolist = true
+g.indent_blankline_use_treesitter = true
 
 -- indent scope
 g.miniindentscope_disable = true
