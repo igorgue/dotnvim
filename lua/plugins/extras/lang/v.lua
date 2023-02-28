@@ -18,8 +18,8 @@ return {
       "BufNewFile *.vv",
       "BufNewFile *.vsh",
     },
-    build = "v ls --install",
     config = function()
+      pcall(vim.cmd, "!v ls --install")
       vim.g.v_autofmt_bufwritepre = true
     end,
   },
