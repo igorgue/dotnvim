@@ -26,7 +26,7 @@ return {
       "amarakon/nvim-cmp-fonts",
       "onsails/lspkind.nvim",
     },
-    opts = function(_, _)
+    opts = function()
       local cmp = require("cmp")
       local sources = {
         {
@@ -50,38 +50,15 @@ return {
 
       local winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:Search"
 
-      local luasnip = require("luasnip")
-      require("luasnip.loaders.from_vscode").load()
-
-      -- local mapping for nvim-cmp.
-      local function has_words_before()
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-      end
-
       -- <Tab> is used by Copilot, I found the plugin doesn't work
       -- if I use <Tab> for nvim-cmp or any other plugin
       local mapping = {
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-n>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item()
-          elseif has_words_before() then
-            cmp.mapping.complete({})
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-        ["<C-p>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
+        ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+        ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<C-j>"] = cmp.mapping(function(fallback)
+          local luasnip = require("luasnip")
           if luasnip.expand_or_jumpable() then
             luasnip.expand_or_jump()
           else
@@ -89,6 +66,7 @@ return {
           end
         end, { "i", "s" }),
         ["<C-k>"] = cmp.mapping(function(fallback)
+          local luasnip = require("luasnip")
           if luasnip.jumpable(-1) then
             luasnip.jump(-1)
           else
@@ -142,7 +120,7 @@ return {
         }),
       })
 
-      cmp.setup.cmdline("/", {
+      cmp.setup.cmdline({ "/", "?" }, {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
           { name = "nvim_lsp" },
@@ -165,6 +143,7 @@ return {
       return {
         snippet = {
           expand = function(args)
+            local luasnip = require("luasnip")
             luasnip.lsp_expand(args.body)
           end,
         },
@@ -202,26 +181,26 @@ return {
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
-    opts = function()
+    opts = function(_, opts)
       local nls = require("null-ls")
       local rustywind = nls.builtins.formatting.rustywind
 
       rustywind.filetypes[#rustywind.filetypes + 1] = "rust"
-      -- rustywind.filetypes[#rustywind.filetypes + 1] = "elixir"
+      rustywind.filetypes[#rustywind.filetypes + 1] = "elixir"
 
-      return {
-        sources = {
-          nls.builtins.formatting.prettierd,
-          nls.builtins.formatting.stylua,
-          nls.builtins.formatting.mix,
-          nls.builtins.formatting.isort,
-          nls.builtins.formatting.black,
-          nls.builtins.formatting.rustfmt,
-          nls.builtins.formatting.dart_format,
-          rustywind,
-          nls.builtins.diagnostics.pylint,
-        },
+      opts.sources = {
+        nls.builtins.formatting.prettierd,
+        nls.builtins.formatting.stylua,
+        nls.builtins.formatting.mix,
+        nls.builtins.formatting.isort,
+        nls.builtins.formatting.black,
+        nls.builtins.formatting.rustfmt,
+        nls.builtins.formatting.dart_format,
+        rustywind,
+        nls.builtins.diagnostics.pylint,
       }
+
+      return opts
     end,
   },
   {
@@ -246,7 +225,7 @@ return {
       require("nvim-treesitter.configs").setup(opts)
 
       require("treesitter-context").setup()
-      require("nvim-dap-virtual-text").setup({})
+      require("nvim-dap-virtual-text").setup()
 
       -- enable html parser in htmldjango file
       vim.treesitter.language.register("htmldjango", "html")
@@ -267,22 +246,6 @@ return {
     end,
     opts = {
       auto_install = true,
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "gnn",
-          node_incremental = "grn",
-          scope_incremental = "grc",
-          node_decremental = "grm",
-        },
-      },
-      indent = {
-        enable = true,
-      },
       markid = {
         enable = true,
       },

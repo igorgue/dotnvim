@@ -60,9 +60,8 @@ return {
       window = {
         position = "top",
         -- border = "rounded",
-        -- margin = { 1, 5, 0, 8 },
         margin = { 0, 0, 0, 0 },
-        padding = { 0, 1, 1, 0 },
+        padding = { 1, 0, 1, 0 },
         winblend = 7,
       },
     },
@@ -71,5 +70,14 @@ return {
     "numToStr/Comment.nvim",
     event = { "BufReadPost", "BufNewFile" },
     config = true,
+  },
+  {
+    "RRethy/vim-illuminate",
+    config = function(plugin, opts)
+      plugin._.super.config(plugin, opts)
+
+      -- re-apply colorscheme to fix highlighting
+      vim.cmd("colorscheme " .. vim.g.colors_name)
+    end,
   },
 }

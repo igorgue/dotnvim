@@ -169,7 +169,7 @@ return {
     "norcalli/nvim-colorizer.lua",
     event = { "BufReadPost", "BufNewFile" },
     cmd = { "ColorizerToggle", "ColorizerAttachToBuffer", "ColorizerReloadAllBuffers" },
-    config = function(_, _)
+    config = function()
       require("colorizer").setup({ "*" }, {
         RGB = true, -- #RGB hex codes
         RRGGBB = true, -- #RRGGBB hex codes
@@ -206,8 +206,10 @@ return {
   },
   {
     "folke/zen-mode.nvim",
-    dependencies = { { "folke/twilight.nvim", event = "BufReadPost", cmd = { "Twilight", "TwilightEnable" } } },
-    event = "BufReadPost",
+    dependencies = {
+      { "folke/twilight.nvim", event = { "BufReadPost", "BufNewFile" }, cmd = { "Twilight", "TwilightEnable" } },
+    },
+    event = { "BufReadPost", "BufNewFile" },
     cmd = "ZenMode",
     keys = {
       { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen mode" },
@@ -298,7 +300,7 @@ return {
         build = "make",
       },
     },
-    opts = function(_, _)
+    opts = function()
       local actions = require("telescope.actions")
       local themes = require("telescope.themes")
 
