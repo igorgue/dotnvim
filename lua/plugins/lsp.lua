@@ -86,7 +86,7 @@ return {
       },
       symbol_in_winbar = {
         enable = true,
-        show_file = false,
+        show_file = true,
         click_support = function(node, clicks, button, modifiers)
           -- To see all avaiable details: vim.pretty_print(node)
           local st = node.range.start
