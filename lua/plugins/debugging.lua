@@ -1,9 +1,5 @@
 return {
   "mfussenegger/nvim-dap",
-  -- NOTE: When dap is loaded lazily, it will break filetype detection
-  --       on file open directly e.g.: `nvim file.py`
-  --       other than that it works on keys
-  lazy = false,
   dependencies = {
     "mfussenegger/nvim-dap-python",
     "rcarriga/nvim-dap-ui",
