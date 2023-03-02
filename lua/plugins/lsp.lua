@@ -121,6 +121,10 @@ return {
       finder = {
         max_height = 0.8,
       },
+      beacon = {
+        enable = true,
+        frequency = 7,
+      },
     },
     keys = {
       { "<leader>co", nil, desc = "Code outline" },
