@@ -200,8 +200,10 @@ return {
         nls.builtins.formatting.black,
         nls.builtins.formatting.rustfmt,
         nls.builtins.formatting.dart_format,
+        nls.builtins.formatting.swiftlint,
         rustywind,
         nls.builtins.diagnostics.pylint,
+        nls.builtins.diagnostics.swiftlint,
       }
 
       return opts
