@@ -13,7 +13,6 @@ return {
         { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
         { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
         { "gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
-        { "K", "<cmd>Lspsaga hover_doc<cr>", desc = "Hover doc", silent = true },
         { "<c-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
         { "<leader>ca", "<cmd>Lspsaga code_action<cr>", desc = "Code action", mode = { "n", "v" } },
         { "<leader>cc", "<cmd>Lspsaga lsp_finder<cr>", desc = "Finder" },
@@ -50,22 +49,29 @@ return {
     event = "BufReadPost",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = "Lspsaga",
-    config = function(client, opts)
+    config = function(plugin, opts)
       local keymap = vim.keymap
       local default_opts = { silent = true, noremap = true }
 
       require("lspsaga").setup(opts)
 
-      pcall(vim.api.nvim_del_keymap, "n", "<leader>co")
+      keymap.set("n", "<leader>co", "<cmd>Lspsaga outline<cr>", default_opts)
+      keymap.set("n", "K", "<cmd>Lspsaga outline<cr>", default_opts)
 
-      if client.name == "dartls" then
-        keymap.set("n", "<leader>co", "<cmd>FlutterOutlineToggle<cr>", default_opts)
-      else
-        keymap.set("n", "<leader>co", "<cmd>Lspsaga outline<cr>", default_opts)
-      end
+      require("lazyvim.util").on_attach(function(client, _)
+        if client.name == "dartls" then
+          pcall(vim.api.nvim_del_keymap, "n", "<leader>co")
+          keymap.set("n", "<leader>co", "<cmd>FlutterOutlineToggle<cr>", default_opts)
+        end
 
-      -- HACK: for saga colors to work with colorscheme
-      pcall(vim.cmd, "colorscheme " .. vim.g.colors_name)
+        if client.name == "ElixirLS" then
+          pcall(vim.api.nvim_del_keymap, "n", "<leader>co")
+          keymap.set("n", "K", vim.lsp.buf.hover, default_opts)
+        end
+      end)
+
+      -- stylua: ignore
+      pcall(function() vim.cmd("colorscheme " .. vim.g.colors_name) end)
     end,
     opts = {
       ui = {
@@ -127,6 +133,7 @@ return {
       },
     },
     keys = {
+      { "K", nil, desc = "Hover doc" },
       { "<leader>co", nil, desc = "Code outline" },
       { "<leader>t", "<cmd>Lspsaga term_toggle<cr>", desc = "Terminal" },
     },

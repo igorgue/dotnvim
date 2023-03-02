@@ -7,16 +7,13 @@ return {
     ft = { "elixir", "eex", "heex", "surface" },
     config = function()
       local elixir = require("elixir")
-      local mason = (os.getenv("HOME") or "") .. "/.local/share/nvim/mason"
+      -- local mason = (os.getenv("HOME") or "") .. "/.local/share/nvim/mason"
 
       elixir.setup({
         -- specify a repository and branch
-        -- repo = "elixir-lsp/elixir-ls",
-        -- branch = "master",
-        -- repo = "mhanberg/elixir-ls", -- defaults to elixir-lsp/elixir-ls
-
+        repo = "elixir-lsp/elixir-ls",
         -- branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
-        cmd = mason .. "/packages/elixir-ls/language_server.sh",
+        -- cmd = mason .. "/packages/elixir-ls/language_server.sh",
 
         -- default settings, use the `settings` function to override settings
         settings = require("elixir").settings({

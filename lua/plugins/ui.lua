@@ -374,11 +374,14 @@ return {
 
       telescope.load_extension("notify")
       telescope.load_extension("ui-select")
-      telescope.load_extension("noice")
       telescope.load_extension("glyph")
       telescope.load_extension("emoji")
       telescope.load_extension("smart_open")
       telescope.load_extension("fzf")
+
+      if package.loaded["noice"] then
+        telescope.load_extension("noice")
+      end
     end,
     keys = {
       { "<leader><space>", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },
