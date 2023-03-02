@@ -213,6 +213,24 @@ return {
     cmd = "ZenMode",
     keys = {
       { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen mode" },
+      {
+        "<leader>Z",
+        function()
+          if require("zen-mode.view").is_open() then
+            require("zen-mode").toggle()
+            return
+          end
+
+          local width = vim.fn.input({ prompt = "Zen mode width: ", default = "60", cancelreturn = "60" })
+
+          require("zen-mode").toggle({
+            window = {
+              width = tonumber(width),
+            },
+          })
+        end,
+        desc = "Zen mode with custom width",
+      },
     },
     opts = {
       window = {
@@ -249,6 +267,7 @@ return {
       },
       on_open = function(_)
         vim.opt.laststatus = 0
+        vim.opt.winbar = ""
       end,
       on_close = function()
         vim.opt.laststatus = 3
