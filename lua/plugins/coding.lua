@@ -7,7 +7,11 @@ return {
       "tpope/vim-git",
     },
   },
-  { "github/copilot.vim", event = { "BufReadPost", "BufNewFile" } },
+  {
+    "github/copilot.vim",
+    cmd = "Copilot",
+    event = { "BufReadPost", "BufNewFile" },
+  },
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
