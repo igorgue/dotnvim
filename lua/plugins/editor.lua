@@ -38,6 +38,42 @@ return {
     },
   },
   {
+    "sindrets/diffview.nvim",
+    cmd = {
+      "DiffviewOpen",
+      "DiffviewClose",
+      "DiffviewToggleFiles",
+      "DiffviewLog",
+      "DiffviewRefresh",
+      "DiffviewFileHistory",
+    },
+    ft = { "git", "diff" },
+    opts = {
+      diff_binaries = true,
+      enhanced_diff_hl = true,
+      view = {
+        default = {
+          winbar_info = true,
+        },
+      },
+    },
+    keys = {
+      {
+        "<leader>gd",
+        function()
+          local view = require("diffview.lib").get_current_view()
+
+          if view then
+            vim.cmd("DiffviewClose")
+          else
+            vim.cmd("DiffviewOpen")
+          end
+        end,
+        desc = "Toggle diff view",
+      },
+    },
+  },
+  {
     "echasnovski/mini.surround",
     keys = {
       { "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], desc = "Add surrounding", mode = "x" },

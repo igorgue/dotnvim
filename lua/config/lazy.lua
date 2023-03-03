@@ -43,6 +43,7 @@ require("lazy").setup({
   ui = {
     border = "rounded",
   },
+  diff = { cmd = "diffview.nvim" },
   performance = {
     rtp = {
       -- disable some rtp plugins

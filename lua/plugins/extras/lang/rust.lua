@@ -25,10 +25,19 @@ return {
         assist = {
           emitMustUse = true,
         },
+        cachePriming = {
+          enable = true,
+        },
+        completion = {
+          privateEditable = {
+            enable = true,
+          },
+        },
         cargo = {
           buildScripts = {
             enable = true,
           },
+          autoreload = true,
         },
         procMacro = {
           enable = true,
@@ -40,12 +49,48 @@ return {
           experimental = {
             enable = true,
           },
+          previewRustcOutput = true,
+          useRustcErrorCode = true,
         },
         hover = {
           actions = {
             references = {
               enable = true,
             },
+          },
+        },
+        imports = {
+          granularity = {
+            enforce = true,
+          },
+        },
+        interpret = {
+          tests = true,
+        },
+        inlayHints = {
+          bindingModeHints = {
+            enable = true,
+          },
+          typeHints = {
+            enable = true,
+            hideClosureInitialization = false,
+            hideNamedConstructor = false,
+          },
+          reborrowHints = {
+            enable = "always",
+          },
+          closureReturnTypeHints = {
+            enable = "always",
+          },
+          discriminantHints = {
+            enable = "always",
+          },
+          expressionAdjustmentHints = {
+            enable = "always",
+          },
+          lifetimeElisionHints = {
+            enable = "always",
+            useParameterNames = true,
           },
         },
         lens = {
@@ -64,6 +109,10 @@ return {
             },
           },
         },
+        debug = {
+          openDebugPane = true,
+        },
+        restartServerOnConfigChange = true,
         rustfmt = {
           rangeFormatting = {
             enable = true,
@@ -72,6 +121,9 @@ return {
         semanticHighlighting = {
           operator = {
             enable = true,
+            specialization = {
+              enable = true,
+            },
           },
           strings = {
             enable = true,
@@ -93,9 +145,6 @@ return {
             specialization = {
               enable = true,
             },
-          },
-          specialization = {
-            enable = true,
           },
         },
         trace = {

@@ -1,6 +1,8 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    -- stylua: ignore
+    cond = function() return vim.o.diff == false end,
     opts = function(_, opts)
       local keymaps = require("lazyvim.plugins.lsp.keymaps")
       local ui_windows = require("lspconfig.ui.windows")
@@ -49,7 +51,9 @@ return {
     event = "BufReadPost",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = "Lspsaga",
-    config = function(plugin, opts)
+    -- stylua: ignore
+    cond = function() return vim.o.diff == false end,
+    config = function(_, opts)
       local keymap = vim.keymap
       local default_opts = { silent = true, noremap = true }
 
