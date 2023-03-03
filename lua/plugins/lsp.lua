@@ -56,7 +56,7 @@ return {
       require("lspsaga").setup(opts)
 
       keymap.set("n", "<leader>co", "<cmd>Lspsaga outline<cr>", default_opts)
-      keymap.set("n", "K", "<cmd>Lspsaga outline<cr>", default_opts)
+      keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>", default_opts)
 
       require("lazyvim.util").on_attach(function(client, _)
         if client.name == "dartls" then
