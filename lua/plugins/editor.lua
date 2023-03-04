@@ -1,7 +1,6 @@
 return {
   {
     "michaeljsmith/vim-indent-object",
-    event = { "BufReadPost", "BufNewFile" },
     keys = {
       { "vai", nil, desc = "An indent level and line above" },
       { "vii", nil, desc = "Inner indent level (no line above)" },
@@ -19,7 +18,9 @@ return {
   },
   {
     "arp242/xdg_open.vim",
-    event = { "BufReadPost", "BufNewFile" },
+    keys = {
+      { "gx", nil, desc = "Open with xdg-open" },
+    },
   },
   {
     "lewis6991/gitsigns.nvim",
@@ -47,7 +48,6 @@ return {
       "DiffviewRefresh",
       "DiffviewFileHistory",
     },
-    ft = { "git", "diff" },
     opts = {
       diff_binaries = true,
       enhanced_diff_hl = true,

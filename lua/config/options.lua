@@ -9,23 +9,54 @@ local g = vim.g
 
 opt.number = false
 opt.relativenumber = false
--- opt.cursorline = false
 opt.list = false
 opt.wrap = true
 opt.showbreak = "↪ "
-opt.listchars = { tab = "▸ ", trail = "·", extends = "»", precedes = "«", eol = "↲" }
-opt.fillchars = { eob = " " }
 opt.timeout = true
 opt.timeoutlen = 250
 opt.pumblend = 4
+opt.backspace = { "indent", "eol", "start" }
+opt.scrolloff = 3
+opt.sessionoptions = { "blank", "buffers", "curdir", "folds", "help", "tabpages", "winsize" }
+opt.diffopt = {
+  algorithm = "histogram",
+  linematch = 60,
+  "internal",
+  "indent-heuristic",
+  "filler",
+  "closeoff",
+  "iwhite",
+  "vertical",
+}
+opt.shada = { "!", "'10", "/100", ":100", "<0", "@1", "f1", "h", "s1" }
+opt.listchars = {
+  tab = "──",
+  -- "lead:·",
+  trail = "·",
+  nbsp = "␣",
+  -- "eol:↵",
+  precedes = "«",
+  extends = "»",
+}
+opt.fillchars = {
+  -- "vert:▏",
+  vert = "│",
+  diff = "╱",
+  foldclose = "",
+  foldopen = "",
+  fold = " ",
+  msgsep = "─",
+  eob = " ",
+}
+opt.writebackup = true
+opt.undofile = true
+opt.isfname:append(":")
 
 -- FIXME: Figure out a way to get the space back
 -- when disabling number with nonumber
 -- if vim.version().minor == 9 then
 --   vim.opt.statuscolumn = "%=%l%r%s%C"
 -- end
-
-opt.diffopt:append({ linematch = 60 })
 
 local diagnostic_config = {
   float = { border = "rounded" },

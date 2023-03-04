@@ -69,3 +69,9 @@ vim.api.nvim_create_autocmd("Colorscheme", {
     require("lualine").setup(config)
   end,
 })
+
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    vim.opt_local.cursorline = false
+  end,
+})
