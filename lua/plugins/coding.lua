@@ -204,6 +204,7 @@ return {
         nls.builtins.formatting.swiftlint,
         rustywind,
         nls.builtins.diagnostics.pylint,
+        nls.builtins.diagnostics.ruff,
         nls.builtins.diagnostics.swiftlint,
       }
 
