@@ -370,6 +370,8 @@ return {
     config = function(_, opts)
       local telescope = require("telescope")
 
+      vim.keymap.set("n", "<leader><leader>", "<cmd>Telescope smart_open<cr>")
+
       telescope.setup(opts)
 
       telescope.load_extension("notify")
@@ -384,7 +386,8 @@ return {
       end
     end,
     keys = {
-      { "<leader><space>", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },
+      { "<leader>o", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },
+      { "<leader><leader>", nil, desc = "Smart open" },
       { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },
     },
   },

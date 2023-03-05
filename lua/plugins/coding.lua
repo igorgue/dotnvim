@@ -198,6 +198,7 @@ return {
         nls.builtins.formatting.mix,
         nls.builtins.formatting.isort,
         nls.builtins.formatting.black,
+        nls.builtins.formatting.ruff,
         nls.builtins.formatting.rustfmt,
         nls.builtins.formatting.dart_format,
         nls.builtins.formatting.swiftlint,
