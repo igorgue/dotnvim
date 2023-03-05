@@ -369,8 +369,11 @@ return {
     end,
     config = function(_, opts)
       local telescope = require("telescope")
+      local wk = require("which-key")
 
-      vim.keymap.set("n", "<leader><leader>", "<cmd>Telescope smart_open<cr>")
+      wk.register({
+        ["<leader><leader>"] = { "<cmd>Telescope smart_open<cr>", "Smart open" },
+      })
 
       telescope.setup(opts)
 

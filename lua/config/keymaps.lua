@@ -2,8 +2,6 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 local api = vim.api
--- local default_opts = { noremap = true, silent = true }
--- local keymap = vim.keymap
 local nvim_del_keymap = api.nvim_del_keymap
 local wk = require("which-key")
 
@@ -19,9 +17,7 @@ wk.register({
 })
 
 wk.register({
-  c = {
-    ["#"] = { "<cmd>Cloc<cr>", "Count lines" },
-  },
+  ["c#"] = { "<cmd>Cloc<cr>", "Count lines" },
   ["<cr>"] = {
     b = { "<cmd>Btop<cr>", "Btop process manager" },
     n = { "<cmd>Nap<cr>", "Nap code snippets" },

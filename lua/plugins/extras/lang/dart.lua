@@ -29,7 +29,7 @@ return {
       lsp = {
         on_attach = function(client, bufnr)
           require("lazyvim.util").on_attach(function(_, _)
-            local which_key = require("which-key")
+            local wk = require("which-key")
             local nvim_del_keymap = vim.api.nvim_del_keymap
 
             pcall(nvim_del_keymap, "n", "<leader>cR")
@@ -37,7 +37,7 @@ return {
             pcall(nvim_del_keymap, "n", "<leader>cp")
             pcall(nvim_del_keymap, "n", "<leader>cP")
 
-            which_key.register({
+            wk.register({
               c = {
                 R = { "<cmd>FlutterRun<cr>", "Flutter run" },
                 F = { "<cmd>FlutterRestart<cr>", "Flutter restart" },

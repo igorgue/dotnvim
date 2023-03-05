@@ -162,7 +162,7 @@ return {
           rt.inlay_hints.enable()
 
           require("lazyvim.util").on_attach(function(_, bufnr)
-            local which_key = require("which-key")
+            local wk = require("which-key")
             local keymap = vim.keymap
             local api = vim.api
             local nvim_del_keymap = api.nvim_del_keymap
@@ -182,7 +182,7 @@ return {
             keymap.set("n", "K", rt.hover_actions.hover_actions, map_opts)
             keymap.set("v", "K", rt.hover_range.hover_range, map_opts)
 
-            which_key.register({
+            wk.register({
               c = {
                 A = { rt.code_action_group.code_action_group, "Rust code actions", opts = map_opts },
                 R = { rt.runnables.runnables, "Rust runables", opts = map_opts },

@@ -192,18 +192,20 @@ return {
       rustywind.filetypes[#rustywind.filetypes + 1] = "rust"
       rustywind.filetypes[#rustywind.filetypes + 1] = "elixir"
 
+      opts.debug = true
+
       opts.sources = {
         nls.builtins.formatting.prettierd,
         nls.builtins.formatting.stylua,
         nls.builtins.formatting.mix,
         nls.builtins.formatting.isort,
         nls.builtins.formatting.black,
-        nls.builtins.formatting.ruff,
         nls.builtins.formatting.rustfmt,
         nls.builtins.formatting.dart_format,
         nls.builtins.formatting.swiftlint,
         rustywind,
         nls.builtins.diagnostics.swiftlint,
+        nls.builtins.diagnostics.pylint,
       }
 
       return opts

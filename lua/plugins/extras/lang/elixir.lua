@@ -37,7 +37,7 @@ return {
         }),
         on_attach = function(_, _)
           require("lazyvim.util").on_attach(function(_, bufnr)
-            local which_key = require("which-key")
+            local wk = require("which-key")
             local elixir_opts = { noremap = true, silent = true, buffer = bufnr }
             local nvim_del_keymap = vim.api.nvim_del_keymap
 
@@ -47,7 +47,7 @@ return {
             pcall(nvim_del_keymap, "n", "<leader>cR")
             pcall(nvim_del_keymap, "n", "<leader>cO")
 
-            which_key.register({
+            wk.register({
               c = {
                 p = { "<cmd>ElixirToPipe<cr>", "Elixir to pipe", opts = elixir_opts },
                 P = { "<cmd>ElixirFromPipe<cr>", "Elixir from pipe", opts = elixir_opts },
