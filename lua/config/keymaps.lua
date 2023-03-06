@@ -24,12 +24,7 @@ wk.register({
     s = { "<cmd>Screenshot<cr>", "Take a screenshot" },
     r = { "<cmd>Ranger<cr>", "Ranger visual file manager" },
     c = { "<cmd>Cloc<cr>", "Count lines" },
-    g = {
-      function()
-        util.float_term({ "lazygit" }, { cwd = util.get_root() })
-      end,
-      "Lazygit",
-    },
+    g = { "<cmd>Lazygit<cr>", "Lazygit" },
   },
 }, {
   prefix = "<leader>",

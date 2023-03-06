@@ -84,7 +84,7 @@ return {
     dap.configurations.rust = dap.configurations.cpp
   end,
   keys = {
-    { "<F5>", "<Cmd>lua require('dap').continue()<CR>", desc = "Debug continue" },
+    { "<F5>", "<Cmd>lua require('dap').continue()<CR>", desc = "Debug start/continue" },
     { "<F6>", "<Cmd>lua require('dap').step_over()<CR>", desc = "Debug step over" },
     { "<F7>", "<Cmd>lua require('dap').step_into()<CR>", desc = "Debug step into" },
     { "<F8>", "<Cmd>lua require('dap').step_out()<CR>", desc = "Debug step out" },

@@ -5,16 +5,20 @@ local api = vim.api
 local util = require("lazyvim.util")
 
 -- commands
+api.nvim_create_user_command("Btop", function()
+  util.float_term("btop")
+end, {})
+
 api.nvim_create_user_command("Nap", function()
   util.float_term("nap")
 end, {})
 
 api.nvim_create_user_command("Ranger", function()
-  util.float_term("ranger")
+  util.float_term({ "ranger" }, { cwd = util.get_root() })
 end, {})
 
-api.nvim_create_user_command("Btop", function()
-  util.float_term("btop")
+api.nvim_create_user_command("Lazygit", function()
+  util.float_term({ "lazygit" }, { cwd = util.get_root() })
 end, {})
 
 api.nvim_create_user_command("Cloc", function()
