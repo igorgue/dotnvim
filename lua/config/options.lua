@@ -54,6 +54,44 @@ opt.undofile = true
 opt.isfname:append(":")
 opt.clipboard = "unnamed"
 
+-- sets the tabline to not show x, a very simple tabline
+vim.cmd([[
+  function NoXTabLine()
+    let s = ''
+    for i in range(tabpagenr('$'))
+      " select the highlighting
+      if i + 1 == tabpagenr()
+        let s ..= '%#TabLineSel#'
+      else
+        let s ..= '%#TabLine#'
+      endif
+      " set the tab page number (for mouse clicks)
+      let s ..= '%' .. (i + 1) .. 'T'
+      " the label is made by NoXTabLabel()
+      let s ..= ' %{NoXTabLabel(' .. (i + 1) .. ')} '
+    endfor
+    " after the last tab fill with TabLineFill and reset tab page nr
+    let s ..= '%#TabLineFill#%T'
+    " right-align the label to close the current tab page
+    if tabpagenr('$') > 1
+      " Does not include the close button
+      let s ..= '%=%#TabLine#%999X'
+    endif
+    return s
+  endfunction
+  function NoXTabLabel(n)
+    let buflist = tabpagebuflist(a:n)
+    let winnr = tabpagewinnr(a:n)
+    let name = fnamemodify(bufname(buflist[winnr - 1]), ":t")
+    " Modification for no name...
+    if name == ''
+      return '[No Name]'
+    endif
+    return name
+  endfunction
+  set tabline=%!NoXTabLine()
+]])
+
 -- FIXME: Figure out a way to get the space back
 -- when disabling number with nonumber
 -- if vim.version().minor == 9 then
