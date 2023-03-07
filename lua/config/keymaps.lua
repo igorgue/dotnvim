@@ -4,7 +4,6 @@
 local api = vim.api
 local nvim_del_keymap = api.nvim_del_keymap
 local wk = require("which-key")
-local util = require("lazyvim.util")
 
 pcall(nvim_del_keymap, "n", "<")
 pcall(nvim_del_keymap, "n", ">")

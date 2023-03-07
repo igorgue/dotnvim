@@ -19,7 +19,9 @@ return {
       "BufNewFile *.vsh",
     },
     config = function()
-      pcall(vim.cmd, "!v ls --install")
+      -- stylua: ignore
+      pcall(function() vim.cmd("!v ls --install") end)
+
       vim.g.v_autofmt_bufwritepre = true
     end,
   },

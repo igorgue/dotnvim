@@ -195,11 +195,11 @@ return {
   },
   {
     "mattn/webapi-vim",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
   },
   {
     "s1n7ax/nvim-window-picker",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("window-picker").setup()
     end,
@@ -221,7 +221,7 @@ return {
             return
           end
 
-          local width = vim.fn.input({ prompt = "Zen mode width: ", default = "60", cancelreturn = "60" })
+          local width = vim.fn.input({ prompt = "Zen mode width: ", default = "80", cancelreturn = "80" })
 
           require("zen-mode").toggle({
             window = {

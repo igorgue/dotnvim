@@ -191,8 +191,6 @@ return {
     opts = function(_, opts)
       local nls = require("null-ls")
 
-      opts.debug = true
-
       opts.default_timeout = 10000
       opts.fallback_severity = vim.diagnostic.severity.HINT
       opts.diagnostic_config = utils.ui.diagnostic_config
