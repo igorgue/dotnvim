@@ -48,7 +48,7 @@ return {
   },
   {
     "glepnir/lspsaga.nvim",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = "Lspsaga",
     -- stylua: ignore
@@ -132,7 +132,7 @@ return {
         max_height = 0.8,
       },
       beacon = {
-        enable = true,
+        enable = false,
         frequency = 7,
       },
     },

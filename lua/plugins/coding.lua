@@ -190,8 +190,9 @@ return {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function(_, opts)
       local nls = require("null-ls")
+      local timeout = 10000
 
-      opts.default_timeout = 10000
+      opts.default_timeout = timeout
       opts.fallback_severity = vim.diagnostic.severity.HINT
       opts.diagnostic_config = utils.ui.diagnostic_config
       opts.border = "rounded"
@@ -257,13 +258,18 @@ return {
     end,
     opts = {
       auto_install = true,
+      highlight = {
+        enable = true,
+      },
       markid = {
+        enable = true,
+      },
+      indent = {
         enable = true,
       },
       rainbow = {
         enable = true,
         query = "rainbow-parens",
-        max_file_lines = 3000,
       },
       refactor = {
         enable = true,
