@@ -66,6 +66,10 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "BufEnter", "Cursor
 
 vim.api.nvim_create_autocmd("Colorscheme", {
   callback = function()
+    if vim.o.diff ~= false then
+      return
+    end
+
     local config = require("lualine").get_config()
 
     config.options.theme = require("utils").ui.lualine_theme()

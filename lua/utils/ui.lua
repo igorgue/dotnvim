@@ -77,19 +77,18 @@ function M.lualine_theme()
     },
   }
 
-  if vim.api.nvim_win_get_option(0, "diff") then
+  if vim.o.diff ~= false then
     local defaults = {
-      a = { bg = lualine_colors.black, fg = lualine_colors.inactivegray },
-      b = { bg = lualine_colors.black, fg = lualine_colors.inactivegray },
-      c = { bg = lualine_colors.black, fg = lualine_colors.inactivegray },
-      x = { bg = lualine_colors.black, fg = lualine_colors.inactivegray },
+      a = { bg = lualine_colors.inactivegray, fg = lualine_colors.white },
+      b = { bg = lualine_colors.inactivegray, fg = lualine_colors.white },
+      c = { bg = lualine_colors.inactivegray, fg = lualine_colors.white },
+      x = { bg = lualine_colors.inactivegray, fg = lualine_colors.white },
     }
 
     theme.inactive = defaults
     theme.normal = defaults
     theme.insert = defaults
     theme.visual = defaults
-    theme.visual.x = { bg = lualine_colors.blue, fg = lualine_colors.black }
     theme.replace = defaults
     theme.command = defaults
     theme.inactive = defaults

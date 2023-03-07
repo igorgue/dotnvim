@@ -24,6 +24,8 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
+    -- stylua: ignore
+    cond = function() return vim.o.diff == false end,
     opts = {
       signs = {
         add = { text = "│" },

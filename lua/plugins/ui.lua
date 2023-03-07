@@ -319,6 +319,8 @@ return {
         build = "make",
       },
     },
+    -- stylua: ignore
+    cond = function() return vim.o.diff == false end,
     opts = function()
       local actions = require("telescope.actions")
       local themes = require("telescope.themes")
