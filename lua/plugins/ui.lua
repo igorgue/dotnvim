@@ -27,13 +27,13 @@ return {
           if vim.opt.list:get() then
             vim.opt.list = false
             vim.g.miniindentscope_disable = true
-            vim.opt.cursorline = false
+            -- vim.opt.cursorline = false
             vim.opt.number = false
             -- vim.opt.relativenumber = false
           else
             vim.opt.list = true
             vim.g.miniindentscope_disable = false
-            vim.opt.cursorline = true
+            -- vim.opt.cursorline = true
             vim.opt.number = true
             -- vim.opt.relativenumber = true
           end
