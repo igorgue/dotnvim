@@ -1,5 +1,17 @@
 local M = {}
 
+M.diagnostic_config = {
+  float = { border = "rounded" },
+  underline = true,
+  virtual_text = {
+    spacing = 0,
+    prefix = "●",
+  },
+  signs = true,
+  update_in_insert = true,
+  severity_sort = true,
+}
+
 function M.hi_co(group, kind)
   return vim.fn.synIDattr(vim.fn.hlID(group), kind)
 end

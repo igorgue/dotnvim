@@ -5,7 +5,13 @@ return {
     opts = {
       servers = {
         pyright = {
+          on_attach = function(client, _)
+            client.server_capabilities.codeActionProvider = false
+          end,
           settings = {
+            pyright = {
+              disableOrganizeImports = true,
+            },
             python = {
               analysis = {
                 autoSearchPaths = true,

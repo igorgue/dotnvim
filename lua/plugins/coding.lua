@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 return {
   {
     "tpope/vim-fugitive",
@@ -187,25 +189,27 @@ return {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function(_, opts)
       local nls = require("null-ls")
-      local rustywind = nls.builtins.formatting.rustywind
-
-      rustywind.filetypes[#rustywind.filetypes + 1] = "rust"
-      rustywind.filetypes[#rustywind.filetypes + 1] = "elixir"
 
       opts.debug = true
+
+      opts.default_timeout = 10000
+      opts.fallback_severity = vim.diagnostic.severity.HINT
+      opts.diagnostic_config = utils.ui.diagnostic_config
+      opts.border = "rounded"
 
       opts.sources = {
         nls.builtins.formatting.prettierd,
         nls.builtins.formatting.stylua,
         nls.builtins.formatting.mix,
         nls.builtins.formatting.isort,
+        nls.builtins.formatting.ruff,
         nls.builtins.formatting.black,
         nls.builtins.formatting.rustfmt,
+        nls.builtins.formatting.shfmt,
         nls.builtins.formatting.dart_format,
         nls.builtins.formatting.swiftlint,
-        rustywind,
+        nls.builtins.formatting.rustywind.with({ extra_filetypes = { "rust", "elixir" } }),
         nls.builtins.diagnostics.swiftlint,
-        nls.builtins.diagnostics.pylint,
       }
 
       return opts

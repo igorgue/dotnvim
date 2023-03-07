@@ -6,6 +6,7 @@ local lsp = vim.lsp
 local diagnostic = vim.diagnostic
 local fn = vim.fn
 local g = vim.g
+local utils = require("utils")
 
 opt.number = false
 opt.relativenumber = false
@@ -51,6 +52,7 @@ opt.fillchars = {
 opt.writebackup = true
 opt.undofile = true
 opt.isfname:append(":")
+opt.clipboard = "unnamed"
 
 -- FIXME: Figure out a way to get the space back
 -- when disabling number with nonumber
@@ -58,20 +60,9 @@ opt.isfname:append(":")
 --   vim.opt.statuscolumn = "%=%l%r%s%C"
 -- end
 
-local diagnostic_config = {
-  float = { border = "rounded" },
-  underline = true,
-  virtual_text = {
-    spacing = 0,
-    prefix = "",
-  },
-  signs = true,
-  update_in_insert = true,
-  severity_sort = true,
-}
-
-diagnostic.config(diagnostic_config)
-lsp.handlers["textDocument/publishDiagnostics"] = lsp.with(lsp.diagnostic.on_publish_diagnostics, diagnostic_config)
+diagnostic.config(utils.ui.diagnostic_config)
+lsp.handlers["textDocument/publishDiagnostics"] =
+  lsp.with(lsp.diagnostic.on_publish_diagnostics, utils.ui.diagnostic_config)
 lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, { border = "rounded" })
 lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_help, { border = "rounded" })
 
