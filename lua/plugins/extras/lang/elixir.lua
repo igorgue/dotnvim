@@ -17,22 +17,22 @@ return {
 
         -- default settings, use the `settings` function to override settings
         settings = require("elixir").settings({
-          dialyzerEnabled = true,
-          dialyzerFormat = "dialyxir_long",
+          dialyzerEnabled = false,
+          -- dialyzerFormat = "dialyxir_long",
           -- dialyzerWarnOpts = []
-          enableTestLenses = true,
+          enableTestLenses = false,
           -- envVariables =
-          fetchDeps = true,
+          fetchDeps = false,
           -- languageServerOverridePath =
           mixEnv = "dev",
           -- mixTarget = "host",
           -- projectDir = "",
-          signatureAfterComplete = true,
-          suggestSpecs = true,
+          signatureAfterComplete = false,
+          suggestSpecs = false,
           log_level = vim.lsp.protocol.MessageType.Log,
           message_level = vim.lsp.protocol.MessageType.Log,
           trace = {
-            server = "on",
+            server = "off",
           },
         }),
         on_attach = function(_, _)
