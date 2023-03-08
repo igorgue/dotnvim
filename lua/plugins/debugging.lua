@@ -88,6 +88,7 @@ return {
     { "<F6>", "<Cmd>lua require('dap').step_over()<CR>", desc = "Debug step over" },
     { "<F7>", "<Cmd>lua require('dap').step_into()<CR>", desc = "Debug step into" },
     { "<F8>", "<Cmd>lua require('dap').step_out()<CR>", desc = "Debug step out" },
+    { "<F9>", "<Cmd>DapTerminate<CR>", desc = "Debug terminate DAP" },
     { "<leader>db", "<Cmd>lua require('dap').toggle_breakpoint()<CR>", desc = "Debug toggle breakpoint" },
     {
       "<leader>dB",
