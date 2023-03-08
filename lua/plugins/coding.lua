@@ -240,7 +240,7 @@ return {
       require("nvim-dap-virtual-text").setup()
 
       -- enable html parser in htmldjango file
-      vim.treesitter.language.register("htmldjango", "html")
+      pcall(vim.treesitter.language.register, "htmldjango", "html")
 
       local import_tag, autotag = pcall(require, "nvim-ts-autotag")
       if not import_tag then
