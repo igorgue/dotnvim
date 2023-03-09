@@ -10,4 +10,8 @@ return {
       { "<leader><cr>d", "<cmd>DBUIToggle<cr>", desc = "Dadbod database manager" },
     },
   },
+  {
+    "jsborjesson/vim-uppercase-sql",
+    ft = { "sql" },
+  },
 }

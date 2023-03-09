@@ -97,6 +97,7 @@
   "vim-matchup": { "branch": "master", "commit": "fef9f334e64f024ac49eda92ef6274e826fe2de9" },
   "vim-repeat": { "branch": "master", "commit": "24afe922e6a05891756ecf331f39a1f6743d3d5a" },
   "vim-startuptime": { "branch": "master", "commit": "6580cf539c33a212f4f5542068a3b4dd2b3ad834" },
+  "vim-uppercase-sql": { "branch": "master", "commit": "58bfde1d679a1387dabfe292b38d51d84819b267" },
   "webapi-vim": { "branch": "master", "commit": "70c49ada7827d3545a65cbdab04c5c89a3a8464e" },
   "which-key.nvim": { "branch": "main", "commit": "fb027738340502b556c3f43051f113bcaa7e8e63" },
   "xdg_open.vim": { "branch": "master", "commit": "7832be894d748e1368a1268c6bbb50cc92d5bcc1" },

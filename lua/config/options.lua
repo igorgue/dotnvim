@@ -144,3 +144,6 @@ g.copilot_filetypes = {
   TelescopeResults = false,
   TelescopePrompt = false,
 }
+
+-- dadbod
+g.db_ui_execute_on_save = false

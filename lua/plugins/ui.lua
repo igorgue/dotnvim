@@ -12,6 +12,8 @@ return {
           vim.cmd("nohlsearch")
           vim.cmd("diffupdate")
           vim.cmd("normal! <C-L>")
+          -- stylua: ignore
+          pcall(function() vim.cmd("DBUIHideNotifications") end)
           require("notify").dismiss({})
         end,
         desc = "Refresh",
