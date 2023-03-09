@@ -84,23 +84,24 @@ vim.api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufRead", {
+vim.api.nvim_create_autocmd("BufReadPost", {
   callback = function()
-    if vim.fn.line("$") > 1000 then
+    local filesize = vim.fn.getfsize(vim.fn.expand("%:p"))
+    if filesize > 100000 then -- 100kb is too much for treesitter
       vim.b.autoformat = false
-      vim.opt.foldmethod = "manual"
+      vim.opt_local.foldmethod = "manual"
 
       -- disable "some" treesitter in the current buffer
       vim.cmd([[
+        " TSBufDisable markid
+        " TSBufDisable indent
         TSBufDisable highlight
-        TSBufDisable markid
         TSBufDisable rainbow
         TSBufDisable refactor
         TSBufDisable pairs
         TSBufDisable autotag
         TSBufDisable matchup
         TSBufDisable incremental_selection
-        " TSBufDisable indent
         TSBufDisable playground
         TSBufDisable query_linter
         TSBufDisable refactor.highlight_definitions
@@ -112,7 +113,7 @@ vim.api.nvim_create_autocmd("BufRead", {
       vim.notify(
         "* Treesitter degraded\n" .. "* autoformat off\n" .. "* foldmethod manual",
         vim.log.levels.WARN,
-        { title = "File is too large! (" .. vim.fn.line("$") .. "> 3000 lines)" }
+        { title = "File is too large! (" .. (filesize / 1000) .. "kb > 100kb)" }
       )
     end
   end,
