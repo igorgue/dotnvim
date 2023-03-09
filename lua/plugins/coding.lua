@@ -259,7 +259,7 @@ return {
     opts = {
       auto_install = true,
       highlight = {
-        enable = true,
+        enable = false,
       },
       markid = {
         enable = true,
