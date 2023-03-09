@@ -94,9 +94,10 @@ vim.cmd([[
 
 -- FIXME: Figure out a way to get the space back
 -- when disabling number with nonumber
--- if vim.version().minor == 9 then
---   vim.opt.statuscolumn = "%=%l%r%s%C"
--- end
+-- * we cannot use number and relativenumber with this setup
+if vim.version().minor == 9 then
+  vim.opt.statuscolumn = "%=%l%r%s%C"
+end
 
 diagnostic.config(utils.ui.diagnostic_config)
 lsp.handlers["textDocument/publishDiagnostics"] =
