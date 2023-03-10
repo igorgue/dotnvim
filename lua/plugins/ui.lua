@@ -356,6 +356,8 @@ return {
               ["<C-c>"] = actions.close,
               ["<C-j>"] = actions.cycle_history_next,
               ["<C-k>"] = actions.cycle_history_prev,
+              ["<C-b>"] = actions.preview_scrolling_up,
+              ["<C-f>"] = actions.preview_scrolling_down,
             },
           },
           layout_config = {
