@@ -100,7 +100,7 @@ return {
         -- border = "rounded",
         margin = { 0, 0, 0, 0 },
         padding = { 1, 0, 1, 0 },
-        winblend = 7,
+        winblend = 5,
       },
     },
   },
