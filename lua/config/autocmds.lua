@@ -23,7 +23,7 @@ end, {})
 
 api.nvim_create_user_command("Cloc", function()
   vim.schedule(function()
-    local out = vim.fn.system("cloc --quiet --exclude-list=.gitignore .")
+    local out = vim.fn.system("cloc --quiet --vcs=git --exclude-ext=json,toml,ini,txt")
 
     require("notify").notify(out, vim.log.levels.INFO, { title = "Lines of code in project" })
   end)
