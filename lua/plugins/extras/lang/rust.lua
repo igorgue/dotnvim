@@ -213,9 +213,31 @@ return {
   {
     "Saecki/crates.nvim",
     event = "BufReadPost Cargo.toml",
-    config = function()
-      require("crates").setup()
-      require("cmp").setup.buffer({ sources = { { name = "crates" }, { name = "buffer" } } })
+    config = function(_, opts)
+      local crates = require("crates")
+      local cmp = require("cmp")
+      local wk = require("which-key")
+
+      crates.setup(opts)
+
+      cmp.setup.buffer({ sources = { { name = "crates" }, { name = "buffer" } } })
+
+      wk.register({
+        ["<cr>"] = { crates.show_popup, "Crates Popup" },
+      }, {
+        buffer = 0,
+      })
     end,
+    opts = {
+      null_ls = {
+        enabled = true,
+        name = "Crates",
+      },
+      popup = {
+        autofocus = true,
+        hide_on_select = true,
+        border = "rounded",
+      },
+    },
   },
 }
