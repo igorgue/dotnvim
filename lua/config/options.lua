@@ -53,6 +53,7 @@ opt.writebackup = true
 opt.undofile = true
 opt.isfname:append(":")
 opt.clipboard = "unnamed"
+opt.cursorline = false
 
 -- sets the tabline to not show x, a very simple tabline
 vim.cmd([[
@@ -92,9 +93,8 @@ vim.cmd([[
   set tabline=%!NoXTabLine()
 ]])
 
--- FIXME: Figure out a way to get the space back
--- when disabling number with nonumber
--- * we cannot use number and relativenumber with this setup
+-- FIXME: We cannot use number and relativenumber with this setup
+-- it's roken and doesn't show you what you need
 if vim.version().minor == 9 then
   vim.opt.statuscolumn = "%=%l%r%s%C"
 end
