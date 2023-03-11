@@ -2,7 +2,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "danger",
+      colorscheme = os.getenv("NVIM_COLORSCHEME") or "danger",
     },
   },
   {
