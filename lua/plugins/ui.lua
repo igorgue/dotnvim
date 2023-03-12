@@ -4,20 +4,7 @@ return {
     -- extra global keys
     keys = {
       { "<leader>L", "<cmd>Lazy<cr>", desc = "Lazy" },
-      {
-        "<leader>r",
-        function()
-          vim.cmd("cd ~")
-          vim.cmd("cd -")
-          vim.cmd("nohlsearch")
-          vim.cmd("diffupdate")
-          vim.cmd("normal! <C-L>")
-          -- stylua: ignore
-          pcall(function() vim.cmd("DBUIHideNotifications") end)
-          require("notify").dismiss({})
-        end,
-        desc = "Refresh",
-      },
+      { "<leader>r", require("utils").ui.refresh_ui, desc = "Refresh" },
       { "<leader><tab>j", "<cmd>tabprevious<cr>", desc = "Previous tab" },
       { "<leader><tab>k", "<cmd>tabnext<cr>", desc = "Next tab" },
       { "<leader><tab>h", "<cmd>tabfirst<cr>", desc = "First tab" },

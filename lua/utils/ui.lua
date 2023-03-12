@@ -12,6 +12,17 @@ M.diagnostic_config = {
   severity_sort = true,
 }
 
+function M.refresh_ui()
+  vim.cmd("cd ~")
+  vim.cmd("cd -")
+  vim.cmd("nohlsearch")
+  vim.cmd("diffupdate")
+  vim.cmd("normal! <C-L>")
+  -- stylua: ignore
+  pcall(function() vim.cmd("DBUIHideNotifications") end)
+  require("notify").dismiss({})
+end
+
 function M.hi_co(group, kind)
   return vim.fn.synIDattr(vim.fn.hlID(group), kind)
 end
