@@ -1,5 +1,15 @@
 return {
   {
+    "neovim/nvim-lspconfig",
+    ft = { "rust" },
+    opts = {
+      setup = {
+        -- stylua: ignore
+        ["rust-analyzer"] = function() return true end,
+      },
+    },
+  },
+  {
     "simrat39/rust-tools.nvim",
     dependencies = {
       "rust-lang/rust.vim",

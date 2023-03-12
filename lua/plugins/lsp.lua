@@ -67,11 +67,6 @@ return {
           pcall(vim.api.nvim_del_keymap, "n", "<leader>co")
           keymap.set("n", "<leader>co", "<cmd>FlutterOutlineToggle<cr>", default_opts)
         end
-
-        if client.name == "ElixirLS" then
-          pcall(vim.api.nvim_del_keymap, "n", "<leader>co")
-          keymap.set("n", "K", vim.lsp.buf.hover, default_opts)
-        end
       end)
 
       -- stylua: ignore

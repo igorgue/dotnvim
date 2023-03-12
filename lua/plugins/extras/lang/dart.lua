@@ -1,5 +1,15 @@
 return {
   {
+    "neovim/nvim-lspconfig",
+    ft = { "dart" },
+    opts = {
+      setup = {
+        -- stylua: ignore
+        dartls = function() return true end,
+      },
+    },
+  },
+  {
     "akinsho/flutter-tools.nvim",
     ft = "dart",
     dependencies = {
