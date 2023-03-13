@@ -238,6 +238,8 @@ return {
       "andymass/vim-matchup",
     },
     config = function(_, opts)
+      opts.rainbow["strategy"] = require("ts-rainbow.strategy.local")
+
       require("nvim-treesitter.configs").setup(opts)
 
       require("treesitter-context").setup()
