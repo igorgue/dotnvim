@@ -30,8 +30,8 @@ return {
               })
 
               wk.register({
-                e = { extract_variable, "Extract Variable" },
-                M = { extract_method, "Extract Method" },
+                e = { extract_variable, "Java extract variable" },
+                M = { extract_method, "Java extract method" },
               }, {
                 mode = "v",
                 prefix = "<leader>c",

@@ -44,3 +44,5 @@ api.nvim_create_autocmd("TermOpen", {
     vim.opt_local.cursorline = false
   end,
 })
+
+-- plugins.extras.* includes more autocmds, specific for certain files
