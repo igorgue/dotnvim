@@ -20,9 +20,9 @@ wk.register({
   ["<cr>"] = {
     b = { "<cmd>Btop<cr>", "Btop process manager" },
     n = { "<cmd>Nap<cr>", "Nap code snippets" },
-    s = { "<cmd>Screenshot<cr>", "Take a screenshot" },
+    s = { "<cmd>Screenshot<cr>", "Gnome screenshot window" },
     r = { "<cmd>Ranger<cr>", "Ranger visual file manager" },
-    c = { "<cmd>Cloc<cr>", "Count lines" },
+    c = { "<cmd>Cloc<cr>", "Cloc count lines" },
     g = { "<cmd>Lazygit<cr>", "Lazygit" },
   },
 }, {

@@ -13,6 +13,12 @@ return {
     "github/copilot.vim",
     cmd = "Copilot",
     event = { "BufReadPost", "BufNewFile" },
+    init = function()
+      vim.g.copilot_filetypes = {
+        TelescopeResults = false,
+        TelescopePrompt = false,
+      }
+    end,
   },
   {
     "hrsh7th/nvim-cmp",
@@ -237,6 +243,47 @@ return {
       "windwp/nvim-ts-autotag",
       "andymass/vim-matchup",
     },
+    init = function()
+      vim.api.nvim_create_autocmd("BufReadPost", {
+        -- files I use, I suspect I should add a bunch
+        pattern = { "*.py", "*.ex", "*.rs", "*.dart", "*.js", "*.json" },
+        callback = function()
+          local filesize = vim.fn.getfsize(vim.fn.expand("%:p"))
+
+          if filesize < 50000 then
+            return
+          end
+
+          vim.b.autoformat = false
+          vim.opt_local.foldmethod = "manual"
+
+          -- disable "some" treesitter in the current buffer
+          vim.cmd([[
+            " TSBufDisable markid
+            " TSBufDisable indent
+            TSBufDisable highlight
+            TSBufDisable rainbow
+            TSBufDisable refactor
+            TSBufDisable pairs
+            TSBufDisable autotag
+            TSBufDisable matchup
+            TSBufDisable incremental_selection
+            TSBufDisable playground
+            TSBufDisable query_linter
+            TSBufDisable refactor.highlight_definitions
+            TSBufDisable refactor.navigation
+            TSBufDisable refactor.smart_rename
+            TSBufDisable refactor.highlight_current_scope
+          ]])
+
+          vim.notify(
+            "* Treesitter degraded\n" .. "* autoformat off\n" .. "* foldmethod manual",
+            vim.log.levels.WARN,
+            { title = "File is too large! (" .. (filesize / 1000) .. "kb > 50kb)" }
+          )
+        end,
+      })
+    end,
     config = function(_, opts)
       opts.rainbow["strategy"] = require("ts-rainbow.strategy.local")
 

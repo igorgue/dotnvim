@@ -3,6 +3,15 @@ return {
     "neovim/nvim-lspconfig",
     -- stylua: ignore
     cond = function() return vim.o.diff == false end,
+    init = function()
+      vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "BufEnter", "CursorHold", "InsertLeave" }, {
+        callback = function()
+          if next(vim.lsp.codelens.get(vim.api.nvim_get_current_buf())) ~= nil then
+            vim.lsp.codelens.refresh()
+          end
+        end,
+      })
+    end,
     opts = function(_, opts)
       local keymaps = require("lazyvim.plugins.lsp.keymaps")
       local ui_windows = require("lspconfig.ui.windows")
@@ -54,20 +63,7 @@ return {
     -- stylua: ignore
     cond = function() return vim.o.diff == false end,
     config = function(_, opts)
-      local keymap = vim.keymap
-      local default_opts = { silent = true, noremap = true }
-
       require("lspsaga").setup(opts)
-
-      keymap.set("n", "<leader>co", "<cmd>Lspsaga outline<cr>", default_opts)
-      keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>", default_opts)
-
-      require("lazyvim.util").on_attach(function(client, _)
-        if client.name == "dartls" then
-          pcall(vim.api.nvim_del_keymap, "n", "<leader>co")
-          keymap.set("n", "<leader>co", "<cmd>FlutterOutlineToggle<cr>", default_opts)
-        end
-      end)
 
       -- stylua: ignore
       pcall(function() vim.cmd("colorscheme " .. vim.g.colors_name) end)
@@ -132,9 +128,9 @@ return {
       },
     },
     keys = {
-      { "K", nil, desc = "Hover doc" },
-      { "<leader>co", nil, desc = "Code outline" },
-      { "<leader>t", "<cmd>Lspsaga term_toggle<cr>", desc = "Terminal" },
+      { "K", "<cmd>Lspsaga hover_doc<cr>", desc = "Lspsaga hover doc" },
+      { "<leader>co", "<cmd>Lspsaga outline<cr>", desc = "Lspsaga code outline" },
+      { "<leader>t", "<cmd>Lspsaga term_toggle<cr>", desc = "Lspsaga terminal" },
     },
   },
 }

@@ -13,7 +13,15 @@ return {
     "akinsho/flutter-tools.nvim",
     ft = "dart",
     dependencies = {
-      "dart-lang/dart-vim-plugin",
+      {
+        "dart-lang/dart-vim-plugin",
+        init = function()
+          vim.g.dart_style_guide = 2
+          vim.g.dart_html_in_string = true
+          vim.g.dart_trailing_comma_indent = true
+          vim.g.dartfmt_options = { "--fix" }
+        end,
+      },
       "Nash0x7E2/awesome-flutter-snippets",
     },
     opts = {
@@ -47,6 +55,7 @@ return {
                 F = { "<cmd>FlutterRestart<cr>", "Flutter restart" },
                 p = { "<cmd>FlutterPubGet<cr>", "Flutter pub get" },
                 P = { "<cmd>FlutterPubUpgrade<cr>", "Flutter pub upgrade" },
+                o = { "<cmd>FlutterOutlineToggle<cr>", "Flutter outline" },
               },
             }, {
               prefix = "<leader>",

@@ -13,6 +13,10 @@ return {
     "simrat39/rust-tools.nvim",
     dependencies = {
       "rust-lang/rust.vim",
+      init = function()
+        vim.g.rustfmt_autosave = false
+        vim.g.rust_clip_command = "xclip -selection clipboard"
+      end,
     },
     ft = "rust",
     opts = {

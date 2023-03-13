@@ -24,6 +24,13 @@ return {
   },
   {
     "lukas-reineke/indent-blankline.nvim",
+    init = function()
+      vim.g.indent_blankline_disable_with_nolist = true
+      vim.g.indent_blankline_use_treesitter = true
+
+      -- indent scope
+      vim.g.miniindentscope_disable = true
+    end,
     keys = {
       {
         "<leader>l",
@@ -95,6 +102,21 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
+    init = function()
+      vim.api.nvim_create_autocmd("Colorscheme", {
+        callback = function()
+          if vim.o.diff ~= false then
+            return
+          end
+
+          local config = require("lualine").get_config()
+
+          config.options.theme = require("utils").ui.lualine_theme()
+
+          require("lualine").setup(config)
+        end,
+      })
+    end,
     opts = function(_)
       local icons = require("lazyvim.config").icons
 
@@ -173,6 +195,14 @@ return {
     "norcalli/nvim-colorizer.lua",
     event = { "BufReadPost", "BufNewFile" },
     cmd = { "ColorizerToggle", "ColorizerAttachToBuffer", "ColorizerReloadAllBuffers" },
+    init = function()
+      vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
+        group = vim.api.nvim_create_augroup("ColorizerReload", { clear = true }),
+        callback = function()
+          vim.cmd("ColorizerAttachToBuffer")
+        end,
+      })
+    end,
     config = function()
       require("colorizer").setup({ "*" }, {
         RGB = true, -- #RGB hex codes

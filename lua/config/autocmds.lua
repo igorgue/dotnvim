@@ -25,101 +25,22 @@ api.nvim_create_user_command("Cloc", function()
   vim.schedule(function()
     local out = vim.fn.system("cloc --quiet --vcs=git --exclude-ext=json,toml,ini,txt")
 
-    require("notify").notify(out, vim.log.levels.INFO, { title = "Lines of code in project" })
+    vim.notify(out, vim.log.levels.INFO, { title = "Lines of code in project" })
   end)
 end, {})
 
 -- autocmds
 api.nvim_create_user_command("Screenshot", function()
-  local notify = require("notify")
-
-  notify.notify("In 3...2...1", vim.log.levels.INFO, { title = "Screenshot" })
+  vim.notify("In 3...2...1", vim.log.levels.INFO, { title = "Screenshot" })
 
   vim.defer_fn(function()
-    notify.dismiss({})
+    require("notify").dismiss({})
     vim.cmd("silent !gnome-screenshot -w &")
   end, 3000)
 end, {})
 
-api.nvim_create_autocmd("FileType", {
-  pattern = { "sql", "mysql", "plsql" },
-  callback = function()
-    require("cmp").setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
-  end,
-})
-
-api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
-  group = vim.api.nvim_create_augroup("ColorizerReload", { clear = true }),
-  callback = function()
-    vim.cmd("ColorizerAttachToBuffer")
-  end,
-})
-
-api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "BufEnter", "CursorHold", "InsertLeave" }, {
-  buffer = 0,
-  callback = function()
-    if next(vim.lsp.codelens.get(0)) ~= nil then
-      vim.lsp.codelens.refresh()
-    end
-  end,
-})
-
-api.nvim_create_autocmd("Colorscheme", {
-  callback = function()
-    if vim.o.diff ~= false then
-      return
-    end
-
-    local config = require("lualine").get_config()
-
-    config.options.theme = require("utils").ui.lualine_theme()
-
-    require("lualine").setup(config)
-  end,
-})
-
 api.nvim_create_autocmd("TermOpen", {
   callback = function()
     vim.opt_local.cursorline = false
-  end,
-})
-
-api.nvim_create_autocmd("BufReadPost", {
-  -- files I use, I suspect I should add a bunch
-  pattern = { "*.py", "*.ex", "*.rs", "*.dart", "*.js", "*.json" },
-  callback = function()
-    local filesize = vim.fn.getfsize(vim.fn.expand("%:p"))
-
-    if filesize < 50000 then
-      return
-    end
-
-    vim.b.autoformat = false
-    vim.opt_local.foldmethod = "manual"
-
-    -- disable "some" treesitter in the current buffer
-    vim.cmd([[
-      " TSBufDisable markid
-      " TSBufDisable indent
-      TSBufDisable highlight
-      TSBufDisable rainbow
-      TSBufDisable refactor
-      TSBufDisable pairs
-      TSBufDisable autotag
-      TSBufDisable matchup
-      TSBufDisable incremental_selection
-      TSBufDisable playground
-      TSBufDisable query_linter
-      TSBufDisable refactor.highlight_definitions
-      TSBufDisable refactor.navigation
-      TSBufDisable refactor.smart_rename
-      TSBufDisable refactor.highlight_current_scope
-    ]])
-
-    vim.notify(
-      "* Treesitter degraded\n" .. "* autoformat off\n" .. "* foldmethod manual",
-      vim.log.levels.WARN,
-      { title = "File is too large! (" .. (filesize / 1000) .. "kb > 50kb)" }
-    )
   end,
 })

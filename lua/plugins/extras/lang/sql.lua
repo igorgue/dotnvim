@@ -9,6 +9,19 @@ return {
     keys = {
       { "<leader><cr>d", "<cmd>DBUIToggle<cr>", desc = "Dadbod database manager" },
     },
+    init = function()
+      vim.g.dbs = {}
+      vim.g.db_ui_use_nerd_fonts = true
+      vim.g.db_ui_save_location = vim.fn.stdpath("data") .. "/db_ui"
+      vim.g.db_ui_execute_on_save = false
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "sql", "mysql", "plsql" },
+        callback = function()
+          require("cmp").setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
+        end,
+      })
+    end,
   },
   {
     "jsborjesson/vim-uppercase-sql",
