@@ -37,15 +37,9 @@ return {
         open_cmd = "botright 5sp",
       },
       lsp = {
-        on_attach = function(client, bufnr)
-          require("lazyvim.util").on_attach(function(_, _)
+        on_attach = function()
+          local register_keys = function()
             local wk = require("which-key")
-            local nvim_del_keymap = vim.api.nvim_del_keymap
-
-            pcall(nvim_del_keymap, "n", "<leader>cR")
-            pcall(nvim_del_keymap, "n", "<leader>cF")
-            pcall(nvim_del_keymap, "n", "<leader>cp")
-            pcall(nvim_del_keymap, "n", "<leader>cP")
 
             wk.register({
               c = {
@@ -56,12 +50,14 @@ return {
               },
             }, {
               prefix = "<leader>",
+              buffer = vim.api.nvim_get_current_buf(),
             })
+          end
 
-            require("telescope").load_extension("flutter")
-          end)
+          register_keys()
+          vim.api.nvim_create_autocmd("FileType", { pattern = "dart", callback = register_keys })
 
-          require("flutter-tools").on_attach(client, bufnr)
+          require("telescope").load_extension("flutter")
         end,
         color = {
           enabled = true,

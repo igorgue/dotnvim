@@ -1,63 +1,57 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    dependencies = { "mfussenegger/nvim-jdtls" },
     ft = { "java" },
     opts = {
       setup = {
         -- stylua: ignore
-        jdtls = function() return true end,
-      },
-    },
-  },
-  {
-    "mfussenegger/nvim-jdtls",
-    ft = { "java" },
-    config = function(_, opts)
-      require("lazyvim.util").on_attach(function(_, buffer)
-        local wk = require("which-key")
+        jdtls = function()
+          vim.api.nvim_create_autocmd("FileType", {
+            pattern = "java",
+            callback = function()
+              local jdtls = require("jdtls")
+              local wk = require("which-key")
 
-        wk.register({
-          i = { require("jdtls").organize_imports, "Organize Imports" },
-          t = { require("jdtls").test_class, "Test Class" },
-          n = { require("jdtls").test_nearest_method, "Test Nearest Method" },
-          -- stylua: ignore
-          e = { function() require("jdtls").extract_variable(true) end, "Extract Variable", },
-          -- stylua: ignore
-          M = { function() require("jdtls").extract_method(true) end, "Extract Method", },
-        }, {
-          prefix = "<leader>c",
-          buffer = buffer,
-        })
+              -- stylua: ignore start
+              local extract_variable = function() jdtls.extract_variable(true) end
+              local extract_method = function() jdtls.extract_method(true) end
+              -- stylua: ignore end
 
-        wk.register({
-          e = {
-            function()
-              require("jdtls").extract_variable(true)
-            end,
-            "Extract Variable",
-          },
-          M = {
-            function()
-              require("jdtls").extract_method(true)
-            end,
-            "Extract Method",
-          },
-        }, {
-          prefix = "<leader>c",
-          buffer = buffer,
-          mode = "v",
-        })
-      end)
+              wk.register({
+                i = { jdtls.organize_importsorganize_imports, "Java organize imports" },
+                t = { jdtls.test_class, "Java test class" },
+                n = { jdtls.test_nearest_method, "Java test nearest method" },
+                e = { extract_variable, "Java extract variable" },
+                M = { extract_method, "Java extract method" },
+              }, {
+                prefix = "<leader>c",
+                buffer = vim.api.nvim_get_current_buf(),
+              })
 
-      opts.root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "build.gradle" })
+              wk.register({
+                e = { extract_variable, "Extract Variable" },
+                M = { extract_method, "Extract Method" },
+              }, {
+                mode = "v",
+                prefix = "<leader>c",
+                buffer = vim.api.nvim_get_current_buf(),
+              })
 
-      require("jdtls").start_or_attach(opts)
-      require("jdtls").setup_dap({ hotcodereplace = "auto" })
-    end,
-    opts = {
-      cmd = { "jdtls" },
-      settings = {
-        java = {},
+              jdtls.start_or_attach({
+                cmd = { "jdtls" },
+                settings = {
+                  java = {},
+                },
+                root_dir = jdtls.setup.find_root({ ".git", "mvnw", "gradlew", "build.gradle" })
+              })
+
+              jdtls.setup_dap({ hotcodereplace = "auto" })
+            end
+          })
+
+          return true
+        end,
       },
     },
   },

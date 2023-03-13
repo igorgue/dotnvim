@@ -167,48 +167,42 @@ return {
           },
         },
         on_attach = function()
-          local rt = require("rust-tools")
-
-          rt.inlay_hints.enable()
-
-          require("lazyvim.util").on_attach(function(_, bufnr)
+          local register_keys = function()
+            local rt = require("rust-tools")
             local wk = require("which-key")
             local keymap = vim.keymap
             local api = vim.api
             local nvim_del_keymap = api.nvim_del_keymap
-            local map_opts = { noremap = true, silent = true, buffer = bufnr }
-
+            -- rust-tools replaces K and K in visual mode
             pcall(nvim_del_keymap, "n", "K")
             pcall(nvim_del_keymap, "v", "K")
-            pcall(nvim_del_keymap, "n", "<leader>cA")
-            pcall(nvim_del_keymap, "n", "<leader>cR")
-            pcall(nvim_del_keymap, "n", "<leader>ce")
-            pcall(nvim_del_keymap, "n", "<leader>cj")
-            pcall(nvim_del_keymap, "n", "<leader>ck")
-            pcall(nvim_del_keymap, "n", "<leader>cC")
-            pcall(nvim_del_keymap, "n", "<leader>cp")
-            pcall(nvim_del_keymap, "n", "<leader>cJ")
 
-            keymap.set("n", "K", rt.hover_actions.hover_actions, map_opts)
-            keymap.set("v", "K", rt.hover_range.hover_range, map_opts)
+            keymap.set("n", "K", rt.hover_actions.hover_actions)
+            keymap.set("v", "K", rt.hover_range.hover_range)
 
             wk.register({
               c = {
-                A = { rt.code_action_group.code_action_group, "Rust code actions", opts = map_opts },
-                R = { rt.runnables.runnables, "Rust runables", opts = map_opts },
-                e = { rt.expand_macro.expand_macro, "Rust expand macro", opts = map_opts },
+                A = { rt.code_action_group.code_action_group, "Rust code actions" },
+                R = { rt.runnables.runnables, "Rust runables" },
+                e = { rt.expand_macro.expand_macro, "Rust expand macro" },
                 -- stylua: ignore
-                k = { function() rt.move_item.move_item(true) end, "Rust move up", opts = map_opts },
+                k = { function() rt.move_item.move_item(true) end, "Rust move up" },
                 -- stylua: ignore
-                j = { function() rt.move_item.move_item(false) end, "Rust move down", opts = map_opts},
-                C = { rt.open_cargo_toml.open_cargo_toml, "Rust open cargo.toml", opts = map_opts },
-                p = { rt.parent_module.parent_module, "Rust parent module", opts = map_opts },
-                J = { rt.join_lines.join_lines, "Rust join lines", opts = map_opts },
+                j = { function() rt.move_item.move_item(false) end, "Rust move down"},
+                C = { rt.open_cargo_toml.open_cargo_toml, "Rust open cargo.toml" },
+                p = { rt.parent_module.parent_module, "Rust parent module" },
+                J = { rt.join_lines.join_lines, "Rust join lines" },
               },
             }, {
               prefix = "<leader>",
+              buffer = vim.api.nvim_get_current_buf(),
             })
-          end)
+          end
+
+          require("rust-tools").inlay_hints.enable()
+
+          register_keys()
+          vim.api.nvim_create_autocmd("FileType", { pattern = "rust", callback = register_keys })
         end,
       },
       dap = {
@@ -224,19 +218,22 @@ return {
     "Saecki/crates.nvim",
     event = "BufReadPost Cargo.toml",
     config = function(_, opts)
-      local crates = require("crates")
-      local cmp = require("cmp")
-      local wk = require("which-key")
+      require("crates").setup(opts)
 
-      crates.setup(opts)
+      local register_keys_and_cmp = function()
+        local cmp = require("cmp")
+        local wk = require("which-key")
 
-      cmp.setup.buffer({ sources = { { name = "crates" }, { name = "buffer" } } })
+        cmp.setup.buffer({ sources = { { name = "crates" }, { name = "buffer" } } })
+        wk.register({
+          ["<cr>"] = { require("crates").show_popup, "Crates Popup" },
+        }, {
+          buffer = vim.api.nvim_get_current_buf(),
+        })
+      end
 
-      wk.register({
-        ["<cr>"] = { crates.show_popup, "Crates Popup" },
-      }, {
-        buffer = 0,
-      })
+      register_keys_and_cmp()
+      vim.api.nvim_create_autocmd("BufReadPost", { pattern = "Cargo.toml", callback = register_keys_and_cmp })
     end,
     opts = {
       null_ls = {

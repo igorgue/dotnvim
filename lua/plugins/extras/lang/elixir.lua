@@ -45,21 +45,24 @@ return {
             server = "off",
           },
         }),
-        on_attach = function(_, _)
-          require("lazyvim.util").on_attach(function(_, bufnr)
+        on_attach = function()
+          local register_keys = function()
             local wk = require("which-key")
-            local elixir_opts = { buffer = bufnr }
 
             wk.register({
-              p = { "<cmd>ElixirToPipe<cr>", "Elixir to pipe", opts = elixir_opts },
-              P = { "<cmd>ElixirFromPipe<cr>", "Elixir from pipe", opts = elixir_opts },
-              M = { "<cmd>ElixirExpandMacro<cr>", "Elixir expand macro", opts = elixir_opts },
-              R = { "<cmd>ElixirRestart<cr>", "Elixir restart", opts = elixir_opts },
-              O = { "<cmd>ElixirOutputPanel<cr>", "Elixir LSP output panel", opts = elixir_opts },
+              p = { "<cmd>ElixirToPipe<cr>", "Elixir to pipe" },
+              P = { "<cmd>ElixirFromPipe<cr>", "Elixir from pipe" },
+              M = { "<cmd>ElixirExpandMacro<cr>", "Elixir expand macro" },
+              R = { "<cmd>ElixirRestart<cr>", "Elixir restart" },
+              O = { "<cmd>ElixirOutputPanel<cr>", "Elixir LSP output panel" },
             }, {
               prefix = "<leader>c",
+              buffer = vim.api.nvim_get_current_buf(),
             })
-          end)
+          end
+
+          register_keys()
+          vim.api.nvim_create_autocmd("FileType", { pattern = "elixir", callback = register_keys })
         end,
       })
     end,
