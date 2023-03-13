@@ -5,7 +5,6 @@ local opt = vim.opt
 local lsp = vim.lsp
 local diagnostic = vim.diagnostic
 local fn = vim.fn
-local g = vim.g
 local utils = require("utils")
 
 opt.number = false
