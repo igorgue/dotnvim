@@ -48,14 +48,14 @@ api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
+api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
   group = vim.api.nvim_create_augroup("ColorizerReload", { clear = true }),
   callback = function()
     vim.cmd("ColorizerAttachToBuffer")
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "BufEnter", "CursorHold", "InsertLeave" }, {
+api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "BufEnter", "CursorHold", "InsertLeave" }, {
   buffer = 0,
   callback = function()
     if next(vim.lsp.codelens.get(0)) ~= nil then
@@ -64,7 +64,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "BufEnter", "Cursor
   end,
 })
 
-vim.api.nvim_create_autocmd("Colorscheme", {
+api.nvim_create_autocmd("Colorscheme", {
   callback = function()
     if vim.o.diff ~= false then
       return
@@ -78,13 +78,13 @@ vim.api.nvim_create_autocmd("Colorscheme", {
   end,
 })
 
-vim.api.nvim_create_autocmd("TermOpen", {
+api.nvim_create_autocmd("TermOpen", {
   callback = function()
     vim.opt_local.cursorline = false
   end,
 })
 
-vim.api.nvim_create_autocmd("BufReadPost", {
+api.nvim_create_autocmd("BufReadPost", {
   -- files I use, I suspect I should add a bunch
   pattern = { "*.py", "*.ex", "*.rs", "*.dart", "*.js", "*.json" },
   callback = function()
