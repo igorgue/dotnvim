@@ -32,6 +32,18 @@ return {
             return
           end
         end,
+        hover_actions = {
+          border = {
+            { "┌", "FloatBorder" },
+            { "─", "FloatBorder" },
+            { "┐", "FloatBorder" },
+            { "│", "FloatBorder" },
+            { "┘", "FloatBorder" },
+            { "─", "FloatBorder" },
+            { "└", "FloatBorder" },
+            { "│", "FloatBorder" },
+          },
+        },
       },
       server = {
         cmd = { "rustup", "run", "stable", "rust-analyzer" },
