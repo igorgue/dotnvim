@@ -427,7 +427,10 @@ return {
             case_mode = "smart_case",
           },
           ["ui-select"] = {
-            themes.get_dropdown({}),
+            themes.get_dropdown({
+              -- borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }, -- rounded
+              borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" }, -- straight
+            }),
           },
         },
       }
