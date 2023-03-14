@@ -101,8 +101,8 @@ end
 diagnostic.config(utils.ui.diagnostic_config)
 lsp.handlers["textDocument/publishDiagnostics"] =
   lsp.with(lsp.diagnostic.on_publish_diagnostics, utils.ui.diagnostic_config)
-lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, { border = "rounded" })
-lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_help, { border = "rounded" })
+lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, { border = "single" })
+lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_help, { border = "single" })
 
 fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticError" })
 fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticWarning" })

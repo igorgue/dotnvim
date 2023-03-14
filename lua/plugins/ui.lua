@@ -59,6 +59,11 @@ return {
       render = "default",
       fps = 120,
       timeout = 500,
+      on_open = function(win)
+        if vim.api.nvim_win_is_valid(win) then
+          vim.api.nvim_win_set_config(win, { border = "single" })
+        end
+      end,
     },
   },
   {
@@ -331,6 +336,26 @@ return {
         inc_rename = false, -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = true,
       },
+      views = {
+        cmdline_popup = {
+          border = { style = "single" },
+        },
+        notify = {
+          border = { style = "single" },
+        },
+        popup = {
+          border = { style = "single" },
+        },
+        confirm = {
+          border = { style = "single" },
+        },
+        hover = {
+          border = { style = "single" },
+        },
+        popupmenu = {
+          border = { style = "single" },
+        },
+      },
       lsp = {
         override = {
           ["cmp.entry.get_documentation"] = true,
@@ -385,6 +410,8 @@ return {
             cycle_wrap = true,
             limit = 100,
           },
+          -- borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }, -- rounded
+          borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" }, -- straight
         },
         extensions = {
           emoji = {
@@ -436,7 +463,7 @@ return {
     "williamboman/mason.nvim",
     opts = {
       ui = {
-        border = "rounded",
+        border = "single",
         winhighlight = "Normal:Normal,FloatBorder:VertSplit,CursorLine:CursorLine,Search:Search",
       },
     },

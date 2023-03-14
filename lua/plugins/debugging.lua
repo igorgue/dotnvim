@@ -10,7 +10,7 @@ return {
 
     dapui.setup({
       floating = {
-        border = "rounded",
+        border = "single",
       },
     })
 

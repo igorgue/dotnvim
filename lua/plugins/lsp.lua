@@ -43,7 +43,7 @@ return {
         { "]w", keymaps.diagnostic_goto(true, "WARN"), desc = "Next Warning" },
       }
 
-      ui_windows.default_options.border = "rounded"
+      ui_windows.default_options.border = "single"
 
       opts.servers.vimls = {}
       opts.servers.bashls = {}
@@ -70,8 +70,7 @@ return {
     end,
     opts = {
       ui = {
-        theme = "round",
-        border = "rounded",
+        border = "single",
         code_action = " ",
       },
       lightbulb = {

@@ -161,9 +161,9 @@ return {
           end,
         },
         window = {
-          completion = cmp.config.window.bordered({ winhighlight = winhighlight }),
-          documentation = cmp.config.window.bordered({ winhighlight = winhighlight }),
-          preview = cmp.config.window.bordered({ winhighlight = winhighlight }),
+          completion = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
+          documentation = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
+          preview = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
         },
         formatting = {
           format = require("lspkind").cmp_format({
@@ -205,7 +205,7 @@ return {
       opts.default_timeout = timeout
       opts.fallback_severity = vim.diagnostic.severity.HINT
       opts.diagnostic_config = utils.ui.diagnostic_config
-      opts.border = "rounded"
+      opts.border = "single"
 
       opts.sources = {
         nls.builtins.formatting.prettierd,

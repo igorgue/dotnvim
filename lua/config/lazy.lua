@@ -41,7 +41,7 @@ require("lazy").setup({
   install = { colorscheme = { "tokyonight", "catppuccin", "habamax" } },
   checker = { enabled = true }, -- automatically check for plugin updates
   ui = {
-    border = "rounded",
+    border = "single",
   },
   diff = { cmd = "diffview.nvim" },
   performance = {
