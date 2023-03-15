@@ -27,18 +27,18 @@ return {
 
         -- default settings, use the `settings` function to override settings
         settings = elixir.settings({
-          dialyzerEnabled = false,
+          dialyzerEnabled = true,
           -- dialyzerFormat = "dialyxir_long",
           -- dialyzerWarnOpts = []
-          enableTestLenses = false,
+          enableTestLenses = true,
           -- envVariables =
           fetchDeps = false,
           -- languageServerOverridePath =
           mixEnv = "dev",
           -- mixTarget = "host",
           -- projectDir = "",
-          signatureAfterComplete = false,
-          suggestSpecs = false,
+          signatureAfterComplete = true,
+          suggestSpecs = true,
           log_level = vim.lsp.protocol.MessageType.Log,
           message_level = vim.lsp.protocol.MessageType.Log,
           trace = {
