@@ -7,7 +7,7 @@ return {
       "kristijanhusak/vim-dadbod-completion",
     },
     keys = {
-      { "<leader><cr>d", "<cmd>DBUIToggle<cr>", desc = "Dadbod database manager" },
+      { "<leader><cr>d", "<cmd>DBUIToggle<cr>", desc = "Dadbod Database Manager" },
     },
     init = function()
       vim.g.dbs = {}

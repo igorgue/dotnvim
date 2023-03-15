@@ -48,16 +48,18 @@ return {
         on_attach = function()
           local register_keys = function()
             local wk = require("which-key")
+            local bufnr = vim.api.nvim_get_current_buf()
 
             wk.register({
-              p = { "<cmd>ElixirToPipe<cr>", "Elixir to pipe" },
-              P = { "<cmd>ElixirFromPipe<cr>", "Elixir from pipe" },
-              M = { "<cmd>ElixirExpandMacro<cr>", "Elixir expand macro" },
-              R = { "<cmd>ElixirRestart<cr>", "Elixir restart" },
-              O = { "<cmd>ElixirOutputPanel<cr>", "Elixir LSP output panel" },
+              p = { "<cmd>ElixirToPipe<cr>", "To Pipe" },
+              P = { "<cmd>ElixirFromPipe<cr>", "From Pipe" },
+              m = { "<cmd>ElixirExpandMacro<cr>", "Expand Macro" },
+              r = { "<cmd>ElixirRestart<cr>", "Restart" },
+              o = { "<cmd>ElixirOutputPanel<cr>", "Output Panel" },
             }, {
-              prefix = "<leader>c",
-              buffer = vim.api.nvim_get_current_buf(),
+              prefix = "<leader>cE",
+              name = "+elixir",
+              buffer = bufnr,
             })
           end
 

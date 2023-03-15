@@ -12,30 +12,35 @@ return {
             callback = function()
               local jdtls = require("jdtls")
               local wk = require("which-key")
+              local bufnr = vim.api.nvim_get_current_buf()
 
               -- stylua: ignore start
               local extract_variable = function() jdtls.extract_variable(true) end
               local extract_method = function() jdtls.extract_method(true) end
-              -- stylua: ignore end
 
+              -- stylua: ignore end
               wk.register({
-                i = { jdtls.organize_importsorganize_imports, "Java organize imports" },
-                t = { jdtls.test_class, "Java test class" },
-                n = { jdtls.test_nearest_method, "Java test nearest method" },
-                e = { extract_variable, "Java extract variable" },
-                M = { extract_method, "Java extract method" },
-              }, {
-                prefix = "<leader>c",
-                buffer = vim.api.nvim_get_current_buf(),
+                ["<leader>cJ"] = { name = "+java" },
               })
 
               wk.register({
-                e = { extract_variable, "Java extract variable" },
-                M = { extract_method, "Java extract method" },
+                i = { jdtls.organize_importsorganize_imports, "Organize imports" },
+                t = { jdtls.test_class, "Test class" },
+                n = { jdtls.test_nearest_method, "Test nearest method" },
+                e = { extract_variable, "Extract variable" },
+                M = { extract_method, "Extract method" },
+              }, {
+                prefix = "<leader>cJ",
+                buffer = bufnr,
+              })
+
+              wk.register({
+                e = { extract_variable, "Extract variable" },
+                M = { extract_method, "Extract method" },
               }, {
                 mode = "v",
-                prefix = "<leader>c",
-                buffer = vim.api.nvim_get_current_buf(),
+                prefix = "<leader>cJ",
+                buffer = bufnr,
               })
 
               jdtls.start_or_attach({

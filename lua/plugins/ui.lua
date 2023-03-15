@@ -5,21 +5,21 @@ return {
     keys = {
       { "<leader>L", "<cmd>Lazy<cr>", desc = "Lazy" },
       { "<leader>r", require("utils").ui.refresh_ui, desc = "Refresh" },
-      { "<leader><tab>j", "<cmd>tabprevious<cr>", desc = "Previous tab" },
-      { "<leader><tab>k", "<cmd>tabnext<cr>", desc = "Next tab" },
-      { "<leader><tab>h", "<cmd>tabfirst<cr>", desc = "First tab" },
-      { "<leader><tab>l", "<cmd>tablast<cr>", desc = "Last tab" },
-      { "<leader><tab>n", "<cmd>tabnew<cr>", desc = "New tab" },
-      { "<leader><tab>1", "<cmd>tabfirst<cr>", desc = "First tab" },
-      { "<leader><tab>2", "<cmd>tabnext 2<cr>", desc = "Second tab" },
-      { "<leader><tab>3", "<cmd>tabnext 3<cr>", desc = "Third tab" },
-      { "<leader><tab>4", "<cmd>tabnext 4<cr>", desc = "Fourth tab" },
-      { "<leader><tab>5", "<cmd>tabnext 5<cr>", desc = "Fifth tab" },
-      { "<leader><tab>6", "<cmd>tabnext 6<cr>", desc = "Sixth tab" },
-      { "<leader><tab>7", "<cmd>tabnext 7<cr>", desc = "Seventh tab" },
-      { "<leader><tab>8", "<cmd>tabnext 8<cr>", desc = "Eighth tab" },
-      { "<leader><tab>9", "<cmd>tabnext 9<cr>", desc = "Ninth tab" },
-      { "<leader><tab>0", "<cmd>tablast<cr>", desc = "Last tab" },
+      { "<leader><tab>j", "<cmd>tabprevious<cr>", desc = "Previous Tab" },
+      { "<leader><tab>k", "<cmd>tabnext<cr>", desc = "Next Tab" },
+      { "<leader><tab>h", "<cmd>tabfirst<cr>", desc = "First Tab" },
+      { "<leader><tab>l", "<cmd>tablast<cr>", desc = "Last Tab" },
+      { "<leader><tab>n", "<cmd>tabnew<cr>", desc = "New Tab" },
+      { "<leader><tab>1", "<cmd>tabfirst<cr>", desc = "First Tab" },
+      { "<leader><tab>2", "<cmd>tabnext 2<cr>", desc = "Second Tab" },
+      { "<leader><tab>3", "<cmd>tabnext 3<cr>", desc = "Third Tab" },
+      { "<leader><tab>4", "<cmd>tabnext 4<cr>", desc = "Fourth Tab" },
+      { "<leader><tab>5", "<cmd>tabnext 5<cr>", desc = "Fifth Tab" },
+      { "<leader><tab>6", "<cmd>tabnext 6<cr>", desc = "Sixth Tab" },
+      { "<leader><tab>7", "<cmd>tabnext 7<cr>", desc = "Seventh Tab" },
+      { "<leader><tab>8", "<cmd>tabnext 8<cr>", desc = "Eighth Tab" },
+      { "<leader><tab>9", "<cmd>tabnext 9<cr>", desc = "Ninth Tab" },
+      { "<leader><tab>0", "<cmd>tablast<cr>", desc = "Last Tab" },
     },
   },
   {
@@ -49,7 +49,7 @@ return {
             -- vim.opt.relativenumber = true
           end
         end,
-        desc = "Toggle list / indent lines",
+        desc = "Toggle List & Indent Lines",
       },
     },
   },
@@ -228,8 +228,8 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     config = true,
     keys = {
-      { "<M-c>", "<cmd>PickColor<cr>", desc = "Pick color" },
-      { "<M-c>", "<cmd>PickColorInsert<cr>", desc = "Pick color", mode = "i" },
+      { "<M-c>", "<cmd>PickColor<cr>", desc = "Pick Color" },
+      { "<M-c>", "<cmd>PickColorInsert<cr>", desc = "Pick Color", mode = "i" },
     },
   },
   {
@@ -251,7 +251,7 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     cmd = "ZenMode",
     keys = {
-      { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen mode" },
+      { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" },
       {
         "<leader>Z",
         function()
@@ -268,7 +268,7 @@ return {
             },
           })
         end,
-        desc = "Zen mode with custom width",
+        desc = "Zen Mode With Custom Width",
       },
     },
     opts = {
@@ -457,9 +457,9 @@ return {
       end
     end,
     keys = {
-      { "<leader>o", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },
-      { "<leader><leader>", nil, desc = "Smart open" },
-      { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },
+      { "<leader>o", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
+      { "<leader><leader>", nil, desc = "Smart Open" },
+      { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
     },
   },
   {

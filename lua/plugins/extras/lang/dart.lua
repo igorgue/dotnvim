@@ -48,18 +48,24 @@ return {
         on_attach = function()
           local register_keys = function()
             local wk = require("which-key")
+            local bufnr = vim.api.nvim_get_current_buf()
 
             wk.register({
-              c = {
-                R = { "<cmd>FlutterRun<cr>", "Flutter run" },
-                F = { "<cmd>FlutterRestart<cr>", "Flutter restart" },
-                p = { "<cmd>FlutterPubGet<cr>", "Flutter pub get" },
-                P = { "<cmd>FlutterPubUpgrade<cr>", "Flutter pub upgrade" },
-                o = { "<cmd>FlutterOutlineToggle<cr>", "Flutter outline" },
-              },
+              o = { "<cmd>FlutterOutlineToggle<cr>", "Flutter Outline" },
             }, {
-              prefix = "<leader>",
-              buffer = vim.api.nvim_get_current_buf(),
+              prefix = "<leader>c",
+              buffer = bufnr,
+            })
+
+            wk.register({
+              r = { "<cmd>FlutterRun<cr>", "Flutter Run" },
+              R = { "<cmd>FlutterRestart<cr>", "Flutter Restart" },
+              p = { "<cmd>FlutterPubGet<cr>", "Flutter Pub Get" },
+              P = { "<cmd>FlutterPubUpgrade<cr>", "Flutter Pub Upgrade" },
+            }, {
+              prefix = "<leader>cD",
+              name = "+dart",
+              buffer = bufnr,
             })
           end
 

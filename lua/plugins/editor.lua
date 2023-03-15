@@ -2,24 +2,24 @@ return {
   {
     "michaeljsmith/vim-indent-object",
     keys = {
-      { "vai", nil, desc = "An indent level and line above" },
-      { "vii", nil, desc = "Inner indent level (no line above)" },
-      { "vaI", nil, desc = "An indent level and lines above/below" },
-      { "viI", nil, desc = "Inner indent level (no lines above/below)" },
-      { "dai", nil, desc = "An indent level and line above" },
-      { "dii", nil, desc = "Inner indent level (no line above)" },
-      { "daI", nil, desc = "An indent level and lines above/below" },
-      { "diI", nil, desc = "Inner indent level (no lines above/below)" },
-      { "cai", nil, desc = "An indent level and line above" },
-      { "cii", nil, desc = "Inner indent level (no line above)" },
-      { "caI", nil, desc = "An indent level and lines above/below" },
-      { "ciI", nil, desc = "Inner indent level (no lines above/below)" },
+      { "vai", nil, desc = "An Indent Level and Line Above" },
+      { "vii", nil, desc = "Inner Indent Level (No Line Above)" },
+      { "vaI", nil, desc = "An Indent Level and Lines Above/Below" },
+      { "viI", nil, desc = "Inner Indent Level (No Lines Above/Below)" },
+      { "dai", nil, desc = "An Indent Level and Line Above" },
+      { "dii", nil, desc = "Inner Indent Level (No Line Above)" },
+      { "daI", nil, desc = "An Indent Level and Lines Above/Below" },
+      { "diI", nil, desc = "Inner Indent Level (No Lines Above/Below)" },
+      { "cai", nil, desc = "An Indent Level and Line Above" },
+      { "cii", nil, desc = "Inner Indent Level (No Line Above)" },
+      { "caI", nil, desc = "An Indent Level and Lines Above/Below" },
+      { "ciI", nil, desc = "Inner Indent Level (No Lines Above/Below)" },
     },
   },
   {
     "arp242/xdg_open.vim",
     keys = {
-      { "gx", nil, desc = "Open with xdg-open" },
+      { "gx", nil, desc = "Open With xdg-open" },
     },
   },
   {
@@ -37,7 +37,7 @@ return {
       },
     },
     keys = {
-      { "<leader>h", "<cmd>lua require('gitsigns').next_hunk()<cr>", desc = "Next git hunk" },
+      { "<leader>h", "<cmd>lua require('gitsigns').next_hunk()<cr>", desc = "Next Git Hunk" },
     },
   },
   {
@@ -78,7 +78,7 @@ return {
   {
     "echasnovski/mini.surround",
     keys = {
-      { "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], desc = "Add surrounding", mode = "x" },
+      { "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], desc = "Add Surrounding", mode = "x" },
     },
   },
   {

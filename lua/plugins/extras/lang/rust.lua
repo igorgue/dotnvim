@@ -186,32 +186,34 @@ return {
           local register_keys = function()
             local rt = require("rust-tools")
             local wk = require("which-key")
+            local bufnr = vim.api.nvim_get_current_buf()
             local keymap = vim.keymap
             local api = vim.api
             local nvim_del_keymap = api.nvim_del_keymap
+
             -- rust-tools replaces K and K in visual mode
             pcall(nvim_del_keymap, "n", "K")
             pcall(nvim_del_keymap, "v", "K")
+            pcall(nvim_del_keymap, "n", "<leader>ca")
 
-            keymap.set("n", "K", rt.hover_actions.hover_actions)
-            keymap.set("v", "K", rt.hover_range.hover_range)
+            keymap.set("n", "K", rt.hover_actions.hover_actions, { buffer = bufnr })
+            keymap.set("v", "K", rt.hover_range.hover_range, { buffer = bufnr })
 
             wk.register({
-              c = {
-                A = { rt.code_action_group.code_action_group, "Rust code actions" },
-                R = { rt.runnables.runnables, "Rust runables" },
-                e = { rt.expand_macro.expand_macro, "Rust expand macro" },
-                -- stylua: ignore
-                k = { function() rt.move_item.move_item(true) end, "Rust move up" },
-                -- stylua: ignore
-                j = { function() rt.move_item.move_item(false) end, "Rust move down"},
-                C = { rt.open_cargo_toml.open_cargo_toml, "Rust open cargo.toml" },
-                p = { rt.parent_module.parent_module, "Rust parent module" },
-                J = { rt.join_lines.join_lines, "Rust join lines" },
-              },
+              a = { rt.code_action_group.code_action_group, "Rust Code Actions" },
+              r = { rt.runnables.runnables, "Runables" },
+              e = { rt.expand_macro.expand_macro, "Expand Macro" },
+              -- stylua: ignore
+              k = { function() rt.move_item.move_item(true) end, "Move Up" },
+              -- stylua: ignore
+              j = { function() rt.move_item.move_item(false) end, "Move Down"},
+              c = { rt.open_cargo_toml.open_cargo_toml, "Open Cargo.toml" },
+              p = { rt.parent_module.parent_module, "Parent Module" },
+              J = { rt.join_lines.join_lines, "Join Lines" },
             }, {
-              prefix = "<leader>",
-              buffer = vim.api.nvim_get_current_buf(),
+              prefix = "<leader>cR",
+              name = "+rust",
+              buffer = bufnr,
             })
           end
 

@@ -17,14 +17,12 @@ wk.register({
 })
 
 wk.register({
-  ["<cr>"] = {
-    b = { "<cmd>Btop<cr>", "Btop process manager" },
-    n = { "<cmd>Nap<cr>", "Nap code snippets" },
-    s = { "<cmd>Screenshot<cr>", "Gnome screenshot window" },
-    r = { "<cmd>Ranger<cr>", "Ranger visual file manager" },
-    c = { "<cmd>Cloc<cr>", "Cloc count lines" },
-    g = { "<cmd>Lazygit<cr>", "Lazygit" },
-  },
+  b = { "<cmd>Btop<cr>", "Btop Process Manager" },
+  n = { "<cmd>Nap<cr>", "Nap Code Snippets" },
+  s = { "<cmd>Screenshot<cr>", "Gnome Screenshot" },
+  r = { "<cmd>Ranger<cr>", "Ranger File Manager" },
+  c = { "<cmd>Cloc<cr>", "Cloc Count Lines" },
+  g = { "<cmd>Lazygit<cr>", "Lazygit" },
 }, {
-  prefix = "<leader>",
+  prefix = "<leader><cr>",
 })
