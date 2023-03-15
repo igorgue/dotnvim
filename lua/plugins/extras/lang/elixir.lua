@@ -28,7 +28,7 @@ return {
         -- default settings, use the `settings` function to override settings
         settings = elixir.settings({
           dialyzerEnabled = true,
-          -- dialyzerFormat = "dialyxir_long",
+          dialyzerFormat = "dialyxir_long",
           -- dialyzerWarnOpts = []
           enableTestLenses = true,
           -- envVariables =
@@ -42,7 +42,7 @@ return {
           log_level = vim.lsp.protocol.MessageType.Log,
           message_level = vim.lsp.protocol.MessageType.Log,
           trace = {
-            server = "off",
+            server = "on",
           },
         }),
         on_attach = function()
