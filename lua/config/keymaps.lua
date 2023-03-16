@@ -12,8 +12,8 @@ pcall(nvim_del_keymap, "v", ">")
 
 wk.register({
   ["<leader><cr>"] = { name = "+applications" },
-  ["<leader>d"] = { name = "+debug" },
-  z = { name = "+fold" },
+  ["<leader>d"] = { name = "+debug", mode = { "n", "v" } },
+  z = { name = "+fold", mode = { "n", "v" } },
 })
 
 wk.register({

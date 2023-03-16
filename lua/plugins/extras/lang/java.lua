@@ -20,7 +20,7 @@ return {
 
               -- stylua: ignore end
               wk.register({
-                ["<leader>cJ"] = { name = "+java", buffer = bufnr },
+                ["<leader>cJ"] = { name = "+java", buffer = bufnr, mode = { "n", "v" } },
               })
 
               wk.register({
