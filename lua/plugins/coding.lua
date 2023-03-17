@@ -246,6 +246,9 @@ return {
       "andymass/vim-matchup",
     },
     init = function()
+      -- stylua: ignore
+      if vim.o.diff then return end
+
       vim.api.nvim_create_autocmd("BufReadPost", {
         -- files I use, I suspect I should add a bunch
         pattern = { "*.py", "*.ex", "*.rs", "*.dart", "*.js", "*.json" },

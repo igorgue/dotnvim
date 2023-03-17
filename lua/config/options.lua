@@ -54,6 +54,12 @@ opt.isfname:append(":")
 opt.clipboard = "unnamed"
 opt.cursorline = false
 
+if vim.o.diff then
+  opt.cursorline = false
+  opt.list = false
+  opt.wrap = false
+end
+
 -- sets the tabline to not show x, a very simple tabline
 vim.cmd([[
   function NoXTabLine()

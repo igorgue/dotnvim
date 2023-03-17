@@ -58,6 +58,13 @@ return {
           winbar_info = true,
         },
       },
+      hooks = {
+        diff_buf_read = function()
+          vim.opt_local.cursorline = false
+          vim.opt_local.list = false
+          vim.opt_local.wrap = false
+        end,
+      },
     },
     keys = {
       {
