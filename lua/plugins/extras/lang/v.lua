@@ -2,11 +2,19 @@ return {
   {
     "neovim/nvim-lspconfig",
     ft = { "vlang" },
-    opts = {
-      servers = {
+    opts = function(_, opts)
+      -- stylua: ignore
+      if vim.fn.executable("v") ~= 1 then return end
+
+      -- stylua: ignore
+      pcall(function() vim.cmd("silent !v ls --install") end)
+
+      opts.servers = {
         vls = {},
-      },
-    },
+      }
+
+      return opts
+    end,
   },
   {
     "ollykel/v-vim",
@@ -18,10 +26,7 @@ return {
       "BufNewFile *.vv",
       "BufNewFile *.vsh",
     },
-    config = function()
-      -- stylua: ignore
-      pcall(function() vim.cmd("!v ls --install") end)
-
+    init = function()
       vim.g.v_autofmt_bufwritepre = true
     end,
   },

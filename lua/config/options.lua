@@ -54,10 +54,13 @@ opt.isfname:append(":")
 opt.clipboard = "unnamed"
 opt.cursorline = false
 
-if vim.o.diff then
-  opt.cursorline = false
+if vim.o.diff ~= false then
   opt.list = false
   opt.wrap = false
+
+  opt.signcolumn = "no"
+  opt.cursorline = true
+  opt.number = true
 end
 
 -- sets the tabline to not show x, a very simple tabline

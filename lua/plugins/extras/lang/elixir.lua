@@ -15,6 +15,8 @@ return {
       "elixir-editors/vim-elixir",
     },
     ft = { "elixir", "eex", "heex", "surface" },
+    -- stylua: ignore
+    cond = function() return not vim.o.diff end,
     config = function()
       local elixir = require("elixir")
       -- local mason = (os.getenv("HOME") or "") .. "/.local/share/nvim/mason"

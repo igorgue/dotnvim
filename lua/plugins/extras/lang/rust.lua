@@ -11,6 +11,8 @@ return {
   },
   {
     "simrat39/rust-tools.nvim",
+    -- stylua: ignore
+    cond = function() return not vim.o.diff end,
     dependencies = {
       "rust-lang/rust.vim",
       init = function()

@@ -2,7 +2,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     -- stylua: ignore
-    cond = function() return vim.o.diff == false end,
+    cond = function() return not vim.o.diff end,
     init = function()
       vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "BufEnter", "CursorHold", "InsertLeave" }, {
         callback = function()
@@ -55,9 +55,8 @@ return {
     "glepnir/lspsaga.nvim",
     event = { "BufReadPost", "BufNewFile" },
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    cmd = "Lspsaga",
     -- stylua: ignore
-    cond = function() return vim.o.diff == false end,
+    cond = function() return not vim.o.diff end,
     config = function(_, opts)
       require("lspsaga").setup(opts)
 

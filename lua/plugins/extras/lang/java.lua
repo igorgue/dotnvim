@@ -1,12 +1,21 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    dependencies = { "mfussenegger/nvim-jdtls" },
+    dependencies = {
+      {
+        "mfussenegger/nvim-jdtls",
+      -- stylua: ignore
+      cond = function() return not vim.o.diff end,
+      },
+    },
     ft = { "java" },
+    -- stylua: ignore
     opts = {
       setup = {
         -- stylua: ignore
         jdtls = function()
+          if vim.o.diff then return true end
+
           vim.api.nvim_create_autocmd("FileType", {
             pattern = "java",
             callback = function()

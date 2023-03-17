@@ -379,7 +379,7 @@ return {
       },
     },
     -- stylua: ignore
-    cond = function() return vim.o.diff == false end,
+    cond = function() return not vim.o.diff end,
     opts = function()
       local actions = require("telescope.actions")
       local themes = require("telescope.themes")

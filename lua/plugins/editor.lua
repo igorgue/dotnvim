@@ -25,7 +25,7 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     -- stylua: ignore
-    cond = function() return vim.o.diff == false end,
+    cond = function() return not vim.o.diff end,
     opts = {
       signs = {
         add = { text = "▌" },
@@ -60,9 +60,15 @@ return {
       },
       hooks = {
         diff_buf_read = function()
-          vim.opt_local.cursorline = false
           vim.opt_local.list = false
           vim.opt_local.wrap = false
+
+          vim.opt_local.cursorline = true
+          vim.opt_local.number = true
+          vim.opt.signcolumn = "no"
+        end,
+        view_closed = function()
+          vim.opt.signcolumn = "auto"
         end,
       },
     },
