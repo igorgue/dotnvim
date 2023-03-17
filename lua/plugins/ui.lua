@@ -1,28 +1,5 @@
 return {
   {
-    "LazyVim/LazyVim",
-    -- extra global keys
-    keys = {
-      { "<leader>L", "<cmd>Lazy<cr>", desc = "Lazy" },
-      { "<leader>r", require("utils").ui.refresh_ui, desc = "Refresh" },
-      { "<leader><tab>j", "<cmd>tabprevious<cr>", desc = "Previous Tab" },
-      { "<leader><tab>k", "<cmd>tabnext<cr>", desc = "Next Tab" },
-      { "<leader><tab>h", "<cmd>tabfirst<cr>", desc = "First Tab" },
-      { "<leader><tab>l", "<cmd>tablast<cr>", desc = "Last Tab" },
-      { "<leader><tab>n", "<cmd>tabnew<cr>", desc = "New Tab" },
-      { "<leader><tab>1", "<cmd>tabfirst<cr>", desc = "First Tab" },
-      { "<leader><tab>2", "<cmd>tabnext 2<cr>", desc = "Second Tab" },
-      { "<leader><tab>3", "<cmd>tabnext 3<cr>", desc = "Third Tab" },
-      { "<leader><tab>4", "<cmd>tabnext 4<cr>", desc = "Fourth Tab" },
-      { "<leader><tab>5", "<cmd>tabnext 5<cr>", desc = "Fifth Tab" },
-      { "<leader><tab>6", "<cmd>tabnext 6<cr>", desc = "Sixth Tab" },
-      { "<leader><tab>7", "<cmd>tabnext 7<cr>", desc = "Seventh Tab" },
-      { "<leader><tab>8", "<cmd>tabnext 8<cr>", desc = "Eighth Tab" },
-      { "<leader><tab>9", "<cmd>tabnext 9<cr>", desc = "Ninth Tab" },
-      { "<leader><tab>0", "<cmd>tablast<cr>", desc = "Last Tab" },
-    },
-  },
-  {
     "lukas-reineke/indent-blankline.nvim",
     init = function()
       vim.g.indent_blankline_disable_with_nolist = true

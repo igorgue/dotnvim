@@ -17,6 +17,26 @@ wk.register({
 })
 
 wk.register({
+  ["<esc>"] = { require("utils").ui.refresh_ui, "Refresh UI" },
+  ["<leader>L"] = { "<cmd>Lazy<cr>", "Lazy" },
+  ["<leader><tab>j"] = { "<cmd>tabprevious<cr>", "Previous Tab" },
+  ["<leader><tab>k"] = { "<cmd>tabnext<cr>", "Next Tab" },
+  ["<leader><tab>h"] = { "<cmd>tabfirst<cr>", "First Tab" },
+  ["<leader><tab>l"] = { "<cmd>tablast<cr>", "Last Tab" },
+  ["<leader><tab>n"] = { "<cmd>tabnew<cr>", "New Tab" },
+  ["<leader><tab>1"] = { "<cmd>tabfirst<cr>", "First Tab" },
+  ["<leader><tab>2"] = { "<cmd>tabnext 2<cr>", "Second Tab" },
+  ["<leader><tab>3"] = { "<cmd>tabnext 3<cr>", "Third Tab" },
+  ["<leader><tab>4"] = { "<cmd>tabnext 4<cr>", "Fourth Tab" },
+  ["<leader><tab>5"] = { "<cmd>tabnext 5<cr>", "Fifth Tab" },
+  ["<leader><tab>6"] = { "<cmd>tabnext 6<cr>", "Sixth Tab" },
+  ["<leader><tab>7"] = { "<cmd>tabnext 7<cr>", "Seventh Tab" },
+  ["<leader><tab>8"] = { "<cmd>tabnext 8<cr>", "Eighth Tab" },
+  ["<leader><tab>9"] = { "<cmd>tabnext 9<cr>", "Ninth Tab" },
+  ["<leader><tab>0"] = { "<cmd>tablast<cr>", "Last Tab" },
+})
+
+wk.register({
   b = { "<cmd>Btop<cr>", "Btop Process Manager" },
   n = { "<cmd>Nap<cr>", "Nap Code Snippets" },
   s = { "<cmd>Screenshot<cr>", "Gnome Screenshot" },
