@@ -48,10 +48,6 @@ return {
       opts.servers.vimls = {}
       opts.servers.bashls = {}
 
-      opts.setup.clangd = function(_, clangd_opts)
-        clangd_opts.capabilities.offsetEncoding = { "utf-8" }
-      end
-
       return opts
     end,
   },

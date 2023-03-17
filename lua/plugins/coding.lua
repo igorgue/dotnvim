@@ -202,6 +202,7 @@ return {
       local nls = require("null-ls")
       local timeout = 10000
 
+      -- opts.debug = true
       opts.default_timeout = timeout
       opts.fallback_severity = vim.diagnostic.severity.HINT
       opts.diagnostic_config = utils.ui.diagnostic_config
@@ -218,6 +219,7 @@ return {
         nls.builtins.formatting.shfmt,
         nls.builtins.formatting.dart_format,
         nls.builtins.formatting.swiftlint,
+        nls.builtins.formatting.clang_format,
         nls.builtins.formatting.rustywind.with({ extra_filetypes = { "rust", "elixir" } }),
         nls.builtins.diagnostics.swiftlint,
       }

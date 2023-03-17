@@ -13,6 +13,7 @@ require("lazy").setup({
 
     -- import/override with your plugins
     { import = "plugins" },
+    { import = "plugins.extras.lang.c" },
     { import = "plugins.extras.lang.html_css" },
     { import = "plugins.extras.lang.sql" },
     { import = "plugins.extras.lang.lua" },
