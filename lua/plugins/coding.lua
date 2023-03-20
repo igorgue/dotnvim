@@ -66,6 +66,8 @@ return {
       -- <Tab> is used by Copilot, I found the plugin doesn't work
       -- if I use <Tab> for nvim-cmp or any other plugin
       local mapping = {
+        ["<S-Tab>"] = nil,
+        ["<Tab>"] = nil,
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
