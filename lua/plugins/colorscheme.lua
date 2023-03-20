@@ -11,6 +11,7 @@ return {
     opts = {
       style = "dark",
       alacritty = true,
+      kitty = true,
     },
     keys = {
       {
