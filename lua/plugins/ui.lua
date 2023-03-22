@@ -1,3 +1,5 @@
+local lazyvim_util = require("lazyvim.util")
+
 return {
   {
     "lukas-reineke/indent-blankline.nvim",
@@ -101,10 +103,11 @@ return {
     end,
     opts = function(_)
       local icons = require("lazyvim.config").icons
+      local utils = require("utils")
 
       return {
         options = {
-          theme = require("utils").ui.lualine_theme(),
+          theme = utils.ui.lualine_theme(),
           disabled_filetypes = { statusline = { "dashboard", "lazy", "alpha" } },
           component_separators = "",
           section_separators = { left = "", right = "" },
@@ -120,7 +123,42 @@ return {
             },
           },
           lualine_b = {
-            "branch",
+            {
+              "branch",
+              on_click = function()
+                local branches = vim.split(vim.api.nvim_exec("silent !git branch", true), "\n")
+                local current_branch = vim.split(vim.api.nvim_exec("silent !git branch --show-current", true), "\n")[3]
+                local cleanup_re = "^%s*(.-)%s*$"
+
+                -- cleanup branches
+                for i = #branches, 1, -1 do
+                  if branches[i] == "" or branches[i]:sub(1, 1) == ":" then
+                    table.remove(branches, i)
+                  elseif branches[i]:sub(1, 1) == "*" then
+                    branches[i] = branches[i]:sub(3)
+                  end
+                end
+
+                -- trim whitespace
+                for i = 1, #branches do
+                  branches[i] = branches[i]:gsub(cleanup_re, "%1")
+                end
+                current_branch = current_branch:gsub(cleanup_re, "%1")
+
+                -- sort by current
+                for i = 1, #branches do
+                  if branches[i] == current_branch then
+                    table.remove(branches, i)
+                    table.insert(branches, 1, current_branch)
+                    break
+                  end
+                end
+
+                vim.ui.select(branches, { prompt = "Select Branch" }, function(branch)
+                  vim.cmd("Git checkout " .. branch)
+                end)
+              end,
+            },
             {
               "diff",
               symbols = {
@@ -128,6 +166,9 @@ return {
                 modified = icons.git.modified,
                 removed = icons.git.removed,
               },
+              on_click = function()
+                vim.cmd("DiffviewOpen")
+              end,
             },
             {
               "diagnostics",
@@ -162,8 +203,32 @@ return {
               require("lazy.status").updates,
               cond = require("lazy.status").has_updates,
             },
-            "encoding",
-            { "filetype", icon_only = true },
+            {
+              "encoding",
+              on_click = function()
+                local current_encoding = vim.opt_local.fileencoding:get()
+                local encoding =
+                  vim.fn.input({ prompt = "Encoding: ", default = current_encoding, cancelreturn = current_encoding })
+
+                vim.cmd("setlocal fileencoding=" .. encoding)
+              end,
+            },
+            {
+              "filetype",
+              icon_only = true,
+              on_click = function()
+                vim.notify(vim.bo.filetype, vim.log.levels.INFO, { title = "Filetype" })
+                vim.ui.select({
+                  "Restart",
+                  "Stop",
+                  "Start",
+                }, {
+                  prompt = "LSP Server:",
+                }, function(choice)
+                  vim.cmd("Lsp" .. choice)
+                end)
+              end,
+            },
             "fileformat",
           },
           lualine_y = { "location" },
@@ -437,6 +502,8 @@ return {
       { "<leader>o", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
       { "<leader><leader>", nil, desc = "Smart Open" },
       { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
+      { "<leader>ss", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Goto Symbol" },
+      { "<leader>sS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Goto Symbol (Workspace)" },
     },
   },
   {
