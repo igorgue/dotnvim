@@ -45,9 +45,6 @@ return {
 
       ui_windows.default_options.border = "single"
 
-      opts.servers.vimls = {}
-      opts.servers.bashls = {}
-
       return opts
     end,
   },
