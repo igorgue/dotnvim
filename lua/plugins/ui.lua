@@ -216,17 +216,21 @@ return {
             {
               "filetype",
               icon_only = true,
-              on_click = function()
-                vim.notify(vim.bo.filetype, vim.log.levels.INFO, { title = "Filetype" })
-                vim.ui.select({
-                  "Restart",
-                  "Stop",
-                  "Start",
-                }, {
-                  prompt = "LSP Server:",
-                }, function(choice)
-                  vim.cmd("Lsp" .. choice)
-                end)
+              on_click = function(_, button)
+                local filetype = vim.bo.filetype
+
+                vim.cmd("LspInfo")
+
+                vim.notify(filetype, vim.log.levels.INFO, { title = "Filetype" })
+                -- vim.ui.select({
+                --   "Restart",
+                --   "Stop",
+                --   "Start",
+                -- }, {
+                --   prompt = "LSP Server:",
+                -- }, function(choice)
+                --   vim.cmd("Lsp" .. choice)
+                -- end)
               end,
             },
             "fileformat",
