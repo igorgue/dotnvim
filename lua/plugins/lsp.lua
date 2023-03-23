@@ -55,6 +55,7 @@ return {
     "glepnir/lspsaga.nvim",
     event = { "BufReadPost", "BufNewFile" },
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = { "Lspsaga" },
     -- stylua: ignore
     cond = function() return not vim.o.diff end,
     config = function(_, opts)
