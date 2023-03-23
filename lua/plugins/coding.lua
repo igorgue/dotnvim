@@ -66,12 +66,10 @@ return {
       -- <Tab> is used by Copilot, I found the plugin doesn't work
       -- if I use <Tab> for nvim-cmp or any other plugin
       local mapping = {
-        ["<S-Tab>"] = nil,
-        ["<Tab>"] = nil,
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-j>"] = cmp.mapping(function(fallback)
           local luasnip = require("luasnip")
           if luasnip.expand_or_jumpable() then
@@ -94,33 +92,35 @@ return {
       }
 
       -- cmp plugin
-      local cmp_symbols = {
-        Text = " ",
-        Method = " ",
-        Function = "",
-        Constructor = " ",
-        Field = " ",
-        Variable = " ",
-        Class = " ",
-        Interface = " ",
-        Module = " ",
-        Property = " ",
-        Unit = "塞",
-        Value = " ",
-        Enum = " ",
-        Keyword = " ",
-        Snippet = " ",
-        Color = " ",
-        File = " ",
-        Reference = " ",
-        Folder = " ",
-        EnumMember = " ",
-        Constant = " ",
-        Struct = " ",
-        Event = "",
-        Operator = " ",
-        TypeParameter = " ",
-      }
+      -- XXX: Performance is poor on this
+      -- so it's unused
+      -- local cmp_symbols = {
+      --   Text = " ",
+      --   Method = " ",
+      --   Function = "",
+      --   Constructor = " ",
+      --   Field = " ",
+      --   Variable = " ",
+      --   Class = " ",
+      --   Interface = " ",
+      --   Module = " ",
+      --   Property = " ",
+      --   Unit = "塞",
+      --   Value = " ",
+      --   Enum = " ",
+      --   Keyword = " ",
+      --   Snippet = " ",
+      --   Color = " ",
+      --   File = " ",
+      --   Reference = " ",
+      --   Folder = " ",
+      --   EnumMember = " ",
+      --   Constant = " ",
+      --   Struct = " ",
+      --   Event = "",
+      --   Operator = " ",
+      --   TypeParameter = " ",
+      -- }
 
       cmp.setup.filetype("gitcommit", {
         sources = cmp.config.sources({
@@ -156,43 +156,37 @@ return {
       })
 
       return {
-        snippet = {
-          expand = function(args)
-            local luasnip = require("luasnip")
-            luasnip.lsp_expand(args.body)
-          end,
-        },
         window = {
           completion = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
           documentation = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
           preview = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
         },
-        formatting = {
-          format = require("lspkind").cmp_format({
-            mode = "symbol",
-            ellipsis_char = "…",
-            menu = {
-              buffer = "buf",
-              calc = "calc",
-              cmdline = "cmd",
-              cmp_git = "git",
-              dictionary = "dict",
-              fonts = "font",
-              luasnip = "snip",
-              nvim_lsp_document_symbol = "doc",
-              nvim_lsp = "lsp",
-              nvim_lsp_signature_help = "sign",
-              nvim_lua = "lua",
-              path = "path",
-              spell = "spel",
-              treesitter = "ts",
-              ["vim-dadbod-completion"] = "sql",
-              vsnip = "snip",
-              zsh = "zsh",
-            },
-            symbol_map = cmp_symbols,
-          }),
-        },
+        -- formatting = {
+        --   format = require("lspkind").cmp_format({
+        --     mode = "symbol",
+        --     ellipsis_char = "…",
+        --     menu = {
+        --       buffer = "buf",
+        --       calc = "calc",
+        --       cmdline = "cmd",
+        --       cmp_git = "git",
+        --       dictionary = "dict",
+        --       fonts = "font",
+        --       luasnip = "snip",
+        --       nvim_lsp_document_symbol = "doc",
+        --       nvim_lsp = "lsp",
+        --       nvim_lsp_signature_help = "sign",
+        --       nvim_lua = "lua",
+        --       path = "path",
+        --       spell = "spel",
+        --       treesitter = "ts",
+        --       ["vim-dadbod-completion"] = "sql",
+        --       vsnip = "snip",
+        --       zsh = "zsh",
+        --     },
+        --     symbol_map = cmp_symbols,
+        --   }),
+        -- },
         mapping = cmp.mapping.preset.insert(mapping),
         sources = cmp.config.sources(sources[1], sources[2]),
       }
