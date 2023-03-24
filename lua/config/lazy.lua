@@ -6,12 +6,37 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
-require("lazy").setup({
-  spec = {
-    -- import LazyVim plugins
-    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+local spec = {
+  -- import LazyVim plugins
+  { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+}
+local plugins = {}
 
-    -- import/override with your plugins
+if vim.env.NVIM_MINIMAL ~= nil then
+  plugins = {
+    { import = "minimal" },
+    { import = "plugins.colorscheme" },
+    { import = "plugins.lsp" },
+    { import = "plugins.extras.lang.c" },
+    { import = "plugins.extras.lang.html_css" },
+    { import = "plugins.extras.lang.sql" },
+    { import = "plugins.extras.lang.lua" },
+    { import = "plugins.extras.lang.dart" },
+    { import = "plugins.extras.lang.elixir" },
+    { import = "plugins.extras.lang.python" },
+    { import = "plugins.extras.lang.rust" },
+    { import = "plugins.extras.lang.java" },
+    { import = "plugins.extras.lang.swift" },
+    { import = "plugins.extras.lang.v" },
+    { import = "plugins.extras.lang.vim" },
+    { import = "plugins.extras.lang.sh" },
+
+    -- import any extras modules here
+    { import = "lazyvim.plugins.extras.lang.typescript" },
+    { import = "lazyvim.plugins.extras.lang.json" },
+  }
+else
+  plugins = {
     { import = "plugins" },
     { import = "plugins.extras.lang.c" },
     { import = "plugins.extras.lang.html_css" },
@@ -30,8 +55,15 @@ require("lazy").setup({
     -- import any extras modules here
     { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.lang.json" },
-    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
-  },
+  }
+end
+
+for _, v in ipairs(plugins) do
+  table.insert(spec, v)
+end
+
+require("lazy").setup({
+  spec = spec,
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
     -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.

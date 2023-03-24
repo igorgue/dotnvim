@@ -18,9 +18,10 @@ function M.refresh_ui()
   vim.cmd("nohlsearch")
   vim.cmd("diffupdate")
   vim.cmd("normal! <C-L>")
-  -- stylua: ignore
+  -- stylua: ignore start
   pcall(function() vim.cmd("DBUIHideNotifications") end)
-  require("notify").dismiss({})
+  pcall(function() require("notify").dismiss({}) end)
+  -- stylua: ignore end
 end
 
 function M.hi_co(group, kind)

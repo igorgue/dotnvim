@@ -353,7 +353,7 @@ return {
       },
       on_open = function(_)
         vim.opt.laststatus = 0
-        vim.opt.winbar = ""
+        vim.o.winbar = ""
       end,
       on_close = function()
         vim.opt.laststatus = 3

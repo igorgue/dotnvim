@@ -132,6 +132,7 @@ return {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function(_, opts)
       local nls = require("null-ls")
+
       opts.diagnostic_config = utils.ui.diagnostic_config
       opts.border = "single"
 
@@ -140,7 +141,6 @@ return {
         nls.builtins.formatting.stylua,
         nls.builtins.formatting.mix,
         nls.builtins.formatting.ruff,
-        nls.builtins.formatting.isort,
         nls.builtins.formatting.black,
         nls.builtins.formatting.rustfmt,
         nls.builtins.formatting.shfmt,
@@ -164,7 +164,7 @@ return {
     dependencies = {
       "nvim-treesitter/playground",
       "David-Kunz/markid",
-      -- "HiPhish/nvim-ts-rainbow2",
+      "HiPhish/nvim-ts-rainbow2",
       "nvim-treesitter/nvim-treesitter-refactor",
       "nvim-treesitter/nvim-treesitter-context",
       "theHamsta/nvim-treesitter-pairs",
@@ -172,50 +172,50 @@ return {
       "windwp/nvim-ts-autotag",
       "andymass/vim-matchup",
     },
-    init = function()
-      -- stylua: ignore
-      if vim.o.diff then return end
-
-      -- vim.api.nvim_create_autocmd("BufReadPost", {
-      --   -- files I use, I suspect I should add a bunch
-      --   pattern = { "*.py", "*.ex", "*.rs", "*.dart", "*.js", "*.json" },
-      --   callback = function()
-      --     local filesize = vim.fn.getfsize(vim.fn.expand("%:p"))
-      --
-      --     if filesize < 50000 then
-      --       return
-      --     end
-      --
-      --     vim.b.autoformat = false
-      --     vim.opt_local.foldmethod = "manual"
-      --
-      --     -- disable "some" treesitter in the current buffer
-      --     vim.cmd([[
-      --       " TSBufDisable markid
-      --       " TSBufDisable indent
-      --       TSBufDisable highlight
-      --       " TSBufDisable rainbow
-      --       " TSBufDisable refactor
-      --       TSBufDisable pairs
-      --       TSBufDisable autotag
-      --       TSBufDisable matchup
-      --       TSBufDisable incremental_selection
-      --       TSBufDisable playground
-      --       TSBufDisable query_linter
-      --       " TSBufDisable refactor.highlight_definitions
-      --       " TSBufDisable refactor.navigation
-      --       " TSBufDisable refactor.smart_rename
-      --       " TSBufDisable refactor.highlight_current_scope
-      --     ]])
-      --
-      --     vim.notify(
-      --       "* Treesitter degraded\n" .. "* autoformat off\n" .. "* foldmethod manual",
-      --       vim.log.levels.WARN,
-      --       { title = "File is too large! (" .. (filesize / 1000) .. "kb > 50kb)" }
-      --     )
-      --   end,
-      -- })
-    end,
+    -- init = function()
+    --   -- stylua: ignore
+    --   if vim.o.diff then return end
+    --
+    --   vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertEnter" }, {
+    --     -- files I use, I suspect I should add a bunch
+    --     pattern = { "*.py", "*.ex", "*.rs", "*.dart", "*.js", "*.json" },
+    --     callback = function()
+    --       local filesize = vim.fn.getfsize(vim.fn.expand("%:p"))
+    --
+    --       if filesize < 50000 then
+    --         return
+    --       end
+    --
+    --       vim.b.autoformat = false
+    --       vim.opt_local.foldmethod = "manual"
+    --
+    --       -- disable "some" treesitter in the current buffer
+    --       vim.cmd([[
+    --         TSBufDisable markid
+    --         TSBufDisable indent
+    --         TSBufDisable highlight
+    --         TSBufDisable rainbow
+    --         TSBufDisable refactor
+    --         TSBufDisable pairs
+    --         TSBufDisable autotag
+    --         TSBufDisable matchup
+    --         TSBufDisable incremental_selection
+    --         TSBufDisable playground
+    --         TSBufDisable query_linter
+    --         TSBufDisable refactor.highlight_definitions
+    --         TSBufDisable refactor.navigation
+    --         TSBufDisable refactor.smart_rename
+    --         TSBufDisable refactor.highlight_current_scope
+    --       ]])
+    --
+    --       vim.notify_once(
+    --         "* Treesitter degraded\n" .. "* autoformat off\n" .. "* foldmethod manual",
+    --         vim.log.levels.WARN,
+    --         { title = "File is too large! (" .. (filesize / 1000) .. "kb > 50kb)" }
+    --       )
+    --     end,
+    --   })
+    -- end,
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
 
@@ -240,33 +240,46 @@ return {
       })
     end,
     opts = {
+      disable = utils.ts_disable,
       auto_install = true,
       highlight = {
         enable = true,
+        disable = utils.ts_disable,
       },
       markid = {
         enable = true,
+        disable = utils.ts_disable,
       },
       indent = {
         enable = true,
+        disable = utils.ts_disable,
       },
       rainbow = {
         enable = true,
         query = "rainbow-parens",
+        disable = utils.ts_disable,
       },
       refactor = {
         enable = true,
-        clear_on_cursor_move = false,
+        clear_on_cursor_move = true,
         highlight_definitions = { enable = true },
+        disable = utils.ts_disable,
       },
       pairs = {
         enable = true,
+        disable = utils.ts_disable,
       },
       autotag = {
         enable = true,
+        disable = utils.ts_disable,
       },
       matchup = {
         enable = true,
+        disable = utils.ts_disable,
+      },
+      incremental_selection = {
+        enable = true,
+        disable = utils.ts_disable,
       },
     },
     keys = {

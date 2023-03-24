@@ -4,7 +4,7 @@ return {
     -- stylua: ignore
     cond = function() return not vim.o.diff end,
     init = function()
-      vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "BufEnter", "CursorHold", "InsertLeave" }, {
+      vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
         callback = function()
           if next(vim.lsp.codelens.get(vim.api.nvim_get_current_buf())) ~= nil then
             vim.lsp.codelens.refresh()
@@ -42,6 +42,10 @@ return {
       }
 
       ui_windows.default_options.border = "single"
+
+      opts.format = {
+        timeout_ms = 5000,
+      }
 
       return opts
     end,
