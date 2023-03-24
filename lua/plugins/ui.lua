@@ -397,6 +397,9 @@ return {
           ["cmp.entry.get_documentation"] = true,
         },
       },
+      popupmenu = {
+        backend = "cmp",
+      },
     },
   },
   {

@@ -106,16 +106,18 @@ return {
         },
       }
       local mappings = {
+        ["<Tab>"] = nil,
+        ["<S-Tab>"] = nil,
         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete({}),
         ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping.confirm(), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ["<CR>"] = cmp.mapping.confirm({}),
         ["<S-CR>"] = cmp.mapping.confirm({
           behavior = cmp.ConfirmBehavior.Replace,
-        }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        }),
         ["<C-j>"] = cmp.mapping(function(fallback)
           local luasnip = require("luasnip")
           if luasnip.expand_or_jumpable() then
@@ -146,8 +148,17 @@ return {
         }),
       })
 
+      local cmdline_mappings = {
+        ["<Tab>"] = cmp.mapping.confirm({
+          behavior = cmp.ConfirmBehavior.Replace,
+        }),
+        ["<CR>"] = cmp.mapping.confirm({
+          behavior = cmp.ConfirmBehavior.Replace,
+        }),
+      }
+
       cmp.setup.cmdline({ "/", "?" }, {
-        mapping = cmp.mapping.preset.cmdline(),
+        mapping = cmp.mapping.preset.cmdline(cmdline_mappings),
         sources = {
           { name = "nvim_lsp" },
           { name = "buffer" },
@@ -155,7 +166,7 @@ return {
       })
 
       cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
+        mapping = cmp.mapping.preset.cmdline(cmdline_mappings),
         sources = cmp.config.sources({
           { name = "cmdline" },
           { name = "path", options = { trailing_slash = true, label_trailing_slash = true } },
