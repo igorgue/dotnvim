@@ -25,18 +25,16 @@ return {
         { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
         { "gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
         { "<c-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
-        { "<leader>ca", "<cmd>Lspsaga code_action<cr>", desc = "Code Actions", mode = { "n", "v" } },
-        { "<leader>cc", "<cmd>Lspsaga lsp_finder<cr>", desc = "Finder" },
-        { "<leader>cp", "<cmd>Lspsaga peek_definition<cr>", desc = "Peek Definition" },
-        { "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<cr>", desc = "Show Line Diagnostics" },
+        { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Actions", mode = { "n", "v" } },
+        { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
         { "<leader>cf", format, desc = "Format Document", has = "documentFormatting" },
         -- stylua: ignore
         { "<leader>cf", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting", },
-        { "<leader>cr", "<cmd>Lspsaga rename<cr>", desc = "Rename" },
+        { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
         { "<leader>ci", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
         { "<leader>cl", vim.lsp.codelens.run, desc = "Run codelens" },
-        { "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "Diagnostics next" },
-        { "[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "Diagnostics prev" },
+        { "]d", keymaps.diagnostic_goto(true), desc = "Next Diagnostic" },
+        { "[d", keymaps.diagnostic_goto(false), desc = "Prev Diagnostic" },
         { "[e", keymaps.diagnostic_goto(false, "ERROR"), desc = "Prev Error" },
         { "]e", keymaps.diagnostic_goto(true, "ERROR"), desc = "Next Error" },
         { "[w", keymaps.diagnostic_goto(false, "WARN"), desc = "Prev Warning" },
@@ -49,80 +47,11 @@ return {
     end,
   },
   {
-    "glepnir/lspsaga.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    cmd = { "Lspsaga" },
-    -- stylua: ignore
-    cond = function() return not vim.o.diff end,
-    config = function(_, opts)
-      require("lspsaga").setup(opts)
-
-      -- stylua: ignore
-      pcall(function() vim.cmd("colorscheme " .. vim.g.colors_name) end)
-    end,
-    opts = {
-      ui = {
-        border = "single",
-        code_action = " ",
-      },
-      lightbulb = {
-        enable = true,
-        enable_in_insert = true,
-        sign = true,
-        virtual_text = false,
-      },
-      rename = {
-        quit = "<esc>",
-        exec = "<CR>",
-        in_select = false,
-      },
-      symbol_in_winbar = {
-        enable = true,
-        show_file = true,
-        click_support = function(node, clicks, button, modifiers)
-          -- To see all avaiable details: vim.pretty_print(node)
-          local st = node.range.start
-          local en = node.range["end"]
-          local fn = vim.fn
-
-          if button == "l" then
-            if clicks == 2 then
-              -- double left click to do nothing
-            else -- jump to node's starting line+char
-              fn.cursor({ st.line + 1, st.character + 1 })
-            end
-          elseif button == "r" then
-            if modifiers == "s" then
-              print("lspsaga") -- shift right click to print "lspsaga"
-            end -- jump to node's ending line+char
-            fn.cursor({ en.line + 1, en.character + 1 })
-          elseif button == "m" then
-            -- middle click to visual select node
-            fn.cursor({ st.line + 1, st.character + 1 })
-            vim.cmd("normal v")
-            fn.cursor({ en.line + 1, en.character + 1 })
-          end
-        end,
-        color_mode = true,
-      },
-      outline = {
-        auto_preview = false,
-        auto_enter = false,
-        auto_refresh = false,
-      },
-      finder = {
-        max_height = 0.8,
-      },
-      beacon = {
-        enable = false,
-        frequency = 7,
-      },
-    },
+    "simrat39/symbols-outline.nvim",
+    cmd = "SymbolsOutline",
     keys = {
-      { "K", "<cmd>Lspsaga hover_doc<cr>", desc = "Lspsaga Hover Doc" },
-      { "<leader>co", "<cmd>Lspsaga outline<cr>", desc = "Lspsaga Code Outline" },
-      { "<leader>t", "<cmd>Lspsaga term_toggle<cr>", desc = "Lspsaga Terminal" },
+      { "<leader>co", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" },
     },
+    config = true,
   },
 }

@@ -124,9 +124,6 @@ return {
   },
   {
     "RRethy/vim-illuminate",
-    opts = {
-      delay = 12,
-    },
     config = function(_, opts)
       require("illuminate").configure(opts)
 

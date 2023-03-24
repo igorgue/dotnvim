@@ -63,7 +63,8 @@ return {
         dashboard.button("g", " " .. " grep text", ":Telescope live_grep <cr>"),
         dashboard.button("c", " " .. " config", ":e $MYVIMRC <cr>"),
         dashboard.button("l", "鈴" .. " lazy", ":Lazy<cr>"),
-        dashboard.button("t", " " .. " terminal", "<cmd>Lspsaga term_toggle<cr>"),
+        -- stylua: ignore
+        dashboard.button("t", " " .. " terminal", ":lua require('lazyvim.util').float_term()<cr>"),
         dashboard.button("d", " " .. " database", "<cmd>enew<cr><cmd>DBUI<cr>"),
         dashboard.button("q", " " .. " quit", ":qa<cr>"),
         { type = "padding", val = 1 },
@@ -518,5 +519,13 @@ return {
         winhighlight = "Normal:Normal,FloatBorder:VertSplit,CursorLine:CursorLine,Search:Search",
       },
     },
+  },
+  {
+    "SmiteshP/nvim-navic",
+    config = function(_, opts)
+      require("nvim-navic").setup(opts)
+
+      vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+    end,
   },
 }
