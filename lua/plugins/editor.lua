@@ -23,70 +23,15 @@ return {
     },
   },
   {
-    "lewis6991/gitsigns.nvim",
-    -- stylua: ignore
-    cond = function() return not vim.o.diff end,
-    opts = {
-      signs = {
-        add = { text = "▌" },
-        change = { text = "▌" },
-        delete = { text = "_" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~" },
-        untracked = { text = "┆" },
-      },
-    },
-    keys = {
-      { "<leader>h", "<cmd>lua require('gitsigns').next_hunk()<cr>", desc = "Next Git Hunk" },
-    },
+    "mattn/webapi-vim",
+    event = { "BufReadPost", "BufNewFile" },
   },
   {
-    "sindrets/diffview.nvim",
-    cmd = {
-      "DiffviewOpen",
-      "DiffviewClose",
-      "DiffviewToggleFiles",
-      "DiffviewLog",
-      "DiffviewRefresh",
-      "DiffviewFileHistory",
-    },
-    opts = {
-      diff_binaries = true,
-      enhanced_diff_hl = true,
-      view = {
-        default = {
-          winbar_info = true,
-        },
-      },
-      hooks = {
-        diff_buf_read = function()
-          vim.opt_local.list = false
-          vim.opt_local.wrap = false
-
-          vim.opt_local.cursorline = true
-          vim.opt_local.number = true
-          vim.opt.signcolumn = "no"
-        end,
-        view_closed = function()
-          vim.opt.signcolumn = "auto"
-        end,
-      },
-    },
-    keys = {
-      {
-        "<leader>gd",
-        function()
-          local view = require("diffview.lib").get_current_view()
-
-          if view then
-            vim.cmd("DiffviewClose")
-          else
-            vim.cmd("DiffviewOpen")
-          end
-        end,
-        desc = "Toggle diff view",
-      },
-    },
+    "s1n7ax/nvim-window-picker",
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      require("window-picker").setup()
+    end,
   },
   {
     "echasnovski/mini.surround",
@@ -102,18 +47,6 @@ return {
         search = "IncSearch",
         replace = "DiffChange",
         border = "FloatBorder",
-      },
-    },
-  },
-  {
-    "folke/which-key.nvim",
-    opts = {
-      window = {
-        position = "top",
-        -- border = "rounded",
-        margin = { 0, 0, 0, 0 },
-        padding = { 1, 0, 1, 0 },
-        winblend = 5,
       },
     },
   },

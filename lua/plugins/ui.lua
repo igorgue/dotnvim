@@ -280,17 +280,6 @@ return {
     },
   },
   {
-    "mattn/webapi-vim",
-    event = { "BufReadPost", "BufNewFile" },
-  },
-  {
-    "s1n7ax/nvim-window-picker",
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("window-picker").setup()
-    end,
-  },
-  {
     "folke/zen-mode.nvim",
     dependencies = {
       { "folke/twilight.nvim", event = { "BufReadPost", "BufNewFile" }, cmd = { "Twilight", "TwilightEnable" } },
@@ -517,6 +506,18 @@ return {
       ui = {
         border = "single",
         winhighlight = "Normal:Normal,FloatBorder:VertSplit,CursorLine:CursorLine,Search:Search",
+      },
+    },
+  },
+  {
+    "folke/which-key.nvim",
+    opts = {
+      window = {
+        position = "top",
+        -- border = "rounded",
+        margin = { 0, 0, 0, 0 },
+        padding = { 1, 0, 1, 0 },
+        winblend = 5,
       },
     },
   },

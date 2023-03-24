@@ -147,33 +147,33 @@ return {
           },
         },
         semanticHighlighting = {
-          -- operator = {
-          --   enable = true,
-          --   specialization = {
-          --     enable = true,
-          --   },
-          -- },
-          -- strings = {
-          --   enable = true,
-          -- },
-          -- doc = {
-          --   comment = {
-          --     inject = {
-          --       enable = true,
-          --     },
-          --   },
-          -- },
-          -- punctuation = {
-          --   enable = true,
-          --   separate = {
-          --     macro = {
-          --       bang = true,
-          --     },
-          --   },
-          --   specialization = {
-          --     enable = true,
-          --   },
-          -- },
+          operator = {
+            enable = true,
+            specialization = {
+              enable = true,
+            },
+          },
+          strings = {
+            enable = true,
+          },
+          doc = {
+            comment = {
+              inject = {
+                enable = true,
+              },
+            },
+          },
+          punctuation = {
+            enable = true,
+            separate = {
+              macro = {
+                bang = true,
+              },
+            },
+            specialization = {
+              enable = true,
+            },
+          },
         },
         trace = {
           server = "verbose",

@@ -5,4 +5,5 @@ return {
   { "echasnovski/mini.pairs", enabled = false },
   { "ggandor/leap.nvim", enabled = false },
   { "ggandor/flit.nvim", enabled = false },
+  { "nvim-treesitter/nvim-treesitter-textobjects", enabled = false },
 }

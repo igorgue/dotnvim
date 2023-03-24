@@ -10,6 +10,72 @@ return {
     },
   },
   {
+    "lewis6991/gitsigns.nvim",
+    -- stylua: ignore
+    cond = function() return not vim.o.diff end,
+    opts = {
+      signs = {
+        add = { text = "▌" },
+        change = { text = "▌" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+        untracked = { text = "┆" },
+      },
+    },
+    keys = {
+      { "<leader>h", "<cmd>lua require('gitsigns').next_hunk()<cr>", desc = "Next Git Hunk" },
+    },
+  },
+  {
+    "sindrets/diffview.nvim",
+    cmd = {
+      "DiffviewOpen",
+      "DiffviewClose",
+      "DiffviewToggleFiles",
+      "DiffviewLog",
+      "DiffviewRefresh",
+      "DiffviewFileHistory",
+    },
+    opts = {
+      diff_binaries = true,
+      enhanced_diff_hl = true,
+      view = {
+        default = {
+          winbar_info = true,
+        },
+      },
+      hooks = {
+        diff_buf_read = function()
+          vim.opt_local.list = false
+          vim.opt_local.wrap = false
+
+          vim.opt_local.cursorline = true
+          vim.opt_local.number = true
+          vim.opt.signcolumn = "no"
+        end,
+        view_closed = function()
+          vim.opt.signcolumn = "auto"
+        end,
+      },
+    },
+    keys = {
+      {
+        "<leader>gd",
+        function()
+          local view = require("diffview.lib").get_current_view()
+
+          if view then
+            vim.cmd("DiffviewClose")
+          else
+            vim.cmd("DiffviewOpen")
+          end
+        end,
+        desc = "Toggle diff view",
+      },
+    },
+  },
+  {
     "github/copilot.vim",
     cmd = "Copilot",
     event = { "BufReadPost", "BufNewFile" },
@@ -25,11 +91,6 @@ return {
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "hrsh7th/cmp-cmdline",
-      "hrsh7th/cmp-nvim-lsp-document-symbol",
-      "f3fora/cmp-spell",
-      "tamago324/cmp-zsh",
-      "uga-rosa/cmp-dictionary",
-      "onsails/lspkind.nvim",
     },
     opts = function(_, opts)
       local cmp = require("cmp")
@@ -42,8 +103,6 @@ return {
         {
           { name = "buffer" },
           { name = "path" },
-          { name = "spell" },
-          { name = "dictionary" },
         },
       }
       local mappings = {
@@ -75,10 +134,6 @@ return {
         end, { "i", "s" }),
       }
 
-      if vim.fn.has("win32") ~= 1 then
-        table.insert(sources[2], { name = "zsh" })
-      end
-
       local winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:Search"
 
       cmp.setup.filetype("gitcommit", {
@@ -86,10 +141,7 @@ return {
           { name = "cmp_git" },
           { name = "nvim_lsp" },
           { name = "nvim_lua" },
-          { name = "nvim_lsp_document_symbol" },
           { name = "buffer" },
-          { name = "dictionary" },
-          { name = "spell" },
           { name = "path" },
         }),
       })
@@ -98,8 +150,6 @@ return {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
           { name = "nvim_lsp" },
-          { name = "nvim_lsp_document_symbol" },
-          { name = "dictionary" },
           { name = "buffer" },
         },
       })
@@ -109,7 +159,6 @@ return {
         sources = cmp.config.sources({
           { name = "cmdline" },
           { name = "path", options = { trailing_slash = true, label_trailing_slash = true } },
-          { name = "dictionary" },
           { name = "buffer" },
         }),
       })
@@ -171,51 +220,9 @@ return {
       "windwp/nvim-ts-autotag",
       "andymass/vim-matchup",
     },
-    -- init = function()
-    --   -- stylua: ignore
-    --   if vim.o.diff then return end
-    --
-    --   vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertEnter" }, {
-    --     -- files I use, I suspect I should add a bunch
-    --     pattern = { "*.py", "*.ex", "*.rs", "*.dart", "*.js", "*.json" },
-    --     callback = function()
-    --       local filesize = vim.fn.getfsize(vim.fn.expand("%:p"))
-    --
-    --       if filesize < 50000 then
-    --         return
-    --       end
-    --
-    --       vim.b.autoformat = false
-    --       vim.opt_local.foldmethod = "manual"
-    --
-    --       -- disable "some" treesitter in the current buffer
-    --       vim.cmd([[
-    --         TSBufDisable markid
-    --         TSBufDisable indent
-    --         TSBufDisable highlight
-    --         TSBufDisable rainbow
-    --         TSBufDisable refactor
-    --         TSBufDisable pairs
-    --         TSBufDisable autotag
-    --         TSBufDisable matchup
-    --         TSBufDisable incremental_selection
-    --         TSBufDisable playground
-    --         TSBufDisable query_linter
-    --         TSBufDisable refactor.highlight_definitions
-    --         TSBufDisable refactor.navigation
-    --         TSBufDisable refactor.smart_rename
-    --         TSBufDisable refactor.highlight_current_scope
-    --       ]])
-    --
-    --       vim.notify_once(
-    --         "* Treesitter degraded\n" .. "* autoformat off\n" .. "* foldmethod manual",
-    --         vim.log.levels.WARN,
-    --         { title = "File is too large! (" .. (filesize / 1000) .. "kb > 50kb)" }
-    --       )
-    --     end,
-    --   })
-    -- end,
     config = function(_, opts)
+      opts.rainbow.strategy = require("ts-rainbow").strategy["local"]
+
       require("nvim-treesitter.configs").setup(opts)
 
       require("treesitter-context").setup()

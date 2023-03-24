@@ -16,4 +16,5 @@ return {
   { "SmiteshP/nvim-navic", enabled = false },
   { "nvim-tree/nvim-web-devicons", enabled = false },
   { "RRethy/vim-illuminate", enabled = false },
+  { "nvim-treesitter/nvim-treesitter-textobjects", enabled = false },
 }
