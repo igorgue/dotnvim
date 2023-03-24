@@ -18,7 +18,6 @@ return {
       local format = require("lazyvim.plugins.lsp.format").format
 
       keymaps._keys = {
-        { "K", vim.lsp.buf.hover, desc = "Hover" },
         { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },
         { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
         { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Goto Implementation" },

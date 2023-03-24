@@ -24,22 +24,14 @@ return {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
-      "hrsh7th/nvim-cmp",
-      "hrsh7th/cmp-nvim-lua",
-      "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-cmdline",
-      "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lsp-document-symbol",
-      "hrsh7th/cmp-path",
       "f3fora/cmp-spell",
-      "ray-x/cmp-treesitter",
-      "saadparwaiz1/cmp_luasnip",
       "tamago324/cmp-zsh",
       "uga-rosa/cmp-dictionary",
-      "amarakon/nvim-cmp-fonts",
       "onsails/lspkind.nvim",
     },
-    opts = function()
+    opts = function(_, opts)
       local cmp = require("cmp")
       local sources = {
         {
@@ -48,12 +40,10 @@ return {
           { name = "luasnip" },
         },
         {
-          { name = "treesitter" },
           { name = "buffer" },
           { name = "path" },
           { name = "spell" },
           { name = "dictionary" },
-          { name = "fonts", options = { space_filter = "-" } },
         },
       }
 
@@ -62,63 +52,6 @@ return {
       end
 
       local winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:Search"
-
-      -- <Tab> is used by Copilot, I found the plugin doesn't work
-      -- if I use <Tab> for nvim-cmp or any other plugin
-      local mapping = {
-        ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-j>"] = cmp.mapping(function(fallback)
-          local luasnip = require("luasnip")
-          if luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-        ["<C-k>"] = cmp.mapping(function(fallback)
-          local luasnip = require("luasnip")
-          if luasnip.jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-        ["<C-Space>"] = cmp.mapping.complete({}),
-        ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping.confirm(),
-      }
-
-      -- cmp plugin
-      local cmp_symbols = {
-        Text = " ",
-        Method = " ",
-        Function = "",
-        Constructor = " ",
-        Field = " ",
-        Variable = " ",
-        Class = " ",
-        Interface = " ",
-        Module = " ",
-        Property = " ",
-        Unit = "塞",
-        Value = " ",
-        Enum = " ",
-        Keyword = " ",
-        Snippet = " ",
-        Color = " ",
-        File = " ",
-        Reference = " ",
-        Folder = " ",
-        EnumMember = " ",
-        Constant = " ",
-        Struct = " ",
-        Event = "",
-        Operator = " ",
-        TypeParameter = " ",
-      }
 
       cmp.setup.filetype("gitcommit", {
         sources = cmp.config.sources({
@@ -153,41 +86,15 @@ return {
         }),
       })
 
-      return {
-        window = {
-          completion = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
-          documentation = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
-          preview = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
-        },
-        formatting = {
-          format = require("lspkind").cmp_format({
-            mode = "symbol",
-            ellipsis_char = "…",
-            menu = {
-              buffer = "buf",
-              calc = "calc",
-              cmdline = "cmd",
-              cmp_git = "git",
-              dictionary = "dict",
-              fonts = "font",
-              luasnip = "snip",
-              nvim_lsp_document_symbol = "doc",
-              nvim_lsp = "lsp",
-              nvim_lsp_signature_help = "sign",
-              nvim_lua = "lua",
-              path = "path",
-              spell = "spel",
-              treesitter = "ts",
-              ["vim-dadbod-completion"] = "sql",
-              vsnip = "snip",
-              zsh = "zsh",
-            },
-            symbol_map = cmp_symbols,
-          }),
-        },
-        mapping = cmp.mapping.preset.insert(mapping),
-        sources = cmp.config.sources(sources[1], sources[2]),
+      opts.window = {
+        completion = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
+        documentation = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
+        preview = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
       }
+
+      opts.sources = cmp.config.sources(sources[1], sources[2])
+
+      return opts
     end,
   },
   {

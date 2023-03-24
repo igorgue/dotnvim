@@ -17,6 +17,7 @@ wk.register({
 })
 
 wk.register({
+  K = { vim.lsp.buf.hover, "Hover" },
   ["<esc>"] = { require("utils").ui.refresh_ui, "Refresh UI" },
   ["<leader>L"] = { "<cmd>Lazy<cr>", "Lazy" },
   ["<leader><tab>j"] = { "<cmd>tabprevious<cr>", "Previous Tab" },
