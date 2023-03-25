@@ -100,15 +100,6 @@ return {
         TelescopePrompt = false,
       }
     end,
-    -- keys = {
-    --   {
-    --     "<Tab>",
-    --     'copilot#Accept("<Tab>")',
-    --     desc = "Accept Copilot Suggestion",
-    --     mode = "i",
-    --     expr = true,
-    --   },
-    -- },
   },
   {
     "hrsh7th/nvim-cmp",

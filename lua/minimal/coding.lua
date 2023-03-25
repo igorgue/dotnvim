@@ -6,22 +6,13 @@ return {
     cmd = "Copilot",
     event = { "BufReadPost", "BufNewFile" },
     init = function()
-      vim.g.copilot_no_tab_remap = true
+      vim.g.copilot_no_tab_remap = false
       vim.g.copilot_assume_mapped = true
       vim.g.copilot_filetypes = {
         TelescopeResults = false,
         TelescopePrompt = false,
       }
     end,
-    keys = {
-      {
-        "<Tab>",
-        'copilot#Accept("<Tab>")',
-        desc = "Accept Copilot Suggestion",
-        mode = "i",
-        expr = true,
-      },
-    },
   },
   {
     "hrsh7th/nvim-cmp",
