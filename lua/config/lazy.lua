@@ -10,7 +10,6 @@ local spec = {
   -- import LazyVim plugins
   { "LazyVim/LazyVim", import = "lazyvim.plugins" },
   -- import my plugins
-  { import = "plugins.lsp" },
   { import = "plugins.extras.lang.c" },
   { import = "plugins.extras.lang.html_css" },
   { import = "plugins.extras.lang.sql" },
@@ -29,16 +28,21 @@ local spec = {
   { import = "lazyvim.plugins.extras.lang.json" },
 }
 local plugins = {}
+local diff_cmd = ""
 
 if vim.env.NVIM_MINIMAL ~= nil then
   plugins = {
     { import = "minimal" },
     { import = "plugins.colorscheme" },
+    { import = "plugins.debugging" },
+    { import = "plugins.lsp" },
   }
+  diff_cmd = "git"
 else
   plugins = {
     { import = "plugins" },
   }
+  diff_cmd = "diffview.nvim"
 end
 
 for _, v in ipairs(plugins) do
@@ -61,7 +65,7 @@ require("lazy").setup({
   ui = {
     border = "single",
   },
-  diff = { cmd = "diffview.nvim" },
+  diff = { cmd = diff_cmd },
   performance = {
     rtp = {
       -- disable some rtp plugins

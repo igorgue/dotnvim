@@ -3,8 +3,21 @@ local utils = require("utils")
 return {
   {
     "tpope/vim-fugitive",
-    event = "BufReadPost",
-    cmd = { "Git", "Gread", "Gwrite" },
+    cmd = {
+      "Git",
+      "Gread",
+      "Gwrite",
+      "Gdiffsplit",
+      "Gvdiffsplit",
+      "Ggrep",
+      "GMove",
+      "GDelete",
+      "GBrowse",
+      "GRemove",
+      "GRename",
+      "Glgrep",
+      "Gedit",
+    },
     dependencies = {
       "tpope/vim-git",
     },
@@ -80,11 +93,22 @@ return {
     cmd = "Copilot",
     event = { "BufReadPost", "BufNewFile" },
     init = function()
+      vim.g.copilot_no_tab_remap = false
+      vim.g.copilot_assume_mapped = true
       vim.g.copilot_filetypes = {
         TelescopeResults = false,
         TelescopePrompt = false,
       }
     end,
+    -- keys = {
+    --   {
+    --     "<Tab>",
+    --     'copilot#Accept("<Tab>")',
+    --     desc = "Accept Copilot Suggestion",
+    --     mode = "i",
+    --     expr = true,
+    --   },
+    -- },
   },
   {
     "hrsh7th/nvim-cmp",
@@ -106,8 +130,6 @@ return {
         },
       }
       local mappings = {
-        ["<Tab>"] = nil,
-        ["<S-Tab>"] = nil,
         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -148,17 +170,15 @@ return {
         }),
       })
 
-      local cmdline_mappings = {
+      local cmd_mappings = {
         ["<Tab>"] = cmp.mapping.confirm({
           behavior = cmp.ConfirmBehavior.Replace,
-        }),
-        ["<CR>"] = cmp.mapping.confirm({
-          behavior = cmp.ConfirmBehavior.Replace,
+          select = true,
         }),
       }
 
       cmp.setup.cmdline({ "/", "?" }, {
-        mapping = cmp.mapping.preset.cmdline(cmdline_mappings),
+        mapping = cmp.mapping.preset.cmdline(cmd_mappings),
         sources = {
           { name = "nvim_lsp" },
           { name = "buffer" },
@@ -166,7 +186,7 @@ return {
       })
 
       cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(cmdline_mappings),
+        mapping = cmp.mapping.preset.cmdline(cmd_mappings),
         sources = cmp.config.sources({
           { name = "cmdline" },
           { name = "path", options = { trailing_slash = true, label_trailing_slash = true } },
