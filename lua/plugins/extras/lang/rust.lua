@@ -146,35 +146,40 @@ return {
             enable = true,
           },
         },
-        semanticHighlighting = {
-          operator = {
-            enable = true,
-            specialization = {
-              enable = true,
-            },
-          },
-          strings = {
-            enable = true,
-          },
-          doc = {
-            comment = {
-              inject = {
-                enable = true,
-              },
-            },
-          },
-          punctuation = {
-            enable = true,
-            separate = {
-              macro = {
-                bang = true,
-              },
-            },
-            specialization = {
-              enable = true,
-            },
-          },
-        },
+        -- FIXME: this creates terrible highlights
+        -- on Rust code, for example all keywords
+        -- would be the same color as variables
+        -- it's also really not neeed if you
+        -- use treesitter
+        -- semanticHighlighting = {
+        --   operator = {
+        --     enable = true,
+        --     specialization = {
+        --       enable = true,
+        --     },
+        --   },
+        --   strings = {
+        --     enable = true,
+        --   },
+        --   doc = {
+        --     comment = {
+        --       inject = {
+        --         enable = true,
+        --       },
+        --     },
+        --   },
+        --   punctuation = {
+        --     enable = true,
+        --     separate = {
+        --       macro = {
+        --         bang = true,
+        --       },
+        --     },
+        --     specialization = {
+        --       enable = true,
+        --     },
+        --   },
+        -- },
         trace = {
           server = "verbose",
           extension = true,

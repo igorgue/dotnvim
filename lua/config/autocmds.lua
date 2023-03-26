@@ -29,7 +29,6 @@ api.nvim_create_user_command("Cloc", function()
   end)
 end, {})
 
--- autocmds
 api.nvim_create_user_command("Screenshot", function()
   vim.notify("In 3...2...1", vim.log.levels.INFO, { title = "Screenshot" })
 
@@ -39,6 +38,7 @@ api.nvim_create_user_command("Screenshot", function()
   end, 3000)
 end, {})
 
+-- autocmds
 api.nvim_create_autocmd("TermOpen", {
   callback = function()
     vim.opt_local.cursorline = false
