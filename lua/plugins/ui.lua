@@ -57,7 +57,7 @@ return {
         { type = "padding", val = 1 },
         dashboard.button("n", " " .. " new file", ":ene <bar> startinsert <cr>"),
         dashboard.button("r", " " .. " recent files", ":Telescope oldfiles <cr>"),
-        dashboard.button("s", "勒" .. " load session", [[:lua require("persistence").load() <cr>]]),
+        dashboard.button("s", " " .. " load session", [[:lua require("persistence").load() <cr>]]),
         dashboard.button("f", " " .. " find file", ":Telescope find_files <cr>"),
         dashboard.button("o", " " .. " smart open", ":Telescope smart_open <cr>"),
         dashboard.button("g", " " .. " grep text", ":Telescope live_grep <cr>"),

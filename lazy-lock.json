@@ -14,7 +14,7 @@
   "color-picker.nvim": { "branch": "master", "commit": "6d49c615cb9ff101fdcf85cd7137439e13bdbddc" },
   "copilot.vim": { "branch": "release", "commit": "9e869d29e62e36b7eb6fb238a4ca6a6237e7d78b" },
   "crates.nvim": { "branch": "main", "commit": "aa94d3844d6a12b1a8bf73c8a242ff2f540fb749" },
-  "danger": { "branch": "main", "commit": "453f364d9eb355937f0a394748e1f0f32306e96b" },
+  "danger": { "branch": "main", "commit": "0750c569b907bfa0279a7aa9f01be3cc9697b50f" },
   "dart-vim-plugin": { "branch": "master", "commit": "81e50e80329e5eac2c115f45585b1838a614d07a" },
   "diffview.nvim": { "branch": "main", "commit": "58035354fc79c6ec42fa7b218dab90bd3968615f" },
   "dressing.nvim": { "branch": "master", "commit": "5f44f829481640be0f96759c965ae22a3bcaf7ce" },

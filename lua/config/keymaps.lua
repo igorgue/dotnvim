@@ -20,6 +20,7 @@ wk.register({
   K = { vim.lsp.buf.hover, "Hover" },
   ["<esc>"] = { require("utils").ui.refresh_ui, "Refresh UI" },
   ["<leader>L"] = { "<cmd>Lazy<cr>", "Lazy" },
+  ["<leader>t"] = { ":lua require('lazyvim.util').float_term()<cr>", "Terminal (cwd)" },
   ["<leader><tab>j"] = { "<cmd>tabprevious<cr>", "Previous Tab" },
   ["<leader><tab>k"] = { "<cmd>tabnext<cr>", "Next Tab" },
   ["<leader><tab>h"] = { "<cmd>tabfirst<cr>", "First Tab" },
