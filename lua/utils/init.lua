@@ -59,7 +59,11 @@ function M.ts_disable(lang, bufnr)
   vim.o.winbar = ""
   vim.opt_local.foldmethod = "manual"
 
-  if not vim.diagnostic.is_disabled(bufnr) then
+  if vim.version().major >= 9 then
+    if not vim.diagnostic.is_disabled(bufnr) then
+      vim.diagnostic.disable(bufnr)
+    end
+  else
     vim.diagnostic.disable(bufnr)
   end
 
