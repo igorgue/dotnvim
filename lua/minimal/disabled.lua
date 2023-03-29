@@ -6,7 +6,6 @@ return {
   { "ggandor/leap.nvim", enabled = false },
   { "ggandor/flit.nvim", enabled = false },
   { "L3MON4D3/LuaSnip", enabled = false },
-  { "goolord/alpha-nvim", enabled = false },
   { "lewis6991/gitsigns.nvim", enabled = false },
   { "folke/todo-comments.nvim", enabled = false },
   { "folke/trouble.nvim", enabled = false },
@@ -18,4 +17,5 @@ return {
   { "RRethy/vim-illuminate", enabled = false },
   { "nvim-treesitter/nvim-treesitter-textobjects", enabled = false },
   { "nvim-treesitter/nvim-treesitter", enabled = false },
+  { "saadparwaiz1/cmp_luasnip", enabled = false },
 }

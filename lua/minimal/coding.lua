@@ -2,6 +2,11 @@ local utils = require("utils")
 
 return {
   {
+    "L3MON4D3/LuaSnip",
+    -- stylua: ignore
+    keys = function() return {} end,
+  },
+  {
     "github/copilot.vim",
     cmd = "Copilot",
     event = { "BufReadPost", "BufNewFile" },
@@ -27,7 +32,6 @@ return {
         {
           { name = "nvim_lsp" },
           { name = "nvim_lua" },
-          { name = "luasnip" },
         },
         {
           { name = "buffer" },

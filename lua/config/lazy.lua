@@ -28,6 +28,7 @@ local spec = {
   { import = "lazyvim.plugins.extras.lang.json" },
 }
 local plugins = {}
+local disabled_plugins = {}
 local diff_cmd = ""
 
 if vim.env.NVIM_MINIMAL ~= nil then
@@ -38,11 +39,29 @@ if vim.env.NVIM_MINIMAL ~= nil then
     { import = "plugins.lsp" },
   }
   diff_cmd = "git"
+  disabled_plugins = {
+    "gzip",
+    "netrwPlugin",
+    "tarPlugin",
+    "tohtml",
+    "tutor",
+    "zipPlugin",
+  }
 else
   plugins = {
     { import = "plugins" },
   }
   diff_cmd = "diffview.nvim"
+  disabled_plugins = {
+    "gzip",
+    "matchit",
+    "matchparen",
+    "netrwPlugin",
+    "tarPlugin",
+    "tohtml",
+    "tutor",
+    "zipPlugin",
+  }
 end
 
 for _, v in ipairs(plugins) do
@@ -69,16 +88,7 @@ require("lazy").setup({
   performance = {
     rtp = {
       -- disable some rtp plugins
-      disabled_plugins = {
-        "gzip",
-        "matchit",
-        "matchparen",
-        "netrwPlugin",
-        "tarPlugin",
-        "tohtml",
-        "tutor",
-        "zipPlugin",
-      },
+      disabled_plugins = disabled_plugins,
     },
   },
 })
