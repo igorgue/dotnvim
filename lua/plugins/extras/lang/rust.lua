@@ -49,7 +49,7 @@ return {
       },
       server = {
         cmd = { "rustup", "run", "stable", "rust-analyzer" },
-        standalone = true,
+        standalone = false,
         assist = {
           emitMustUse = true,
         },
