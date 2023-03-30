@@ -2,6 +2,45 @@ local utils = require("utils")
 
 return {
   {
+    "tpope/vim-fugitive",
+    cmd = {
+      "Git",
+      "Gread",
+      "Gwrite",
+      "Gdiffsplit",
+      "Gvdiffsplit",
+      "Ggrep",
+      "GMove",
+      "GDelete",
+      "GBrowse",
+      "GRemove",
+      "GRename",
+      "Glgrep",
+      "Gedit",
+    },
+    dependencies = {
+      "tpope/vim-git",
+    },
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    -- stylua: ignore
+    cond = function() return not vim.o.diff end,
+    opts = {
+      signs = {
+        add = { text = "▌" },
+        change = { text = "▌" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+        untracked = { text = "┆" },
+      },
+    },
+    keys = {
+      { "<leader>h", "<cmd>lua require('gitsigns').next_hunk()<cr>", desc = "Next Git Hunk" },
+    },
+  },
+  {
     "L3MON4D3/LuaSnip",
     -- stylua: ignore
     keys = function() return {} end,
