@@ -2,7 +2,6 @@ return {
   {
     "neovim/nvim-lspconfig",
     ft = { "java" },
-    -- stylua: ignore
     opts = {
       setup = {
         -- stylua: ignore
@@ -26,8 +25,8 @@ return {
           -- stylua: ignore start
           local extract_variable = function() jdtls.extract_variable(true) end
           local extract_method = function() jdtls.extract_method(true) end
-
           -- stylua: ignore end
+
           wk.register({
             ["<leader>cJ"] = { name = "+java", buffer = bufnr, mode = { "n", "v" } },
           })

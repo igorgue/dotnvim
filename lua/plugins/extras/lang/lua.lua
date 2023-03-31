@@ -4,31 +4,7 @@ return {
     ft = "lua",
     opts = {
       servers = {
-        lua_ls = {
-          settings = {
-            Lua = {
-              runtime = {
-                version = "LuaJIT",
-              },
-              diagnostics = {
-                globals = { "vim" },
-              },
-              codeLens = {
-                enable = true,
-              },
-              hint = {
-                enable = true,
-                setType = true,
-              },
-              completion = {
-                callSnippets = "Replace",
-              },
-              telemetry = {
-                enable = false,
-              },
-            },
-          },
-        },
+        lua_ls = {},
       },
     },
   },
