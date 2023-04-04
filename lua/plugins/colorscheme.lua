@@ -1,13 +1,16 @@
 return {
   {
     "LazyVim/LazyVim",
+    dependencies = {
+      "igorgue/danger",
+    },
     opts = {
-      colorscheme = os.getenv("NVIM_COLORSCHEME") or "danger",
+      colorscheme = os.getenv("NVIM_COLORSCHEME") or "danger_dark",
     },
   },
   {
     "igorgue/danger",
-    -- dir = "~/Code/danger",
+    dir = "~/Code/danger",
     opts = {
       style = "dark",
       alacritty = true,

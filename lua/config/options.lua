@@ -7,6 +7,7 @@ local diagnostic = vim.diagnostic
 local fn = vim.fn
 local utils = require("utils")
 
+opt.shell = "/bin/zsh -i"
 opt.number = false
 opt.relativenumber = false
 opt.list = false

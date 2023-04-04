@@ -21,6 +21,13 @@ wk.register({
   ["<esc>"] = { require("utils").ui.refresh_ui, "Refresh UI" },
   ["<leader>L"] = { "<cmd>Lazy<cr>", "Lazy" },
   ["<leader>t"] = { ":lua require('lazyvim.util').float_term()<cr>", "Terminal (cwd)" },
+  ["<leader>T"] = {
+    function()
+      vim.cmd("enew | terminal")
+      vim.cmd("normal a")
+    end,
+    "Terminal (cwd, current buffer)",
+  },
   ["<leader><tab>j"] = { "<cmd>tabprevious<cr>", "Previous Tab" },
   ["<leader><tab>k"] = { "<cmd>tabnext<cr>", "Next Tab" },
   ["<leader><tab>h"] = { "<cmd>tabfirst<cr>", "First Tab" },

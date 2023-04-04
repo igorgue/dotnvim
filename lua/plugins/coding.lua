@@ -275,7 +275,7 @@ return {
         disable = utils.ts_disable,
       },
       markid = {
-        enable = true,
+        enable = false,
         disable = utils.ts_disable,
       },
       indent = {

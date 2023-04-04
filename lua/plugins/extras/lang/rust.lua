@@ -50,143 +50,142 @@ return {
       server = {
         cmd = { "rustup", "run", "stable", "rust-analyzer" },
         standalone = false,
-        assist = {
-          emitMustUse = true,
-        },
-        cachePriming = {
-          enable = true,
-        },
-        completion = {
-          privateEditable = {
-            enable = true,
-          },
-        },
-        cargo = {
-          buildScripts = {
-            enable = true,
-          },
-          autoreload = true,
-        },
-        procMacro = {
-          enable = true,
-        },
-        check = {
-          features = "all",
-        },
-        diagnostics = {
-          experimental = {
-            enable = true,
-          },
-          previewRustcOutput = true,
-          useRustcErrorCode = true,
-        },
-        hover = {
-          actions = {
-            references = {
+        settings = {
+          ["rust-analyzer"] = {
+            assist = {
+              emitMustUse = true,
+            },
+            completion = {
+              privateEditable = {
+                enable = true,
+              },
+            },
+            diagnostics = {
+              experimental = {
+                enable = true,
+              },
+              previewRustcOutput = true,
+              useRustcErrorCode = true,
+            },
+            hover = {
+              actions = {
+                references = {
+                  enable = true,
+                },
+              },
+            },
+            cachePriming = {
+              numThreads = 12,
+            },
+            numThreads = 12,
+            procMacro = {
               enable = true,
             },
-          },
-        },
-        imports = {
-          granularity = {
-            enforce = true,
-          },
-        },
-        interpret = {
-          tests = true,
-        },
-        inlayHints = {
-          bindingModeHints = {
-            enable = true,
-          },
-          typeHints = {
-            enable = true,
-            hideClosureInitialization = false,
-            hideNamedConstructor = false,
-          },
-          reborrowHints = {
-            enable = "always",
-          },
-          closureReturnTypeHints = {
-            enable = "always",
-          },
-          discriminantHints = {
-            enable = "always",
-          },
-          expressionAdjustmentHints = {
-            enable = "always",
-          },
-          lifetimeElisionHints = {
-            enable = "always",
-            useParameterNames = true,
-          },
-        },
-        lens = {
-          references = {
-            enumVariant = {
-              enable = true,
+            check = {
+              command = "clippy",
             },
-            method = {
-              enable = true,
+            imports = {
+              granularity = {
+                enforce = true,
+              },
+              prefer = {
+                no = {
+                  std = true,
+                },
+              },
             },
-            trait = {
-              enable = true,
+            inlayHints = {
+              bindingModeHints = {
+                enable = true,
+              },
+              typeHints = {
+                enable = true,
+                hideClosureInitialization = false,
+                hideNamedConstructor = false,
+              },
+              reborrowHints = {
+                enable = "always",
+              },
+              closureReturnTypeHints = {
+                enable = "always",
+              },
+              discriminantHints = {
+                enable = "always",
+              },
+              expressionAdjustmentHints = {
+                enable = "always",
+              },
+              lifetimeElisionHints = {
+                enable = "always",
+                useParameterNames = true,
+              },
             },
-            adt = {
-              enable = true,
+            interpret = {
+              tests = true,
             },
-          },
-        },
-        debug = {
-          openDebugPane = true,
-        },
-        restartServerOnConfigChange = true,
-        rustfmt = {
-          rangeFormatting = {
-            enable = true,
-          },
-        },
-        -- FIXME: this creates terrible highlights
-        -- on Rust code, for example all keywords
-        -- would be the same color as variables
-        -- it's also really not neeed if you
-        -- use treesitter
-        -- semanticHighlighting = {
-        --   operator = {
-        --     enable = true,
-        --     specialization = {
-        --       enable = true,
-        --     },
-        --   },
-        --   strings = {
-        --     enable = true,
-        --   },
-        --   doc = {
-        --     comment = {
-        --       inject = {
-        --         enable = true,
-        --       },
-        --     },
-        --   },
-        --   punctuation = {
-        --     enable = true,
-        --     separate = {
-        --       macro = {
-        --         bang = true,
-        --       },
-        --     },
-        --     specialization = {
-        --       enable = true,
-        --     },
-        --   },
-        -- },
-        trace = {
-          server = "verbose",
-          extension = true,
-        },
-        typing = {
-          autoClosingAngleBrackets = {
-            enable = true,
+            lens = {
+              references = {
+                enumVariant = {
+                  enable = true,
+                },
+                method = {
+                  enable = true,
+                },
+                trait = {
+                  enable = true,
+                },
+                adt = {
+                  enable = true,
+                },
+              },
+            },
+            debug = {
+              openDebugPane = true,
+            },
+            restartServerOnConfigChange = true,
+            rustfmt = {
+              rangeFormatting = {
+                enable = true,
+              },
+            },
+            semanticHighlighting = {
+              operator = {
+                enable = true,
+                specialization = {
+                  enable = true,
+                },
+              },
+              strings = {
+                enable = true,
+              },
+              doc = {
+                comment = {
+                  inject = {
+                    enable = true,
+                  },
+                },
+              },
+              punctuation = {
+                enable = true,
+                separate = {
+                  macro = {
+                    bang = true,
+                  },
+                },
+                specialization = {
+                  enable = true,
+                },
+              },
+            },
+            trace = {
+              server = "verbose",
+              extension = true,
+            },
+            typing = {
+              autoClosingAngleBrackets = {
+                enable = true,
+              },
+            },
           },
         },
         on_attach = function()
