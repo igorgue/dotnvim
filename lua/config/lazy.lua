@@ -23,6 +23,7 @@ local spec = {
   { import = "plugins.extras.lang.v" },
   { import = "plugins.extras.lang.vim" },
   { import = "plugins.extras.lang.sh" },
+  { import = "plugins.extras.lang.odin" },
   -- import extras
   { import = "lazyvim.plugins.extras.lang.typescript" },
   { import = "lazyvim.plugins.extras.lang.json" },

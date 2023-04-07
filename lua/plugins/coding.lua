@@ -233,7 +233,6 @@ return {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       "nvim-treesitter/playground",
-      "David-Kunz/markid",
       "HiPhish/nvim-ts-rainbow2",
       "nvim-treesitter/nvim-treesitter-refactor",
       "nvim-treesitter/nvim-treesitter-context",
@@ -243,6 +242,7 @@ return {
       "andymass/vim-matchup",
     },
     config = function(_, opts)
+      opts.ignore_install = { "help" }
       opts.rainbow.strategy = require("ts-rainbow").strategy["local"]
 
       require("nvim-treesitter.configs").setup(opts)
@@ -272,10 +272,6 @@ return {
       auto_install = true,
       highlight = {
         enable = true,
-        disable = utils.ts_disable,
-      },
-      markid = {
-        enable = false,
         disable = utils.ts_disable,
       },
       indent = {

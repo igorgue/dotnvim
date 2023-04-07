@@ -10,8 +10,7 @@ return {
       { "<leader><cr>d", "<cmd>DBUIToggle<cr>", desc = "Dadbod Database Manager" },
     },
     init = function()
-      vim.g.dbs = {}
-      vim.g.db_ui_use_nerd_fonts = true
+      vim.g.db_ui_use_nerd_fonts = vim.env.NVIM_MINIMAL == nil
       vim.g.db_ui_save_location = vim.fn.stdpath("data") .. "/db_ui"
       vim.g.db_ui_execute_on_save = false
 

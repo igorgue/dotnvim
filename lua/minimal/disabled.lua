@@ -8,6 +8,7 @@ return {
   { "folke/todo-comments.nvim", enabled = false },
   { "folke/trouble.nvim", enabled = false },
   { "folke/noice.nvim", enabled = false },
+  { "MunifTanjim/nui.nvim", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
   { "echasnovski/mini.indentscope", enabled = false },
   { "SmiteshP/nvim-navic", enabled = false },
