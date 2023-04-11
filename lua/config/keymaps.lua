@@ -10,6 +10,12 @@ pcall(nvim_del_keymap, "n", ">")
 pcall(nvim_del_keymap, "v", "<")
 pcall(nvim_del_keymap, "v", ">")
 
+-- Remove <leader>l default since it doesn't
+-- get replaced in minimal mode
+if vim.env.NVIM_MINIMAL ~= nil then
+  pcall(nvim_del_keymap, "n", "<leader>l")
+end
+
 wk.register({
   ["<leader><cr>"] = { name = "+applications" },
   ["<leader>d"] = { name = "+debug", mode = { "n", "v" } },

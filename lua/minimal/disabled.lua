@@ -16,4 +16,5 @@ return {
   { "RRethy/vim-illuminate", enabled = false },
   { "nvim-treesitter/nvim-treesitter-textobjects", enabled = false },
   { "nvim-treesitter/nvim-treesitter", enabled = false },
+  { "hrsh7th/cmp-cmdline", enabled = false },
 }
