@@ -19,7 +19,26 @@ return {
     cond = function() return not vim.o.diff end,
     config = function()
       local elixir = require("elixir")
-      -- local mason = (os.getenv("HOME") or "") .. "/.local/share/nvim/mason"
+      local elixirls = require("elixir.elixirls")
+      local register_keys = function()
+        local wk = require("which-key")
+        local bufnr = vim.api.nvim_get_current_buf()
+
+        wk.register({
+          p = { "<cmd>ElixirToPipe<cr>", "To Pipe" },
+          P = { "<cmd>ElixirFromPipe<cr>", "From Pipe" },
+          m = { "<cmd>ElixirExpandMacro<cr>", "Expand Macro" },
+          r = { "<cmd>ElixirRestart<cr>", "Restart" },
+          o = { "<cmd>ElixirOutputPanel<cr>", "Output Panel" },
+        }, {
+          prefix = "<leader>cE",
+          name = "+elixir",
+          buffer = bufnr,
+        })
+      end
+
+      vim.api.nvim_create_autocmd("FileType", { pattern = "elixir", callback = register_keys })
+
       elixir.setup({
         -- specify a repository and branch
         -- repo = "elixir-lsp/elixir-ls",
@@ -27,47 +46,29 @@ return {
         -- cmd = mason .. "/packages/elixir-ls/language_server.sh",
         cmd = "elixir-ls",
 
-        -- default settings, use the `settings` function to override settings
-        settings = elixir.settings({
-          dialyzerEnabled = true,
-          dialyzerFormat = "dialyxir_long",
-          -- dialyzerWarnOpts = []
-          enableTestLenses = true,
-          -- envVariables =
-          fetchDeps = false,
-          -- languageServerOverridePath =
-          mixEnv = "dev",
-          -- mixTarget = "host",
-          -- projectDir = "",
-          signatureAfterComplete = true,
-          suggestSpecs = true,
-          log_level = vim.lsp.protocol.MessageType.Log,
-          message_level = vim.lsp.protocol.MessageType.Log,
-          trace = {
-            server = "on",
+        elixirls = {
+          settings = {
+            elixirls.settings({
+              dialyzerEnabled = true,
+              dialyzerFormat = "dialyxir_long",
+              -- dialyzerWarnOpts = []
+              enableTestLenses = true,
+              -- envVariables =
+              fetchDeps = false,
+              -- languageServerOverridePath =
+              mixEnv = "dev",
+              -- mixTarget = "host",
+              -- projectDir = "",
+              signatureAfterComplete = true,
+              suggestSpecs = true,
+              log_level = vim.lsp.protocol.MessageType.Log,
+              message_level = vim.lsp.protocol.MessageType.Log,
+              trace = {
+                server = "on",
+              },
+            }),
           },
-        }),
-        on_attach = function()
-          local register_keys = function()
-            local wk = require("which-key")
-            local bufnr = vim.api.nvim_get_current_buf()
-
-            wk.register({
-              p = { "<cmd>ElixirToPipe<cr>", "To Pipe" },
-              P = { "<cmd>ElixirFromPipe<cr>", "From Pipe" },
-              m = { "<cmd>ElixirExpandMacro<cr>", "Expand Macro" },
-              r = { "<cmd>ElixirRestart<cr>", "Restart" },
-              o = { "<cmd>ElixirOutputPanel<cr>", "Output Panel" },
-            }, {
-              prefix = "<leader>cE",
-              name = "+elixir",
-              buffer = bufnr,
-            })
-          end
-
-          register_keys()
-          vim.api.nvim_create_autocmd("FileType", { pattern = "elixir", callback = register_keys })
-        end,
+        },
       })
     end,
   },
