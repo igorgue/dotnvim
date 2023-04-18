@@ -118,6 +118,7 @@ return {
       opts.sources = cmp.config.sources(sources[1], sources[2])
 
       opts.mapping = cmp.mapping.preset.insert(mappings)
+      opts.experimental = {}
 
       return opts
     end,
