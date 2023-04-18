@@ -45,7 +45,7 @@ function M.ts_disable(lang, bufnr)
 
   local line_count = vim.api.nvim_buf_line_count(bufnr)
 
-  if line_count < 2000 then
+  if line_count < 3000 then
     return false
   end
 
