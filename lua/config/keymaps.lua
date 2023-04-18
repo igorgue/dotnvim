@@ -19,6 +19,7 @@ end
 wk.register({
   ["<leader><cr>"] = { name = "+applications" },
   ["<leader>d"] = { name = "+debug", mode = { "n", "v" } },
+  ["<leader>da"] = { name = "+adapter", mode = { "n", "v" } },
   z = { name = "+fold", mode = { "n", "v" } },
 })
 
