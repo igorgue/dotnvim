@@ -10,7 +10,7 @@ return {
     },
   },
   {
-    "mhanberg/elixir.nvim",
+    "elixir-tools/elixir-tools.nvim",
     dependencies = {
       "elixir-editors/vim-elixir",
     },
@@ -20,6 +20,7 @@ return {
     config = function()
       local elixir = require("elixir")
       local elixirls = require("elixir.elixirls")
+
       local register_keys = function()
         local wk = require("which-key")
         local bufnr = vim.api.nvim_get_current_buf()
@@ -37,15 +38,13 @@ return {
         })
       end
 
-      vim.api.nvim_create_autocmd("FileType", { pattern = "elixir", callback = register_keys })
+      vim.api.nvim_create_autocmd(
+        "FileType",
+        { pattern = { "elixir", "eex", "heex", "surface" }, callback = register_keys }
+      )
 
       elixir.setup({
-        -- specify a repository and branch
-        -- repo = "elixir-lsp/elixir-ls",
-        -- branch = "mh/all-workspace-symbols", -- defaults to nil, just checkouts out the default branch, mutually exclusive with the `tag` option
-        -- cmd = mason .. "/packages/elixir-ls/language_server.sh",
-        cmd = "elixir-ls",
-
+        credo = {},
         elixirls = {
           settings = {
             elixirls.settings({
