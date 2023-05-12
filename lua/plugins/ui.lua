@@ -168,7 +168,13 @@ return {
                 removed = icons.git.removed,
               },
               on_click = function()
-                vim.cmd("DiffviewOpen")
+                local view = require("diffview.lib").get_current_view()
+
+                if view then
+                  vim.cmd("DiffviewClose")
+                else
+                  vim.cmd("DiffviewOpen")
+                end
               end,
             },
             {
