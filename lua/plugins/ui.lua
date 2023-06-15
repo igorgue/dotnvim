@@ -418,6 +418,7 @@ return {
       "kkharji/sqlite.lua",
       "nvim-telescope/telescope-symbols.nvim",
       "xiyaowong/telescope-emoji.nvim",
+      "nvim-telescope/telescope-fzy-native.nvim",
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
@@ -471,6 +472,10 @@ return {
             override_file_sorter = true,
             case_mode = "smart_case",
           },
+          fzy_native = {
+            override_generic_sorter = false,
+            override_file_sorter = true,
+          },
           ["ui-select"] = {
             themes.get_dropdown({
               -- borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }, -- rounded
@@ -495,7 +500,7 @@ return {
       telescope.load_extension("glyph")
       telescope.load_extension("emoji")
       telescope.load_extension("smart_open")
-      telescope.load_extension("fzf")
+      telescope.load_extension("fzy_native")
 
       if package.loaded["noice"] then
         telescope.load_extension("noice")
