@@ -49,6 +49,7 @@ return {
       "kkharji/sqlite.lua",
       "nvim-telescope/telescope-symbols.nvim",
       "xiyaowong/telescope-emoji.nvim",
+      "nvim-telescope/telescope-fzy-native.nvim",
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
@@ -126,6 +127,7 @@ return {
       telescope.load_extension("glyph")
       telescope.load_extension("emoji")
       telescope.load_extension("smart_open")
+      telescope.load_extension("fzy_native")
       telescope.load_extension("fzf")
 
       if package.loaded["noice"] then
