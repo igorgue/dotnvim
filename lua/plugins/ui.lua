@@ -293,7 +293,27 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     cmd = "ZenMode",
     keys = {
-      { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" },
+      {
+        "<leader>z",
+        function()
+          if require("zen-mode.view").is_open() then
+            require("zen-mode").toggle()
+            return
+          end
+
+          if vim.g.zen_mode_width then
+            require("zen-mode").toggle({
+              window = {
+                width = tonumber(vim.g.zen_mode_width),
+              },
+            })
+            return
+          end
+
+          require("zen-mode").toggle()
+        end,
+        desc = "Zen Mode",
+      },
       {
         "<leader>Z",
         function()
@@ -309,6 +329,8 @@ return {
               width = tonumber(width),
             },
           })
+
+          vim.g.zen_mode_width = width
         end,
         desc = "Zen Mode With Custom Width",
       },
