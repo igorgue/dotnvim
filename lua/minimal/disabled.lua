@@ -12,7 +12,6 @@ return {
   { "ggandor/leap.nvim", enabled = false },
   { "hrsh7th/cmp-cmdline", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
-  { "MunifTanjim/nui.nvim", enabled = false },
   { "nvim-tree/nvim-web-devicons", enabled = false },
   { "nvim-treesitter/nvim-treesitter", enabled = false },
   { "nvim-treesitter/nvim-treesitter-textobjects", enabled = false },
