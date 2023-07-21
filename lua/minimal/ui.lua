@@ -10,13 +10,13 @@ return {
       dashboard.section.buttons.val = {
         { type = "padding", val = 1 },
         dashboard.button("n", " " .. " new file", ":ene <bar> startinsert <cr>"),
-        dashboard.button("r", " " .. " recent files", ":Telescope oldfiles <cr>"),
+        dashboard.button("r", " " .. " recent files", ":Telescope oldfiles <cr>"),
         dashboard.button("s", " " .. " load session", [[:lua require("persistence").load() <cr>]]),
         dashboard.button("f", " " .. " find file", ":Telescope find_files <cr>"),
         dashboard.button("o", " " .. " smart open", ":Telescope smart_open <cr>"),
         dashboard.button("g", " " .. " grep text", ":Telescope live_grep <cr>"),
         dashboard.button("c", " " .. " config", ":e $MYVIMRC <cr>"),
-        dashboard.button("l", "鈴" .. " lazy", ":Lazy<cr>"),
+        dashboard.button("l", " " .. " lazy", ":Lazy<cr>"),
         -- stylua: ignore
         dashboard.button("t", " " .. " terminal", ":lua require('lazyvim.util').float_term()<cr>"),
         dashboard.button("d", " " .. " database", "<cmd>enew<cr><cmd>DBUI<cr>"),
