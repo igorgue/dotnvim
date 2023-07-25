@@ -5,7 +5,7 @@ return {
       "igorgue/danger",
     },
     opts = {
-      colorscheme = os.getenv("NVIM_COLORSCHEME") or "danger_dark",
+      colorscheme = vim.env.NVIM_COLORSCHEME or "danger_dark",
     },
   },
   {
