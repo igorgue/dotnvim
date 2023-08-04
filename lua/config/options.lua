@@ -102,8 +102,8 @@ vim.cmd([[
 ]])
 
 -- FIXME: We cannot use number and relativenumber with this setup
--- it's roken and doesn't show you what you need
-if vim.version().minor == 9 then
+-- it's broken and doesn't show you what you need
+if vim.version().minor >= 9 then
   vim.opt.statuscolumn = "%=%l%r%s%C"
 end
 
@@ -113,14 +113,14 @@ lsp.handlers["textDocument/publishDiagnostics"] =
 lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, { border = "single" })
 lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_help, { border = "single" })
 
-fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticError" })
+fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticError" })
 fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticWarning" })
 fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticInformation" })
 fn.sign_define("DiagnosticSignHint", { text = " ", texthl = "DiagnosticHint" })
 fn.sign_define("DapLogPoint", { text = " ", texthl = "DapLogPoint", linehl = "DapLogPoint", numhl = "DapLogPoint" })
 fn.sign_define("DapStopped", { text = " ", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
 -- stylua: ignore start
-fn.sign_define("DapBreakpoint", { text = " ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" })
+fn.sign_define("DapBreakpoint", { text = " ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" })
 fn.sign_define("DapBreakpointCondition", { text = " ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" })
 fn.sign_define("DapBreakpointRejected", { text = " ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" })
 -- stylua: ignore end

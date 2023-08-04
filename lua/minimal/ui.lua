@@ -43,12 +43,8 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-telescope/telescope-smart-history.nvim",
-      "nvim-telescope/telescope-ui-select.nvim",
       "danielfalk/smart-open.nvim",
-      "ghassan0/telescope-glyph.nvim",
       "kkharji/sqlite.lua",
-      "nvim-telescope/telescope-symbols.nvim",
-      "xiyaowong/telescope-emoji.nvim",
       "nvim-telescope/telescope-fzy-native.nvim",
       {
         "nvim-telescope/telescope-fzf-native.nvim",
@@ -59,11 +55,6 @@ return {
     cond = function() return not vim.o.diff end,
     opts = function()
       local actions = require("telescope.actions")
-      local themes = require("telescope.themes")
-
-      local function telescope_paste_char(char)
-        vim.api.nvim_put({ char.value }, "c", true, true)
-      end
 
       return {
         defaults = {
@@ -91,23 +82,11 @@ return {
           borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" }, -- straight
         },
         extensions = {
-          emoji = {
-            action = telescope_paste_char,
-          },
-          glyph = {
-            action = telescope_paste_char,
-          },
           fzf = {
             fuzzy = true,
             override_generic_sorter = true,
             override_file_sorter = true,
             case_mode = "smart_case",
-          },
-          ["ui-select"] = {
-            themes.get_dropdown({
-              -- borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }, -- rounded
-              borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" }, -- straight
-            }),
           },
         },
       }
@@ -123,16 +102,9 @@ return {
       telescope.setup(opts)
 
       telescope.load_extension("notify")
-      telescope.load_extension("ui-select")
-      telescope.load_extension("glyph")
-      telescope.load_extension("emoji")
       telescope.load_extension("smart_open")
       telescope.load_extension("fzy_native")
       telescope.load_extension("fzf")
-
-      if package.loaded["noice"] then
-        telescope.load_extension("noice")
-      end
     end,
     keys = {
       { "<leader>o", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
@@ -184,8 +156,9 @@ return {
             {
               "branch",
               on_click = function()
-                local branches = vim.split(vim.api.nvim_exec("silent !git branch", true), "\n")
-                local current_branch = vim.split(vim.api.nvim_exec("silent !git branch --show-current", true), "\n")[3]
+                local branches = vim.split(vim.api.nvim_exec2("silent !git branch", { output = true }).output, "\n")
+                local current_branch =
+                  vim.split(vim.api.nvim_exec2("silent !git branch --show-current", { output = true }).output, "\n")[3]
                 local cleanup_re = "^%s*(.-)%s*$"
 
                 -- cleanup branches
@@ -274,21 +247,12 @@ return {
             {
               "filetype",
               icon_only = true,
-              on_click = function(_, button)
+              on_click = function()
                 local filetype = vim.bo.filetype
 
                 vim.cmd("LspInfo")
 
                 vim.notify(filetype, vim.log.levels.INFO, { title = "Filetype" })
-                -- vim.ui.select({
-                --   "Restart",
-                --   "Stop",
-                --   "Start",
-                -- }, {
-                --   prompt = "LSP Server:",
-                -- }, function(choice)
-                --   vim.cmd("Lsp" .. choice)
-                -- end)
               end,
             },
             "fileformat",

@@ -17,11 +17,12 @@ return {
     local dap, dapui = require("dap"), require("dapui")
     local mason = (os.getenv("HOME") or "") .. "/.local/share/nvim/mason"
 
-    dapui.setup({
-      floating = {
-        border = "single",
-      },
-    })
+    -- TODO: Fix warning, setup needs more keys apparently?
+    -- dapui.setup({
+    --   floating = {
+    --     border = "single",
+    --   },
+    -- })
 
     dap.listeners.after.event_initialized["dapui_config"] = function()
       dapui.open({})

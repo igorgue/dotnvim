@@ -1,5 +1,3 @@
-local lazyvim_util = require("lazyvim.util")
-
 return {
   {
     "lukas-reineke/indent-blankline.nvim",
@@ -127,8 +125,9 @@ return {
             {
               "branch",
               on_click = function()
-                local branches = vim.split(vim.api.nvim_exec("silent !git branch", true), "\n")
-                local current_branch = vim.split(vim.api.nvim_exec("silent !git branch --show-current", true), "\n")[3]
+                local branches = vim.split(vim.api.nvim_exec2("silent !git branch", { output = true }).output, "\n")
+                local current_branch =
+                  vim.split(vim.api.nvim_exec2("silent !git branch --show-current", { output = true }).output, "\n")[3]
                 local cleanup_re = "^%s*(.-)%s*$"
 
                 -- cleanup branches
@@ -223,21 +222,12 @@ return {
             {
               "filetype",
               icon_only = true,
-              on_click = function(_, button)
+              on_click = function()
                 local filetype = vim.bo.filetype
 
                 vim.cmd("LspInfo")
 
                 vim.notify(filetype, vim.log.levels.INFO, { title = "Filetype" })
-                -- vim.ui.select({
-                --   "Restart",
-                --   "Stop",
-                --   "Start",
-                -- }, {
-                --   prompt = "LSP Server:",
-                -- }, function(choice)
-                --   vim.cmd("Lsp" .. choice)
-                -- end)
               end,
             },
             "fileformat",
@@ -433,12 +423,11 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
+      "kkharji/sqlite.lua",
       "nvim-telescope/telescope-smart-history.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
       "danielfalk/smart-open.nvim",
       "ghassan0/telescope-glyph.nvim",
-      "kkharji/sqlite.lua",
-      "nvim-telescope/telescope-symbols.nvim",
       "xiyaowong/telescope-emoji.nvim",
       "nvim-telescope/telescope-fzy-native.nvim",
       {
