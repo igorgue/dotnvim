@@ -214,6 +214,7 @@ return {
         nls.builtins.formatting.mix,
         nls.builtins.formatting.ruff,
         nls.builtins.formatting.black,
+        nls.builtins.formatting.isort,
         nls.builtins.formatting.rustfmt,
         nls.builtins.formatting.shfmt,
         nls.builtins.formatting.dart_format,
