@@ -20,7 +20,6 @@ local spec = {
   { import = "plugins.extras.lang.python" },
   { import = "plugins.extras.lang.rust" },
   { import = "plugins.extras.lang.sh" },
-  { import = "plugins.extras.lang.sml" },
   { import = "plugins.extras.lang.sql" },
   { import = "plugins.extras.lang.swift" },
   { import = "plugins.extras.lang.v" },

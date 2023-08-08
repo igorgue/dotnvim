@@ -12,8 +12,6 @@ return {
       opts.servers = {
         vls = {},
       }
-
-      return opts
     end,
   },
   {

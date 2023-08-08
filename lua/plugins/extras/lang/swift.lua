@@ -9,8 +9,6 @@ return {
       opts.servers = {
         sourcekit = {},
       }
-
-      return opts
     end,
   },
 }
