@@ -56,8 +56,6 @@ else
   diff_cmd = "diffview.nvim"
   disabled_plugins = {
     "gzip",
-    "matchit",
-    "matchparen",
     "netrwPlugin",
     "tarPlugin",
     "tohtml",

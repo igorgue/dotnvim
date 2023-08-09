@@ -89,6 +89,11 @@ return {
     },
   },
   {
+    "L3MON4D3/LuaSnip",
+    -- stylua: ignore
+    keys = function() return {} end,
+  },
+  {
     "github/copilot.vim",
     cmd = "Copilot",
     event = { "BufReadPost", "BufNewFile" },
@@ -226,91 +231,5 @@ return {
 
       return opts
     end,
-  },
-  {
-    "L3MON4D3/LuaSnip",
-    -- stylua: ignore
-    keys = function() return {} end,
-  },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    dependencies = {
-      "nvim-treesitter/playground",
-      "HiPhish/nvim-ts-rainbow2",
-      "nvim-treesitter/nvim-treesitter-refactor",
-      "nvim-treesitter/nvim-treesitter-context",
-      "theHamsta/nvim-treesitter-pairs",
-      "theHamsta/nvim-dap-virtual-text",
-      "windwp/nvim-ts-autotag",
-      "andymass/vim-matchup",
-    },
-    config = function(_, opts)
-      opts.ignore_install = { "help" }
-      opts.rainbow.strategy = require("ts-rainbow").strategy["local"]
-
-      require("nvim-treesitter.configs").setup(opts)
-
-      require("treesitter-context").setup()
-      require("nvim-dap-virtual-text").setup()
-
-      -- enable html parser in htmldjango file
-      pcall(vim.treesitter.language.register, "htmldjango", "html")
-
-      local import_tag, autotag = pcall(require, "nvim-ts-autotag")
-      if not import_tag then
-        return
-      end
-      autotag.setup({
-        autotag = {
-          enable = true,
-        },
-        filetypes = {
-          "html",
-          "htmldjango",
-        },
-      })
-    end,
-    opts = {
-      disable = utils.ts_disable,
-      auto_install = true,
-      highlight = {
-        enable = true,
-        disable = utils.ts_disable,
-      },
-      indent = {
-        enable = true,
-        disable = utils.ts_disable,
-      },
-      rainbow = {
-        enable = true,
-        query = "rainbow-parens",
-        disable = utils.ts_disable,
-      },
-      refactor = {
-        enable = true,
-        clear_on_cursor_move = true,
-        highlight_definitions = { enable = true },
-        disable = utils.ts_disable,
-      },
-      pairs = {
-        enable = true,
-        disable = utils.ts_disable,
-      },
-      autotag = {
-        enable = true,
-        disable = utils.ts_disable,
-      },
-      matchup = {
-        enable = true,
-        disable = utils.ts_disable,
-      },
-      incremental_selection = {
-        enable = true,
-        disable = utils.ts_disable,
-      },
-    },
-    keys = {
-      { "<leader>ux", "<Cmd>TSHighlightCapturesUnderCursor<CR>", desc = "Show Highlight Groups" },
-    },
   },
 }

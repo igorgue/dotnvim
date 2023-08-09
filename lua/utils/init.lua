@@ -26,33 +26,24 @@ function M.version()
 end
 
 function M.ts_disable(lang, bufnr)
-  local langs = {
-    "javascript",
-    "typescript",
-    "typescriptreact",
-    "javascriptreact",
-    "python",
-    "elixir",
-    "c",
-    "cpp",
-    "rust",
-    "dart",
+  local disabled_langs = {
+    "zig",
   }
 
-  if not M.table_contains(langs, lang) then
-    return false
+  if not M.table_contains(disabled_langs, lang) then
+    return true
   end
 
-  local line_count = vim.api.nvim_buf_line_count(bufnr)
-
-  if line_count < 3000 then
+  local max_filesize = 100 * 1024 -- 100 KB
+  local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+  if ok and stats and stats.size < max_filesize then
     return false
   end
 
   vim.notify_once(
     "* Treesitter degraded\n" .. "* autoformat off\n" .. "* foldmethod manual\n" .. "* disable winbar",
     vim.log.levels.WARN,
-    { title = "File is too large! (" .. line_count .. " lines > 2000)" }
+    { title = "File is too large!" }
   )
 
   vim.b.autoformat = false
