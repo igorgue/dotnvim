@@ -9,13 +9,23 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 local spec = {
   -- import LazyVim plugins
   { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-  -- import my plugins
-  { import = "plugins.extras.lang.c" },
+  -- import extras from LazyVim
+  { import = "lazyvim.plugins.extras.dap.core" },
+  { import = "lazyvim.plugins.extras.dap.nlua" },
+  { import = "lazyvim.plugins.extras.lang.clangd" },
+  { import = "lazyvim.plugins.extras.lang.docker" },
+  { import = "lazyvim.plugins.extras.lang.java" },
+  { import = "lazyvim.plugins.extras.lang.json" },
+  { import = "lazyvim.plugins.extras.lang.python" },
+  { import = "lazyvim.plugins.extras.lang.python-semshi" },
+  { import = "lazyvim.plugins.extras.lang.rust" },
+  { import = "lazyvim.plugins.extras.lang.tailwind" },
+  { import = "lazyvim.plugins.extras.lang.typescript" },
+  -- import extras from config
+  { import = "plugins.extras.dap" },
   { import = "plugins.extras.lang.dart" },
   { import = "plugins.extras.lang.elixir" },
   { import = "plugins.extras.lang.html_css" },
-  { import = "plugins.extras.lang.java" },
-  { import = "plugins.extras.lang.lua" },
   { import = "plugins.extras.lang.odin" },
   { import = "plugins.extras.lang.python" },
   { import = "plugins.extras.lang.rust" },
@@ -25,43 +35,30 @@ local spec = {
   { import = "plugins.extras.lang.v" },
   { import = "plugins.extras.lang.vim" },
   { import = "plugins.extras.lang.zig" },
-  -- import extras
-  { import = "lazyvim.plugins.extras.lang.typescript" },
-  { import = "lazyvim.plugins.extras.lang.json" },
 }
 local plugins = {}
-local disabled_plugins = {}
+local disabled_plugins = {
+  "gzip",
+  "netrwPlugin",
+  "tarPlugin",
+  "tohtml",
+  "tutor",
+  "zipPlugin",
+}
 local diff_cmd = ""
 
 if vim.env.NVIM_MINIMAL ~= nil then
   plugins = {
     { import = "minimal" },
     { import = "plugins.colorscheme" },
-    { import = "plugins.debugging" },
     { import = "plugins.lsp" },
   }
   diff_cmd = "git"
-  disabled_plugins = {
-    "gzip",
-    "netrwPlugin",
-    "tarPlugin",
-    "tohtml",
-    "tutor",
-    "zipPlugin",
-  }
 else
   plugins = {
     { import = "plugins" },
   }
   diff_cmd = "diffview.nvim"
-  disabled_plugins = {
-    "gzip",
-    "netrwPlugin",
-    "tarPlugin",
-    "tohtml",
-    "tutor",
-    "zipPlugin",
-  }
 end
 
 for _, v in ipairs(plugins) do

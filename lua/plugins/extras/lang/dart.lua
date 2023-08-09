@@ -99,4 +99,19 @@ return {
       },
     },
   },
+  {
+    "mfussenegger/nvim-dap",
+    config = function()
+      local dap = require("dap")
+
+      dap.adapters.dart = {
+        type = "executable",
+        command = "flutter",
+        args = { "debug-adapter" },
+      }
+
+      dap.configurations.dart = {}
+      require("dap.ext.vscode").load_launchjs()
+    end,
+  },
 }

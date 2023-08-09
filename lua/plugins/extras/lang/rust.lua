@@ -229,13 +229,6 @@ return {
           vim.api.nvim_create_autocmd("FileType", { pattern = "rust", callback = register_keys })
         end,
       },
-      dap = {
-        adapter = {
-          type = "executable",
-          command = "codelldb",
-          name = "codelldb",
-        },
-      },
     },
   },
   {

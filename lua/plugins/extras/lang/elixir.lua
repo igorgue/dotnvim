@@ -71,4 +71,32 @@ return {
       })
     end,
   },
+  {
+    "mfussenegger/nvim-dap",
+    config = function()
+      local mason = (os.getenv("HOME") or "") .. "/.local/share/nvim/mason"
+      local dap = require("dap")
+
+      dap.adapters.elixir = {
+        type = "executable",
+        command = mason .. "/packages/elixir-ls/debugger.sh",
+      }
+
+      dap.configurations.elixir = {
+        {
+          type = "elixir",
+          name = "Run Elixir Program",
+          task = "phx.server",
+          taskArgs = { "--trace" },
+          request = "launch",
+          startApps = true, -- for Phoenix projects
+          projectDir = "${workspaceFolder}",
+          requireFiles = {
+            "test/**/test_helper.exs",
+            "test/**/*_test.exs",
+          },
+        },
+      }
+    end,
+  },
 }
