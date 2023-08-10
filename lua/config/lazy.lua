@@ -23,6 +23,7 @@ local spec = {
   { import = "lazyvim.plugins.extras.lang.typescript" },
   -- import extras from config
   { import = "plugins.extras.dap" },
+  { import = "plugins.extras.lang.c" },
   { import = "plugins.extras.lang.dart" },
   { import = "plugins.extras.lang.elixir" },
   { import = "plugins.extras.lang.html_css" },
