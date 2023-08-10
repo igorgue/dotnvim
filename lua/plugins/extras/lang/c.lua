@@ -11,5 +11,6 @@ return {
         end,
       },
     },
+    keys = { { "<leader>cR", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" } },
   },
 }
