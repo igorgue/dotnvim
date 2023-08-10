@@ -1,14 +1,5 @@
 local M = {}
 
-function M.table_contains(table, item)
-  for _, value in ipairs(table) do
-    if value == item then
-      return true
-    end
-  end
-  return false
-end
-
 -- core utils
 function M.version()
   local neovim_version = vim.version()
@@ -23,6 +14,16 @@ function M.version()
   end
 
   return neovim_version.major .. "." .. neovim_version.minor .. "." .. neovim_version.patch
+end
+
+-- TODO: Remove these two functions since they're not used anymore
+function M.table_contains(table, item)
+  for _, value in ipairs(table) do
+    if value == item then
+      return true
+    end
+  end
+  return false
 end
 
 function M.ts_disable(lang, bufnr)
