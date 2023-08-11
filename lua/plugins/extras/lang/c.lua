@@ -4,8 +4,8 @@ return {
     ft = { "c", "cpp" },
     opts = {
       setup = {
-        clangd = function(_, clangd_opts)
-          clangd_opts.capabilities = {
+        clangd = function(_, opts)
+          opts.capabilities = {
             offsetEncoding = { "utf-16" },
           }
         end,
