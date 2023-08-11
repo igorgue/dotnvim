@@ -16,6 +16,5 @@ return {
       require("dap-python").setup(path .. "/venv/bin/python")
     end,
   },
-  -- disable semshi on diff mode
   { "wookayin/semshi", enabled = not vim.o.diff },
 }
