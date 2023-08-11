@@ -13,7 +13,7 @@ return {
     "akinsho/flutter-tools.nvim",
     ft = "dart",
     -- stylua: ignore
-    cond = function() return not vim.o.diff end,
+    enabled = not vim.o.diff,
     dependencies = {
       {
         "dart-lang/dart-vim-plugin",

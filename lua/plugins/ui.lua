@@ -10,7 +10,7 @@ return {
     end,
     keys = {
       {
-        "<leader>l",
+        "<leader>n",
         function()
           if vim.opt.list:get() then
             vim.opt.list = false
@@ -34,7 +34,6 @@ return {
     "rcarriga/nvim-notify",
     opts = {
       render = "default",
-      fps = 120,
       timeout = 500,
       on_open = function(win)
         if vim.api.nvim_win_is_valid(win) then
@@ -283,17 +282,17 @@ return {
           showcmd = true,
         },
         twilight = {
-          enabled = false, -- NOTE: performs poorly
+          enabled = true,
         },
         gitsigns = {
           enabled = true,
         },
         kitty = {
-          enabled = false, -- NOTE: this is not working
+          enabled = true,
           font = "+2",
         },
         alacritty = {
-          enabled = false, -- NOTE: this is not working, also
+          enabled = true,
           font = "+2",
         },
       },
@@ -375,7 +374,7 @@ return {
       },
     },
     -- stylua: ignore
-    cond = function() return not vim.o.diff end,
+    enabled = not vim.o.diff,
     opts = function()
       local actions = require("telescope.actions")
       local themes = require("telescope.themes")

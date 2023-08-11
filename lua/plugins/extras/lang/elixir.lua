@@ -16,7 +16,7 @@ return {
     },
     ft = { "elixir", "eex", "heex", "surface" },
     -- stylua: ignore
-    cond = function() return not vim.o.diff end,
+    enabled = not vim.o.diff,
     config = function()
       local elixir = require("elixir")
       local elixirls = require("elixir.elixirls")

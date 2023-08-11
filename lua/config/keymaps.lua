@@ -19,23 +19,12 @@ end
 
 wk.register({
   ["<leader><cr>"] = { name = "+applications" },
-  ["<leader>d"] = { name = "+debug", mode = { "n", "v" } },
-  ["<leader>da"] = { name = "+adapter", mode = { "n", "v" } },
   z = { name = "+fold", mode = { "n", "v" } },
 })
 
 wk.register({
   K = { vim.lsp.buf.hover, "Hover" },
   ["<esc>"] = { require("utils").ui.refresh_ui, "Refresh UI" },
-  ["<leader>L"] = { "<cmd>Lazy<cr>", "Lazy" },
-  ["<leader>t"] = { ":lua require('lazyvim.util').float_term()<cr>", "Terminal (cwd)" },
-  ["<leader>T"] = {
-    function()
-      vim.cmd("enew | terminal")
-      vim.cmd("normal a")
-    end,
-    "Terminal (cwd, current buffer)",
-  },
   ["<leader><tab>j"] = { "<cmd>tabprevious<cr>", "Previous Tab" },
   ["<leader><tab>k"] = { "<cmd>tabnext<cr>", "Next Tab" },
   ["<leader><tab>h"] = { "<cmd>tabfirst<cr>", "First Tab" },
@@ -60,6 +49,7 @@ wk.register({
   r = { "<cmd>Ranger<cr>", "Ranger File Manager" },
   c = { "<cmd>Cloc<cr>", "Cloc Count Lines" },
   g = { "<cmd>Lazygit<cr>", "Lazygit" },
+  l = { "<cmd>Lazy<cr>", "Lazy" },
 }, {
   prefix = "<leader><cr>",
 })

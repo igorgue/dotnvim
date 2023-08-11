@@ -8,4 +8,5 @@ return {
   { "ggandor/flit.nvim", enabled = false },
   { "ggandor/leap.nvim", enabled = false },
   { "nvim-treesitter/nvim-treesitter-textobjects", enabled = false },
+  { "jose-elias-alvarez/null-ls.nvim", enabled = not vim.o.diff },
 }

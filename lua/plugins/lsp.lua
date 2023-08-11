@@ -2,7 +2,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     -- stylua: ignore
-    cond = function() return not vim.o.diff end,
+    enabled = not vim.o.diff,
     init = function()
       vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
         callback = function()

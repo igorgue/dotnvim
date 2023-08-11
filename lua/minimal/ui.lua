@@ -52,7 +52,7 @@ return {
       },
     },
     -- stylua: ignore
-    cond = function() return not vim.o.diff end,
+    enabled = not vim.o.diff,
     opts = function()
       local actions = require("telescope.actions")
 
@@ -153,43 +153,7 @@ return {
             },
           },
           lualine_b = {
-            {
-              "branch",
-              on_click = function()
-                local branches = vim.split(vim.api.nvim_exec2("silent !git branch", { output = true }).output, "\n")
-                local current_branch =
-                  vim.split(vim.api.nvim_exec2("silent !git branch --show-current", { output = true }).output, "\n")[3]
-                local cleanup_re = "^%s*(.-)%s*$"
-
-                -- cleanup branches
-                for i = #branches, 1, -1 do
-                  if branches[i] == "" or branches[i]:sub(1, 1) == ":" then
-                    table.remove(branches, i)
-                  elseif branches[i]:sub(1, 1) == "*" then
-                    branches[i] = branches[i]:sub(3)
-                  end
-                end
-
-                -- trim whitespace
-                for i = 1, #branches do
-                  branches[i] = branches[i]:gsub(cleanup_re, "%1")
-                end
-                current_branch = current_branch:gsub(cleanup_re, "%1")
-
-                -- sort by current
-                for i = 1, #branches do
-                  if branches[i] == current_branch then
-                    table.remove(branches, i)
-                    table.insert(branches, 1, current_branch)
-                    break
-                  end
-                end
-
-                vim.ui.select(branches, { prompt = "Select Branch" }, function(branch)
-                  vim.cmd("Git checkout " .. branch)
-                end)
-              end,
-            },
+            "branch",
             {
               "diff",
               symbols = {
@@ -197,9 +161,6 @@ return {
                 modified = icons.git.modified,
                 removed = icons.git.removed,
               },
-              on_click = function()
-                vim.cmd("DiffviewOpen")
-              end,
             },
             {
               "diagnostics",
@@ -234,26 +195,10 @@ return {
               require("lazy.status").updates,
               cond = require("lazy.status").has_updates,
             },
-            {
-              "encoding",
-              on_click = function()
-                local current_encoding = vim.opt_local.fileencoding:get()
-                local encoding =
-                  vim.fn.input({ prompt = "Encoding: ", default = current_encoding, cancelreturn = current_encoding })
-
-                vim.cmd("setlocal fileencoding=" .. encoding)
-              end,
-            },
+            "encoding",
             {
               "filetype",
               icon_only = true,
-              on_click = function()
-                local filetype = vim.bo.filetype
-
-                vim.cmd("LspInfo")
-
-                vim.notify(filetype, vim.log.levels.INFO, { title = "Filetype" })
-              end,
             },
             "fileformat",
           },

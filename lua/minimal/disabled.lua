@@ -17,4 +17,5 @@ return {
   { "nvim-treesitter/nvim-treesitter-textobjects", enabled = false },
   { "RRethy/vim-illuminate", enabled = false },
   { "SmiteshP/nvim-navic", enabled = false },
+  { "jose-elias-alvarez/null-ls.nvim", enabled = not vim.o.diff },
 }
