@@ -31,8 +31,8 @@ return {
       },
     },
   },
-  -- NOTE: not working, enable later when it starts working again :)
-  { "wookayin/semshi", enable = false },
+  -- NOTE: working only if lazy is false
+  { "wookayin/semshi", lazy = false },
   -- NOTE: forked from wookayin's removed hardcoded values
   { "igorgue/vim-python-enhanced-syntax", ft = "python" },
 }
