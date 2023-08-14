@@ -5,7 +5,6 @@ return {
   },
   {
     "mfussenegger/nvim-dap",
-    optional = true,
     dependencies = {
       "mfussenegger/nvim-dap-python",
     },
@@ -16,5 +15,24 @@ return {
       require("dap-python").setup(path .. "/venv/bin/python")
     end,
   },
-  { "wookayin/semshi", enabled = not vim.o.diff },
+  -- NOTE: disable python syntax until we can get it performing better
+  -- on the large files I usually deal with, some of them not that
+  -- large at all, like 500 lines. And when that highlight slowness
+  -- happens, also indenting is slow, so disable that too.
+  {
+    "nvim-treesitter/nvim-treesitter",
+    ft = "python",
+    opts = {
+      highlight = {
+        disable = { "python" },
+      },
+      indent = {
+        disable = { "python" },
+      },
+    },
+  },
+  -- NOTE: not working, enable later when it starts working again :)
+  { "wookayin/semshi", enable = false },
+  -- NOTE: forked from wookayin's removed hardcoded values
+  { "igorgue/vim-python-enhanced-syntax", ft = "python" },
 }
