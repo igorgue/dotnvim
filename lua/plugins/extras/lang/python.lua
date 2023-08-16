@@ -21,15 +21,19 @@ return {
   -- happens, also indenting is slow, so disable that too.
   {
     "nvim-treesitter/nvim-treesitter",
-    ft = "python",
-    opts = {
-      highlight = {
-        disable = { "python" },
-      },
-      indent = {
-        disable = { "python" },
-      },
-    },
+    opts = function(_, opts)
+      if type(opts.highlight.disable) == "table" then
+        vim.list_extend(opts.highlight.disable, { "python" })
+      else
+        opts.highlight.disable = { "python" }
+      end
+
+      if type(opts.indent.disable) == "table" then
+        vim.list_extend(opts.indent.disable, { "python" })
+      else
+        opts.indent.disable = { "python" }
+      end
+    end,
   },
   -- NOTE: working only if lazy is false
   { "wookayin/semshi", lazy = false },

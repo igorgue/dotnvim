@@ -27,6 +27,7 @@ local spec = {
   { import = "plugins.extras.lang.dart" },
   { import = "plugins.extras.lang.elixir" },
   { import = "plugins.extras.lang.html_css" },
+  { import = "plugins.extras.lang.lua" },
   { import = "plugins.extras.lang.odin" },
   { import = "plugins.extras.lang.python" },
   { import = "plugins.extras.lang.rust" },

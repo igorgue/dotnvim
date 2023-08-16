@@ -13,6 +13,7 @@ return {
     "elixir-tools/elixir-tools.nvim",
     dependencies = {
       "elixir-editors/vim-elixir",
+      "nvim-lua/plenary.nvim",
     },
     ft = { "elixir", "eex", "heex", "surface" },
     -- stylua: ignore
@@ -44,8 +45,10 @@ return {
       )
 
       elixir.setup({
-        credo = {},
+        nextls = { enable = true },
+        credo = { enable = true },
         elixirls = {
+          enable = true,
           settings = {
             elixirls.settings({
               dialyzerEnabled = true,
