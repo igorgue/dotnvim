@@ -2,7 +2,7 @@
   "Comment.nvim": { "branch": "master", "commit": "0236521ea582747b58869cb72f70ccfa967d2e89" },
   "LazyVim": { "branch": "main", "commit": "aa1cccf230a01bd85d5173f7d87f782fd83caa88" },
   "LuaSnip": { "branch": "master", "commit": "409535b8fc54c650eb845b0c35e0cc7f08810284" },
-  "SchemaStore.nvim": { "branch": "main", "commit": "540b70d60f33a486eb62f06a0db2723ad8fbe8d3" },
+  "SchemaStore.nvim": { "branch": "main", "commit": "6ef970b8acd694fb5690d1b8e1d6ad2ea0cc1431" },
   "alpha-nvim": { "branch": "main", "commit": "8e05626e073a5a60ffeb8139076520c1eda41d59" },
   "awesome-flutter-snippets": { "branch": "master", "commit": "48d4b8ba44dc0133c2299d9d810eceb5efa441a7" },
   "catppuccin": { "branch": "main", "commit": "490078b1593c6609e6a50ad5001e7902ea601824" },
