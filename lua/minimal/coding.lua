@@ -62,9 +62,6 @@ return {
   {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
-    dependencies = {
-      "hrsh7th/cmp-cmdline",
-    },
     opts = function(_, opts)
       local cmp = require("cmp")
       local sources = {
