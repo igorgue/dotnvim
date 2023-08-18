@@ -52,7 +52,7 @@
   "nvim-web-devicons": { "branch": "master", "commit": "cfc8824cc1db316a276b36517f093baccb8e799a" },
   "nvim-window-picker": { "branch": "main", "commit": "1b1bb834b0acb9eebb11a61664efc665757f1ba2" },
   "odin.vim": { "branch": "master", "commit": "0d738ff893ba1a1e1b944feedf3451df8b2ff744" },
-  "one-small-step-for-vimkind": { "branch": "main", "commit": "5cacc816153c66a50de92c9cee29077b4a380254" },
+  "one-small-step-for-vimkind": { "branch": "main", "commit": "aa1c4a876c3a4e14614cd0dd55794d00f810dae9" },
   "persistence.nvim": { "branch": "main", "commit": "4b8051c01f696d8849a5cb8afa9767be8db16e40" },
   "plenary.nvim": { "branch": "master", "commit": "267282a9ce242bbb0c5dc31445b6d353bed978bb" },
   "requirements.txt.vim": { "branch": "master", "commit": "065c3e13da77040e6a3df8002c9fdc9b1fb63cd2" },
