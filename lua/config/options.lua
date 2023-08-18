@@ -9,6 +9,7 @@ local utils = require("utils")
 
 opt.number = false
 opt.relativenumber = false
+opt.cursorline = false
 opt.list = false
 opt.wrap = true
 opt.showbreak = "↪ "
@@ -17,7 +18,6 @@ opt.timeoutlen = 250
 opt.pumblend = 4
 opt.backspace = { "indent", "eol", "start" }
 opt.scrolloff = 3
-opt.sessionoptions = { "blank", "buffers", "curdir", "folds", "help", "tabpages", "winsize" }
 opt.diffopt = {
   algorithm = "histogram",
   linematch = 60,
@@ -28,7 +28,6 @@ opt.diffopt = {
   "iwhite",
   "vertical",
 }
-opt.shada = { "!", "'10", "/100", ":100", "<0", "@1", "f1", "h", "s1" }
 opt.listchars = {
   tab = "──",
   -- "lead:·",
@@ -52,7 +51,6 @@ opt.writebackup = true
 opt.undofile = true
 opt.isfname:append(":")
 opt.clipboard = "unnamed"
-opt.cursorline = false
 
 if vim.o.diff ~= false then
   opt.list = false
