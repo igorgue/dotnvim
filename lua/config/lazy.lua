@@ -6,71 +6,40 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
-local spec = {
-  -- import LazyVim plugins
-  { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-  -- import extras from LazyVim
-  { import = "lazyvim.plugins.extras.dap.core" },
-  { import = "lazyvim.plugins.extras.dap.nlua" },
-  { import = "lazyvim.plugins.extras.lang.clangd" },
-  { import = "lazyvim.plugins.extras.lang.docker" },
-  { import = "lazyvim.plugins.extras.lang.java" },
-  { import = "lazyvim.plugins.extras.lang.json" },
-  { import = "lazyvim.plugins.extras.lang.python" },
-  { import = "lazyvim.plugins.extras.lang.python-semshi" },
-  { import = "lazyvim.plugins.extras.lang.rust" },
-  { import = "lazyvim.plugins.extras.lang.tailwind" },
-  { import = "lazyvim.plugins.extras.lang.typescript" },
-  -- import extras from config
-  { import = "plugins.extras.dap" },
-  { import = "plugins.extras.lang.c" },
-  { import = "plugins.extras.lang.dart" },
-  { import = "plugins.extras.lang.elixir" },
-  { import = "plugins.extras.lang.html_css" },
-  { import = "plugins.extras.lang.lua" },
-  { import = "plugins.extras.lang.odin" },
-  { import = "plugins.extras.lang.python" },
-  { import = "plugins.extras.lang.rust" },
-  { import = "plugins.extras.lang.sh" },
-  { import = "plugins.extras.lang.sql" },
-  { import = "plugins.extras.lang.swift" },
-  { import = "plugins.extras.lang.v" },
-  { import = "plugins.extras.lang.vim" },
-  { import = "plugins.extras.lang.zig" },
-}
-local plugins = {}
-local disabled_plugins = {
-  "gzip",
-  -- "matchit",
-  -- "matchparen",
-  "netrwPlugin",
-  "tarPlugin",
-  "tohtml",
-  "tutor",
-  "zipPlugin",
-}
-local diff_cmd = ""
-
-if vim.env.NVIM_MINIMAL ~= nil then
-  plugins = {
-    { import = "minimal" },
-    { import = "plugins.colorscheme" },
-    { import = "plugins.lsp" },
-  }
-  diff_cmd = "git"
-else
-  plugins = {
-    { import = "plugins" },
-  }
-  diff_cmd = "diffview.nvim"
-end
-
-for _, v in ipairs(plugins) do
-  table.insert(spec, v)
-end
-
 require("lazy").setup({
-  spec = spec,
+  spec = {
+    -- import LazyVim plugins
+    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    -- import extras from LazyVim
+    { import = "lazyvim.plugins.extras.dap.core" },
+    { import = "lazyvim.plugins.extras.dap.nlua" },
+    { import = "lazyvim.plugins.extras.lang.clangd" },
+    { import = "lazyvim.plugins.extras.lang.docker" },
+    { import = "lazyvim.plugins.extras.lang.java" },
+    { import = "lazyvim.plugins.extras.lang.json" },
+    { import = "lazyvim.plugins.extras.lang.python" },
+    { import = "lazyvim.plugins.extras.lang.python-semshi" },
+    { import = "lazyvim.plugins.extras.lang.rust" },
+    { import = "lazyvim.plugins.extras.lang.tailwind" },
+    { import = "lazyvim.plugins.extras.lang.typescript" },
+    -- import extras from config
+    { import = "plugins" },
+    { import = "plugins.extras.dap" },
+    { import = "plugins.extras.lang.c" },
+    { import = "plugins.extras.lang.dart" },
+    { import = "plugins.extras.lang.elixir" },
+    { import = "plugins.extras.lang.html_css" },
+    { import = "plugins.extras.lang.lua" },
+    { import = "plugins.extras.lang.odin" },
+    { import = "plugins.extras.lang.python" },
+    { import = "plugins.extras.lang.rust" },
+    { import = "plugins.extras.lang.sh" },
+    { import = "plugins.extras.lang.sql" },
+    { import = "plugins.extras.lang.swift" },
+    { import = "plugins.extras.lang.v" },
+    { import = "plugins.extras.lang.vim" },
+    { import = "plugins.extras.lang.zig" },
+  },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
     -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
@@ -85,11 +54,19 @@ require("lazy").setup({
   ui = {
     border = "single",
   },
-  diff = { cmd = diff_cmd },
+  diff = { cmd = "diffview.nvim" },
   performance = {
     rtp = {
-      -- disable some rtp plugins
-      disabled_plugins = disabled_plugins,
+      disabled_plugins = {
+        "gzip",
+        -- "matchit",
+        -- "matchparen",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
     },
   },
 })
