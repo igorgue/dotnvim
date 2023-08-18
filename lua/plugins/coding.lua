@@ -106,6 +106,21 @@ return {
         TelescopePrompt = false,
       }
     end,
+    keys = {
+      {
+        "<leader>cc",
+        function()
+          if vim.g.copilot_enabled == 0 then
+            vim.cmd("Copilot enable")
+          else
+            vim.cmd("Copilot disable")
+          end
+
+          vim.cmd("Copilot status")
+        end,
+        desc = "Copilot toggle",
+      },
+    },
   },
   {
     "hrsh7th/nvim-cmp",
