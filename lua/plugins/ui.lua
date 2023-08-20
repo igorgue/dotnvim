@@ -216,7 +216,24 @@ return {
   {
     "folke/zen-mode.nvim",
     dependencies = {
-      { "folke/twilight.nvim", event = { "BufReadPost", "BufNewFile" }, cmd = { "Twilight", "TwilightEnable" } },
+      {
+        "folke/twilight.nvim",
+        event = { "BufReadPost", "BufNewFile" },
+        cmd = { "Twilight", "TwilightEnable" },
+        opts = {
+          dimming = {
+            inactive = true,
+          },
+        },
+        keys = {
+          {
+            "<leader>t", -- Enable Twilight
+            function()
+              require("twilight").toggle()
+            end,
+          },
+        },
+      },
     },
     event = { "BufReadPost", "BufNewFile" },
     cmd = "ZenMode",
@@ -302,6 +319,7 @@ return {
       end,
       on_close = function()
         vim.opt.laststatus = 3
+        vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
       end,
     },
   },
