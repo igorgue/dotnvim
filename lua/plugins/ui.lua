@@ -176,6 +176,19 @@ return {
         extensions = { "neo-tree" },
       }
     end,
+    keys = {
+      {
+        "<leader>S",
+        function()
+          if vim.opt.laststatus:get() == 0 then
+            vim.opt.laststatus = 3
+          else
+            vim.opt.laststatus = 0
+          end
+        end,
+        desc = "Toggle Statusline",
+      },
+    },
   },
   {
     "norcalli/nvim-colorizer.lua",
