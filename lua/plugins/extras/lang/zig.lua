@@ -10,9 +10,7 @@ return {
   },
   opts = {
     servers = {
-      zls = {
-        mason = false,
-      },
+      zls = {},
     },
   },
 }
