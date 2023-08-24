@@ -45,28 +45,28 @@ return {
       )
 
       elixir.setup({
-        nextls = { enable = true },
-        credo = { enable = true },
+        nextls = { enable = false },
+        credo = { enable = false },
         elixirls = {
           enable = true,
           settings = {
             elixirls.settings({
-              dialyzerEnabled = true,
+              dialyzerEnabled = false,
               dialyzerFormat = "dialyxir_long",
               -- dialyzerWarnOpts = []
-              enableTestLenses = true,
+              enableTestLenses = false,
               -- envVariables =
               fetchDeps = false,
               -- languageServerOverridePath =
               mixEnv = "dev",
               -- mixTarget = "host",
               -- projectDir = "",
-              signatureAfterComplete = true,
-              suggestSpecs = true,
+              signatureAfterComplete = false,
+              suggestSpecs = false,
               log_level = vim.lsp.protocol.MessageType.Log,
               message_level = vim.lsp.protocol.MessageType.Log,
               trace = {
-                server = "on",
+                server = "off",
               },
             }),
           },
