@@ -271,7 +271,7 @@ return {
 
           require("zen-mode").toggle()
         end,
-        desc = "Zen Mode",
+        desc = "Toggle Zen Mode",
       },
       {
         "<leader>Z",
@@ -291,7 +291,7 @@ return {
 
           vim.g.zen_mode_width = width
         end,
-        desc = "Zen Mode With Custom Width",
+        desc = "Toggle Zen Mode With Custom Width",
       },
     },
     opts = {
