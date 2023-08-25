@@ -46,6 +46,9 @@ return {
             { "│", "FloatBorder" },
           },
         },
+        inlay_hints = {
+          highlight = "CopilotSuggestion",
+        },
       },
       server = {
         cmd = { "rustup", "run", "stable", "rust-analyzer" },
@@ -94,30 +97,10 @@ return {
                 },
               },
             },
-            inlayHints = {
-              bindingModeHints = {
-                enable = true,
-              },
-              typeHints = {
-                enable = true,
-                hideClosureInitialization = false,
-                hideNamedConstructor = false,
-              },
-              reborrowHints = {
-                enable = "always",
-              },
-              closureReturnTypeHints = {
-                enable = "always",
-              },
-              discriminantHints = {
-                enable = "always",
-              },
-              expressionAdjustmentHints = {
-                enable = "always",
-              },
-              lifetimeElisionHints = {
-                enable = "always",
-                useParameterNames = true,
+            inlayHint = {
+              dynamicRegistration = true,
+              resolveSupport = {
+                properties = {},
               },
             },
             interpret = {
@@ -228,6 +211,9 @@ return {
           register_keys()
           vim.api.nvim_create_autocmd("FileType", { pattern = "rust", callback = register_keys })
         end,
+        experimental = {
+          serverStatusNotification = true,
+        },
       },
     },
   },

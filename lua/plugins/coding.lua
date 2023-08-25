@@ -108,7 +108,7 @@ return {
     end,
     keys = {
       {
-        "<leader>cc",
+        "<leader>cC",
         function()
           if vim.g.copilot_enabled == 0 then
             vim.cmd("Copilot enable")
