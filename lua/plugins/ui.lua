@@ -244,6 +244,7 @@ return {
             function()
               require("twilight").toggle()
             end,
+            desc = "Toggle Twilight",
           },
         },
       },
