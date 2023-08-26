@@ -2,6 +2,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
+      -- FIXME: These two plugins, are slow, I cannot deal with them anymore
       highlight = { enable = false },
       indent = { enable = false },
       incremental_selection = {

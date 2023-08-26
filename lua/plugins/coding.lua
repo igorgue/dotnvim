@@ -222,6 +222,29 @@ return {
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
+    init = function()
+      -- disable null-ls for big files
+      vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+        callback = function()
+          local buf = vim.api.nvim_get_current_buf()
+          local line_count = vim.api.nvim_buf_line_count(buf)
+
+          if line_count < 2000 then
+            return
+          end
+
+          vim.notify_once(
+            "* autoformat off\n" .. "* foldmethod manual\n" .. "* disable winbar",
+            vim.log.levels.WARN,
+            { title = "File is too large! (" .. line_count .. " lines > 2000)" }
+          )
+
+          vim.b.autoformat = false
+          vim.o.winbar = ""
+          vim.opt_local.foldmethod = "manual"
+        end,
+      })
+    end,
     opts = function(_, opts)
       local nls = require("null-ls")
 

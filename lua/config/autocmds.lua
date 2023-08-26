@@ -45,13 +45,4 @@ api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
--- some lsp stuff
-vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
-  callback = function()
-    if next(vim.lsp.codelens.get(vim.api.nvim_get_current_buf())) ~= nil then
-      vim.lsp.codelens.refresh()
-    end
-  end,
-})
-
 -- plugins.extras.* includes more autocmds, specific for certain files
