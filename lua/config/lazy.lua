@@ -25,6 +25,7 @@ require("lazy").setup({
     -- import extras from config
     { import = "plugins" },
     { import = "plugins.extras.dap" },
+    { import = "plugins.extras.sonarlint" },
     { import = "plugins.extras.lang.c" },
     { import = "plugins.extras.lang.dart" },
     { import = "plugins.extras.lang.elixir" },

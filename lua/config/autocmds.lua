@@ -33,7 +33,7 @@ api.nvim_create_user_command("Screenshot", function()
   vim.notify("In 3...2...1", vim.log.levels.INFO, { title = "Screenshot" })
 
   vim.defer_fn(function()
-    require("notify").dismiss({})
+    require("notify").dismiss({ pending = true, silent = true })
     vim.cmd("silent !gnome-screenshot -w &")
   end, 3000)
 end, {})
