@@ -524,5 +524,12 @@ return {
 
       vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
     end,
+    opts = {
+      safe_output = true,
+      click = true,
+      lsp = {
+        auto_attach = true,
+      },
+    },
   },
 }

@@ -240,7 +240,7 @@ return {
           )
 
           vim.b.autoformat = false
-          vim.o.winbar = ""
+          vim.opt_local.winbar = ""
           vim.opt_local.foldmethod = "manual"
         end,
       })
