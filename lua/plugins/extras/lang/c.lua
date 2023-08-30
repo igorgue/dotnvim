@@ -19,7 +19,9 @@ return {
             local wk = require("which-key")
             local bufnr = vim.api.nvim_get_current_buf()
 
+            ---@diagnostic disable-next-line: missing-fields
             cmp.setup({
+              ---@diagnostic disable-next-line: missing-fields
               sorting = {
                 comparators = {
                   cmp.config.compare.offset,

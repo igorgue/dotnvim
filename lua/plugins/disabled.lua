@@ -7,7 +7,7 @@ return {
   { "folke/flash.nvim", enabled = false },
   { "ggandor/flit.nvim", enabled = false },
   { "ggandor/leap.nvim", enabled = false },
-  -- { "nvim-treesitter/nvim-treesitter", enabled = false },
-  -- { "nvim-treesitter/nvim-treesitter-textobjects", enabled = false },
+  { "nvim-treesitter/nvim-treesitter", enabled = not vim.o.diff },
+  { "nvim-treesitter/nvim-treesitter-textobjects", enabled = not vim.o.diff },
   { "jose-elias-alvarez/null-ls.nvim", enabled = not vim.o.diff },
 }

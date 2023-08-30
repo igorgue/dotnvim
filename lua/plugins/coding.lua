@@ -172,6 +172,7 @@ return {
 
       local winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:Search"
 
+      ---@diagnostic disable-next-line: missing-fields
       cmp.setup.filetype("gitcommit", {
         sources = cmp.config.sources({
           { name = "cmp_git" },
@@ -189,6 +190,7 @@ return {
         }),
       }
 
+      ---@diagnostic disable-next-line: missing-fields
       cmp.setup.cmdline({ "/", "?" }, {
         mapping = cmp.mapping.preset.cmdline(cmd_mappings),
         sources = {
@@ -197,6 +199,7 @@ return {
         },
       })
 
+      ---@diagnostic disable-next-line: missing-fields
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(cmd_mappings),
         sources = cmp.config.sources({
@@ -223,7 +226,7 @@ return {
   {
     "jose-elias-alvarez/null-ls.nvim",
     init = function()
-      -- disable null-ls for big files
+      -- disable null-ls (and some other options) for big files
       vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         callback = function()
           local buf = vim.api.nvim_get_current_buf()
@@ -236,9 +239,10 @@ return {
           vim.notify_once(
             "* autoformat off\n" .. "* foldmethod manual\n" .. "* disable winbar",
             vim.log.levels.WARN,
-            { title = "File is too large! (" .. line_count .. " lines > 2000)" }
+            { title = "File is too large! (" .. line_count .. " > 2000 lines)" }
           )
 
+          ---@diagnostic disable-next-line: inject-field
           vim.b.autoformat = false
           vim.opt_local.winbar = ""
           vim.opt_local.foldmethod = "manual"

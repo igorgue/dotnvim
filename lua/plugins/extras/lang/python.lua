@@ -36,12 +36,14 @@ return {
   -- happens, also indenting is slow, so disable that too.
   {
     "nvim-treesitter/nvim-treesitter",
+    ft = "python",
     opts = function(_, opts)
-      if type(opts.highlight.disable) == "table" then
-        vim.list_extend(opts.highlight.disable, { "python" })
-      else
-        opts.highlight.disable = { "python" }
-      end
+      -- NOTE: reenable highlights for now
+      -- if type(opts.highlight.disable) == "table" then
+      --   vim.list_extend(opts.highlight.disable, { "python" })
+      -- else
+      --   opts.highlight.disable = { "python" }
+      -- end
 
       if type(opts.indent.disable) == "table" then
         vim.list_extend(opts.indent.disable, { "python" })
@@ -51,7 +53,8 @@ return {
     end,
   },
   -- NOTE: working only if lazy is false
-  { "wookayin/semshi", lazy = false },
+  -- XXX: disabled from now, it doesn't seem to load after 1 file is open
+  { "wookayin/semshi", lazy = false, enabled = false },
   -- NOTE: forked from wookayin's removed hardcoded values
   { "igorgue/vim-python-enhanced-syntax", ft = "python" },
   -- { dir = "~/Code/vim-python-enhanced-syntax", ft = "python" },

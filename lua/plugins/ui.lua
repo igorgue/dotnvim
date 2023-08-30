@@ -151,12 +151,16 @@ return {
           lualine_x = {
             -- stylua: ignore
             {
+              ---@diagnostic disable-next-line: undefined-field
               function() return require("noice").api.status.command.get() end,
+              ---@diagnostic disable-next-line: undefined-field
               cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
             },
             -- stylua: ignore
             {
+              ---@diagnostic disable-next-line: undefined-field
               function() return require("noice").api.status.mode.get() end,
+              ---@diagnostic disable-next-line: undefined-field
               cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
             },
             {

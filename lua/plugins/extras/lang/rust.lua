@@ -227,6 +227,7 @@ return {
         local cmp = require("cmp")
         local wk = require("which-key")
 
+        ---@diagnostic disable-next-line: missing-fields
         cmp.setup.buffer({ sources = { { name = "crates" }, { name = "buffer" } } })
         wk.register({
           ["<cr>"] = { require("crates").show_popup, "Crates Popup" },
