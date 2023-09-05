@@ -105,5 +105,6 @@ return {
         end,
       },
     },
+    keys = function() end,
   },
 }
