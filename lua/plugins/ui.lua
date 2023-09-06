@@ -92,8 +92,9 @@ return {
           end
 
           local config = require("lualine").get_config()
+          local utils = require("utils")
 
-          config.options.theme = require("utils").ui.lualine_theme()
+          config.options.theme = utils.ui.lualine_theme()
 
           require("lualine").setup(config)
         end,

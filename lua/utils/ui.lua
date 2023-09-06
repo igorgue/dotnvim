@@ -20,6 +20,7 @@ function M.refresh_ui()
   vim.cmd("normal! <C-L>")
   -- stylua: ignore start
   pcall(function() vim.cmd("DBUIHideNotifications") end)
+  ---@diagnostic disable-next-line: missing-fields
   pcall(function() require("notify").dismiss({}) end)
   -- stylua: ignore end
 end
