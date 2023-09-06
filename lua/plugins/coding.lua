@@ -268,6 +268,7 @@ return {
         nls.builtins.formatting.swiftlint,
         nls.builtins.formatting.clang_format,
         nls.builtins.formatting.rustywind.with({ extra_filetypes = { "rust", "elixir" } }),
+        nls.builtins.formatting.joker,
         nls.builtins.diagnostics.swiftlint,
       }
 

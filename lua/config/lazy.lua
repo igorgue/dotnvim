@@ -24,8 +24,12 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.typescript" },
     -- import extras from config
     { import = "plugins" },
+    { import = "plugins.extras.conjure" },
+    -- FIXME: sonarlint tries to attach java everywhere...
+    -- { import = "plugins.extras.sonarlint" },
     { import = "plugins.extras.dap" },
     { import = "plugins.extras.lang.c" },
+    { import = "plugins.extras.lang.clojure" },
     { import = "plugins.extras.lang.dart" },
     { import = "plugins.extras.lang.elixir" },
     { import = "plugins.extras.lang.html_css" },
@@ -40,8 +44,6 @@ require("lazy").setup({
     { import = "plugins.extras.lang.v" },
     { import = "plugins.extras.lang.vim" },
     { import = "plugins.extras.lang.zig" },
-    -- FIXME: sonarlint tries to attach java everywhere...
-    -- { import = "plugins.extras.sonarlint" },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
