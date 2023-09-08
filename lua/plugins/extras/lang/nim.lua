@@ -17,11 +17,6 @@ return {
         callback = function()
           vim.opt_local.foldignore = "#"
           vim.opt_local.foldmethod = "manual"
-
-          vim.lsp.start({
-            name = "nim_langserver",
-            cmd = { "bash-language-server", "start" },
-          })
         end,
       })
     end,

@@ -33,6 +33,7 @@ require("lazy").setup({
     { import = "plugins.extras.lang.dart" },
     { import = "plugins.extras.lang.elixir" },
     { import = "plugins.extras.lang.html_css" },
+    { import = "plugins.extras.lang.mojo" },
     { import = "plugins.extras.lang.nim" },
     { import = "plugins.extras.lang.odin" },
     { import = "plugins.extras.lang.python" },
