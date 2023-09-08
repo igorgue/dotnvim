@@ -14,6 +14,14 @@ return {
         end,
       })
 
+      -- NOTE: support for format after save, replace with null-ls when working
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+        pattern = { "*.🔥", "*.mojo" },
+        callback = function()
+          vim.cmd("silent! !mojo format --quiet " .. vim.fn.expand("%"))
+        end,
+      })
+
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "mojo",
         callback = function()
