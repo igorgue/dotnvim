@@ -11,6 +11,7 @@ opt.number = false
 opt.relativenumber = false
 opt.cursorline = false
 opt.list = false
+opt.spell = false
 opt.wrap = true
 opt.showbreak = "↪ "
 opt.timeout = true

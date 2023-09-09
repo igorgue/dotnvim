@@ -45,4 +45,11 @@ api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
+api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.spell = false
+  end,
+})
+
 -- plugins.extras.* includes more autocmds, specific for certain files
