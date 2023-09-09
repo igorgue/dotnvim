@@ -4,6 +4,7 @@ return {
   {
     "czheo/mojo.vim",
     ft = { "mojo" },
+    lazy = false,
     init = function()
       -- NOTE: support for format after save, replace with null-ls when working
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
