@@ -17,8 +17,10 @@ return {
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
         pattern = { "*.🔥", "*.mojo" },
         callback = function()
-          vim.cmd("silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
-        end,
+          if require("lazyvim.plugins.lsp.format").enabled() then
+            vim.cmd("silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
+          end
+        end
       })
 
       vim.api.nvim_create_autocmd("FileType", {
@@ -28,8 +30,6 @@ return {
           vim.bo.shiftwidth = 4
           vim.bo.softtabstop = 4
 
-          -- these two treesitter highlights
-          -- conflicts with mojo.vim's let var and fn keywords
           vim.api.nvim_set_hl(0, "@variable.python", {})
           vim.api.nvim_set_hl(0, "@error.python", {})
 
