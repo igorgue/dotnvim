@@ -1,4 +1,17 @@
+local function format_mojo()
+  vim.cmd("silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
+end
+
 return {
+  -- XXX: This doesn't work
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   opts = {
+  --     servers = {
+  --       mojo = {},
+  --     },
+  --   },
+  -- },
   {
     "nvim-treesitter/nvim-treesitter",
     ft = { "mojo" },
@@ -12,15 +25,22 @@ return {
   },
   {
     "czheo/mojo.vim",
+    -- dir = "~/Code/mojo.vim",
     ft = { "mojo" },
     init = function()
+      -- TODO: Figure out how to make this function work,
+      -- currently asks for a "text replacement"?
+      -- if this works you don't need to do the BufWritePost below
+      -- require("lazyvim.plugins.lsp.format").format = format_mojo
+
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
         pattern = { "*.🔥", "*.mojo" },
+        nested = true,
         callback = function()
           if require("lazyvim.plugins.lsp.format").enabled() then
-            vim.cmd("silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
+            format_mojo()
           end
-        end
+        end,
       })
 
       vim.api.nvim_create_autocmd("FileType", {
@@ -34,8 +54,8 @@ return {
           vim.api.nvim_set_hl(0, "@error.python", {})
 
           vim.lsp.start({
-            name = "mojo-lsp-server",
-            cmd = { vim.env.MODULAR_HOME .. "/pkg/packages.modular.com_mojo/bin/mojo-lsp-server" },
+            name = "mojo",
+            cmd = { "mojo-lsp-server" },
           })
         end,
       })
