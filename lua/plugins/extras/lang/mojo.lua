@@ -13,7 +13,6 @@ return {
   {
     "czheo/mojo.vim",
     ft = { "mojo" },
-    lazy = false,
     init = function()
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
         pattern = { "*.🔥", "*.mojo" },
@@ -28,6 +27,11 @@ return {
           vim.bo.expandtab = true
           vim.bo.shiftwidth = 4
           vim.bo.softtabstop = 4
+
+          -- these two treesitter highlights
+          -- conflicts with mojo.vim's let var and fn keywords
+          vim.api.nvim_set_hl(0, "@variable.python", {})
+          vim.api.nvim_set_hl(0, "@error.python", {})
 
           vim.lsp.start({
             name = "mojo-lsp-server",
