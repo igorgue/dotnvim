@@ -494,7 +494,6 @@ return {
       end
     end,
     keys = {
-      { "<leader>o", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
       { "<leader><leader>", nil, desc = "Smart Open" },
       { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
       { "<leader>ss", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Goto Symbol" },

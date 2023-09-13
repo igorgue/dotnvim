@@ -97,5 +97,10 @@ return {
       -- re-apply colorscheme to fix highlighting
       vim.cmd("colorscheme " .. vim.g.colors_name)
     end,
+    opts = {
+      filetypes_denylist = {
+        "fugitive",
+      },
+    },
   },
 }
