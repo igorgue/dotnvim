@@ -3,7 +3,7 @@ local function format_mojo()
 end
 
 return {
-  -- XXX: This doesn't work
+  -- XXX: does not work...
   -- {
   --   "neovim/nvim-lspconfig",
   --   opts = {
@@ -56,9 +56,6 @@ return {
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "mojo",
         callback = function()
-          vim.bo.expandtab = true
-          vim.bo.shiftwidth = 4
-          vim.bo.softtabstop = 4
           vim.lsp.start({
             name = "mojo",
             cmd = { "mojo-lsp-server" },

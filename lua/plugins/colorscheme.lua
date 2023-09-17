@@ -1,9 +1,7 @@
 return {
   {
+    -- includes catppuccin and tokyonight already
     "LazyVim/LazyVim",
-    dependencies = {
-      "igorgue/danger",
-    },
     opts = {
       colorscheme = vim.env.NVIM_COLORSCHEME or "danger_dark",
     },
@@ -29,8 +27,9 @@ return {
       },
     },
   },
+  "projekt0n/caret.nvim",
   {
-    "igorgue/candy.vim",
+    "igorgue/candy.vim", -- oldschool colorscheme
     init = function()
       vim.api.nvim_create_autocmd("Colorscheme", {
         pattern = "candy",
@@ -53,7 +52,7 @@ return {
     end,
   },
   {
-    "twerth/ir_black",
+    "twerth/ir_black", -- oldschool colorscheme
     init = function()
       vim.api.nvim_create_autocmd("Colorscheme", {
         pattern = "ir_black",

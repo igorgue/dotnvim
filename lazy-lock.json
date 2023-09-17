@@ -6,6 +6,7 @@
   "alpha-nvim": { "branch": "main", "commit": "234822140b265ec4ba3203e3e0be0e0bb826dff5" },
   "awesome-flutter-snippets": { "branch": "master", "commit": "48d4b8ba44dc0133c2299d9d810eceb5efa441a7" },
   "candy.vim": { "branch": "master", "commit": "2a8348a0f76c36bffef20cafdc4b37f947e5f099" },
+  "caret.nvim": { "branch": "main", "commit": "d53c2aff33fc907b1d89a588ca68c39fc4148694" },
   "catppuccin": { "branch": "main", "commit": "85e93601e0f0b48aa2c6bbfae4d0e9d7a1898280" },
   "clangd_extensions.nvim": { "branch": "main", "commit": "bafed83f79b5779f5b43e8e015e13ca99dcd8b3a" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
