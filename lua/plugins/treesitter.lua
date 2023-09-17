@@ -1,15 +1,15 @@
-local disable_fn = function(_, buf)
-  local max_filesize = 100 * 1024 -- 100 KB
-  local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-  if ok and stats and stats.size > max_filesize then
-    vim.notify_once(
-      "* treesitter off",
-      vim.log.levels.WARN,
-      { title = "File is too large! (" .. stats.size .. " > " .. max_filesize .. " bytes)" }
-    )
+local ui_utils = require("utils").ui
 
-    return true
+local disable_fn = function(_, buf)
+  local ok, error_msg = ui_utils.disable_fn(buf)
+
+  if ok then
+    return false
   end
+
+  vim.notify_once("* treesitter off", vim.log.levels.WARN, { title = error_msg })
+
+  return true
 end
 
 return {

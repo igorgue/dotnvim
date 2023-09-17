@@ -338,7 +338,6 @@ return {
       end,
       on_close = function()
         vim.opt.laststatus = 3
-        vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
       end,
     },
   },
@@ -417,7 +416,7 @@ return {
       local themes = require("telescope.themes")
 
       local function telescope_paste_char(char)
-        vim.api.nvim_put({ char.value }, "c", true, true)
+        vim.api.nvim_put({ char.value }, "c", false, true)
       end
 
       return {
@@ -521,19 +520,6 @@ return {
       },
     },
   },
-  -- TODO: Colors of bbq, change them.
-  -- {
-  --   "utilyre/barbecue.nvim",
-  --   name = "barbecue",
-  --   version = "*",
-  --   dependencies = {
-  --     "SmiteshP/nvim-navic",
-  --     "nvim-tree/nvim-web-devicons", -- optional dependency
-  --   },
-  --   opts = {
-  --     -- configurations go here
-  --   },
-  -- },
   {
     "SmiteshP/nvim-navic",
     config = function(_, opts)

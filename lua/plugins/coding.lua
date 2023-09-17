@@ -228,23 +228,26 @@ return {
       -- disable null-ls (and some other options) for big files
       vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         callback = function()
+          local ui_utils = require("utils").ui
           local buf = vim.api.nvim_get_current_buf()
-          local line_count = vim.api.nvim_buf_line_count(buf)
+          local ok, error_msg = ui_utils.disable_fn(buf)
 
-          if line_count < 2000 then
-            return
+          if ok then
+            return false
           end
 
           vim.notify_once(
-            "* autoformat off\n" .. "* foldmethod manual\n" .. "* disable winbar",
+            "* null-ls off\n" .. "* foldmethod manual\n" .. "* disable winbar",
             vim.log.levels.WARN,
-            { title = "File is too large! (" .. line_count .. " > 2000 lines)" }
+            { title = error_msg }
           )
 
           ---@diagnostic disable-next-line: inject-field
           vim.b.autoformat = false
           vim.opt_local.winbar = ""
           vim.opt_local.foldmethod = "manual"
+
+          return true
         end,
       })
     end,

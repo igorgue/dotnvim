@@ -8,6 +8,7 @@ return {
   },
   {
     "igorgue/danger",
+    -- dir = "~/Code/danger",
     opts = {
       style = "dark",
       alacritty = true,
