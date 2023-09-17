@@ -43,16 +43,22 @@ return {
         end,
       })
 
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "*",
+        callback = function()
+          vim.api.nvim_set_hl(0, "@variable.python", {})
+          vim.api.nvim_set_hl(0, "@error.python", {})
+          vim.api.nvim_set_hl(0, "@function.call.python", {})
+          vim.api.nvim_set_hl(0, "mojoBuiltins", { link = "@function.builtin" })
+        end,
+      })
+
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "mojo",
         callback = function()
           vim.bo.expandtab = true
           vim.bo.shiftwidth = 4
           vim.bo.softtabstop = 4
-
-          vim.api.nvim_set_hl(0, "@variable.python", {})
-          vim.api.nvim_set_hl(0, "@error.python", {})
-
           vim.lsp.start({
             name = "mojo",
             cmd = { "mojo-lsp-server" },

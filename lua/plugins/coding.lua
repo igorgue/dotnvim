@@ -1,5 +1,4 @@
 local utils = require("utils")
-
 return {
   {
     "tpope/vim-fugitive",

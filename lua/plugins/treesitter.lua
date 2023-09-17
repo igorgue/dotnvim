@@ -16,16 +16,14 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      -- FIXME: These two plugins, are slow, on big files
       highlight = {
-        -- enable = false,
         disable = disable_fn,
       },
       indent = {
-        -- enable = false,
         disable = disable_fn,
       },
       incremental_selection = {
+        disable = disable_fn,
         enable = true,
         keymaps = {
           init_selection = "<C-space>",
