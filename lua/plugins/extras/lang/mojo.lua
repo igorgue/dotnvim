@@ -25,7 +25,7 @@ return {
   },
   {
     "czheo/mojo.vim",
-    dir = "~/Code/mojo.vim",
+    -- dir = "~/Code/mojo.vim",
     ft = { "mojo" },
     init = function()
       -- TODO: Figure out how to make this function work,

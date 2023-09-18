@@ -6,9 +6,10 @@ return {
       require("lspsaga").setup(opts)
     end,
     opts = {
-      callhierarchy = { silent = true },
-      finder = { silent = true },
-      hover = { silent = true },
+      callhierarchy = { silent = true, keys = { quit = "<Esc>" } },
+      finder = { silent = true, keys = { quit = "<Esc>" } },
+      hover = { silent = true, keys = { quit = "<Esc>" } },
+      definition = { silent = true, keys = { quit = "<Esc>" } },
       lightbulb = { enable = false },
       code_action = { enable = false },
       diagnostic = { enable = false },
