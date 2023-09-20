@@ -230,16 +230,15 @@ return {
         callback = function()
           local ui_utils = require("utils").ui
           local buf = vim.api.nvim_get_current_buf()
-          local ok, error_msg = ui_utils.disable_fn(buf)
+          local disable = ui_utils.disable_fn(buf)
 
-          if ok then
+          if not disable then
             return false
           end
 
           vim.notify_once(
-            "* null-ls off\n" .. "* foldmethod manual\n" .. "* disable winbar",
-            vim.log.levels.WARN,
-            { title = error_msg }
+            "File too large\n* null-ls off\n" .. "* foldmethod manual\n" .. "* disable winbar",
+            vim.log.levels.WARN
           )
 
           ---@diagnostic disable-next-line: inject-field

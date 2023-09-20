@@ -1,7 +1,3 @@
-local function format_mojo()
-  vim.cmd("silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
-end
-
 return {
   -- XXX: does not work...
   -- {
@@ -28,6 +24,12 @@ return {
     -- dir = "~/Code/mojo.vim",
     ft = { "mojo" },
     init = function()
+      local function format_mojo()
+        if require("lazyvim.plugins.lsp.format").enabled() then
+          vim.cmd("silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
+        end
+      end
+
       -- TODO: Figure out how to make this function work,
       -- currently asks for a "text replacement"?
       -- if this works you don't need to do the BufWritePost below
@@ -36,11 +38,7 @@ return {
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
         pattern = { "*.🔥", "*.mojo" },
         nested = true,
-        callback = function()
-          if require("lazyvim.plugins.lsp.format").enabled() then
-            format_mojo()
-          end
-        end,
+        callback = format_mojo,
       })
 
       vim.api.nvim_create_autocmd("ColorScheme", {

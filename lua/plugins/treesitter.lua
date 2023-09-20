@@ -1,13 +1,13 @@
 local ui_utils = require("utils").ui
 
 local disable_fn = function(_, buf)
-  local ok, error_msg = ui_utils.disable_fn(buf)
+  local disable = ui_utils.disable_fn(buf)
 
-  if ok then
+  if not disable then
     return false
   end
 
-  vim.notify_once("* treesitter off", vim.log.levels.WARN, { title = error_msg })
+  vim.notify_once("File too large\n* treesitter off", vim.log.levels.WARN)
 
   return true
 end

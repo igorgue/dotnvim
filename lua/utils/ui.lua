@@ -14,20 +14,10 @@ M.diagnostic_config = {
 
 function M.disable_fn(buf)
   local max_filesize = 100 * 1024 -- 100 KB
-  local stats_ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-  local filesize = stats and stats.size or 0
-
-  local ok = stats_ok and stats and filesize > max_filesize
-  local error_msg = nil
-
-  if not ok then
-    error_msg = "File is too large! (100KB max) " .. filesize .. " > " .. max_filesize
+  local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+  if ok and stats and stats.size > max_filesize then
+    return true
   end
-
-  return {
-    ok,
-    error_msg,
-  }
 end
 
 function M.refresh_ui()

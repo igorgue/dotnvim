@@ -52,6 +52,48 @@ return {
       end
     end,
   },
+  {
+    "linux-cultist/venv-selector.nvim",
+    config = function(_, opts)
+      local venv_selector = require("venv-selector")
+
+      opts.changed_venv_hooks = {
+        venv_selector.hooks.pyright,
+      }
+
+      venv_selector.setup(opts)
+    end,
+    init = function()
+      vim.api.nvim_create_autocmd("VimEnter", {
+        desc = "Auto select virtualenv Nvim open",
+        pattern = "*",
+        callback = function()
+          local venv = vim.fn.findfile("pyproject.toml", vim.fn.getcwd() .. ";")
+
+          if venv == "" then
+            local names = { "venv", ".venv", "env", ".env" }
+            for _, name in ipairs(names) do
+              if venv ~= "" then
+                break
+              end
+
+              venv = vim.fn.finddir(name, vim.fn.getcwd())
+            end
+          end
+
+          if venv ~= "" then
+            require("venv-selector").retrieve_from_cache()
+          end
+        end,
+        once = true,
+      })
+
+      return true
+    end,
+    opts = {
+      dap_enabled = true,
+    },
+  },
   -- NOTE: working only if lazy is false
   -- XXX: disabled from now, it doesn't seem to load after 1 file is open
   { "wookayin/semshi", lazy = false, enabled = false },
