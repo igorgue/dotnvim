@@ -1,7 +1,7 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "0236521ea582747b58869cb72f70ccfa967d2e89" },
   "LazyVim": { "branch": "main", "commit": "a72a84972d85e5bbc6b9d60a0983b37efef21b8a" },
-  "LuaSnip": { "branch": "master", "commit": "8efa4e402a24df6a4713a2ec653147c49e8f73de" },
+  "LuaSnip": { "branch": "master", "commit": "c5fb16a934892086d4ba01bac48b77c65435025e" },
   "SchemaStore.nvim": { "branch": "main", "commit": "d2a3d1da007549c921f7b0e22521d1c20d09c8a7" },
   "alpha-nvim": { "branch": "main", "commit": "234822140b265ec4ba3203e3e0be0e0bb826dff5" },
   "awesome-flutter-snippets": { "branch": "master", "commit": "48d4b8ba44dc0133c2299d9d810eceb5efa441a7" },
