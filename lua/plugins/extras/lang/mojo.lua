@@ -20,7 +20,7 @@ return {
     end,
   },
   {
-    "czheo/mojo.vim",
+    "igorgue/mojo.vim",
     -- dir = "~/Code/mojo.vim",
     ft = { "mojo" },
     init = function()
@@ -46,7 +46,6 @@ return {
         callback = function()
           vim.api.nvim_set_hl(0, "@variable.python", {})
           vim.api.nvim_set_hl(0, "@error.python", {})
-          vim.api.nvim_set_hl(0, "mojoBuiltins", { link = "@function.builtin" })
         end,
       })
 
