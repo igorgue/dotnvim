@@ -19,7 +19,7 @@
   "conjure": { "branch": "master", "commit": "58c46d1f4999679659a5918284b574c266a7ac83" },
   "copilot.vim": { "branch": "release", "commit": "998cf5ab1b85e844c7e8edb864a997e590df7182" },
   "crates.nvim": { "branch": "main", "commit": "db629b5cfb2aa8de9e44efb795657297ee95ca91" },
-  "danger": { "branch": "main", "commit": "49ac47d0c042d41e24c53fe91c64e9fe9729eff7" },
+  "danger": { "branch": "main", "commit": "ab77c9a9722ad03551bfbf4188a4bcfe9a5a8121" },
   "dart-vim-plugin": { "branch": "master", "commit": "928302ec931caf0dcf21835cca284ccd2b192f7b" },
   "diffview.nvim": { "branch": "main", "commit": "a111d19ccceac6530448d329c63f998f77b5626e" },
   "dressing.nvim": { "branch": "master", "commit": "c1e1d5fa44fe08811b6ef4aadac2b50e602f9504" },
