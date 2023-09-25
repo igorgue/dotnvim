@@ -65,4 +65,35 @@ return {
       })
     end,
   },
+  {
+    "mfussenegger/nvim-dap",
+    opts = function()
+      local dap = require("dap")
+      local mojo_lldb = vim.env.MODULAR_HOME .. "/pkg/packages.modular.com_mojo/bin/lldb-vscode"
+
+      dap.adapters.mojo = {
+        type = "executable",
+        command = mojo_lldb,
+        name = "mojo_lldb",
+      }
+
+      local lldb_config = {
+        type = "mojo",
+        name = "Run Mojo Program",
+        request = "launch",
+        program = function()
+          ---@diagnostic disable-next-line: redundant-parameter
+          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        end,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+        args = {},
+        runInTerminal = false,
+      }
+
+      dap.configurations.mojo = {
+        lldb_config,
+      }
+    end,
+  },
 }
