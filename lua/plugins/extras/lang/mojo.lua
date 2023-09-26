@@ -1,13 +1,16 @@
+local util = require("lazyvim.util")
+
 return {
   -- XXX: does not work...
-  -- {
-  --   "neovim/nvim-lspconfig",
-  --   opts = {
-  --     servers = {
-  --       mojo = {},
-  --     },
-  --   },
-  -- },
+  {
+    "neovim/nvim-lspconfig",
+    optional = true,
+    opts = {
+      servers = {
+        mojo = {},
+      },
+    },
+  },
   {
     "nvim-treesitter/nvim-treesitter",
     ft = { "mojo" },
@@ -60,6 +63,7 @@ return {
           vim.lsp.start({
             name = "mojo",
             cmd = { "mojo-lsp-server" },
+            root_dir = util.get_root(),
           })
         end,
       })
@@ -67,6 +71,7 @@ return {
   },
   {
     "mfussenegger/nvim-dap",
+    optional = true,
     opts = function()
       local dap = require("dap")
       local mojo_lldb = vim.env.MODULAR_HOME .. "/pkg/packages.modular.com_mojo/bin/lldb-vscode"

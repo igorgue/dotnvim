@@ -286,7 +286,7 @@ return {
             return
           end
 
-          local width = vim.fn.input({ prompt = "Zen mode width: ", default = "80", cancelreturn = "80" })
+          local width = vim.fn.input({ prompt = "Zen mode width: ", default = "100", cancelreturn = "100" })
 
           require("zen-mode").toggle({
             window = {
@@ -301,6 +301,7 @@ return {
     },
     opts = {
       window = {
+        width = 100,
         options = {
           signcolumn = "no", -- disable signcolumn
           number = false, -- disable number column
@@ -517,6 +518,15 @@ return {
         margin = { 0, 0, 0, 0 },
         padding = { 1, 0, 1, 0 },
         winblend = 5,
+      },
+    },
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show()
+        end,
+        desc = "Show Which Key",
       },
     },
   },
