@@ -405,10 +405,7 @@ return {
       "ghassan0/telescope-glyph.nvim",
       "xiyaowong/telescope-emoji.nvim",
       "nvim-telescope/telescope-fzy-native.nvim",
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-      },
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
     -- stylua: ignore
     enabled = not vim.o.diff,

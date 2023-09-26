@@ -47,3 +47,27 @@ wk.register({
 }, {
   prefix = "<leader><cr>",
 })
+
+-- NVIM_WASD
+if vim.env.NVIM_WASD then
+  -- unmap 'wasd' in normal mode (set to <nop> was okay)
+  vim.api.nvim_set_keymap("n", "w", "<nop>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "a", "<nop>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "s", "<nop>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "d", "<nop>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "W", "<nop>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "A", "<nop>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "S", "<nop>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "D", "<nop>", { noremap = true, silent = true })
+
+  wk.register({
+    ["w"] = { "<up>", "Up" },
+    ["a"] = { "<left>", "Left" },
+    ["s"] = { "<down>", "Down" },
+    ["d"] = { "<right>", "Right" },
+    ["W"] = { "{", "Previous Paragraph" },
+    ["A"] = { "<S-Left>", "Previous Word" },
+    ["S"] = { "}", "Next Paragraph" },
+    ["D"] = { "<S-Right>", "Next Word" },
+  })
+end

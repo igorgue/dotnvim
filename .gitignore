@@ -2,3 +2,4 @@ plugin
 .luarc.json
 node_modules
 repro.lua
+.repro

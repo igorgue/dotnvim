@@ -23,7 +23,7 @@ return {
     dependencies = {
       "mfussenegger/nvim-dap-python",
     },
-    config = function()
+    opts = function()
       local path = require("mason-registry").get_package("debugpy"):get_install_path()
 
       require("dap").configurations.python = {}
