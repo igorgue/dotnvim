@@ -1,29 +1,5 @@
 return {
   {
-    "lukas-reineke/indent-blankline.nvim",
-    keys = {
-      {
-        "<leader>n",
-        function()
-          if vim.opt.list:get() then
-            vim.opt.list = false
-            vim.g.miniindentscope_disable = true
-            vim.opt.cursorline = false
-            vim.opt.number = false
-            -- vim.opt.relativenumber = false
-          else
-            vim.opt.list = true
-            vim.g.miniindentscope_disable = false
-            vim.opt.cursorline = true
-            vim.opt.number = true
-            -- vim.opt.relativenumber = true
-          end
-        end,
-        desc = "Toggle List & Indent Lines",
-      },
-    },
-  },
-  {
     "rcarriga/nvim-notify",
     opts = {
       render = "default",
