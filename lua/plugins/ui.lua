@@ -1,13 +1,6 @@
 return {
   {
     "lukas-reineke/indent-blankline.nvim",
-    init = function()
-      vim.g.indent_blankline_disable_with_nolist = true
-      vim.g.indent_blankline_use_treesitter = false
-
-      -- indent scope
-      vim.g.miniindentscope_disable = true
-    end,
     keys = {
       {
         "<leader>n",
