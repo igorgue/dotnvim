@@ -1,63 +1,43 @@
 local util = require("lazyvim.util")
 
 return {
-  -- XXX: does not work...
   {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      {
-        "igorgue/mojo.vim",
-        -- dir = "~/Code/mojo.vim",
-        ft = { "mojo" },
-        init = function()
-          local function format_mojo()
-            if require("lazyvim.plugins.lsp.format").enabled() then
-              vim.cmd("silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
-            end
-          end
+    "igorgue/mojo.vim",
+    -- dir = "~/Code/mojo.vim",
+    ft = { "mojo" },
+    init = function()
+      local function format_mojo()
+        if require("lazyvim.plugins.lsp.format").enabled() then
+          vim.cmd("silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
+        end
+      end
 
-          -- TODO: Figure out how to make this function work,
-          -- currently asks for a "text replacement"?
-          -- if this works you don't need to do the BufWritePost below
-          -- require("lazyvim.plugins.lsp.format").format = format_mojo
+      -- TODO: Figure out how to make this function work,
+      -- currently asks for a "text replacement"?
+      -- if this works you don't need to do the BufWritePost below
+      -- require("lazyvim.plugins.lsp.format").format = format_mojo
 
-          vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-            pattern = { "*.🔥", "*.mojo" },
-            nested = true,
-            callback = format_mojo,
-          })
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+        pattern = { "*.🔥", "*.mojo" },
+        nested = true,
+        callback = format_mojo,
+      })
 
-          vim.api.nvim_create_autocmd("ColorScheme", {
-            pattern = "*",
-            callback = function()
-              vim.api.nvim_set_hl(0, "@variable.python", {})
-              vim.api.nvim_set_hl(0, "@error.python", {})
-              vim.api.nvim_set_hl(0, "@repeat.python", {})
-            end,
-          })
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "mojo",
+        callback = function()
+          vim.bo.expandtab = true
+          vim.bo.shiftwidth = 4
+          vim.bo.softtabstop = 4
 
-          vim.api.nvim_create_autocmd("FileType", {
-            pattern = "mojo",
-            callback = function()
-              vim.bo.expandtab = true
-              vim.bo.shiftwidth = 4
-              vim.bo.softtabstop = 4
-
-              vim.lsp.start({
-                name = "mojo",
-                cmd = { "mojo-lsp-server" },
-                root_dir = util.get_root(),
-              })
-            end,
+          vim.lsp.start({
+            name = "mojo",
+            cmd = { "mojo-lsp-server" },
+            root_dir = util.get_root(),
           })
         end,
-      },
-    },
-    opts = {
-      servers = {
-        mojo = {},
-      },
-    },
+      })
+    end,
   },
   {
     "mfussenegger/nvim-dap",
