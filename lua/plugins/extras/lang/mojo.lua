@@ -29,10 +29,12 @@ return {
           vim.bo.expandtab = true
           vim.bo.shiftwidth = 4
           vim.bo.softtabstop = 4
+          vim.bo.commentstring = "# %s"
 
           vim.lsp.start({
             name = "mojo",
             cmd = { "mojo-lsp-server" },
+            filetypes = { "mojo" },
             root_dir = util.get_root(),
           })
         end,
