@@ -1,6 +1,26 @@
 local util = require("lazyvim.util")
 
 return {
+  -- XXX: does not work...
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        mojo = {},
+      },
+    },
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    ft = { "mojo" },
+    opts = function(_, opts)
+      vim.treesitter.language.register("python", "mojo")
+
+      opts.highlight.additional_vim_regex_highlighting = true
+
+      return opts
+    end,
+  },
   {
     "igorgue/mojo.vim",
     -- dir = "~/Code/mojo.vim",
@@ -23,12 +43,26 @@ return {
         callback = format_mojo,
       })
 
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "*",
+        callback = function()
+          local ns = vim.api.nvim_create_namespace("mojo")
+
+          vim.api.nvim_set_hl_ns(ns)
+
+          vim.api.nvim_set_hl(ns, "@variable.python", {})
+          vim.api.nvim_set_hl(ns, "@error.python", {})
+          vim.api.nvim_set_hl(ns, "@repeat.python", {})
+        end,
+      })
+
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "mojo",
         callback = function()
           vim.bo.expandtab = true
           vim.bo.shiftwidth = 4
           vim.bo.softtabstop = 4
+          vim.bo.tabstop = 4
           vim.bo.commentstring = "# %s"
 
           vim.lsp.start({
@@ -43,9 +77,8 @@ return {
   },
   {
     "mfussenegger/nvim-dap",
-    dependencies = {
-      "igorgue/mojo.vim",
-    },
+    optional = true,
+    dependencies = { "igorgue/mojo.vim" },
     opts = function()
       local dap = require("dap")
       local mojo_lldb = vim.env.MODULAR_HOME .. "/pkg/packages.modular.com_mojo/bin/lldb-vscode"
