@@ -56,7 +56,7 @@ return {
     },
   },
   {
-    "windwp/nvim-spectre",
+    "nvim-pack/nvim-spectre",
     opts = {
       highlight = {
         ui = "String",

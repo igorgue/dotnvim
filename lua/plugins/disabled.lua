@@ -9,6 +9,6 @@ return {
   { "ggandor/leap.nvim", enabled = false },
   { "nvim-treesitter/nvim-treesitter", enabled = not vim.o.diff },
   { "nvim-treesitter/nvim-treesitter-textobjects", enabled = not vim.o.diff },
-  { "jose-elias-alvarez/null-ls.nvim", enabled = not vim.o.diff },
+  { "nvimtools/none-ls.nvim", enabled = not vim.o.diff },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
 }

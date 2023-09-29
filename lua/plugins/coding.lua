@@ -223,9 +223,9 @@ return {
     end,
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     init = function()
-      -- disable null-ls (and some other options) for big files
+      -- disable none-ls (and some other options) for big files
       vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         callback = function()
           local ui_utils = require("utils").ui
@@ -237,7 +237,7 @@ return {
           end
 
           vim.notify_once(
-            "File too large\n* null-ls off\n" .. "* foldmethod manual\n" .. "* disable winbar",
+            "File too large\n* none-ls off\n" .. "* foldmethod manual\n" .. "* disable winbar",
             vim.log.levels.WARN
           )
 
