@@ -100,6 +100,7 @@ return {
     opts = {
       filetypes_denylist = {
         "fugitive",
+        "lazy",
       },
     },
   },
