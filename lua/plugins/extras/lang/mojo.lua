@@ -28,11 +28,12 @@ return {
     init = function()
       local function format_mojo()
         if require("lazyvim.plugins.lsp.format").enabled() then
-          vim.cmd("silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
+          vim.cmd("noa !mojo format --quiet " .. vim.fn.expand("%:p"))
         end
       end
 
       -- TODO: Fix this, runs on buf write pre and that shows an error
+      -- this also sets it up for all type of files which is not good
       -- require("lazyvim.util").on_very_lazy(function()
       --   require("lazyvim.plugins.lsp.format").custom_format = function(_)
       --     format_mojo()
