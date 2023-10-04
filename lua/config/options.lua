@@ -19,6 +19,7 @@ opt.timeoutlen = 250
 opt.pumblend = 4
 opt.backspace = { "indent", "eol", "start" }
 opt.scrolloff = 3
+opt.foldmethod = "manual"
 opt.diffopt = {
   algorithm = "histogram",
   linematch = 60,

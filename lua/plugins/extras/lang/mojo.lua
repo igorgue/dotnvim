@@ -32,10 +32,13 @@ return {
         end
       end
 
-      -- TODO: Figure out how to make this function work,
-      -- currently asks for a "text replacement"?
-      -- if this works you don't need to do the BufWritePost below
-      -- require("lazyvim.plugins.lsp.format").format = format_mojo
+      -- TODO: Fix this, runs on buf write pre and that shows an error
+      -- require("lazyvim.util").on_very_lazy(function()
+      --   require("lazyvim.plugins.lsp.format").custom_format = function(_)
+      --     format_mojo()
+      --     return true
+      --   end
+      -- end)
 
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
         pattern = { "*.🔥", "*.mojo" },
