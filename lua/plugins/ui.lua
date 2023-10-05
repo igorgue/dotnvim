@@ -387,6 +387,9 @@ return {
 
       return {
         defaults = {
+          preview = {
+            treesitter = false,
+          },
           prompt_prefix = "   ",
           selection_caret = "   ",
           mappings = {

@@ -97,7 +97,10 @@ vim.cmd([[
   set tabline=%!NoXTabLine()
 ]])
 
-vim.opt.statuscolumn = "%=%l%s%C"
+-- I like the default statusline
+vim.opt.signcolumn = "auto"
+vim.opt.statuscolumn = nil
+vim.opt.laststatus = 3
 
 vim.diagnostic.config(utils.ui.diagnostic_config)
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
