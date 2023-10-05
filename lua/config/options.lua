@@ -97,6 +97,8 @@ vim.cmd([[
   set tabline=%!NoXTabLine()
 ]])
 
+vim.opt.statuscolumn = "%=%l%s%C"
+
 vim.diagnostic.config(utils.ui.diagnostic_config)
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
   vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, utils.ui.diagnostic_config)

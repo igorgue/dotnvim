@@ -101,6 +101,7 @@ return {
       filetypes_denylist = {
         "fugitive",
         "lazy",
+        "neo-tree",
       },
     },
   },
