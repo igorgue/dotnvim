@@ -1,5 +1,3 @@
-local util = require("lazyvim.util")
-
 return {
   -- XXX: does not work...
   {
@@ -26,9 +24,11 @@ return {
     -- dir = "~/Code/mojo.vim",
     ft = { "mojo" },
     init = function()
+      local util = require("lazyvim.util")
+
       local function format_mojo()
         if require("lazyvim.plugins.lsp.format").enabled() then
-          vim.cmd("silent! noa !mojo format --quiet " .. vim.fn.expand("%:p"))
+          vim.cmd("noa silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
         end
       end
 
@@ -72,8 +72,9 @@ return {
           vim.lsp.start({
             name = "mojo",
             cmd = { "mojo-lsp-server" },
-            filetypes = { "mojo" },
             root_dir = util.get_root(),
+          }, {
+            bufnr = vim.api.nvim_get_current_buf(),
           })
         end,
       })
