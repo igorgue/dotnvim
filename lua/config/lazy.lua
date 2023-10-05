@@ -33,7 +33,6 @@ require("lazy").setup({
     { import = "plugins.extras.lang.elixir" },
     { import = "plugins.extras.lang.html_css" },
     { import = "plugins.extras.lang.mojo" },
-    { import = "plugins.extras.lang.nim" },
     { import = "plugins.extras.lang.odin" },
     { import = "plugins.extras.lang.python" },
     { import = "plugins.extras.lang.rust" },
@@ -41,13 +40,15 @@ require("lazy").setup({
     { import = "plugins.extras.lang.sml" },
     { import = "plugins.extras.lang.sql" },
     { import = "plugins.extras.lang.swift" },
-    { import = "plugins.extras.lang.v" },
     { import = "plugins.extras.lang.vim" },
     { import = "plugins.extras.lang.zig" },
     { import = "plugins.extras.lspsaga" },
+    -- WARNING: plugins are kinda broken
+    { import = "plugins.extras.lang.nim" },
+    { import = "plugins.extras.lang.v" },
     -- FIXME: plugins that are not working
-    -- { import = "plugins.extras.sonarlint" },
     -- { import = "plugins.extras.sg" },
+    -- { import = "plugins.extras.sonarlint" },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.

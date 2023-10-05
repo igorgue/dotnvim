@@ -1,13 +1,14 @@
 return {
-  {
-    "neovim/nvim-lspconfig",
-    ft = { "nim" },
-    opts = function(_, opts)
-      opts.servers = {
-        nim_langserver = {},
-      }
-    end,
-  },
+  -- FIXME: LSP is not working
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   ft = { "nim" },
+  --   opts = function(_, opts)
+  --     opts.servers = {
+  --       nim_langserver = {},
+  --     }
+  --   end,
+  -- },
   {
     "alaviss/nim.nvim",
     ft = { "nim" },

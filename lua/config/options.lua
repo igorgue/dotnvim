@@ -15,7 +15,7 @@ vim.opt.timeoutlen = 250
 vim.opt.pumblend = 4
 vim.opt.backspace = { "indent", "eol", "start" }
 vim.opt.scrolloff = 3
-vim.opt.foldmethod = "manual"
+-- vim.opt.foldmethod = "manual"
 vim.opt.diffopt = {
   algorithm = "histogram",
   linematch = 60,
@@ -100,7 +100,6 @@ vim.cmd([[
 -- I like the default statusline
 vim.opt.signcolumn = "auto"
 vim.opt.statuscolumn = nil
-vim.opt.laststatus = 3
 
 vim.diagnostic.config(utils.ui.diagnostic_config)
 vim.lsp.handlers["textDocument/publishDiagnostics"] =

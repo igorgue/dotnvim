@@ -1,19 +1,20 @@
 return {
-  {
-    "neovim/nvim-lspconfig",
-    ft = { "vlang" },
-    opts = function(_, opts)
-      -- stylua: ignore
-      if vim.fn.executable("v") ~= 1 then return end
-
-      -- stylua: ignore
-      pcall(function() vim.cmd("silent !v ls --install") end)
-
-      opts.servers = {
-        vls = {},
-      }
-    end,
-  },
+  -- FIXME: LSP not working
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   ft = { "vlang" },
+  --   opts = function(_, opts)
+  --     -- stylua: ignore
+  --     if vim.fn.executable("v") ~= 1 then return end
+  --
+  --     -- stylua: ignore
+  --     pcall(function() vim.cmd("silent !v ls --install") end)
+  --
+  --     opts.servers = {
+  --       vls = {},
+  --     }
+  --   end,
+  -- },
   {
     "ollykel/v-vim",
     event = {

@@ -52,22 +52,6 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
-    init = function()
-      vim.api.nvim_create_autocmd("Colorscheme", {
-        callback = function()
-          if vim.o.diff ~= false then
-            return
-          end
-
-          local config = require("lualine").get_config()
-          local utils = require("utils")
-
-          config.options.theme = utils.ui.lualine_theme()
-
-          require("lualine").setup(config)
-        end,
-      })
-    end,
     opts = function(_)
       local icons = require("lazyvim.config").icons
       local utils = require("utils")
