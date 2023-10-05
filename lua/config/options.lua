@@ -1,26 +1,22 @@
 -- Options are automatically loaded before lazy.nvim startup
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
-local opt = vim.opt
-local lsp = vim.lsp
-local diagnostic = vim.diagnostic
-local fn = vim.fn
 local utils = require("utils")
 
-opt.number = false
-opt.relativenumber = false
-opt.cursorline = false
-opt.list = false
-opt.spell = false
-opt.wrap = true
-opt.showbreak = " "
-opt.timeout = true
-opt.timeoutlen = 250
-opt.pumblend = 4
-opt.backspace = { "indent", "eol", "start" }
-opt.scrolloff = 3
-opt.foldmethod = "manual"
-opt.diffopt = {
+vim.opt.number = false
+vim.opt.relativenumber = false
+vim.opt.cursorline = false
+vim.opt.list = false
+vim.opt.spell = false
+vim.opt.wrap = true
+vim.opt.showbreak = "  "
+vim.opt.timeout = true
+vim.opt.timeoutlen = 250
+vim.opt.pumblend = 4
+vim.opt.backspace = { "indent", "eol", "start" }
+vim.opt.scrolloff = 3
+vim.opt.foldmethod = "manual"
+vim.opt.diffopt = {
   algorithm = "histogram",
   linematch = 60,
   "internal",
@@ -30,7 +26,7 @@ opt.diffopt = {
   "iwhite",
   "vertical",
 }
-opt.listchars = {
+vim.opt.listchars = {
   tab = "──",
   -- "lead:·",
   trail = "·",
@@ -39,7 +35,7 @@ opt.listchars = {
   precedes = "«",
   extends = "»",
 }
-opt.fillchars = {
+vim.opt.fillchars = {
   -- "vert:▏",
   vert = "│",
   diff = "╱",
@@ -49,18 +45,18 @@ opt.fillchars = {
   msgsep = "─",
   eob = " ",
 }
-opt.writebackup = true
-opt.undofile = true
-opt.isfname:append(":")
-opt.clipboard = "unnamed"
+vim.opt.writebackup = true
+vim.opt.undofile = true
+vim.opt.isfname:append(":")
+vim.opt.clipboard = "unnamed"
 
 if vim.o.diff ~= false then
-  opt.list = false
-  opt.wrap = false
+  vim.opt.list = false
+  vim.opt.wrap = false
 
-  opt.signcolumn = "no"
-  opt.cursorline = true
-  opt.number = true
+  vim.opt.signcolumn = "no"
+  vim.opt.cursorline = true
+  vim.opt.number = true
 end
 
 -- sets the tabline to not show x, a very simple tabline
@@ -101,26 +97,29 @@ vim.cmd([[
   set tabline=%!NoXTabLine()
 ]])
 
--- FIXME: We cannot use number and relativenumber with this setup
--- it's broken and doesn't show you what you need
-if vim.version().minor >= 9 then
-  vim.opt.statuscolumn = "%=%l%r%s%C"
-end
+vim.diagnostic.config(utils.ui.diagnostic_config)
+vim.lsp.handlers["textDocument/publishDiagnostics"] =
+  vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, utils.ui.diagnostic_config)
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "single" })
 
-diagnostic.config(utils.ui.diagnostic_config)
-lsp.handlers["textDocument/publishDiagnostics"] =
-  lsp.with(lsp.diagnostic.on_publish_diagnostics, utils.ui.diagnostic_config)
-lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, { border = "single" })
-lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_help, { border = "single" })
-
-fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticError" })
-fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticWarning" })
-fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticInformation" })
-fn.sign_define("DiagnosticSignHint", { text = " ", texthl = "DiagnosticHint" })
-fn.sign_define("DapLogPoint", { text = " ", texthl = "DapLogPoint", linehl = "DapLogPoint", numhl = "DapLogPoint" })
-fn.sign_define("DapStopped", { text = " ", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
+vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticError" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticWarning" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticInformation" })
+vim.fn.sign_define("DiagnosticSignHint", { text = " ", texthl = "DiagnosticHint" })
+vim.fn.sign_define(
+  "DapLogPoint",
+  { text = " ", texthl = "DapLogPoint", linehl = "DapLogPoint", numhl = "DapLogPoint" }
+)
+vim.fn.sign_define("DapStopped", { text = " ", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
 -- stylua: ignore start
-fn.sign_define("DapBreakpoint", { text = " ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" })
-fn.sign_define("DapBreakpointCondition", { text = " ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" })
-fn.sign_define("DapBreakpointRejected", { text = " ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" })
+vim.fn.sign_define("DapBreakpoint", { text = " ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" })
+vim.fn.sign_define(
+  "DapBreakpointCondition",
+  { text = " ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+)
+vim.fn.sign_define(
+  "DapBreakpointRejected",
+  { text = " ", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }
+)
 -- stylua: ignore end

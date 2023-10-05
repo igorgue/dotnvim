@@ -1,15 +1,13 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
-local api = vim.api
-local nvim_del_keymap = api.nvim_del_keymap
 local wk = require("which-key")
 
 -- Normal behaviour
-pcall(nvim_del_keymap, "n", "<")
-pcall(nvim_del_keymap, "n", ">")
-pcall(nvim_del_keymap, "v", "<")
-pcall(nvim_del_keymap, "v", ">")
+pcall(vim.api.nvim_del_keymap, "n", "<")
+pcall(vim.api.nvim_del_keymap, "n", ">")
+pcall(vim.api.nvim_del_keymap, "v", "<")
+pcall(vim.api.nvim_del_keymap, "v", ">")
 
 wk.register({
   ["<leader><cr>"] = { name = "+applications" },
