@@ -219,16 +219,13 @@ return {
   },
   {
     "Saecki/crates.nvim",
-    event = "BufReadPost Cargo.toml",
+    event = "BufRead Cargo.toml",
     config = function(_, opts)
       require("crates").setup(opts)
 
-      local register_keys_and_cmp = function()
-        local cmp = require("cmp")
+      local register_keys = function()
         local wk = require("which-key")
 
-        ---@diagnostic disable-next-line: missing-fields
-        cmp.setup.buffer({ sources = { { name = "crates" }, { name = "buffer" } } })
         wk.register({
           ["<cr>"] = { require("crates").show_popup, "Crates Popup" },
         }, {
@@ -236,10 +233,15 @@ return {
         })
       end
 
-      register_keys_and_cmp()
-      vim.api.nvim_create_autocmd("BufReadPost", { pattern = "Cargo.toml", callback = register_keys_and_cmp })
+      register_keys()
+      vim.api.nvim_create_autocmd("BufReadPost", { pattern = "Cargo.toml", callback = register_keys })
     end,
     opts = {
+      src = {
+        cmp = {
+          enabled = true,
+        },
+      },
       null_ls = {
         enabled = true,
         name = "Crates",
