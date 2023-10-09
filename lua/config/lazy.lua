@@ -46,6 +46,7 @@ require("lazy").setup({
     -- WARNING: plugins are kinda broken
     { import = "plugins.extras.lang.nim" },
     { import = "plugins.extras.lang.v" },
+    { import = "plugins.extras.leetcode" },
     -- FIXME: plugins that are not working
     -- { import = "plugins.extras.sg" },
     -- { import = "plugins.extras.sonarlint" },
