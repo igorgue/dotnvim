@@ -11,7 +11,14 @@ pcall(vim.api.nvim_del_keymap, "v", ">")
 
 wk.register({
   ["<leader><cr>"] = { name = "+applications" },
+  ["!"] = { name = "+filter", mode = { "n", "v" } },
+  ["<"] = { name = "+indent/left", mode = { "n", "v" } },
+  [">"] = { name = "+indent/right", mode = { "n", "v" } },
   z = { name = "+fold", mode = { "n", "v" } },
+  c = { name = "+change", mode = { "n", "v" } },
+  d = { name = "+delete", mode = { "n", "v" } },
+  v = { name = "+visual", mode = { "n", "v" } },
+  y = { name = "+yank", mode = { "n", "v" } },
 })
 
 wk.register({
@@ -69,4 +76,6 @@ if vim.env.NVIM_WASD then
     ["S"] = { "}", "Next Paragraph" },
     ["D"] = { "<S-Right>", "Next Word" },
   })
+
+  -- TODO: this is not done, we need to map more keys
 end
