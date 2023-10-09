@@ -2,27 +2,29 @@ return {
   "kawre/leetcode.nvim",
   lazy = false,
   build = ":TSUpdate html",
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter",
-    "nvim-telescope/telescope.nvim",
-    "nvim-lua/plenary.nvim", -- required by telescope
-    "MunifTanjim/nui.nvim",
-
-    -- optional
-    "nvim-tree/nvim-web-devicons",
-
-    -- recommended
-    -- "rcarriga/nvim-notify",
-  },
   opts = {
-    -- configuration goes here
+    lang = "python3",
   },
   config = function(_, opts)
-    vim.keymap.set("n", "<leader>lq", "<cmd>LcQuestionTabs<cr>")
-    vim.keymap.set("n", "<leader>lm", "<cmd>LcMenu<cr>")
-    vim.keymap.set("n", "<leader>lc", "<cmd>LcConsole<cr>")
-    vim.keymap.set("n", "<leader>ll", "<cmd>LcLanguage<cr>")
-    vim.keymap.set("n", "<leader>ld", "<cmd>LcDescriptionToggle<cr>")
+    for _, arg in ipairs(vim.v.argv) do
+      if arg == "leetcode.nvim" then
+        local wk = require("which-key")
+
+        wk.register({
+          ["<leader>l"] = { name = "+leetcode" },
+        })
+
+        wk.register({
+          q = { "<cmd>LcQuestionTabs<cr>", "Question Tabs" },
+          m = { "<cmd>LcMenu<cr>", "Menu" },
+          c = { "<cmd>LcConsole<cr>", "Console" },
+          l = { "<cmd>LcLanguage<cr>", "Language" },
+          d = { "<cmd>LcDescriptionToggle<cr>", "Description Toggle" },
+        }, {
+          prefix = "<leader>l",
+        })
+      end
+    end
 
     require("leetcode").setup(opts)
   end,
