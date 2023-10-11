@@ -43,6 +43,7 @@ require("lazy").setup({
     { import = "plugins.extras.lang.vim" },
     { import = "plugins.extras.lang.zig" },
     { import = "plugins.extras.lspsaga" },
+    { import = "plugins.extras.dothttp" },
     -- WARNING: plugins are kinda broken
     { import = "plugins.extras.lang.nim" },
     { import = "plugins.extras.lang.v" },

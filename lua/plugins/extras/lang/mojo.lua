@@ -86,14 +86,26 @@ return {
     dependencies = { "igorgue/mojo.vim" },
     opts = function()
       local dap = require("dap")
-      dap.adapters.mojo = {
+
+      dap.adapters.lldb = {
         type = "executable",
         command = "lldb-vscode",
-        name = "mojo-lldb",
+        name = "lldb",
       }
 
-      dap.configurations.mojo = {}
-      require("dap.ext.vscode").load_launchjs()
+      dap.configurations["mojo"] = {
+        {
+          name = "Launch",
+          type = "lldb",
+          request = "launch",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end,
+          cwd = "${workspaceFolder}",
+          stopOnEntry = false,
+          args = {},
+        },
+      }
     end,
   },
 }

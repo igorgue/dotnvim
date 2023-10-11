@@ -455,6 +455,9 @@ return {
   {
     "williamboman/mason.nvim",
     opts = {
+      pip = {
+        upgrade_pip = true,
+      },
       ui = {
         border = "single",
         winhighlight = "Normal:Normal,FloatBorder:VertSplit,CursorLine:CursorLine,Search:Search",
