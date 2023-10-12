@@ -1,7 +1,8 @@
 return {
   {
     "nvimdev/lspsaga.nvim",
-    lazy = false,
+    cmd = { "Lspsaga" },
+    event = "BufReadPost",
     config = function(_, opts)
       require("lspsaga").setup(opts)
     end,

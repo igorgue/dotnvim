@@ -1,29 +1,36 @@
+local has_leetcode = false
+for _, arg in ipairs(vim.v.argv) do
+  if arg == "leetcode.nvim" then
+    has_leetcode = true
+    break
+  end
+end
+
 return {
   "kawre/leetcode.nvim",
-  lazy = false,
-  build = ":TSUpdate html",
+  lazy = not has_leetcode,
+  cmd = { "LcOpen", "LcMenu", "LcConsole", "LcLanguage", "LcDescriptionToggle" },
+  build = ":TSUpdateSync html",
   opts = {
     lang = "python3",
   },
   config = function(_, opts)
-    for _, arg in ipairs(vim.v.argv) do
-      if arg == "leetcode.nvim" then
-        local wk = require("which-key")
+    if has_leetcode then
+      local wk = require("which-key")
 
-        wk.register({
-          ["<leader>l"] = { name = "+leetcode" },
-        })
+      wk.register({
+        ["<leader>l"] = { name = "+leetcode" },
+      })
 
-        wk.register({
-          q = { "<cmd>LcQuestionTabs<cr>", "Question Tabs" },
-          m = { "<cmd>LcMenu<cr>", "Menu" },
-          c = { "<cmd>LcConsole<cr>", "Console" },
-          l = { "<cmd>LcLanguage<cr>", "Language" },
-          d = { "<cmd>LcDescriptionToggle<cr>", "Description Toggle" },
-        }, {
-          prefix = "<leader>l",
-        })
-      end
+      wk.register({
+        q = { "<cmd>LcQuestionTabs<cr>", "Question Tabs" },
+        m = { "<cmd>LcMenu<cr>", "Menu" },
+        c = { "<cmd>LcConsole<cr>", "Console" },
+        l = { "<cmd>LcLanguage<cr>", "Language" },
+        d = { "<cmd>LcDescriptionToggle<cr>", "Description Toggle" },
+      }, {
+        prefix = "<leader>l",
+      })
     end
 
     require("leetcode").setup(opts)
