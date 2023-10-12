@@ -94,6 +94,9 @@ return {
       dap_enabled = true,
     },
   },
-  -- NOTE: forked from wookayin's removed hardcoded values
-  { "igorgue/vim-python-enhanced-syntax", ft = "python" },
+  {
+    "igorgue/vim-python-enhanced-syntax",
+    -- dir = "~/Code/vim-python-enhanced-syntax",
+    ft = "python",
+  },
 }

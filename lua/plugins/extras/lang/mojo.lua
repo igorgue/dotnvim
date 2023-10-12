@@ -72,7 +72,7 @@ return {
           vim.lsp.start({
             name = "mojo",
             cmd = { "mojo-lsp-server" },
-            root_dir = util.get_root(),
+            root_dir = util.root.get(),
           }, {
             bufnr = vim.api.nvim_get_current_buf(),
           })

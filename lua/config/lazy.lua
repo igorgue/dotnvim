@@ -11,34 +11,8 @@ require("lazy").setup({
   spec = {
     -- import LazyVim plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- import extras from config
+    -- import local plugins from config
     { import = "plugins" },
-    { import = "plugins.extras.conjure" },
-    { import = "plugins.extras.dap" },
-    { import = "plugins.extras.lang.c" },
-    { import = "plugins.extras.lang.clojure" },
-    { import = "plugins.extras.lang.dart" },
-    { import = "plugins.extras.lang.elixir" },
-    { import = "plugins.extras.lang.html_css" },
-    { import = "plugins.extras.lang.mojo" },
-    { import = "plugins.extras.lang.odin" },
-    { import = "plugins.extras.lang.python" },
-    { import = "plugins.extras.lang.rust" },
-    { import = "plugins.extras.lang.sh" },
-    { import = "plugins.extras.lang.sml" },
-    { import = "plugins.extras.lang.sql" },
-    { import = "plugins.extras.lang.swift" },
-    { import = "plugins.extras.lang.vim" },
-    { import = "plugins.extras.lang.zig" },
-    { import = "plugins.extras.lspsaga" },
-    { import = "plugins.extras.dothttp" },
-    -- WARNING: plugins are kinda broken
-    { import = "plugins.extras.lang.nim" },
-    { import = "plugins.extras.lang.v" },
-    { import = "plugins.extras.leetcode" },
-    -- FIXME: plugins that are not working
-    -- { import = "plugins.extras.sg" },
-    -- { import = "plugins.extras.sonarlint" },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.

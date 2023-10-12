@@ -9,8 +9,10 @@ end
 return {
   "kawre/leetcode.nvim",
   lazy = not has_leetcode,
+  dependencies = {
+    { "nvim-treesitter/nvim-treesitter", enabled = true },
+  },
   cmd = { "LcOpen", "LcMenu", "LcConsole", "LcLanguage", "LcDescriptionToggle" },
-  build = ":TSUpdateSync html",
   opts = {
     lang = "python3",
   },
