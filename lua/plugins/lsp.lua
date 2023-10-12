@@ -16,7 +16,7 @@ return {
     opts = function(_, opts)
       local keymaps = require("lazyvim.plugins.lsp.keymaps")
       local ui_windows = require("lspconfig.ui.windows")
-      local format = require("lazyvim.plugins.lsp.format").format
+      local format = require("lazyvim.util").format.format
 
       keymaps._keys = {
         { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },

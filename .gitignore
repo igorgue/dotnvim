@@ -3,3 +3,4 @@ plugin
 node_modules
 repro.lua
 .repro
+lazyvim.json

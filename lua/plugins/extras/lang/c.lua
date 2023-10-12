@@ -7,7 +7,7 @@ return {
         "p00f/clangd_extensions.nvim",
         config = function(plugin)
           require("clangd_extensions").setup(plugin.opts)
-          require("lazyvim.util").on_attach(function(client, _)
+          require("lazyvim.util").lsp.on_attach(function(client, _)
             if client.name == "clangd" then
               require("clangd_extensions.inlay_hints").setup_autocmd()
               require("clangd_extensions.inlay_hints").set_inlay_hints()

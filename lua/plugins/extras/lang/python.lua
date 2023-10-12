@@ -8,7 +8,7 @@ return {
     opts = {
       setup = {
         ruff_lsp = function()
-          require("lazyvim.util").on_attach(function(client, _)
+          require("lazyvim.util").lsp.on_attach(function(client, _)
             if client.name == "ruff_lsp" then
               -- Disable hover in favor of pyright
               client.server_capabilities.hoverProvider = false
@@ -94,10 +94,6 @@ return {
       dap_enabled = true,
     },
   },
-  -- NOTE: working only if lazy is false
-  -- XXX: disabled from now, it doesn't seem to load after 1 file is open
-  { "wookayin/semshi", lazy = false, enabled = false },
   -- NOTE: forked from wookayin's removed hardcoded values
   { "igorgue/vim-python-enhanced-syntax", ft = "python" },
-  -- { dir = "~/Code/vim-python-enhanced-syntax", ft = "python" },
 }

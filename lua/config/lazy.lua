@@ -11,18 +11,6 @@ require("lazy").setup({
   spec = {
     -- import LazyVim plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- import extras from LazyVim
-    { import = "lazyvim.plugins.extras.dap.core" },
-    { import = "lazyvim.plugins.extras.dap.nlua" },
-    { import = "lazyvim.plugins.extras.lang.clangd" },
-    { import = "lazyvim.plugins.extras.lang.docker" },
-    { import = "lazyvim.plugins.extras.lang.java" },
-    { import = "lazyvim.plugins.extras.lang.json" },
-    { import = "lazyvim.plugins.extras.lang.python" },
-    { import = "lazyvim.plugins.extras.lang.python-semshi" },
-    { import = "lazyvim.plugins.extras.lang.rust" },
-    { import = "lazyvim.plugins.extras.lang.tailwind" },
-    -- { import = "lazyvim.plugins.extras.lang.typescript" },
     -- import extras from config
     { import = "plugins" },
     { import = "plugins.extras.conjure" },

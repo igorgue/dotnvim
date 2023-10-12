@@ -3,21 +3,22 @@
 -- Add any additional autocmds here
 local util = require("lazyvim.util")
 
+-- 2023-10-12T09:56:27 LazyVim  WARN `require("lazyvim.util").float_term` is deprecated. Please use `require("lazyvim.util").terminal.open` instead
 -- commands
 vim.api.nvim_create_user_command("Btop", function()
-  util.float_term("btop")
+  util.terminal.open("btop")
 end, {})
 
 vim.api.nvim_create_user_command("Nap", function()
-  util.float_term("nap")
+  util.terminal.open("nap")
 end, {})
 
 vim.api.nvim_create_user_command("Ranger", function()
-  util.float_term({ "ranger" }, { cwd = util.get_root() })
+  util.terminal.open({ "ranger" }, { cwd = util.root.get() })
 end, {})
 
 vim.api.nvim_create_user_command("Lazygit", function()
-  util.float_term({ "lazygit" }, { cwd = util.get_root() })
+  util.terminal.open({ "lazygit" }, { cwd = util.root.get() })
 end, {})
 
 vim.api.nvim_create_user_command("Cloc", function()

@@ -3,7 +3,7 @@ return {
     "sourcegraph/sg.nvim",
     build = "nvim -l build/init.lua",
     opts = {
-      on_attach = require("lazyvim.util").on_attach,
+      on_attach = require("lazyvim.util").lsp.on_attach,
     },
     keys = {
       {

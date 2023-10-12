@@ -1,5 +1,6 @@
 return {
   "neovim/nvim-lspconfig",
+  optional = true,
   dependencies = {
     {
       "ziglang/zig.vim",
