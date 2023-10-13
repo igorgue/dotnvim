@@ -7,7 +7,7 @@ for _, arg in ipairs(vim.v.argv) do
 end
 
 -- NOTE: Treesitter is known (at least to me) to be fucking annoying
-local enable_ts = has_leetcode or (false and not vim.o.diff)
+local enable_ts = has_leetcode or (true and not vim.o.diff)
 
 return {
   { "akinsho/bufferline.nvim", enabled = false },
