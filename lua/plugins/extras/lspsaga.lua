@@ -1,3 +1,5 @@
+local keys = { quit = { "<esc>", "q" }, toggle_or_jump = { "<cr>", "o" } }
+
 return {
   {
     "nvimdev/lspsaga.nvim",
@@ -7,10 +9,11 @@ return {
       require("lspsaga").setup(opts)
     end,
     opts = {
-      callhierarchy = { silent = true, keys = { quit = "<Esc>" } },
-      finder = { silent = true, keys = { quit = "<Esc>" } },
-      hover = { silent = true, keys = { quit = "<Esc>" } },
-      definition = { silent = true, keys = { quit = "<Esc>" } },
+      callhierarchy = { silent = true, keys = keys },
+      finder = { silent = true, keys = keys },
+      hover = { silent = true, keys = keys },
+      definition = { silent = true, keys = keys },
+      outline = { silent = true, keys = keys },
       lightbulb = { enable = false },
       code_action = { enable = false },
       diagnostic = { enable = false },

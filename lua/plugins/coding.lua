@@ -257,6 +257,7 @@ return {
       opts.border = "single"
 
       opts.sources = {
+        nls.builtins.completion.spell,
         nls.builtins.formatting.prettierd,
         nls.builtins.formatting.stylua,
         nls.builtins.formatting.mix,
