@@ -1,5 +1,13 @@
 return {
   {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == "table" then
+        vim.list_extend(opts.ensure_installed, { "zig" })
+      end
+    end,
+  },
+  {
     "ziglang/zig.vim",
     optional = true,
     init = function()
@@ -16,21 +24,6 @@ return {
   {
     "neovim/nvim-lspconfig",
     optional = true,
-    dependencies = {
-      {
-        "ziglang/zig.vim",
-        init = function()
-          vim.g.zig_fmt_autosave = 1
-
-          vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-            pattern = "*.zig.zon",
-            callback = function()
-              vim.bo.filetype = "zig"
-            end,
-          })
-        end,
-      },
-    },
     opts = {
       servers = {
         zls = {
@@ -52,29 +45,29 @@ return {
         },
       },
     },
-    {
-      "mfussenegger/nvim-dap",
-      opts = function()
-        local dap = require("dap")
-        dap.configurations["zig"] = {
-          {
-            type = "codelldb",
-            request = "launch",
-            name = "Launch file",
-            program = function()
-              return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-            end,
-            cwd = "${workspaceFolder}",
-          },
-          {
-            type = "codelldb",
-            request = "attach",
-            name = "Attach to process",
-            processId = require("dap.utils").pick_process,
-            cwd = "${workspaceFolder}",
-          },
-        }
-      end,
-    },
+  },
+  {
+    "mfussenegger/nvim-dap",
+    opts = function()
+      local dap = require("dap")
+      dap.configurations["zig"] = {
+        {
+          type = "codelldb",
+          request = "launch",
+          name = "Launch file",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end,
+          cwd = "${workspaceFolder}",
+        },
+        {
+          type = "codelldb",
+          request = "attach",
+          name = "Attach to process",
+          processId = require("dap.utils").pick_process,
+          cwd = "${workspaceFolder}",
+        },
+      }
+    end,
   },
 }

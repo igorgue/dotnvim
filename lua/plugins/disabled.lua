@@ -7,7 +7,7 @@ for _, arg in ipairs(vim.v.argv) do
 end
 
 -- NOTE: Treesitter is known (at least to me) to be fucking annoying
-local enable_ts = has_leetcode or (true and not vim.o.diff)
+local enable_ts = has_leetcode or (false and not vim.o.diff)
 
 return {
   { "akinsho/bufferline.nvim", enabled = false },
@@ -20,8 +20,8 @@ return {
   { "ggandor/leap.nvim", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
   { "nvimtools/none-ls.nvim", enabled = not vim.o.diff },
+  { "nvim-treesitter/nvim-treesitter-context", enabled = false },
   -- ts crap:
-  { "nvim-treesitter/nvim-treesitter-context", enabled = enable_ts },
   { "nvim-treesitter/nvim-treesitter", enabled = enable_ts },
   { "nvim-treesitter/nvim-treesitter-textobjects", enabled = enable_ts },
   { "windwp/nvim-ts-autotag", enabled = enable_ts },
