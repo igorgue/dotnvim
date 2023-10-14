@@ -34,12 +34,6 @@ return {
         { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
         { "<leader>ci", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
         { "<leader>cl", vim.lsp.codelens.run, desc = "Run codelens" },
-        { "]d", keymaps.diagnostic_goto(true), desc = "Next Diagnostic" },
-        { "[d", keymaps.diagnostic_goto(false), desc = "Prev Diagnostic" },
-        { "[e", keymaps.diagnostic_goto(false, "ERROR"), desc = "Prev Error" },
-        { "]e", keymaps.diagnostic_goto(true, "ERROR"), desc = "Next Error" },
-        { "[w", keymaps.diagnostic_goto(false, "WARN"), desc = "Prev Warning" },
-        { "]w", keymaps.diagnostic_goto(true, "WARN"), desc = "Next Warning" },
       }
 
       ui_windows.default_options.border = "single"
