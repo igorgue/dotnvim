@@ -37,6 +37,7 @@ return {
     },
     keys = {
       { "<leader>h", "<cmd>lua require('gitsigns').next_hunk()<cr>", desc = "Next Git Hunk" },
+      { "<leader>H", "<cmd>lua require('gitsigns').prev_hunk()<cr>", desc = "Prev Git Hunk" },
     },
   },
   {
@@ -195,6 +196,7 @@ return {
         sources = {
           { name = "nvim_lsp" },
           { name = "buffer" },
+          { name = "path" },
         },
       })
 
@@ -203,7 +205,7 @@ return {
         mapping = cmp.mapping.preset.cmdline(cmd_mappings),
         sources = cmp.config.sources({
           { name = "cmdline" },
-          { name = "path", options = { trailing_slash = true, label_trailing_slash = true } },
+          { name = "path" },
           { name = "buffer" },
         }),
       })
