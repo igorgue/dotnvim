@@ -9,21 +9,12 @@ return {
   },
   {
     "ziglang/zig.vim",
-    optional = true,
     init = function()
-      vim.g.zig_fmt_autosave = 1
-
-      vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-        pattern = "*.zig.zon",
-        callback = function()
-          vim.bo.filetype = "zig"
-        end,
-      })
+      vim.g.zig_fmt_autosave = 0 -- handled by lsp
     end,
   },
   {
     "neovim/nvim-lspconfig",
-    optional = true,
     opts = {
       servers = {
         zls = {
@@ -56,7 +47,7 @@ return {
           request = "launch",
           name = "Launch file",
           program = function()
-            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+            return vim.fn.input({ "Path to executable: ", vim.fn.getcwd() .. "/", "file" })
           end,
           cwd = "${workspaceFolder}",
         },

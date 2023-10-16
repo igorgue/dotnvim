@@ -76,7 +76,6 @@ return {
   },
   {
     "mfussenegger/nvim-dap",
-    optional = true,
     config = function()
       local mason = (os.getenv("HOME") or "") .. "/.local/share/nvim/mason"
       local dap = require("dap")

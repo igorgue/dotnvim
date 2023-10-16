@@ -82,7 +82,6 @@ return {
   },
   {
     "mfussenegger/nvim-dap",
-    optional = true,
     dependencies = { "igorgue/mojo.vim" },
     opts = function()
       local dap = require("dap")
