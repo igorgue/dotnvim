@@ -15,7 +15,7 @@ return {
       definition = { silent = true },
       outline = { silent = true, keys = keys },
       lightbulb = { enable = false },
-      code_action = { enable = false },
+      code_action = { enable = false, extend_gitsigns = true },
       diagnostic = { enable = false },
       symbols_in_winbar = { enable = true, show_file = false },
     },
