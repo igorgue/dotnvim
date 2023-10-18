@@ -1,4 +1,5 @@
-local utils = require("utils")
+local Util = require("lazyvim.util")
+
 return {
   {
     "tpope/vim-fugitive",
@@ -227,7 +228,35 @@ return {
   {
     "stevearc/conform.nvim",
     init = function()
-      -- disable none-ls (and some other options) for big files
+      local conform_opts = {
+        format = {
+          timeout_ms = 5000,
+          async = false,
+          lsp_fallback = "always",
+          quiet = true,
+        },
+      }
+
+      -- Install the conform formatter on VeryLazy
+      require("lazyvim.util").on_very_lazy(function()
+        require("lazyvim.util").format.register({
+          name = "conform.nvim",
+          priority = 100,
+          primary = true,
+          format = function(buf)
+            require("conform").format(Util.merge(conform_opts.format, { bufnr = buf }))
+          end,
+          sources = function(buf)
+            local ret = require("conform").list_formatters(buf)
+            ---@param v conform.FormatterInfo
+            return vim.tbl_map(function(v)
+              return v.name
+            end, ret)
+          end,
+        })
+      end)
+
+      -- disable formatting (and some other options) for big files
       vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         callback = function()
           local ui_utils = require("utils").ui
@@ -239,7 +268,7 @@ return {
           end
 
           vim.notify_once(
-            "File too large\n* none-ls off\n" .. "* foldmethod manual\n" .. "* disable winbar",
+            "File too large\n* conform off\n" .. "* foldmethod manual\n" .. "* disable winbar",
             vim.log.levels.WARN
           )
 
@@ -258,63 +287,9 @@ return {
         elixir = { "mix" },
         python = { "black", "isort", "ruff_format", "ruff_fix" },
         zsh = { "shfmt" },
-        -- ["*"] = { "codespell" },
-        -- ["_"] = { "trim_whitespace" },
+        ["*"] = { "codespell" },
+        ["_"] = { "trim_whitespace" },
       },
     },
   },
-  -- {
-  --   "nvimtools/none-ls.nvim",
-  --   init = function()
-  --     -- disable none-ls (and some other options) for big files
-  --     vim.api.nvim_create_autocmd({ "BufReadPost" }, {
-  --       callback = function()
-  --         local ui_utils = require("utils").ui
-  --         local buf = vim.api.nvim_get_current_buf()
-  --         local disable = ui_utils.disable_fn(buf)
-  --
-  --         if not disable then
-  --           return false
-  --         end
-  --
-  --         vim.notify_once(
-  --           "File too large\n* none-ls off\n" .. "* foldmethod manual\n" .. "* disable winbar",
-  --           vim.log.levels.WARN
-  --         )
-  --
-  --         ---@diagnostic disable-next-line: inject-field
-  --         vim.b.autoformat = false
-  --         vim.opt_local.winbar = ""
-  --         vim.opt_local.foldmethod = "manual"
-  --
-  --         return true
-  --       end,
-  --     })
-  --   end,
-  --   opts = function(_, opts)
-  --     local nls = require("null-ls")
-  --
-  --     opts.diagnostic_config = utils.ui.diagnostic_config
-  --     opts.border = "single"
-  --
-  --     opts.sources = {
-  --       nls.builtins.formatting.prettierd,
-  --       nls.builtins.formatting.stylua,
-  --       nls.builtins.formatting.mix,
-  --       nls.builtins.formatting.ruff,
-  --       nls.builtins.formatting.black,
-  --       nls.builtins.formatting.isort,
-  --       nls.builtins.formatting.rustfmt,
-  --       nls.builtins.formatting.shfmt,
-  --       nls.builtins.formatting.dart_format,
-  --       nls.builtins.formatting.swiftlint,
-  --       nls.builtins.formatting.clang_format,
-  --       nls.builtins.formatting.rustywind.with({ extra_filetypes = { "rust", "elixir", "html" } }),
-  --       nls.builtins.formatting.joker,
-  --       nls.builtins.diagnostics.swiftlint,
-  --     }
-  --
-  --     return opts
-  --   end,
-  -- },
 }
