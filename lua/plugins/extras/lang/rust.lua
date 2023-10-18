@@ -243,7 +243,7 @@ return {
         },
       },
       null_ls = {
-        enabled = true,
+        enabled = false,
         name = "Crates",
       },
       popup = {

@@ -225,57 +225,70 @@ return {
     end,
   },
   {
-    "nvimtools/none-ls.nvim",
-    init = function()
-      -- disable none-ls (and some other options) for big files
-      vim.api.nvim_create_autocmd({ "BufReadPost" }, {
-        callback = function()
-          local ui_utils = require("utils").ui
-          local buf = vim.api.nvim_get_current_buf()
-          local disable = ui_utils.disable_fn(buf)
-
-          if not disable then
-            return false
-          end
-
-          vim.notify_once(
-            "File too large\n* none-ls off\n" .. "* foldmethod manual\n" .. "* disable winbar",
-            vim.log.levels.WARN
-          )
-
-          ---@diagnostic disable-next-line: inject-field
-          vim.b.autoformat = false
-          vim.opt_local.winbar = ""
-          vim.opt_local.foldmethod = "manual"
-
-          return true
-        end,
-      })
-    end,
-    opts = function(_, opts)
-      local nls = require("null-ls")
-
-      opts.diagnostic_config = utils.ui.diagnostic_config
-      opts.border = "single"
-
-      opts.sources = {
-        nls.builtins.formatting.prettierd,
-        nls.builtins.formatting.stylua,
-        nls.builtins.formatting.mix,
-        nls.builtins.formatting.ruff,
-        nls.builtins.formatting.black,
-        nls.builtins.formatting.isort,
-        nls.builtins.formatting.rustfmt,
-        nls.builtins.formatting.shfmt,
-        nls.builtins.formatting.dart_format,
-        nls.builtins.formatting.swiftlint,
-        nls.builtins.formatting.clang_format,
-        nls.builtins.formatting.rustywind.with({ extra_filetypes = { "rust", "elixir" } }),
-        nls.builtins.formatting.joker,
-        nls.builtins.diagnostics.swiftlint,
-      }
-
-      return opts
-    end,
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        html = { "rustywind" },
+        elixir = { "mix" },
+        python = { "black", "isort", "ruff_format", "ruff_fix" },
+        zsh = { "shfmt" },
+        -- ["*"] = { "codespell" },
+        -- ["_"] = { "trim_whitespace" },
+      },
+    },
   },
+  -- {
+  --   "nvimtools/none-ls.nvim",
+  --   init = function()
+  --     -- disable none-ls (and some other options) for big files
+  --     vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+  --       callback = function()
+  --         local ui_utils = require("utils").ui
+  --         local buf = vim.api.nvim_get_current_buf()
+  --         local disable = ui_utils.disable_fn(buf)
+  --
+  --         if not disable then
+  --           return false
+  --         end
+  --
+  --         vim.notify_once(
+  --           "File too large\n* none-ls off\n" .. "* foldmethod manual\n" .. "* disable winbar",
+  --           vim.log.levels.WARN
+  --         )
+  --
+  --         ---@diagnostic disable-next-line: inject-field
+  --         vim.b.autoformat = false
+  --         vim.opt_local.winbar = ""
+  --         vim.opt_local.foldmethod = "manual"
+  --
+  --         return true
+  --       end,
+  --     })
+  --   end,
+  --   opts = function(_, opts)
+  --     local nls = require("null-ls")
+  --
+  --     opts.diagnostic_config = utils.ui.diagnostic_config
+  --     opts.border = "single"
+  --
+  --     opts.sources = {
+  --       nls.builtins.formatting.prettierd,
+  --       nls.builtins.formatting.stylua,
+  --       nls.builtins.formatting.mix,
+  --       nls.builtins.formatting.ruff,
+  --       nls.builtins.formatting.black,
+  --       nls.builtins.formatting.isort,
+  --       nls.builtins.formatting.rustfmt,
+  --       nls.builtins.formatting.shfmt,
+  --       nls.builtins.formatting.dart_format,
+  --       nls.builtins.formatting.swiftlint,
+  --       nls.builtins.formatting.clang_format,
+  --       nls.builtins.formatting.rustywind.with({ extra_filetypes = { "rust", "elixir", "html" } }),
+  --       nls.builtins.formatting.joker,
+  --       nls.builtins.diagnostics.swiftlint,
+  --     }
+  --
+  --     return opts
+  --   end,
+  -- },
 }

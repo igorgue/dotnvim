@@ -5,6 +5,11 @@ return {
     opts = {
       servers = {
         html = {
+          format = {
+            templating = true,
+            wrapLineLength = 120,
+            wrapAttributes = "auto",
+          },
           filetypes = {
             "html",
             -- "heex",
