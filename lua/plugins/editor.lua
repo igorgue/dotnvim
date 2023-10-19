@@ -17,59 +17,10 @@ return {
     },
   },
   {
-    "arp242/xdg_open.vim",
-    keys = {
-      { "gx", nil, desc = "Open With xdg-open" },
-    },
-  },
-  {
-    "mattn/webapi-vim",
-    event = { "BufReadPost", "BufNewFile" },
-  },
-  {
-    "s1n7ax/nvim-window-picker",
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("window-picker").setup()
-    end,
-  },
-  {
-    "almo7aya/openingh.nvim",
-    cmd = { "OpenInGHRepo", "OpenInGHFile", "OpenInGHFileLines" },
-    init = function()
-      local wk = require("which-key")
-
-      wk.register({
-        ["<leader>cg"] = { name = "+github" },
-      })
-    end,
-    keys = {
-      { "<leader>cgg", "<cmd>OpenInGHFileLines<CR>", desc = "Open in GitHub File Lines" },
-      { "<leader>cgr", "<cmd>OpenInGHRepo<CR>", desc = "Open in GitHub Repo" },
-      { "<leader>cgf", "<cmd>OpenInGHFile<CR>", desc = "Open in GitHub File" },
-    },
-  },
-  {
     "echasnovski/mini.surround",
     keys = {
       { "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], desc = "Add Surrounding", mode = "x" },
     },
-  },
-  {
-    "nvim-pack/nvim-spectre",
-    opts = {
-      highlight = {
-        ui = "String",
-        search = "IncSearch",
-        replace = "DiffChange",
-        border = "FloatBorder",
-      },
-    },
-  },
-  {
-    "numToStr/Comment.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    config = true,
   },
   {
     "RRethy/vim-illuminate",

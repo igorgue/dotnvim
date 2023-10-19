@@ -30,18 +30,18 @@ return {
           header = vim.split(logo, "\n"),
           -- stylua: ignore
           center = {
-            { action = "ene | startinsert",                        desc = " new file",        icon = " ", key = "n" },
-            { action = "Telescope oldfiles",                       desc = " recent files",    icon = " ", key = "r" },
-            { action = 'lua require("persistence").load()',        desc = " restore session", icon = " ", key = "s" },
-            { action = "Telescope find_files",                     desc = " find file",       icon = " ", key = "f" },
-            { action = "Telescope smart_open",                     desc = " smart open",      icon = " ", key = "o" },
-            { action = "Telescope live_grep",                      desc = " find text",       icon = " ", key = "g" },
-            { action = "e $MYVIMRC",                               desc = " config",          icon = " ", key = "c" },
-            { action = "Lazy",                                     desc = " lazy",            icon = "󰒲 ", key = "l" },
-            { action = "LazyExtras",                               desc = " lazy extras",     icon = " ", key = "e" },
-            { action = "lua require('lazyvim.util').float_term()", desc = " terminal",        icon = " ", key = "t" },
-            { action = "ene | DBUI",                               desc = " database",        icon = " ", key = "d" },
-            { action = "qa",                                       desc = " quit",            icon = " ", key = "q" },
+            { action = "ene | startinsert", desc = " new file", icon = " ", key = "n" },
+            { action = "Telescope oldfiles", desc = " recent files", icon = " ", key = "r" },
+            { action = 'lua require("persistence").load()', desc = " restore session", icon = " ", key = "s" },
+            { action = "Telescope find_files", desc = " find file", icon = " ", key = "f" },
+            { action = "Telescope smart_open", desc = " smart open", icon = " ", key = "o" },
+            { action = "Telescope live_grep", desc = " find text", icon = " ", key = "g" },
+            { action = "e $MYVIMRC", desc = " config", icon = " ", key = "c" },
+            { action = "Lazy", desc = " lazy", icon = "󰒲 ", key = "l" },
+            { action = "LazyExtras", desc = " lazy extras", icon = " ", key = "e" },
+            { action = "lua require('lazyvim.util').float_term()", desc = " terminal", icon = " ", key = "t" },
+            { action = "ene | DBUI", desc = " database", icon = " ", key = "d" },
+            { action = "qa", desc = " quit", icon = " ", key = "q" },
           },
           footer = function()
             local stats = require("lazy").stats()
@@ -180,14 +180,14 @@ return {
     end,
     config = function()
       require("colorizer").setup({ "*" }, {
-        RGB = true, -- #RGB hex codes
-        RRGGBB = true, -- #RRGGBB hex codes
-        names = true, -- "Name" codes like Blue
-        RRGGBBAA = true, -- #RRGGBBAA hex codes
-        rgb_fn = true, -- CSS rgb() and rgba() functions
-        hsl_fn = true, -- CSS hsl() and hsla() functions
-        css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-        css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+        RGB = true,          -- #RGB hex codes
+        RRGGBB = true,       -- #RRGGBB hex codes
+        names = true,        -- "Name" codes like Blue
+        RRGGBBAA = true,     -- #RRGGBBAA hex codes
+        rgb_fn = true,       -- CSS rgb() and rgba() functions
+        hsl_fn = true,       -- CSS hsl() and hsla() functions
+        css = true,          -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+        css_fn = true,       -- Enable all CSS *functions*: rgb_fn, hsl_fn
         -- Available modes: foreground, background
         mode = "background", -- Set the display mode.
       })
@@ -198,7 +198,7 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     config = true,
     keys = {
-      { "<M-c>", "<cmd>PickColor<cr>", desc = "Pick Color" },
+      { "<M-c>", "<cmd>PickColor<cr>",       desc = "Pick Color" },
       { "<M-c>", "<cmd>PickColorInsert<cr>", desc = "Pick Color", mode = "i" },
     },
   },
@@ -274,13 +274,13 @@ return {
       window = {
         width = 100,
         options = {
-          signcolumn = "no", -- disable signcolumn
-          number = false, -- disable number column
+          signcolumn = "no",      -- disable signcolumn
+          number = false,         -- disable number column
           relativenumber = false, -- disable relative numbers
-          cursorline = false, -- disable cursorline
-          cursorcolumn = false, -- disable cursor column
-          foldcolumn = "0", -- disable fold column
-          list = false, -- disable whitespace characters
+          cursorline = false,     -- disable cursorline
+          cursorcolumn = false,   -- disable cursor column
+          foldcolumn = "0",       -- disable fold column
+          list = false,           -- disable whitespace characters
         },
       },
       plugins = {
@@ -333,7 +333,7 @@ return {
         bottom_search = false,
         command_palette = true,
         long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = false, -- enables an input dialog for inc-rename.nvim
+        inc_rename = false,           -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = true,
       },
       views = {
@@ -465,10 +465,10 @@ return {
       end
     end,
     keys = {
-      { "<leader><leader>", nil, desc = "Smart Open" },
-      { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
-      { "<leader>ss", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Goto Symbol" },
-      { "<leader>sS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Goto Symbol (Workspace)" },
+      { "<leader><leader>", nil,                                                desc = "Smart Open" },
+      { "<leader>fs",       "<cmd>Telescope smart_open<cr>",                    desc = "Smart Open" },
+      { "<leader>ss",       "<cmd>Telescope lsp_document_symbols<cr>",          desc = "Goto Symbol" },
+      { "<leader>sS",       "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Goto Symbol (Workspace)" },
     },
   },
   {
@@ -518,5 +518,22 @@ return {
         auto_attach = true,
       },
     },
+  },
+  {
+    "arp242/xdg_open.vim",
+    keys = {
+      { "gx", nil, desc = "Open With xdg-open" },
+    },
+  },
+  {
+    "mattn/webapi-vim",
+    event = { "BufReadPost", "BufNewFile" },
+  },
+  {
+    "s1n7ax/nvim-window-picker",
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      require("window-picker").setup()
+    end,
   },
 }

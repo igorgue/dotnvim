@@ -1,127 +1,5 @@
 return {
   {
-    "tpope/vim-fugitive",
-    cmd = {
-      "Git",
-      "Gread",
-      "Gwrite",
-      "Gdiffsplit",
-      "Gvdiffsplit",
-      "Ggrep",
-      "GMove",
-      "GDelete",
-      "GBrowse",
-      "GRemove",
-      "GRename",
-      "Glgrep",
-      "Gedit",
-    },
-    dependencies = {
-      "tpope/vim-git",
-    },
-  },
-  {
-    "lewis6991/gitsigns.nvim",
-    -- stylua: ignore
-    enabled = not vim.o.diff,
-    opts = {
-      signs = {
-        add = { text = "▌" },
-        change = { text = "▌" },
-        delete = { text = "_" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~" },
-        untracked = { text = "┆" },
-      },
-    },
-    keys = {
-      { "<leader>h", "<cmd>lua require('gitsigns').next_hunk()<cr>", desc = "Next Git Hunk" },
-      { "<leader>H", "<cmd>lua require('gitsigns').prev_hunk()<cr>", desc = "Prev Git Hunk" },
-    },
-  },
-  {
-    "sindrets/diffview.nvim",
-    cmd = {
-      "DiffviewOpen",
-      "DiffviewClose",
-      "DiffviewToggleFiles",
-      "DiffviewLog",
-      "DiffviewRefresh",
-      "DiffviewFileHistory",
-    },
-    opts = {
-      diff_binaries = true,
-      enhanced_diff_hl = true,
-      view = {
-        default = {
-          winbar_info = true,
-        },
-      },
-      hooks = {
-        diff_buf_read = function()
-          vim.opt_local.list = false
-          vim.opt_local.wrap = false
-
-          vim.opt_local.cursorline = true
-          vim.opt_local.number = true
-          vim.opt.signcolumn = "no"
-        end,
-        view_closed = function()
-          vim.opt.signcolumn = "auto"
-        end,
-      },
-    },
-    keys = {
-      {
-        "<leader>gd",
-        function()
-          local view = require("diffview.lib").get_current_view()
-
-          if view then
-            vim.cmd("DiffviewClose")
-          else
-            vim.cmd("DiffviewOpen")
-          end
-        end,
-        desc = "Toggle diff view",
-      },
-    },
-  },
-  {
-    "L3MON4D3/LuaSnip",
-    -- stylua: ignore
-    keys = function() return {} end,
-  },
-  {
-    "github/copilot.vim",
-    cmd = "Copilot",
-    event = { "BufReadPost", "BufNewFile" },
-    init = function()
-      vim.g.copilot_no_tab_remap = false
-      vim.g.copilot_assume_mapped = true
-      vim.g.copilot_filetypes = {
-        ["*"] = true,
-        TelescopeResults = false,
-        TelescopePrompt = false,
-      }
-    end,
-    keys = {
-      {
-        "<leader>cC",
-        function()
-          if vim.g.copilot_enabled == 0 then
-            vim.cmd("Copilot enable")
-          else
-            vim.cmd("Copilot disable")
-          end
-
-          vim.cmd("Copilot status")
-        end,
-        desc = "Copilot toggle",
-      },
-    },
-  },
-  {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
@@ -224,22 +102,35 @@ return {
     end,
   },
   {
-    "stevearc/conform.nvim",
+    "nvim-pack/nvim-spectre",
     opts = {
-      format = {
-        timeout_ms = 5000,
-        async = false,
-        lsp_fallback = "always",
-        quiet = true,
+      highlight = {
+        ui = "String",
+        search = "IncSearch",
+        replace = "DiffChange",
+        border = "FloatBorder",
       },
-      formatters_by_ft = {
-        html = { "rustywind" },
-        elixir = { "mix" },
-        python = { "black", "isort", "ruff_format", "ruff_fix" },
-        zsh = { "shfmt" },
-        ["*"] = { "codespell" },
-        ["_"] = { "trim_whitespace" },
-      },
+    },
+  },
+  {
+    "numToStr/Comment.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    config = true,
+  },
+  {
+    "almo7aya/openingh.nvim",
+    cmd = { "OpenInGHRepo", "OpenInGHFile", "OpenInGHFileLines" },
+    init = function()
+      local wk = require("which-key")
+
+      wk.register({
+        ["<leader>cg"] = { name = "+github" },
+      })
+    end,
+    keys = {
+      { "<leader>cgg", "<cmd>OpenInGHFileLines<CR>", desc = "Open in GitHub File Lines" },
+      { "<leader>cgr", "<cmd>OpenInGHRepo<CR>",      desc = "Open in GitHub Repo" },
+      { "<leader>cgf", "<cmd>OpenInGHFile<CR>",      desc = "Open in GitHub File" },
     },
   },
 }
