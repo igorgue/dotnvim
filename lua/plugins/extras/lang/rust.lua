@@ -195,7 +195,7 @@ return {
               -- stylua: ignore
               k = { function() rt.move_item.move_item(true) end, "Move Up" },
               -- stylua: ignore
-              j = { function() rt.move_item.move_item(false) end, "Move Down"},
+              j = { function() rt.move_item.move_item(false) end, "Move Down" },
               c = { rt.open_cargo_toml.open_cargo_toml, "Open Cargo.toml" },
               p = { rt.parent_module.parent_module, "Parent Module" },
               J = { rt.join_lines.join_lines, "Join Lines" },
@@ -241,10 +241,6 @@ return {
         cmp = {
           enabled = true,
         },
-      },
-      null_ls = {
-        enabled = false,
-        name = "Crates",
       },
       popup = {
         autofocus = true,

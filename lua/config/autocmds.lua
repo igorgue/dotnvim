@@ -52,4 +52,29 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- disable formatting (and some other options) for big files
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+  callback = function()
+    local ui_utils = require("utils").ui
+    local buf = vim.api.nvim_get_current_buf()
+    local disable = ui_utils.disable_fn(buf)
+
+    if not disable then
+      return false
+    end
+
+    vim.notify_once(
+      "File too large\n* conform off\n" .. "* foldmethod manual\n" .. "* disable winbar",
+      vim.log.levels.WARN
+    )
+
+    ---@diagnostic disable-next-line: inject-field
+    vim.b.autoformat = false
+    vim.opt_local.winbar = ""
+    vim.opt_local.foldmethod = "manual"
+
+    return true
+  end,
+})
+
 -- plugins.extras.* includes more autocmds, specific for certain files
