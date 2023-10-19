@@ -14,6 +14,5 @@ if vim.env.NVIM_TERMINAL ~= nil then
     end,
   })
 
-  vim.opt.laststatus = 0
   vim.cmd("terminal")
 end
