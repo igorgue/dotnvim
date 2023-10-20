@@ -129,8 +129,8 @@ return {
     end,
     keys = {
       { "<leader>cgg", "<cmd>OpenInGHFileLines<CR>", desc = "Open in GitHub File Lines" },
-      { "<leader>cgr", "<cmd>OpenInGHRepo<CR>",      desc = "Open in GitHub Repo" },
-      { "<leader>cgf", "<cmd>OpenInGHFile<CR>",      desc = "Open in GitHub File" },
+      { "<leader>cgr", "<cmd>OpenInGHRepo<CR>", desc = "Open in GitHub Repo" },
+      { "<leader>cgf", "<cmd>OpenInGHFile<CR>", desc = "Open in GitHub File" },
     },
   },
 }

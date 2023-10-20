@@ -57,7 +57,8 @@ return {
           request = "launch",
           name = "Launch file",
           program = function()
-            return vim.fn.input({ "Path to executable: ", vim.fn.getcwd() .. "/", "file" })
+            ---@diagnostic disable-next-line: redundant-parameter
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
           end,
           cwd = "${workspaceFolder}",
         },
