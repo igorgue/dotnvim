@@ -38,7 +38,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     ft = "python",
     opts = function(_, opts)
-      -- NOTE: reenable highlights for now
+      -- NOTE: re-enable highlights for now
       -- if type(opts.highlight.disable) == "table" then
       --   vim.list_extend(opts.highlight.disable, { "python" })
       -- else
