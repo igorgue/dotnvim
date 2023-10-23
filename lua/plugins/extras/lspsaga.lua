@@ -9,6 +9,7 @@ return {
       require("lspsaga").setup(opts)
     end,
     opts = {
+      ui = { border = "single" },
       callhierarchy = { silent = true, keys = { quit = keys.quit } },
       finder = { silent = true, keys = { quit = keys.quit, toggle_or_open = keys.toggle_or_jump } },
       hover = { enable = false },
