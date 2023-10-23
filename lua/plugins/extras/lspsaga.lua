@@ -11,7 +11,8 @@ return {
     opts = {
       callhierarchy = { silent = true, keys = { quit = keys.quit } },
       finder = { silent = true, keys = { quit = keys.quit, toggle_or_open = keys.toggle_or_jump } },
-      hover = { silent = true },
+      hover = { enable = false },
+      rename = { enable = false },
       definition = { silent = true },
       outline = { silent = true, keys = keys },
       lightbulb = { enable = false },
@@ -20,13 +21,11 @@ return {
       symbols_in_winbar = { enable = true, show_file = false },
     },
     keys = {
-      { "<leader>k", "<Cmd>Lspsaga hover_doc<CR>", desc = "Lspsaga hover_doc" },
       { "<leader>j", "<Cmd>Lspsaga finder<CR>", desc = "Lspsaga finder" },
-      { "<leader>i", "<Cmd>Lspsaga incoming_calls<CR>", desc = "Lspsaga incoming_calls" },
-      { "<leader>I", "<Cmd>Lspsaga outgoing_calls<CR>", desc = "Lspsaga outgoing_calls" },
       { "<leader>p", "<Cmd>Lspsaga peek_definition<CR>", desc = "Lspsaga peek_definition" },
       { "<leader>o", "<Cmd>Lspsaga outline<CR>", desc = "Lspsaga outline" },
-      { "<leader>r", "<Cmd>Lspsaga rename<CR>", desc = "Lspsaga rename" },
+      { "<leader>I", "<Cmd>Lspsaga incoming_calls<CR>", desc = "Lspsaga incoming_calls" },
+      { "<leader>O", "<Cmd>Lspsaga outgoing_calls<CR>", desc = "Lspsaga outgoing_calls" },
     },
   },
   {
@@ -35,11 +34,9 @@ return {
       filetypes_denylist = {
         "sagafinder",
         "sagacallhierarchy",
-        "sagahoverdoc",
         "sagaincomingcalls",
         "sagapeekdefinition",
         "sagaoutline",
-        "sagarename",
       },
     },
   },
