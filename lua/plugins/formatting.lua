@@ -11,6 +11,7 @@ return {
       formatters_by_ft = {
         html = { "rustywind" },
         elixir = { "mix" },
+        rust = { "rustfmt" },
         python = { "black", "isort", "ruff_format", "ruff_fix" },
         zsh = { "shfmt" },
         lua = { "stylua" },

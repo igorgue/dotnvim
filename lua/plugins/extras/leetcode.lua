@@ -29,6 +29,8 @@ return {
       if has_leetcode then
         local wk = require("which-key")
 
+        pcall(vim.api.nvim_del_keymap, "n", "<leader>l")
+
         wk.register({
           ["<leader>l"] = { name = "+leetcode" },
         })

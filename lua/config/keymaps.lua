@@ -1,6 +1,7 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
+local Util = require("lazyvim.util")
 local wk = require("which-key")
 
 -- Normal behaviour
@@ -52,6 +53,19 @@ wk.register({
   l = { "<cmd>Lazy<cr>", "Lazy" },
 }, {
   prefix = "<leader><cr>",
+})
+
+wk.register({
+  l = {
+    function()
+      Util.toggle("cursorline")
+      Util.toggle.number()
+      vim.opt.relativenumber = false
+    end,
+    "Toggle Line Numbers / Cursorline",
+  },
+}, {
+  prefix = "<leader>u",
 })
 
 -- NVIM_WASD

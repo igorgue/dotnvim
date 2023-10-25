@@ -64,11 +64,12 @@ return {
               },
             },
             diagnostics = {
-              experimental = {
-                enable = true,
-              },
-              previewRustcOutput = true,
-              useRustcErrorCode = true,
+              enable = false,
+              -- experimental = {
+              --   enable = true,
+              -- },
+              -- previewRustcOutput = true,
+              -- useRustcErrorCode = true,
             },
             hover = {
               actions = {
@@ -127,7 +128,7 @@ return {
             },
             restartServerOnConfigChange = true,
             rustfmt = {
-              enable = false,
+              overrideCommand = nil,
               rangeFormatting = {
                 enable = false,
               },

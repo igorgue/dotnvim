@@ -4,6 +4,7 @@ return {
     ft = { "html", "css", "javascript", "typescript", "rust", "elixir", "heex" },
     opts = {
       servers = {
+        htmx = {},
         html = {
           format = {
             templating = true,
