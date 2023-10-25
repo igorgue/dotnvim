@@ -17,14 +17,14 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       highlight = {
-        disable = disable_fn,
+        disable = true,
       },
       indent = {
-        disable = disable_fn,
+        disable = true,
       },
       incremental_selection = {
-        disable = disable_fn,
-        enable = true,
+        disable = true,
+        enable = false,
         keymaps = {
           init_selection = "<C-space>",
           node_incremental = "<C-space>",

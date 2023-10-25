@@ -34,11 +34,14 @@ return {
         })
 
         wk.register({
-          q = { "<cmd>LcQuestionTabs<cr>", "Question Tabs" },
-          m = { "<cmd>LcMenu<cr>", "Menu" },
-          c = { "<cmd>LcConsole<cr>", "Console" },
-          l = { "<cmd>LcLanguage<cr>", "Language" },
-          d = { "<cmd>LcDescriptionToggle<cr>", "Description Toggle" },
+          m = { "<cmd>Leet<cr>", "Menu" },
+          c = { "<cmd>Leet console<cr>", "Console" },
+          h = { "<cmd>Leet hints<cr>", "Hints" },
+          q = { "<cmd>Leet tabs<cr>", "Question Tabs" },
+          l = { "<cmd>Leet lang<cr>", "Language" },
+          d = { "<cmd>Leet desc<cr>", "Description Toggle" },
+          r = { "<cmd>Leet run<cr>", "Run" },
+          s = { "<cmd>Leet submit<cr>", "Submit" },
         }, {
           prefix = "<leader>l",
         })

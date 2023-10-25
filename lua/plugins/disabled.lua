@@ -1,5 +1,5 @@
 -- NOTE: Treesitter is known (at least to me) to be fucking annoying
-local enable_ts = false
+local enable_ts = true
 
 local has_leetcode = false
 for _, arg in ipairs(vim.v.argv) do
@@ -25,7 +25,6 @@ return {
   { "nvim-treesitter/nvim-treesitter-context", enabled = false },
   -- ts crap:
   { "nvim-treesitter/nvim-treesitter", enabled = enable_ts },
-  { "nvim-treesitter/nvim-treesitter-textobjects", enabled = enable_ts },
-  { "windwp/nvim-ts-autotag", enabled = enable_ts },
-  { "HiPhish/rainbow-delimiters.nvim", enabled = enable_ts },
+  { "nvim-treesitter/nvim-treesitter-textobjects", enabled = false },
+  { "windwp/nvim-ts-autotag", enabled = false },
 }
