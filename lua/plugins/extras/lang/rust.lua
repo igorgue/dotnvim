@@ -127,8 +127,9 @@ return {
             },
             restartServerOnConfigChange = true,
             rustfmt = {
+              enable = false,
               rangeFormatting = {
-                enable = true,
+                enable = false,
               },
             },
             semanticHighlighting = {
