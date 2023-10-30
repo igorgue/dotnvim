@@ -1,12 +1,12 @@
 local M = {}
 
 function M.check()
-  vim.health.report_start("Local configuration")
+  vim.health.start("Local configuration")
 
   if vim.fn.has("nvim-0.8.0") == 1 then
-    vim.health.report_ok("Using Neovim >= 0.8.0")
+    vim.health.ok("Using Neovim >= 0.8.0")
   else
-    vim.health.report_error("Neovim >= 0.8.0 is required")
+    vim.health.error("Neovim >= 0.8.0 is required")
   end
 
   for _, cmd in ipairs({ "ranger", "nap", "cloc", "btop" }) do
@@ -23,9 +23,9 @@ function M.check()
     end
 
     if found then
-      vim.health.report_ok(("`%s` is installed"):format(name))
+      vim.health.ok(("`%s` is installed"):format(name))
     else
-      vim.health.report_warn(("`%s` is not installed"):format(name))
+      vim.health.warn(("`%s` is not installed"):format(name))
     end
   end
 end

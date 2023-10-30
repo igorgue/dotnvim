@@ -5,11 +5,12 @@ return {
       format = {
         timeout_ms = 5000,
         async = false,
-        lsp_fallback = "always",
+        lsp_fallback = true,
         quiet = true,
       },
       formatters_by_ft = {
-        html = { "rustywind" },
+        htmldjango = { "rustywind", "htmlbeautifier" },
+        html = { "rustywind", "htmlbeautifier" },
         elixir = { "mix" },
         rust = { "rustfmt" },
         python = { "black", "isort", "ruff_format", "ruff_fix" },

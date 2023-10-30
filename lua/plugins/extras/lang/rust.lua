@@ -128,9 +128,9 @@ return {
             },
             restartServerOnConfigChange = true,
             rustfmt = {
-              overrideCommand = nil,
+              overrideCommand = { "rustup", "run", "stable", "rustfmt" },
               rangeFormatting = {
-                enable = false,
+                enable = true,
               },
             },
             semanticHighlighting = {

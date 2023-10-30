@@ -21,7 +21,7 @@ return {
         end,
       },
     },
-    cmd = { "LcOpen", "LcMenu", "LcConsole", "LcLanguage", "LcDescriptionToggle" },
+    cmd = { "Leet" },
     opts = {
       lang = "python3",
     },
@@ -36,7 +36,7 @@ return {
         })
 
         wk.register({
-          m = { "<cmd>Leet<cr>", "Menu" },
+          ["<cr>"] = { "<cmd>Leet<cr>", "Menu" },
           c = { "<cmd>Leet console<cr>", "Console" },
           h = { "<cmd>Leet hints<cr>", "Hints" },
           q = { "<cmd>Leet tabs<cr>", "Question Tabs" },
