@@ -10,17 +10,6 @@ return {
   {
     "kawre/leetcode.nvim",
     lazy = not has_leetcode,
-    dependencies = {
-      {
-        "nvim-treesitter/nvim-treesitter",
-        enabled = true,
-        opts = function(_, opts)
-          if type(opts.ensure_installed) == "table" then
-            vim.list_extend(opts.ensure_installed, { "html" })
-          end
-        end,
-      },
-    },
     cmd = { "Leet" },
     opts = {
       lang = "python3",
