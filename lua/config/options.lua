@@ -99,7 +99,7 @@ vim.cmd([[
 ]])
 
 vim.opt.signcolumn = "auto"
-vim.opt.statuscolumn = nil
+vim.opt.statuscolumn = ""
 
 vim.diagnostic.config(utils.ui.diagnostic_config)
 vim.lsp.handlers["textDocument/publishDiagnostics"] =

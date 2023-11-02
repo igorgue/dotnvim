@@ -1,5 +1,5 @@
 -- NOTE: Treesitter is known (at least to me) to be fucking annoying
-local enable_ts = true
+local enable_ts = false
 
 local has_leetcode = false
 for _, arg in ipairs(vim.v.argv) do
