@@ -55,12 +55,20 @@ return {
         {
           type = "codelldb",
           request = "launch",
-          name = "Launch file",
+          name = "Run Zig program",
           program = function()
-            ---@diagnostic disable-next-line: redundant-parameter
-            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+            vim.cmd("make")
+            local command = "fd . -t x zig-out/bin/"
+            local bin_location = io.popen(command, "r")
+
+            if bin_location ~= nil then
+              return vim.fn.getcwd() .. "/" .. bin_location:read("*a"):gsub("[\n\r]", "")
+            else
+              return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+            end
           end,
           cwd = "${workspaceFolder}",
+          stopOnEntry = false,
         },
         {
           type = "codelldb",
@@ -71,5 +79,17 @@ return {
         },
       }
     end,
+  },
+  {
+    "nvim-neotest/neotest",
+    optional = true,
+    dependencies = {
+      "lawrence-laz/neotest-zig",
+    },
+    opts = {
+      adapters = {
+        ["neotest-zig"] = {},
+      },
+    },
   },
 }

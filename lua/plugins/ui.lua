@@ -389,12 +389,17 @@ return {
       end
 
       return {
+        pickers = {
+          colorscheme = {
+            enable_preview = true,
+          },
+        },
         defaults = {
           preview = {
             treesitter = false,
           },
           prompt_prefix = "   ",
-          selection_caret = "   ",
+          selection_caret = "  ",
           mappings = {
             i = {
               ["<esc>"] = actions.close,

@@ -14,6 +14,8 @@ return {
         elixir = { "mix" },
         rust = { "rustfmt" },
         python = { "black", "isort", "ruff_format", "ruff_fix" },
+        javascript = { "prettier" },
+        typescript = { "prettier" },
         zsh = { "shfmt" },
         lua = { "stylua" },
       },
