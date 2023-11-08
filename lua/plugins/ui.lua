@@ -399,7 +399,7 @@ return {
             treesitter = false,
           },
           prompt_prefix = "   ",
-          selection_caret = "  ",
+          selection_caret = " ",
           mappings = {
             i = {
               ["<esc>"] = actions.close,
