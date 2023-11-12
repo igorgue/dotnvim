@@ -28,21 +28,21 @@ return {
     opts = {
       servers = {
         zls = {
-          settings = {
-            semantic_tokens = "full",
-            warn_style = true,
-            highlight_global_var_declarations = true,
-            -- NOTE: never seen an inlay hint
-            -- and I don't know what record_session does
-            -- nor dangerous_comptime_experiments_do_not_enable...
-            -- enable_inlay_hints = true,
-            -- inlay_hints_show_builtin = true,
-            -- inlay_hints_exclude_single_argument = true,
-            -- inlay_hints_hide_redundant_param_names = true,
-            -- inlay_hints_hide_redundant_param_names_last_token = true,
-            -- dangerous_comptime_experiments_do_not_enable = true,
-            -- record_session = true,
-          },
+          -- settings = {
+          -- semantic_tokens = "full",
+          -- warn_style = true,
+          -- highlight_global_var_declarations = true,
+          -- NOTE: never seen an inlay hint
+          -- and I don't know what record_session does
+          -- nor dangerous_comptime_experiments_do_not_enable...
+          -- enable_inlay_hints = true,
+          -- inlay_hints_show_builtin = true,
+          -- inlay_hints_exclude_single_argument = true,
+          -- inlay_hints_hide_redundant_param_names = true,
+          -- inlay_hints_hide_redundant_param_names_last_token = true,
+          -- dangerous_comptime_experiments_do_not_enable = true,
+          -- record_session = true,
+          -- },
         },
       },
     },
@@ -66,6 +66,14 @@ return {
             else
               return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
             end
+          end,
+          args = function()
+            local argv = {}
+            arg = vim.fn.input(string.format("Arguments: "))
+            for a in string.gmatch(arg, "%S+") do
+              table.insert(argv, a)
+            end
+            return argv
           end,
           cwd = "${workspaceFolder}",
           stopOnEntry = false,
