@@ -28,21 +28,22 @@ return {
     opts = {
       servers = {
         zls = {
-          -- settings = {
-          -- semantic_tokens = "full",
-          -- warn_style = true,
-          -- highlight_global_var_declarations = true,
-          -- NOTE: never seen an inlay hint
-          -- and I don't know what record_session does
-          -- nor dangerous_comptime_experiments_do_not_enable...
-          -- enable_inlay_hints = true,
-          -- inlay_hints_show_builtin = true,
-          -- inlay_hints_exclude_single_argument = true,
-          -- inlay_hints_hide_redundant_param_names = true,
-          -- inlay_hints_hide_redundant_param_names_last_token = true,
-          -- dangerous_comptime_experiments_do_not_enable = true,
-          -- record_session = true,
-          -- },
+          settings = {
+            semantic_tokens = "full",
+            warn_style = true,
+            highlight_global_var_declarations = true,
+            -- NOTE: never seen an inlay hint
+            -- and I don't know what record_session does
+            -- nor dangerous_comptime_experiments_do_not_enable...
+            -- enable_inlay_hints = true,
+            -- inlay_hints_show_builtin = true,
+            -- inlay_hints_exclude_single_argument = true,
+            -- inlay_hints_hide_redundant_param_names = true,
+            -- inlay_hints_hide_redundant_param_names_last_token = true,
+            -- dangerous_comptime_experiments_do_not_enable = true,
+            skip_std_references = true,
+            -- record_session = true,
+          },
         },
       },
     },
@@ -68,11 +69,51 @@ return {
             end
           end,
           args = function()
+            if vim.g.zig_dap_argv ~= nil then
+              return vim.g.zig_dap_argv
+            end
+
             local argv = {}
+
             arg = vim.fn.input(string.format("Arguments: "))
+
             for a in string.gmatch(arg, "%S+") do
               table.insert(argv, a)
             end
+
+            vim.g.zig_dap_argv = argv
+
+            return argv
+          end,
+          cwd = "${workspaceFolder}",
+          stopOnEntry = false,
+        },
+        {
+          type = "codelldb",
+          request = "launch",
+          name = "Run Zig program (new args)",
+          program = function()
+            vim.cmd("make")
+            local command = "fd . -t x zig-out/bin/"
+            local bin_location = io.popen(command, "r")
+
+            if bin_location ~= nil then
+              return vim.fn.getcwd() .. "/" .. bin_location:read("*a"):gsub("[\n\r]", "")
+            else
+              return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+            end
+          end,
+          args = function()
+            local argv = {}
+
+            arg = vim.fn.input(string.format("New Arguments: "))
+
+            for a in string.gmatch(arg, "%S+") do
+              table.insert(argv, a)
+            end
+
+            vim.g.zig_dap_argv = argv
+
             return argv
           end,
           cwd = "${workspaceFolder}",
