@@ -41,7 +41,7 @@ return {
             -- inlay_hints_hide_redundant_param_names = true,
             -- inlay_hints_hide_redundant_param_names_last_token = true,
             -- dangerous_comptime_experiments_do_not_enable = true,
-            skip_std_references = true,
+            -- skip_std_references = true,
             -- record_session = true,
           },
         },

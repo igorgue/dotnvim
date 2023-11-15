@@ -46,14 +46,16 @@ return {
       )
 
       elixir.setup({
-        nextls = { enable = false },
+        nextls = {
+          enable = false,
+        },
         credo = { enable = false },
         elixirls = {
           enable = true,
           settings = {
             elixirls.settings({
               dialyzerEnabled = false,
-              dialyzerFormat = "dialyxir_long",
+              -- dialyzerFormat = "dialyxir_long",
               -- dialyzerWarnOpts = []
               enableTestLenses = false,
               -- envVariables =
