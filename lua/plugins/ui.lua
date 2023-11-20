@@ -274,7 +274,7 @@ return {
       window = {
         width = 100,
         options = {
-          signcolumn = "no", -- disable signcolumn
+          -- signcolumn = "no", -- disable signcolumn
           number = false, -- disable number column
           relativenumber = false, -- disable relative numbers
           cursorline = false, -- disable cursorline
@@ -293,15 +293,15 @@ return {
           enabled = false,
         },
         gitsigns = {
-          enabled = true,
+          enabled = false,
         },
         kitty = {
           enabled = true,
-          font = "+2",
+          font = "+1",
         },
         alacritty = {
           enabled = true,
-          font = "+2",
+          font = "+1",
         },
       },
       on_open = function(_)
