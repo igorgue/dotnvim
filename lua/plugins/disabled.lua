@@ -1,4 +1,5 @@
--- NOTE: Treesitter is known (at least to me) to be fucking annoying
+-- NOTE: Treesitter is known (at least to me) to be slow, so we disable it,
+-- and can be toggled back here.
 local enable_ts = false
 
 local has_leetcode = false
@@ -22,9 +23,10 @@ return {
   { "ggandor/leap.nvim", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
   { "stevearc/conform.nvim", enabled = not vim.o.diff },
-  { "nvim-treesitter/nvim-treesitter-context", enabled = false },
-  -- ts crap:
+  -- treesitter and deps:
   { "nvim-treesitter/nvim-treesitter", enabled = enable_ts },
+  { "nvim-treesitter/nvim-treesitter-context", enabled = false },
   { "nvim-treesitter/nvim-treesitter-textobjects", enabled = false },
+  { "JoosepAlviste/nvim-ts-context-commentstring", enabled = false },
   { "windwp/nvim-ts-autotag", enabled = false },
 }
