@@ -1,3 +1,21 @@
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "zig",
+--   callback = function()
+--     vim.bo.tabstop = 4
+--     vim.bo.softtabstop = 4
+--     vim.bo.shiftwidth = 4
+--     vim.bo.expandtab = true
+--
+--     vim.lsp.start({
+--       name = "zls",
+--       filetypes = { { "zig", "zir" } },
+--       cmd = { "zls" },
+--       root_dir = vim.fn.getcwd(),
+--       single_file_support = true,
+--     })
+--   end,
+-- })
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -30,8 +48,8 @@ return {
         zls = {
           settings = {
             semantic_tokens = "full",
-            warn_style = true,
-            highlight_global_var_declarations = true,
+            warn_style = false,
+            highlight_global_var_declarations = false,
             -- NOTE: never seen an inlay hint
             -- and I don't know what record_session does
             -- nor dangerous_comptime_experiments_do_not_enable...
