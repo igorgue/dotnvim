@@ -1,6 +1,6 @@
 -- NOTE: Treesitter is known (at least to me) to be slow, so we disable it,
 -- and can be toggled back here.
-local enable_ts = false
+local enable_ts = true
 
 local has_leetcode = false
 for _, arg in ipairs(vim.v.argv) do
@@ -13,6 +13,7 @@ end
 enable_ts = has_leetcode or (enable_ts and not vim.o.diff)
 
 return {
+  -- { "benlubas/molten-nvim", enabled = false },
   { "akinsho/bufferline.nvim", enabled = false },
   { "echasnovski/mini.ai", enabled = false },
   { "echasnovski/mini.comment", enabled = false },
