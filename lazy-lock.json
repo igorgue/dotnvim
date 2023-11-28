@@ -40,7 +40,7 @@
   "molten-nvim": { "branch": "main", "commit": "58942cb8682bb599b14eff4c3381c9c432a6aa30" },
   "neo-tree.nvim": { "branch": "v3.x", "commit": "230ff118613fa07138ba579b89d13ec2201530b9" },
   "neoconf.nvim": { "branch": "main", "commit": "64437787dba70fce50dad7bfbb97d184c5bc340f" },
-  "neodev.nvim": { "branch": "main", "commit": "f972d7e6cd21b691199565cfe3e6487e774a4e8f" },
+  "neodev.nvim": { "branch": "main", "commit": "2708a83283811f64634424c933b79d4952ba99a1" },
   "noice.nvim": { "branch": "main", "commit": "92433164e2f7118d4122c7674c3834d9511722ba" },
   "nui.nvim": { "branch": "main", "commit": "257dccc43b4badc735978f0791d216f7d665b75a" },
   "nvim-cmp": { "branch": "main", "commit": "0b751f6beef40fd47375eaf53d3057e0bfa317e4" },
