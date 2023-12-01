@@ -1,10 +1,8 @@
 return {
-  {
-    "mikesmithgh/kitty-scrollback.nvim",
-    lazy = true,
-    cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
-    config = function()
-      require("kitty-scrollback").setup()
-    end,
-  },
+  "mikesmithgh/kitty-scrollback.nvim",
+  cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
+  event = { "User KittyScrollbackLaunch" },
+  config = function()
+    require("kitty-scrollback").setup()
+  end,
 }
