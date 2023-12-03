@@ -12,6 +12,7 @@ pcall(vim.api.nvim_del_keymap, "v", ">")
 
 wk.register({
   ["<leader><cr>"] = { name = "+applications" },
+  ["<leader>m"] = { name = "+molten" },
   ["!"] = { name = "+filter", mode = { "n", "v" } },
   ["<"] = { name = "+indent/left", mode = { "n", "v" } },
   [">"] = { name = "+indent/right", mode = { "n", "v" } },

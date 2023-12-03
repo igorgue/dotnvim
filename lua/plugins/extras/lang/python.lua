@@ -10,7 +10,7 @@ return {
     init = function()
       vim.g.molten_image_provider = "image.nvim"
       vim.g.molten_output_win_max_height = 20
-      vim.g.molten_auto_open_output = true
+      vim.g.molten_auto_open_output = false
     end,
     cmd = { "MoltenInit" },
     keys = {
@@ -20,9 +20,9 @@ return {
       { "<leader>ml", "<cmd>MoltenEvaluateLine<cr>", desc = "Molten evaluate line" },
       { "<leader>mc", "<cmd>MoltenReevaluateCell<cr>", desc = "Molten re-evaluate cell" },
       { "<leader>mr", ":<C-u>MoltenEvaluateVisual<cr>", desc = "Molten evaluate visual", mode = "x" },
+      { "<leader>mo", "<cmd>noautocmd MoltenEnterOutput<cr>", desc = "Molten enter output" },
       { "<c-cr>", "<cmd>MoltenEvaluateLine<cr>", desc = "Molten evaluate line" },
       { "<c-cr>", ":<C-u>MoltenEvaluateVisual<cr>gv", desc = "Molten evaluate visual", mode = "x" },
-      { "<c-m>", "<cmd>noautocmd MoltenEnterOutput<cr>", desc = "Molten enter output" },
     },
   },
   {
