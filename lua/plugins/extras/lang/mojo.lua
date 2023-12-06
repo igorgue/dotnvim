@@ -27,7 +27,7 @@ return {
       local util = require("lazyvim.util")
 
       local function format_mojo()
-        if require("lazyvim.plugins.lsp.format").enabled() then
+        if require("lazyvim.util").format.enabled() then
           vim.cmd("noa silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
         end
       end
