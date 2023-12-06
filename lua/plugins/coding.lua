@@ -97,6 +97,7 @@ return {
 
       opts.mapping = cmp.mapping.preset.insert(mappings)
       opts.experimental = {}
+      opts.view = { docs = { auto_open = false } }
 
       return opts
     end,
