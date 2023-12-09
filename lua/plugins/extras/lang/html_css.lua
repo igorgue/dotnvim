@@ -10,18 +10,14 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    ft = { "html", "css", "javascript", "typescript", "rust", "elixir", "heex" },
+    ft = { "html", "htmldjango", "css", "javascript", "typescript", "rust", "elixir", "heex" },
     opts = {
       servers = {
         htmx = {},
         html = {
-          format = {
-            templating = true,
-            wrapLineLength = 120,
-            wrapAttributes = "auto",
-          },
           filetypes = {
             "html",
+            "htmldjango",
             -- "heex",
             -- "elixir",
             -- "eruby",
@@ -32,8 +28,17 @@ return {
             "rust",
             "svelte",
           },
+          settings = {
+            html = {
+              format = {
+                templating = true,
+                wrapLineLength = 120,
+                wrapAttributes = "auto",
+              },
+            },
+          },
         },
-        cssls = {},
+        cssls = { settings = { css = { lint = { unknownAtRules = "ignore" } } } },
         tailwindcss = {
           init_options = {
             userLanguages = {

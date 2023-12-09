@@ -323,11 +323,11 @@ return {
           enabled = false,
         },
         kitty = {
-          enabled = true,
+          enabled = false, -- messes up with other windows
           font = "+1",
         },
         alacritty = {
-          enabled = true,
+          enabled = false, -- I suspect the same as kitty
           font = "+1",
         },
       },

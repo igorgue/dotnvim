@@ -10,6 +10,7 @@ return {
       },
       formatters_by_ft = {
         htmldjango = { "rustywind", "htmlbeautifier" },
+        xml = { "htmlbeautifier" },
         html = { "rustywind", "htmlbeautifier" },
         elixir = { "mix" },
         rust = { "rustfmt" },
@@ -20,5 +21,7 @@ return {
         lua = { "stylua" },
       },
     },
+    -- stylua: ignore
+    keys = function() return {} end,
   },
 }

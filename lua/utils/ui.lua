@@ -34,7 +34,19 @@ function M.refresh_ui()
 end
 
 function M.hi_co(group, kind)
-  return vim.fn.synIDattr(vim.fn.hlID(group), kind)
+  local succ, val = pcall(vim.fn.hlID, group)
+
+  if not succ then
+    return ""
+  end
+
+  local succ2, val2 = pcall(vim.fn.synIDattr, val, kind)
+
+  if not succ2 then
+    return ""
+  end
+
+  return val2
 end
 
 function M.lualine_theme()
