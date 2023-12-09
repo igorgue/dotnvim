@@ -52,7 +52,7 @@ end
 function M.lualine_theme()
   local lualine_colors = {}
 
-  if vim.g.colors_name == "danger" then
+  if vim.env.NVIM_COLORSCHEME == "danger" or vim.env.NVIM_COLORSCHEME == "danger_dark" then
     lualine_colors = {
       black = M.hi_co("Normal", "bg"),
       white = M.hi_co("Normal", "fg"),

@@ -77,14 +77,14 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = "*",
-  callback = function()
-    vim.cmd("Lazy reload lualine.nvim")
-    vim.defer_fn(function()
-      require("notify").dismiss({ pending = true, silent = true })
-    end, 50)
-  end,
-})
+-- vim.api.nvim_create_autocmd("ColorScheme", {
+--   pattern = "*",
+--   callback = function()
+--     vim.cmd("Lazy reload lualine.nvim")
+--     vim.defer_fn(function()
+--       require("notify").dismiss({ pending = true, silent = true })
+--     end, 50)
+--   end,
+-- })
 
 -- plugins.extras.* includes more autocmds, specific for certain files
