@@ -47,6 +47,10 @@ return {
 
       -- re-apply colorscheme to fix highlighting
       vim.cmd("colorscheme " .. vim.g.colors_name)
+      vim.cmd("Lazy reload lualine.nvim")
+      vim.defer_fn(function()
+        require("notify").dismiss({ pending = true, silent = true })
+      end, 50)
     end,
     opts = {
       delay = 250,
