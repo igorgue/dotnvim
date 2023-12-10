@@ -27,6 +27,7 @@ wk.register({
   K = { vim.lsp.buf.hover, "Hover" },
   ["<esc>"] = { require("utils").ui.refresh_ui, "Refresh UI" },
   ["<A-/>"] = { "<cmd>WhichKey<cr>", "Help", mode = { "n", "i" } },
+  ["<A-e>"] = { "<cmd>Telescope emoji<cr>", "Emoji Select", mode = { "n", "i" } },
   ["<leader><tab>j"] = { "<cmd>tabprevious<cr>", "Previous Tab" },
   ["<leader><tab>k"] = { "<cmd>tabnext<cr>", "Next Tab" },
   ["<leader><tab>h"] = { "<cmd>tabfirst<cr>", "First Tab" },

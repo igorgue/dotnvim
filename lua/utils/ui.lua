@@ -28,8 +28,7 @@ function M.refresh_ui()
   vim.cmd("normal! <C-L>")
   -- stylua: ignore start
   pcall(function() vim.cmd("DBUIHideNotifications") end)
-  ---@diagnostic disable-next-line: missing-fields
-  pcall(function() require("notify").dismiss({}) end)
+  pcall(function() require("notify").dismiss({ silent = true, pending = true }) end)
   -- stylua: ignore end
 end
 
@@ -52,7 +51,12 @@ end
 function M.lualine_theme()
   local lualine_colors = {}
 
-  if vim.env.NVIM_COLORSCHEME == "danger" or vim.env.NVIM_COLORSCHEME == "danger_dark" then
+  if
+    vim.env.NVIM_COLORSCHEME == "danger"
+    or vim.env.NVIM_COLORSCHEME == "danger_dark"
+    or vim.g.colors_name == "danger"
+    or vim.g.colors_name == "danger_dark"
+  then
     lualine_colors = {
       black = M.hi_co("Normal", "bg"),
       white = M.hi_co("Normal", "fg"),

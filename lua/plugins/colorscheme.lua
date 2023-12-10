@@ -1,3 +1,20 @@
+-- zaibatsu, a built-in colorscheme
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = "*",
+  callback = function()
+    if vim.g.colors_name == "zaibatsu" then
+      vim.cmd("hi SignColumn guibg=NONE")
+      vim.cmd("hi! link WinBar Normal")
+      vim.cmd("hi! link WinBarNC Normal")
+      vim.cmd("hi! link VertSplit Type")
+      vim.cmd("hi! link WinSeparator Type")
+      vim.cmd("hi! link CmpItemAbbr Identifier")
+      vim.cmd("hi! link CmpItemAbbrMatch Type")
+    end
+  end,
+  once = true,
+})
+
 return {
   {
     -- includes catppuccin and tokyonight already
@@ -28,7 +45,24 @@ return {
       },
     },
   },
-  "projekt0n/caret.nvim",
+  {
+    "projekt0n/caret.nvim",
+    init = function()
+      vim.api.nvim_create_autocmd("BufReadPost", {
+        pattern = "*",
+        callback = function()
+          if vim.g.colors_name == "caret" then
+            vim.cmd("hi SignColumn guibg=NONE")
+            vim.cmd("hi! link WinBar Normal")
+            vim.cmd("hi! link WinBarNC Normal")
+            vim.cmd("hi! link VertSplit Identifier")
+            vim.cmd("hi! link WinSeparator Identifier")
+          end
+        end,
+        once = true,
+      })
+    end,
+  },
   {
     "igorgue/candy.vim", -- oldschool colorscheme
     init = function()
@@ -53,7 +87,7 @@ return {
       vim.api.nvim_create_autocmd("BufReadPost", {
         pattern = "*",
         callback = function()
-          if vim.g.colors_name == "ir_black" then
+          if vim.g.colors_name == "ir_black" or vim.g.colors_name == "ir_blue" or vim.g.colors_name == "ir_dark" then
             vim.cmd("hi SignColumn guibg=NONE")
             vim.cmd("hi! link WinBar Normal")
             vim.cmd("hi! link WinBarNC Normal")
