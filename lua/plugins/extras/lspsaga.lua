@@ -19,7 +19,7 @@ return {
       lightbulb = { enable = false },
       code_action = { enable = false, extend_gitsigns = true },
       diagnostic = { enable = false },
-      symbols_in_winbar = { enable = true, show_file = false },
+      symbol_in_winbar = { enable = true, show_file = true, hide_keyword = false, folder_level = 0 },
     },
     keys = {
       { "<leader>j", "<Cmd>Lspsaga finder<CR>", desc = "Lspsaga finder" },
@@ -27,6 +27,7 @@ return {
       { "<leader>o", "<Cmd>Lspsaga outline<CR>", desc = "Lspsaga outline" },
       { "<leader>I", "<Cmd>Lspsaga incoming_calls<CR>", desc = "Lspsaga incoming_calls" },
       { "<leader>O", "<Cmd>Lspsaga outgoing_calls<CR>", desc = "Lspsaga outgoing_calls" },
+      { "<leader>W", "<Cmd>Lspsaga winbar_toggle<CR>", desc = "Lspsaga winbar_toggle" },
     },
   },
   {

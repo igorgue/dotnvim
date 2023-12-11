@@ -1,16 +1,28 @@
--- zaibatsu, a built-in colorscheme
-vim.api.nvim_create_autocmd("BufReadPost", {
-  pattern = "*",
+-- complete a few colorschemes
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = { "zaibatsu", "caret", "candy", "ir_black", "ir_blue", "ir_dark" },
   callback = function()
-    if vim.g.colors_name == "zaibatsu" then
-      vim.cmd("hi SignColumn guibg=NONE")
-      vim.cmd("hi! link WinBar Normal")
-      vim.cmd("hi! link WinBarNC Normal")
-      vim.cmd("hi! link VertSplit Type")
-      vim.cmd("hi! link WinSeparator Type")
-      vim.cmd("hi! link CmpItemAbbr Identifier")
-      vim.cmd("hi! link CmpItemAbbrMatch Type")
-    end
+    vim.cmd("hi SignColumn guibg=NONE")
+    vim.cmd("hi! link WinBar Normal")
+    vim.cmd("hi! link WinBarNC Normal")
+    vim.cmd("hi! link VertSplit Type")
+    vim.cmd("hi! link WinSeparator Type")
+    vim.cmd("hi! link MatchParen CursorLine")
+
+    vim.cmd("hi! link CmpItemAbbr Identifier")
+    vim.cmd("hi! link CmpItemAbbrDeprecated Identifier")
+    vim.cmd("hi! link CmpItemAbbrMatch String")
+    vim.cmd("hi! link CmpItemAbbrMatchFuzzy String")
+    vim.cmd("hi! link CmpItemKind Type")
+    vim.cmd("hi! link CmpItemMenu Function")
+
+    vim.cmd("hi! link DashboardHeader Identifier")
+    vim.cmd("hi! link DashboardCenter String")
+    vim.cmd("hi! link DashboardShortcut Type")
+    vim.cmd("hi! link DashboardFooter LineNr")
+    vim.cmd("hi! link DashboardKey String")
+    vim.cmd("hi! link DashboardDesc Type")
+    vim.cmd("hi! link DashboardIcon Identifier")
   end,
   once = true,
 })
@@ -45,58 +57,7 @@ return {
       },
     },
   },
-  {
-    "projekt0n/caret.nvim",
-    init = function()
-      vim.api.nvim_create_autocmd("BufReadPost", {
-        pattern = "*",
-        callback = function()
-          if vim.g.colors_name == "caret" then
-            vim.cmd("hi SignColumn guibg=NONE")
-            vim.cmd("hi! link WinBar Normal")
-            vim.cmd("hi! link WinBarNC Normal")
-            vim.cmd("hi! link VertSplit Identifier")
-            vim.cmd("hi! link WinSeparator Identifier")
-          end
-        end,
-        once = true,
-      })
-    end,
-  },
-  {
-    "igorgue/candy.vim", -- oldschool colorscheme
-    init = function()
-      vim.api.nvim_create_autocmd("BufReadPost", {
-        pattern = "*",
-        callback = function()
-          if vim.g.colors_name == "candy" then
-            vim.cmd("hi SignColumn guibg=NONE")
-            vim.cmd("hi! link WinBar Normal")
-            vim.cmd("hi! link WinBarNC Normal")
-            vim.cmd("hi! link VertSplit Identifier")
-            vim.cmd("hi! link WinSeparator Identifier")
-          end
-        end,
-        once = true,
-      })
-    end,
-  },
-  {
-    "twerth/ir_black", -- oldschool colorscheme
-    init = function()
-      vim.api.nvim_create_autocmd("BufReadPost", {
-        pattern = "*",
-        callback = function()
-          if vim.g.colors_name == "ir_black" or vim.g.colors_name == "ir_blue" or vim.g.colors_name == "ir_dark" then
-            vim.cmd("hi SignColumn guibg=NONE")
-            vim.cmd("hi! link WinBar Normal")
-            vim.cmd("hi! link WinBarNC Normal")
-            vim.cmd("hi! link VertSplit Identifier")
-            vim.cmd("hi! link WinSeparator Identifier")
-          end
-        end,
-        once = true,
-      })
-    end,
-  },
+  "projekt0n/caret.nvim",
+  "igorgue/candy.vim", -- oldschool colorscheme
+  "twerth/ir_black", -- oldschool colorscheme
 }

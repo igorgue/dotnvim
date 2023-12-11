@@ -77,6 +77,9 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   end,
 })
 
+-- TODO: this was a fix for actually vim-illuminate,
+-- but it broke many things, including opening new files
+-- would do it with messed up syntax
 -- vim.api.nvim_create_autocmd("ColorScheme", {
 --   pattern = "*",
 --   callback = function()
