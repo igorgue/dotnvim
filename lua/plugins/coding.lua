@@ -87,11 +87,11 @@ return {
         }),
       })
 
-      opts.window = {
-        completion = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
-        documentation = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
-        preview = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
-      }
+      -- opts.window = {
+      -- completion = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
+      -- documentation = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
+      -- preview = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
+      -- }
 
       opts.sources = cmp.config.sources(sources[1], sources[2])
 

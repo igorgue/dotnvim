@@ -34,18 +34,18 @@ return {
             return
           end
         end,
-        hover_actions = {
-          border = {
-            { "┌", "FloatBorder" },
-            { "─", "FloatBorder" },
-            { "┐", "FloatBorder" },
-            { "│", "FloatBorder" },
-            { "┘", "FloatBorder" },
-            { "─", "FloatBorder" },
-            { "└", "FloatBorder" },
-            { "│", "FloatBorder" },
-          },
-        },
+        -- hover_actions = {
+        --   border = {
+        --     { "┌", "FloatBorder" },
+        --     { "─", "FloatBorder" },
+        --     { "┐", "FloatBorder" },
+        --     { "│", "FloatBorder" },
+        --     { "┘", "FloatBorder" },
+        --     { "─", "FloatBorder" },
+        --     { "└", "FloatBorder" },
+        --     { "│", "FloatBorder" },
+        --   },
+        -- },
         inlay_hints = {
           highlight = "CopilotSuggestion",
         },

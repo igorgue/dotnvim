@@ -87,12 +87,12 @@ return {
               detail = "CopilotSuggestion",
             },
           },
-          memory_usage = {
-            border = "single",
-          },
-          symbol_info = {
-            border = "single",
-          },
+          -- memory_usage = {
+          --   border = "single",
+          -- },
+          -- symbol_info = {
+          --   border = "single",
+          -- },
         },
       },
     },

@@ -26,7 +26,7 @@ require("lazy").setup({
   install = { colorscheme = { "danger" } },
   checker = { enabled = false }, -- automatically check for plugin updates
   ui = {
-    border = "single",
+    border = "rounded",
   },
   diff = { cmd = "diffview.nvim" },
   performance = {

@@ -28,7 +28,7 @@ return {
     },
     opts = {
       ui = {
-        border = "single",
+        -- border = "single",
         notification_style = "native",
       },
       widget_guides = {

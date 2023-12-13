@@ -36,7 +36,7 @@ return {
         { "<leader>cl", vim.lsp.codelens.run, desc = "Run codelens" },
       }
 
-      ui_windows.default_options.border = "single"
+      -- ui_windows.default_options.border = "single"
 
       opts.format = {
         timeout_ms = 5000,
