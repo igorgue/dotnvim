@@ -484,6 +484,7 @@ return {
       },
       ui = {
         -- border = "single",
+        border = "rounded",
         winhighlight = "Normal:Normal,FloatBorder:VertSplit,CursorLine:CursorLine,Search:Search",
       },
     },

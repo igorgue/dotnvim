@@ -92,6 +92,11 @@ return {
       -- documentation = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
       -- preview = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
       -- }
+      opts.window = {
+        completion = cmp.config.window.bordered({ winhighlight = winhighlight, border = "rounded" }),
+        documentation = cmp.config.window.bordered({ winhighlight = winhighlight, border = "rounded" }),
+        preview = cmp.config.window.bordered({ winhighlight = winhighlight, border = "rounded" }),
+      }
 
       opts.sources = cmp.config.sources(sources[1], sources[2])
 
