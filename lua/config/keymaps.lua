@@ -70,9 +70,15 @@ wk.register({
   prefix = "<leader>u",
 })
 
--- my formatter function, simpler, always format
+-- my formatter function, simpler, always format,
+-- with "leader ="
 wk.register({
   ["="] = { "<cmd>LazyFormat<cr>", "Force Format Document", mode = { "n", "v" } },
 }, {
   prefix = "<leader>",
+})
+
+-- also ctrl-f because why not
+wk.register({
+  ["<C-f>"] = { "<cmd>LazyFormat<cr>", "Force Format Document", mode = { "n", "v" } },
 })

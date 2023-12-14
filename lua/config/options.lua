@@ -123,4 +123,4 @@ vim.fn.sign_define( "DapBreakpointRejected", { text = " ", texthl = "DapBreak
 -- stylua: ignore end
 
 -- globals
-vim.g.autoformat = true
+vim.g.autoformat = false
