@@ -37,6 +37,7 @@ return {
       }
 
       -- ui_windows.default_options.border = "single"
+      ui_windows.default_options.border = "rounded"
 
       opts.format = {
         timeout_ms = 5000,

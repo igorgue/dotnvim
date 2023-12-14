@@ -2,6 +2,7 @@ local M = {}
 
 M.diagnostic_config = {
   -- float = { border = "single" },
+  float = { border = "rounded" },
   underline = true,
   virtual_text = {
     spacing = 0,
