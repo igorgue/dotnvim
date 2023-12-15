@@ -8,7 +8,7 @@ M.diagnostic_config = {
     spacing = 0,
     prefix = "●",
   },
-  signs = true,
+  signs = { text = { " ", " ", " ", " " } },
   update_in_insert = true,
   severity_sort = true,
 }
