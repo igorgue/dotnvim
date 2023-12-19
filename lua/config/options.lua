@@ -49,7 +49,10 @@ vim.opt.fillchars = {
 vim.opt.writebackup = true
 vim.opt.undofile = true
 vim.opt.isfname:append(":")
-vim.opt.clipboard = "unnamed"
+
+-- FIXME: this is a hack to get the clipboard not flicker in Wayland
+-- it should be unamedplus later...
+vim.opt.clipboard = nil
 
 if vim.o.diff ~= false then
   vim.opt.list = false
