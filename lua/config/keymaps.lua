@@ -45,10 +45,17 @@ wk.register({
   ["<leader><tab>0"] = { "<cmd>tablast<cr>", "Last Tab" },
 })
 
+vim.api.nvim_del_keymap("n", "<leader>gg")
+
+wk.register({
+  gg = { "<cmd>Lazygit<cr>", "Lazygit" },
+}, {
+  prefix = "<leader>",
+})
+
 wk.register({
   b = { "<cmd>Btop<cr>", "Btop Process Manager" },
   n = { "<cmd>Nap<cr>", "Nap Code Snippets" },
-  s = { "<cmd>Screenshot<cr>", "Gnome Screenshot" },
   r = { "<cmd>Ranger<cr>", "Ranger File Manager" },
   c = { "<cmd>Cloc<cr>", "Cloc Count Lines" },
   g = { "<cmd>Lazygit<cr>", "Lazygit" },

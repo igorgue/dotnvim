@@ -6,19 +6,19 @@ local util = require("lazyvim.util")
 -- 2023-10-12T09:56:27 LazyVim  WARN `require("lazyvim.util").float_term` is deprecated. Please use `require("lazyvim.util").terminal.open` instead
 -- commands
 vim.api.nvim_create_user_command("Btop", function()
-  util.terminal.open("btop")
+  util.terminal.open("btop", { border = "none" })
 end, {})
 
 vim.api.nvim_create_user_command("Nap", function()
-  util.terminal.open("nap")
+  util.terminal.open("nap", { border = "rounded" })
 end, {})
 
 vim.api.nvim_create_user_command("Ranger", function()
-  util.terminal.open({ "ranger" }, { cwd = util.root.get() })
+  util.terminal.open({ "ranger" }, { cwd = util.root.get(), border = "rounded" })
 end, {})
 
 vim.api.nvim_create_user_command("Lazygit", function()
-  util.terminal.open({ "lazygit" }, { cwd = util.root.get() })
+  util.terminal.open({ "lazygit" }, { cwd = util.root.get(), border = "none" })
 end, {})
 
 vim.api.nvim_create_user_command("Cloc", function()
@@ -27,15 +27,6 @@ vim.api.nvim_create_user_command("Cloc", function()
 
     vim.notify(out, vim.log.levels.INFO, { title = "Lines of code in project" })
   end)
-end, {})
-
-vim.api.nvim_create_user_command("Screenshot", function()
-  vim.notify("In 3...2...1", vim.log.levels.INFO, { title = "Screenshot" })
-
-  vim.defer_fn(function()
-    require("notify").dismiss({ pending = true, silent = true })
-    vim.cmd("silent !gnome-screenshot -w &")
-  end, 3000)
 end, {})
 
 -- autocmds
