@@ -52,7 +52,7 @@ vim.opt.isfname:append(":")
 
 -- FIXME: this is a hack to get the clipboard not flicker in Wayland
 -- it should be unamedplus later...
-vim.opt.clipboard = nil
+vim.opt.clipboard = ""
 
 if vim.o.diff ~= false then
   vim.opt.list = false
