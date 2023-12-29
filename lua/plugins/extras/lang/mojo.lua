@@ -1,3 +1,11 @@
+local function mojo_format()
+  if vim.bo.filetype ~= "mojo" then
+    return
+  end
+
+  vim.cmd("noa silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
+end
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -28,7 +36,7 @@ return {
 
       local function format_mojo()
         if require("lazyvim.util").format.enabled() then
-          vim.cmd("noa silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
+          mojo_format()
         end
       end
 
@@ -71,6 +79,19 @@ return {
         end,
       })
     end,
+    keys = {
+      {
+        "<leader>=",
+        mojo_format,
+        desc = "Format Mojo",
+      },
+      {
+        "<C-f>",
+        mojo_format,
+        desc = "Format Mojo",
+        mode = { "n", "i" },
+      },
+    },
   },
   {
     "mfussenegger/nvim-dap",
