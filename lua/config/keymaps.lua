@@ -77,15 +77,25 @@ wk.register({
   prefix = "<leader>u",
 })
 
+local function force_format()
+  --  
+  if vim.bo.filetype == "mojo" then
+    vim.cmd("noa silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
+  else
+    vim.cmd("LazyFormat")
+  end
+end
+
+
 -- my formatter function, simpler, always format,
 -- with "leader ="
 wk.register({
-  ["="] = { "<cmd>LazyFormat<cr>", "Force Format Document", mode = { "n", "v" } },
+  ["="] = { force_format, "Force Format Document", mode = { "n", "v" } },
 }, {
   prefix = "<leader>",
 })
 
 -- also ctrl-f because why not
 wk.register({
-  ["<C-f>"] = { "<cmd>LazyFormat<cr>", "Force Format Document", mode = { "n", "v" } },
+  ["<C-f>"] = { force_format, "Force Format Document", mode = { "n", "v", "i" } },
 })
