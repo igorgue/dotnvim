@@ -1,6 +1,6 @@
 -- NOTE: Treesitter is known (at least to me) to be slow, so we disable it,
 -- and can be toggled back here.
-local enable_ts = true
+local enable_ts = vim.env.NVIM_TS_ENABLE ~= nil
 
 local has_leetcode = false
 for _, arg in ipairs(vim.v.argv) do
