@@ -18,6 +18,7 @@ return {
         javascript = { "prettier" },
         typescript = { "prettier" },
         zsh = { "shfmt" },
+        sh = { "shfmt" },
         lua = { "stylua" },
       },
     },

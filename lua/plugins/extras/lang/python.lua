@@ -4,6 +4,15 @@ return {
     event = "BufReadPre requirements*.txt",
   },
   {
+    "williamboman/mason.nvim",
+    optional = true,
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == "table" then
+        vim.list_extend(opts.ensure_installed, { "isort", "black", "ruff", "ruff-lsp", "debugpy", "pyright" })
+      end
+    end,
+  },
+  {
     "neovim/nvim-lspconfig",
     opts = {
       setup = {
