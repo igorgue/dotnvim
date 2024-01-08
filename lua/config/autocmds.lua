@@ -3,7 +3,6 @@
 -- Add any additional autocmds here
 local util = require("lazyvim.util")
 
--- 2023-10-12T09:56:27 LazyVim  WARN `require("lazyvim.util").float_term` is deprecated. Please use `require("lazyvim.util").terminal.open` instead
 -- commands
 vim.api.nvim_create_user_command("Btop", function()
   util.terminal.open("btop", { border = "none" })

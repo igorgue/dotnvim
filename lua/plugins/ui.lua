@@ -39,7 +39,7 @@ return {
             { action = "e $MYVIMRC", desc = " config", icon = " ", key = "c" },
             { action = "Lazy", desc = " lazy", icon = "󰒲 ", key = "l" },
             { action = "LazyExtras", desc = " lazy extras", icon = " ", key = "e" },
-            { action = "lua require('lazyvim.util').float_term()", desc = " terminal", icon = " ", key = "t" },
+            { action = "lua require('lazyvim.util').terminal.open()", desc = " terminal", icon = " ", key = "t" },
             { action = "ene | DBUI", desc = " database", icon = " ", key = "d" },
             { action = "qa", desc = " quit", icon = " ", key = "q" },
           },
