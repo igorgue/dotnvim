@@ -23,6 +23,12 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     vim.cmd("hi! link DashboardKey String")
     vim.cmd("hi! link DashboardDesc Type")
     vim.cmd("hi! link DashboardIcon Identifier")
+
+    if vim.fn.executable("kitty") and vim.env.KITTY_WINDOW_ID then
+      if vim.g.colors_name == "ir_black" then
+        vim.fn.system("kitty @ set-colors -a background=black")
+      end
+    end
   end,
   once = true,
 })
@@ -60,4 +66,5 @@ return {
   "projekt0n/caret.nvim",
   "igorgue/candy.vim", -- oldschool colorscheme
   "twerth/ir_black", -- oldschool colorscheme
+  { "rose-pine/neovim", name = "rose-pine" },
 }
