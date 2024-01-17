@@ -1,59 +1,95 @@
 return {
+  -- Extend auto completion
   {
-    "neovim/nvim-lspconfig",
-    ft = { "rust" },
-    opts = {
-      setup = {
-        -- stylua: ignore
-        ["rust-analyzer"] = function() return true end,
-      },
-    },
-  },
-  {
-    "simrat39/rust-tools.nvim",
-    -- stylua: ignore
-    enabled = not vim.o.diff,
+    "hrsh7th/nvim-cmp",
     dependencies = {
-      "rust-lang/rust.vim",
-      init = function()
-        vim.g.rustfmt_autosave = false
-        vim.g.rust_clip_command = "xclip -selection clipboard"
-      end,
-    },
-    ft = "rust",
-    opts = {
-      tools = {
-        executor = function()
-          require("rust-tools.executors").quickfix()
-        end,
-        reload_workspace_from_cargo_toml = true,
-        on_initialized = function(status)
-          if status.health ~= "ok" then
-            vim.notify("rust-tools: failed, status: " .. vim.inspect(status), vim.log.levels.ERROR)
+      {
+        "Saecki/crates.nvim",
+        event = "BufRead Cargo.toml",
+        config = function(_, opts)
+          require("crates").setup(opts)
 
-            return
+          local register_keys = function()
+            local wk = require("which-key")
+
+            wk.register({
+              ["<cr>"] = { require("crates").show_popup, "Crates Popup" },
+            }, {
+              buffer = vim.api.nvim_get_current_buf(),
+            })
           end
+
+          register_keys()
+          vim.api.nvim_create_autocmd("BufReadPost", { pattern = "Cargo.toml", callback = register_keys })
         end,
-        -- hover_actions = {
-        --   border = {
-        --     { "┌", "FloatBorder" },
-        --     { "─", "FloatBorder" },
-        --     { "┐", "FloatBorder" },
-        --     { "│", "FloatBorder" },
-        --     { "┘", "FloatBorder" },
-        --     { "─", "FloatBorder" },
-        --     { "└", "FloatBorder" },
-        --     { "│", "FloatBorder" },
-        --   },
-        -- },
-        inlay_hints = {
-          highlight = "CopilotSuggestion",
+        opts = {
+          src = {
+            cmp = {
+              enabled = true,
+            },
+          },
+          popup = {
+            autofocus = true,
+            hide_on_select = true,
+            border = "rounded",
+          },
         },
       },
+    },
+    opts = function(_, opts)
+      local cmp = require("cmp")
+      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
+        { name = "crates" },
+      }))
+    end,
+  },
+
+  -- Add Rust & related to treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == "table" then
+        vim.list_extend(opts.ensure_installed, { "ron", "rust", "toml" })
+      end
+    end,
+  },
+
+  -- Ensure Rust debugger is installed
+  {
+    "williamboman/mason.nvim",
+    optional = true,
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == "table" then
+        vim.list_extend(opts.ensure_installed, { "codelldb" })
+      end
+    end,
+  },
+
+  {
+    "mrcjkb/rustaceanvim",
+    ft = { "rust" },
+    opts = {
       server = {
-        cmd = { "rustup", "run", "stable", "rust-analyzer" },
-        standalone = false,
+        on_attach = function(_, bufnr)
+          -- register which-key mappings
+          local wk = require("which-key")
+          wk.register({
+            ["<leader>cR"] = {
+              function()
+                vim.cmd.RustLsp("codeAction")
+              end,
+              "Code Action",
+            },
+            ["<leader>dr"] = {
+              function()
+                vim.cmd.RustLsp("debuggables")
+              end,
+              "Rust debuggables",
+            },
+          }, { mode = "n", buffer = bufnr })
+        end,
         settings = {
+          -- rust-analyzer language server configuration
           ["rust-analyzer"] = {
             assist = {
               emitMustUse = true,
@@ -65,11 +101,11 @@ return {
             },
             diagnostics = {
               enable = false,
-              -- experimental = {
-              --   enable = true,
-              -- },
-              -- previewRustcOutput = true,
-              -- useRustcErrorCode = true,
+              experimental = {
+                enable = true,
+              },
+              previewRustcOutput = true,
+              useRustcErrorCode = true,
             },
             hover = {
               actions = {
@@ -82,9 +118,6 @@ return {
               numThreads = 12,
             },
             numThreads = 12,
-            procMacro = {
-              enable = true,
-            },
             check = {
               command = "clippy",
             },
@@ -171,83 +204,73 @@ return {
                 enable = true,
               },
             },
+            cargo = {
+              allFeatures = true,
+              loadOutDirsFromCheck = true,
+              runBuildScripts = true,
+            },
+            -- Add clippy lints for Rust.
+            checkOnSave = {
+              allFeatures = true,
+              command = "clippy",
+              extraArgs = { "--no-deps" },
+            },
+            procMacro = {
+              enable = true,
+              ignored = {
+                ["async-trait"] = { "async_trait" },
+                ["napi-derive"] = { "napi" },
+                ["async-recursion"] = { "async_recursion" },
+              },
+            },
           },
-        },
-        on_attach = function()
-          local register_keys = function()
-            local rt = require("rust-tools")
-            local wk = require("which-key")
-            local bufnr = vim.api.nvim_get_current_buf()
-            local keymap = vim.keymap
-            local api = vim.api
-            local nvim_del_keymap = api.nvim_del_keymap
-
-            -- rust-tools replaces K and K in visual mode
-            pcall(nvim_del_keymap, "n", "K")
-            pcall(nvim_del_keymap, "v", "K")
-            pcall(nvim_del_keymap, "n", "<leader>ca")
-
-            keymap.set("n", "K", rt.hover_actions.hover_actions, { buffer = bufnr })
-            keymap.set("v", "K", rt.hover_range.hover_range, { buffer = bufnr })
-
-            wk.register({
-              a = { rt.code_action_group.code_action_group, "Rust Code Actions" },
-              r = { rt.runnables.runnables, "Runables" },
-              e = { rt.expand_macro.expand_macro, "Expand Macro" },
-              -- stylua: ignore
-              k = { function() rt.move_item.move_item(true) end, "Move Up" },
-              -- stylua: ignore
-              j = { function() rt.move_item.move_item(false) end, "Move Down" },
-              c = { rt.open_cargo_toml.open_cargo_toml, "Open Cargo.toml" },
-              p = { rt.parent_module.parent_module, "Parent Module" },
-              J = { rt.join_lines.join_lines, "Join Lines" },
-            }, {
-              prefix = "<leader>cR",
-              name = "+rust",
-              buffer = bufnr,
-            })
-          end
-
-          require("rust-tools").inlay_hints.enable()
-
-          register_keys()
-          vim.api.nvim_create_autocmd("FileType", { pattern = "rust", callback = register_keys })
-        end,
-        experimental = {
-          serverStatusNotification = true,
         },
       },
     },
-  },
-  {
-    "Saecki/crates.nvim",
-    event = "BufRead Cargo.toml",
     config = function(_, opts)
-      require("crates").setup(opts)
-
-      local register_keys = function()
-        local wk = require("which-key")
-
-        wk.register({
-          ["<cr>"] = { require("crates").show_popup, "Crates Popup" },
-        }, {
-          buffer = vim.api.nvim_get_current_buf(),
-        })
-      end
-
-      register_keys()
-      vim.api.nvim_create_autocmd("BufReadPost", { pattern = "Cargo.toml", callback = register_keys })
+      vim.g.rustaceanvim = vim.tbl_deep_extend("force", {}, opts or {})
     end,
+  },
+
+  -- Correctly setup lspconfig for Rust 🚀
+  {
+    "neovim/nvim-lspconfig",
     opts = {
-      src = {
-        cmp = {
-          enabled = true,
+      servers = {
+        rust_analyzer = {},
+        taplo = {
+          keys = {
+            {
+              "K",
+              function()
+                if vim.fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() then
+                  require("crates").show_popup()
+                else
+                  vim.lsp.buf.hover()
+                end
+              end,
+              desc = "Show Crate Documentation",
+            },
+          },
         },
       },
-      popup = {
-        autofocus = true,
-        hide_on_select = true,
-        border = "rounded",
+      setup = {
+        rust_analyzer = function()
+          return true
+        end,
+      },
+    },
+  },
+
+  {
+    "nvim-neotest/neotest",
+    optional = true,
+    dependencies = {
+      "rouge8/neotest-rust",
+    },
+    opts = {
+      adapters = {
+        ["neotest-rust"] = {},
       },
     },
   },
