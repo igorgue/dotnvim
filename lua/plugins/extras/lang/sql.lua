@@ -41,8 +41,8 @@ return {
       { "<leader><cr>d", "<cmd>DBUIToggle<cr>", desc = "Dadbod Database Manager" },
     },
     init = function()
-      vim.g.db_ui_use_nerd_fonts = true
       vim.g.db_ui_save_location = vim.fn.stdpath("data") .. "/db_ui"
+      vim.g.db_ui_use_nerd_fonts = true
       vim.g.db_ui_execute_on_save = false
       vim.g.db_ui_use_nvim_notify = true
 
@@ -50,7 +50,23 @@ return {
         pattern = sql_ft,
         callback = function()
           ---@diagnostic disable-next-line: missing-fields
-          require("cmp").setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
+          local cmp = require("cmp")
+          local global_sources = cmp.get_config().sources
+          local buffer_sources = {}
+
+          -- add globally defined sources (see separate nvim-cmp config)
+          -- this makes e.g. luasnip snippets available since luasnip is configured globally
+          if global_sources then
+            for _, source in ipairs(global_sources) do
+              table.insert(buffer_sources, { name = source.name })
+            end
+          end
+
+          -- add vim-dadbod-completion source
+          table.insert(buffer_sources, { name = "vim-dadbod-completion" })
+
+          -- update sources for the current buffer
+          cmp.setup.buffer({ sources = buffer_sources })
         end,
       })
     end,
