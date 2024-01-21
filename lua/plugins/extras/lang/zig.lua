@@ -16,9 +16,11 @@ vim.api.nvim_create_autocmd("FileType", {
       single_file_support = true,
       settings = {
         zls = {
-          semanticTokens = "full",
+          semantic_tokens = "full",
           warn_style = true,
           highlight_global_var_declarations = true,
+          enable_snippets = true,
+          enable_autofix = true,
           -- NOTE: never seen an inlay hint
           -- and I don't know what record_session does
           -- nor dangerous_comptime_experiments_do_not_enable...
