@@ -371,7 +371,6 @@ return {
     dependencies = {
       "kkharji/sqlite.lua",
       "nvim-telescope/telescope-smart-history.nvim",
-      "nvim-telescope/telescope-ui-select.nvim",
       "danielfalk/smart-open.nvim",
       "ghassan0/telescope-glyph.nvim",
       "xiyaowong/telescope-emoji.nvim",
@@ -438,12 +437,6 @@ return {
             override_generic_sorter = false,
             override_file_sorter = true,
           },
-          ["ui-select"] = {
-            themes.get_dropdown({
-              borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }, -- rounded
-              -- borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" }, -- straight
-            }),
-          },
         },
       }
     end,
@@ -458,7 +451,6 @@ return {
       telescope.setup(opts)
 
       telescope.load_extension("notify")
-      telescope.load_extension("ui-select")
       telescope.load_extension("glyph")
       telescope.load_extension("emoji")
       telescope.load_extension("smart_open")
