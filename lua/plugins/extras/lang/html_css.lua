@@ -10,7 +10,8 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    ft = { "html", "htmldjango", "css", "javascript", "typescript", "rust", "elixir", "heex" },
+    -- ft = { "html", "htmldjango", "css", "javascript", "typescript", "rust", "elixir", "heex" },
+    ft = { "html", "htmldjango", "css", "javascript", "typescript", "elixir", "heex" },
     opts = {
       servers = {
         htmx = {},
@@ -25,7 +26,7 @@ return {
             "javascriptreact",
             "typescript",
             "typescriptreact",
-            "rust",
+            -- "rust",
             "svelte",
           },
           settings = {
@@ -67,7 +68,7 @@ return {
               elm = "html",
               erb = "html",
               svelte = "html",
-              rust = "html",
+              -- rust = "html",
             },
             tailwindCSS = {
               lint = {
@@ -103,7 +104,7 @@ return {
             "javascriptreact",
             "typescript",
             "typescriptreact",
-            "rust",
+            -- "rust",
             "svelte",
           },
         },
