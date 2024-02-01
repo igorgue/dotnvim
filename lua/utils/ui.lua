@@ -29,11 +29,12 @@ function M.refresh_ui()
   ]])
 
   if vim.g.loaded_dadbod then
-    -- stylua: ignore start
+    -- stylua: ignore
     pcall(function() vim.cmd("DBUIHideNotifications") end)
-    pcall(function() require("notify").dismiss({ silent = true, pending = true }) end)
-    -- stylua: ignore end
   end
+
+  -- stylua: ignore
+  pcall(function() require("notify").dismiss({ silent = true, pending = true }) end)
 end
 
 function M.hi_co(group, kind)
