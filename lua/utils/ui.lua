@@ -22,15 +22,18 @@ function M.disable_fn(buf)
 end
 
 function M.refresh_ui()
-  vim.cmd("cd ~")
-  vim.cmd("cd -")
-  vim.cmd("nohlsearch")
-  vim.cmd("diffupdate")
-  vim.cmd("normal! <C-L>")
-  -- stylua: ignore start
-  pcall(function() vim.cmd("DBUIHideNotifications") end)
-  pcall(function() require("notify").dismiss({ silent = true, pending = true }) end)
-  -- stylua: ignore end
+  vim.cmd([[
+    nohlsearch
+    diffupdate
+    normal! <C-L>
+  ]])
+
+  if vim.g.loaded_dadbod then
+    -- stylua: ignore start
+    pcall(function() vim.cmd("DBUIHideNotifications") end)
+    pcall(function() require("notify").dismiss({ silent = true, pending = true }) end)
+    -- stylua: ignore end
+  end
 end
 
 function M.hi_co(group, kind)
