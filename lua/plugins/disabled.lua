@@ -1,6 +1,7 @@
 -- NOTE: Treesitter is known (at least to me) to be slow, so we disable it,
 -- and can be toggled back here.
 local enable_ts = vim.env.NVIM_TS_ENABLE ~= nil
+local enable_noice = vim.env.NVIM_NOICE_DISABLE == nil
 
 local has_leetcode = false
 for _, arg in ipairs(vim.v.argv) do
@@ -30,4 +31,5 @@ return {
   { "nvim-treesitter/nvim-treesitter-textobjects", enabled = false },
   { "JoosepAlviste/nvim-ts-context-commentstring", enabled = false },
   { "windwp/nvim-ts-autotag", enabled = false },
+  { "folke/noice.nvim", enabled = enable_noice },
 }

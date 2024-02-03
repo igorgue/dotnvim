@@ -6,6 +6,8 @@ return {
       { "vii", nil, desc = "Inner Indent Level (No Line Above)" },
       { "vaI", nil, desc = "An Indent Level and Lines Above/Below" },
       { "viI", nil, desc = "Inner Indent Level (No Lines Above/Below)" },
+      { "<c-space>", "<cmd>normal vii<cr>", desc = "Inner Indent Level (No Line Above)" },
+      { "<c-space>", "<cmd>normal ii<cr>", desc = "Inner Indent Level (No Line Above)", mode = "x" },
       { "dai", nil, desc = "An Indent Level and Line Above" },
       { "dii", nil, desc = "Inner Indent Level (No Line Above)" },
       { "daI", nil, desc = "An Indent Level and Lines Above/Below" },
