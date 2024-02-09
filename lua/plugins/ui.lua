@@ -272,7 +272,7 @@ return {
     },
     opts = {
       window = {
-        width = 100,
+        width = 80,
         options = {
           -- signcolumn = "no", -- disable signcolumn
           number = false, -- disable number column

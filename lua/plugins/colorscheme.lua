@@ -24,6 +24,13 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     vim.cmd("hi! link DashboardDesc Type")
     vim.cmd("hi! link DashboardIcon Identifier")
 
+    if vim.g.colors_name == "zaibatsu" then
+      vim.cmd("hi! link WhichKeyFloat Normal")
+      vim.cmd("hi! link LazyNormal Normal")
+    else
+      vim.cmd("hi! link WhichKeyFloat Visual")
+    end
+
     if vim.fn.executable("kitty") and vim.env.KITTY_WINDOW_ID then
       if vim.g.colors_name == "ir_black" then
         vim.fn.system("kitty @ set-colors -a background=black")
