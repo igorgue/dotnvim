@@ -23,6 +23,8 @@ end
 
 function M.refresh_ui()
   vim.cmd([[
+    cd ~
+    cd -
     nohlsearch
     diffupdate
     normal! <C-L>
