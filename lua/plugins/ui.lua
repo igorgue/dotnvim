@@ -139,12 +139,10 @@ return {
               require("lazy.status").updates,
               cond = require("lazy.status").has_updates,
             },
-            "encoding",
             {
               "filetype",
               icon_only = true,
             },
-            "fileformat",
           },
           lualine_y = { "location" },
           lualine_z = { "progress" },

@@ -1,3 +1,11 @@
+local util = require("lazyvim.util")
+
+local function format_nim()
+  if util.format.enabled() then
+    vim.cmd("noa silent! !nimpretty " .. vim.fn.expand("%:p"))
+  end
+end
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "nim",
   callback = function()
@@ -7,6 +15,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.bo.expandtab = true
 
     vim.lsp.start({
+      init_options = {},
       name = "nim",
       filetypes = { "nim" },
       cmd = { "nimlangserver" },
@@ -19,7 +28,15 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  pattern = { "*.nim" },
+  nested = true,
+  callback = format_nim,
+})
+
 return {
+  -- FIXME: Using latest version of nim-langserver
+  -- included from nim itself
   -- {
   --   "neovim/nvim-lspconfig",
   --   ft = { "nim" },

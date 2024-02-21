@@ -9,6 +9,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.bo.expandtab = true
 
     vim.lsp.start({
+      init_options = {},
       name = "zls",
       filetypes = { { "zig", "zir" } },
       cmd = { "zls" },
