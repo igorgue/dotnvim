@@ -48,10 +48,7 @@ wk.register({
 
 -- toggle diagnostics and copilot in focus mode with ctrl+f
 wk.register({
-  ["<C-f>"] = {
-    require("utils").toggle_focus_mode,
-    "Focus Mode",
-  },
+  ["<C-f>"] = { require("utils").toggle_focus_mode, "Focus Mode", mode = { "n", "v", "i" } },
 })
 
 vim.api.nvim_del_keymap("n", "<leader>gg")
