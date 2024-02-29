@@ -46,6 +46,14 @@ wk.register({
   ["<leader><tab>0"] = { "<cmd>tablast<cr>", "Last Tab" },
 })
 
+-- toggle diagnostics and copilot in focus mode with ctrl+f
+wk.register({
+  ["<C-f>"] = {
+    require("utils").toggle_focus_mode,
+    "Focus Mode",
+  },
+})
+
 vim.api.nvim_del_keymap("n", "<leader>gg")
 
 wk.register({
@@ -79,7 +87,7 @@ wk.register({
 })
 
 local function force_format()
-  --  
+  --
   if vim.bo.filetype == "mojo" then
     vim.cmd("noa silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
   else
@@ -87,16 +95,16 @@ local function force_format()
   end
 end
 
-
 -- my formatter function, simpler, always format,
--- with "leader ="
+-- with "leader =" also "leader F"
 wk.register({
   ["="] = { force_format, "Force Format Document", mode = { "n", "v" } },
+  F = { force_format, "Force Format Document", mode = { "n", "v" } },
 }, {
   prefix = "<leader>",
 })
 
--- also ctrl-f because why not
+-- also <A-f> because why not
 wk.register({
-  ["<C-f>"] = { force_format, "Force Format Document", mode = { "n", "v", "i" } },
+  ["<A-f>"] = { force_format, "Force Format Document", mode = { "n", "v", "i" } },
 })

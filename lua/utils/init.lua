@@ -1,4 +1,5 @@
 local M = {}
+local Util = require("lazyvim.util")
 
 -- core utils
 function M.version()
@@ -14,6 +15,24 @@ function M.version()
   end
 
   return neovim_version.major .. "." .. neovim_version.minor .. "." .. neovim_version.patch
+end
+
+-- other utils
+function M.toggle_focus_mode()
+  Util.toggle.diagnostics()
+
+  if vim.g.copilot_enabled == 0 then
+    vim.cmd("Copilot enable")
+  else
+    vim.cmd("Copilot disable")
+  end
+
+  vim.cmd("Copilot status")
+end
+
+function M.enable_focus_mode()
+  vim.diagnostic.disable()
+  vim.cmd("Copilot disable")
 end
 
 M.ui = require("utils.ui")

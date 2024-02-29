@@ -291,7 +291,7 @@ return {
           enabled = false,
         },
         gitsigns = {
-          enabled = false,
+          enabled = true,
         },
         kitty = {
           enabled = false, -- messes up with other windows

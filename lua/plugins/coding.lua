@@ -25,10 +25,8 @@ return {
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping.confirm({}),
-        ["<S-CR>"] = cmp.mapping.confirm({
-          behavior = cmp.ConfirmBehavior.Replace,
-        }),
+        ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = true }), { "i", "s", "c" }),
+        ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace }),
         ["<C-j>"] = cmp.mapping(function(fallback)
           local luasnip = require("luasnip")
           if luasnip.expand_or_jumpable() then
@@ -103,6 +101,9 @@ return {
       opts.mapping = cmp.mapping.preset.insert(mappings)
       opts.experimental = {}
       opts.view = { docs = { auto_open = false } }
+      opts.completion = {
+        autocomplete = false,
+      }
 
       return opts
     end,

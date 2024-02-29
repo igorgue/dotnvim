@@ -16,3 +16,7 @@ if vim.env.NVIM_TERMINAL ~= nil then
 
   vim.cmd("terminal")
 end
+
+if vim.env.NVIM_FOCUS_MODE ~= nil then
+  require("utils").enable_focus_mode()
+end
