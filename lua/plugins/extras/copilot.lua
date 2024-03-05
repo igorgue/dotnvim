@@ -19,6 +19,12 @@ return {
         TelescopeResults = false,
         TelescopePrompt = false,
       }
+      vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+        pattern = "*",
+        callback = function()
+          vim.b.workspace_folder = vim.fn.getcwd()
+        end,
+      })
     end,
     keys = {
       {
@@ -33,6 +39,19 @@ return {
           vim.cmd("Copilot status")
         end,
         desc = "Copilot toggle",
+      },
+      {
+        "<C-l>",
+        function()
+          if vim.g.copilot_enabled == 0 then
+            vim.cmd("Copilot enable")
+          end
+
+          local key = vim.api.nvim_replace_termcodes("<M-\\>", true, false, true)
+          vim.api.nvim_feedkeys(key, "i", false)
+        end,
+        desc = "Copilot manual trigger",
+        mode = "i",
       },
     },
   },
