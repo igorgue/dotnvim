@@ -33,6 +33,7 @@ end
 function M.enable_focus_mode()
   vim.diagnostic.disable()
   vim.cmd("Copilot disable")
+  vim.opt.laststatus = 0
 end
 
 M.ui = require("utils.ui")
