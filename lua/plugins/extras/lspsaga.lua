@@ -19,7 +19,7 @@ return {
       lightbulb = { enable = false },
       code_action = { enable = false, extend_gitsigns = true },
       diagnostic = { enable = false },
-      symbol_in_winbar = { enable = true, show_file = false, hide_keyword = false, folder_level = 0 },
+      symbol_in_winbar = { enable = vim.env.NVIM_FOCUS_MODE == nil, show_file = true, hide_keyword = false, folder_level = 0 },
     },
     keys = {
       { "<leader>j", "<Cmd>Lspsaga finder<CR>", desc = "Lspsaga finder" },
