@@ -28,7 +28,7 @@ function M.toggle_focus_mode()
   end
 
   vim.cmd("Copilot status")
-  vim.cmd("Lspsaga winbar_toggle")
+  -- vim.cmd("Lspsaga winbar_toggle")
 
   if vim.opt.laststatus:get() == 0 then
     vim.opt.laststatus = 3
@@ -55,7 +55,7 @@ function M.enable_focus_mode()
   vim.diagnostic.disable()
   vim.cmd("Copilot disable")
   vim.opt.laststatus = 0
-  disable_winbar()
+  -- disable_winbar()
 end
 
 M.ui = require("utils.ui")

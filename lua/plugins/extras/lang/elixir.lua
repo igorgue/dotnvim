@@ -47,9 +47,9 @@ return {
 
       elixir.setup({
         nextls = {
-          enable = false,
+          enable = true,
         },
-        credo = { enable = false },
+        credo = { enable = true },
         elixirls = {
           enable = true,
           settings = {
