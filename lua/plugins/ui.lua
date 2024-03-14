@@ -393,7 +393,7 @@ return {
         },
         defaults = {
           preview = {
-            treesitter = false,
+            treesitter = vim.env.NVIM_TS_ENABLE ~= nil,
           },
           prompt_prefix = "   ",
           selection_caret = " ",

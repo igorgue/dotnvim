@@ -14,7 +14,6 @@ end
 enable_ts = has_leetcode or (enable_ts and not vim.o.diff)
 
 return {
-  -- { "benlubas/molten-nvim", enabled = false },
   { "akinsho/bufferline.nvim", enabled = false },
   { "echasnovski/mini.ai", enabled = false },
   { "echasnovski/mini.comment", enabled = false },
