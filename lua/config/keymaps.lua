@@ -11,6 +11,8 @@ pcall(vim.api.nvim_del_keymap, "v", "<")
 pcall(vim.api.nvim_del_keymap, "v", ">")
 
 wk.register({
+  ["<leader>"] = { name = "+leader" },
+  ["<SNR>"] = { name = "+SNR" },
   ["<leader><cr>"] = { name = "+applications" },
   ["<leader>cs"] = { name = "+sourcegraph" },
   ["<leader>m"] = { name = "+molten" },
@@ -30,6 +32,9 @@ wk.register({
   ["<A-/>"] = { "<cmd>WhichKey<cr>", "Help", mode = { "n", "i" } },
   ["<A-e>"] = { "<cmd>Telescope emoji<cr>", "Emoji Select", mode = { "n", "i" } },
   ["<A-g>"] = { "<cmd>Telescope glyph<cr>", "Glyph Select", mode = { "n", "i" } },
+})
+
+wk.register({
   ["<leader><tab>j"] = { "<cmd>tabprevious<cr>", "Previous Tab" },
   ["<leader><tab>k"] = { "<cmd>tabnext<cr>", "Next Tab" },
   ["<leader><tab>h"] = { "<cmd>tabfirst<cr>", "First Tab" },
@@ -50,6 +55,11 @@ wk.register({
 -- toggle diagnostics and copilot in focus mode with ctrl+f
 wk.register({
   ["<C-f>"] = { require("utils").toggle_focus_mode, "Focus Mode", mode = { "n", "v", "i" } },
+})
+
+-- open terminal with ctrl+shift+t (when not in kitty terminal, since it grabs that keymap)
+wk.register({
+  ["<C-S-T>"] = { require("utils").open_terminal_tab, "Open Terminal", mode = { "n", "v", "i" } },
 })
 
 vim.api.nvim_del_keymap("n", "<leader>gg")

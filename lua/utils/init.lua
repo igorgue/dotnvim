@@ -58,6 +58,14 @@ function M.enable_focus_mode()
   -- disable_winbar()
 end
 
+function M.open_terminal_tab()
+  vim.cmd([[
+    tabnew
+    terminal
+    startinsert
+  ]])
+end
+
 M.ui = require("utils.ui")
 
 return M
