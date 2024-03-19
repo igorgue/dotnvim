@@ -1,11 +1,5 @@
 local util = require("lazyvim.util")
 
-local function format_nim()
-  if util.format.enabled() then
-    vim.cmd("noa silent! !nimpretty " .. vim.fn.expand("%:p"))
-  end
-end
-
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "nim",
   callback = function()
@@ -26,12 +20,6 @@ vim.api.nvim_create_autocmd("FileType", {
       },
     })
   end,
-})
-
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  pattern = { "*.nim" },
-  nested = true,
-  callback = format_nim,
 })
 
 return {
@@ -139,5 +127,14 @@ return {
         },
       }
     end,
+  },
+  {
+    "stevearc/conform.nvim",
+    optional = true,
+    opts = {
+      formatters_by_ft = {
+        ["nim"] = { "nimpretty" },
+      },
+    },
   },
 }
