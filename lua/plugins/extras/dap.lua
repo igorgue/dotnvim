@@ -1,5 +1,8 @@
 return {
   "mfussenegger/nvim-dap",
+  dependencies = {
+    "nvim-neotest/nvim-nio",
+  },
   keys = {
     { "<F5>", "<Cmd>lua require('dap').continue()<CR>", desc = "Debug Start/Continue" },
     { "<F6>", "<Cmd>lua require('dap').step_over()<CR>", desc = "Debug Step Over" },
