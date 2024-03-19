@@ -24,6 +24,29 @@ return {
             end
           end)
         end,
+        pyright = function()
+          return true
+        end,
+      },
+      servers = {
+        basedpyright = {},
+        ruff_lsp = {
+          keys = {
+            {
+              "<leader>co",
+              function()
+                vim.lsp.buf.code_action({
+                  apply = true,
+                  context = {
+                    only = { "source.organizeImports" },
+                    diagnostics = {},
+                  },
+                })
+              end,
+              desc = "Organize Imports",
+            },
+          },
+        },
       },
     },
   },
@@ -47,13 +70,6 @@ return {
     "nvim-treesitter/nvim-treesitter",
     ft = "python",
     opts = function(_, opts)
-      -- NOTE: re-enable highlights for now
-      -- if type(opts.highlight.disable) == "table" then
-      --   vim.list_extend(opts.highlight.disable, { "python" })
-      -- else
-      --   opts.highlight.disable = { "python" }
-      -- end
-
       if type(opts.indent.disable) == "table" then
         vim.list_extend(opts.indent.disable, { "python" })
       else
