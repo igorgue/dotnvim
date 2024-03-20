@@ -9,8 +9,10 @@ return {
           require("clangd_extensions").setup(plugin.opts)
           require("lazyvim.util").lsp.on_attach(function(client, _)
             if client.name == "clangd" then
-              require("clangd_extensions.inlay_hints").setup_autocmd()
-              require("clangd_extensions.inlay_hints").set_inlay_hints()
+              if vim.env.NVIM_FOCUS_MODE == nil then
+                require("clangd_extensions.inlay_hints").setup_autocmd()
+                require("clangd_extensions.inlay_hints").set_inlay_hints()
+              end
             end
           end)
 

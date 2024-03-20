@@ -25,9 +25,9 @@ return {
       { "<leader>j", "<Cmd>Lspsaga finder<CR>", desc = "Lspsaga finder" },
       { "<leader>p", "<Cmd>Lspsaga peek_definition<CR>", desc = "Lspsaga peek_definition" },
       { "<leader>o", "<Cmd>Lspsaga outline<CR>", desc = "Lspsaga outline" },
-      { "<leader>I", "<Cmd>Lspsaga incoming_calls<CR>", desc = "Lspsaga incoming_calls" },
-      { "<leader>O", "<Cmd>Lspsaga outgoing_calls<CR>", desc = "Lspsaga outgoing_calls" },
-      { "<leader>W", "<Cmd>Lspsaga winbar_toggle<CR>", desc = "Lspsaga winbar_toggle" },
+      { "<leader>cI", "<Cmd>Lspsaga incoming_calls<CR>", desc = "Lspsaga incoming_calls" },
+      { "<leader>cO", "<Cmd>Lspsaga outgoing_calls<CR>", desc = "Lspsaga outgoing_calls" },
+      { "<leader>uW", "<Cmd>Lspsaga winbar_toggle<CR>", desc = "Lspsaga winbar_toggle" },
     },
   },
   {

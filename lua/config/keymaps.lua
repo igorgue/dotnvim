@@ -116,3 +116,21 @@ wk.register({
 wk.register({
   ["<A-f>"] = { force_format, "Force Format Document", mode = { "n", "v", "i" } },
 })
+
+wk.register({
+  ["<leader>uh"] = {
+    function()
+      if vim.opt_local.ft:get() == "c" then
+        require("clangd_extensions.inlay_hints").toggle_inlay_hints()
+      else
+        local value = not vim.lsp.inlay_hint.is_enabled(0)
+
+        vim.lsp.inlay_hint.enable(0, value)
+
+        print(value and "Inlay hints enabled" or "Inlay hints disabled")
+      end
+    end,
+    "Toggle Inlay Hints",
+    mode = "n",
+  },
+})

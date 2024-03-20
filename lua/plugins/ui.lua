@@ -152,7 +152,7 @@ return {
     end,
     keys = {
       {
-        "<leader>S",
+        "<leader>uS",
         function()
           if vim.opt.laststatus:get() == 0 then
             vim.opt.laststatus = 3
@@ -214,7 +214,7 @@ return {
         },
         keys = {
           {
-            "<leader>t", -- Enable Twilight
+            "<leader>ut", -- Enable Twilight
             function()
               require("twilight").toggle()
             end,
@@ -227,7 +227,7 @@ return {
     cmd = "ZenMode",
     keys = {
       {
-        "<leader>z",
+        "<leader>uz",
         function()
           if require("zen-mode.view").is_open() then
             require("zen-mode").toggle()
@@ -248,7 +248,7 @@ return {
         desc = "Toggle Zen Mode",
       },
       {
-        "<leader>Z",
+        "<leader>uZ",
         function()
           if require("zen-mode.view").is_open() then
             require("zen-mode").toggle()

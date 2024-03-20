@@ -74,17 +74,19 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   end,
 })
 
--- TODO: this was a fix for actually vim-illuminate,
--- but it broke many things, including opening new files
--- would do it with messed up syntax
--- vim.api.nvim_create_autocmd("ColorScheme", {
---   pattern = "*",
---   callback = function()
---     vim.cmd("Lazy reload lualine.nvim")
---     vim.defer_fn(function()
---       require("notify").dismiss({ pending = true, silent = true })
---     end, 50)
---   end,
--- })
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+    -- clangd has its own implementation, check c.lua extra
+    if client.name == "clangd" then
+      return
+    end
+
+    if client ~= nil and client.server_capabilities.inlayHintProvider then
+      vim.lsp.inlay_hint.enable(args.buf, vim.env.NVIM_FOCUS_MODE == nil)
+    end
+  end,
+})
 
 -- plugins.extras.* includes more autocmds, specific for certain files

@@ -19,7 +19,11 @@ end
 
 -- other utils
 function M.toggle_focus_mode()
-  Util.toggle.diagnostics()
+  if vim.opt.laststatus:get() == 0 then
+    vim.opt.laststatus = 3
+  else
+    vim.opt.laststatus = 0
+  end
 
   if vim.g.copilot_enabled == 0 then
     vim.cmd("Copilot enable")
@@ -27,14 +31,17 @@ function M.toggle_focus_mode()
     vim.cmd("Copilot disable")
   end
 
-  vim.cmd("Copilot status")
-  -- vim.cmd("Lspsaga winbar_toggle")
-
-  if vim.opt.laststatus:get() == 0 then
-    vim.opt.laststatus = 3
+  if vim.opt_local.ft:get() == "c" then
+    require("clangd_extensions.inlay_hints").toggle_inlay_hints()
   else
-    vim.opt.laststatus = 0
+    vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(0))
   end
+
+  require('lspsaga.symbol.winbar').toggle()
+
+  Util.toggle.diagnostics()
+
+  vim.cmd("Copilot status")
 end
 
 local function disable_winbar()
@@ -46,7 +53,7 @@ local function disable_winbar()
   })
 
   if ok then
-    vim.opt_local.winbar = ""
+    vim.opt.winbar = ""
     vim.api.nvim_del_augroup_by_id(g[1].group)
   end
 end
@@ -55,7 +62,7 @@ function M.enable_focus_mode()
   vim.diagnostic.disable()
   vim.cmd("Copilot disable")
   vim.opt.laststatus = 0
-  -- disable_winbar()
+  disable_winbar()
 end
 
 function M.open_terminal_tab()
