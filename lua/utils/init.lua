@@ -31,17 +31,17 @@ function M.toggle_focus_mode()
     vim.cmd("Copilot disable")
   end
 
-  if vim.opt_local.ft:get() == "c" then
-    require("clangd_extensions.inlay_hints").toggle_inlay_hints()
-  else
-    vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(0))
-  end
+  -- if vim.opt_local.ft:get() == "c" then
+  --   require("clangd_extensions.inlay_hints").toggle_inlay_hints()
+  -- else
+  --   vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(0))
+  -- end
 
-  require('lspsaga.symbol.winbar').toggle()
+  -- require('lspsaga.symbol.winbar').toggle()
 
   Util.toggle.diagnostics()
 
-  vim.cmd("Copilot status")
+  -- vim.cmd("Copilot status")
 end
 
 local function disable_winbar()
