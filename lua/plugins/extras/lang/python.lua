@@ -8,7 +8,7 @@ return {
     optional = true,
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "isort", "black", "ruff", "ruff-lsp", "debugpy", "pyright" })
+        vim.list_extend(opts.ensure_installed, { "isort", "black", "ruff", "ruff-lsp", "debugpy", "basedpyright" })
       end
     end,
   },
@@ -66,24 +66,24 @@ return {
   -- on the large files I usually deal with, some of them not that
   -- large at all, like 500 lines. And when that highlight slowness
   -- happens, also indenting is slow, so disable that too.
-  {
-    "nvim-treesitter/nvim-treesitter",
-    ft = "python",
-    opts = function(_, opts)
-      if type(opts.indent.disable) == "table" then
-        vim.list_extend(opts.indent.disable, { "python" })
-      else
-        opts.indent.disable = { "python" }
-      end
-    end,
-  },
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   ft = "python",
+  --   opts = function(_, opts)
+  --     if type(opts.indent.disable) == "table" then
+  --       vim.list_extend(opts.indent.disable, { "python" })
+  --     else
+  --       opts.indent.disable = { "python" }
+  --     end
+  --   end,
+  -- },
   {
     "linux-cultist/venv-selector.nvim",
     config = function(_, opts)
       local venv_selector = require("venv-selector")
 
       opts.changed_venv_hooks = {
-        venv_selector.hooks.pyright,
+        venv_selector.hooks.basedpyright,
       }
 
       venv_selector.setup(opts)
@@ -119,9 +119,9 @@ return {
       dap_enabled = true,
     },
   },
-  {
-    "igorgue/vim-python-enhanced-syntax",
-    -- dir = "~/Code/vim-python-enhanced-syntax",
-    ft = "python",
-  },
+  -- {
+  --   "igorgue/vim-python-enhanced-syntax",
+  --   -- dir = "~/Code/vim-python-enhanced-syntax",
+  --   ft = "python",
+  -- },
 }

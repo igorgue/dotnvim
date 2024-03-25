@@ -20,6 +20,7 @@ return {
         zsh = { "shfmt" },
         sh = { "shfmt" },
         lua = { "stylua" },
+        ["*"] = { "trim_newlines", "trim_whitespace" },
       },
     },
     -- stylua: ignore
