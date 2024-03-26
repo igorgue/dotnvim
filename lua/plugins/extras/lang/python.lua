@@ -62,21 +62,6 @@ return {
       require("dap-python").setup(path .. "/venv/bin/python")
     end,
   },
-  -- NOTE: disable python syntax until we can get it performing better
-  -- on the large files I usually deal with, some of them not that
-  -- large at all, like 500 lines. And when that highlight slowness
-  -- happens, also indenting is slow, so disable that too.
-  -- {
-  --   "nvim-treesitter/nvim-treesitter",
-  --   ft = "python",
-  --   opts = function(_, opts)
-  --     if type(opts.indent.disable) == "table" then
-  --       vim.list_extend(opts.indent.disable, { "python" })
-  --     else
-  --       opts.indent.disable = { "python" }
-  --     end
-  --   end,
-  -- },
   {
     "linux-cultist/venv-selector.nvim",
     config = function(_, opts)
@@ -119,9 +104,9 @@ return {
       dap_enabled = true,
     },
   },
-  -- {
-  --   "igorgue/vim-python-enhanced-syntax",
-  --   -- dir = "~/Code/vim-python-enhanced-syntax",
-  --   ft = "python",
-  -- },
+  {
+    "igorgue/vim-python-enhanced-syntax",
+    -- dir = "~/Code/vim-python-enhanced-syntax",
+    ft = "python",
+  },
 }

@@ -104,6 +104,7 @@ return {
       opts.completion = {
         autocomplete = false,
       }
+      opts.formatting = {}
 
       return opts
     end,
