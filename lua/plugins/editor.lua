@@ -94,5 +94,6 @@ return {
         "Trouble",
       },
     },
+    keys = { { "<leader>uI", require("illuminate").toggle, desc = "Toggle Illuminate" } },
   },
 }

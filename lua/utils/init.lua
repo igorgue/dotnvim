@@ -31,6 +31,9 @@ function M.toggle_focus_mode()
     vim.cmd("Copilot disable")
   end
 
+  pcall(vim.cmd, "IlluminateToggle")
+
+  -- NOTE: this was annoying, evaluate
   -- if vim.opt_local.ft:get() == "c" then
   --   require("clangd_extensions.inlay_hints").toggle_inlay_hints()
   -- else
@@ -62,6 +65,7 @@ function M.enable_focus_mode()
   vim.diagnostic.disable()
   vim.cmd("Copilot disable")
   vim.opt.laststatus = 0
+  pcall(vim.cmd, "IlluminatePause")
   disable_winbar()
 end
 
