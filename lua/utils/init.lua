@@ -1,6 +1,8 @@
 local M = {}
 local Util = require("lazyvim.util")
 
+M.ui = require("utils.ui")
+
 -- core utils
 function M.version()
   local neovim_version = vim.version()
@@ -19,6 +21,8 @@ end
 
 -- other utils
 function M.toggle_focus_mode()
+  require("utils.ui").refresh_ui()
+
   if vim.opt.laststatus:get() == 0 then
     vim.opt.laststatus = 3
   else
@@ -76,7 +80,5 @@ function M.open_terminal_tab()
     startinsert
   ]])
 end
-
-M.ui = require("utils.ui")
 
 return M

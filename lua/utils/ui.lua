@@ -8,7 +8,7 @@ M.diagnostic_config = {
     spacing = 0,
     prefix = "●",
   },
-  signs = { text = { " ", " ", " ", " " } },
+  signs = { text = { "", "", "", "" } },
   update_in_insert = true,
   severity_sort = true,
 }
@@ -23,8 +23,6 @@ end
 
 function M.refresh_ui()
   vim.cmd([[
-    cd ~
-    cd -
     nohlsearch
     diffupdate
     normal! <C-L>

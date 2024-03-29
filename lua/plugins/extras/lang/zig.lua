@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd("FileType", {
           inlay_hints_hide_redundant_param_names_last_token = true,
           skip_std_references = true,
           record_session = true,
-        }
+        },
       },
     })
   end,

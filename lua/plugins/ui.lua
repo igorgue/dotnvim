@@ -28,7 +28,6 @@ return {
         },
         config = {
           header = vim.split(logo, "\n"),
-          -- stylua: ignore
           center = {
             { action = "ene | startinsert", desc = " new file", icon = " ", key = "n" },
             { action = "Telescope oldfiles", desc = " recent files", icon = " ", key = "r" },
@@ -36,7 +35,7 @@ return {
             { action = "Telescope find_files", desc = " find file", icon = " ", key = "f" },
             { action = "Telescope smart_open", desc = " smart open", icon = " ", key = "o" },
             { action = "Telescope live_grep", desc = " find text", icon = " ", key = "g" },
-            { action = "e $MYVIMRC", desc = " config", icon = " ", key = "c" },
+            { action = [[lua LazyVim.telescope.config_files()()]], desc = " Config", icon = " ", key = "c" },
             { action = "Lazy", desc = " lazy", icon = "󰒲 ", key = "l" },
             { action = "LazyExtras", desc = " lazy extras", icon = " ", key = "e" },
             { action = "lua require('lazyvim.util').terminal.open()", desc = " terminal", icon = " ", key = "t" },
