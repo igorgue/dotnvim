@@ -74,19 +74,21 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
+if vim.lsp.inlay_hint ~= nil then
+  vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-    -- clangd has its own implementation, check c.lua extra
-    if client.name == "clangd" then
-      return
-    end
+      -- clangd has its own implementation, check c.lua extra
+      if client.name == "clangd" then
+        return
+      end
 
-    if client ~= nil and client.server_capabilities.inlayHintProvider then
-      vim.lsp.inlay_hint.enable(args.buf, vim.env.NVIM_FOCUS_MODE == nil)
-    end
-  end,
-})
+      if client ~= nil and client.server_capabilities.inlayHintProvider then
+        vim.lsp.inlay_hint.enable(args.buf, vim.env.NVIM_FOCUS_MODE == nil)
+      end
+    end,
+  })
+end
 
 -- plugins.extras.* includes more autocmds, specific for certain files

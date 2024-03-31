@@ -123,6 +123,10 @@ wk.register({
       if vim.opt_local.ft:get() == "c" then
         require("clangd_extensions.inlay_hints").toggle_inlay_hints()
       else
+        if vim.lsp.inlay_hint == nil then
+          return
+        end
+
         local value = not vim.lsp.inlay_hint.is_enabled(0)
 
         vim.lsp.inlay_hint.enable(0, value)
