@@ -71,7 +71,9 @@ return {
     },
   },
   "projekt0n/caret.nvim",
-  "igorgue/candy.vim", -- oldschool colorscheme
-  "twerth/ir_black", -- oldschool colorscheme
   { "rose-pine/neovim", name = "rose-pine" },
+
+  -- oldschool colorschemes
+  "igorgue/candy.vim",
+  "twerth/ir_black", -- oldschool colorscheme
 }

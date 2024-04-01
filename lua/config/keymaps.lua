@@ -16,6 +16,7 @@ wk.register({
   ["<leader><cr>"] = { name = "+applications" },
   ["<leader>cs"] = { name = "+sourcegraph" },
   ["<leader>m"] = { name = "+molten" },
+  ["<leader>a"] = { name = "+ai" },
   ["!"] = { name = "+filter", mode = { "n", "v" } },
   ["<"] = { name = "+indent/left", mode = { "n", "v" } },
   [">"] = { name = "+indent/right", mode = { "n", "v" } },

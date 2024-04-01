@@ -121,8 +121,8 @@ function M.lualine_theme()
       b = { fg = lualine_colors.red, bg = lualine_colors.black },
       c = { fg = lualine_colors.red, bg = lualine_colors.black, gui = "bold" },
       x = { fg = lualine_colors.red, bg = lualine_colors.black },
-    },                               
-    command = {                      
+    },
+    command = {
       a = { fg = lualine_colors.green, bg = lualine_colors.black, gui = "bold" },
       b = { fg = lualine_colors.green, bg = lualine_colors.black },
       c = { fg = lualine_colors.green, bg = lualine_colors.black, gui = "bold" },

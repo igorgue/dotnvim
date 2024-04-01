@@ -86,9 +86,9 @@ return {
       })
 
       -- opts.window = {
-      -- completion = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
-      -- documentation = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
-      -- preview = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
+      --   completion = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
+      --   documentation = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
+      --   preview = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
       -- }
       opts.window = {
         completion = cmp.config.window.bordered({ winhighlight = winhighlight, border = "rounded" }),
@@ -100,7 +100,7 @@ return {
 
       opts.mapping = cmp.mapping.preset.insert(mappings)
       opts.experimental = {}
-      opts.view = { docs = { auto_open = false } }
+      opts.view = { docs = { auto_open = false }, entries = { follow_cursor = true } }
       opts.completion = {
         autocomplete = false,
       }
