@@ -96,12 +96,12 @@ wk.register({
 })
 
 local function force_format()
-  --
   if vim.bo.filetype == "mojo" then
     vim.cmd("noa silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
-  else
-    vim.cmd("LazyFormat")
+    return
   end
+
+  vim.cmd("LazyFormat")
 end
 
 -- my formatter function, simpler, always format,
