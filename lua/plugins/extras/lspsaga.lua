@@ -15,24 +15,17 @@ return {
       hover = { enable = false },
       rename = { enable = false },
       definition = { silent = true },
-      outline = { silent = true, keys = keys },
+      outline = { enable = false, silent = true, keys = keys },
       lightbulb = { enable = false },
       code_action = { enable = false, extend_gitsigns = true },
       diagnostic = { enable = false },
-      symbol_in_winbar = {
-        enable = vim.env.NVIM_FOCUS_MODE == nil,
-        show_file = true,
-        hide_keyword = false,
-        folder_level = 0,
-      },
+      symbol_in_winbar = { enable = false, show_file = true, hide_keyword = false, folder_level = 0 },
     },
     keys = {
       { "<leader>j", "<Cmd>Lspsaga finder<CR>", desc = "Lspsaga finder" },
       { "<leader>p", "<Cmd>Lspsaga peek_definition<CR>", desc = "Lspsaga peek_definition" },
-      { "<leader>o", "<Cmd>Lspsaga outline<CR>", desc = "Lspsaga outline" },
       { "<leader>cI", "<Cmd>Lspsaga incoming_calls<CR>", desc = "Lspsaga incoming_calls" },
       { "<leader>cO", "<Cmd>Lspsaga outgoing_calls<CR>", desc = "Lspsaga outgoing_calls" },
-      { "<leader>uW", "<Cmd>Lspsaga winbar_toggle<CR>", desc = "Lspsaga winbar_toggle" },
     },
   },
   {
@@ -43,16 +36,7 @@ return {
         "sagacallhierarchy",
         "sagaincomingcalls",
         "sagapeekdefinition",
-        "sagaoutline",
       },
     },
-  },
-  {
-    "SmiteshP/nvim-navic",
-    enabled = false,
-  },
-  {
-    "simrat39/symbols-outline.nvim",
-    enabled = false,
   },
 }

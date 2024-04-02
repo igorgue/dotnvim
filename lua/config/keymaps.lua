@@ -4,11 +4,23 @@
 local Util = require("lazyvim.util")
 local wk = require("which-key")
 
--- Normal behaviour
+-- Remove some default keymaps
 pcall(vim.api.nvim_del_keymap, "n", "<")
 pcall(vim.api.nvim_del_keymap, "n", ">")
 pcall(vim.api.nvim_del_keymap, "v", "<")
 pcall(vim.api.nvim_del_keymap, "v", ">")
+pcall(vim.api.nvim_del_keymap, "n", "<leader>gg")
+
+wk.register({
+  b = { "<cmd>Btop<cr>", "Btop Process Manager" },
+  n = { "<cmd>Nap<cr>", "Nap Code Snippets" },
+  r = { "<cmd>Ranger<cr>", "Ranger File Manager" },
+  c = { "<cmd>Cloc<cr>", "Cloc Count Lines" },
+  g = { "<cmd>Lazygit<cr>", "Lazygit" },
+  l = { "<cmd>Lazy<cr>", "Lazy" },
+}, {
+  prefix = "<leader><cr>",
+})
 
 wk.register({
   ["<leader>"] = { name = "+leader" },
@@ -27,14 +39,7 @@ wk.register({
   y = { name = "+yank", mode = { "n", "v" } },
 })
 
-wk.register({
-  K = { vim.lsp.buf.hover, "Hover" },
-  ["<esc>"] = { require("utils").ui.refresh_ui, "Refresh UI" },
-  ["<A-/>"] = { "<cmd>WhichKey<cr>", "Help", mode = { "n", "i" } },
-  ["<A-e>"] = { "<cmd>Telescope emoji<cr>", "Emoji Select", mode = { "n", "i" } },
-  ["<A-g>"] = { "<cmd>Telescope glyph<cr>", "Glyph Select", mode = { "n", "i" } },
-})
-
+-- Tab keymaps
 wk.register({
   ["<leader><tab>j"] = { "<cmd>tabprevious<cr>", "Previous Tab" },
   ["<leader><tab>k"] = { "<cmd>tabnext<cr>", "Next Tab" },
@@ -53,48 +58,6 @@ wk.register({
   ["<leader><tab>0"] = { "<cmd>tablast<cr>", "Last Tab" },
 })
 
--- toggle diagnostics and copilot in focus mode with ctrl+f
-wk.register({
-  ["<C-f>"] = { require("utils").toggle_focus_mode, "Focus Mode", mode = { "n", "v", "i" } },
-})
-
--- open terminal with ctrl+shift+t (when not in kitty terminal, since it grabs that keymap)
-wk.register({
-  ["<C-S-T>"] = { require("utils").open_terminal_tab, "Open Terminal", mode = { "n", "v", "i" } },
-})
-
-vim.api.nvim_del_keymap("n", "<leader>gg")
-
-wk.register({
-  gg = { "<cmd>Lazygit<cr>", "Lazygit" },
-}, {
-  prefix = "<leader>",
-})
-
-wk.register({
-  b = { "<cmd>Btop<cr>", "Btop Process Manager" },
-  n = { "<cmd>Nap<cr>", "Nap Code Snippets" },
-  r = { "<cmd>Ranger<cr>", "Ranger File Manager" },
-  c = { "<cmd>Cloc<cr>", "Cloc Count Lines" },
-  g = { "<cmd>Lazygit<cr>", "Lazygit" },
-  l = { "<cmd>Lazy<cr>", "Lazy" },
-}, {
-  prefix = "<leader><cr>",
-})
-
-wk.register({
-  l = {
-    function()
-      Util.toggle("cursorline")
-      Util.toggle.number()
-      vim.opt.relativenumber = false
-    end,
-    "Toggle Line Numbers / Cursorline",
-  },
-}, {
-  prefix = "<leader>u",
-})
-
 local function force_format()
   if vim.bo.filetype == "mojo" then
     vim.cmd("noa silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
@@ -104,38 +67,42 @@ local function force_format()
   vim.cmd("LazyFormat")
 end
 
--- my formatter function, simpler, always format,
--- with "leader =" also "leader F"
-wk.register({
-  ["="] = { force_format, "Force Format Document", mode = { "n", "v" } },
-  F = { force_format, "Force Format Document", mode = { "n", "v" } },
-}, {
-  prefix = "<leader>",
-})
+local function toggle_line_numbers()
+  Util.toggle("cursorline")
+  Util.toggle.number()
+  vim.opt.relativenumber = false
+end
 
--- also <A-f> because why not
+local function toggle_inlay_hints()
+  if vim.opt_local.ft:get() == "c" then
+    require("clangd_extensions.inlay_hints").toggle_inlay_hints()
+  else
+    if vim.lsp.inlay_hint == nil then
+      return
+    end
+
+    local value = not vim.lsp.inlay_hint.is_enabled(0)
+
+    vim.lsp.inlay_hint.enable(0, value)
+
+    print(value and "Inlay hints enabled" or "Inlay hints disabled")
+  end
+end
+
 wk.register({
+  K = { vim.lsp.buf.hover, "Hover" },
+  ["<esc>"] = { require("utils").ui.refresh_ui, "Refresh UI" },
+  ["<A-/>"] = { "<cmd>WhichKey<cr>", "Help", mode = { "n", "i" } },
+  ["<A-e>"] = { "<cmd>Telescope emoji<cr>", "Emoji Select", mode = { "n", "i" } },
   ["<A-f>"] = { force_format, "Force Format Document", mode = { "n", "v", "i" } },
-})
-
-wk.register({
-  ["<leader>uh"] = {
-    function()
-      if vim.opt_local.ft:get() == "c" then
-        require("clangd_extensions.inlay_hints").toggle_inlay_hints()
-      else
-        if vim.lsp.inlay_hint == nil then
-          return
-        end
-
-        local value = not vim.lsp.inlay_hint.is_enabled(0)
-
-        vim.lsp.inlay_hint.enable(0, value)
-
-        print(value and "Inlay hints enabled" or "Inlay hints disabled")
-      end
-    end,
-    "Toggle Inlay Hints",
-    mode = "n",
-  },
+  ["<A-g>"] = { "<cmd>Telescope glyph<cr>", "Glyph Select", mode = { "n", "i" } },
+  ["<C-S-T>"] = { require("utils").open_terminal_tab, "Open Terminal", mode = { "n", "v", "i" } },
+  ["<C-f>"] = { require("utils").toggle_focus_mode, "Focus Mode", mode = { "n", "v", "i" } },
+  ["<leader>gg"] = { "<cmd>Lazygit<cr>", "Lazygit" },
+  ["<leader>ul"] = { toggle_line_numbers, "Toggle Line Numbers / Cursorline" },
+  ["<leader>F"] = { force_format, "Force Format Document", mode = { "n", "v" } },
+  ["<leader>="] = { force_format, "Force Format Document", mode = { "n", "v" } },
+  ["<leader>uh"] = { toggle_inlay_hints, "Toggle Inlay Hints", mode = "n" },
+  ["<leader>o"] = { "<cmd>Trouble symbols toggle focus=false<cr>", "Symbols (Trouble)", mode = "n" },
+  ["<leader>uW"] = { require("utils").toggle_winbar(), "Toggle Winbar", mode = "n" },
 })

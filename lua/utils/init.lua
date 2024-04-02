@@ -37,6 +37,8 @@ function M.toggle_focus_mode()
 
   pcall(vim.cmd, "IlluminateToggle")
 
+  M.toggle_winbar()
+
   -- NOTE: this was annoying, evaluate
   -- if vim.opt_local.ft:get() == "c" then
   --   require("clangd_extensions.inlay_hints").toggle_inlay_hints()
@@ -44,25 +46,19 @@ function M.toggle_focus_mode()
   --   vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(0))
   -- end
 
-  -- require('lspsaga.symbol.winbar').toggle()
-
   Util.toggle.diagnostics()
+end
 
-  -- vim.cmd("Copilot status")
+function M.toggle_winbar()
+  if vim.opt.winbar:get() == "" then
+    vim.opt.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+  else
+    vim.opt.winbar = ""
+  end
 end
 
 local function disable_winbar()
-  local curbuf = vim.api.nvim_get_current_buf()
-  local ok, g = pcall(vim.api.nvim_get_autocmds, {
-    group = "SagaWinbar" .. curbuf,
-    event = { "CursorMoved" },
-    buffer = curbuf,
-  })
-
-  if ok then
-    vim.opt.winbar = ""
-    vim.api.nvim_del_augroup_by_id(g[1].group)
-  end
+  vim.opt.winbar = ""
 end
 
 function M.enable_focus_mode()
