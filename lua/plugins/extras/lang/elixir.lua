@@ -1,7 +1,19 @@
+local elixir_ft = { "elixir", "eex", "heex", "surface" }
+
 return {
   {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == "table" then
+        vim.list_extend(opts.ensure_installed, elixir_ft)
+      else
+        opts.ensure_installed = elixir_ft
+      end
+    end,
+  },
+  {
     "neovim/nvim-lspconfig",
-    ft = { "elixir", "eex", "heex", "surface" },
+    ft = elixir_ft,
     opts = {
       setup = {
         -- stylua: ignore start
@@ -16,7 +28,7 @@ return {
       "elixir-editors/vim-elixir",
       "nvim-lua/plenary.nvim",
     },
-    ft = { "elixir", "eex", "heex", "surface" },
+    ft = elixir_ft,
     -- stylua: ignore
     enabled = not vim.o.diff,
     config = function()
@@ -54,22 +66,22 @@ return {
           enable = true,
           settings = {
             elixirls.settings({
-              dialyzerEnabled = true,
+              dialyzerEnabled = false,
               -- dialyzerFormat = "dialyxir_long",
               -- dialyzerWarnOpts = []
-              enableTestLenses = true,
+              enableTestLenses = false,
               -- envVariables =
               fetchDeps = false,
               -- languageServerOverridePath =
               mixEnv = "dev",
               -- mixTarget = "host",
               -- projectDir = "",
-              signatureAfterComplete = true,
-              suggestSpecs = true,
+              signatureAfterComplete = false,
+              suggestSpecs = false,
               log_level = vim.lsp.protocol.MessageType.Log,
               message_level = vim.lsp.protocol.MessageType.Log,
               trace = {
-                server = "on",
+                server = "off",
               },
             }),
           },
