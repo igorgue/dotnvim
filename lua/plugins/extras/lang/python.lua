@@ -1,3 +1,11 @@
+vim.filetype.add({
+  extension = {
+    jinja = "jinja",
+    jinja2 = "jinja",
+    j2 = "jinja",
+  },
+})
+
 return {
   {
     "raimon49/requirements.txt.vim",
@@ -30,6 +38,7 @@ return {
       },
       servers = {
         basedpyright = {},
+        jinja_lsp = {},
         ruff_lsp = {
           keys = {
             {
