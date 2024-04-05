@@ -29,10 +29,10 @@ vim.opt.diffopt = {
 }
 vim.opt.listchars = {
   tab = "──",
-  -- "lead:·",
+  lead = "·",
   trail = "·",
   nbsp = "␣",
-  -- "eol:↵",
+  eol = "↵",
   precedes = "«",
   extends = "»",
 }
