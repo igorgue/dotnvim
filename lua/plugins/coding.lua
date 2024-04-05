@@ -1,5 +1,9 @@
 return {
   {
+    "tpope/vim-sleuth",
+    event = { "BufReadPost", "BufNewFile" },
+  },
+  {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
