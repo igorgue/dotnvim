@@ -75,6 +75,7 @@ return {
           { name = "buffer" },
           { name = "path" },
         },
+        view = { entries = { follow_cursor = false } },
       })
 
       cmp.setup.cmdline(":", {
@@ -84,6 +85,7 @@ return {
           { name = "path" },
           { name = "buffer" },
         }),
+        view = { entries = { follow_cursor = false } },
       })
 
       opts.window = {
