@@ -10,8 +10,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    -- ft = { "html", "htmldjango", "css", "javascript", "typescript", "rust", "elixir", "heex" },
-    ft = { "html", "htmldjango", "css", "javascript", "typescript", "elixir", "heex" },
+    ft = { "html", "htmldjango", "css", "elixir", "heex" },
     opts = {
       servers = {
         htmx = {},
@@ -22,9 +21,9 @@ return {
             -- "heex",
             -- "elixir",
             -- "eruby",
-            "javascript",
+            -- "javascript",
             "javascriptreact",
-            "typescript",
+            -- "typescript",
             "typescriptreact",
             -- "rust",
             "svelte",

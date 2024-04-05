@@ -20,6 +20,6 @@ end
 if vim.env.NVIM_FOCUS_MODE ~= nil then
   -- done in a defer so we don't block ui that much...
   vim.defer_fn(function()
-    require("utils").enable_focus_mode()
+    require("utils").ui.enable_focus_mode()
   end, 1000)
 end

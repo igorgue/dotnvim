@@ -1,3 +1,14 @@
+local function open_github_repo()
+  local text = vim.fn.getline("."):match("['\"]([^'\"]+)['\"]")
+
+  if text == nil or text == "" or not text:match("/") then
+    vim.cmd("OpenInGHRepo")
+    return
+  end
+
+  vim.fn.jobstart({ "xdg-open", "https://github.com/" .. text }, { detach = true })
+end
+
 return {
   {
     "tpope/vim-fugitive",
@@ -85,6 +96,22 @@ return {
         end,
         desc = "Toggle diff view",
       },
+    },
+  },
+  {
+    "almo7aya/openingh.nvim",
+    cmd = { "OpenInGHRepo", "OpenInGHFile", "OpenInGHFileLines" },
+    init = function()
+      local wk = require("which-key")
+
+      wk.register({
+        ["<leader>cg"] = { name = "+github" },
+      })
+    end,
+    keys = {
+      { "<leader>cgg", "<cmd>OpenInGHFileLines<CR>", desc = "Open in GitHub file lines" },
+      { "<leader>cgf", "<cmd>OpenInGHFile<CR>", desc = "Open in GitHub file" },
+      { "<leader>cgr", open_github_repo, desc = "Open in GitHub repo" },
     },
   },
 }

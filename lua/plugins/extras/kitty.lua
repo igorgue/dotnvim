@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   callback = function()
     vim.opt.laststatus = 0
     vim.opt.clipboard = "unnamedplus"
-    vim.opt.cursorline = true
+    -- vim.opt.cursorline = true
 
     return true
   end,
@@ -31,41 +31,23 @@ return {
   cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
   event = { "User KittyScrollbackLaunch" },
   config = function(_, opts)
-    require("kitty-scrollback").setup(opts)
+    local default = opts
+    local cmd_output = vim.tbl_deep_extend("force", default, { kitty_get_text = { extent = "last_cmd_output" } })
+    local visited_cmd_output = vim.tbl_deep_extend("force", default, { kitty_get_text = { extent = "last_visited_cmd_output" } })
+
+    require("kitty-scrollback").setup({
+      default = default,
+      cmd_output = cmd_output,
+      visited_cmd_output = visited_cmd_output,
+    })
   end,
   opts = {
-    default = {
-      status_window = {
-        enabled = false,
-      },
-      kepmaps_enabled = false,
-      paste_window = {
-        yank_register_enabled = false,
-      },
+    status_window = {
+      enabled = false
+      -- autoclose = true
     },
-    cmd_output = {
-      kitty_get_text = {
-        extent = "last_cmd_output",
-      },
-      status_window = {
-        enabled = false,
-      },
-      kepmaps_enabled = false,
-      paste_window = {
-        yank_register_enabled = false,
-      },
-    },
-    visited_cmd_output = {
-      kitty_get_text = {
-        extent = "last_visited_cmd_output",
-      },
-      status_window = {
-        enabled = false,
-      },
-      kepmaps_enabled = false,
-      paste_window = {
-        yank_register_enabled = false,
-      },
+    paste_window = {
+      yank_register_enabled = false,
     },
   },
 }

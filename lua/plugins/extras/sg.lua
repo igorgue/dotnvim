@@ -1,3 +1,7 @@
+local function fuzzy_search_results()
+  require("sg.extensions.telescope").fuzzy_search_results()
+end
+
 return {
   {
     "hrsh7th/nvim-cmp",
@@ -20,19 +24,9 @@ return {
       on_attach = require("lazyvim.util").lsp.on_attach,
     },
     keys = {
-      {
-        "<leader>se",
-        function()
-          require("sg.extensions.telescope").fuzzy_search_results()
-        end,
-        desc = "Sourcegraph search",
-      },
-      {
-        "<leader>ai",
-        "<cmd>CodyToggle<cr>",
-        desc = "Cody toggle",
-        mode = { "n" },
-      },
+      { "<leader>se", fuzzy_search_results, desc = "Sourcegraph search" },
+      { "<leader>ai", "<cmd>CodyToggle<cr>", desc = "Cody toggle" },
+      { "<C-;>", "<cmd>CodyToggle<cr>", desc = "Cody toggle", mode = { "n", "i" } },
     },
   },
 }

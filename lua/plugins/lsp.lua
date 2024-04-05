@@ -1,18 +1,15 @@
+vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
+  callback = function()
+    if next(vim.lsp.codelens.get(vim.api.nvim_get_current_buf())) ~= nil then
+      vim.lsp.codelens.refresh()
+    end
+  end,
+})
+
 return {
   {
     "neovim/nvim-lspconfig",
-    -- stylua: ignore
     enabled = not vim.o.diff,
-    init = function()
-      -- some lsp stuff
-      vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
-        callback = function()
-          if next(vim.lsp.codelens.get(vim.api.nvim_get_current_buf())) ~= nil then
-            vim.lsp.codelens.refresh()
-          end
-        end,
-      })
-    end,
     opts = function(_, opts)
       local keymaps = require("lazyvim.plugins.lsp.keymaps")
       local ui_windows = require("lspconfig.ui.windows")
@@ -29,8 +26,7 @@ return {
         { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Actions", mode = { "n", "v" } },
         { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
         { "<leader>cf", format, desc = "Format Document", has = "documentFormatting" },
-        -- stylua: ignore
-        { "<leader>cf", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting", },
+        { "<leader>cf", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
         { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
         { "<leader>ci", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
         { "<leader>cl", vim.lsp.codelens.run, desc = "Run codelens" },

@@ -21,12 +21,12 @@ return {
       local mappings = {
         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-b>"] = cmp.mapping.scroll_docs(-3),
+        ["<C-f>"] = cmp.mapping.scroll_docs(3),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = true }), { "i", "s", "c" }),
-        ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace }),
+        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
         ["<C-j>"] = cmp.mapping(function(fallback)
           local luasnip = require("luasnip")
           if luasnip.expand_or_jumpable() then
@@ -34,7 +34,7 @@ return {
           else
             fallback()
           end
-        end, { "i", "s" }),
+        end),
         ["<C-k>"] = cmp.mapping(function(fallback)
           local luasnip = require("luasnip")
           if luasnip.jumpable(-1) then
@@ -42,12 +42,11 @@ return {
           else
             fallback()
           end
-        end, { "i", "s" }),
+        end),
       }
 
       local winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:Search"
 
-      ---@diagnostic disable-next-line: missing-fields
       cmp.setup.filetype("gitcommit", {
         sources = cmp.config.sources({
           { name = "cmp_git" },
@@ -65,7 +64,6 @@ return {
         }),
       }
 
-      ---@diagnostic disable-next-line: missing-fields
       cmp.setup.cmdline({ "/", "?" }, {
         mapping = cmp.mapping.preset.cmdline(cmd_mappings),
         sources = {
@@ -75,7 +73,6 @@ return {
         },
       })
 
-      ---@diagnostic disable-next-line: missing-fields
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(cmd_mappings),
         sources = cmp.config.sources({
@@ -85,11 +82,6 @@ return {
         }),
       })
 
-      -- opts.window = {
-      --   completion = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
-      --   documentation = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
-      --   preview = cmp.config.window.bordered({ winhighlight = winhighlight, border = "single" }),
-      -- }
       opts.window = {
         completion = cmp.config.window.bordered({ winhighlight = winhighlight, border = "rounded" }),
         documentation = cmp.config.window.bordered({ winhighlight = winhighlight, border = "rounded" }),
@@ -124,21 +116,5 @@ return {
     "numToStr/Comment.nvim",
     event = { "BufReadPost", "BufNewFile" },
     config = true,
-  },
-  {
-    "almo7aya/openingh.nvim",
-    cmd = { "OpenInGHRepo", "OpenInGHFile", "OpenInGHFileLines" },
-    init = function()
-      local wk = require("which-key")
-
-      wk.register({
-        ["<leader>cg"] = { name = "+github" },
-      })
-    end,
-    keys = {
-      { "<leader>cgg", "<cmd>OpenInGHFileLines<CR>", desc = "Open in GitHub File Lines" },
-      { "<leader>cgr", "<cmd>OpenInGHRepo<CR>", desc = "Open in GitHub Repo" },
-      { "<leader>cgf", "<cmd>OpenInGHFile<CR>", desc = "Open in GitHub File" },
-    },
   },
 }

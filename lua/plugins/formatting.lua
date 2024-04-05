@@ -23,6 +23,7 @@ return {
         ["*"] = { "trim_newlines", "trim_whitespace" },
       },
     },
+    -- NOTE: I redefine these on keymaps.lua
     -- stylua: ignore
     keys = function() return {} end,
   },
