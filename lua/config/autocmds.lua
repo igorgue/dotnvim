@@ -49,6 +49,20 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "typescript",
+  callback = function()
+    vim.opt_local.commentstring = "// %s"
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "javascript",
+  callback = function()
+    vim.opt_local.commentstring = "// %s"
+  end,
+})
+
 -- disable formatting (and some other options) for big files
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   callback = function()

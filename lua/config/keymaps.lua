@@ -68,9 +68,8 @@ local function force_format()
 end
 
 local function toggle_line_numbers()
-  Util.toggle("cursorline")
-  Util.toggle.number()
-  vim.opt.relativenumber = false
+  vim.opt.cursorline = not vim.opt.cursorline:get()
+  vim.opt.number = not vim.opt.number:get()
 end
 
 local function toggle_inlay_hints()
