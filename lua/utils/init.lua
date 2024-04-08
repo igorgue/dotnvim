@@ -17,4 +17,14 @@ function M.version()
   return neovim_version.major .. "." .. neovim_version.minor .. "." .. neovim_version.patch
 end
 
+function M.file_info()
+  local file_path = vim.fn.expand("%:#")
+  local cursor = vim.fn.line(".") .. ":" .. vim.fn.col(".")
+  local lines = vim.fn.line("$")
+
+  vim.notify("\"" .. file_path .. "\"" .. "@" .. cursor .. " " .. lines .. " lines", "info", {
+    title = "File Info",
+  })
+end
+
 return M
