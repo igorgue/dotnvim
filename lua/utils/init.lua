@@ -18,14 +18,16 @@ function M.version()
 end
 
 function M.file_info()
-  local file_path = vim.fn.expand("%:#")
+  local file_path = vim.fn.expand("%:t")
   local cursor = vim.fn.line(".") .. ":" .. vim.fn.col(".")
   local lines = vim.fn.line("$")
 
   M.ui.refresh_ui()
-  vim.notify("\"" .. file_path .. "\"" .. "@" .. cursor .. " " .. lines .. " lines", "info", {
-    title = "File Info",
-  })
+  if file_path ~= "" then
+    vim.notify('"' .. file_path .. '"' .. " @ " .. cursor .. " " .. lines .. " lines", "info", {
+      title = "File Info",
+    })
+  end
 end
 
 return M
