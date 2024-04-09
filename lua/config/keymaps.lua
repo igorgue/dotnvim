@@ -97,7 +97,7 @@ wk.register({
   ["<A-g>"] = { "<cmd>Telescope glyph<cr>", "Glyph Select", mode = { "n", "i" } },
   ["<C-S-T>"] = { require("utils").ui.open_terminal_tab, "Open Terminal", mode = { "n", "v", "i" } },
   ["<C-f>"] = { require("utils").ui.toggle_focus_mode, "Focus Mode", mode = { "n", "v", "i" } },
-  ["<C-i>"] = { require("utils").file_info, "File Info", mode = "n" },
+  ["<C-g>"] = { require("utils").file_info, "File Info", mode = "n" },
   ["<leader>gg"] = { "<cmd>Lazygit<cr>", "Lazygit" },
   ["<leader>ul"] = { toggle_line_numbers, "Toggle Line Numbers / Cursorline" },
   ["<leader>F"] = { force_format, "Force Format Document", mode = { "n", "v" } },

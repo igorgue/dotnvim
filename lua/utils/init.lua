@@ -22,6 +22,7 @@ function M.file_info()
   local cursor = vim.fn.line(".") .. ":" .. vim.fn.col(".")
   local lines = vim.fn.line("$")
 
+  M.ui.refresh_ui()
   vim.notify("\"" .. file_path .. "\"" .. "@" .. cursor .. " " .. lines .. " lines", "info", {
     title = "File Info",
   })
