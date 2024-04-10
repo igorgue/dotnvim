@@ -18,7 +18,7 @@ function M.version()
 end
 
 function M.file_info()
-  local file_path = vim.fn.expand("%:t")
+  local file_path = vim.fn.expand("%:#")
   local cursor = vim.fn.line(".") .. ":" .. vim.fn.col(".")
   local lines = vim.fn.line("$")
 
