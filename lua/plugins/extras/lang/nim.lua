@@ -1,5 +1,3 @@
-local util = require("lazyvim.util")
-
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "nim",
   callback = function()

@@ -24,10 +24,10 @@ return {
     -- dir = "~/Code/mojo.vim",
     ft = { "mojo" },
     init = function()
-      local util = require("lazyvim.util")
+      local Util = require("lazyvim.util")
 
       local function format_mojo()
-        if util.format.enabled() then
+        if Util.format.enabled() then
           vim.cmd("noa silent! !mojo format --quiet " .. vim.fn.expand("%:p"))
         end
       end

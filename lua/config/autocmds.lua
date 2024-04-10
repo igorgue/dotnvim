@@ -1,23 +1,23 @@
 -- Autocmds are automatically loaded on the VeryLazy event
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
-local util = require("lazyvim.util")
+local Util = require("lazyvim.util")
 
 -- commands
 vim.api.nvim_create_user_command("Btop", function()
-  util.terminal.open("btop", { border = "none" })
+  Util.terminal.open("btop", { border = "none" })
 end, {})
 
 vim.api.nvim_create_user_command("Nap", function()
-  util.terminal.open("nap", { border = "rounded" })
+  Util.terminal.open("nap", { border = "rounded" })
 end, {})
 
 vim.api.nvim_create_user_command("Ranger", function()
-  util.terminal.open({ "ranger" }, { cwd = util.root.get(), border = "rounded" })
+  Util.terminal.open({ "ranger" }, { cwd = Util.root.get(), border = "rounded" })
 end, {})
 
 vim.api.nvim_create_user_command("Lazygit", function()
-  util.terminal.open({ "lazygit" }, { cwd = util.root.get(), border = "none" })
+  Util.terminal.open({ "lazygit" }, { cwd = Util.root.get(), border = "none" })
 end, {})
 
 vim.api.nvim_create_user_command("Cloc", function()
