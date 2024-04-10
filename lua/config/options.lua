@@ -119,3 +119,9 @@ vim.fn.sign_define( "DapBreakpointRejected", { text = " ", texthl = "DapBreak
 
 -- globals
 vim.g.autoformat = false
+
+-- default tabs so I don't get surprised
+vim.opt.shiftwidth=4
+vim.opt.tabstop=4
+vim.opt.softtabstop=4
+vim.opt.expandtab=true
