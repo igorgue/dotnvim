@@ -50,14 +50,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "typescript",
-  callback = function()
-    vim.opt_local.commentstring = "// %s"
-  end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "javascript",
+  pattern = { "typescript", "javascript" },
   callback = function()
     vim.opt_local.commentstring = "// %s"
   end,
@@ -75,7 +68,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     end
 
     vim.notify_once(
-      "File too large\n* conform off\n" .. "* foldmethod manual\n" .. "* disable winbar",
+      "File too large\n* formatting off\n" .. "* foldmethod manual\n" .. "* disable winbar",
       vim.log.levels.WARN
     )
 

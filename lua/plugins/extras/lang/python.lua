@@ -8,6 +8,12 @@ vim.filetype.add({
 
 return {
   {
+    "L3MON4D3/LuaSnip",
+    config = function()
+      require("luasnip").filetype_extend("htmldjango", { "html" })
+    end,
+  },
+  {
     "raimon49/requirements.txt.vim",
     event = "BufReadPre requirements*.txt",
   },

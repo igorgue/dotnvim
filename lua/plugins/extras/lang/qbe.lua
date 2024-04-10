@@ -1,12 +1,10 @@
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = { "*.ssa" },
-  nested = true,
-  callback = function()
-    vim.bo.filetype = "qbe"
-  end,
+vim.filetype.add({
+  extension = {
+    ssa = "qbe",
+  },
 })
 
 return {
   "perillo/qbe.vim",
-  ft = { "qbe", "ssa" },
+  ft = "qbe",
 }
