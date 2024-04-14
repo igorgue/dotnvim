@@ -7,6 +7,7 @@ for _, arg in ipairs(vim.v.argv) do
 end
 
 return {
+  desc = "Leetcode",
   {
     "kawre/leetcode.nvim",
     lazy = not has_leetcode,

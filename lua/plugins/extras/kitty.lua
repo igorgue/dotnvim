@@ -27,6 +27,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 return {
+  desc = "Kitty support, use vim as scrollback",
   "mikesmithgh/kitty-scrollback.nvim",
   cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
   event = { "User KittyScrollbackLaunch" },

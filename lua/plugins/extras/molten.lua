@@ -1,4 +1,5 @@
 return {
+  desc = "Molten, run jupyter notebooks",
   {
     "benlubas/molten-nvim",
     build = ":UpdateRemotePlugins",

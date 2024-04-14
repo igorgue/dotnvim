@@ -1,4 +1,5 @@
 return {
+  desc = "Github Copilot (official)",
   {
     "L3MON4D3/LuaSnip",
     -- stylua: ignore

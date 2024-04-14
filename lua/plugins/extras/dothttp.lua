@@ -1,4 +1,5 @@
 return {
+  desc = "HTTP files support",
   {
     "nvim-treesitter/nvim-treesitter",
     ft = { "http" },

@@ -1,4 +1,5 @@
 return {
+  desc = "DAP debugger basic setup",
   "mfussenegger/nvim-dap",
   dependencies = {
     "nvim-neotest/nvim-nio",

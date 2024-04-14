@@ -3,6 +3,7 @@ local function fuzzy_search_results()
 end
 
 return {
+  desc = "Sourcegraph",
   {
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)

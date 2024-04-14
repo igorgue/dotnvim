@@ -167,10 +167,20 @@ function M.toggle_focus_mode()
     vim.opt.laststatus = 0
   end
 
-  if vim.g.copilot_enabled == 0 then
-    vim.cmd("Copilot enable")
-  else
-    vim.cmd("Copilot disable")
+  if vim.g.copilot_enabled ~= nil then
+    if vim.g.copilot_enabled == 0 then
+      vim.cmd("Copilot enable")
+    elseif vim.g.copilot_enabled == 1 then
+      vim.cmd("Copilot disable")
+    end
+  end
+
+  if vim.g.loaded_tabby ~= nil then
+    if vim.g.tabby_trigger_mode == "manual" then
+      vim.g.tabby_trigger_mode = "auto"
+    else
+      vim.g.tabby_trigger_mode = "manual"
+    end
   end
 
   pcall(vim.cmd, "IlluminateToggle")
@@ -201,7 +211,12 @@ end
 
 function M.enable_focus_mode()
   vim.diagnostic.disable()
-  vim.cmd("Copilot disable")
+  if vim.g.copilot_enabled ~= nil then
+    vim.cmd("Copilot disable")
+  end
+  if vim.g.loaded_tabby ~= nil then
+    vim.g.tabby_trigger_mode = "manual"
+  end
   vim.opt.laststatus = 0
   pcall(vim.cmd, "IlluminatePause")
   disable_winbar()

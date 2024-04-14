@@ -1,4 +1,5 @@
 return {
+  desc = "Sonarlint",
   {
     "mason.nvim",
     ft = { "python", "java", "c", "cpp" },

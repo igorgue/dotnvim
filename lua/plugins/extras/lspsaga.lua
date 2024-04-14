@@ -1,6 +1,7 @@
 local keys = { quit = { "<esc>", "q" }, toggle_or_jump = { "<cr>", "o" } }
 
 return {
+  desc = "LSP Saga plugin collection",
   {
     "nvimdev/lspsaga.nvim",
     cmd = { "Lspsaga" },
