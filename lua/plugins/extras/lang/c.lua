@@ -1,5 +1,25 @@
 return {
   {
+    "nvim-treesitter/nvim-treesitter",
+    ft = { "c", "cpp" },
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == "table" then
+        vim.list_extend(opts.ensure_installed, { "c", "cpp" })
+      else
+        opts.ensure_installed = { "c", "cpp" }
+      end
+    end,
+  },
+  {
+    "williamboman/mason.nvim",
+    optional = true,
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == "table" then
+        vim.list_extend(opts.ensure_installed, { "clangd", "clang-format", "codelldb" })
+      end
+    end,
+  },
+  {
     "neovim/nvim-lspconfig",
     ft = { "c", "cpp" },
     dependencies = {
