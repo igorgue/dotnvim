@@ -20,6 +20,14 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "nim",
+  callback = function()
+    vim.opt_local.foldignore = "#"
+    vim.opt_local.foldmethod = "manual"
+  end,
+})
+
 return {
   -- FIXME: Using latest version of nim-langserver
   -- included from nim itself
@@ -35,15 +43,6 @@ return {
   {
     "alaviss/nim.nvim",
     ft = { "nim" },
-    init = function()
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "nim",
-        callback = function()
-          vim.opt_local.foldignore = "#"
-          vim.opt_local.foldmethod = "manual"
-        end,
-      })
-    end,
   },
   {
     "mfussenegger/nvim-dap",
