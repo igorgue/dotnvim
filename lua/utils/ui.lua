@@ -161,6 +161,7 @@ end
 function M.toggle_focus_mode()
   require("utils.ui").refresh_ui()
 
+  ---@diagnostic disable-next-line: undefined-field
   if vim.opt.laststatus:get() == 0 then
     vim.opt.laststatus = 3
   else
@@ -183,6 +184,7 @@ function M.toggle_focus_mode()
     end
   end
 
+  ---@diagnostic disable-next-line: param-type-mismatch
   pcall(vim.cmd, "IlluminateToggle")
 
   M.toggle_winbar()
@@ -198,6 +200,7 @@ function M.toggle_focus_mode()
 end
 
 function M.toggle_winbar()
+  ---@diagnostic disable-next-line: undefined-field
   if vim.opt.winbar:get() == "" then
     vim.opt.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
   else
@@ -211,14 +214,56 @@ end
 
 function M.enable_focus_mode()
   vim.diagnostic.disable()
+
   if vim.g.copilot_enabled ~= nil then
     vim.cmd("Copilot disable")
   end
+
   if vim.g.loaded_tabby ~= nil then
     vim.g.tabby_trigger_mode = "manual"
   end
+
   vim.opt.laststatus = 0
-  pcall(vim.cmd, "IlluminatePause")
+
+  vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+    pattern = {
+      "!alpha",
+      "!dbui",
+      "!DiffviewFileHistory",
+      "!DiffviewFiles",
+      "!dirbuf",
+      "!dirvish",
+      "!DressingSelect",
+      "!fugitive",
+      "!fugitive",
+      "!git",
+      "!lazy",
+      "!lir",
+      "!lspinfo",
+      "!mason",
+      "!minifiles",
+      "!neogitstatus",
+      "!neo-tree",
+      "!notify",
+      "!NvimTree",
+      "!Outline",
+      "!packer",
+      "!SidebarNvim",
+      "!spectre_panel",
+      "!spectre_panel",
+      "!TelescopePrompt",
+      "!TelescopePrompt",
+      "!toggleterm",
+      "!toggleterm",
+      "!Trouble",
+    },
+    callback = function()
+      ---@diagnostic disable-next-line: param-type-mismatch
+      pcall(vim.cmd, "IlluminatePause")
+    end,
+    once = true,
+  })
+
   disable_winbar()
 end
 
