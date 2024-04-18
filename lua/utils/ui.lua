@@ -214,16 +214,12 @@ end
 
 function M.enable_focus_mode()
   vim.diagnostic.disable()
-
-  if vim.api.nvim_call_function("g:copilot#Enabled", {}) == 1 then
-    vim.cmd("Copilot disable")
-  end
-
-  if vim.g.loaded_tabby ~= nil or vim.g.tabby_trigger_mode == "auto" then
-    vim.g.tabby_trigger_mode = "manual"
-  end
-
   vim.opt.laststatus = 0
+
+  vim.g.tabby_trigger_mode = "manual"
+
+  pcall(vim.cmd, "Copilot disable")
+  pcall(vim.cmd, "IlluminatePause")
 
   vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
     pattern = {
@@ -264,7 +260,7 @@ function M.enable_focus_mode()
     once = true,
   })
 
-  disable_winbar()
+  vim.opt.winbar = ""
 end
 
 function M.open_terminal_tab()
