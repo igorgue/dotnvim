@@ -41,7 +41,7 @@ return {
       {
         "<C-l>",
         function()
-          if vim.g.copilot_enabled == 0 then
+          if vim.api.nvim_call_function("g:copilot#Enabled", {}) == 0 then
             vim.cmd("Copilot enable")
           end
 

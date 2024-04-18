@@ -215,11 +215,11 @@ end
 function M.enable_focus_mode()
   vim.diagnostic.disable()
 
-  if vim.g.copilot_enabled == 1 then
+  if vim.api.nvim_call_function("g:copilot#Enabled", {}) == 1 then
     vim.cmd("Copilot disable")
   end
 
-  if vim.g.tabby_trigger_mode ~= "auto" then
+  if vim.g.loaded_tabby ~= nil or vim.g.tabby_trigger_mode == "auto" then
     vim.g.tabby_trigger_mode = "manual"
   end
 
