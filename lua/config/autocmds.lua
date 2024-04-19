@@ -92,7 +92,7 @@ if vim.lsp.inlay_hint ~= nil then
       end
 
       if client ~= nil and client.server_capabilities.inlayHintProvider then
-        vim.lsp.inlay_hint.enable(args.buf, vim.env.NVIM_FOCUS_MODE == nil)
+        vim.lsp.inlay_hint.enable(vim.env.NVIM_FOCUS_MODE == nil)
       end
     end,
   })
