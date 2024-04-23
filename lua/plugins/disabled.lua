@@ -1,8 +1,14 @@
--- NOTE: Treesitter is known (at least to me) to be slow, so we disable it,
--- and can be toggled back here.
+-- NOTE: Treesitter is known (at least to me) to be very slow,
+-- so it can be toggled with an env variable
 local enable_ts = vim.env.NVIM_TS_ENABLE ~= nil
+
+-- NOTE: Noice is awesome but some plugins when they install
+-- they use something to capture input from the bottom status
+-- that doesn't work sometimes, so we can disable it with
+-- an env variable
 local enable_noice = vim.env.NVIM_NOICE_DISABLE == nil
 
+-- NOTE: The Leetcode plugin requires Treesitter
 local has_leetcode = false
 for _, arg in ipairs(vim.v.argv) do
   if arg == "leetcode.nvim" then
