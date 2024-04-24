@@ -1,15 +1,20 @@
+local treesitter_enabled_langs = {
+  "hyprlang",
+  "nim",
+}
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    ft = { "hyprlang" },
+    ft = treesitter_enabled_langs,
+    cmd = { "TSEnable", "TSBufEnable" },
     -- stylua: ignore
     event = function() return {} end,
     opts = {
       highlight = {
         enable = true,
         disable = function(lang)
-          -- add more langs later, as needed
-          return lang ~= "hyprlang"
+          return not vim.tbl_contains(treesitter_enabled_langs, lang)
         end,
       },
       indent = {

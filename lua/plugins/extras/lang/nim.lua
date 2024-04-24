@@ -45,6 +45,16 @@ return {
     ft = { "nim" },
   },
   {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == "table" then
+        vim.list_extend(opts.ensure_installed, { "nim", "nim_format_string" })
+      else
+        opts.ensure_installed = { "nim", "nim_format_string" }
+      end
+    end,
+  },
+  {
     "mfussenegger/nvim-dap",
     opts = function()
       local dap = require("dap")
