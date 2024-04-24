@@ -81,7 +81,7 @@ local function toggle_inlay_hints()
 
     local value = not vim.lsp.inlay_hint.is_enabled(0)
 
-    vim.lsp.inlay_hint.enable(0, value)
+    vim.lsp.inlay_hint.enable(value)
 
     print(value and "Inlay hints enabled" or "Inlay hints disabled")
   end
