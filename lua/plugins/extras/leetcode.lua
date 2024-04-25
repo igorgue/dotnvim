@@ -9,6 +9,30 @@ end
 return {
   desc = "Leetcode",
   {
+    "nvim-treesitter/nvim-treesitter",
+    event = { "VeryLazy", "LazyFile" },
+    opts = function()
+      return {
+        highlight = {
+          enable = true,
+          disable = false,
+        },
+        indent = {
+          enable = true,
+        },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "<C-space>",
+            node_incremental = "<C-space>",
+            scope_incremental = true,
+            node_decremental = "<bs>",
+          },
+        },
+      }
+    end,
+  },
+  {
     "kawre/leetcode.nvim",
     lazy = not has_leetcode,
     cmd = { "Leet" },
