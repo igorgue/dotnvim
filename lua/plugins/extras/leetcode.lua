@@ -43,6 +43,10 @@ return {
       if has_leetcode then
         local wk = require("which-key")
 
+        -- NOTE: for some reason you need to wait
+        -- for the whichkey menu for this keybind to work
+        -- probably cause LazyVim sets this up with
+        -- after with the nvim api...
         pcall(vim.api.nvim_del_keymap, "n", "<leader>l")
 
         wk.register({
