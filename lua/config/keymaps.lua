@@ -103,5 +103,5 @@ wk.register({
   ["<leader>="] = { force_format, "Force Format Document", mode = { "n", "v" } },
   ["<leader>uh"] = { toggle_inlay_hints, "Toggle Inlay Hints", mode = "n" },
   ["<leader>o"] = { "<cmd>Trouble symbols toggle focus=false<cr>", "Symbols (Trouble)", mode = "n" },
-  ["<leader>uW"] = { require("utils").ui.toggle_winbar(), "Toggle Winbar", mode = "n" },
+  ["<leader>uW"] = { require("utils").ui.toggle_winbar, "Toggle Winbar", mode = "n" },
 })
