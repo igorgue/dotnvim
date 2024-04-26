@@ -82,8 +82,7 @@ return {
             end
 
             local argv = {}
-
-            arg = vim.fn.input(string.format("Arguments: "))
+            local arg = vim.fn.input(string.format("Arguments: "))
 
             for a in string.gmatch(arg, "%S+") do
               table.insert(argv, a)
@@ -113,8 +112,7 @@ return {
           end,
           args = function()
             local argv = {}
-
-            arg = vim.fn.input(string.format("New Arguments: "))
+            local arg = vim.fn.input(string.format("New Arguments: "))
 
             for a in string.gmatch(arg, "%S+") do
               table.insert(argv, a)

@@ -58,21 +58,26 @@ return {
     "mfussenegger/nvim-dap",
     opts = function()
       local dap = require("dap")
-      dap.configurations["nim"] = {
-        {
-          type = "codelldb",
-          request = "launch",
-          name = "Run Nim program",
-          program = function()
-            vim.cmd("!nimble build")
-            local command = "fd . -t x"
-            local bin_location = io.popen(command, "r")
+      local home = vim.env.HOME
 
-            if bin_location ~= nil then
-              return vim.fn.getcwd() .. "/" .. bin_location:read("*a"):gsub("[\n\r]", "")
-            else
-              return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-            end
+      dap.adapters.gdb = {
+        type = "executable",
+        command = "gdb",
+        args = {
+          "-i",
+          "dap",
+          "-eval-command",
+          "source " .. home .. "/.asdf/installs/nim/2.0.2/tools/debug/nim-gdb.py",
+        },
+      }
+
+      dap.configurations.nim = {
+        {
+          name = "Launch",
+          type = "gdb",
+          request = "launch",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
           end,
           args = function()
             if vim.g.nim_dap_argv ~= nil then
@@ -80,8 +85,7 @@ return {
             end
 
             local argv = {}
-
-            arg = vim.fn.input(string.format("Arguments: "))
+            local arg = vim.fn.input("New Arguments: ", "", "file")
 
             for a in string.gmatch(arg, "%S+") do
               table.insert(argv, a)
@@ -92,27 +96,18 @@ return {
             return argv
           end,
           cwd = "${workspaceFolder}",
-          stopOnEntry = false,
+          stopAtBeginningOfMainSubprogram = false,
         },
         {
-          type = "codelldb",
+          name = "Launch (new args)",
+          type = "gdb",
           request = "launch",
-          name = "Run Nim program (new args)",
           program = function()
-            vim.cmd("make")
-            local command = "fd . -t x ."
-            local bin_location = io.popen(command, "r")
-
-            if bin_location ~= nil then
-              return vim.fn.getcwd() .. "/" .. bin_location:read("*a"):gsub("[\n\r]", "")
-            else
-              return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-            end
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
           end,
           args = function()
             local argv = {}
-
-            arg = vim.fn.input(string.format("New Arguments: "))
+            local arg = vim.fn.input("New Arguments: ", "", "file")
 
             for a in string.gmatch(arg, "%S+") do
               table.insert(argv, a)
@@ -123,14 +118,7 @@ return {
             return argv
           end,
           cwd = "${workspaceFolder}",
-          stopOnEntry = false,
-        },
-        {
-          type = "codelldb",
-          request = "attach",
-          name = "Attach to process",
-          pid = require("dap.utils").pick_process,
-          cwd = "${workspaceFolder}",
+          stopAtBeginningOfMainSubprogram = false,
         },
       }
     end,
