@@ -1,6 +1,7 @@
 local treesitter_enabled_langs = {
   "hyprlang",
   "nim",
+  "markdown",
 }
 
 return {
