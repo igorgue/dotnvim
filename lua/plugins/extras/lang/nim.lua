@@ -10,6 +10,7 @@ vim.api.nvim_create_autocmd("FileType", {
       init_options = {},
       name = "nim",
       filetypes = { "nim" },
+      autostart = true,
       cmd = { "nimlangserver" },
       root_dir = vim.fn.getcwd(),
       single_file_support = true,
