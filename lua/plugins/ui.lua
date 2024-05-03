@@ -153,11 +153,7 @@ return {
       {
         "<leader>uS",
         function()
-          if vim.opt.laststatus:get() == 0 then
-            vim.opt.laststatus = 3
-          else
-            vim.opt.laststatus = 0
-          end
+          vim.opt.laststatus = vim.opt.laststatus:get() == 0 and 3 or 0
         end,
         desc = "Toggle Statusline",
       },
