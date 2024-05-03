@@ -17,6 +17,7 @@ wk.register({
   c = { "<cmd>Cloc<cr>", "Cloc Count Lines" },
   g = { "<cmd>Lazygit<cr>", "Lazygit" },
   l = { "<cmd>Lazy<cr>", "Lazy" },
+  C = { "<cmd>ChessTui<cr>", "Chess TUI" },
 }, {
   prefix = "<leader><cr>",
 })
