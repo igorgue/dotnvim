@@ -26,7 +26,6 @@ function M.refresh_ui()
   vim.cmd([[
     nohlsearch
     diffupdate
-    normal! <C-L>
   ]])
 
   if vim.g.loaded_dadbod then
