@@ -161,11 +161,7 @@ function M.toggle_focus_mode()
   require("utils.ui").refresh_ui()
 
   ---@diagnostic disable-next-line: undefined-field
-  if vim.opt.laststatus:get() == 0 then
-    vim.opt.laststatus = 3
-  else
-    vim.opt.laststatus = 0
-  end
+  vim.opt.laststatus = vim.opt.laststatus:get() == 0 and 3 or 0
 
   if vim.g.copilot_enabled ~= nil then
     if vim.g.copilot_enabled == 0 then
@@ -187,6 +183,8 @@ function M.toggle_focus_mode()
   pcall(vim.cmd, "IlluminateToggle")
 
   M.toggle_winbar()
+
+  pcall(vim.cmd, "Gitsigns toggle_signs false")
 
   -- NOTE: this was annoying, evaluate
   -- if vim.opt_local.ft:get() == "c" then
@@ -255,6 +253,7 @@ function M.enable_focus_mode()
     callback = function()
       ---@diagnostic disable-next-line: param-type-mismatch
       pcall(vim.cmd, "IlluminatePause")
+      pcall(vim.cmd, "Gitsigns toggle_signs false")
     end,
     once = true,
   })

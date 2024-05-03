@@ -121,4 +121,10 @@ return {
     -- enabled = vim.fn.has("nvim-0.10.0") == 0,
     config = true,
   },
+  {
+    "folke/todo-comments.nvim",
+    opts = {
+      signs = false,
+    },
+  },
 }
