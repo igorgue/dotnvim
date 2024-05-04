@@ -158,8 +158,6 @@ function M.lualine_theme()
 end
 
 function M.toggle_focus_mode()
-  require("utils.ui").refresh_ui()
-
   ---@diagnostic disable-next-line: undefined-field
   vim.opt.laststatus = vim.opt.laststatus:get() == 0 and 3 or 0
 
@@ -172,11 +170,7 @@ function M.toggle_focus_mode()
   end
 
   if vim.g.loaded_tabby ~= nil then
-    if vim.g.tabby_trigger_mode == "manual" then
-      vim.g.tabby_trigger_mode = "auto"
-    else
-      vim.g.tabby_trigger_mode = "manual"
-    end
+    vim.g.tabby_trigger_mode = vim.g.tabby_trigger_mode == "manual" and "auto" or "manual"
   end
 
   ---@diagnostic disable-next-line: param-type-mismatch
@@ -184,7 +178,7 @@ function M.toggle_focus_mode()
 
   M.toggle_winbar()
 
-  pcall(vim.cmd, "Gitsigns toggle_signs false")
+  pcall(vim.cmd, "Gitsigns toggle_signs")
 
   -- NOTE: this was annoying, evaluate
   -- if vim.opt_local.ft:get() == "c" then
@@ -194,15 +188,13 @@ function M.toggle_focus_mode()
   -- end
 
   Util.toggle.diagnostics()
+
+  require("utils.ui").refresh_ui()
 end
 
 function M.toggle_winbar()
   ---@diagnostic disable-next-line: undefined-field
-  if vim.opt.winbar:get() == "" then
-    vim.opt.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
-  else
-    vim.opt.winbar = ""
-  end
+  vim.opt.winbar = vim.opt.winbar:get() == "" and "%{%v:lua.require'nvim-navic'.get_location()%}" or ""
 end
 
 local function disable_winbar()
@@ -210,54 +202,8 @@ local function disable_winbar()
 end
 
 function M.enable_focus_mode()
-  vim.diagnostic.disable()
   vim.opt.laststatus = 0
-
-  vim.g.tabby_trigger_mode = "manual"
-
   pcall(vim.cmd, "Copilot disable")
-  pcall(vim.cmd, "IlluminatePause")
-
-  vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
-    pattern = {
-      "!alpha",
-      "!dbui",
-      "!DiffviewFileHistory",
-      "!DiffviewFiles",
-      "!dirbuf",
-      "!dirvish",
-      "!DressingSelect",
-      "!fugitive",
-      "!fugitive",
-      "!git",
-      "!lazy",
-      "!lir",
-      "!lspinfo",
-      "!mason",
-      "!minifiles",
-      "!neogitstatus",
-      "!neo-tree",
-      "!notify",
-      "!NvimTree",
-      "!Outline",
-      "!packer",
-      "!SidebarNvim",
-      "!spectre_panel",
-      "!spectre_panel",
-      "!TelescopePrompt",
-      "!TelescopePrompt",
-      "!toggleterm",
-      "!toggleterm",
-      "!Trouble",
-    },
-    callback = function()
-      ---@diagnostic disable-next-line: param-type-mismatch
-      pcall(vim.cmd, "IlluminatePause")
-      pcall(vim.cmd, "Gitsigns toggle_signs false")
-    end,
-    once = true,
-  })
-
   vim.opt.winbar = ""
 end
 

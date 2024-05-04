@@ -26,6 +26,17 @@ return {
   },
   {
     "RRethy/vim-illuminate",
+    -- stylua: ignore
+    event = function () return nil end,
+    cmd = {
+      "IlluminatePause",
+      "IlluminateResume",
+      "IlluminateToggle",
+      "IlluminatePauseBuf",
+      "IlluminateResumeBuf",
+      "IlluminateToggleBuf",
+    },
+    -- this needs to be disable by default and only turn on toggle or other commands
     config = function(_, opts)
       require("illuminate").configure(opts)
 

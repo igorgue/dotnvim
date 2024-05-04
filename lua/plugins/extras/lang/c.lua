@@ -26,16 +26,6 @@ return {
       {
         "p00f/clangd_extensions.nvim",
         config = function(plugin)
-          require("clangd_extensions").setup(plugin.opts)
-          require("lazyvim.util").lsp.on_attach(function(client, _)
-            if client.name == "clangd" then
-              if vim.env.NVIM_FOCUS_MODE == nil then
-                require("clangd_extensions.inlay_hints").setup_autocmd()
-                require("clangd_extensions.inlay_hints").set_inlay_hints()
-              end
-            end
-          end)
-
           local register_keys_and_cmp = function()
             local cmp = require("cmp")
             local wk = require("which-key")

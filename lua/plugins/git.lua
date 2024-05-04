@@ -36,6 +36,7 @@ return {
     -- stylua: ignore
     enabled = not vim.o.diff,
     opts = {
+      signcolumn = false,
       signs = {
         add = { text = "▌" },
         change = { text = "▌" },
