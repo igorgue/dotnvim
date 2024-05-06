@@ -59,7 +59,7 @@ return {
       })
     end,
     opts = {
-      delay = 250,
+      delay = 500,
       providers = {
         "lsp",
         "treesitter",
