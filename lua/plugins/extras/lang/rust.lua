@@ -23,7 +23,7 @@ return {
           vim.api.nvim_create_autocmd("BufReadPost", { pattern = "Cargo.toml", callback = register_keys })
         end,
         opts = {
-          src = {
+          completion = {
             cmp = {
               enabled = true,
             },
