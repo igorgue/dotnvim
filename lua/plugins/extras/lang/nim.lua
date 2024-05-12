@@ -58,6 +58,10 @@ return {
           type = "gdb",
           request = "launch",
           program = function()
+            if vim.g.nim_dap_build_command ~= nil then
+              vim.fn.system(vim.g.nim_dap_build_command)
+            end
+
             if vim.g.nim_dap_program ~= nil then
               return vim.g.nim_dap_program
             end
@@ -90,6 +94,10 @@ return {
           type = "gdb",
           request = "launch",
           program = function()
+            if vim.g.nim_dap_build_command ~= nil then
+              vim.fn.system(vim.g.nim_dap_build_command)
+            end
+
             vim.g.nim_dap_program = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
 
             return vim.g.nim_dap_program

@@ -1,5 +1,9 @@
 return {
   {
+    "L3MON4D3/LuaSnip",
+    enabled = vim.version().major < 10,
+  },
+  {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
@@ -11,13 +15,17 @@ return {
         {
           { name = "nvim_lsp" },
           { name = "nvim_lua" },
-          { name = "luasnip" },
         },
         {
           { name = "buffer" },
           { name = "path" },
         },
       }
+
+      if vim.version().major < 10 then
+        vim.list_extend(sources[1], { { name = "luasnip" } })
+      end
+
       local mappings = {
         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -27,23 +35,64 @@ return {
         ["<C-e>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
         ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-        ["<C-j>"] = cmp.mapping(function(fallback)
+      }
+
+      if vim.version().major < 10 then
+        mappings["<C-j>"] = cmp.mapping(function(fallback)
           local luasnip = require("luasnip")
           if luasnip.expand_or_jumpable() then
             luasnip.expand_or_jump()
           else
             fallback()
           end
-        end),
-        ["<C-k>"] = cmp.mapping(function(fallback)
+        end)
+        mappings["<C-k>"] = cmp.mapping(function(fallback)
           local luasnip = require("luasnip")
           if luasnip.jumpable(-1) then
             luasnip.jump(-1)
           else
             fallback()
           end
-        end),
-      }
+        end)
+      else
+        mappings["<C-j>"] = {
+          function()
+            if vim.snippet.active({ direction = 1 }) then
+              vim.schedule(function()
+                vim.snippet.jump(1)
+              end)
+              return
+            end
+            return "<C-j>"
+          end,
+          expr = true,
+          silent = true,
+          mode = "i",
+        }
+        mappings["<C-j>"] = {
+          function()
+            vim.schedule(function()
+              vim.snippet.jump(1)
+            end)
+          end,
+          silent = true,
+          mode = "s",
+        }
+        mappings["<C-k>"] = {
+          function()
+            if vim.snippet.active({ direction = -1 }) then
+              vim.schedule(function()
+                vim.snippet.jump(-1)
+              end)
+              return
+            end
+            return "<S-Tab>"
+          end,
+          expr = true,
+          silent = true,
+          mode = { "i", "s" },
+        }
+      end
 
       local winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:Search"
 
@@ -71,7 +120,7 @@ return {
           { name = "buffer" },
           { name = "path" },
         },
-        view = { entries = { follow_cursor = false } },
+        view = { entries = { follow_cursor = false, selection_order = "near_cursor", name = "native" } },
       })
 
       cmp.setup.cmdline(":", {
@@ -81,7 +130,7 @@ return {
           { name = "path" },
           { name = "buffer" },
         }),
-        view = { entries = { follow_cursor = false } },
+        view = { entries = { follow_cursor = false, selection_order = "near_cursor", name = "native" } },
       })
 
       opts.window = {
