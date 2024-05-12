@@ -69,6 +69,11 @@ return {
     "mrcjkb/rustaceanvim",
     ft = { "rust" },
     opts = {
+      tools = {
+        float_win_config = {
+          border = "rounded",
+        },
+      },
       server = {
         on_attach = function(_, bufnr)
           -- register which-key mappings
