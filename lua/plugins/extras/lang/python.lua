@@ -117,6 +117,7 @@ return {
     end,
     opts = {
       dap_enabled = true,
+      notify_user_on_activate = false,
     },
   },
   {
