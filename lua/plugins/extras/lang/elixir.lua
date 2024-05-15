@@ -64,6 +64,7 @@ return {
         credo = { enable = false },
         elixirls = {
           enable = true,
+          tag = "v0.21.1",
           settings = {
             elixirls.settings({
               dialyzerEnabled = false,
