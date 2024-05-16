@@ -65,11 +65,6 @@ return {
       },
       { "jsborjesson/vim-uppercase-sql", ft = sql_ft },
     },
-    keys = {
-      { "<leader><cr>d", "<cmd>DBUIToggle<cr>", desc = "Dadbod Database Manager" },
-      -- Dadbod has its own keymaps, see :h dadbod-ui for all keymaps when dadbod is loaded.
-      -- or press `?` in the dadbod_ui drawer
-    },
     init = function()
       local data_path = vim.fn.stdpath("data")
 

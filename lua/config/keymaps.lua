@@ -12,6 +12,7 @@ pcall(vim.api.nvim_del_keymap, "n", "<leader>gg")
 
 wk.register({
   b = { "<cmd>Btop<cr>", "Btop Process Manager" },
+  d = { "<cmd>DBUIToggle<cr>", "Dadbod Database Manager" }
   n = { "<cmd>Nap<cr>", "Nap Code Snippets" },
   r = { "<cmd>Ranger<cr>", "Ranger File Manager" },
   c = { "<cmd>Cloc<cr>", "Cloc Count Lines" },
