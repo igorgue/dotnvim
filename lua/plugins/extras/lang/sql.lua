@@ -30,10 +30,9 @@ return {
     end,
   },
   {
-    "kristijanhusak/vim-dadbod-ui",
-    cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
+    "tpope/vim-dadbod",
+    cmd = "DB",
     dependencies = {
-      "tpope/vim-dadbod",
       {
         "kristijanhusak/vim-dadbod-completion",
         ft = sql_ft,
@@ -64,6 +63,13 @@ return {
         end,
       },
       { "jsborjesson/vim-uppercase-sql", ft = sql_ft },
+    },
+  },
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
+    dependencies = {
+      "tpope/vim-dadbod",
     },
     init = function()
       local data_path = vim.fn.stdpath("data")
