@@ -7,6 +7,7 @@ return {
     },
     opts = function(_, opts)
       local cmp = require("cmp")
+
       local sources = {
         {
           { name = "nvim_lsp" },
@@ -29,6 +30,7 @@ return {
         ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
         ["<C-j>"] = cmp.mapping(function(fallback)
           local luasnip = require("luasnip")
+
           if luasnip.expand_or_jumpable() then
             luasnip.expand_or_jump()
           else
@@ -37,6 +39,7 @@ return {
         end),
         ["<C-k>"] = cmp.mapping(function(fallback)
           local luasnip = require("luasnip")
+
           if luasnip.jumpable(-1) then
             luasnip.jump(-1)
           else
@@ -71,6 +74,7 @@ return {
           { name = "buffer" },
           { name = "path" },
         },
+        ---@diagnostic disable-next-line: missing-fields
         view = { entries = { follow_cursor = false } },
       })
 
@@ -81,6 +85,7 @@ return {
           { name = "path" },
           { name = "buffer" },
         }),
+        ---@diagnostic disable-next-line: missing-fields
         view = { entries = { follow_cursor = false } },
       })
 
@@ -95,9 +100,7 @@ return {
       opts.mapping = cmp.mapping.preset.insert(mappings)
       opts.experimental = {}
       opts.view = { docs = { auto_open = false }, entries = { follow_cursor = true } }
-      opts.completion = {
-        autocomplete = false,
-      }
+      opts.completion = { autocomplete = false }
       opts.formatting = {}
 
       return opts

@@ -81,7 +81,7 @@ local function toggle_inlay_hints()
       return
     end
 
-    local value = not vim.lsp.inlay_hint.is_enabled(0)
+    local value = not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 })
 
     vim.lsp.inlay_hint.enable(value)
 

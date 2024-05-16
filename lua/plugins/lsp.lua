@@ -5,7 +5,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
         vim.lsp.codelens.refresh()
       end
     end)
-  end
+  end,
 })
 
 return {
@@ -37,9 +37,8 @@ return {
       -- ui_windows.default_options.border = "single"
       ui_windows.default_options.border = "rounded"
 
-      opts.format = {
-        timeout_ms = 5000,
-      }
+      opts.format = { timeout_ms = 5000 }
+      opts.inlay_hints = { enabled = false }
 
       return opts
     end,
