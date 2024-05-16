@@ -93,7 +93,7 @@ return {
             },
           }, { mode = "n", buffer = bufnr })
         end,
-        settings = {
+        default_settings = {
           -- rust-analyzer language server configuration
           ["rust-analyzer"] = {
             assist = {
@@ -212,7 +212,9 @@ return {
             cargo = {
               allFeatures = true,
               loadOutDirsFromCheck = true,
-              runBuildScripts = true,
+              buildScripts = {
+                enable = true,
+              },
             },
             -- Add clippy lints for Rust.
             checkOnSave = {
