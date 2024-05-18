@@ -27,7 +27,7 @@ return {
             vim.lsp.buf.hover()
             vim.defer_fn(function()
               require("utils.ui").refresh_ui()
-            end, 30)
+            end, 500)
           end,
           desc = "Hover",
         },

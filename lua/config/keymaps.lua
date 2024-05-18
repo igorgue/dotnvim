@@ -92,21 +92,22 @@ local function toggle_inlay_hints()
 end
 
 wk.register({
-  K = { vim.lsp.buf.hover, "Hover" },
   ["<esc>"] = { require("utils").ui.refresh_ui, "Refresh UI" },
   ["<A-/>"] = { "<cmd>WhichKey<cr>", "Help", mode = { "n", "i" } },
   ["<A-e>"] = { "<cmd>Telescope emoji<cr>", "Emoji Select", mode = { "n", "i" } },
   ["<A-f>"] = { force_format, "Force Format Document", mode = { "n", "v", "i" } },
   ["<A-g>"] = { "<cmd>Telescope glyph<cr>", "Glyph Select", mode = { "n", "i" } },
   ["<C-S-T>"] = { require("utils").ui.open_terminal_tab, "Open Terminal", mode = { "n", "v", "i" } },
-  ["<C-f>"] = { require("utils").ui.toggle_focus_mode, "Focus Mode", mode = { "n", "v", "i" } },
   ["<C-g>"] = { require("utils").file_info, "File Info", mode = "n" },
+  ["<leader>X"] = { "<cmd>LazyExtras<cr>", "Lazy Extras" },
   ["<leader>gg"] = { "<cmd>Lazygit<cr>", "Lazygit" },
-  ["<leader>ul"] = { toggle_line_numbers, "Toggle Line Numbers / Cursorline" },
   ["<leader>F"] = { force_format, "Force Format Document", mode = { "n", "v" } },
   ["<leader>="] = { force_format, "Force Format Document", mode = { "n", "v" } },
-  ["<leader>uh"] = { toggle_inlay_hints, "Toggle Inlay Hints", mode = "n" },
+  -- UI toggles
+  ["<C-f>"] = { require("utils").ui.toggle_focus_mode, "Focus Mode", mode = { "n", "v", "i" } },
   ["<leader>o"] = { "<cmd>Trouble symbols toggle focus=false<cr>", "Symbols (Trouble)", mode = "n" },
+  ["<leader>uh"] = { toggle_inlay_hints, "Toggle Inlay Hints", mode = "n" },
+  ["<leader>ul"] = { toggle_line_numbers, "Toggle Line Numbers / Cursorline" },
   ["<leader>uW"] = { require("utils").ui.toggle_winbar, "Toggle Winbar", mode = "n" },
-  ["<leader>uI"] = { require("utils").ui.toggle_lsp_references, "Toggle LspReferences", mode = "n" },
+  ["<leader>uR"] = { require("utils").ui.toggle_lsp_references, "Toggle LspReferences", mode = "n" },
 })
