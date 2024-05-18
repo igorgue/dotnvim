@@ -1,5 +1,4 @@
 local M = {}
-local Util = require("lazyvim.util")
 
 M.diagnostic_config = {
   -- float = { border = "single" },
@@ -176,9 +175,10 @@ function M.toggle_focus_mode()
   ---@diagnostic disable-next-line: param-type-mismatch
   pcall(vim.cmd, "IlluminateToggle")
 
+  M.toggle_lsp_references()
   M.toggle_winbar()
 
-  pcall(vim.cmd, "Gitsigns toggle_signs")
+  pcall(function() vim.cmd("Gitsigns toggle_signs") end)
 
   -- NOTE: this was annoying, evaluate
   -- if vim.opt_local.ft:get() == "c" then
@@ -197,14 +197,31 @@ function M.toggle_winbar()
   vim.opt.winbar = vim.opt.winbar:get() == "" and "%{%v:lua.require'nvim-navic'.get_location()%}" or ""
 end
 
+function M.toggle_lsp_references()
+  local hl_info = vim.api.nvim_get_hl(0, { name = "LspReferenceRead" })
+  if hl_info.link then
+    vim.api.nvim_set_hl(0, "LspReferenceText", {})
+    vim.api.nvim_set_hl(0, "LspReferenceRead", {})
+    vim.api.nvim_set_hl(0, "LspReferenceWrite", {})
+  else
+    vim.api.nvim_set_hl(0, "LspReferenceText", { link = "Visual" })
+    vim.api.nvim_set_hl(0, "LspReferenceRead", { link = "Visual" })
+    vim.api.nvim_set_hl(0, "LspReferenceWrite", { link = "Visual" })
+  end
+end
+
 local function disable_winbar()
   vim.opt.winbar = ""
 end
 
 function M.enable_focus_mode()
   vim.opt.laststatus = 0
-  pcall(vim.cmd, "Copilot disable")
+  pcall(function() vim.cmd("Copilot disable") end)
   vim.opt.winbar = ""
+
+  vim.api.nvim_set_hl(0, "LspReferenceText", {})
+  vim.api.nvim_set_hl(0, "LspReferenceRead", {})
+  vim.api.nvim_set_hl(0, "LspReferenceWrite", {})
 end
 
 function M.open_terminal_tab()

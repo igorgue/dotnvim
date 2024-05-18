@@ -29,6 +29,7 @@ return {
   { "ggandor/flit.nvim", enabled = false },
   { "ggandor/leap.nvim", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
+  { "RRethy/vim-illuminate", enabled = false },
   { "stevearc/conform.nvim", enabled = not vim.o.diff },
   -- treesitter and deps:
   { "nvim-treesitter/nvim-treesitter", enabled = enable_ts },

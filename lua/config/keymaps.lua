@@ -106,4 +106,5 @@ wk.register({
   ["<leader>uh"] = { toggle_inlay_hints, "Toggle Inlay Hints", mode = "n" },
   ["<leader>o"] = { "<cmd>Trouble symbols toggle focus=false<cr>", "Symbols (Trouble)", mode = "n" },
   ["<leader>uW"] = { require("utils").ui.toggle_winbar, "Toggle Winbar", mode = "n" },
+  ["<leader>uI"] = { require("utils").ui.toggle_lsp_references, "Toggle LspReferences", mode = "n" },
 })
