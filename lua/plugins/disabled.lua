@@ -31,11 +31,11 @@ return {
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
   { "RRethy/vim-illuminate", enabled = false },
   { "stevearc/conform.nvim", enabled = not vim.o.diff },
+  { "folke/noice.nvim", enabled = enable_noice },
   -- treesitter and deps:
   { "nvim-treesitter/nvim-treesitter", enabled = enable_ts },
   { "nvim-treesitter/nvim-treesitter-context", enabled = false },
   { "nvim-treesitter/nvim-treesitter-textobjects", enabled = false },
   { "JoosepAlviste/nvim-ts-context-commentstring", enabled = false },
   { "windwp/nvim-ts-autotag", enabled = false },
-  { "folke/noice.nvim", enabled = enable_noice },
 }
