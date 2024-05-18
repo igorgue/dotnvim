@@ -4,5 +4,4 @@ if vim.g.neovide then
   vim.o.guifont = "Iosevka Comfy:h18"
 end
 
-return {
-}
+return {}

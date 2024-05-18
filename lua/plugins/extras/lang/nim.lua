@@ -11,7 +11,7 @@ return {
   {
     "alaviss/nim.nvim",
     ft = { "nim" },
-    init = function() 
+    init = function()
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "nim",
         callback = function()
@@ -23,7 +23,7 @@ return {
           vim.opt_local.foldmethod = "manual"
         end,
       })
-    end
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter",

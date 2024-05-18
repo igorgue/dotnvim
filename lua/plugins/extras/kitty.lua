@@ -34,7 +34,8 @@ return {
   config = function(_, opts)
     local default = opts
     local cmd_output = vim.tbl_deep_extend("force", default, { kitty_get_text = { extent = "last_cmd_output" } })
-    local visited_cmd_output = vim.tbl_deep_extend("force", default, { kitty_get_text = { extent = "last_visited_cmd_output" } })
+    local visited_cmd_output =
+      vim.tbl_deep_extend("force", default, { kitty_get_text = { extent = "last_visited_cmd_output" } })
 
     require("kitty-scrollback").setup({
       default = default,
@@ -44,7 +45,7 @@ return {
   end,
   opts = {
     status_window = {
-      enabled = false
+      enabled = false,
       -- autoclose = true
     },
     paste_window = {

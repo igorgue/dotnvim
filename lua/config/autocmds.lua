@@ -21,7 +21,10 @@ vim.api.nvim_create_user_command("Lazygit", function()
 end, {})
 
 vim.api.nvim_create_user_command("ChessTui", function()
-  Util.terminal.open({ "chess-tui" }, { cwd = Util.root.get(), border = "rounded", args = { "-e", "/usr/bin/stockfish" } })
+  Util.terminal.open(
+    { "chess-tui" },
+    { cwd = Util.root.get(), border = "rounded", args = { "-e", "/usr/bin/stockfish" } }
+  )
 end, {})
 
 vim.api.nvim_create_user_command("Cloc", function()

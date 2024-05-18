@@ -178,7 +178,9 @@ function M.toggle_focus_mode()
   M.toggle_lsp_references()
   M.toggle_winbar()
 
-  pcall(function() vim.cmd("Gitsigns toggle_signs") end)
+  pcall(function()
+    vim.cmd("Gitsigns toggle_signs")
+  end)
 
   -- NOTE: this was annoying, evaluate
   -- if vim.opt_local.ft:get() == "c" then
@@ -216,7 +218,9 @@ end
 
 function M.enable_focus_mode()
   vim.opt.laststatus = 0
-  pcall(function() vim.cmd("Copilot disable") end)
+  pcall(function()
+    vim.cmd("Copilot disable")
+  end)
   vim.opt.winbar = ""
 
   vim.api.nvim_set_hl(0, "LspReferenceText", {})
