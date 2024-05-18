@@ -4,16 +4,10 @@ local ts_default_enabled_langs = {
   "markdown",
 }
 
-if type(vim.g.ts_enabled_langs) == "table" then
-  vim.list_extend(vim.g.ts_enabled_langs, ts_default_enabled_langs)
-else
-  vim.g.ts_enabled_langs = ts_default_enabled_langs
-end
-
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    ft = vim.g.ts_enabled_langs,
+    ft = ts_default_enabled_langs,
     cmd = { "TSEnable", "TSBufEnable" },
     -- stylua: ignore
     event = function() return {} end,
@@ -21,8 +15,7 @@ return {
       highlight = {
         enable = true,
         disable = function(lang)
-          vim.notify(vim.inspect(vim.g.treesitter_enabled_langs))
-          return not vim.tbl_contains(vim.g.treesitter_enabled_langs, lang)
+          return not vim.tbl_contains(ts_default_enabled_langs, lang)
         end,
       },
       indent = {
