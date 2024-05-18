@@ -27,6 +27,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     if vim.g.colors_name == "zaibatsu" then
       vim.cmd("hi! link WhichKeyFloat Normal")
       vim.cmd("hi! link LazyNormal Normal")
+      vim.cmd("hi! link NormalFloat Normal")
     else
       vim.cmd("hi! link WhichKeyFloat Visual")
     end
@@ -34,6 +35,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     if vim.fn.executable("kitty") and vim.env.KITTY_WINDOW_ID then
       if vim.g.colors_name == "ir_black" then
         vim.fn.system("kitty @ set-colors -a background=black")
+      elseif vim.g.colors_name == "zaibatsu" then
+        vim.fn.system("kitty @ set-colors -a background=#0E0024")
       end
     end
   end,
