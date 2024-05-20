@@ -43,7 +43,63 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   once = true,
 })
 
+vim.api.nvim_create_autocmd("Colorscheme", {
+  group = vim.api.nvim_create_augroup("custom_devicons_on_colorscheme", { clear = true }),
+  callback = function()
+    local function number_to_hex(number)
+      number = math.max(0, math.min(16777215, number))
+      local hex = string.format("%06X", number)
+      return "#" .. hex
+    end
+
+    local function get_hl(name)
+      local hl = vim.api.nvim_get_hl(0, {
+        name = name,
+      })
+
+      return number_to_hex(hl.fg)
+    end
+
+    local colors = {
+      get_hl("WarningMsg"),
+      get_hl("ErrorMsg"),
+      get_hl("MoreMsg"),
+      get_hl("Comment"),
+      get_hl("Type"),
+      get_hl("Identifier"),
+      get_hl("Constant"),
+      get_hl("Cursor"),
+      get_hl("Conditional"),
+      get_hl("Identifier"),
+      get_hl("Float"),
+      get_hl("Function"),
+      get_hl("Keyword"),
+      get_hl("Label"),
+      get_hl("Operator"),
+      get_hl("PreProc"),
+      get_hl("Special"),
+      get_hl("SpecialKey"),
+      get_hl("Statement"),
+      get_hl("String"),
+      get_hl("Todo"),
+      get_hl("Type"),
+    }
+
+    require("tiny-devicons-auto-colors").apply(colors)
+  end,
+})
+
 return {
+  {
+    "rachartier/tiny-devicons-auto-colors.nvim",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    event = "VeryLazy",
+    config = function()
+      require("tiny-devicons-auto-colors").setup({})
+    end,
+  },
   {
     -- includes catppuccin and tokyonight already
     "LazyVim/LazyVim",
