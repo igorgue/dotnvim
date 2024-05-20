@@ -74,11 +74,6 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
       return false
     end
 
-    vim.notify_once(
-      "File too large\n* formatting off\n" .. "* foldmethod manual\n" .. "* disable winbar",
-      vim.log.levels.WARN
-    )
-
     ---@diagnostic disable-next-line: inject-field
     vim.b.autoformat = false
     vim.opt_local.winbar = ""

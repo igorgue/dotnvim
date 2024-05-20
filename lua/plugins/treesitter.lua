@@ -2,6 +2,13 @@ local ts_default_enabled_langs = {
   "hyprlang",
   "nim",
   "markdown",
+  "elixir",
+  "eex",
+  "heex",
+  "surface",
+  "graphql",
+  "javascript",
+  "typescript",
 }
 
 return {
