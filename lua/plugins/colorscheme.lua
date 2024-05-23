@@ -45,16 +45,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
 return {
   {
-    "rachartier/tiny-devicons-auto-colors.nvim",
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-    },
-    event = "VeryLazy",
-    config = function()
-      require("tiny-devicons-auto-colors").setup({ autoreload = true })
-    end,
-  },
-  {
     -- includes catppuccin and tokyonight already
     "LazyVim/LazyVim",
     opts = {
