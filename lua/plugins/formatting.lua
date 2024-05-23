@@ -12,7 +12,7 @@ return {
         htmldjango = { "rustywind", "htmlbeautifier", "djlint", "curlylint" },
         xml = { "htmlbeautifier" },
         html = { "rustywind", "htmlbeautifier" },
-        elixir = { "mix" },
+        elixir = { "rustywind", "mix" },
         rust = { "rustfmt" },
         python = { "black", "isort", "ruff_format", "ruff_fix" },
         javascript = { "prettier" },

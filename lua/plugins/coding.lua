@@ -101,7 +101,6 @@ return {
       opts.experimental = {}
       opts.view = { docs = { auto_open = false }, entries = { follow_cursor = true } }
       opts.completion = { autocomplete = false }
-      opts.formatting = {}
 
       return opts
     end,
