@@ -1,10 +1,8 @@
 vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
   callback = function()
-    pcall(function()
-      if next(vim.lsp.codelens.get(vim.api.nvim_get_current_buf())) ~= nil then
-        vim.lsp.codelens.refresh()
-      end
-    end)
+    if next(vim.lsp.codelens.get(vim.api.nvim_get_current_buf())) ~= nil then
+      vim.lsp.codelens.refresh()
+    end
   end,
 })
 
