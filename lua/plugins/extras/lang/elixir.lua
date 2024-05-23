@@ -77,8 +77,9 @@ return {
               mixEnv = "dev",
               -- mixTarget = "host",
               -- projectDir = "",
-              signatureAfterComplete = false,
+              signatureAfterComplete = true,
               suggestSpecs = false,
+              enableTestLenses = false,
               log_level = vim.lsp.protocol.MessageType.Log,
               message_level = vim.lsp.protocol.MessageType.Log,
               trace = {
