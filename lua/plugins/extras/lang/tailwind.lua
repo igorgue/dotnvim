@@ -63,27 +63,29 @@ return {
   },
   {
     "luckasRanarison/tailwind-tools.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      {
+        "hrsh7th/nvim-cmp",
+        dependencies = {
+          "luckasRanarison/tailwind-tools.nvim",
+          "onsails/lspkind-nvim",
+        },
+        opts = function(_, opts)
+          opts.formatting = {
+            format = require("lspkind").cmp_format({
+              before = require("tailwind-tools.cmp").lspkind_format,
+            }),
+          }
+
+          return opts
+        end,
+      },
+    },
     opts = {
       document_color = {
         kind = "background",
       },
     },
-  },
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "luckasRanarison/tailwind-tools.nvim",
-      "onsails/lspkind-nvim",
-    },
-    opts = function(_, opts)
-      opts.formatting = {
-        format = require("lspkind").cmp_format({
-          before = require("tailwind-tools.cmp").lspkind_format,
-        }),
-      }
-
-      return opts
-    end,
   },
 }

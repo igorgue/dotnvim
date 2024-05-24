@@ -34,6 +34,7 @@ return {
   { "folke/noice.nvim", enabled = enable_noice },
   -- treesitter and deps:
   { "nvim-treesitter/nvim-treesitter", enabled = enable_ts },
+  { "luckasRanarison/tailwind-tools.nvim", enabled = enable_ts },
   { "nvim-treesitter/nvim-treesitter-context", enabled = false },
   { "nvim-treesitter/nvim-treesitter-textobjects", enabled = false },
   { "JoosepAlviste/nvim-ts-context-commentstring", enabled = false },
