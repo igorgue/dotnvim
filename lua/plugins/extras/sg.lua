@@ -20,7 +20,6 @@ return {
       "nvim-telescope/telescope.nvim",
     },
     lazy = false,
-    build = "nvim -l build/init.lua",
     opts = {
       on_attach = require("lazyvim.util").lsp.on_attach,
     },
