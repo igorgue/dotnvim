@@ -13,7 +13,6 @@ require("lazy").setup({
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- import local plugins from config
     { import = "plugins" },
-    { import = "lazyvim.plugins.extras.lazyrc" },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
