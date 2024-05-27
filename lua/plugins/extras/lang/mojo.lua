@@ -1,3 +1,9 @@
+vim.filetype.add({
+  extension = {
+    ["🔥"] = "mojo",
+  },
+})
+
 return {
   {
     "neovim/nvim-lspconfig",
