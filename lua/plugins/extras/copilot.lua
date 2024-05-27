@@ -14,6 +14,7 @@ return {
       vim.g.copilot_assume_mapped = true
       vim.g.copilot_filetypes = {
         ["*"] = true,
+        ["copilot-chat"] = false,
         TelescopeResults = false,
         TelescopePrompt = false,
       }
@@ -51,6 +52,20 @@ return {
         desc = "Copilot manual trigger",
         mode = "i",
       },
+    },
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    opts = {
+      show_help = false,
+      mappings = {
+        submit_prompt = {
+          insert = "<C-CR>",
+        },
+      },
+    },
+    keys = {
+      { "<C-;>", "<cmd>CopilotChatToggle<cr>", desc = "Toggle (CopilotChat)", mode = { "n", "v", "i" } },
     },
   },
 }

@@ -26,7 +26,6 @@ return {
     keys = {
       { "<leader>se", fuzzy_search_results, desc = "Sourcegraph search" },
       { "<leader>ai", "<cmd>CodyToggle<cr>", desc = "Cody toggle" },
-      { "<C-;>", "<cmd>CodyToggle<cr>", desc = "Cody toggle", mode = { "n", "i" } },
     },
   },
 }
