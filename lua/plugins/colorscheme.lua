@@ -1,6 +1,6 @@
 -- complete a few colorschemes
 vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = { "zaibatsu", "caret", "candy", "ir_black", "ir_blue", "ir_dark" },
+  pattern = { "zaibatsu", "caret", "candy", "ir_black", "ir_blue", "ir_dark", "catppuccin-mocha" },
   callback = function()
     vim.cmd("hi SignColumn guibg=NONE")
     vim.cmd("hi! link WinBar Normal")
@@ -35,6 +35,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     if vim.fn.executable("kitty") and vim.env.KITTY_WINDOW_ID then
       if vim.g.colors_name == "ir_black" then
         vim.fn.system("kitty @ set-colors -a background=black")
+      elseif vim.g.colors_name == "catppuccin-mocha" then
+        vim.fn.system("kitty @ set-colors -a background=#1E1E2F")
       elseif vim.g.colors_name == "zaibatsu" then
         vim.fn.system("kitty @ set-colors -a background=#0E0024")
       end

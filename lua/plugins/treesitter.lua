@@ -9,6 +9,8 @@ local ts_default_enabled_langs = {
   "graphql",
   "javascript",
   "typescript",
+  "c",
+  "cpp",
 }
 
 return {
