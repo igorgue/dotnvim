@@ -19,16 +19,7 @@ return {
         { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },
         { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
         { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Goto Implementation" },
-        {
-          "K",
-          function()
-            vim.lsp.buf.hover()
-            vim.defer_fn(function()
-              require("utils.ui").refresh_ui()
-            end, 500)
-          end,
-          desc = "Hover",
-        },
+        { "K", vim.lsp.buf.hover, desc = "Hover" },
         { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
         { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
         { "gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },

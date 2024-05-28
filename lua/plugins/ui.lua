@@ -528,4 +528,14 @@ return {
       require("window-picker").setup()
     end,
   },
+  {
+    "folke/noice.nvim",
+    opts = {
+      lsp = {
+        hover = {
+          silent = true,
+        },
+      },
+    },
+  },
 }
