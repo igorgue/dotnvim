@@ -11,6 +11,7 @@ local ts_default_enabled_langs = {
   "typescript",
   "c",
   "cpp",
+  "rust",
 }
 
 return {
