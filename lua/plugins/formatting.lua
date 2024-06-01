@@ -16,6 +16,8 @@ return {
         rust = { "rustfmt" },
         python = { "black", "isort", "ruff_format", "ruff_fix" },
         javascript = { "prettier" },
+        jsonc = { "prettier" },
+        json = { "prettier" },
         typescript = { "prettier" },
         zsh = { "shfmt" },
         sh = { "shfmt" },

@@ -18,6 +18,22 @@ return {
     event = "BufReadPre requirements*.txt",
   },
   {
+    "vrslev/cmp-pypi",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      {
+        "hrsh7th/nvim-cmp",
+        opts = function(_, opts)
+          local cmp = require("cmp")
+          opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
+            { name = "pypi", keyword_length = 4 },
+          }))
+        end,
+      },
+    },
+    event = "BufReadPost pyproject.toml",
+  },
+  {
     "williamboman/mason.nvim",
     optional = true,
     opts = function(_, opts)

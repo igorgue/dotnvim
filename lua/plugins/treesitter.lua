@@ -1,18 +1,19 @@
-local ts_default_enabled_langs = {
-  "hyprlang",
-  "nim",
-  "markdown",
-  "elixir",
-  "eex",
-  "heex",
-  "surface",
-  "graphql",
-  "javascript",
-  "typescript",
-  "c",
-  "cpp",
-  "rust",
-}
+-- local ts_default_enabled_langs = {
+--   "hyprlang",
+--   "nim",
+--   "markdown",
+--   "elixir",
+--   "eex",
+--   "heex",
+--   "surface",
+--   "graphql",
+--   "javascript",
+--   "typescript",
+--   "c",
+--   "cpp",
+--   "rust",
+--   "toml",
+-- }
 
 return {
   {
@@ -24,9 +25,9 @@ return {
     opts = {
       highlight = {
         enable = true,
-        disable = function(lang)
-          return not vim.tbl_contains(ts_default_enabled_langs, lang)
-        end,
+        -- disable = function(lang)
+        --   return not vim.tbl_contains(ts_default_enabled_langs, lang)
+        -- end,
       },
       indent = {
         enable = false,

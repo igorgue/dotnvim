@@ -13,6 +13,7 @@ return {
           { name = "nvim_lsp" },
           { name = "nvim_lua" },
           { name = "luasnip" },
+          { name = "pypi", keyword_length = 4 },
         },
         {
           { name = "buffer" },
