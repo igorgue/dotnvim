@@ -79,11 +79,11 @@ return {
           -- register which-key mappings
           local wk = require("which-key")
           wk.register({
-            ["<leader>cR"] = {
+            ["<leader>ca"] = {
               function()
                 vim.cmd.RustLsp("codeAction")
               end,
-              "Code Action",
+              "Code Actions (Rust)",
             },
             ["<leader>dr"] = {
               function()
