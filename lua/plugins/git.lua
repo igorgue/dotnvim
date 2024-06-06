@@ -30,6 +30,9 @@ return {
     dependencies = {
       "tpope/vim-git",
     },
+    init = function()
+      vim.api.nvim_create_user_command("Gblame", "Git blame", {})
+    end,
   },
   {
     "lewis6991/gitsigns.nvim",
