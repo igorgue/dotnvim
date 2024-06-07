@@ -4,7 +4,7 @@ return {
     dependencies = {
       "Tetralux/odin.vim",
     },
-    ft = { "odin" },
+    ft = "odin",
     opts = {
       servers = {
         ols = {},

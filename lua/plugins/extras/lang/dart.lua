@@ -15,15 +15,7 @@ return {
     -- stylua: ignore
     enabled = not vim.o.diff,
     dependencies = {
-      {
-        "dart-lang/dart-vim-plugin",
-        init = function()
-          vim.g.dart_style_guide = 2
-          vim.g.dart_html_in_string = true
-          vim.g.dart_trailing_comma_indent = true
-          vim.g.dartfmt_options = { "--fix" }
-        end,
-      },
+      "dart-lang/dart-vim-plugin",
       "Nash0x7E2/awesome-flutter-snippets",
     },
     opts = {
