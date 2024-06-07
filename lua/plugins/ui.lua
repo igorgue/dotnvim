@@ -25,7 +25,7 @@ return {
             { action = "Telescope live_grep", desc = " find text", icon = " ", key = "g" },
             { action = [[lua LazyVim.telescope.config_files()()]], desc = " Config", icon = " ", key = "c" },
             { action = "Lazy", desc = " lazy", icon = "󰒲 ", key = "l" },
-            { action = "LazyExtras", desc = " lazy extras", icon = " ", key = "e" },
+            { action = "LazyExtras", desc = " lazy extras", icon = " ", key = "x" },
             { action = "lua require('lazyvim.util').terminal.open()", desc = " terminal", icon = " ", key = "t" },
             { action = "ene | DBUI", desc = " database", icon = " ", key = "d" },
             { action = "qa", desc = " quit", icon = " ", key = "q" },
