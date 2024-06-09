@@ -57,7 +57,7 @@ return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     opts = {
-      show_help = false,
+      show_help = true,
       mappings = {
         submit_prompt = {
           insert = "<C-CR>",
