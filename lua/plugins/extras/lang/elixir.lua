@@ -85,6 +85,7 @@ return {
   {
     "mfussenegger/nvim-dap",
     config = function()
+      -- TODO: this needs to use the one on elixirtools not mason's
       local mason = (os.getenv("HOME") or "") .. "/.local/share/nvim/mason"
       local dap = require("dap")
 
