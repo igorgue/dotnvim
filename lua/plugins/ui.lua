@@ -18,7 +18,7 @@ return {
           header = vim.split(logo, "\n"),
           center = {
             { action = "ene | startinsert", desc = " new file", icon = " ", key = "n" },
-            { action = "<cmd>FzfLua oldfiles<cr>", desc = " recent files", icon = " ", key = "r" },
+            { action = "FzfLua oldfiles", desc = " recent files", icon = " ", key = "r" },
             { action = 'lua require("persistence").load()', desc = " restore session", icon = " ", key = "s" },
             { action = LazyVim.pick("auto"), desc = " find file", icon = " ", key = "f" },
             { action = "Telescope smart_open", desc = " smart open", icon = " ", key = "o" },
