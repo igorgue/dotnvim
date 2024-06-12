@@ -338,6 +338,14 @@ return {
     },
   },
   {
+    "ibhagwan/fzf-lua",
+    optional = true,
+    keys = {
+      -- TODO: figure out a way to use smart_open or something similar for fzf-lua as well
+      { "<leader><leader>", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
+    },
+  },
+  {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "kkharji/sqlite.lua",
