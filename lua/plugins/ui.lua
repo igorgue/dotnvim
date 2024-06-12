@@ -377,7 +377,7 @@ return {
             treesitter = vim.env.NVIM_TS_ENABLE ~= nil,
           },
           prompt_prefix = " ",
-          selection_caret = "▌",
+          selection_caret = "▌ ",
           mappings = {
             i = {
               ["<esc>"] = actions.close,
