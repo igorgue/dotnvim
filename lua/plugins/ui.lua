@@ -18,12 +18,12 @@ return {
           header = vim.split(logo, "\n"),
           center = {
             { action = "ene | startinsert", desc = " new file", icon = " ", key = "n" },
-            { action = "Telescope oldfiles", desc = " recent files", icon = " ", key = "r" },
+            { action = "<cmd>FzfLua oldfiles<cr>", desc = " recent files", icon = " ", key = "r" },
             { action = 'lua require("persistence").load()', desc = " restore session", icon = " ", key = "s" },
-            { action = "Telescope find_files", desc = " find file", icon = " ", key = "f" },
+            { action = LazyVim.pick("auto"), desc = " find file", icon = " ", key = "f" },
             { action = "Telescope smart_open", desc = " smart open", icon = " ", key = "o" },
-            { action = "Telescope live_grep", desc = " find text", icon = " ", key = "g" },
-            { action = [[lua LazyVim.telescope.config_files()()]], desc = " Config", icon = " ", key = "c" },
+            { action = LazyVim.pick("live_grep"), desc = " find text", icon = " ", key = "g" },
+            { action = LazyVim.pick.config_files(), desc = " Config", icon = " ", key = "c" },
             { action = "Lazy", desc = " lazy", icon = "󰒲 ", key = "l" },
             { action = "LazyExtras", desc = " lazy extras", icon = " ", key = "x" },
             { action = "lua require('lazyvim.util').terminal.open()", desc = " terminal", icon = " ", key = "t" },
@@ -443,8 +443,6 @@ return {
     keys = {
       { "<leader><leader>", nil, desc = "Smart Open" },
       { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
-      { "<leader>ss", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Goto Symbol" },
-      { "<leader>sS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Goto Symbol (Workspace)" },
     },
   },
   {
