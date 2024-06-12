@@ -391,6 +391,7 @@ return {
           layout_config = {
             prompt_position = "top",
           },
+          sorting_strategy = "ascending",
           history = {
             path = vim.fn.stdpath("data") .. "/smart_history.sqlite3",
             cycle_wrap = true,
