@@ -340,6 +340,20 @@ return {
   {
     "ibhagwan/fzf-lua",
     optional = true,
+    opts = {
+      previewers = {
+        builtin = {
+          extensions = {
+            -- neovim terminal only supports `viu` block output
+            ["png"] = { "viu", "-b" },
+            -- by default the filename is added as last argument
+            -- if required, use `{file}` for argument positioning
+            ["svg"] = { "chafa", "{file}" },
+            ["jpg"] = { "ueberzug" },
+          },
+        },
+      },
+    },
     keys = {
       -- TODO: figure out a way to use smart_open or something similar for fzf-lua as well
       { "<leader><leader>", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
