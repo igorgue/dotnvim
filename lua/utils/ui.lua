@@ -179,7 +179,9 @@ function M.toggle_focus_mode()
   M.toggle_winbar()
 
   pcall(function()
-    vim.cmd("Gitsigns toggle_signs")
+    if not vim.g.always_show_gitsigns then
+      vim.cmd("Gitsigns toggle_signs")
+    end
   end)
 
   -- NOTE: this was annoying, evaluate

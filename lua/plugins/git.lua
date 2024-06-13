@@ -39,7 +39,7 @@ return {
     -- stylua: ignore
     enabled = not vim.o.diff,
     opts = {
-      signcolumn = false,
+      signcolumn = not not vim.g.always_show_gitsigns,
       signs = {
         add = { text = "▌" },
         change = { text = "▌" },
