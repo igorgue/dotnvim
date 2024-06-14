@@ -61,6 +61,7 @@ return {
       servers = {
         basedpyright = {},
         jinja_lsp = {},
+        djlsp = {},
         ruff_lsp = {
           keys = {
             {
