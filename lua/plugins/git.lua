@@ -48,6 +48,14 @@ return {
         changedelete = { text = "~" },
         untracked = { text = "┆" },
       },
+      signs_staged = {
+        add = { text = "▌" },
+        change = { text = "▌" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+        untracked = { text = "┆" },
+      },
     },
     keys = {
       { "<leader>h", "<cmd>lua require('gitsigns').next_hunk()<cr>", desc = "Next Git Hunk" },
