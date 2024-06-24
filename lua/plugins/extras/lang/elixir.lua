@@ -2,6 +2,14 @@ local elixir_ft = { "elixir", "eex", "heex", "surface" }
 
 return {
   {
+    "SmiteshP/nvim-navic",
+    opts = {
+      lsp = {
+        preference = { "nextls" },
+      },
+    },
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
@@ -9,6 +17,14 @@ return {
       else
         opts.ensure_installed = elixir_ft
       end
+    end,
+  },
+  {
+    "mason.nvim",
+    ft = elixir_ft,
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, { "elixir-ls" })
     end,
   },
   {
@@ -77,36 +93,38 @@ return {
             },
           },
         },
-        credo = { enable = false },
-        elixirls = { enable = false },
+        credo = { enable = true },
+        elixirls = { enable = true },
       })
     end,
   },
   {
     "mfussenegger/nvim-dap",
     config = function()
-      -- TODO: this needs to use the one on elixirtools not mason's
+      -- FIXME: I think this is broken... Is not debugging right now,
+      -- lets use `pry` instead...
+      -- TODO: this needs to use the one on elixir-tools not mason's
+      -- elixir-tools does not download this `debug_adaper.sh` script
+      -- but mason does, so we use the one on mason.
       local mason = (os.getenv("HOME") or "") .. "/.local/share/nvim/mason"
       local dap = require("dap")
 
       dap.adapters.elixir = {
         type = "executable",
-        command = mason .. "/packages/elixir-ls/debugger.sh",
+        command = mason .. "/packages/elixir-ls/debug_adapter.sh",
       }
 
       dap.configurations.elixir = {
-        {
-          type = "elixir",
-          name = "Run Elixir Program",
-          task = "phx.server",
-          taskArgs = { "--trace" },
-          request = "launch",
-          startApps = true, -- for Phoenix projects
-          projectDir = "${workspaceFolder}",
-          requireFiles = {
-            "test/**/test_helper.exs",
-            "test/**/*_test.exs",
-          },
+        type = "elixir",
+        name = "Run Elixir Program",
+        task = "phx.server",
+        taskArgs = { "--trace" },
+        request = "launch",
+        startApps = true, -- for Phoenix projects
+        projectDir = "${workspaceFolder}",
+        requireFiles = {
+          "test/**/test_helper.exs",
+          "test/**/*_test.exs",
         },
       }
     end,
