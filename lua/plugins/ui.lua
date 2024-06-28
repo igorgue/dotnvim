@@ -371,6 +371,7 @@ return {
       "nvim-telescope/telescope-fzy-native.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
+    lazy = false,
     -- stylua: ignore
     enabled = not vim.o.diff,
     opts = function()
