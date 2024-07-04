@@ -53,7 +53,7 @@ vim.opt.writebackup = true
 vim.opt.undofile = true
 vim.opt.isfname:append(":")
 
-vim.opt.clipboard = ""
+vim.opt.clipboard = "unnamedplus"
 
 if vim.o.diff ~= false then
   vim.opt.list = false

@@ -25,6 +25,7 @@ return {
   { "echasnovski/mini.comment", enabled = false },
   { "echasnovski/mini.indentscope", enabled = false },
   { "echasnovski/mini.pairs", enabled = false },
+  { "echasnovski/mini.icons", enabled = false },
   { "ggandor/flit.nvim", enabled = false },
   { "ggandor/leap.nvim", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },

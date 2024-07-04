@@ -1,4 +1,5 @@
 return {
+  "nvim-tree/nvim-web-devicons",
   {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",
