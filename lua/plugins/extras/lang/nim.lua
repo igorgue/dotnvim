@@ -35,7 +35,7 @@ return {
           "-i",
           "dap",
           "-eval-command",
-          "source " .. home .. "/.asdf/installs/nim/2.0.2/tools/debug/nim-gdb.py",
+          "source " .. home .. "/.asdf/installs/nim/2.0.8/tools/debug/nim-gdb.py",
         },
       }
 
