@@ -45,6 +45,10 @@ return {
           type = "gdb",
           request = "launch",
           program = function()
+            if vim.g.nim_dap_build_command ~= nil then
+              vim.fn.system(vim.g.nim_dap_build_command)
+            end
+
             if vim.g.nim_dap_program ~= nil then
               return vim.g.nim_dap_program
             end

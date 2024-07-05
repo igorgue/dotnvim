@@ -19,6 +19,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     ft = ts_default_enabled_langs,
+    lazy = false,
     cmd = { "TSEnable", "TSBufEnable" },
     -- stylua: ignore
     event = function() return {} end,
