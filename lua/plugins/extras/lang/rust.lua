@@ -78,18 +78,18 @@ return {
         on_attach = function(_, bufnr)
           -- register which-key mappings
           local wk = require("which-key")
-          wk.register({
-            ["<leader>ca"] = {
+          wk.add({
+            {"<leader>ca",
               function()
                 vim.cmd.RustLsp("codeAction")
               end,
-              "Code Actions (Rust)",
+              desc = "Code Actions (Rust)",
             },
-            ["<leader>dr"] = {
+            {"<leader>dr",
               function()
                 vim.cmd.RustLsp("debuggables")
               end,
-              "Rust debuggables",
+              desc = "Rust debuggables",
             },
           }, { mode = "n", buffer = bufnr })
         end,

@@ -49,21 +49,19 @@ return {
         -- after with the nvim api...
         pcall(vim.api.nvim_del_keymap, "n", "<leader>l")
 
-        wk.register({
-          ["<leader>l"] = { name = "+leetcode" },
+        wk.add({
+          { "<leader>l", group = "leetcode" },
         })
 
-        wk.register({
-          ["<cr>"] = { "<cmd>Leet<cr>", "Menu" },
-          c = { "<cmd>Leet console<cr>", "Console" },
-          h = { "<cmd>Leet hints<cr>", "Hints" },
-          q = { "<cmd>Leet tabs<cr>", "Question Tabs" },
-          l = { "<cmd>Leet lang<cr>", "Language" },
-          d = { "<cmd>Leet desc<cr>", "Description Toggle" },
-          r = { "<cmd>Leet run<cr>", "Run" },
-          s = { "<cmd>Leet submit<cr>", "Submit" },
-        }, {
-          prefix = "<leader>l",
+        wk.add({
+          { "<leader>l<cr>", "<cmd>Leet<cr>", desc = "Menu" },
+          { "<leader>lc", "<cmd>Leet console<cr>", desc = "Console" },
+          { "<leader>lh", "<cmd>Leet hints<cr>", desc = "Hints" },
+          { "<leader>lq", "<cmd>Leet tabs<cr>", desc = "Question Tabs" },
+          { "<leader>ll", "<cmd>Leet lang<cr>", desc = "Language" },
+          { "<leader>ld", "<cmd>Leet desc<cr>", desc = "Description Toggle" },
+          { "<leader>lr", "<cmd>Leet run<cr>", desc = "Run" },
+          { "<leader>ls", "<cmd>Leet submit<cr>", desc = "Submit" },
         })
       end
 

@@ -48,17 +48,16 @@ return {
               },
             })
 
-            wk.register({
-              r = { "<cmd>ClangdSwitchSourceHeader<cr>", "Switch Source/Header" },
-              a = { "<cmd>ClangdAST<cr>", "Display AST" },
-              h = { "<cmd>ClangdToggleInlayHints<cr>", "Toggle Inlay Hints" },
-              t = { "<cmd>ClangdTypeHierarchy<cr>", "Display Type Hierarchy" },
-              m = { "<cmd>ClangdMemoryUsage<cr>", "Display Memory Usage" },
-              s = { "<cmd>ClangdSymbolInfo<cr>", "Display Symbol Info" },
-              c = { "<cmd>ClangdCallHierarchy<cr>", "Display Call Hierarchy" },
+            wk.add({
+              { "<leader>cc", group = "c" },
+              { "<leader>ccr", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header" },
+              { "<leader>cca", "<cmd>ClangdAST<cr>", desc = "Display AST" },
+              { "<leader>cch", "<cmd>ClangdToggleInlayHints<cr>", desc = "Toggle Inlay Hints" },
+              { "<leader>cct", "<cmd>ClangdTypeHierarchy<cr>", desc = "Display Type Hierarchy" },
+              { "<leader>ccm", "<cmd>ClangdMemoryUsage<cr>", desc = "Display Memory Usage" },
+              { "<leader>ccs", "<cmd>ClangdSymbolInfo<cr>", desc = "Display Symbol Info" },
+              { "<leader>ccc", "<cmd>ClangdCallHierarchy<cr>", desc = "Display Call Hierarchy" },
             }, {
-              prefix = "<leader>cc",
-              name = "+c",
               buffer = bufnr,
             })
           end

@@ -56,17 +56,14 @@ return {
         local wk = require("which-key")
         local bufnr = vim.api.nvim_get_current_buf()
 
-        wk.register({
-          p = { "<cmd>ElixirToPipe<cr>", "To Pipe" },
-          P = { "<cmd>ElixirFromPipe<cr>", "From Pipe" },
-          m = { "<cmd>ElixirExpandMacro<cr>", "Expand Macro" },
-          r = { "<cmd>ElixirRestart<cr>", "Restart" },
-          o = { "<cmd>ElixirOutputPanel<cr>", "Output Panel" },
-        }, {
-          prefix = "<leader>cE",
-          name = "+elixir",
-          buffer = bufnr,
-        })
+        wk.add({
+          { "<leader>cE", group = "elixir" },
+          { "<leader>cEp", "<cmd>ElixirToPipe<cr>", desc = "To Pipe" },
+          { "<leader>cEP", "<cmd>ElixirFromPipe<cr>", desc = "From Pipe" },
+          { "<leader>cEm", "<cmd>ElixirExpandMacro<cr>", desc = "Expand Macro" },
+          { "<leader>cEr", "<cmd>ElixirRestart<cr>", desc = "Restart" },
+          { "<leader>cEo", "<cmd>ElixirOutputPanel<cr>", desc = "Output Panel" },
+        }, { buffer = bufnr })
       end
 
       vim.api.nvim_create_autocmd(
