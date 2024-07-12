@@ -117,8 +117,8 @@ return {
     init = function()
       local wk = require("which-key")
 
-      wk.register({
-        ["<leader>cg"] = { name = "+github" },
+      wk.add({
+        { "<leader>cg", group = "github" },
       })
     end,
     keys = {

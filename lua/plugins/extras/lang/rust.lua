@@ -12,8 +12,8 @@ return {
           local register_keys = function()
             local wk = require("which-key")
 
-            wk.register({
-              ["<cr>"] = { require("crates").show_popup, "Crates Popup" },
+            wk.add({
+              { "<cr>", require("crates").show_popup, desc = "Crates Popup" },
             }, {
               buffer = vim.api.nvim_get_current_buf(),
             })

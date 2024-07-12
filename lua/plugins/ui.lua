@@ -444,8 +444,8 @@ return {
       local telescope = require("telescope")
       local wk = require("which-key")
 
-      wk.register({
-        ["<leader><leader>"] = { "<cmd>Telescope smart_open<cr>", "Smart open" },
+      wk.add({
+        { "<leader><leader>", "<cmd>Telescope smart_open<cr>", desc = "Smart open" },
       })
 
       telescope.setup(opts)
@@ -482,13 +482,7 @@ return {
   {
     "folke/which-key.nvim",
     opts = {
-      window = {
-        position = "top",
-        -- border = "rounded",
-        margin = { 0, 0, 0, 0 },
-        padding = { 1, 0, 1, 0 },
-        winblend = 5,
-      },
+      preset = "modern"
     },
     keys = {
       {
