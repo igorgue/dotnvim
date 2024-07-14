@@ -79,13 +79,15 @@ return {
           -- register which-key mappings
           local wk = require("which-key")
           wk.add({
-            {"<leader>ca",
+            {
+              "<leader>ca",
               function()
                 vim.cmd.RustLsp("codeAction")
               end,
               desc = "Code Actions (Rust)",
             },
-            {"<leader>dr",
+            {
+              "<leader>dr",
               function()
                 vim.cmd.RustLsp("debuggables")
               end,
