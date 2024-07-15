@@ -26,6 +26,7 @@ return {
   { "echasnovski/mini.indentscope", enabled = false },
   { "echasnovski/mini.pairs", enabled = false },
   { "echasnovski/mini.icons", enabled = false },
+  { "nvim-tree/nvim-web-devicons", enabled = vim.env.SSH_TTY == nil },
   { "ggandor/flit.nvim", enabled = false },
   { "ggandor/leap.nvim", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
