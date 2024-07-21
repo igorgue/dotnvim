@@ -5,14 +5,14 @@ vim.filetype.add({
 })
 
 return {
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        mojo = {},
-      },
-    },
-  },
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   opts = {
+  --     servers = {
+  --       mojo = {},
+  --     },
+  --   },
+  -- },
   {
     "nvim-treesitter/nvim-treesitter",
     ft = { "mojo" },
