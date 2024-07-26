@@ -16,7 +16,7 @@ wk.add({
   { "<leader><cr>b", "<cmd>Btop<cr>", desc = "Btop Process Manager" },
   { "<leader><cr>d", "<cmd>DBUIToggle<cr>", desc = "Dadbod Database Manager" },
   { "<leader><cr>n", "<cmd>Nap<cr>", desc = "Nap Code Snippets" },
-  { "<leader><cr>r", "<cmd>Ranger<cr>", desc = "Ranger File Manager" },
+  { "<leader><cr>y", "<cmd>Yazi<cr>", desc = "Yazi File Manager" },
   { "<leader><cr>c", "<cmd>Cloc<cr>", desc = "Cloc Count Lines" },
   { "<leader><cr>g", "<cmd>Lazygit<cr>", desc = "Lazygit" },
   { "<leader><cr>l", "<cmd>Lazy<cr>", desc = "Lazy" },

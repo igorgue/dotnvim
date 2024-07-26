@@ -12,8 +12,8 @@ vim.api.nvim_create_user_command("Nap", function()
   Util.terminal.open("nap", { border = "rounded" })
 end, {})
 
-vim.api.nvim_create_user_command("Ranger", function()
-  Util.terminal.open({ "ranger" }, { cwd = Util.root.get(), border = "rounded" })
+vim.api.nvim_create_user_command("Yazi", function()
+  Util.terminal.open({ "yazi" }, { cwd = Util.root.get(), border = "rounded" })
 end, {})
 
 vim.api.nvim_create_user_command("Lazygit", function()
