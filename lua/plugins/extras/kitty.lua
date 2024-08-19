@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   callback = function()
     vim.opt.laststatus = 0
     vim.opt.clipboard = "unnamedplus"
-    -- vim.opt.cursorline = true
+    vim.opt.cursorline = true
 
     return true
   end,
