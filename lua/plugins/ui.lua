@@ -19,7 +19,8 @@ return {
           header = vim.split(logo, "\n"),
           center = {
             { action = "ene | startinsert", desc = " new file", icon = " ", key = "n" },
-            { action = "FzfLua oldfiles", desc = " recent files", icon = " ", key = "r" },
+            -- { action = "FzfLua oldfiles", desc = " recent files", icon = " ", key = "r" },
+            { action = "Telescope oldfiles", desc = " recent files", icon = " ", key = "r" },
             { action = 'lua require("persistence").load()', desc = " restore session", icon = " ", key = "s" },
             { action = LazyVim.pick("auto"), desc = " find file", icon = " ", key = "f" },
             { action = "Telescope smart_open", desc = " smart open", icon = " ", key = "o" },
@@ -340,6 +341,7 @@ return {
   },
   {
     "ibhagwan/fzf-lua",
+    enabled = false,
     optional = true,
     opts = {
       previewers = {
@@ -431,7 +433,7 @@ return {
             case_mode = "smart_case",
           },
           fzy_native = {
-            override_generic_sorter = false,
+            override_generic_sorter = true,
             override_file_sorter = true,
           },
           smart_open = {
