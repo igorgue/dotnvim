@@ -1,5 +1,11 @@
 return {
   {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    -- still accessible via ctrl+;
+    -- stylua: ignore
+    keys = function() return {} end,
+  },
+  {
     "yetone/avante.nvim",
     event = "VeryLazy",
     build = "make",
