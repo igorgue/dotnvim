@@ -10,7 +10,7 @@ return {
     event = "VeryLazy",
     build = "make",
     opts = {
-      provider = "copilot",
+      provider = "openai",
     },
     dependencies = {
       "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
