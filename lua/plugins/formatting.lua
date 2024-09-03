@@ -10,7 +10,7 @@ return {
       },
       formatters_by_ft = {
         htmldjango = { "rustywind", "htmlbeautifier", "djlint", "curlylint" },
-        heex = { "rustywind", "htmlbeautifier" },
+        heex = { "rustywind", "htmlbeautifier", "mix" },
         xml = { "htmlbeautifier" },
         html = { "rustywind", "htmlbeautifier" },
         elixir = { "rustywind", "mix" },
