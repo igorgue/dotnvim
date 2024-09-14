@@ -11,6 +11,9 @@ return {
     build = "make",
     opts = {
       provider = "openai",
+      -- openai = {
+      --   model = "o1-preview",
+      -- },
     },
     dependencies = {
       "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons

@@ -51,38 +51,24 @@ return {
     },
   },
   {
-    -- "magicmonty/sonicpi.nvim",
     "magicmonty/sonicpi.nvim",
-    dir = "~/Code/sonicpi.nvim",
-    lazy = false,
+    -- dir = "~/Code/sonicpi.nvim",
+    event = "VeryLazy",
     dependencies = {
       "kyazdani42/nvim-web-devicons",
       "nvim-lua/plenary.nvim",
     },
     config = function(_, opts)
       local wk = require("which-key")
-      -- local cmp = require("cmp")
-      -- local config = cmp.get_config()
 
       wk.add({
         { "<leader>S", group = "Sonic Pi" },
       })
 
-      -- table.insert(config.sources, {
-      --   name = "buffer",
-      --   option = {
-      --     sources = {
-      --       { name = "sonicpi" },
-      --     },
-      --   },
-      -- })
-      -- cmp.setup(config)
-
       local mappings = {
-        { "n", "<leader>Ss", require("sonicpi.remote").stop, { desc = "Sonic Pi Stop" } },
-        { "n", "<M>s", require("sonicpi.remote").stop, { desc = "Sonic Pi Stop" } },
+        { "n", "<leader>S", require("sonicpi.remote").stop, { desc = "Sonic Pi Stop" } },
         { "i", "<M-s>", require("sonicpi.remote").stop, { desc = "Sonic Pi Stop" } },
-        { "n", "<leader>Sr", require("sonicpi.remote").run_current_buffer, { desc = "Sonic Pi Run" } },
+        { "n", "<leader>r", require("sonicpi.remote").run_current_buffer, { desc = "Sonic Pi Run" } },
         { "n", "<M-r>", require("sonicpi.remote").run_current_buffer, { desc = "Sonic Pi Run" } },
         { "i", "<M-r>", require("sonicpi.remote").run_current_buffer, { desc = "Sonic Pi Run" } },
       }
