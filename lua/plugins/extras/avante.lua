@@ -11,9 +11,9 @@ return {
     build = "make",
     opts = {
       provider = "openai",
-      -- openai = {
-      --   model = "o1-preview",
-      -- },
+      openai = {
+        model = "gpt-4o",
+      },
     },
     dependencies = {
       "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons

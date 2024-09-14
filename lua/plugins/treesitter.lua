@@ -19,6 +19,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     ft = ts_default_enabled_langs,
+    dependencies = { "RRethy/nvim-treesitter-endwise" },
     lazy = false,
     cmd = { "TSEnable", "TSBufEnable" },
     -- stylua: ignore
@@ -41,6 +42,9 @@ return {
           scope_incremental = false,
           node_decremental = "<bs>",
         },
+      },
+      endwise = {
+        enable = true,
       },
     },
     -- stylua: ignore

@@ -19,6 +19,12 @@ return {
     opts = function(_, opts)
       vim.treesitter.language.register("ruby", "sonicpi")
 
+      opts.indent = {
+        enable = true,
+        disable = { "sonicpi" },
+      }
+      opts.highlight.additional_vim_regex_highlighting = true
+
       return opts
     end,
   },
@@ -53,7 +59,7 @@ return {
   {
     "magicmonty/sonicpi.nvim",
     -- dir = "~/Code/sonicpi.nvim",
-    event = "VeryLazy",
+    lazy = false,
     dependencies = {
       "kyazdani42/nvim-web-devicons",
       "nvim-lua/plenary.nvim",
