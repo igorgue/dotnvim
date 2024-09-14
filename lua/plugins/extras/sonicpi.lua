@@ -21,7 +21,7 @@ return {
 
       opts.indent = {
         enable = true,
-        disable = { "sonicpi" },
+        disable = false,
       }
       opts.highlight.additional_vim_regex_highlighting = true
 
@@ -45,7 +45,6 @@ return {
           enabled = true,
           filetypes = { "ruby", "sonicpi" },
           diagnostics = true,
-          single_file = true,
           single_file_support = true,
         },
         rubocop = {
@@ -58,19 +57,12 @@ return {
   },
   {
     "magicmonty/sonicpi.nvim",
-    -- dir = "~/Code/sonicpi.nvim",
     lazy = false,
     dependencies = {
       "kyazdani42/nvim-web-devicons",
       "nvim-lua/plenary.nvim",
     },
     config = function(_, opts)
-      local wk = require("which-key")
-
-      wk.add({
-        { "<leader>S", group = "Sonic Pi" },
-      })
-
       local mappings = {
         { "n", "<leader>S", require("sonicpi.remote").stop, { desc = "Sonic Pi Stop" } },
         { "i", "<M-s>", require("sonicpi.remote").stop, { desc = "Sonic Pi Stop" } },
