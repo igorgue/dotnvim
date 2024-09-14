@@ -14,6 +14,7 @@ return {
           { name = "nvim_lua" },
           { name = "luasnip" },
           { name = "pypi", keyword_length = 4 },
+          { name = "sonicpi" },
         },
         {
           { name = "buffer" },
