@@ -18,6 +18,7 @@ return {
         clear_suggestion = "<c-]>",
         accept_word = "<c-s-j>",
       },
+      log_level = "off",
       condition = function()
         return string.match(vim.bo.filetype, "copilot-chat")
       end,
