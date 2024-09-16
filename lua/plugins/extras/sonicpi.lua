@@ -1,16 +1,28 @@
 vim.g.lazyvim_ruby_lsp = "solargraph"
 
-local exepath = vim.fn.exepath("sonic-pi")
----@diagnostic disable-next-line: undefined-field
-local realpath = vim.loop.fs_realpath(exepath)
-local pkg_root = vim.fn.fnamemodify(realpath, ":h:h")
-local server_path = pkg_root .. "/app/server"
+local function get_server_path()
+  local exepath = vim.fn.exepath("sonic-pi")
+  ---@diagnostic disable-next-line: undefined-field
+  local realpath = vim.loop.fs_realpath(exepath)
+  local pkg_root = vim.fn.fnamemodify(realpath, ":h:h")
+  return pkg_root .. "/app/server"
+end
+
+local server_path = get_server_path()
 
 require("lazyvim.util").lsp.on_attach(function(client, _)
   if client.name == "solargraph" then
     require("sonicpi").lsp_on_init(client, { server_dir = server_path })
   end
 end)
+
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  pattern = { "*.sonicpi" },
+  nested = true,
+  callback = function()
+    vim.cmd("SonicPiSendBuffer")
+  end,
+})
 
 return {
   {
@@ -73,11 +85,16 @@ return {
       opts = vim.tbl_extend("force", opts, { mappings = mappings })
 
       require("sonicpi").setup(opts)
+      require("luasnip").filetype_extend("sonicpi", { "ruby" })
     end,
     opts = {
       server_dir = server_path,
       single_file = true,
       lsp_diagnostics = true,
+    },
+    keys = {
+      { "<leader>;", "<cmd>SonicPiSendBuffer<CR>", desc = "Sonic Pi send buffer", ft = "sonicpi" },
+      { "<leader>,", "<cmd>SonicPiStopDaemon<CR>", desc = "Sonic Pi stop daemon", ft = "sonicpi" },
     },
   },
 }
