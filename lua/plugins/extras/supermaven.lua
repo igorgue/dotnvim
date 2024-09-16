@@ -18,6 +18,14 @@ return {
         clear_suggestion = "<c-]>",
         accept_word = "<c-s-j>",
       },
+      condition = function()
+        return string.match(vim.bo.filetype, "copilot-chat")
+      end,
+      -- XXX: looks like this is not working...
+      color = {
+        suggestion_color = "#875fff",
+        cterm = 244,
+      },
     },
     keys = {
       {
