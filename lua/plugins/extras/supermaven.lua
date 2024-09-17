@@ -20,7 +20,13 @@ return {
       },
       log_level = "off",
       condition = function()
-        return string.match(vim.bo.filetype, "copilot-chat")
+        local invalid_filetypes = {
+          ["copilot-chat"] = true,
+          ["AvanteInput"] = true,
+          ["Avante"] = true,
+        }
+
+        return invalid_filetypes[vim.bo.filetype]
       end,
       -- XXX: looks like this is not working...
       color = {
