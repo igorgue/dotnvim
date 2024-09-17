@@ -2,11 +2,12 @@ return {
   {
     "neovim/nvim-lspconfig",
     ft = "nim",
-    opts = function(_, opts)
-      opts.servers = {
-        nim_langserver = {},
-      }
-    end,
+    opts = {
+      setup = {
+        -- stylua: ignore start
+        nim_langserver = function() return true end,
+      },
+    },
   },
   {
     "alaviss/nim.nvim",
