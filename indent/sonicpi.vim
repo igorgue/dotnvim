@@ -6,6 +6,10 @@
 " Release Coordinator:	Doug Kearns <dougkearns@gmail.com>
 " Last Change:		2022 Jun 30
 
+" NOTE: this is copied from Vim's upstream repo,
+" this is done so SonicPi (*.sonicpi) files can be indented
+" with the same indentation as Ruby files.
+
 " 0. Initialization {{{1
 " =================
 
