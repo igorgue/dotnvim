@@ -6,7 +6,7 @@ vim.bo.expandtab = true
 vim.lsp.start({
   init_options = {},
   name = "zls",
-  filetypes = { { "zig", "zir" } },
+  filetypes = { "zig", "zir" },
   cmd = { "zls" },
   root_dir = vim.fn.getcwd(),
   single_file_support = true,
