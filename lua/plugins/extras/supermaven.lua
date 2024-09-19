@@ -11,7 +11,7 @@ return {
   },
   {
     "supermaven-inc/supermaven-nvim",
-    event = { "BufReadPost", "BufNewFile" },
+    lazy = false,
     opts = {
       keymaps = {
         accept_suggestion = "<tab>",
@@ -30,8 +30,7 @@ return {
       end,
       -- XXX: looks like this is not working...
       color = {
-        suggestion_color = "#875fff",
-        cterm = 244,
+        suggestion_group = "CopilotSuggestion",
       },
     },
     keys = {

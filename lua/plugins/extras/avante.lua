@@ -9,12 +9,6 @@ return {
     "yetone/avante.nvim",
     event = "VeryLazy",
     build = "make",
-    opts = {
-      provider = "openai",
-      openai = {
-        model = "gpt-4o",
-      },
-    },
     dependencies = {
       "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
       "stevearc/dressing.nvim",
@@ -32,14 +26,26 @@ return {
         "HakonHarnes/img-clip.nvim",
         event = "VeryLazy",
         opts = {
-          -- add options here
-          -- or leave it empty to use the default settings
+          default = {
+            embed_image_as_base64 = false,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
+            },
+          },
         },
         keys = {
           -- suggested keymap
           { "<leader>p", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
         },
       },
+    },
+    opts = {
+      provider = "openai",
+      openai = {
+        model = "gpt-4o",
+      },
+      hints = { enabled = false },
     },
   },
 }
