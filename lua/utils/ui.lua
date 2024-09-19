@@ -172,6 +172,10 @@ function M.toggle_focus_mode()
     vim.g.tabby_trigger_mode = vim.g.tabby_trigger_mode == "manual" and "auto" or "manual"
   end
 
+  pcall(function()
+    vim.cmd("SupermavenToggle")
+  end)
+
   ---@diagnostic disable-next-line: param-type-mismatch
   pcall(vim.cmd, "IlluminateToggle")
 
@@ -222,6 +226,9 @@ function M.enable_focus_mode()
   vim.opt.laststatus = 0
   pcall(function()
     vim.cmd("Copilot disable")
+  end)
+  pcall(function()
+    vim.cmd("SupermavenStop")
   end)
   vim.opt.winbar = ""
 

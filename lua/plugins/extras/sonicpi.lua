@@ -20,7 +20,9 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   pattern = { "*.sonicpi" },
   nested = true,
   callback = function()
-    vim.cmd("SonicPiSendBuffer")
+    if require("sonicpi.opts").remote.lifecycle.daemon_started == 1 then
+      vim.cmd("SonicPiSendBuffer")
+    end
   end,
 })
 
@@ -28,6 +30,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     ft = { "sonicpi" },
+    optional = true,
     opts = function(_, opts)
       vim.treesitter.language.register("ruby", "sonicpi")
 
@@ -42,6 +45,7 @@ return {
   },
   {
     "stevearc/conform.nvim",
+    ft = { "sonicpi" },
     optional = true,
     opts = {
       formatters_by_ft = {
@@ -69,7 +73,7 @@ return {
   },
   {
     "magicmonty/sonicpi.nvim",
-    lazy = false,
+    ft = { "sonicpi" },
     dependencies = {
       "kyazdani42/nvim-web-devicons",
       "nvim-lua/plenary.nvim",
@@ -93,8 +97,26 @@ return {
       lsp_diagnostics = true,
     },
     keys = {
-      { "<leader>;", "<cmd>SonicPiSendBuffer<CR>", desc = "Sonic Pi send buffer", ft = "sonicpi" },
+      { "<c-p>", "<cmd>SonicPiSendBuffer<CR>", desc = "Sonic Pi send buffer", ft = "sonicpi" },
+      {
+        "<c-s-p>",
+        function()
+          require("sonicpi.remote").stop()
+        end,
+        desc = "Sonic Pi stop clock",
+        ft = "sonicpi",
+      },
+      { "<leader>;", "<cmd>SonicPiStartDaemon<CR>", desc = "Sonic Pi start daemon", ft = "sonicpi" },
       { "<leader>,", "<cmd>SonicPiStopDaemon<CR>", desc = "Sonic Pi stop daemon", ft = "sonicpi" },
+      {
+        "<leader>.",
+        function()
+          require("sonicpi.remote").stop()
+          require("sonicpi.remote").run_current_buffer()
+        end,
+        desc = "Sonic Pi restart clock",
+        ft = "sonicpi",
+      },
     },
   },
 }

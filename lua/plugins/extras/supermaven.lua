@@ -35,13 +35,7 @@ return {
       },
     },
     keys = {
-      {
-        "<leader>am",
-        function()
-          require("supermaven").toggle()
-        end,
-        desc = "Supermaven toggle",
-      },
+      { "<leader>am", "<cmd>SupermavenToggle<cr>", desc = "Supermaven toggle" },
     },
   },
 }
