@@ -1,5 +1,10 @@
 return {
-  "nvim-tree/nvim-web-devicons",
+  {
+    "nvim-tree/nvim-web-devicons",
+    opts = {
+      variant = "dark",
+    },
+  },
   {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",

@@ -1,5 +1,3 @@
-vim.g.lazyvim_ruby_lsp = "solargraph"
-
 local function get_server_path()
   local exepath = vim.fn.exepath("sonic-pi")
   ---@diagnostic disable-next-line: undefined-field
@@ -18,7 +16,6 @@ end)
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   pattern = { "*.sonicpi" },
-  nested = true,
   callback = function()
     if require("sonicpi.opts").remote.lifecycle.daemon_started == 1 then
       vim.cmd("SonicPiSendBuffer")
@@ -57,6 +54,10 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
+        ruby_lsp = {
+          filetypes = { "ruby", "sonicpi" },
+          single_file_support = true,
+        },
         solargraph = {
           enabled = true,
           filetypes = { "ruby", "sonicpi" },
@@ -73,6 +74,7 @@ return {
   },
   {
     "magicmonty/sonicpi.nvim",
+    -- dir = "~/Code/sonicpi.nvim",
     ft = { "sonicpi" },
     dependencies = {
       "kyazdani42/nvim-web-devicons",
