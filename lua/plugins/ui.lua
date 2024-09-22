@@ -452,18 +452,7 @@ return {
       local wk = require("which-key")
 
       wk.add({
-        {
-          "<leader><leader>",
-          function()
-            local cached_pickers = require("telescope.state").get_global_key("cached_pickers")
-            if cached_pickers and next(cached_pickers) then
-              require("telescope.builtin").resume()
-            else
-              vim.cmd("Telescope smart_open")
-            end
-          end,
-          desc = "Resume Telescope session",
-        },
+        { "<leader><leader>", "<cmd>Telescope smart_open<CR>", desc = "Telescope Smart Open" },
       })
 
       telescope.setup(opts)
@@ -480,6 +469,19 @@ return {
       end
     end,
     keys = {
+      {
+        "<c-cr>",
+        function()
+          local cached_pickers = require("telescope.state").get_global_key("cached_pickers")
+          if cached_pickers and next(cached_pickers) then
+            require("telescope.builtin").resume()
+          else
+            vim.cmd("Telescope smart_open")
+          end
+        end,
+        desc = "Smart Open",
+        mode = { "i", "n" },
+      },
       { "<leader><leader>", nil, desc = "Resume Telescope session" },
       { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
     },

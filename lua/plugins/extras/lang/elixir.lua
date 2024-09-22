@@ -1,5 +1,21 @@
 local elixir_ft = { "elixir", "eex", "heex", "surface" }
 
+vim.filetype.add({
+  extension = {
+    ["neex"] = "heex",
+  },
+})
+
+local ok, icons = pcall(require, "nvim-web-devicons")
+if ok then
+  icons.set_icon({
+    [".neex"] = { icon = "", color = "#916AB2", name = "Neex" },
+  })
+  icons.set_icon({
+    neex = { icon = "", color = "#916AB2", name = "Neex" },
+  })
+end
+
 return {
   {
     "SmiteshP/nvim-navic",
