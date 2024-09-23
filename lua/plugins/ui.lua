@@ -472,11 +472,16 @@ return {
       {
         "<c-cr>",
         function()
-          local cached_pickers = require("telescope.state").get_global_key("cached_pickers")
-          if cached_pickers and next(cached_pickers) then
-            require("telescope.builtin").resume()
+          if vim.bo.filetype == "TelescopePrompt" then
+            require("telescope.actions").close(vim.api.nvim_get_current_buf())
           else
-            vim.cmd("Telescope smart_open")
+            local cached_pickers = require("telescope.state").get_global_key("cached_pickers")
+
+            if cached_pickers and next(cached_pickers) then
+              require("telescope.builtin").resume()
+            else
+              vim.cmd("Telescope smart_open")
+            end
           end
         end,
         desc = "Smart Open",
