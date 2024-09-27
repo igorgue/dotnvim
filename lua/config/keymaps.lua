@@ -29,6 +29,7 @@ wk.add({
   { "<leader><cr>", group = "applications" },
   { "<leader>cs", group = "sourcegraph" },
   { "<leader>m", group = "molten" },
+  { "<leader>a", group = "ai", mode = { "n", "v", "i" } },
   { "!", group = "filter", mode = { "n", "v" } },
   { "<", group = "indent/left", mode = { "n", "v" } },
   { ">", group = "indent/right", mode = { "n", "v" } },
