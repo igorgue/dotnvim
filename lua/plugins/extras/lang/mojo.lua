@@ -32,6 +32,7 @@ return {
     init = function()
       local Util = require("lazyvim.util")
 
+      -- TODO: Conform now has mojo format, look into that...
       local function format_mojo()
         if Util.format.enabled() then
           vim.cmd("noa silent! !mojo format --quiet " .. vim.fn.expand("%:p"))

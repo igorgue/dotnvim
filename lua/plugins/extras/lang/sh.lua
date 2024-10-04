@@ -5,6 +5,12 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
+vim.filetype.add({
+  extension = {
+    ["envrc"] = "sh",
+  },
+})
+
 return {
   {
     "williamboman/mason.nvim",

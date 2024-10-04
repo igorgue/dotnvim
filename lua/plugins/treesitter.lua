@@ -18,7 +18,7 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    ft = ts_default_enabled_langs,
+    -- ft = ts_default_enabled_langs,
     dependencies = { "RRethy/nvim-treesitter-endwise" },
     lazy = false,
     cmd = { "TSEnable", "TSBufEnable" },
