@@ -22,12 +22,12 @@ wk.add({
   { "<leader><cr>c", "<cmd>Cloc<cr>", desc = "Cloc Count Lines" },
   { "<leader><cr>g", "<cmd>Lazygit<cr>", desc = "Lazygit" },
   { "<leader><cr>l", "<cmd>Lazy<cr>", desc = "Lazy" },
-  { "<leader><cr>C", "<cmd>ChessTui<cr>", desc = "Chess TUI" },
+  -- { "<leader><cr>C", "<cmd>ChessTui<cr>", desc = "Chess TUI" },
 })
 
 wk.add({
   { "<leader>", group = "leader" },
-  { "<SNR>", group = "SNR" },
+  { "<SNR>", group = "snr" },
   { "<leader><cr>", group = "applications" },
   { "<leader>cs", group = "sourcegraph" },
   { "<leader>m", group = "molten" },

@@ -81,10 +81,11 @@ return {
       "nvim-lua/plenary.nvim",
     },
     config = function(_, opts)
+      local wk = require("which-key")
+
       local mappings = {
-        { "n", "<leader>S", require("sonicpi.remote").stop, { desc = "Sonic Pi Stop" } },
+        { "n", "<M-s>", require("sonicpi.remote").stop, { desc = "Sonic Pi Stop" } },
         { "i", "<M-s>", require("sonicpi.remote").stop, { desc = "Sonic Pi Stop" } },
-        { "n", "<leader>r", require("sonicpi.remote").run_current_buffer, { desc = "Sonic Pi Run" } },
         { "n", "<M-r>", require("sonicpi.remote").run_current_buffer, { desc = "Sonic Pi Run" } },
         { "i", "<M-r>", require("sonicpi.remote").run_current_buffer, { desc = "Sonic Pi Run" } },
       }
@@ -92,6 +93,10 @@ return {
 
       require("sonicpi").setup(opts)
       require("luasnip").filetype_extend("sonicpi", { "ruby" })
+
+      wk.add({
+        { "<leader>S", group = "sonicpi", icon = { icon = " ", color = "cyan" } },
+      })
     end,
     opts = {
       server_dir = server_path,
@@ -99,19 +104,19 @@ return {
       lsp_diagnostics = true,
     },
     keys = {
-      { "<c-p>", "<cmd>SonicPiSendBuffer<CR>", desc = "Sonic Pi send buffer", ft = "sonicpi" },
+      { "<cr>", "<cmd>SonicPiSendBuffer<CR>", desc = "Sonic Pi send buffer", ft = "sonicpi" },
       {
-        "<c-s-p>",
+        "<s-cr>",
         function()
           require("sonicpi.remote").stop()
         end,
         desc = "Sonic Pi stop clock",
         ft = "sonicpi",
       },
-      { "<leader>;", "<cmd>SonicPiStartDaemon<CR>", desc = "Sonic Pi start daemon", ft = "sonicpi" },
-      { "<leader>,", "<cmd>SonicPiStopDaemon<CR>", desc = "Sonic Pi stop daemon", ft = "sonicpi" },
+      { "<leader>Ss", "<cmd>SonicPiStartDaemon<CR>", desc = "Sonic Pi start daemon", ft = "sonicpi" },
+      { "<leader>SS", "<cmd>SonicPiStopDaemon<CR>", desc = "Sonic Pi stop daemon", ft = "sonicpi" },
       {
-        "<leader>.",
+        "<leader>;",
         function()
           require("sonicpi.remote").stop()
           require("sonicpi.remote").run_current_buffer()
