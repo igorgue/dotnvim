@@ -19,7 +19,6 @@ return {
             })
           end
 
-          register_keys()
           vim.api.nvim_create_autocmd("BufReadPost", { pattern = "Cargo.toml", callback = register_keys })
         end,
         opts = {
