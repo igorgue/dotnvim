@@ -109,7 +109,12 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 vim.lsp.set_log_level("ERROR") -- change here if you need to check the lsp logs
-vim.diagnostic.enable(false)
+
+if vim.version().major == 10 then
+  vim.diagnostic.enable(false)
+else
+  vim.diagnostic.disable()
+end
 
 -- stylua: ignore start
 vim.fn.sign_define( "DapLogPoint", { text = " ", texthl = "DapLogPoint", linehl = "DapLogPoint", numhl = "DapLogPoint" })
