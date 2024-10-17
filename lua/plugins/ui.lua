@@ -484,10 +484,10 @@ return {
             end
           end
         end,
-        desc = "Smart Open",
+        desc = "Resume Telescope",
         mode = { "i", "n" },
       },
-      { "<leader><leader>", nil, desc = "Resume Telescope session" },
+      { "<leader><leader>", nil, desc = "Smart Open" },
       { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
     },
   },
