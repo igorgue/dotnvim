@@ -5,6 +5,7 @@ return {
     config = function()
       require("yankbank").setup({
         persist_type = "sqlite",
+        num_behavior = "jump",
       })
     end,
     keys = {
