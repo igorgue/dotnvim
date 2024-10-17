@@ -24,7 +24,7 @@ return {
     },
     keys = {
       { "<leader>j", "<Cmd>Lspsaga finder<CR>", desc = "Lspsaga finder" },
-      { "<leader>p", "<Cmd>Lspsaga peek_definition<CR>", desc = "Lspsaga peek_definition" },
+      { "<leader>cp", "<Cmd>Lspsaga peek_definition<CR>", desc = "Lspsaga peek_definition" },
       { "<leader>cI", "<Cmd>Lspsaga incoming_calls<CR>", desc = "Lspsaga incoming_calls" },
       { "<leader>cO", "<Cmd>Lspsaga outgoing_calls<CR>", desc = "Lspsaga outgoing_calls" },
     },
