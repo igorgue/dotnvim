@@ -195,7 +195,7 @@ function M.toggle_focus_mode()
   --   vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(0))
   -- end
 
-  if vim.version().minor == 10 then
+  if vim.version().minor >= 10 then
     vim.diagnostic.enable(not vim.diagnostic.is_enabled())
   else
     if vim.diagnostic.is_disabled(0) then
