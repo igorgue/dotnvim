@@ -17,7 +17,7 @@ if vim.env.NVIM_TERMINAL ~= nil then
   vim.cmd("terminal")
 end
 
-if vim.version().major == 10 then
+if vim.version().minor == 10 then
   if not vim.diagnostic.is_enabled() then
     vim.defer_fn(function()
       require("utils").ui.enable_focus_mode()
