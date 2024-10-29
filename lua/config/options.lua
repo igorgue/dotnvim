@@ -108,7 +108,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
-vim.lsp.set_log_level("ERROR") -- change here if you need to check the lsp logs
+vim.lsp.set_log_level("off") -- change to "debug" to show many logs
 
 if vim.version().minor >= 10 then
   vim.diagnostic.enable(false)
