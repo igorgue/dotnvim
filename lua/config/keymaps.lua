@@ -96,6 +96,8 @@ wk.add({
   { "<A-e>", "<cmd>Telescope emoji<cr>", desc = "Emoji Select", mode = { "n", "i" } },
   { "<A-f>", force_format, desc = "Force Format Document", mode = { "n", "v", "i" } },
   { "<A-g>", "<cmd>Telescope glyph<cr>", desc = "Glyph Select", mode = { "n", "i" } },
+  { "<A-S-O>", "{", desc = "}", mode = "n" },
+  { "<A-S-P>", "}", desc = "}", mode = "n" },
   { "<C-f>", require("utils").ui.toggle_focus_mode, desc = "Focus Mode", mode = { "n", "v", "i" } },
   { "<C-S-T>", require("utils").ui.open_terminal_tab, desc = "Open Terminal", mode = { "n", "v", "i" } },
   { "<C-g>", require("utils").file_info, desc = "File Info", mode = "n" },
