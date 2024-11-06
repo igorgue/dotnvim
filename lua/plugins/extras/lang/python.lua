@@ -38,7 +38,7 @@ return {
     optional = true,
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "isort", "black", "ruff", "ruff-lsp", "debugpy", "basedpyright" })
+        vim.list_extend(opts.ensure_installed, { "isort", "black", "ruff", "debugpy", "basedpyright" })
       end
     end,
   },
@@ -46,14 +46,6 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       setup = {
-        ruff_lsp = function()
-          require("lazyvim.util").lsp.on_attach(function(client, _)
-            if client.name == "ruff_lsp" then
-              -- Disable hover in favor of pyright
-              client.server_capabilities.hoverProvider = false
-            end
-          end)
-        end,
         pyright = function()
           return true
         end,
@@ -62,23 +54,6 @@ return {
         basedpyright = {},
         jinja_lsp = {},
         djlsp = {},
-        ruff_lsp = {
-          keys = {
-            {
-              "<leader>co",
-              function()
-                vim.lsp.buf.code_action({
-                  apply = true,
-                  context = {
-                    only = { "source.organizeImports" },
-                    diagnostics = {},
-                  },
-                })
-              end,
-              desc = "Organize Imports",
-            },
-          },
-        },
       },
     },
   },
