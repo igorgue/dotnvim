@@ -33,7 +33,7 @@ function M.refresh_ui()
   end
 
   -- stylua: ignore
-  pcall(function() require("notify").dismiss({ silent = true, pending = true }) end)
+  pcall(Snacks.notifier.hide)
 end
 
 function M.hi_co(group, kind)

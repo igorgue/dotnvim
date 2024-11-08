@@ -9,6 +9,7 @@ return {
         },
       },
     },
+    build = "make tiktoken",
     keys = {
       { "<C-;>", "<cmd>CopilotChatToggle<cr>", desc = "Toggle (CopilotChat)", mode = { "n", "v", "i" } },
     },

@@ -112,6 +112,8 @@ wk.add({
   { "<leader>ul", toggle_line_numbers, desc = "Toggle Line Numbers / Cursorline" },
   { "<leader>uW", require("utils").ui.toggle_winbar, desc = "Toggle Winbar", mode = "n" },
   { "<leader>uR", require("utils").ui.toggle_lsp_references, desc = "Toggle LspReferences", mode = "n" },
+  { "<leader>n", Snacks.notifier.show_history, desc = "Show Notifications History", mode = "n" },
+  { "<leader>N", Snacks.notifier.hide, desc = "Clear Notifications", mode = "n" },
   { "<c-y>", [["+y]], desc = "Copy to clipboard", mode = "x", icon = { icon = "", color = "grey" } },
   { "<c-p>", [["+p]], desc = "Paste from clipboard", mode = { "x", "n" }, icon = { icon = "", color = "grey" } },
 })

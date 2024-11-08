@@ -46,18 +46,19 @@ return {
         { "<leader>cf", format, desc = "Format Document", has = "documentFormatting" },
         { "<leader>cf", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
         { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
-        { "<leader>cR", LazyVim.lsp.rename_file, desc = "Rename File", mode ={"n"}, has = { "workspace/didRenameFiles", "workspace/willRenameFiles" } },
+        { "<leader>cR", Snacks.rename.rename_file, desc = "Rename File", mode ={"n"}, has = { "workspace/didRenameFiles", "workspace/willRenameFiles" } },
         { "<leader>ci", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
         { "<leader>cl", vim.lsp.codelens.run, desc = "Run codelens" },
         { "<leader>cL", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
-        { "]]", function() LazyVim.lsp.words.jump(vim.v.count1) end, has = "documentHighlight",
-          desc = "Next Reference", cond = function() return LazyVim.lsp.words.enabled end },
-        { "[[", function() LazyVim.lsp.words.jump(-vim.v.count1) end, has = "documentHighlight",
-          desc = "Prev Reference", cond = function() return LazyVim.lsp.words.enabled end },
-        { "<a-n>", function() LazyVim.lsp.words.jump(vim.v.count1, true) end, has = "documentHighlight",
-          desc = "Next Reference", cond = function() return LazyVim.lsp.words.enabled end },
-        { "<a-p>", function() LazyVim.lsp.words.jump(-vim.v.count1, true) end, has = "documentHighlight",
-          desc = "Prev Reference", cond = function() return LazyVim.lsp.words.enabled end },
+        -- `LazyVim.lsp.words` is deprecated. Please use `Snacks.words` instead
+        { "]]", function() Snacks.words.jump(vim.v.count1) end, has = "documentHighlight",
+          desc = "Next Reference", cond = function() return Snacks.words.enabled end },
+        { "[[", function() Snacks.words.jump(-vim.v.count1) end, has = "documentHighlight",
+          desc = "Prev Reference", cond = function() return Snacks.words.enabled end },
+        { "<a-n>", function() Snacks.words.jump(vim.v.count1, true) end, has = "documentHighlight",
+          desc = "Next Reference", cond = function() return Snacks.words.enabled end },
+        { "<a-p>", function() Snacks.words.jump(-vim.v.count1, true) end, has = "documentHighlight",
+          desc = "Prev Reference", cond = function() return Snacks.words.enabled end },
       }
 
       -- ui_windows.default_options.border = "single"

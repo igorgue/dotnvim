@@ -5,23 +5,23 @@ local Util = require("lazyvim.util")
 
 -- commands
 vim.api.nvim_create_user_command("Btop", function()
-  Util.terminal.open("btop", { border = "none" })
+  Snacks.terminal("btop", { border = "none" })
 end, {})
 
 vim.api.nvim_create_user_command("Nap", function()
-  Util.terminal.open("nap", { border = "rounded" })
+  Snacks.terminal("nap", { border = "rounded" })
 end, {})
 
 vim.api.nvim_create_user_command("Yazi", function()
-  Util.terminal.open({ "yazi" }, { cwd = Util.root.get(), border = "rounded" })
+  Snacks.terminal({ "yazi" }, { cwd = Util.root.get(), border = "rounded" })
 end, {})
 
 vim.api.nvim_create_user_command("Lazygit", function()
-  Util.terminal.open({ "lazygit" }, { cwd = Util.root.get(), border = "none" })
+  Snacks.terminal({ "lazygit" }, { cwd = Util.root.get(), border = "none" })
 end, {})
 
 vim.api.nvim_create_user_command("ChessTui", function()
-  Util.terminal.open(
+  Snacks.terminal(
     { "chess-tui" },
     { cwd = Util.root.get(), border = "rounded", args = { "-e", "/usr/bin/stockfish" } }
   )
@@ -33,6 +33,10 @@ vim.api.nvim_create_user_command("Cloc", function()
 
     vim.notify(out, vim.log.levels.INFO, { title = "Lines of code in project" })
   end)
+end, {})
+
+vim.api.nvim_create_user_command("Notifications", function()
+  vim.schedule(Snacks.notifier.show_history)
 end, {})
 
 -- autocmds

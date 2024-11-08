@@ -346,7 +346,6 @@ return {
   },
   {
     "ibhagwan/fzf-lua",
-    enabled = false,
     optional = true,
     opts = {
       previewers = {
@@ -457,7 +456,6 @@ return {
 
       telescope.setup(opts)
 
-      telescope.load_extension("notify")
       telescope.load_extension("glyph")
       telescope.load_extension("emoji")
       telescope.load_extension("smart_open")
