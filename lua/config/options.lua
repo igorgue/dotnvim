@@ -3,7 +3,7 @@
 -- Add any additional options here
 local utils = require("utils")
 
-vim.opt.signcolumn = "auto"
+vim.opt.signcolumn = "no"
 vim.opt.statuscolumn = ""
 vim.opt.laststatus = 0
 vim.opt.number = false

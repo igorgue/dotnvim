@@ -304,6 +304,11 @@ return {
   {
     "folke/noice.nvim",
     opts = {
+      lsp = {
+        hover = {
+          silent = true,
+        },
+      },
       cmdline = {
         enabled = true,
       },
@@ -549,15 +554,5 @@ return {
     config = function()
       require("window-picker").setup()
     end,
-  },
-  {
-    "folke/noice.nvim",
-    opts = {
-      lsp = {
-        hover = {
-          silent = true,
-        },
-      },
-    },
   },
 }

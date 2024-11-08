@@ -15,50 +15,35 @@ return {
       local ui_windows = require("lspconfig.ui.windows")
       local format = require("lazyvim.util").format.format
 
-
       -- stylua: ignore
       keymaps._keys = {
+        { "<a-n>", function() Snacks.words.jump(vim.v.count1, true) end, has = "documentHighlight", desc = "Next Reference", cond = function() return Snacks.words.is_enabled() end },
+        { "<a-p>", function() Snacks.words.jump(-vim.v.count1, true) end, has = "documentHighlight", desc = "Prev Reference", cond = function() return Snacks.words.is_enabled() end },
+        { "<c-s-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
+        { "]]", function() Snacks.words.jump(vim.v.count1) end, has = "documentHighlight", desc = "Next Reference", cond = function() return Snacks.words.is_enabled() end },
+        { "[[", function() Snacks.words.jump(-vim.v.count1) end, has = "documentHighlight", desc = "Prev Reference", cond = function() return Snacks.words.is_enabled() end },
         { "gd", function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, desc = "Goto Definition", has = "definition" },
         { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+        { "gd", vim.lsp.buf.definition, desc = "Goto Definition", has = "definition" },
         { "gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, desc = "Goto Implementation" },
-        { "K", vim.lsp.buf.hover, desc = "Hover" },
-        { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
-        { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
+        { "gI", vim.lsp.buf.implementation, desc = "Goto Implementation" },
+        { "gK", function() return vim.lsp.buf.signature_help() end, desc = "Signature Help", has = "signatureHelp" },
+        { "gR", "<cmd>Telescope lsp_references<cr>", desc = "References" },
+        { "gr", vim.lsp.buf.references, desc = "References", nowait = true },
         { "gt", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, desc = "Goto T[y]pe Definition" },
-        { "<c-s-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
-        { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Actions", mode = { "n", "v" } },
-        {
-          "<leader>cA",
-          function()
-            vim.lsp.buf.code_action({
-              context = {
-                only = {
-                  "source",
-                },
-                diagnostics = {},
-              },
-            })
-          end,
-          desc = "Source Action",
-          has = "codeAction",
-        },
+        { "gy", vim.lsp.buf.type_definition, desc = "Goto T[y]pe Definition" },
+        { "K", function() return vim.lsp.buf.hover() end, desc = "Hover" },
+        { "<leader>cA", function() vim.lsp.buf.code_action({ context = { only = { "source", }, diagnostics = {}, }, }) end, desc = "Source Action", has = "codeAction", },
+        { "<leader>cA", LazyVim.lsp.action.source, desc = "Source Action", has = "codeAction"},
+        { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
+        { "<leader>cC", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
+        { "<leader>cc", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "v" }, has = "codeLens" },
         { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
         { "<leader>cf", format, desc = "Format Document", has = "documentFormatting" },
         { "<leader>cf", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
+        { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+        { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File", mode ={"n"}, has = { "workspace/didRenameFiles", "workspace/willRenameFiles" } },
         { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
-        { "<leader>cR", Snacks.rename.rename_file, desc = "Rename File", mode ={"n"}, has = { "workspace/didRenameFiles", "workspace/willRenameFiles" } },
-        { "<leader>ci", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-        { "<leader>cl", vim.lsp.codelens.run, desc = "Run codelens" },
-        { "<leader>cL", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
-        -- `LazyVim.lsp.words` is deprecated. Please use `Snacks.words` instead
-        { "]]", function() Snacks.words.jump(vim.v.count1) end, has = "documentHighlight",
-          desc = "Next Reference", cond = function() return Snacks.words.enabled end },
-        { "[[", function() Snacks.words.jump(-vim.v.count1) end, has = "documentHighlight",
-          desc = "Prev Reference", cond = function() return Snacks.words.enabled end },
-        { "<a-n>", function() Snacks.words.jump(vim.v.count1, true) end, has = "documentHighlight",
-          desc = "Next Reference", cond = function() return Snacks.words.enabled end },
-        { "<a-p>", function() Snacks.words.jump(-vim.v.count1, true) end, has = "documentHighlight",
-          desc = "Prev Reference", cond = function() return Snacks.words.enabled end },
       }
 
       -- ui_windows.default_options.border = "single"
