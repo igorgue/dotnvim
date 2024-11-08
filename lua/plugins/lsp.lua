@@ -34,7 +34,7 @@ return {
         { "gy", vim.lsp.buf.type_definition, desc = "Goto T[y]pe Definition" },
         { "K", function() return vim.lsp.buf.hover() end, desc = "Hover" },
         { "<leader>cA", function() vim.lsp.buf.code_action({ context = { only = { "source", }, diagnostics = {}, }, }) end, desc = "Source Action", has = "codeAction", },
-        { "<leader>cA", LazyVim.lsp.action.source, desc = "Source Action", has = "codeAction"},
+        { "<leader>cA", LazyVim.lsp.action.source, desc = "Source Action", has = "codeAction" },
         { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
         { "<leader>cC", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
         { "<leader>cc", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "v" }, has = "codeLens" },
