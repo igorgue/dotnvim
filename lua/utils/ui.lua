@@ -15,7 +15,7 @@ M.diagnostic_config = {
 
 function M.disable_fn(buf)
   local max_filesize = 100 * 1024 -- 100 KB
-  local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+  local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
   if ok and stats and stats.size > max_filesize then
     return true
   end
@@ -159,13 +159,17 @@ end
 function M.toggle_focus_mode()
   ---@diagnostic disable-next-line: undefined-field
   vim.opt.laststatus = vim.opt.laststatus:get() == 0 and 3 or 0
-  vim.opt.signcolumn = vim.opt.signcolumn:get() == "no" and "auto" or "no"
 
-  -- if vim.opt.laststatus:get() == 0 then
-  --   vim.opt.signcolumn = "no"
-  -- else
-  --   vim.opt.signcolumn = "auto"
-  -- end
+  if vim.opt.laststatus:get() == 0 then
+    vim.opt.signcolumn = "no"
+  else
+    vim.opt.signcolumn = "auto"
+  end
+
+  vim.opt.cursorline = not vim.opt.cursorline:get()
+  vim.opt.number = not vim.opt.number:get()
+  vim.opt.cursorline = not vim.opt.cursorline:get()
+  vim.opt.number = not vim.opt.number:get()
 
   if vim.g.copilot_enabled ~= nil then
     if vim.g.copilot_enabled == 0 then
