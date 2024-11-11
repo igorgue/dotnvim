@@ -160,17 +160,6 @@ function M.toggle_focus_mode()
   ---@diagnostic disable-next-line: undefined-field
   vim.opt.laststatus = vim.opt.laststatus:get() == 0 and 3 or 0
 
-  if vim.opt.laststatus:get() == 0 then
-    vim.opt.signcolumn = "no"
-  else
-    vim.opt.signcolumn = "auto"
-  end
-
-  vim.opt.cursorline = not vim.opt.cursorline:get()
-  vim.opt.number = not vim.opt.number:get()
-  vim.opt.cursorline = not vim.opt.cursorline:get()
-  vim.opt.number = not vim.opt.number:get()
-
   if vim.g.copilot_enabled ~= nil then
     if vim.g.copilot_enabled == 0 then
       vim.cmd("Copilot enable")
