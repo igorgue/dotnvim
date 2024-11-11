@@ -160,10 +160,12 @@ function M.toggle_focus_mode()
   ---@diagnostic disable-next-line: undefined-field
   vim.opt.laststatus = vim.opt.laststatus:get() == 0 and 3 or 0
 
-  if vim.g.copilot_enabled ~= nil then
+  if vim.g.copilot_filetypes ~= nil then
     if vim.g.copilot_enabled == 0 then
       vim.cmd("Copilot enable")
     elseif vim.g.copilot_enabled == 1 then
+      vim.cmd("Copilot disable")
+    else
       vim.cmd("Copilot disable")
     end
   end
