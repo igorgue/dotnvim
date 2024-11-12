@@ -308,6 +308,12 @@ return {
         hover = {
           silent = true,
         },
+        override = {
+          ["cmp.entry.get_documentation"] = true,
+        },
+      },
+      popupmenu = {
+        backend = "cmp",
       },
       cmdline = {
         enabled = true,
@@ -339,14 +345,6 @@ return {
       --     border = { style = "single" },
       --   },
       -- },
-      lsp = {
-        override = {
-          ["cmp.entry.get_documentation"] = true,
-        },
-      },
-      popupmenu = {
-        backend = "cmp",
-      },
     },
   },
   {
