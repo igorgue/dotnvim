@@ -6,6 +6,8 @@ vim.filetype.add({
   },
 })
 
+vim.g.lazyvim_python_lsp = "basedpyright"
+
 return {
   {
     "L3MON4D3/LuaSnip",
