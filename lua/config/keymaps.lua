@@ -114,7 +114,7 @@ wk.add({
   { "<leader>uR", require("utils").ui.toggle_lsp_references, desc = "Toggle LspReferences", mode = "n" },
   { "<leader>n", Snacks.notifier.show_history, desc = "Show Notifications History", mode = "n" },
   { "<leader>N", Snacks.notifier.hide, desc = "Clear Notifications", mode = "n" },
-  { "<c-y>", 'V"+y', desc = "Copy to clipboard", mode = "n", icon = { icon = "", color = "grey" } },
+  { "<c-y>", '^v$"+y', desc = "Copy to clipboard", mode = "n", icon = { icon = "", color = "grey" } },
   { "<c-y>", '"+y', desc = "Copy to clipboard", mode = "v", icon = { icon = "", color = "grey" } },
   { "<c-p>", '"+p', desc = "Paste from clipboard", mode = { "v", "n" }, icon = { icon = "", color = "grey" } },
 })
