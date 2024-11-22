@@ -6,6 +6,32 @@ return {
     },
   },
   {
+    "folke/snacks.nvim",
+    opts = {
+      dashboard = {
+        preset = {
+          header = "NVIM " .. require("utils").version(),
+          -- stylua: ignore
+          ---@type snacks.dashboard.Item[]
+          keys = {
+            { icon = " ", key = "n", desc = "new file", action = ":ene | startinsert" },
+            { icon = " ", key = "r", desc = "recent files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+            { icon = " ", key = "s", desc = "restore session", section = "session" },
+            { icon = " ", key = "f", desc = "find file", action = ":lua Snacks.dashboard.pick('files')" },
+            { icon = " ", key = "o", desc = "smart open", action = ":Telescope smart_open" },
+            { icon = " ", key = "g", desc = "find text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+            { icon = " ", key = "c", desc = "config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+            { icon = "󰒲 ", key = "l", desc = "lazy", action = ":Lazy" },
+            { icon = " ", key = "x", desc = "lazy extras", action = ":LazyExtras" },
+            { icon = " ", key = "t", desc = "terminal", action = ":lua Snacks.terminal()" },
+            { icon = " ", key = "d", desc = "database", action = ":ene | DBUI" },
+            { icon = " ", key = "q", desc = "quit", action = ":qa" },
+          },
+        },
+      },
+    },
+  },
+  {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",
     opts = function()
