@@ -19,6 +19,7 @@ end
 return {
   {
     "SmiteshP/nvim-navic",
+    optional = true,
     opts = {
       lsp = {
         preference = { "nextls" },

@@ -548,6 +548,7 @@ return {
   },
   {
     "SmiteshP/nvim-navic",
+    optional = true,
     lazy = false,
     config = function(_, opts)
       require("nvim-navic").setup(opts)
@@ -555,11 +556,7 @@ return {
       vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
     end,
     opts = {
-      safe_output = true,
       click = true,
-      lsp = {
-        auto_attach = true,
-      },
     },
   },
   {

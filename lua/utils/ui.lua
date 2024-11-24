@@ -211,8 +211,10 @@ function M.toggle_focus_mode()
 end
 
 function M.toggle_winbar()
-  ---@diagnostic disable-next-line: undefined-field
-  vim.opt.winbar = vim.opt.winbar:get() == "" and "%{%v:lua.require'nvim-navic'.get_location()%}" or ""
+  if package.loaded["nvim-navic"] and require("nvim-navic").is_available() then
+    ---@diagnostic disable-next-line: undefined-field
+    vim.opt.winbar = vim.opt.winbar:get() == "" and "%{%v:lua.require'nvim-navic'.get_location()%}" or ""
+  end
 end
 
 function M.toggle_lsp_references()
