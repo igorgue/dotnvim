@@ -1,6 +1,14 @@
 return {
   {
+    "echasnovski/mini.ai",
+    keys = {
+      { "<c-space>", "<cmd>normal vii0<cr>", desc = "Inner Indent Level (No Line Above)" },
+      { "<c-space>", "<cmd>normal ii0<cr>", desc = "Inner Indent Level (No Line Above)", mode = "x" },
+    },
+  },
+  {
     "michaeljsmith/vim-indent-object",
+    enabled = false,
     keys = {
       { "vai", nil, desc = "An Indent Level and Line Above" },
       { "vii", nil, desc = "Inner Indent Level (No Line Above)" },
