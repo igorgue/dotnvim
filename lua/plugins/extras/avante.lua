@@ -43,7 +43,7 @@ return {
     opts = {
       provider = "openai",
       openai = {
-        model = "gpt-4o",
+        model = "o1-preview",
       },
       hints = { enabled = false },
     },
