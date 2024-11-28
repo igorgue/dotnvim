@@ -1,6 +1,32 @@
+vim.g.lazyvim_blink_main = true
+
+vim.cmd [[
+  hi link BlinkCmpLabel Normal
+  hi link BlinkCmpLabelMatch Normal
+  hi link BlinkCmpPMenu Normal
+  hi link BlinkCmpMenuBorder Normal
+  hi link BlinkCmpScrollBarGutter Normal
+  hi link BlinkCmpMenu Normal
+  hi link BlinkCmpMenuBorder Normal
+]]
+
 return {
   {
+    "saghen/blink.cmp",
+    optional = true,
+    opts = {
+      windows = {
+        autocomplete = {
+          border = "rounded",
+          winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:None",
+          auto_show = false,
+        },
+      },
+    },
+  },
+  {
     "hrsh7th/nvim-cmp",
+    optional = true,
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "hrsh7th/cmp-cmdline",
