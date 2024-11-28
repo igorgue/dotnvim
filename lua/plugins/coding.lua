@@ -1,19 +1,15 @@
-vim.g.lazyvim_blink_main = true
-
-vim.cmd [[
-  hi link BlinkCmpLabel Normal
-  hi link BlinkCmpLabelMatch Normal
-  hi link BlinkCmpPMenu Normal
-  hi link BlinkCmpMenuBorder Normal
-  hi link BlinkCmpScrollBarGutter Normal
-  hi link BlinkCmpMenu Normal
-  hi link BlinkCmpMenuBorder Normal
-]]
-
 return {
   {
     "saghen/blink.cmp",
     optional = true,
+    dependencies = {
+      {
+        "saghen/blink.compat",
+        opts = {
+          impersonate_nvim_cmp = true,
+        },
+      },
+    },
     opts = {
       windows = {
         autocomplete = {
