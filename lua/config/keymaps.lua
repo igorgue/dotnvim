@@ -144,8 +144,6 @@ wk.add({
 
       if luasnip.jumpable(-1) then
         luasnip.jump(-1)
-      else
-        vim.api.nvim_feedkeys("k", "n", true)
       end
     end,
     desc = "Jump back with luasnip or move window up",
