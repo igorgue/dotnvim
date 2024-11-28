@@ -118,3 +118,37 @@ wk.add({
   { "<c-y>", '"+y', desc = "Copy to clipboard", mode = "v", icon = { icon = "", color = "grey" } },
   { "<c-p>", '"+p', desc = "Paste from clipboard", mode = { "v", "n" }, icon = { icon = "", color = "grey" } },
 })
+
+-- some special cases:
+pcall(vim.api.nvim_del_keymap, "v", "<C-k>")
+pcall(vim.api.nvim_del_keymap, "i", "<C-k>")
+wk.add({
+  {
+    "<C-k>",
+    function()
+      local luasnip = require("luasnip")
+
+      if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        vim.cmd("wincmd k")
+      end
+    end,
+    desc = "Jump back with luasnip or move window up",
+    mode = "v",
+  },
+  {
+    "<C-k>",
+    function()
+      local luasnip = require("luasnip")
+
+      if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        vim.api.nvim_feedkeys("k", "n", true)
+      end
+    end,
+    desc = "Jump back with luasnip or move window up",
+    mode = "i",
+  },
+})

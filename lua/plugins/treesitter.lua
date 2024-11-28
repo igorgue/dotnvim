@@ -19,7 +19,8 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     -- ft = ts_default_enabled_langs,
-    dependencies = { "RRethy/nvim-treesitter-endwise" },
+    -- FIXME: doesn't work on 0.11
+    -- dependencies = { "RRethy/nvim-treesitter-endwise" },
     lazy = false,
     cmd = { "TSEnable", "TSBufEnable" },
     -- stylua: ignore
