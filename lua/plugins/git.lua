@@ -60,7 +60,6 @@ return {
     keys = {
       { "<leader>h", "<cmd>lua require('gitsigns').next_hunk()<cr>", desc = "Next Git Hunk" },
       { "<leader>H", "<cmd>lua require('gitsigns').prev_hunk()<cr>", desc = "Prev Git Hunk" },
-      { "<leader>ug", "<cmd>Gitsigns toggle_signs<cr>", desc = "Toggle Gitsings" },
     },
   },
   {
