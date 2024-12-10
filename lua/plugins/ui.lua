@@ -29,12 +29,23 @@ return {
           },
         },
       },
+      zen = {
+        win = {
+          style = {
+            backdrop = { transparent = true, blend = 10 },
+          },
+        },
+      },
+    },
+    keys = {
+      -- stylua: ignore
+      { "<leader>uz", function() Snacks.zen() end, desc = "Toggle Zen Mode", },
     },
   },
   {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",
-    enabled = false,
+    optional = true,
     opts = function()
       local logo = "NVIM " .. require("utils").version()
 
@@ -219,6 +230,7 @@ return {
   },
   {
     "folke/zen-mode.nvim",
+    optional = true,
     dependencies = {
       {
         "folke/twilight.nvim",
@@ -413,7 +425,6 @@ return {
     enabled = not vim.o.diff and vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
     opts = function()
       local actions = require("telescope.actions")
-      local themes = require("telescope.themes")
 
       local function telescope_paste_char(char)
         vim.api.nvim_put({ char.value }, "c", false, true)
@@ -538,13 +549,8 @@ return {
       preset = "modern",
     },
     keys = {
-      {
-        "<leader>?",
-        function()
-          require("which-key").show()
-        end,
-        desc = "Show Which Key",
-      },
+      -- stylua: ignore
+      { "<leader>?", function() require("which-key").show() end, desc = "Show Which Key", },
     },
   },
   {
