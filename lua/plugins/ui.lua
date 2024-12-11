@@ -30,6 +30,12 @@ return {
         },
       },
       zen = {
+        toggles = {
+          dim = true,
+          git_signs = true,
+          diagnostics = true,
+          inlay_hints = true,
+        },
         win = {
           style = {
             backdrop = { transparent = true, blend = 10 },
@@ -39,7 +45,7 @@ return {
     },
     keys = {
       -- stylua: ignore
-      { "<leader>uz", function() Snacks.zen() end, desc = "Toggle Zen Mode", },
+      { "<leader>uz", function() Snacks.toggle.zen():toggle() end, desc = "Toggle Zen Mode", },
     },
   },
   {
