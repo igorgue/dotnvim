@@ -32,9 +32,9 @@ return {
       zen = {
         toggles = {
           dim = true,
-          git_signs = true,
-          diagnostics = true,
-          inlay_hints = true,
+          git_signs = false,
+          diagnostics = false,
+          inlay_hints = false,
         },
         win = {
           style = {
@@ -42,10 +42,6 @@ return {
           },
         },
       },
-    },
-    keys = {
-      -- stylua: ignore
-      { "<leader>uz", function() Snacks.toggle.zen():toggle() end, desc = "Toggle Zen Mode", },
     },
   },
   {

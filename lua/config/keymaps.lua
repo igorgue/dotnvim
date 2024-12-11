@@ -149,3 +149,5 @@ wk.add({
     mode = "i",
   },
 })
+
+Snacks.toggle.zen():map("<leader>uz")
