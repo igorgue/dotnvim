@@ -160,7 +160,7 @@ function M.toggle_focus_mode()
   ---@diagnostic disable-next-line: undefined-field
   vim.opt.laststatus = vim.opt.laststatus:get() == 0 and 3 or 0
 
-  if vim.g.copilot_filetypes ~= nil then
+  if require("lazy.core.config").plugins["copilot.vim"] ~= nil then
     if vim.g.copilot_enabled == 0 then
       vim.cmd("Copilot enable")
     elseif vim.g.copilot_enabled == 1 then
@@ -237,7 +237,9 @@ end
 function M.enable_focus_mode()
   vim.opt.laststatus = 0
   pcall(function()
-    vim.cmd("Copilot disable")
+    if require("lazy.core.config").plugins["copilot.vim"] ~= nil then
+      vim.cmd("Copilot disable")
+    end
   end)
   pcall(function()
     vim.cmd("SupermavenStop")
