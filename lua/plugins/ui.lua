@@ -42,6 +42,7 @@ return {
           },
         },
       },
+      indent = { enabled = false },
     },
   },
   {
