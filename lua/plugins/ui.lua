@@ -43,7 +43,7 @@ return {
         },
       },
       indent = { enabled = false },
-      input = {},
+      input = { enabled = true },
     },
   },
   {

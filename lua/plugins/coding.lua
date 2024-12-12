@@ -1,6 +1,7 @@
 return {
   {
     "saghen/blink.cmp",
+    optional = true,
     opts = {
       completion = {
         list = {
@@ -34,6 +35,14 @@ return {
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "hrsh7th/cmp-cmdline",
+      {
+        "folke/noice.nvim",
+        opts = {
+          popupmenu = {
+            backend = "cmp",
+          },
+        },
+      },
     },
     opts = function(_, opts)
       local cmp = require("cmp")
@@ -137,7 +146,7 @@ return {
 
       opts.mapping = cmp.mapping.preset.insert(mappings)
       opts.experimental = {}
-      opts.view = { docs = { auto_open = false }, entries = { follow_cursor = true } }
+      opts.view = { docs = { auto_open = true }, entries = { follow_cursor = true } }
       opts.completion = { autocomplete = false }
 
       return opts
