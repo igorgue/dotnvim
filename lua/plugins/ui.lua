@@ -43,6 +43,7 @@ return {
         },
       },
       indent = { enabled = false },
+      input = {},
     },
   },
   {
@@ -353,9 +354,6 @@ return {
         override = {
           ["cmp.entry.get_documentation"] = true,
         },
-      },
-      popupmenu = {
-        backend = "cmp",
       },
       cmdline = {
         enabled = true,

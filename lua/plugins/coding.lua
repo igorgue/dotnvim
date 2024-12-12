@@ -1,21 +1,29 @@
 return {
   {
     "saghen/blink.cmp",
-    optional = true,
-    dependencies = {
-      {
-        "saghen/blink.compat",
-        opts = {
-          impersonate_nvim_cmp = true,
-        },
-      },
-    },
     opts = {
-      windows = {
-        autocomplete = {
-          border = "rounded",
+      completion = {
+        list = {
+          selection = "preselect",
+        },
+        accept = {
+          auto_brackets = {
+            enabled = true,
+          },
+        },
+        menu = {
           winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:None",
+          border = "rounded",
           auto_show = false,
+        },
+        documentation = {
+          window = {
+            border = "rounded",
+            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:None",
+          },
+        },
+        ghost_text = {
+          enabled = false,
         },
       },
     },
