@@ -121,33 +121,51 @@ wk.add({
 -- some special cases:
 pcall(vim.api.nvim_del_keymap, "v", "<C-k>")
 pcall(vim.api.nvim_del_keymap, "i", "<C-k>")
-wk.add({
-  {
-    "<C-k>",
-    function()
-      local luasnip = require("luasnip")
 
-      if luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        vim.cmd("wincmd k")
-      end
-    end,
-    desc = "Jump back with luasnip or move window up",
-    mode = "v",
-  },
-  {
-    "<C-k>",
-    function()
-      local luasnip = require("luasnip")
+if LazyVim.has("luasnip") then
+  wk.add({
+    {
+      "<C-k>",
+      function()
+        local luasnip = require("luasnip")
 
-      if luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      end
-    end,
-    desc = "Jump back with luasnip or move window up",
-    mode = "i",
-  },
-})
+        if luasnip.jumpable(-1) then
+          luasnip.jump(-1)
+        else
+          vim.cmd("wincmd k")
+        end
+      end,
+      desc = "Jump back with luasnip or move window up",
+      mode = { "v", "s" },
+    },
+    {
+      "<C-k>",
+      function()
+        local luasnip = require("luasnip")
+
+        if luasnip.jumpable(-1) then
+          luasnip.jump(-1)
+        end
+      end,
+      desc = "Jump back with luasnip or move window up",
+      mode = { "i", "s" },
+    },
+  })
+else
+  wk.add({
+    {
+      "<C-k>",
+      function()
+        if vim.snippet.active({ direction = -1 }) then
+          vim.snippet.jump(-1)
+        else
+          vim.cmd("wincmd k")
+        end
+      end,
+      desc = "Jump back with snippet or move window up",
+      mode = { "i", "s" },
+    },
+  })
+end
 
 Snacks.toggle.zen():map("<leader>uz")

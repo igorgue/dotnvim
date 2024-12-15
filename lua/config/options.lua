@@ -128,4 +128,4 @@ vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DapBreakpo
 vim.g.autoformat = false
 vim.g.snacks_animate = false
 vim.g.lazyvim_picker = "telescope"
-vim.g.lazyvim_cmp = "auto" -- or "blink.cmp" for blink, "auto" for default
+vim.g.lazyvim_cmp = "auto" -- or "nvim-cmp" for cmp, "blink.cmp" for blink, "auto" for default

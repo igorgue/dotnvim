@@ -27,6 +27,13 @@ return {
           enabled = false,
         },
       },
+      keymap = {
+        preset = "enter",
+        ["<C-j>"] = {
+          LazyVim.cmp.map({ "snippet_forward" }),
+          "fallback",
+        },
+      },
     },
   },
   {
