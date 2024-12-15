@@ -121,9 +121,10 @@ return {
       })
     end,
     keys = {
-      { "<leader>cgg", "<cmd>OpenInGHFileLines<CR>", desc = "Open in GitHub file lines" },
-      { "<leader>cgf", "<cmd>OpenInGHFile<CR>", desc = "Open in GitHub file" },
-      { "<leader>cgr", open_github_repo, desc = "Open in GitHub repo" },
+      { "<leader>cgg", "<cmd>OpenInGHFileLines<CR>", desc = "Open GitHub file lines" },
+      { "<leader>cgf", "<cmd>OpenInGHFile<CR>", desc = "Open GitHub file" },
+      { "<leader>cgr", open_github_repo, desc = "Open GitHub repo" },
+      { "gh", open_github_repo, desc = "Go to GitHub repo" },
     },
   },
 }

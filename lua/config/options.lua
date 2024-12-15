@@ -103,16 +103,12 @@ vim.cmd([[
 ]])
 
 vim.diagnostic.config(utils.ui.diagnostic_config)
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-  vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, utils.ui.diagnostic_config)
-
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
-vim.lsp.set_log_level("off") -- change to "debug" to show many logs
+vim.lsp.set_log_level("debug") -- change to "debug" to show many logs
 
 if vim.version().minor >= 10 then
   vim.diagnostic.enable(false)
 else
+  ---@diagnostic disable-next-line: deprecated
   vim.diagnostic.disable()
 end
 
