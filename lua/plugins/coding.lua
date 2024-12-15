@@ -33,13 +33,19 @@ return {
           enabled = false,
         },
       },
-      signature = { enabled = true },
+      signature = {
+        enabled = false,
+        window = {
+          border = "rounded",
+          winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:None",
+        },
+      },
       keymap = {
         preset = "enter",
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-y>"] = { "show", "select_and_accept", "fallback" },
         ["<C-j>"] = {
-          LazyVim.cmp.map({ "snippet_forward" }),
+          LazyVim.cmp.map({ "snippet_forward", "ai_accept" }),
           "show",
           "select_and_accept",
           "fallback",

@@ -27,26 +27,29 @@ return {
         "p00f/clangd_extensions.nvim",
         config = function(plugin)
           local register_keys_and_cmp = function()
-            local cmp = require("cmp")
             local wk = require("which-key")
             local bufnr = vim.api.nvim_get_current_buf()
 
             ---@diagnostic disable-next-line: missing-fields
-            cmp.setup({
-              ---@diagnostic disable-next-line: missing-fields
-              sorting = {
-                comparators = {
-                  cmp.config.compare.offset,
-                  cmp.config.compare.exact,
-                  cmp.config.compare.recently_used,
-                  require("clangd_extensions.cmp_scores"),
-                  cmp.config.compare.kind,
-                  cmp.config.compare.sort_text,
-                  cmp.config.compare.length,
-                  cmp.config.compare.order,
+            if LazyVim.has("cmp") then
+              local cmp = require("cmp")
+
+              cmp.setup({
+                ---@diagnostic disable-next-line: missing-fields
+                sorting = {
+                  comparators = {
+                    cmp.config.compare.offset,
+                    cmp.config.compare.exact,
+                    cmp.config.compare.recently_used,
+                    require("clangd_extensions.cmp_scores"),
+                    cmp.config.compare.kind,
+                    cmp.config.compare.sort_text,
+                    cmp.config.compare.length,
+                    cmp.config.compare.order,
+                  },
                 },
-              },
-            })
+              })
+            end
 
             wk.add({
               { "<leader>cc", group = "c" },
