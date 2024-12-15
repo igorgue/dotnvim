@@ -16,6 +16,9 @@ return {
           winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:None",
           border = "rounded",
           auto_show = false,
+          draw = {
+            treesitter = true,
+          },
         },
         documentation = {
           window = {
@@ -23,14 +26,22 @@ return {
             winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:None",
           },
         },
+        trigger = {
+          show_in_snippet = true,
+        },
         ghost_text = {
           enabled = false,
         },
       },
+      signature = { enabled = true },
       keymap = {
         preset = "enter",
+        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<C-y>"] = { "show", "select_and_accept", "fallback" },
         ["<C-j>"] = {
           LazyVim.cmp.map({ "snippet_forward" }),
+          "show",
+          "select_and_accept",
           "fallback",
         },
       },

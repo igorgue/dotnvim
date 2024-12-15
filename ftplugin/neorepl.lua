@@ -1,2 +1,5 @@
 vim.b.indent_blankline_enabled = false
-require("cmp").setup.buffer({ enabled = false })
+
+if LazyVim.has("cmp") then
+  require("cmp").setup.buffer({ enabled = false })
+end

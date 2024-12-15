@@ -11,6 +11,7 @@ vim.g.lazyvim_python_lsp = "basedpyright"
 return {
   {
     "L3MON4D3/LuaSnip",
+    optional = true,
     config = function()
       require("luasnip").filetype_extend("htmldjango", { "html" })
     end,
@@ -21,6 +22,7 @@ return {
   },
   {
     "vrslev/cmp-pypi",
+    enabled = vim.g.lazyvim_cmp == "nvim-cmp",
     dependencies = {
       "nvim-lua/plenary.nvim",
       {
