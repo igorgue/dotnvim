@@ -127,5 +127,5 @@ vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DapBreakpo
 -- globals
 vim.g.autoformat = false
 vim.g.snacks_animate = false
-vim.g.lazyvim_picker = "telescope"
-vim.g.lazyvim_cmp = "auto" -- or "nvim-cmp" for cmp, "blink.cmp" for blink, "auto" for default
+vim.g.lazyvim_picker = vim.env.LAZYVIM_PICKER or "telescope" -- or "fzf"
+vim.g.lazyvim_cmp = vim.env.LAZYVIM_CMP or "auto" -- or "nvim-cmp" for cmp, "blink.cmp" for blink, "auto" for default

@@ -412,6 +412,7 @@ return {
   },
   {
     "nvim-telescope/telescope.nvim",
+    optional = true,
     dependencies = {
       "kkharji/sqlite.lua",
       "nvim-telescope/telescope-smart-history.nvim",
