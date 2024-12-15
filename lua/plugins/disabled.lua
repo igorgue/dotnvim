@@ -37,8 +37,8 @@ return {
   -- treesitter and deps:
   { "nvim-treesitter/nvim-treesitter", enabled = enable_ts },
   { "luckasRanarison/tailwind-tools.nvim", enabled = enable_ts },
-  { "nvim-treesitter/nvim-treesitter-context", enabled = false },
-  { "nvim-treesitter/nvim-treesitter-textobjects", enabled = false },
-  { "JoosepAlviste/nvim-ts-context-commentstring", enabled = false },
-  { "windwp/nvim-ts-autotag", enabled = false },
+  { "nvim-treesitter/nvim-treesitter-context", enabled = enable_ts },
+  { "nvim-treesitter/nvim-treesitter-textobjects", enabled = enable_ts },
+  { "JoosepAlviste/nvim-ts-context-commentstring", enabled = enable_ts },
+  { "windwp/nvim-ts-autotag", enabled = enable_ts },
 }
