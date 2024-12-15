@@ -13,7 +13,7 @@ return {
     ft = { "html", "htmldjango", "css" },
     opts = {
       servers = {
-        htmx = {},
+        -- htmx = {},
         html = {
           filetypes = {
             "html",
