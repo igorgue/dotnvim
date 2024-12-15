@@ -2,11 +2,13 @@ return {
   desc = "Github Copilot (official)",
   {
     "L3MON4D3/LuaSnip",
+    optional = true,
     -- stylua: ignore
     keys = function() return {} end,
   },
   {
     "nvim-cmp",
+    optional = true,
     -- stylua: ignore
     keys = function() return {} end,
   },
