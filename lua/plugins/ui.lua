@@ -152,7 +152,7 @@ return {
             "%=",
             {
               "filename",
-              path = 1,
+              path = 0,
               symbols = { modified = "", readonly = "", new = "", unnamed = "" },
             },
           },
