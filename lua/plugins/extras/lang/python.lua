@@ -76,9 +76,13 @@ return {
   {
     "linux-cultist/venv-selector.nvim",
     branch = "regexp",
+    lazy = false,
     cmd = "VenvSelect",
     enabled = function()
       return LazyVim.has("telescope.nvim")
+    end,
+    config = function()
+      require("venv-selector").setup()
     end,
   },
   {
