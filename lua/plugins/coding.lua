@@ -29,9 +29,6 @@ return {
         trigger = {
           show_in_snippet = true,
         },
-        ghost_text = {
-          enabled = false,
-        },
       },
       signature = {
         enabled = false,

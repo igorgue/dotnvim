@@ -19,7 +19,14 @@ return {
             { icon = " ", key = "s", desc = "restore session", section = "session" },
             { icon = " ", key = "f", desc = "find file", action = ":lua Snacks.dashboard.pick('files')" },
             { icon = " ", key = "o", desc = "smart open", action = ":Telescope smart_open" },
-            { icon = " ", key = "g", desc = "find text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+            -- { icon = " ", key = "g", desc = "find text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+            { icon = " ", key = "g", desc = "find text", action = function()
+              if vim.g.lazyvim_picker == "telescope" then
+                require("plugins.telescope.filter_grep").filter_grep()
+              else
+                Snacks.dashboard.pick('live_grep')
+              end
+            end},
             { icon = " ", key = "c", desc = "config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
             { icon = "󰒲 ", key = "l", desc = "lazy", action = ":Lazy" },
             { icon = " ", key = "x", desc = "lazy extras", action = ":LazyExtras" },
@@ -405,8 +412,6 @@ return {
       },
     },
     keys = {
-      -- TODO: figure out a way to use smart_open or something similar for fzf-lua as well
-      { "<leader><leader>", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
       { "<leader>r", "<cmd>FzfLua oldfiles<cr>", desc = "Recent" },
     },
   },
@@ -494,7 +499,30 @@ return {
       local wk = require("which-key")
 
       wk.add({
-        { "<leader><leader>", "<cmd>Telescope smart_open<CR>", desc = "Telescope Smart Open" },
+        {
+          "<leader><leader>",
+          "<cmd>Telescope smart_open<cr>",
+          desc = "Telescope Restore / Smart Open",
+          mode = { "n" },
+        },
+        {
+          "<c-cr>",
+          function()
+            if vim.bo.filetype == "TelescopePrompt" then
+              require("telescope.actions").close(vim.api.nvim_get_current_buf())
+            else
+              local cached_pickers = require("telescope.state").get_global_key("cached_pickers")
+
+              if cached_pickers and next(cached_pickers) then
+                require("telescope.builtin").resume()
+              else
+                return "<cmd>Telescope smart_open<cr>"
+              end
+            end
+          end,
+          desc = "Telescope Restore / Smart Open",
+          mode = { "i", "n" },
+        },
       })
 
       telescope.setup(opts)
@@ -510,26 +538,17 @@ return {
       end
     end,
     keys = {
-      {
-        "<c-cr>",
-        function()
-          if vim.bo.filetype == "TelescopePrompt" then
-            require("telescope.actions").close(vim.api.nvim_get_current_buf())
-          else
-            local cached_pickers = require("telescope.state").get_global_key("cached_pickers")
-
-            if cached_pickers and next(cached_pickers) then
-              require("telescope.builtin").resume()
-            else
-              vim.cmd("Telescope smart_open")
-            end
-          end
-        end,
-        desc = "Resume Telescope",
-        mode = { "i", "n" },
-      },
       { "<leader><leader>", nil, desc = "Smart Open" },
+      { "<c-cr>", nil, desc = "Telescope Resume / Smart Open" },
       { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
+      { "<leader>r", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
+      {
+        "<leader>/",
+        function()
+          require("plugins.telescope.filter_grep").filter_grep()
+        end,
+        desc = "Filter Grep",
+      },
     },
   },
   {
