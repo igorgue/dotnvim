@@ -25,9 +25,12 @@ M.filter_grep = function(opts)
       end
 
       if pieces[2] then
-        table.insert(args, "-g")
         pieces[2] = pieces[2]:gsub("^%s*(.-)%s*$", "%1")
-        table.insert(args, pieces[2])
+
+        if pieces[2] ~= "*" then
+          table.insert(args, "-g")
+          table.insert(args, pieces[2])
+        end
       end
 
       return vim
@@ -48,6 +51,7 @@ M.filter_grep = function(opts)
       finder = finder,
       previewer = conf.grep_previewer(opts),
       sorter = require("telescope.sorters").get_generic_fuzzy_sorter(),
+      debounce = 200,
     })
     :find()
 end

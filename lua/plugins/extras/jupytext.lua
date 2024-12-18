@@ -1,5 +1,5 @@
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", },
+  pattern = { "markdown" },
   callback = function()
     vim.defer_fn(function()
       require("otter").activate({ "python" })
@@ -8,6 +8,15 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 return {
+  {
+    "williamboman/mason.nvim",
+    optional = true,
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == "table" then
+        vim.list_extend(opts.ensure_installed, { "jupytext" })
+      end
+    end,
+  },
   {
     "GCBallesteros/jupytext.nvim",
     config = true,
