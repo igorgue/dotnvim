@@ -24,6 +24,7 @@ if vim.version().minor >= 10 then
     end, 1000)
   end
 else
+  ---@diagnostic disable-next-line: deprecated
   if vim.diagnostic.is_disabled() then
     vim.defer_fn(function()
       require("utils").ui.enable_focus_mode()
