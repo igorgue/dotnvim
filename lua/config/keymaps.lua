@@ -9,8 +9,6 @@ pcall(vim.api.nvim_del_keymap, "n", ">")
 pcall(vim.api.nvim_del_keymap, "v", "<")
 pcall(vim.api.nvim_del_keymap, "v", ">")
 pcall(vim.api.nvim_del_keymap, "n", "<leader>gg")
-pcall(vim.api.nvim_del_keymap, "n", "j")
-pcall(vim.api.nvim_del_keymap, "n", "k")
 pcall(vim.api.nvim_del_keymap, "n", "<leader>ul")
 pcall(vim.api.nvim_del_keymap, "n", "<leader>uh")
 

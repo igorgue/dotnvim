@@ -6,6 +6,7 @@ return {
         tailwindcss = {
           filetypes = {
             "css",
+            "jinja",
             "scss",
             "sass",
             "html",

@@ -1,5 +1,28 @@
 return {
   {
+    "williamboman/mason.nvim",
+    optional = true,
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == "table" then
+        vim.list_extend(opts.ensure_installed, {
+          "rustywind",
+          "htmlbeautifier",
+          "djlint",
+          "curlylint",
+          "jinja-lsp",
+          "htmlbeautifier",
+          "rustfmt",
+          "black",
+          "isort",
+          "ruff",
+          "prettier",
+          "shfmt",
+          "stylua",
+        })
+      end
+    end,
+  },
+  {
     "stevearc/conform.nvim",
     opts = {
       default_format_opts = {
@@ -10,6 +33,7 @@ return {
       },
       formatters_by_ft = {
         htmldjango = { "rustywind", "htmlbeautifier", "djlint", "curlylint" },
+        jinja = { "rustywind", "htmlbeautifier", "djlint" },
         heex = { "rustywind", "htmlbeautifier", "mix" },
         xml = { "htmlbeautifier" },
         html = { "rustywind", "htmlbeautifier" },

@@ -103,7 +103,12 @@ vim.cmd([[
 ]])
 
 vim.diagnostic.config(utils.ui.diagnostic_config)
-vim.lsp.set_log_level("debug") -- change to "debug" to show many logs
+vim.lsp.handlers["textDocument/publishDiagnostics"] =
+  vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, utils.ui.diagnostic_config)
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+vim.lsp.set_log_level("off") -- change to "debug" to show many logs
 
 if vim.version().minor >= 10 then
   vim.diagnostic.enable(false)
@@ -126,3 +131,4 @@ vim.g.snacks_animate = false
 vim.g.ai_cmp = false
 vim.g.lazyvim_picker = vim.env.LAZYVIM_PICKER or "telescope" -- or "fzf"
 vim.g.lazyvim_cmp = vim.env.LAZYVIM_CMP or "auto" -- or "nvim-cmp" for cmp, "blink.cmp" for blink, "auto" for default
+vim.g.lazyvim_blink_main = krue

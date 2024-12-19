@@ -32,6 +32,9 @@ return {
       },
       signature = {
         enabled = false,
+        trigger = {
+          show_on_insert_on_trigger_character = false,
+        },
         window = {
           border = "rounded",
           winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:None",
@@ -41,6 +44,8 @@ return {
         preset = "enter",
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
         ["<C-y>"] = { "show", "select_and_accept", "fallback" },
+        ["<Tab>"] = {},
+        ["<C-e>"] = { "hide_documentation", "hide" },
         ["<C-j>"] = {
           LazyVim.cmp.map({ "snippet_forward", "ai_accept" }),
           "show",
