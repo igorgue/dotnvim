@@ -131,4 +131,4 @@ vim.g.snacks_animate = false
 vim.g.ai_cmp = false
 vim.g.lazyvim_picker = vim.env.LAZYVIM_PICKER or "telescope" -- or "fzf"
 vim.g.lazyvim_cmp = vim.env.LAZYVIM_CMP or "auto" -- or "nvim-cmp" for cmp, "blink.cmp" for blink, "auto" for default
-vim.g.lazyvim_blink_main = krue
+vim.g.lazyvim_blink_main = false
