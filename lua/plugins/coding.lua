@@ -16,9 +16,6 @@ return {
           winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:None",
           border = "rounded",
           auto_show = false,
-          draw = {
-            treesitter = true,
-          },
         },
         documentation = {
           window = {
