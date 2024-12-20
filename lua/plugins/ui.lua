@@ -361,6 +361,11 @@ return {
         override = {
           ["cmp.entry.get_documentation"] = true,
         },
+        signature = {
+          auto_open = {
+            enabled = false,
+          },
+        },
       },
       cmdline = {
         enabled = true,

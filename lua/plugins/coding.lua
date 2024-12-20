@@ -39,10 +39,10 @@ return {
       },
       keymap = {
         preset = "enter",
-        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<C-space>"] = { "show", "hide" },
         ["<C-y>"] = { "show", "select_and_accept", "fallback" },
         ["<Tab>"] = {},
-        ["<C-e>"] = { "hide_documentation", "hide" },
+        ["<C-e>"] = { "hide" },
         ["<C-j>"] = {
           LazyVim.cmp.map({ "snippet_forward", "ai_accept" }),
           "show",
