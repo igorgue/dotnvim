@@ -1,5 +1,16 @@
 return {
   {
+    "echasnovski/mini.hipatterns",
+    opts = {
+      tailwind = {
+        ft = {
+          "jinja",
+          "htmldjango",
+        },
+      },
+    },
+  },
+  {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
