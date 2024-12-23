@@ -157,7 +157,12 @@ else
         if vim.snippet.active({ direction = -1 }) then
           vim.snippet.jump(-1)
         else
-          vim.cmd("wincmd k")
+          -- support wrapping around
+          if vim.snippet.active({ direction = 1 }) then
+            vim.snippet.jump(1)
+          else
+            vim.cmd("wincmd k")
+          end
         end
       end,
       desc = "Jump back with snippet or move window up",
