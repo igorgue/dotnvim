@@ -204,7 +204,7 @@ return {
     },
   },
   {
-    "norcalli/nvim-colorizer.lua",
+    "catgoose/nvim-colorizer.lua",
     event = { "BufReadPost", "BufNewFile" },
     cmd = { "ColorizerToggle", "ColorizerAttachToBuffer", "ColorizerReloadAllBuffers" },
     init = function()
