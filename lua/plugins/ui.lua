@@ -593,12 +593,6 @@ return {
     },
   },
   {
-    "arp242/xdg_open.vim",
-    keys = {
-      { "gx", nil, desc = "Open With xdg-open" },
-    },
-  },
-  {
     "mattn/webapi-vim",
     event = { "BufReadPost", "BufNewFile" },
   },
