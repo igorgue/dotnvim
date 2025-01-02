@@ -546,7 +546,7 @@ return {
         "<leader>fC",
         function()
           require("plugins.telescope.filter_grep").filter_grep({
-            cwd = vim.fs.stdpath("config"),
+            cwd = vim.fn.stdpath("config"),
           })
         end,
         desc = "Config dir's filter grep files",
@@ -555,7 +555,7 @@ return {
         "<leader>f.l",
         function()
           require("telescope.builtin").find_files({
-            cwd = vim.fs.joinpath(vim.fs.stdpath("data"), "lazy"),
+            cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
           })
         end,
         desc = "Lazy dir's find files",
@@ -564,7 +564,7 @@ return {
         "<leader>f.L",
         function()
           require("plugins.telescope.filter_grep").filter_grep({
-            cwd = vim.fs.joinpath(vim.fs.stdpath("data"), "lazy"),
+            cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
           })
         end,
         desc = "Lazy dir's filter grep files",

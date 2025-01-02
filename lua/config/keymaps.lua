@@ -30,6 +30,8 @@ wk.add({
   { "<leader>cs", group = "sourcegraph" },
   { "<leader>m", group = "molten" },
   { "<leader>a", group = "ai", mode = { "n", "v", "i" } },
+  { "<leader>u.", group = "more", mode = { "n", "v", "s" } },
+  { "<leader>f.", group = "more", mode = { "n", "v", "s" } },
   { "!", group = "filter", mode = { "n", "v" } },
   { "<", group = "indent/left", mode = { "n", "v" } },
   { ">", group = "indent/right", mode = { "n", "v" } },
@@ -68,8 +70,11 @@ local function force_format()
 end
 
 local function toggle_line_numbers()
-  vim.opt.cursorline = not vim.opt.cursorline:get()
-  vim.opt.number = not vim.opt.number:get()
+  local enabled = not vim.opt.number:get()
+
+  vim.opt.number = enabled
+  vim.opt.cursorline = enabled
+  Snacks.toggle.indent():toggle(enabled)
 end
 
 local function toggle_inlay_hints()
@@ -115,6 +120,9 @@ wk.add({
   { "<c-y>", '"+y', desc = "Copy to clipboard", mode = "v", icon = { icon = "", color = "grey" } },
   { "<c-p>", '"+p', desc = "Paste from clipboard", mode = { "v", "n" }, icon = { icon = "", color = "grey" } },
 })
+
+-- Snacks' toggles
+Snacks.toggle.zen():map("<leader>uz")
 
 -- some special cases:
 pcall(vim.api.nvim_del_keymap, "v", "<C-k>")
@@ -170,10 +178,3 @@ else
     },
   })
 end
-
-wk.add({
-  { "<leader>u.", group = "more", mode = { "n", "v", "s" } },
-  { "<leader>f.", group = "more", mode = { "n", "v", "s" } },
-})
-
-Snacks.toggle.zen():map("<leader>uz")

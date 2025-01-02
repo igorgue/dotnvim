@@ -73,7 +73,7 @@ return {
     },
     keys = {
       {
-        "<leader>u_d",
+        "<leader>u.d",
         function()
           if vim.g.colors_name == "danger_dark" then
             vim.cmd("colorscheme danger_light")
