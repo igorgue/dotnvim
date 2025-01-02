@@ -35,5 +35,3 @@ end, {})
 vim.api.nvim_create_user_command("Btop", function()
   Snacks.terminal("btop", { border = "none" })
 end, {})
-
-

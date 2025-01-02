@@ -1,11 +1,13 @@
 local legacy_colors = {
-    "zaibatsu",
-    "caret",
-    "candy",
-    "elflord",
-    "ir_black",
-    "ir_blue",
-    "ir_dark",
+  "default",
+  "vim",
+  "zaibatsu",
+  "caret",
+  "candy",
+  "elflord",
+  "ir_black",
+  "ir_blue",
+  "ir_dark",
 }
 
 local function fix_colorschemes()
@@ -23,13 +25,11 @@ local function fix_colorschemes()
     vim.cmd("hi! link CmpItemAbbrMatchFuzzy String")
     vim.cmd("hi! link CmpItemKind Type")
     vim.cmd("hi! link CmpItemMenu Function")
+    vim.cmd("hi! link WhichKeyNormal Normal")
 
-    if vim.g.colors_name == "zaibatsu" then
-      vim.cmd("hi! link WhichKeyNormal Normal")
+    if vim.tbl_contains({ "zaibatsu", "vim" }, vim.g.colors_name) then
       vim.cmd("hi! link LazyNormal Normal")
       vim.cmd("hi! link NormalFloat Normal")
-    else
-      vim.cmd("hi! link WhichKeyNormal Normal")
     end
 
     vim.api.nvim_set_hl(
