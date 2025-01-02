@@ -11,7 +11,6 @@ return {
           "curlylint",
           "jinja-lsp",
           "htmlbeautifier",
-          "rustfmt",
           "black",
           "isort",
           "ruff",
