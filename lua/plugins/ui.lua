@@ -502,6 +502,29 @@ return {
     config = function(_, opts)
       local telescope = require("telescope")
 
+      -- NOTE: this is needed here because it cannot be mapped from the other
+      -- place for some reason I don't want to investigate...
+      require("which-key").add({
+        {
+          "<c-cr>",
+          function()
+            if vim.bo.filetype == "TelescopePrompt" then
+              require("telescope.actions").close(vim.api.nvim_get_current_buf())
+            else
+              local cached_pickers = require("telescope.state").get_global_key("cached_pickers")
+
+              if cached_pickers and next(cached_pickers) then
+                require("telescope.builtin").resume()
+              else
+                vim.cmd("Telescope smart_open")
+              end
+            end
+          end,
+          desc = "Telescope Restore / Smart Open",
+          mode = { "i", "n" },
+        },
+      })
+
       telescope.setup(opts)
 
       telescope.load_extension("glyph")
@@ -515,23 +538,6 @@ return {
       end
     end,
     keys = {
-      {
-        "<c-cr>",
-        function()
-          if vim.bo.filetype == "TelescopePrompt" then
-            require("telescope.actions").close(vim.api.nvim_get_current_buf())
-          else
-            local cached_pickers = require("telescope.state").get_global_key("cached_pickers")
-
-            if cached_pickers and next(cached_pickers) then
-              require("telescope.builtin").resume()
-            else
-              return "<cmd>Telescope smart_open<cr>"
-            end
-          end
-        end,
-        desc = "Telescope Resume / Smart Open",
-      },
       { "<leader><leader>", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
       {
         "<leader>/",
