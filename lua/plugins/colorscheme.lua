@@ -1,13 +1,15 @@
-local function set_colorscheme()
-  local colors = {
+local legacy_colors = {
     "zaibatsu",
     "caret",
     "candy",
+    "elflord",
     "ir_black",
     "ir_blue",
     "ir_dark",
-  }
-  if vim.tbl_contains(colors, vim.g.colors_name) then
+}
+
+local function fix_colorschemes()
+  if vim.tbl_contains(legacy_colors, vim.g.colors_name) then
     vim.cmd("hi SignColumn guibg=NONE")
     vim.cmd("hi! link WinBar Normal")
     vim.cmd("hi! link WinBarNC Normal")
@@ -22,39 +24,36 @@ local function set_colorscheme()
     vim.cmd("hi! link CmpItemKind Type")
     vim.cmd("hi! link CmpItemMenu Function")
 
-    vim.cmd("hi! link DashboardHeader Identifier")
-    vim.cmd("hi! link DashboardCenter String")
-    vim.cmd("hi! link DashboardShortcut Type")
-    vim.cmd("hi! link DashboardFooter LineNr")
-    vim.cmd("hi! link DashboardKey String")
-    vim.cmd("hi! link DashboardDesc Type")
-    vim.cmd("hi! link DashboardIcon Identifier")
-
     if vim.g.colors_name == "zaibatsu" then
       vim.cmd("hi! link WhichKeyNormal Normal")
       vim.cmd("hi! link LazyNormal Normal")
       vim.cmd("hi! link NormalFloat Normal")
     else
-      vim.cmd("hi! link WhichKeyFloat Visual")
+      vim.cmd("hi! link WhichKeyNormal Normal")
     end
+
+    vim.api.nvim_set_hl(
+      0,
+      "TelescopeSelection",
+      { bold = true, bg = vim.fn.synIDattr(vim.fn.hlID("CursorLine"), "bg") }
+    )
+  end
+
+  -- prefer treesitter highlights for these
+  if vim.env.NVIM_TS_ENABLE ~= nil then
+    vim.api.nvim_set_hl(0, "@lsp.type.variable.python", {})
+    vim.api.nvim_set_hl(0, "@lsp.type.parameter.python", {})
   end
 end
 
--- complete a few colorschemes
+-- completes a few colorschemes
 vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = {
-    "zaibatsu",
-    "caret",
-    "candy",
-    "ir_black",
-    "ir_blue",
-    "ir_dark",
-  },
-  callback = set_colorscheme,
+  pattern = legacy_colors,
+  callback = fix_colorschemes,
   once = true,
 })
 
-set_colorscheme()
+fix_colorschemes()
 
 return {
   {

@@ -259,4 +259,21 @@ function M.open_terminal_tab()
   ]])
 end
 
+function M.autostart_focus_mode()
+  if vim.version().minor >= 10 then
+    if not vim.diagnostic.is_enabled() then
+      vim.defer_fn(function()
+        require("utils").ui.enable_focus_mode()
+      end, 1000)
+    end
+  else
+    ---@diagnostic disable-next-line: deprecated
+    if vim.diagnostic.is_disabled() then
+      vim.defer_fn(function()
+        require("utils").ui.enable_focus_mode()
+      end, 1000)
+    end
+  end
+end
+
 return M

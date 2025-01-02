@@ -172,7 +172,8 @@ else
 end
 
 wk.add({
-  { "<leader>u_", group = "more", mode = { "n", "v", "s" } },
+  { "<leader>u.", group = "more", mode = { "n", "v", "s" } },
+  { "<leader>f.", group = "more", mode = { "n", "v", "s" } },
 })
 
 Snacks.toggle.zen():map("<leader>uz")

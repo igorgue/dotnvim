@@ -45,3 +45,7 @@ require("lazy").setup({
     },
   },
 })
+
+-- post lazy init...
+require("config.cmds")
+require("utils.ui").autostart_focus_mode()

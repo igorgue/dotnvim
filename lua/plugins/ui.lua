@@ -501,34 +501,6 @@ return {
     end,
     config = function(_, opts)
       local telescope = require("telescope")
-      local wk = require("which-key")
-
-      wk.add({
-        {
-          "<leader><leader>",
-          "<cmd>Telescope smart_open<cr>",
-          desc = "Telescope Restore / Smart Open",
-          mode = { "n" },
-        },
-        {
-          "<c-cr>",
-          function()
-            if vim.bo.filetype == "TelescopePrompt" then
-              require("telescope.actions").close(vim.api.nvim_get_current_buf())
-            else
-              local cached_pickers = require("telescope.state").get_global_key("cached_pickers")
-
-              if cached_pickers and next(cached_pickers) then
-                require("telescope.builtin").resume()
-              else
-                return "<cmd>Telescope smart_open<cr>"
-              end
-            end
-          end,
-          desc = "Telescope Restore / Smart Open",
-          mode = { "i", "n" },
-        },
-      })
 
       telescope.setup(opts)
 
@@ -543,16 +515,59 @@ return {
       end
     end,
     keys = {
-      { "<leader><leader>", nil, desc = "Smart Open" },
-      { "<c-cr>", nil, desc = "Telescope Resume / Smart Open" },
-      { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
-      { "<leader>r", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
+      {
+        "<c-cr>",
+        function()
+          if vim.bo.filetype == "TelescopePrompt" then
+            require("telescope.actions").close(vim.api.nvim_get_current_buf())
+          else
+            local cached_pickers = require("telescope.state").get_global_key("cached_pickers")
+
+            if cached_pickers and next(cached_pickers) then
+              require("telescope.builtin").resume()
+            else
+              return "<cmd>Telescope smart_open<cr>"
+            end
+          end
+        end,
+        desc = "Telescope Resume / Smart Open",
+      },
+      { "<leader><leader>", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
       {
         "<leader>/",
         function()
           require("plugins.telescope.filter_grep").filter_grep()
         end,
         desc = "Filter Grep",
+      },
+      { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
+      { "<leader>r", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
+      {
+        "<leader>fC",
+        function()
+          require("plugins.telescope.filter_grep").filter_grep({
+            cwd = vim.fs.stdpath("config"),
+          })
+        end,
+        desc = "Config dir's filter grep files",
+      },
+      {
+        "<leader>f.l",
+        function()
+          require("telescope.builtin").find_files({
+            cwd = vim.fs.joinpath(vim.fs.stdpath("data"), "lazy"),
+          })
+        end,
+        desc = "Lazy dir's find files",
+      },
+      {
+        "<leader>f.L",
+        function()
+          require("plugins.telescope.filter_grep").filter_grep({
+            cwd = vim.fs.joinpath(vim.fs.stdpath("data"), "lazy"),
+          })
+        end,
+        desc = "Lazy dir's filter grep files",
       },
     },
   },

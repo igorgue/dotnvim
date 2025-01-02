@@ -39,7 +39,7 @@ return {
       },
       keymap = {
         preset = "enter",
-        ["<C-space>"] = { "show", "hide" },
+        ["<C-space>"] = { "show" },
         ["<C-y>"] = { "show", "select_and_accept", "fallback" },
         ["<Tab>"] = {},
         ["<C-e>"] = { "hide" },

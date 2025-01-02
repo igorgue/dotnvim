@@ -1,42 +1,7 @@
 -- Autocmds are automatically loaded on the VeryLazy event
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
-local Util = require("lazyvim.util")
 
--- commands
-vim.api.nvim_create_user_command("Btop", function()
-  Snacks.terminal("btop", { border = "none" })
-end, {})
-
-vim.api.nvim_create_user_command("Nap", function()
-  Snacks.terminal("nap", { border = "rounded" })
-end, {})
-
-vim.api.nvim_create_user_command("Yazi", function()
-  Snacks.terminal({ "yazi" }, { cwd = Util.root.get(), border = "rounded" })
-end, {})
-
-vim.api.nvim_create_user_command("Lazygit", function()
-  Snacks.terminal({ "lazygit" }, { cwd = Util.root.get(), border = "none" })
-end, {})
-
-vim.api.nvim_create_user_command("ChessTui", function()
-  Snacks.terminal({ "chess-tui" }, { cwd = Util.root.get(), border = "rounded", args = { "-e", "/usr/bin/stockfish" } })
-end, {})
-
-vim.api.nvim_create_user_command("Cloc", function()
-  vim.schedule(function()
-    local out = vim.fn.system("cloc --quiet --vcs=git --exclude-ext=json,toml,ini,txt")
-
-    vim.notify(out, vim.log.levels.INFO, { title = "Lines of code in project" })
-  end)
-end, {})
-
-vim.api.nvim_create_user_command("Notifications", function()
-  vim.schedule(Snacks.notifier.show_history)
-end, {})
-
--- autocmds
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
     vim.opt_local.cursorline = false
@@ -79,6 +44,22 @@ if vim.lsp.inlay_hint ~= nil then
       end
     end,
   })
+end
+
+if vim.env.NVIM_TERMINAL ~= nil then
+  vim.api.nvim_create_autocmd("TermOpen", {
+    callback = function()
+      vim.cmd("startinsert")
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("TermClose", {
+    callback = function()
+      vim.cmd("qa!")
+    end,
+  })
+
+  vim.cmd("terminal")
 end
 
 -- plugins.extras.* includes more autocmds, specific for certain files
