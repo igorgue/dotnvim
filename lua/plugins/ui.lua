@@ -38,7 +38,7 @@ return {
       },
       zen = {
         toggles = {
-          dim = true,
+          dim = false,
           git_signs = false,
           diagnostics = false,
           inlay_hints = false,
@@ -50,7 +50,7 @@ return {
         },
       },
       indent = { enabled = false },
-      input = { enabled = true },
+      input = {},
     },
   },
   {
