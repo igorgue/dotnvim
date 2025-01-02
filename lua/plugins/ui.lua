@@ -49,7 +49,7 @@ return {
           },
         },
       },
-      indent = { enabled = false },
+      indent = { enabled = false, only_scope = true, only_current = true },
       input = {},
     },
   },

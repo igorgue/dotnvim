@@ -11,6 +11,7 @@ pcall(vim.api.nvim_del_keymap, "v", ">")
 pcall(vim.api.nvim_del_keymap, "n", "<leader>gg")
 pcall(vim.api.nvim_del_keymap, "n", "<leader>ul")
 pcall(vim.api.nvim_del_keymap, "n", "<leader>uh")
+pcall(vim.api.nvim_del_keymap, "n", "<leader>uh")
 
 wk.add({
   { "<leader><cr>b", "<cmd>Btop<cr>", desc = "Btop Process Manager" },
@@ -69,14 +70,6 @@ local function force_format()
   vim.cmd("LazyFormat")
 end
 
-local function toggle_line_numbers()
-  local enabled = not vim.opt.number:get()
-
-  vim.opt.number = enabled
-  vim.opt.cursorline = enabled
-  Snacks.toggle.indent():toggle(enabled)
-end
-
 local function toggle_inlay_hints()
   if vim.opt_local.ft:get() == "c" then
     require("clangd_extensions.inlay_hints").toggle_inlay_hints()
@@ -112,7 +105,6 @@ wk.add({
   { "<leader>=", force_format, desc = "Force Format Document", mode = { "n", "v" } },
   { "<leader>o", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols (Trouble)", mode = "n" },
   { "<leader>uh", toggle_inlay_hints, desc = "Toggle Inlay Hints", mode = "n" },
-  { "<leader>ul", toggle_line_numbers, desc = "Toggle Line Numbers / Cursorline" },
   { "<leader>uW", require("utils").ui.toggle_winbar, desc = "Toggle Winbar", mode = "n" },
   { "<leader>uR", require("utils").ui.toggle_lsp_references, desc = "Toggle LspReferences", mode = "n" },
   { "<leader>N", Snacks.notifier.hide, desc = "Clear Notifications", mode = "n" },
@@ -123,6 +115,18 @@ wk.add({
 
 -- Snacks' toggles
 Snacks.toggle.zen():map("<leader>uz")
+Snacks.toggle.indent():map("<leader>u|")
+Snacks.toggle({
+  name = "Line Numbers ",
+  get = function()
+    return vim.opt.number:get()
+  end,
+  set = function(state)
+    vim.opt.number = state
+    vim.opt.cursorline = state
+    Snacks.toggle.indent():toggle(state)
+  end,
+}):map("<leader>ul")
 
 -- some special cases:
 pcall(vim.api.nvim_del_keymap, "v", "<C-k>")

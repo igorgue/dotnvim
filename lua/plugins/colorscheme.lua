@@ -55,6 +55,29 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
 fix_colorschemes()
 
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    Snacks.toggle({
+      name = "Dark Mode",
+      get = function()
+        return vim.g.colors_name == "danger_dark"
+      end,
+      set = function(state)
+        if state then
+          vim.cmd("colorscheme danger_dark")
+        else
+          vim.cmd("colorscheme danger_light")
+        end
+
+        vim.cmd("Lazy reload lualine.nvim")
+        require("lualine").refresh()
+        vim.opt.laststatus = vim.diagnostic.is_enabled() and 3 or 0
+      end,
+    }):map("<leader>u.d")
+  end,
+  once = true,
+})
+
 return {
   {
     -- includes catppuccin and tokyonight already
@@ -69,20 +92,7 @@ return {
     opts = {
       style = "dark",
       alacritty = true,
-      kitty = true,
-    },
-    keys = {
-      {
-        "<leader>u.d",
-        function()
-          if vim.g.colors_name == "danger_dark" then
-            vim.cmd("colorscheme danger_light")
-          else
-            vim.cmd("colorscheme danger_dark")
-          end
-        end,
-        desc = "Toggle Danger Dark Mode",
-      },
+      kitty = false,
     },
   },
   { "loctvl842/monokai-pro.nvim", config = true },
