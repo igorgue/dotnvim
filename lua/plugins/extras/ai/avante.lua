@@ -1,7 +1,8 @@
 return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
-    -- still accessible via ctrl+;
+    -- still accessible via ctrl+; and the rest of the keys actually work
+    -- this is the only way to make `<leader>aa` work for avante
     -- stylua: ignore
     keys = function() return {} end,
   },
