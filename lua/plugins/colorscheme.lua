@@ -1,7 +1,13 @@
--- complete a few colorschemes
-vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = { "zaibatsu", "caret", "candy", "ir_black", "ir_blue", "ir_dark", "catppuccin-mocha" },
-  callback = function()
+local function set_colorscheme()
+  local colors = {
+    "zaibatsu",
+    "caret",
+    "candy",
+    "ir_black",
+    "ir_blue",
+    "ir_dark",
+  }
+  if vim.tbl_contains(colors, vim.g.colors_name) then
     vim.cmd("hi SignColumn guibg=NONE")
     vim.cmd("hi! link WinBar Normal")
     vim.cmd("hi! link WinBarNC Normal")
@@ -25,25 +31,30 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     vim.cmd("hi! link DashboardIcon Identifier")
 
     if vim.g.colors_name == "zaibatsu" then
-      vim.cmd("hi! link WhichKeyFloat Normal")
+      vim.cmd("hi! link WhichKeyNormal Normal")
       vim.cmd("hi! link LazyNormal Normal")
       vim.cmd("hi! link NormalFloat Normal")
     else
       vim.cmd("hi! link WhichKeyFloat Visual")
     end
+  end
+end
 
-    if vim.fn.executable("kitty") and vim.env.KITTY_WINDOW_ID then
-      if vim.g.colors_name == "ir_black" then
-        vim.fn.system("kitty @ set-colors -a background=black")
-      elseif vim.g.colors_name == "catppuccin-mocha" then
-        vim.fn.system("kitty @ set-colors -a background=#1E1E2F")
-      elseif vim.g.colors_name == "zaibatsu" then
-        vim.fn.system("kitty @ set-colors -a background=#0E0024")
-      end
-    end
-  end,
+-- complete a few colorschemes
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = {
+    "zaibatsu",
+    "caret",
+    "candy",
+    "ir_black",
+    "ir_blue",
+    "ir_dark",
+  },
+  callback = set_colorscheme,
   once = true,
 })
+
+set_colorscheme()
 
 return {
   {
@@ -63,7 +74,7 @@ return {
     },
     keys = {
       {
-        "<leader>uD",
+        "<leader>u_d",
         function()
           if vim.g.colors_name == "danger_dark" then
             vim.cmd("colorscheme danger_light")
@@ -75,6 +86,7 @@ return {
       },
     },
   },
+  { "loctvl842/monokai-pro.nvim", config = true },
   "projekt0n/caret.nvim",
   { "rose-pine/neovim", name = "rose-pine" },
 
