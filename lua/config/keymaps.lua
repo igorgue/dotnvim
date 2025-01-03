@@ -124,7 +124,7 @@ Snacks.toggle({
   set = function(state)
     vim.opt.number = state
     vim.opt.cursorline = state
-    Snacks.toggle.indent():toggle(state)
+    -- Snacks.toggle.indent():toggle(state)
   end,
 }):map("<leader>ul")
 

@@ -8,6 +8,8 @@ local legacy_colors = {
   "ir_black",
   "ir_blue",
   "ir_dark",
+  "monokai-pro",
+  "monokai-pro-spectrum",
 }
 
 local function fix_colorschemes()
@@ -15,16 +17,16 @@ local function fix_colorschemes()
     vim.cmd("hi SignColumn guibg=NONE")
     vim.cmd("hi! link WinBar Normal")
     vim.cmd("hi! link WinBarNC Normal")
-    vim.cmd("hi! link VertSplit Type")
-    vim.cmd("hi! link WinSeparator Type")
-    vim.cmd("hi! link MatchParen CursorLine")
 
-    vim.cmd("hi! link CmpItemAbbr Identifier")
-    vim.cmd("hi! link CmpItemAbbrDeprecated Identifier")
-    vim.cmd("hi! link CmpItemAbbrMatch String")
-    vim.cmd("hi! link CmpItemAbbrMatchFuzzy String")
-    vim.cmd("hi! link CmpItemKind Type")
-    vim.cmd("hi! link CmpItemMenu Function")
+    vim.cmd("hi! link LazyNormal Normal")
+    vim.cmd("hi! link NormalFloat Normal")
+
+    if not vim.tbl_contains({ "zaibatsu", "monokai-pro", "monokai-pro-spectrum" }, vim.g.colors_name) then
+      vim.cmd("hi! link VertSplit Type")
+      vim.cmd("hi! link WinSeparator Type")
+      vim.cmd("hi! link MatchParen CursorLine")
+    end
+
     vim.cmd("hi! link WhichKeyNormal Normal")
 
     if vim.tbl_contains({ "zaibatsu", "vim" }, vim.g.colors_name) then
