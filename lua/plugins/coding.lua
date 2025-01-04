@@ -2,6 +2,9 @@ return {
   {
     "saghen/blink.cmp",
     optional = true,
+    dependencies = {
+      "moyiz/blink-emoji.nvim",
+    },
     opts = {
       completion = {
         list = {
@@ -48,6 +51,16 @@ return {
           "show",
           "select_and_accept",
           "fallback",
+        },
+      },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer", "emoji" },
+        providers = {
+          emoji = {
+            module = "blink-emoji",
+            name = "Emoji",
+            score_offset = 15, -- Tune by preference
+          },
         },
       },
     },
