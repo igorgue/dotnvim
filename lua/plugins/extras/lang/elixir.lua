@@ -28,12 +28,21 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    lazy = false,
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
         vim.list_extend(opts.ensure_installed, elixir_ft)
       else
         opts.ensure_installed = elixir_ft
       end
+
+      opts.highlight = {
+        enable = true,
+      }
+
+      opts.indent = {
+        enable = true,
+      }
     end,
   },
   {
@@ -41,7 +50,7 @@ return {
     ft = elixir_ft,
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "elixir-ls" })
+      vim.list_extend(opts.ensure_installed, { "elixir-ls", "nextls" })
     end,
   },
   {
@@ -67,7 +76,6 @@ return {
     enabled = not vim.o.diff,
     config = function()
       local elixir = require("elixir")
-      local elixirls = require("elixir.elixirls")
 
       local register_keys = function()
         local wk = require("which-key")
@@ -108,7 +116,7 @@ return {
           },
         },
         credo = { enable = true },
-        elixirls = { enable = true },
+        elixirls = { enable = false },
       })
     end,
   },

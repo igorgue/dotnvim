@@ -22,10 +22,12 @@ function M.disable_fn(buf)
 end
 
 function M.refresh_ui()
-  vim.cmd([[
-    nohlsearch
-    diffupdate
-  ]])
+  pcall(function()
+    vim.cmd([[
+      nohlsearch
+      diffupdate
+    ]])
+  end)
 
   if vim.g.loaded_dadbod then
     -- stylua: ignore
