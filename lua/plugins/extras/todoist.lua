@@ -42,7 +42,7 @@ return {
           end)
         end
 
-        Snacks.win({ position = "bottom", height = 0.3, buf = todoist_buf })
+        Snacks.win({ position = "bottom", buf = todoist_buf })
       end,
       mode = { "i", "n" },
       desc = "Todoist toggle",
