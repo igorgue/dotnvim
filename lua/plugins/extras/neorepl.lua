@@ -12,7 +12,6 @@ return {
       end,
     },
   },
-  -- config = false,
   cmd = { "Repl" },
   keys = {
     {
