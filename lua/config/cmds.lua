@@ -17,7 +17,10 @@ vim.api.nvim_create_user_command("Lazygit", function()
 end, {})
 
 vim.api.nvim_create_user_command("ChessTui", function()
-  Snacks.terminal({ "chess-tui" }, { cwd = Util.root.get(), border = "rounded", args = { "-e", "/usr/bin/stockfish" } })
+  Snacks.terminal(
+    { "chess-tui" },
+    { cwd = Util.root.get(), border = "rounded", args = { "-e", vim.fn.exepath("stockfish") } }
+  )
 end, {})
 
 vim.api.nvim_create_user_command("Cloc", function()
@@ -30,8 +33,4 @@ end, {})
 
 vim.api.nvim_create_user_command("Notifications", function()
   vim.schedule(Snacks.notifier.show_history)
-end, {})
-
-vim.api.nvim_create_user_command("Btop", function()
-  Snacks.terminal("btop", { border = "none" })
 end, {})
