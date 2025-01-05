@@ -6,6 +6,9 @@ return {
       "moyiz/blink-emoji.nvim",
     },
     opts = {
+      enabled = function()
+        return not vim.tbl_contains({ "neorepl" }, vim.bo.filetype)
+      end,
       completion = {
         list = {
           selection = "preselect",
