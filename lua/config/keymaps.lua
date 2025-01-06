@@ -114,8 +114,6 @@ wk.add({
 })
 
 -- Snacks' toggles
-Snacks.toggle.zen():map("<leader>uz")
-Snacks.toggle.indent():map("<leader>u|")
 Snacks.toggle({
   name = "Line Numbers ",
   get = function()
