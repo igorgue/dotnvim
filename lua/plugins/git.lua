@@ -36,7 +36,6 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
-    -- stylua: ignore
     enabled = not vim.o.diff,
     opts = {
       signcolumn = not not vim.g.always_show_gitsigns,
