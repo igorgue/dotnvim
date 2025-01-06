@@ -23,7 +23,7 @@ local function set_kitty_bg_color()
 
   vim.fn.system("kitty @ set-colors -a background=" .. bg_color)
 
-  vim.api.nvim_create_autocmd("VimLeave", {
+  vim.api.nvim_create_autocmd("QuitPre", {
     callback = function()
       vim.defer_fn(function()
         vim.fn.system("kitty @ set-colors -a background=" .. kitty_bg)
