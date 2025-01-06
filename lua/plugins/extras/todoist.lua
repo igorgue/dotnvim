@@ -12,6 +12,7 @@ vim.g.todoist = {
 return {
   "romgrk/todoist.nvim",
   build = ":TodoistInstall",
+  desc = "Integration with Todoist",
   lazy = false,
   keys = {
     {
