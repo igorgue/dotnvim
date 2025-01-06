@@ -51,10 +51,6 @@ return {
         replace_keycodes = false,
         ft = "copilot-chat",
       },
-      { "<leader>aa", nil },
-      { "<leader>ax", nil },
-      { "<leader>aq", nil },
-      { "<leader>ap", nil },
     },
   },
 }
