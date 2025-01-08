@@ -22,17 +22,17 @@ return {
         { "<c-s-k>", function() return vim.lsp.buf.signature_help() end, mode = "i", desc = "Signature Help", has = "signatureHelp" },
         { "]]", function() Snacks.words.jump(vim.v.count1) end, has = "documentHighlight", desc = "Next Reference", cond = function() return Snacks.words.is_enabled() end },
         { "[[", function() Snacks.words.jump(-vim.v.count1) end, has = "documentHighlight", desc = "Prev Reference", cond = function() return Snacks.words.is_enabled() end },
-        { "gd", function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, desc = "Goto Definition", has = "definition" },
         { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+        -- { "gd", function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, desc = "Goto Definition", has = "definition" },
         { "gd", vim.lsp.buf.definition, desc = "Goto Definition", has = "definition" },
-        -- { "gI", vim.lsp.buf.implementation, desc = "Goto Implementation" },
-        { "gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, desc = "Goto Implementation" },
+        -- { "gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, desc = "Goto Implementation" },
+        { "gI", vim.lsp.buf.implementation, desc = "Goto Implementation" },
         { "gK", function() return vim.lsp.buf.signature_help() end, desc = "Signature Help", has = "signatureHelp" },
-        { "gr", function() require("telescope.builtin").lsp_references({ reuse_win = true }) end, desc = "References" },
+        { "gR", function() require("telescope.builtin").lsp_references({ reuse_win = true }) end, desc = "References" },
+        { "gr", vim.lsp.buf.references, desc = "References", nowait = true },
         { "gt", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, desc = "Goto T[y]pe Definition" },
-        -- { "gt", vim.lsp.buf.type_definition, desc = "Goto T[y]pe Definition" },
+        { "gy", vim.lsp.buf.type_definition, desc = "Goto T[y]pe Definition" },
         { "K", function() return vim.lsp.buf.hover() end, desc = "Hover" },
-        { "<leader>cA", function() vim.lsp.buf.code_action({ context = { only = { "source", }, diagnostics = {}, }, }) end, desc = "Source Action", has = "codeAction", },
         { "<leader>cA", LazyVim.lsp.action.source, desc = "Source Action", has = "codeAction" },
         { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
         { "<leader>cC", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
@@ -45,7 +45,6 @@ return {
         { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
       }
 
-      -- ui_windows.default_options.border = "single"
       ui_windows.default_options.border = "rounded"
 
       opts.format = { timeout_ms = 5000 }
