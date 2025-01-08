@@ -39,6 +39,11 @@ local function fix_colorschemes()
       "TelescopeSelection",
       { bold = true, bg = vim.fn.synIDattr(vim.fn.hlID("CursorLine"), "bg") }
     )
+
+    if LazyVim.has("blink.cmp") then
+      vim.api.nvim_set_hl(0, "BlinkCmpMenu", { link = "Normal" })
+      vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { link = "CursorLine" })
+    end
   end
 
   if LazyVim.has("nvim-treesitter") then
