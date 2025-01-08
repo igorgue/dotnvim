@@ -54,48 +54,61 @@ local function toggle()
 end
 
 return {
-  "ii14/neorepl.nvim",
-  desc = "Neovim's Lua repl",
-  dependencies = {
-    {
-      "nvim-treesitter/nvim-treesitter",
-      ft = { "neorepl" },
-      optional = true,
-      opts = function(_, opts)
-        vim.treesitter.language.register("lua", "neorepl")
+  {
+    "ii14/neorepl.nvim",
+    desc = "Neovim's Lua repl",
+    dependencies = {
+      {
+        "nvim-treesitter/nvim-treesitter",
+        ft = { "neorepl" },
+        optional = true,
+        opts = function(_, opts)
+          vim.treesitter.language.register("lua", "neorepl")
 
-        return opts
-      end,
+          return opts
+        end,
+      },
     },
-  },
-  cmd = { "Repl" },
-  keys = {
-    { "<tab>", "<tab>", mode = "i", ft = "neorepl" },
-    { "<c-space>", "<Plug>(neorepl-complete)", mode = "i", desc = "Trigger completion", ft = "neorepl" },
-    { "<c-s-/>", toggle, mode = { "i", "n" }, desc = "Open Neovim's Lua repl" },
-    { "<s-cr>", "<cr>", mode = "i", desc = "Insert new line", ft = "neorepl" },
-    { "<cr>", "<Plug>(neorepl-eval-line)", mode = "n", desc = "Eval line", ft = "neorepl" },
-    {
-      "<cr>",
-      [[pumvisible() ? (complete_info().selected != -1 ? '<c-y>' : '<c-n><c-y>') : '<Plug>(neorepl-eval-line)']],
-      mode = "i",
-      desc = "Accept completion",
-      ft = "neorepl",
-      expr = true,
-      replace_keycodes = false,
-    },
-    {
-      "<cr>",
-      function()
-        vim.cmd([[
+    cmd = { "Repl" },
+    keys = {
+      { "<tab>", "<tab>", mode = "i", ft = "neorepl" },
+      { "<c-space>", "<Plug>(neorepl-complete)", mode = "i", desc = "Trigger completion", ft = "neorepl" },
+      { "<c-s-/>", toggle, mode = { "i", "n" }, desc = "Open Neovim's Lua repl" },
+      { "<s-cr>", "<cr>", mode = "i", desc = "Insert new line", ft = "neorepl" },
+      { "<cr>", "<Plug>(neorepl-eval-line)", mode = "n", desc = "Eval line", ft = "neorepl" },
+      {
+        "<cr>",
+        [[pumvisible() ? (complete_info().selected != -1 ? '<c-y>' : '<c-n><c-y>') : '<Plug>(neorepl-eval-line)']],
+        mode = "i",
+        desc = "Accept completion",
+        ft = "neorepl",
+        expr = true,
+        replace_keycodes = false,
+      },
+      {
+        "<cr>",
+        function()
+          vim.cmd([[
           normal J
         ]])
 
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>(neorepl-eval-line)<cr>", true, true, true))
-      end,
-      mode = { "v" },
-      desc = "Eval block",
-      ft = "neorepl",
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>(neorepl-eval-line)<cr>", true, true, true))
+        end,
+        mode = { "v" },
+        desc = "Eval block",
+        ft = "neorepl",
+      },
     },
+  },
+  {
+    "saghen/blink.cmp",
+    optional = true,
+    opts = function(_, opts)
+      opts.enabled = function()
+        return not vim.tbl_contains({ "neorepl" }, vim.bo.filetype)
+      end
+
+      return opts
+    end,
   },
 }
