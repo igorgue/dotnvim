@@ -41,16 +41,18 @@ local function fix_colorschemes()
     )
   end
 
-  -- prefer treesitter highlights for these
-  if vim.env.NVIM_TS_ENABLE ~= nil then
+  if LazyVim.has("nvim-treesitter") then
     vim.api.nvim_set_hl(0, "@lsp.type.variable.python", {})
     vim.api.nvim_set_hl(0, "@lsp.type.parameter.python", {})
+  end
+
+  if LazyVim.has("todo-comments.nvim") then
+    vim.api.nvim_set_hl(0, "Todo", {})
   end
 end
 
 -- completes a few colorschemes
 vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = legacy_colors,
   callback = fix_colorschemes,
   once = true,
 })

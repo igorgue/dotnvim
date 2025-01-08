@@ -8,6 +8,7 @@ return {
     opts = {
       highlight = { enable = true },
       indent = { enable = false },
+      -- I use "michaeljsmith/vim-indent-object" instead
       incremental_selection = {
         enable = false,
         keymaps = {
