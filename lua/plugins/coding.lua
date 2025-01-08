@@ -6,6 +6,9 @@ return {
       "moyiz/blink-emoji.nvim",
     },
     opts = {
+      enabled = function()
+        return not vim.tbl_contains(vim.g.cmp_disabled_filetypes, vim.bo.filetype)
+      end,
       completion = {
         list = {
           selection = {
@@ -19,14 +22,12 @@ return {
           },
         },
         menu = {
-          winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:None",
           border = "rounded",
           auto_show = false,
         },
         documentation = {
           window = {
             border = "rounded",
-            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:None",
           },
         },
         trigger = {
@@ -40,7 +41,6 @@ return {
         },
         window = {
           border = "rounded",
-          winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:None",
         },
       },
       keymap = {
@@ -62,7 +62,7 @@ return {
           emoji = {
             module = "blink-emoji",
             name = "Emoji",
-            score_offset = 15, -- Tune by preference
+            score_offset = 15,
           },
         },
       },

@@ -110,7 +110,20 @@ wk.add({
   { "<leader>N", Snacks.notifier.hide, desc = "Clear Notifications", mode = "n" },
   { "<c-y>", '^v$"+y', desc = "Copy to clipboard", mode = "n", icon = { icon = "", color = "grey" } },
   { "<c-y>", '"+y', desc = "Copy to clipboard", mode = "v", icon = { icon = "", color = "grey" } },
-  { "<c-p>", '"+p', desc = "Paste from clipboard", mode = { "v", "n" }, icon = { icon = "", color = "grey" } },
+  {
+    "<c-p>",
+    function()
+      if vim.bo.filetype == "qf" then
+        return "<c-p>"
+      end
+
+      return '"+p'
+    end,
+    desc = "Paste from clipboard",
+    mode = { "v", "n" },
+    icon = { icon = "", color = "grey" },
+    expr = true,
+  },
 })
 
 -- Snacks' toggles

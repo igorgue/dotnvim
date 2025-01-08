@@ -70,6 +70,10 @@ return {
       },
     },
     cmd = { "Repl" },
+    init = function()
+      -- TODO: this doesn't work...
+      vim.tbl_extend("force", vim.g.cmp_disabled_filetypes, { "neorepl" })
+    end,
     keys = {
       { "<tab>", "<tab>", mode = "i", ft = "neorepl" },
       { "<c-space>", "<Plug>(neorepl-complete)", mode = "i", desc = "Trigger completion", ft = "neorepl" },
@@ -99,16 +103,5 @@ return {
         ft = "neorepl",
       },
     },
-  },
-  {
-    "saghen/blink.cmp",
-    optional = true,
-    opts = function(_, opts)
-      opts.enabled = function()
-        return not vim.tbl_contains({ "neorepl" }, vim.bo.filetype)
-      end
-
-      return opts
-    end,
   },
 }
