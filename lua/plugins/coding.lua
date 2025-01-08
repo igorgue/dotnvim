@@ -11,7 +11,10 @@ return {
       end,
       completion = {
         list = {
-          selection = "preselect",
+          selection = {
+            preselect = true,
+            auto_insert = function(ctx) return ctx.mode ~= 'cmdline' end,
+          },
         },
         accept = {
           auto_brackets = {
