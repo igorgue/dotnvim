@@ -115,7 +115,7 @@ wk.add({
 
 -- Snacks' toggles
 Snacks.toggle({
-  name = "Line Numbers ",
+  name = "Line Numbers",
   get = function()
     return vim.opt.number:get()
   end,
