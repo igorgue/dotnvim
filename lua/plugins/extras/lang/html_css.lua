@@ -6,27 +6,35 @@ return {
       if type(opts.ensure_installed) == "table" then
         vim.list_extend(opts.ensure_installed, { "html", "htmldjango" })
       end
+
+      vim.treesitter.language.register("html", "jinja")
+
+      opts.indent = {
+        enable = true,
+      }
+
+      return opts
     end,
   },
   {
     "neovim/nvim-lspconfig",
-    ft = { "html", "htmldjango", "css" },
     opts = {
       servers = {
         -- htmx = {},
         html = {
           filetypes = {
+            "elixir",
+            "eruby",
+            "heex",
             "html",
             "htmldjango",
-            "elixir",
-            "heex",
-            "eruby",
             "javascript",
             "javascriptreact",
-            "typescript",
-            "typescriptreact",
+            "jinja",
             "rust",
             "svelte",
+            "typescript",
+            "typescriptreact",
           },
           settings = {
             html = {

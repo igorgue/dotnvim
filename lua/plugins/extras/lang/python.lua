@@ -14,6 +14,7 @@ return {
     optional = true,
     config = function()
       require("luasnip").filetype_extend("htmldjango", { "html" })
+      require("luasnip").filetype_extend("jinja", { "html" })
     end,
   },
   {

@@ -220,21 +220,20 @@ return {
         "!popup",
       },
       user_default_options = {
-        RGB = true, -- #RGB hex codes
-        RRGGBB = true, -- #RRGGBB hex codes
-        names = true, -- "Name" codes like Blue
-        RRGGBBAA = true, -- #RRGGBBAA hex codes
-        rgb_fn = true, -- CSS rgb() and rgba() functions
-        hsl_fn = true, -- CSS hsl() and hsla() functions
-        css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-        css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
-        -- Available modes: foreground, background
-        mode = "background", -- Set the display mode.
+        RGB = true,
+        RRGGBB = true,
+        names = true,
+        RRGGBBAA = true,
+        rgb_fn = true,
+        hsl_fn = true,
+        css = true,
+        css_fn = true,
+        mode = "background",
         tailwind = true,
         tailwind_opts = {
           update_names = true,
         },
-        sass = { enable = true, parsers = { "css" } }, -- Enable sass colors
+        sass = { enable = true, parsers = { "css" } },
         always_update = true,
       },
     },
