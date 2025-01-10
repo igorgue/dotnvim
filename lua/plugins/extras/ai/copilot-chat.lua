@@ -4,6 +4,7 @@ return {
     opts = {
       show_help = false,
       chat_autocomplete = false,
+      model = "o1",
       mappings = {
         submit_prompt = {
           insert = "<C-CR>",

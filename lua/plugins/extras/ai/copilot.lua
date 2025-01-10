@@ -48,19 +48,7 @@ return {
       }):map("<leader>aC")
     end,
     keys = {
-      {
-        "<C-l>",
-        function()
-          if vim.api.nvim_call_function("g:copilot#Enabled", {}) == 0 then
-            vim.cmd("Copilot enable")
-          end
-
-          local key = vim.api.nvim_replace_termcodes("<M-\\>", true, false, true)
-          vim.api.nvim_feedkeys(key, "i", false)
-        end,
-        desc = "Copilot manual trigger",
-        mode = "i",
-      },
+      { "<C-l>", "<Plug>(copilot-suggest)", desc = "Copilot manual trigger", mode = "i" },
     },
   },
 }
