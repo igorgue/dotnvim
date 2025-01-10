@@ -12,6 +12,7 @@ return {
   {
     "L3MON4D3/LuaSnip",
     optional = true,
+    ft = { "htmldjango", "jinja" },
     config = function()
       require("luasnip").filetype_extend("htmldjango", { "html" })
       require("luasnip").filetype_extend("jinja", { "html" })
@@ -22,19 +23,45 @@ return {
     event = "BufReadPre requirements*.txt",
   },
   {
+    "saghen/blink.cmp",
+    optional = true,
+    dependencies = {
+      "vrslev/cmp-pypi",
+    },
+    opts = {
+      sources = {
+        default = { "pypi" },
+        providers = {
+          pypi = {
+            name = "pypi",
+            module = "blink.compat.source",
+            opts = {
+              keyword_length = 4,
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    optional = true,
+    dependencies = {
+      "vrslev/cmp-pypi",
+    },
+    opts = function(_, opts)
+      local cmp = require("cmp")
+      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
+        { name = "pypi", keyword_length = 4 },
+      }))
+
+      return opts
+    end,
+  },
+  {
     "vrslev/cmp-pypi",
-    enabled = vim.g.lazyvim_cmp == "nvim-cmp",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      {
-        "hrsh7th/nvim-cmp",
-        opts = function(_, opts)
-          local cmp = require("cmp")
-          opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
-            { name = "pypi", keyword_length = 4 },
-          }))
-        end,
-      },
     },
     event = "BufReadPost pyproject.toml",
   },

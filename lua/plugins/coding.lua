@@ -4,6 +4,12 @@ return {
     optional = true,
     dependencies = {
       "moyiz/blink-emoji.nvim",
+      {
+        "saghen/blink.compat",
+        version = "*",
+        lazy = true,
+        opts = {},
+      },
     },
     opts = {
       enabled = function()

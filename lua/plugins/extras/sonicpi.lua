@@ -25,6 +25,33 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 
 return {
   {
+    "saghen/blink.cmp",
+    optional = true,
+    dependencies = {
+      "magicmonty/sonicpi.nvim",
+    },
+    opts = {
+      sources = {
+        default = { "sonicpi" },
+        providers = {
+          sonicpi = {
+            name = "sonicpi",
+            module = "blink.compat.source",
+            opts = {},
+          },
+        },
+      },
+    },
+  },
+  {
+    "L3MON4D3/LuaSnip",
+    optional = true,
+    ft = "sonicpi",
+    config = function()
+      require("luasnip").filetype_extend("sonicpi", { "ruby" })
+    end,
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     ft = { "sonicpi" },
     optional = true,
@@ -92,7 +119,6 @@ return {
       opts = vim.tbl_extend("force", opts, { mappings = mappings })
 
       require("sonicpi").setup(opts)
-      require("luasnip").filetype_extend("sonicpi", { "ruby" })
 
       wk.add({
         { "<leader>S", group = "sonicpi", icon = { icon = " ", color = "cyan" } },
