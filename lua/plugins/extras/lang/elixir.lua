@@ -1,3 +1,5 @@
+vim.env.NEXTLS_SPITFIRE_ENABLED = 1
+
 local elixir_ft = { "elixir", "eex", "heex", "surface" }
 
 vim.filetype.add({
@@ -43,14 +45,6 @@ return {
       opts.indent = {
         enable = true,
       }
-    end,
-  },
-  {
-    "mason.nvim",
-    ft = elixir_ft,
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "elixir-ls", "nextls" })
     end,
   },
   {
@@ -116,7 +110,7 @@ return {
           },
         },
         credo = { enable = true },
-        elixirls = { enable = false },
+        elixirls = { enable = true, tag = "v0.26.2" },
       })
     end,
   },

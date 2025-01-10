@@ -113,7 +113,7 @@ wk.add({
   {
     "<c-p>",
     function()
-      if vim.tbl_contains({ "qf", "sagafinder" }, vim.bo.filetype) then
+      if vim.tbl_contains({ "qf", "sagafinder", "vim" }, vim.bo.filetype) then
         return "<c-p>"
       end
 

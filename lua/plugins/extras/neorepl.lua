@@ -71,7 +71,7 @@ return {
     },
     cmd = { "Repl" },
     init = function()
-      -- TODO: this doesn't work...
+      -- TODO: this doesn't work, it's added on blink.cmp config at coding.lua
       vim.tbl_extend("force", vim.g.cmp_disabled_filetypes, { "neorepl" })
     end,
     keys = {

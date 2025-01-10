@@ -53,6 +53,38 @@ local function fix_colorschemes()
       vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { link = "FloatBorder" })
       vim.api.nvim_set_hl(0, "BlinkCmpLabelDeprecated", { bg = "none", fg = "none", strikethrough = true })
     end
+
+    if LazyVim.has("nvim-navic") then
+      local comment_fg = vim.fn.synIDattr(vim.fn.hlID("Comment"), "fg")
+
+      vim.api.nvim_set_hl(0, "NavicText", { italic = true, fg = comment_fg })
+      vim.api.nvim_set_hl(0, "NavicSeparator", { fg = "none", bg = "none" })
+      vim.api.nvim_set_hl(0, "NavicIconsNamespace", { link = "Special" })
+      vim.api.nvim_set_hl(0, "NavicIconsPackage", { link = "Type" })
+      vim.api.nvim_set_hl(0, "NavicIconsClass", { link = "Identifier" })
+      vim.api.nvim_set_hl(0, "NavicIconsMethod", { link = "Function" })
+      vim.api.nvim_set_hl(0, "NavicIconsProperty", { link = "Type" })
+      vim.api.nvim_set_hl(0, "NavicIconsField", { link = "Field" })
+      vim.api.nvim_set_hl(0, "NavicIconsConstructor", { link = "Constructor" })
+      vim.api.nvim_set_hl(0, "NavicIconsEnum", { link = "Enum" })
+      vim.api.nvim_set_hl(0, "NavicIconsInterface", { link = "Interface" })
+      vim.api.nvim_set_hl(0, "NavicIconsFunction", { link = "Function" })
+      vim.api.nvim_set_hl(0, "NavicIconsVariable", { link = "Variable" })
+      vim.api.nvim_set_hl(0, "NavicIconsConstant", { link = "Constant" })
+      vim.api.nvim_set_hl(0, "NavicIconsString", { link = "String" })
+      vim.api.nvim_set_hl(0, "NavicIconsNumber", { link = "Number" })
+      vim.api.nvim_set_hl(0, "NavicIconsBoolean", { link = "Boolean" })
+      vim.api.nvim_set_hl(0, "NavicIconsArray", { link = "Array" })
+      vim.api.nvim_set_hl(0, "NavicIconsObject", { link = "Object" })
+      vim.api.nvim_set_hl(0, "NavicIconsKey", { link = "Keyword" })
+      vim.api.nvim_set_hl(0, "NavicIconsNull", { link = "Constant" })
+      vim.api.nvim_set_hl(0, "NavicIconsEnumMember", { link = "Constant" })
+      vim.api.nvim_set_hl(0, "NavicIconsStruct", { link = "Structure" })
+      vim.api.nvim_set_hl(0, "NavicIconsEvent", { link = "Event" })
+      vim.api.nvim_set_hl(0, "NavicIconsOperator", { link = "Operator" })
+      vim.api.nvim_set_hl(0, "NavicIconsTypeParameter", { link = "TypeParameter" })
+      vim.api.nvim_set_hl(0, "NavicSeparator", { link = "Delimiter" })
+    end
   end
 
   if LazyVim.has("nvim-treesitter") then

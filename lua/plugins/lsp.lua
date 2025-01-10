@@ -40,7 +40,7 @@ return {
         { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
         { "<leader>cf", format, desc = "Format Document", has = "documentFormatting" },
         { "<leader>cf", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
-        { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+        { "<leader>ci", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
         { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File", mode ={"n"}, has = { "workspace/didRenameFiles", "workspace/willRenameFiles" } },
         { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
       }
