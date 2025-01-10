@@ -207,16 +207,19 @@ return {
     "catgoose/nvim-colorizer.lua",
     event = { "BufReadPost", "BufNewFile" },
     cmd = { "ColorizerToggle", "ColorizerAttachToBuffer", "ColorizerReloadAllBuffers" },
-    init = function()
-      vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
-        group = vim.api.nvim_create_augroup("ColorizerReload", { clear = true }),
-        callback = function()
-          vim.cmd("ColorizerAttachToBuffer")
-        end,
-      })
-    end,
-    config = function()
-      require("colorizer").setup({ "*" }, {
+    opts = {
+      filetypes = {
+        "*",
+        "!neorepl",
+        "!TelescopePrompt",
+        "!TelescopeResults",
+      },
+      buftypes = {
+        "*",
+        "!prompt",
+        "!popup",
+      },
+      user_default_options = {
         RGB = true, -- #RGB hex codes
         RRGGBB = true, -- #RRGGBB hex codes
         names = true, -- "Name" codes like Blue
@@ -227,8 +230,14 @@ return {
         css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
         -- Available modes: foreground, background
         mode = "background", -- Set the display mode.
-      })
-    end,
+        tailwind = true,
+        tailwind_opts = {
+          update_names = true,
+        },
+        sass = { enable = true, parsers = { "css" } }, -- Enable sass colors
+        always_update = true,
+      },
+    },
   },
   {
     "ziontee113/color-picker.nvim",
