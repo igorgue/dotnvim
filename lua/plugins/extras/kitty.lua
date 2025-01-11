@@ -1,6 +1,17 @@
 if lazyvim_docs then
-  -- Kitty configuration:
+  -- Usage:
   --
+  -- `kitty_mod` is `ctrl+shift` by default, mappings:
+  --
+  -- - `kitty_mod+h` to open, use `yy` to copy to system's clipboard.
+  -- - `kitty_mod+g` to scroll on last output.
+  -- - `kitty_mod+rmb` to scroll on last command and output.
+  --
+  -- To quit you press `ctrl+c` or `q`, or how you'd exit LazyVim normally `:q` or `<leader>qq` or `ZZ`.
+  --
+  -- You must setup the following to make Kitty use Neovim as scrollback.
+  --
+  -- ```
   -- # action_alias
   --
   -- # kitty-scrollback.nvim Kitten alias
@@ -14,6 +25,7 @@ if lazyvim_docs then
   --
   -- # Show clicked command output in nvim
   -- mouse_map ctrl+shift+right press ungrabbed combine : mouse_select_command_output : kitty_scrollback_nvim --config visited_cmd_output
+  -- ```
 end
 
 -- kitty bg support, maybe in the future it could store the kitty bg at start
@@ -39,7 +51,7 @@ if vim.env.KITTY_WINDOW_ID and vim.env.KITTY_SCROLLBACK_NVIM ~= "true" then
 end
 
 return {
-  desc = "Kitty support, use vim as scrollback",
+  desc = "Kitty background support, use neovim as scrollback",
   { "github/copilot.vim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
   { "neovim/nvim-lspconfig", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
   { "nvim-telescope/telescope.nvim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
@@ -62,6 +74,8 @@ return {
           vim.opt.laststatus = 0
           vim.opt.clipboard = "unnamedplus"
           vim.opt.cursorline = true
+          vim.opt.number = false
+          vim.opt.relativenumber = false
           vim.opt.syntax = "off"
 
           return true
