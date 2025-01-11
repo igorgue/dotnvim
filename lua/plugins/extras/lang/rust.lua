@@ -1,39 +1,28 @@
 return {
-  -- Extend auto completion
   {
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
+    optional = true,
     dependencies = {
-      {
-        "Saecki/crates.nvim",
-        event = "BufRead Cargo.toml",
-        config = function(_, opts)
-          require("crates").setup(opts)
-
-          local register_keys = function()
-            local wk = require("which-key")
-
-            wk.add({
-              { "<cr>", require("crates").show_popup, desc = "Crates Popup" },
-            }, {
-              buffer = vim.api.nvim_get_current_buf(),
-            })
-          end
-
-          vim.api.nvim_create_autocmd("BufReadPost", { pattern = "Cargo.toml", callback = register_keys })
-        end,
-        opts = {
-          completion = {
-            cmp = {
-              enabled = true,
-            },
-          },
-          popup = {
-            autofocus = true,
-            hide_on_select = true,
-            border = "rounded",
+      "Saecki/crates.nvim",
+    },
+    opts = {
+      sources = {
+        default = { "crates" },
+        providers = {
+          crates = {
+            name = "crates",
+            module = "blink.compat.source",
+            opts = {},
           },
         },
       },
+    },
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    optional = true,
+    dependencies = {
+      "Saecki/crates.nvim",
     },
     opts = function(_, opts)
       local cmp = require("cmp")
@@ -42,7 +31,37 @@ return {
       }))
     end,
   },
+  {
+    "Saecki/crates.nvim",
+    event = "BufRead Cargo.toml",
+    config = function(_, opts)
+      require("crates").setup(opts)
 
+      local register_keys = function()
+        local wk = require("which-key")
+
+        wk.add({
+          { "<cr>", require("crates").show_popup, desc = "Crates Popup" },
+        }, {
+          buffer = vim.api.nvim_get_current_buf(),
+        })
+      end
+
+      vim.api.nvim_create_autocmd("BufReadPost", { pattern = "Cargo.toml", callback = register_keys })
+    end,
+    opts = {
+      completion = {
+        cmp = {
+          enabled = true,
+        },
+      },
+      popup = {
+        autofocus = true,
+        hide_on_select = true,
+        border = "rounded",
+      },
+    },
+  },
   -- Add Rust & related to treesitter
   {
     "nvim-treesitter/nvim-treesitter",
