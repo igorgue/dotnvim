@@ -17,65 +17,71 @@ if lazyvim_docs then
 end
 
 -- kitty bg support, maybe in the future it could store the kitty bg at start
-local function set_kitty_bg_color()
-  local kitty_bg = vim.fn.system("kitty @ get-colors | grep ^background | awk '{print $2}'")
+if vim.env.KITTY_WINDOW_ID and vim.env.KITTY_SCROLLBACK_NVIM ~= "true" then
   local bg_color = vim.fn.synIDattr(vim.fn.hlID("Normal"), "bg")
+  vim.g.kitty_bg = vim.fn.system("kitty @ get-colors | grep ^background | awk '{print $2}'")
 
   vim.fn.system("kitty @ set-colors -a background=" .. bg_color)
 
-  vim.api.nvim_create_autocmd("QuitPre", {
+  vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
-      vim.defer_fn(function()
-        vim.fn.system("kitty @ set-colors -a background=" .. kitty_bg)
-      end, 1)
+      local new_bg_color = vim.fn.synIDattr(vim.fn.hlID("Normal"), "bg")
+
+      vim.fn.system("kitty @ set-colors -a background=" .. new_bg_color)
     end,
   })
-end
 
-if vim.fn.executable("kitty") and vim.env.KITTY_WINDOW_ID then
-  set_kitty_bg_color()
-
-  vim.api.nvim_create_autocmd("ColorScheme", {
-    callback = set_kitty_bg_color,
+  vim.api.nvim_create_autocmd("QuitPre", {
+    callback = function()
+      vim.fn.system("kitty @ set-colors -a background=" .. vim.g.kitty_bg)
+    end,
   })
 end
 
 return {
   desc = "Kitty support, use vim as scrollback",
-  "mikesmithgh/kitty-scrollback.nvim",
-  cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
-  event = { "User KittyScrollbackLaunch" },
-  config = function(_, opts)
-    local default = opts
-    local cmd_output = vim.tbl_deep_extend("force", default, { kitty_get_text = { extent = "last_cmd_output" } })
-    local visited_cmd_output =
-      vim.tbl_deep_extend("force", default, { kitty_get_text = { extent = "last_visited_cmd_output" } })
+  { "github/copilot.vim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
+  { "neovim/nvim-lspconfig", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
+  { "nvim-telescope/telescope.nvim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
+  -- TODO: add more disabled plugins, most plugins should be disabled...
+  {
+    "mikesmithgh/kitty-scrollback.nvim",
+    cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
+    event = { "User KittyScrollbackLaunch" },
+    config = function(_, opts)
+      local default = opts
+      local cmd_output = vim.tbl_deep_extend("force", default, { kitty_get_text = { extent = "last_cmd_output" } })
+      local visited_cmd_output =
+        vim.tbl_deep_extend("force", default, { kitty_get_text = { extent = "last_visited_cmd_output" } })
 
-    require("kitty-scrollback").setup({
-      default = default,
-      cmd_output = cmd_output,
-      visited_cmd_output = visited_cmd_output,
-    })
+      -- set default scrollback options
+      vim.api.nvim_create_autocmd({ "FileType" }, {
+        group = vim.api.nvim_create_augroup("KittyScrollbackNvimFileType", { clear = true }),
+        pattern = { "kitty-scrollback" },
+        callback = function()
+          vim.opt.laststatus = 0
+          vim.opt.clipboard = "unnamedplus"
+          vim.opt.cursorline = true
+          vim.opt.syntax = "off"
 
-    vim.api.nvim_create_autocmd({ "FileType" }, {
-      group = vim.api.nvim_create_augroup("KittyScrollbackNvimFileType", { clear = true }),
-      pattern = { "kitty-scrollback" },
-      callback = function()
-        vim.opt.laststatus = 0
-        vim.opt.clipboard = "unnamedplus"
-        vim.opt.cursorline = true
+          return true
+        end,
+      })
 
-        return true
-      end,
-    })
-  end,
-  opts = {
-    status_window = {
-      enabled = false,
-      autoclose = true,
-    },
-    paste_window = {
-      yank_register_enabled = false,
+      require("kitty-scrollback").setup({
+        default = default,
+        cmd_output = cmd_output,
+        visited_cmd_output = visited_cmd_output,
+      })
+    end,
+    opts = {
+      status_window = {
+        enabled = false,
+        autoclose = true,
+      },
+      paste_window = {
+        yank_register_enabled = false,
+      },
     },
   },
 }

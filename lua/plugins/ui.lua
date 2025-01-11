@@ -441,8 +441,6 @@ return {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
     lazy = false,
-    -- stylua: ignore
-    enabled = not vim.o.diff and vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
     opts = function()
       local actions = require("telescope.actions")
 
