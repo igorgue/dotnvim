@@ -1,5 +1,3 @@
-vim.env.NEXTLS_SPITFIRE_ENABLED = 1
-
 local elixir_ft = { "elixir", "eex", "heex", "surface" }
 
 vim.filetype.add({
@@ -87,11 +85,12 @@ return {
 
       elixir.setup({
         nextls = {
-          enable = true,
+          enable = false,
+          spitfire = true,
           init_options = {
             experimental = {
               completions = {
-                enable = true,
+                enable = false,
               },
             },
             extensions = {
