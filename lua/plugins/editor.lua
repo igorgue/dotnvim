@@ -33,4 +33,12 @@ return {
       { "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], desc = "Add Surrounding", mode = "x" },
     },
   },
+  {
+    "chentoast/marks.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      { "<leader>md", "<cmd>delmarks!<cr>", desc = "Delete marks" },
+    },
+  },
 }
