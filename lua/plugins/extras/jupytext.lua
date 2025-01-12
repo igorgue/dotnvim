@@ -10,12 +10,9 @@ vim.api.nvim_create_autocmd("FileType", {
 return {
   {
     "williamboman/mason.nvim",
-    optional = true,
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "jupytext" })
-      end
-    end,
+    opts = {
+      ensure_installed = { "jupytext" },
+    },
   },
   {
     "GCBallesteros/jupytext.nvim",

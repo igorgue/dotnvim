@@ -1,25 +1,22 @@
 return {
   {
     "williamboman/mason.nvim",
-    optional = true,
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, {
-          "rustywind",
-          "htmlbeautifier",
-          "djlint",
-          "curlylint",
-          "jinja-lsp",
-          "htmlbeautifier",
-          "black",
-          "isort",
-          "ruff",
-          "prettier",
-          "shfmt",
-          "stylua",
-        })
-      end
-    end,
+    opts = {
+      ensure_installed = {
+        "rustywind",
+        "htmlbeautifier",
+        "djlint",
+        "curlylint",
+        "jinja-lsp",
+        "htmlbeautifier",
+        "black",
+        "isort",
+        "ruff",
+        "prettier",
+        "shfmt",
+        "stylua",
+      },
+    },
   },
   {
     "stevearc/conform.nvim",

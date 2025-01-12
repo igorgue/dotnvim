@@ -2,11 +2,11 @@ return {
   desc = "Sonarlint",
   {
     "mason.nvim",
-    ft = { "python", "java", "c", "cpp" },
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "sonarlint-language-server" })
-    end,
+    opts = {
+      ensure_installed = {
+        "sonarlint-language-server",
+      },
+    },
   },
   {
     "schrieveslaach/sonarlint.nvim",

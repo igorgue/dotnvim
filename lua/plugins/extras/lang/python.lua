@@ -67,20 +67,16 @@ return {
   },
   {
     "williamboman/mason.nvim",
-    optional = true,
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "isort", "black", "ruff", "debugpy", "basedpyright" })
-      end
-    end,
+    opts = {
+      ensure_installed = { "isort", "black", "ruff", "debugpy", "basedpyright" },
+    },
   },
   {
     "neovim/nvim-lspconfig",
     opts = {
       setup = {
-        pyright = function()
-          return true
-        end,
+        -- stylua: ignore
+        pyright = function() return true end,
       },
       servers = {
         basedpyright = {},

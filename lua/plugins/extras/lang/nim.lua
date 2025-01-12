@@ -1,7 +1,6 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    ft = "nim",
     opts = {
       setup = {
         -- stylua: ignore start
@@ -15,13 +14,9 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "nim", "nim_format_string" })
-      else
-        opts.ensure_installed = { "nim", "nim_format_string" }
-      end
-    end,
+    opts = {
+      ensure_installed = { "nim", "nim_format_string" },
+    },
   },
   {
     "mfussenegger/nvim-dap",
@@ -106,10 +101,9 @@ return {
   },
   {
     "stevearc/conform.nvim",
-    optional = true,
     opts = {
       formatters_by_ft = {
-        ["nim"] = { "nimpretty" },
+        nim = { "nimpretty" },
       },
     },
   },

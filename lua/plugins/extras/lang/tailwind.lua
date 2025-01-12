@@ -3,10 +3,7 @@ return {
     "echasnovski/mini.hipatterns",
     opts = {
       tailwind = {
-        ft = {
-          "jinja",
-          "htmldjango",
-        },
+        ft = { "jinja", "htmldjango" },
       },
     },
   },
@@ -68,10 +65,9 @@ return {
   },
   {
     "mason.nvim",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "tailwindcss-language-server" })
-    end,
+    opts = {
+      ensure_installed = { "tailwindcss-language-server" },
+    },
   },
   {
     "luckasRanarison/tailwind-tools.nvim",
@@ -96,9 +92,7 @@ return {
       },
     },
     opts = {
-      document_color = {
-        kind = "background",
-      },
+      document_color = { kind = "background" },
     },
   },
 }
