@@ -3,7 +3,7 @@ if lazyvim_docs then
   --
   -- `kitty_mod` is `ctrl+shift` by default, mappings:
   --
-  -- - `kitty_mod+h` to open, use `yy` to copy to system's clipboard.
+  -- - `kitty_mod+h` to open, use `yy` to copy to the system's clipboard.
   -- - `kitty_mod+g` to scroll on last output.
   -- - `kitty_mod+rmb` to scroll on last command and output.
   --
@@ -70,16 +70,7 @@ return {
       vim.api.nvim_create_autocmd({ "FileType" }, {
         group = vim.api.nvim_create_augroup("KittyScrollbackNvimFileType", { clear = true }),
         pattern = { "kitty-scrollback" },
-        callback = function()
-          vim.opt.laststatus = 0
-          vim.opt.clipboard = "unnamedplus"
-          vim.opt.cursorline = true
-          vim.opt.number = false
-          vim.opt.relativenumber = false
-          vim.opt.syntax = "off"
-
-          return true
-        end,
+        callback = opts.on_open,
       })
 
       require("kitty-scrollback").setup({
@@ -96,6 +87,16 @@ return {
       paste_window = {
         yank_register_enabled = false,
       },
+      on_open = function()
+        vim.opt.laststatus = 0
+        vim.opt.clipboard = "unnamedplus"
+        vim.opt.cursorline = true
+        vim.opt.number = false
+        vim.opt.relativenumber = false
+        vim.opt.syntax = "off"
+
+        return true
+      end,
     },
   },
 }
