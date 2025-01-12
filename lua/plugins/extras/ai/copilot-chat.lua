@@ -12,6 +12,10 @@ return {
         complete = {
           insert = "<s-Tab>",
         },
+        reset = {
+          insert = "<C-r>",
+          normal = "<C-r>",
+        },
       },
     },
     build = "make tiktoken",
@@ -33,13 +37,6 @@ return {
         "<C-s>",
         "<cmd>CopilotChatSave default<cr>",
         desc = "Save (CopilotChat)",
-        mode = { "n", "v", "i" },
-        ft = "copilot-chat",
-      },
-      {
-        "<C-r>",
-        "<cmd>CopilotChatReset<cr>",
-        desc = "Reset (CopilotChat)",
         mode = { "n", "v", "i" },
         ft = "copilot-chat",
       },

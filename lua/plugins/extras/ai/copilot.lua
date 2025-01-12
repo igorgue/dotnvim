@@ -7,12 +7,6 @@ return {
     keys = function() return {} end,
   },
   {
-    "nvim-cmp",
-    optional = true,
-    -- stylua: ignore
-    keys = function() return {} end,
-  },
-  {
     "github/copilot.vim",
     cmd = "Copilot",
     event = { "BufReadPost", "BufNewFile" },
