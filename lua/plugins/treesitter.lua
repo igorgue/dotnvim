@@ -19,6 +19,7 @@ return {
         },
       },
       endwise = { enable = true },
+      matchup = { enable = true },
     },
   },
 }

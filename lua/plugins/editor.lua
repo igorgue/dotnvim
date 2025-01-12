@@ -36,9 +36,18 @@ return {
   {
     "chentoast/marks.nvim",
     event = "VeryLazy",
-    opts = {},
+    config = true,
     keys = {
+      { "<leader>mm", "<cmd>Telescope marks<cr>", desc = "Search marks" },
       { "<leader>md", "<cmd>delmarks!<cr>", desc = "Delete marks" },
     },
+  },
+  {
+    "andymass/vim-matchup",
+    event = "LazyFile",
+    init = function()
+      vim.g.matchup_surround_enabled = 1
+      vim.g.matchup_transmute_enabled = 1
+    end,
   },
 }
