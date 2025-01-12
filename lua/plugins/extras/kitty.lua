@@ -39,13 +39,13 @@ if vim.env.KITTY_WINDOW_ID and vim.env.KITTY_SCROLLBACK_NVIM ~= "true" then
     callback = function()
       local new_bg_color = vim.fn.synIDattr(vim.fn.hlID("Normal"), "bg")
 
-      vim.fn.system("kitty @ set-colors -a background=" .. new_bg_color)
+      vim.fn.jobstart({ "kitty", "@ set-colors -a background=" .. new_bg_color }, { detach = true })
     end,
   })
 
   vim.api.nvim_create_autocmd("QuitPre", {
     callback = function()
-      vim.fn.system("kitty @ set-colors -a background=" .. vim.g.kitty_bg)
+      vim.fn.jobstart({ "kitty", "@ set-colors -a background=" .. vim.g.kitty_bg }, { detach = true })
     end,
   })
 end
