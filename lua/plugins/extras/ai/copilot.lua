@@ -33,11 +33,7 @@ return {
           return vim.api.nvim_call_function("g:copilot#Enabled", {}) ~= 0
         end,
         set = function(state)
-          if state then
-            vim.cmd("Copilot enable")
-          else
-            vim.cmd("Copilot disable")
-          end
+          vim.cmd("Copilot " .. (state and "enable" or "disable"))
         end,
       }):map("<leader>aC")
     end,
