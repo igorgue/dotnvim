@@ -71,6 +71,26 @@ return {
       "DiffviewRefresh",
       "DiffviewFileHistory",
     },
+    config = function(_, opts)
+      local actions = require("diffview.actions")
+
+      opts.keymaps = {
+        view = {
+          { "n", "<leader>b", actions.focus_files, { desc = "Bring focus to the file panel" } },
+          { "n", "<leader>e", actions.toggle_files, { desc = "Toggle the file panel." } },
+        },
+        file_panel = {
+          { "n", "<leader>b", actions.focus_files, { desc = "Bring focus to the file panel" } },
+          { "n", "<leader>e", actions.toggle_files, { desc = "Toggle the file panel." } },
+        },
+        file_history_panel = {
+          { "n", "<leader>b", actions.focus_files, { desc = "Bring focus to the file panel" } },
+          { "n", "<leader>e", actions.toggle_files, { desc = "Toggle the file panel." } },
+        },
+      }
+
+      require("diffview").setup(opts)
+    end,
     opts = {
       diff_binaries = true,
       enhanced_diff_hl = true,
@@ -93,37 +113,34 @@ return {
         end,
       },
     },
-    keys = {
-      {
-        "<leader>gd",
-        function()
-          local view = require("diffview.lib").get_current_view()
-
-          if view then
-            vim.cmd("DiffviewClose")
-          else
-            vim.cmd("DiffviewOpen")
-          end
-        end,
-        desc = "Toggle diff view",
-      },
-    },
   },
   {
     "almo7aya/openingh.nvim",
     cmd = { "OpenInGHRepo", "OpenInGHFile", "OpenInGHFileLines" },
-    init = function()
-      local wk = require("which-key")
-
-      wk.add({
-        { "<leader>cg", group = "github" },
-      })
-    end,
     keys = {
       { "<leader>cgg", "<cmd>OpenInGHFileLines<CR>", desc = "Open GitHub file lines" },
       { "<leader>cgf", "<cmd>OpenInGHFile<CR>", desc = "Open GitHub file" },
       { "<leader>cgr", open_github_repo, desc = "Open GitHub repo" },
       { "gh", open_github_repo, desc = "Go to GitHub repo" },
+    },
+  },
+  {
+    "Rawnly/gist.nvim",
+    dependencies = {
+      {
+        "samjwill/nvim-unception",
+        lazy = false,
+        init = function()
+          vim.g.unception_block_while_host_edits = true
+        end,
+      },
+    },
+    cmd = { "GistCreate", "GistCreateFromFile", "GistsList" },
+    config = true,
+    keys = {
+      { "<leader>cGl", "<cmd>GistsList<cr>", desc = "List gists" },
+      { "<leader>cGc", "<cmd>GistCreate<cr>", desc = "Create gist" },
+      { "<leader>cGf", "<cmd>GistCreateFromFile<cr>", desc = "Create gist from file " },
     },
   },
 }

@@ -29,7 +29,9 @@ wk.add({
   { "<SNR>", group = "snr" },
   { "<leader><cr>", group = "applications" },
   { "<leader>cs", group = "sourcegraph" },
-  { "<leader>m", group = "molten" },
+  { "<leader>cg", group = "github" },
+  { "<leader>cG", group = "gist" },
+  { "<leader>m", group = "marks" },
   { "<leader>a", group = "ai", mode = { "n", "v", "i" } },
   { "<leader>u.", group = "more", mode = { "n", "v", "s" } },
   { "<leader>f.", group = "more", mode = { "n", "v", "s" } },
@@ -138,6 +140,16 @@ Snacks.toggle({
     -- Snacks.toggle.indent():toggle(state)
   end,
 }):map("<leader>ul")
+
+Snacks.toggle({
+  name = "Diffview",
+  get = function()
+    return require("diffview.lib").get_current_view() ~= nil
+  end,
+  set = function(state)
+    vim.cmd("Diffview" .. (state and "Open" or "Close"))
+  end,
+}):map("<leader>gd")
 
 -- some special cases:
 pcall(vim.api.nvim_del_keymap, "v", "<C-k>")
