@@ -138,9 +138,13 @@ return {
     cmd = { "GistCreate", "GistCreateFromFile", "GistsList" },
     config = true,
     keys = {
-      { "<leader>cGl", "<cmd>GistsList<cr>", desc = "List gists" },
-      { "<leader>cGc", "<cmd>GistCreate<cr>", desc = "Create gist" },
-      { "<leader>cGf", "<cmd>GistCreateFromFile<cr>", desc = "Create gist from file " },
+      { "<leader>cgl", "<cmd>GistsList<cr>", desc = "List gists" },
+      { "<leader>cgc", "<cmd>GistCreate<cr>", desc = "Create gist" },
+      { "<leader>cgF", "<cmd>GistCreateFromFile<cr>", desc = "Create gist from file" },
+    },
+    opts = {
+      private = true,
+      clipboard = "+",
     },
   },
 }

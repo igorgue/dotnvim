@@ -30,7 +30,6 @@ wk.add({
   { "<leader><cr>", group = "applications" },
   { "<leader>cs", group = "sourcegraph" },
   { "<leader>cg", group = "github" },
-  { "<leader>cG", group = "gist" },
   { "<leader>m", group = "marks" },
   { "<leader>a", group = "ai", mode = { "n", "v", "i" } },
   { "<leader>u.", group = "more", mode = { "n", "v", "s" } },
