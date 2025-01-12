@@ -103,8 +103,8 @@ return {
             },
           },
         },
-        credo = { enable = true },
-        elixirls = { enable = true, tag = "v0.26.2" },
+        credo = { enable = false },
+        elixirls = { enable = true, branch = "v0.26.2" },
       })
     end,
   },
@@ -125,16 +125,18 @@ return {
       }
 
       dap.configurations.elixir = {
-        type = "elixir",
-        name = "Run Elixir Program",
-        task = "phx.server",
-        taskArgs = { "--trace" },
-        request = "launch",
-        startApps = true, -- for Phoenix projects
-        projectDir = "${workspaceFolder}",
-        requireFiles = {
-          "test/**/test_helper.exs",
-          "test/**/*_test.exs",
+        {
+          type = "elixir",
+          name = "Run Elixir Program",
+          task = "phx.server",
+          taskArgs = { "--trace" },
+          request = "launch",
+          startApps = true, -- for Phoenix projects
+          projectDir = "${workspaceFolder}",
+          requireFiles = {
+            "test/**/test_helper.exs",
+            "test/**/*_test.exs",
+          },
         },
       }
     end,
