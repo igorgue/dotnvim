@@ -118,8 +118,8 @@ return {
     "almo7aya/openingh.nvim",
     cmd = { "OpenInGHRepo", "OpenInGHFile", "OpenInGHFileLines" },
     keys = {
+      { "<leader>cgo", "<cmd>OpenInGHFile<CR>", desc = "Open GitHub file" },
       { "<leader>cgg", "<cmd>OpenInGHFileLines<CR>", desc = "Open GitHub file lines" },
-      { "<leader>cgf", "<cmd>OpenInGHFile<CR>", desc = "Open GitHub file" },
       { "<leader>cgr", open_github_repo, desc = "Open GitHub repo" },
       { "gh", open_github_repo, desc = "Go to GitHub repo" },
     },
@@ -139,8 +139,9 @@ return {
     config = true,
     keys = {
       { "<leader>cgl", "<cmd>GistsList<cr>", desc = "List gists" },
-      { "<leader>cgc", "<cmd>GistCreate<cr>", desc = "Create gist" },
-      { "<leader>cgF", "<cmd>GistCreateFromFile<cr>", desc = "Create gist from file" },
+      { "<leader>cgc", "<cmd>GistCreate<cr>", desc = "Create gist (private)" },
+      { "<leader>cgC", "<cmd>GistCreate public=true<cr>", desc = "Create gist (public)" },
+      { "<leader>cgf", "<cmd>GistCreateFromFile<cr>", desc = "Create gist from file" },
     },
     opts = {
       private = true,
