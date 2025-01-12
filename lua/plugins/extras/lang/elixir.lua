@@ -63,6 +63,7 @@ return {
     enabled = not vim.o.diff,
     config = function()
       local elixir = require("elixir")
+      local elixirls = require("elixir.elixirls")
 
       local register_keys = function()
         local wk = require("which-key")
@@ -104,39 +105,39 @@ return {
           },
         },
         credo = { enable = false },
-        elixirls = { enable = true, branch = "v0.26.2" },
+        elixirls = {
+          enable = true,
+          branch = "v0.26.2",
+          settings = elixirls.settings({
+            dialyzerEnabled = true,
+            fetchDeps = false,
+          }),
+        },
       })
     end,
   },
   {
     "mfussenegger/nvim-dap",
     config = function()
-      -- FIXME: I think this is broken... Is not debugging right now,
-      -- lets use `pry` instead...
-      -- TODO: this needs to use the one on elixir-tools not mason's
-      -- elixir-tools does not download this `debug_adaper.sh` script
-      -- but mason does, so we use the one on mason.
-      local mason = (os.getenv("HOME") or "") .. "/.local/share/nvim/mason"
+      local elixir_ls = os.getenv("HOME")
+        .. "/.cache/nvim/elixir-tools.nvim/installs/elixir-lsp/elixir-ls/v0.26.2/1.18.1-27"
       local dap = require("dap")
 
       dap.adapters.elixir = {
         type = "executable",
-        command = mason .. "/packages/elixir-ls/debug_adapter.sh",
+        command = elixir_ls .. "/debug_adapter.sh",
+        args = {},
       }
 
       dap.configurations.elixir = {
         {
           type = "elixir",
           name = "Run Elixir Program",
+          request = "launch",
           task = "phx.server",
           taskArgs = { "--trace" },
-          request = "launch",
-          startApps = true, -- for Phoenix projects
+          startApps = true,
           projectDir = "${workspaceFolder}",
-          requireFiles = {
-            "test/**/test_helper.exs",
-            "test/**/*_test.exs",
-          },
         },
       }
     end,
