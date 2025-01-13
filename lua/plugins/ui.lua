@@ -468,6 +468,19 @@ return {
               ["<C-k>"] = actions.cycle_history_prev,
               ["<C-b>"] = actions.preview_scrolling_up,
               ["<C-f>"] = actions.preview_scrolling_down,
+              ["<C-w>"] = function()
+                vim.api.nvim_input("<c-s-w>")
+              end,
+              ["<C-a>"] = function()
+                vim.cmd([[normal! ^i]])
+              end,
+              ["<C-e>"] = function()
+                vim.cmd([[normal! A]])
+                vim.api.nvim_input("<right>")
+              end,
+              ["<C-u>"] = function()
+                vim.cmd([[normal! dd]])
+              end,
             },
           },
           layout_config = {
