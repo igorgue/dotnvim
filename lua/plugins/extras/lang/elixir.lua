@@ -17,15 +17,15 @@ if ok then
 end
 
 return {
-  {
-    "SmiteshP/nvim-navic",
-    optional = true,
-    opts = {
-      lsp = {
-        preference = { "nextls" },
-      },
-    },
-  },
+  -- {
+  --   "SmiteshP/nvim-navic",
+  --   optional = true,
+  --   opts = {
+  --     lsp = {
+  --       preference = { "nextls" },
+  --     },
+  --   },
+  -- },
   {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
@@ -107,7 +107,7 @@ return {
         credo = { enable = false },
         elixirls = {
           enable = true,
-          branch = "v0.26.2",
+          tag = "v0.26.2",
           settings = elixirls.settings({
             dialyzerEnabled = true,
             fetchDeps = false,
