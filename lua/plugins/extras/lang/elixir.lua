@@ -35,6 +35,7 @@ return {
     },
     -- stylua: ignore
     enabled = not vim.o.diff,
+    ft = elixir_ft,
     config = function()
       local elixir = require("elixir")
       local elixirls = require("elixir.elixirls")
