@@ -563,6 +563,7 @@ return {
         desc = "Filter Grep",
       },
       { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
+      { "<leader>j", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
       { "<leader>r", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
       {
         "<leader>fC",
