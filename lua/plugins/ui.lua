@@ -538,7 +538,7 @@ return {
       -- NOTE: this is needed here because it cannot be mapped from the other
       -- place for some reason I don't want to investigate...
       require("which-key").add({
-        { "<c-cr>", restore, desc = "Telescope Restore / Smart Open", mode = "i" },
+        { "<c-cr>", restore, desc = "Telescope Restore / Smart Open", mode = { "n", "i" } },
         { "<leader><leader>", restore, desc = "Telescope Restore / Smart Open", mode = "n" },
       })
 
