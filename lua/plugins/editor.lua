@@ -47,6 +47,7 @@ return {
         end,
         desc = "Search marks",
       },
+      { "dm", "<cmd>Delmarks<cr>", desc = "Delete current line marks" },
       { "<leader>mm", "<cmd>Telescope marks<cr>", desc = "Search marks" },
       { "<leader>md", "<cmd>delmarks!<cr>", desc = "Delete local marks" },
       { "<leader>mD", "<cmd>delmarks!<cr><cmd>delmarks A-Z<cr>", desc = "Delete all marks" },
