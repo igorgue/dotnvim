@@ -1,5 +1,4 @@
-local elixir_ft = { "elixir", "eex", "heex", "surface" }
-
+local elixir_ft = { "elixir", "eelixir", "eex", "heex", "surface", "livebook" }
 vim.filetype.add({
   extension = {
     ["neex"] = "heex",
@@ -17,32 +16,8 @@ if ok then
 end
 
 return {
-  -- {
-  --   "SmiteshP/nvim-navic",
-  --   optional = true,
-  --   opts = {
-  --     lsp = {
-  --       preference = { "nextls" },
-  --     },
-  --   },
-  -- },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    lazy = false,
-    ft = elixir_ft,
-    opts = {
-      ensure_installed = elixir_ft,
-      highlight = {
-        enable = true,
-      },
-      indent = {
-        enable = true,
-      },
-    },
-  },
   {
     "neovim/nvim-lspconfig",
-    ft = elixir_ft,
     opts = {
       setup = {
         -- stylua: ignore start
@@ -58,40 +33,25 @@ return {
       "elixir-editors/vim-elixir",
       "nvim-lua/plenary.nvim",
     },
-    ft = elixir_ft,
     -- stylua: ignore
     enabled = not vim.o.diff,
     config = function()
       local elixir = require("elixir")
       local elixirls = require("elixir.elixirls")
+      local wk = require("which-key")
 
-      local register_keys = function()
-        local wk = require("which-key")
-        local bufnr = vim.api.nvim_get_current_buf()
-
-        wk.add({
-          { "<leader>cE", group = "elixir" },
-          { "<leader>cEp", "<cmd>ElixirToPipe<cr>", desc = "To Pipe" },
-          { "<leader>cEP", "<cmd>ElixirFromPipe<cr>", desc = "From Pipe" },
-          { "<leader>cEm", "<cmd>ElixirExpandMacro<cr>", desc = "Expand Macro" },
-          { "<leader>cEr", "<cmd>ElixirRestart<cr>", desc = "Restart" },
-          { "<leader>cEo", "<cmd>ElixirOutputPanel<cr>", desc = "Output Panel" },
-        }, { buffer = bufnr })
-      end
-
-      vim.api.nvim_create_autocmd(
-        "FileType",
-        { pattern = { "elixir", "eex", "heex", "surface" }, callback = register_keys }
-      )
+      wk.add({
+        { "<leader>cE", group = "elixir" },
+      })
 
       elixir.setup({
         nextls = {
-          enable = false,
+          enable = true,
           spitfire = true,
           init_options = {
             experimental = {
               completions = {
-                enable = false,
+                enable = true,
               },
             },
             extensions = {
@@ -106,8 +66,7 @@ return {
         },
         credo = { enable = false },
         elixirls = {
-          enable = true,
-          tag = "v0.26.2",
+          enable = false,
           settings = elixirls.settings({
             dialyzerEnabled = true,
             fetchDeps = false,
@@ -115,9 +74,17 @@ return {
         },
       })
     end,
+    keys = {
+      { "<leader>cEp", "<cmd>ElixirToPipe<cr>", desc = "To Pipe", ft = elixir_ft },
+      { "<leader>cEP", "<cmd>ElixirFromPipe<cr>", desc = "From Pipe", ft = elixir_ft },
+      { "<leader>cEm", "<cmd>ElixirExpandMacro<cr>", desc = "Expand Macro", ft = elixir_ft },
+      { "<leader>cEr", "<cmd>ElixirRestart<cr>", desc = "Restart", ft = elixir_ft },
+      { "<leader>cEo", "<cmd>ElixirOutputPanel<cr>", desc = "Output Panel", ft = elixir_ft },
+    },
   },
   {
     "mfussenegger/nvim-dap",
+    optional = true,
     config = function()
       local elixir_ls = os.getenv("HOME")
         .. "/.cache/nvim/elixir-tools.nvim/installs/elixir-lsp/elixir-ls/v0.26.2/1.18.1-27"
@@ -141,5 +108,14 @@ return {
         },
       }
     end,
+  },
+  {
+    "SmiteshP/nvim-navic",
+    optional = true,
+    opts = {
+      lsp = {
+        preference = { "nextls" },
+      },
+    },
   },
 }

@@ -34,13 +34,15 @@ vim.api.nvim_create_user_command("Cloc", function()
 
     Snacks.win({
       buf = buf,
-      title = "cloc",
+      title = " cloc ",
       title_pos = "center",
       border = "rounded",
       ft = "markdown",
       relative = "editor",
       position = "float",
-      width = 0.5,
+      footer = " 'q' to close ",
+      footer_pos = "center",
+      width = 0.8,
       height = 0.3,
     })
   end)

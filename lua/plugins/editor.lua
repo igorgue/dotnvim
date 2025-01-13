@@ -38,6 +38,15 @@ return {
     event = "VeryLazy",
     config = true,
     keys = {
+      {
+        "<leader>M",
+        function()
+          local input = vim.fn.input("Mark to delete:")
+
+          vim.cmd("delmarks " .. input)
+        end,
+        desc = "Search marks",
+      },
       { "<leader>mm", "<cmd>Telescope marks<cr>", desc = "Search marks" },
       { "<leader>md", "<cmd>delmarks!<cr>", desc = "Delete local marks" },
       { "<leader>mD", "<cmd>delmarks!<cr><cmd>delmarks A-Z<cr>", desc = "Delete all marks" },
