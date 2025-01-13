@@ -26,8 +26,23 @@ end, {})
 vim.api.nvim_create_user_command("Cloc", function()
   vim.schedule(function()
     local out = vim.fn.system("cloc --quiet --vcs=git --exclude-ext=json,toml,ini,txt")
+    local buf = vim.api.nvim_create_buf(false, true)
 
-    vim.notify(out, vim.log.levels.INFO, { title = "Lines of code in project" })
+    vim.api.nvim_buf_call(buf, function()
+      vim.api.nvim_paste(out, false, -1)
+    end)
+
+    Snacks.win({
+      buf = buf,
+      title = "cloc",
+      title_pos = "center",
+      border = "rounded",
+      ft = "markdown",
+      relative = "editor",
+      position = "float",
+      width = 0.5,
+      height = 0.3,
+    })
   end)
 end, {})
 
