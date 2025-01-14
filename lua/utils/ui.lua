@@ -241,9 +241,11 @@ end
 
 function M.enable_focus_mode()
   vim.opt.laststatus = 0
-  if require("lazy.core.config").plugins["copilot.vim"] ~= nil then
-    vim.cmd("Copilot disable")
-  end
+  pcall(function()
+    if require("lazy.core.config").plugins["copilot.vim"] ~= nil then
+      vim.cmd("Copilot disable")
+    end
+  end)
   pcall(function()
     vim.cmd("SupermavenStop")
   end)
