@@ -193,15 +193,6 @@ return {
         extensions = { "neo-tree" },
       }
     end,
-    keys = {
-      {
-        "<leader>uS",
-        function()
-          vim.opt.laststatus = vim.opt.laststatus:get() == 0 and 3 or 0
-        end,
-        desc = "Toggle Statusline",
-      },
-    },
   },
   {
     "catgoose/nvim-colorizer.lua",
@@ -636,7 +627,8 @@ return {
   },
   {
     "s1n7ax/nvim-window-picker",
-    event = { "BufReadPost", "BufNewFile" },
+    name = "window-picker",
+    event = "VeryLazy",
     config = function()
       require("window-picker").setup()
     end,

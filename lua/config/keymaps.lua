@@ -98,12 +98,12 @@ wk.add({
   { "<A-s-o>", "{", desc = "{", mode = { "n", "i" } },
   { "<A-s-p>", "}", desc = "}", mode = { "n", "i" } },
   { "<A-s-s>", "?", desc = "?", mode = "n" },
-  { "<C-f>", require("utils").ui.toggle_focus_mode, desc = "Focus Mode", mode = { "n", "v", "i" } },
+  -- TODO: refactor focus mode, make it a snacks toggle
+  { "<leader>F", require("utils").ui.toggle_focus_mode, desc = "Focus Mode", mode = { "n", "v", "i" } },
   { "<C-S-T>", require("utils").ui.open_terminal_tab, desc = "Open Terminal", mode = { "n", "v", "i" } },
   { "<C-g>", require("utils").file_info, desc = "File Info", mode = "n" },
   { "<leader>X", "<cmd>LazyExtras<cr>", desc = "Lazy Extras" },
   { "<leader>gg", "<cmd>Lazygit<cr>", desc = "Lazygit" },
-  { "<leader>F", force_format, desc = "Force Format Document", mode = { "n", "v" } },
   { "<leader>=", force_format, desc = "Force Format Document", mode = { "n", "v" } },
   { "<leader>o", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols (Trouble)", mode = "n" },
   { "<leader>uh", toggle_inlay_hints, desc = "Toggle Inlay Hints", mode = "n" },
@@ -140,6 +140,16 @@ Snacks.toggle({
     -- Snacks.toggle.indent():toggle(state)
   end,
 }):map("<leader>ul")
+
+Snacks.toggle({
+  name = "Status Line",
+  get = function()
+    return vim.api.nvim_get_option_value("laststatus", {}) ~= 0
+  end,
+  set = function(state)
+    vim.opt.laststatus = state and 3 or 0
+  end,
+}):map("<leader>u.l")
 
 Snacks.toggle({
   name = "Diffview",

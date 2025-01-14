@@ -202,9 +202,12 @@ function M.toggle_focus_mode()
   if vim.version().minor >= 10 then
     vim.diagnostic.enable(not vim.diagnostic.is_enabled())
   else
+    ---@diagnostic disable-next-line: deprecated
     if vim.diagnostic.is_disabled(0) then
+      ---@diagnostic disable-next-line: param-type-mismatch
       vim.diagnostic.enable(0)
     else
+      ---@diagnostic disable-next-line: deprecated
       vim.diagnostic.disable(0)
     end
   end
@@ -232,17 +235,15 @@ function M.toggle_lsp_references()
   end
 end
 
-local function disable_winbar()
-  vim.opt.winbar = ""
-end
+-- local function disable_winbar()
+--   vim.opt.winbar = ""
+-- end
 
 function M.enable_focus_mode()
   vim.opt.laststatus = 0
-  pcall(function()
-    if require("lazy.core.config").plugins["copilot.vim"] ~= nil then
-      vim.cmd("Copilot disable")
-    end
-  end)
+  if require("lazy.core.config").plugins["copilot.vim"] ~= nil then
+    vim.cmd("Copilot disable")
+  end
   pcall(function()
     vim.cmd("SupermavenStop")
   end)
