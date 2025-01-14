@@ -51,52 +51,46 @@ if vim.env.KITTY_WINDOW_ID and vim.env.KITTY_SCROLLBACK_NVIM ~= "true" then
 end
 
 return {
+  "mikesmithgh/kitty-scrollback.nvim",
   desc = "Kitty background support, use neovim as scrollback",
-  { "github/copilot.vim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  { "neovim/nvim-lspconfig", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  { "nvim-telescope/telescope.nvim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  -- TODO: add more disabled plugins, most plugins should be disabled...
-  {
-    "mikesmithgh/kitty-scrollback.nvim",
-    cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
-    event = { "User KittyScrollbackLaunch" },
-    config = function(_, opts)
-      local default = opts
-      local cmd_output = vim.tbl_deep_extend("force", default, { kitty_get_text = { extent = "last_cmd_output" } })
-      local visited_cmd_output =
-        vim.tbl_deep_extend("force", default, { kitty_get_text = { extent = "last_visited_cmd_output" } })
+  cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
+  event = { "User KittyScrollbackLaunch" },
+  config = function(_, opts)
+    local default = opts
+    local cmd_output = vim.tbl_deep_extend("force", default, { kitty_get_text = { extent = "last_cmd_output" } })
+    local visited_cmd_output =
+      vim.tbl_deep_extend("force", default, { kitty_get_text = { extent = "last_visited_cmd_output" } })
 
-      -- set default scrollback options
-      vim.api.nvim_create_autocmd({ "FileType" }, {
-        group = vim.api.nvim_create_augroup("KittyScrollbackNvimFileType", { clear = true }),
-        pattern = { "kitty-scrollback" },
-        callback = opts.on_open,
-      })
+    -- set default scrollback options
+    vim.api.nvim_create_autocmd({ "FileType" }, {
+      group = vim.api.nvim_create_augroup("KittyScrollbackNvimFileType", { clear = true }),
+      pattern = { "kitty-scrollback" },
+      callback = opts.on_open,
+    })
 
-      require("kitty-scrollback").setup({
-        default = default,
-        cmd_output = cmd_output,
-        visited_cmd_output = visited_cmd_output,
-      })
-    end,
-    opts = {
-      status_window = {
-        enabled = false,
-        autoclose = true,
-      },
-      paste_window = {
-        yank_register_enabled = false,
-      },
-      on_open = function()
-        vim.opt.laststatus = 0
-        vim.opt.clipboard = "unnamedplus"
-        vim.opt.cursorline = true
-        vim.opt.number = false
-        vim.opt.relativenumber = false
-        vim.opt.syntax = "off"
-
-        return true
-      end,
+    require("kitty-scrollback").setup({
+      default = default,
+      cmd_output = cmd_output,
+      visited_cmd_output = visited_cmd_output,
+    })
+  end,
+  opts = {
+    status_window = {
+      enabled = false,
+      autoclose = true,
     },
+    paste_window = {
+      yank_register_enabled = false,
+    },
+    on_open = function()
+      vim.opt.laststatus = 0
+      vim.opt.clipboard = "unnamedplus"
+      vim.opt.cursorline = true
+      vim.opt.number = false
+      vim.opt.relativenumber = false
+      vim.opt.syntax = "off"
+
+      return true
+    end,
   },
 }
