@@ -99,7 +99,7 @@ wk.add({
   { "<A-s-p>", "}", desc = "}", mode = { "n", "i" } },
   { "<A-s-s>", "?", desc = "?", mode = "n" },
   -- TODO: refactor focus mode, make it a snacks toggle
-  { "<leader>F", require("utils").ui.toggle_focus_mode, desc = "Focus Mode", mode = { "n", "v", "i" } },
+  { "<leader>F", require("utils").ui.toggle_focus_mode, desc = "Focus Mode", mode = "n" },
   { "<C-S-T>", require("utils").ui.open_terminal_tab, desc = "Open Terminal", mode = { "n", "v", "i" } },
   { "<C-g>", require("utils").file_info, desc = "File Info", mode = "n" },
   { "<leader>X", "<cmd>LazyExtras<cr>", desc = "Lazy Extras" },

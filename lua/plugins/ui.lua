@@ -18,7 +18,7 @@ return {
             { icon = " ", key = "r", desc = "recent files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
             { icon = " ", key = "s", desc = "restore session", section = "session" },
             { icon = " ", key = "f", desc = "find file", action = ":lua Snacks.dashboard.pick('files')" },
-            { icon = " ", key = "o", desc = "smart open", action = ":Telescope smart_open" },
+            -- { icon = " ", key = "o", desc = "smart open", action = ":Telescope smart_open" },
             -- { icon = " ", key = "g", desc = "find text", action = ":lua Snacks.dashboard.pick('live_grep')" },
             { icon = " ", key = "g", desc = "find text", action = function()
               if vim.g.lazyvim_picker == "telescope" then
@@ -51,6 +51,24 @@ return {
       },
       indent = { enabled = false, only_scope = true, only_current = true },
       input = {},
+      picker = {
+        win = {
+          input = {
+            keys = {
+              ["<Esc>"] = { "close", mode = { "n", "i" } },
+            },
+          },
+        },
+      },
+    },
+    keys = {
+      {
+        "<leader><leader>",
+        function()
+          Snacks.picker.resume()
+        end,
+        desc = "Resume",
+      },
     },
   },
   {
@@ -401,6 +419,7 @@ return {
   {
     "ibhagwan/fzf-lua",
     optional = true,
+    enabled = vim.g.lazyvim_picker == "fzf",
     opts = {
       previewers = {
         builtin = {
@@ -422,6 +441,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     optional = true,
+    enabled = vim.g.lazyvim_picker == "telescope",
     dependencies = {
       "kkharji/sqlite.lua",
       "nvim-telescope/telescope-smart-history.nvim",
@@ -528,10 +548,12 @@ return {
 
       -- NOTE: this is needed here because it cannot be mapped from the other
       -- place for some reason I don't want to investigate...
-      require("which-key").add({
-        { "<c-cr>", restore, desc = "Telescope Restore / Smart Open", mode = { "n", "i" } },
-        { "<leader><leader>", restore, desc = "Telescope Restore / Smart Open", mode = "n" },
-      })
+      if vim.g.lazyvim_picker == "telescope" then
+        require("which-key").add({
+          { "<c-cr>", restore, desc = "Telescope Restore / Smart Open", mode = { "n", "i" } },
+          { "<leader><leader>", restore, desc = "Telescope Restore / Smart Open", mode = "n" },
+        })
+      end
 
       telescope.setup(opts)
 
