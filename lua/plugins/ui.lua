@@ -18,7 +18,7 @@ return {
             { icon = " ", key = "r", desc = "recent files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
             { icon = " ", key = "s", desc = "restore session", section = "session" },
             { icon = " ", key = "f", desc = "find file", action = ":lua Snacks.dashboard.pick('files')" },
-            -- { icon = " ", key = "o", desc = "smart open", action = ":Telescope smart_open" },
+            { icon = " ", key = "o", desc = "smart open", action = ":Telescope smart_open" },
             -- { icon = " ", key = "g", desc = "find text", action = ":lua Snacks.dashboard.pick('live_grep')" },
             { icon = " ", key = "g", desc = "find text", action = function()
               if vim.g.lazyvim_picker == "telescope" then
@@ -419,7 +419,6 @@ return {
   {
     "ibhagwan/fzf-lua",
     optional = true,
-    enabled = vim.g.lazyvim_picker == "fzf",
     opts = {
       previewers = {
         builtin = {
@@ -441,7 +440,6 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     optional = true,
-    enabled = vim.g.lazyvim_picker == "telescope",
     dependencies = {
       "kkharji/sqlite.lua",
       "nvim-telescope/telescope-smart-history.nvim",
