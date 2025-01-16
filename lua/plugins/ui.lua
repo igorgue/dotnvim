@@ -447,8 +447,7 @@ return {
       "alduraibi/telescope-glyph.nvim",
       "xiyaowong/telescope-emoji.nvim",
       "nvim-telescope/telescope-symbols.nvim",
-      "nvim-telescope/telescope-fzy-native.nvim",
-      -- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
     lazy = false,
     opts = function()
@@ -512,18 +511,14 @@ return {
           glyph = {
             action = telescope_paste_char,
           },
-          -- fzf = {
-          --   fuzzy = true,
-          --   override_generic_sorter = true,
-          --   override_file_sorter = true,
-          --   case_mode = "smart_case",
-          -- },
-          fzy_native = {
+          fzf = {
+            fuzzy = true,
             override_generic_sorter = true,
             override_file_sorter = true,
+            case_mode = "smart_case",
           },
           smart_open = {
-            match_algorithm = "fzy",
+            match_algorithm = "fzf",
           },
         },
       }
@@ -559,8 +554,7 @@ return {
       telescope.load_extension("glyph")
       telescope.load_extension("emoji")
       telescope.load_extension("smart_open")
-      telescope.load_extension("fzy_native")
-      -- telescope.load_extension("fzf")
+      telescope.load_extension("fzf")
 
       if package.loaded["noice"] then
         telescope.load_extension("noice")
