@@ -11,8 +11,31 @@ pcall(vim.api.nvim_del_keymap, "v", ">")
 pcall(vim.api.nvim_del_keymap, "n", "<leader>gg")
 pcall(vim.api.nvim_del_keymap, "n", "<leader>ul")
 pcall(vim.api.nvim_del_keymap, "n", "<leader>uh")
-pcall(vim.api.nvim_del_keymap, "n", "<leader>uh")
 
+-- group names
+wk.add({
+  { "<leader>", group = "leader" },
+  { "<SNR>", group = "snr" },
+  { "<leader><cr>", group = "applications" },
+  { "<leader>cg", group = "github" },
+  { "<leader>m", group = "marks" },
+  { "<leader>a", group = "ai", mode = { "n", "v", "i" } },
+  { "!", group = "filter", mode = { "n", "v" } },
+  { "<", group = "indent/left", mode = { "n", "v" } },
+  { ">", group = "indent/right", mode = { "n", "v" } },
+  { "c", group = "change", mode = { "n", "v" } },
+  { "d", group = "delete", mode = { "n", "v" } },
+  { "v", group = "visual", mode = { "n", "v" } },
+  { "y", group = "yank", mode = { "n", "v" } },
+})
+
+-- '.' +more groups
+wk.add({
+  { "<leader>u.", group = "more", mode = { "n", "v", "s" } },
+  { "<leader>f.", group = "more", mode = { "n", "v", "s" } },
+})
+
+-- applications
 wk.add({
   { "<leader><cr>b", "<cmd>Btop<cr>", desc = "Btop Process Manager" },
   { "<leader><cr>d", "<cmd>DBUIToggle<cr>", desc = "Dadbod Database Manager" },
@@ -24,26 +47,7 @@ wk.add({
   { "<leader><cr>C", "<cmd>ChessTui<cr>", desc = "Chess TUI" },
 })
 
-wk.add({
-  { "<leader>", group = "leader" },
-  { "<SNR>", group = "snr" },
-  { "<leader><cr>", group = "applications" },
-  { "<leader>cs", group = "sourcegraph" },
-  { "<leader>cg", group = "github" },
-  { "<leader>m", group = "marks" },
-  { "<leader>a", group = "ai", mode = { "n", "v", "i" } },
-  { "<leader>u.", group = "more", mode = { "n", "v", "s" } },
-  { "<leader>f.", group = "more", mode = { "n", "v", "s" } },
-  { "!", group = "filter", mode = { "n", "v" } },
-  { "<", group = "indent/left", mode = { "n", "v" } },
-  { ">", group = "indent/right", mode = { "n", "v" } },
-  { "c", group = "change", mode = { "n", "v" } },
-  { "d", group = "delete", mode = { "n", "v" } },
-  { "v", group = "visual", mode = { "n", "v" } },
-  { "y", group = "yank", mode = { "n", "v" } },
-})
-
--- Tab keymaps
+-- tab keymaps
 wk.add({
   { "<leader><tab>j", "<cmd>tabprevious<cr>", desc = "Previous Tab" },
   { "<leader><tab>k", "<cmd>tabnext<cr>", desc = "Next Tab" },
@@ -91,17 +95,16 @@ wk.add({
   { "dm", "<cmd>Delmarks<cr>", desc = "Delete current line marks" },
   { "<esc>", require("utils").ui.refresh_ui, desc = "Refresh UI" },
   { "<A-/>", "<cmd>WhichKey<cr>", desc = "Help", mode = { "n", "i" } },
-  { "<A-e>", "<cmd>Telescope emoji<cr>", desc = "Emoji Select", mode = { "n", "i" } },
   { "<A-f>", force_format, desc = "Force Format Document", mode = { "n", "v", "i" } },
+  { "<A-s>", "<cmd>Telescope symbols<cr>", desc = "Symbols Select", mode = { "n", "i" } },
+  { "<A-e>", "<cmd>Telescope emoji<cr>", desc = "Emoji Select", mode = { "n", "i" } },
   { "<A-g>", "<cmd>Telescope glyph<cr>", desc = "Glyph Select", mode = { "n", "i" } },
-  { "<A-s>", "/", desc = "/", mode = "n" },
   { "<A-s-o>", "{", desc = "{", mode = { "n", "i" } },
   { "<A-s-p>", "}", desc = "}", mode = { "n", "i" } },
-  { "<A-s-s>", "?", desc = "?", mode = "n" },
   -- TODO: refactor focus mode, make it a snacks toggle
-  { "<leader>F", require("utils").ui.toggle_focus_mode, desc = "Focus Mode", mode = "n" },
   { "<C-S-T>", require("utils").ui.open_terminal_tab, desc = "Open Terminal", mode = { "n", "v", "i" } },
   { "<C-g>", require("utils").file_info, desc = "File Info", mode = "n" },
+  { "<leader>F", require("utils").ui.toggle_focus_mode, desc = "Focus Mode", mode = "n" },
   { "<leader>X", "<cmd>LazyExtras<cr>", desc = "Lazy Extras" },
   { "<leader>gg", "<cmd>Lazygit<cr>", desc = "Lazygit" },
   { "<leader>=", force_format, desc = "Force Format Document", mode = { "n", "v" } },

@@ -19,7 +19,6 @@ return {
             { icon = " ", key = "s", desc = "restore session", section = "session" },
             { icon = " ", key = "f", desc = "find file", action = ":lua Snacks.dashboard.pick('files')" },
             { icon = " ", key = "o", desc = "smart open", action = ":Telescope smart_open" },
-            -- { icon = " ", key = "g", desc = "find text", action = ":lua Snacks.dashboard.pick('live_grep')" },
             { icon = " ", key = "g", desc = "find text", action = function()
               if vim.g.lazyvim_picker == "telescope" then
                 require("plugins.telescope.filter_grep").filter_grep()
@@ -444,10 +443,11 @@ return {
       "kkharji/sqlite.lua",
       "nvim-telescope/telescope-smart-history.nvim",
       "danielfalk/smart-open.nvim",
-      "ghassan0/telescope-glyph.nvim",
+      "alduraibi/telescope-glyph.nvim",
       "xiyaowong/telescope-emoji.nvim",
+      "nvim-telescope/telescope-symbols.nvim",
       "nvim-telescope/telescope-fzy-native.nvim",
-      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      -- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
     lazy = false,
     opts = function()
@@ -511,18 +511,18 @@ return {
           glyph = {
             action = telescope_paste_char,
           },
-          fzf = {
-            fuzzy = true,
-            override_generic_sorter = true,
-            override_file_sorter = true,
-            case_mode = "smart_case",
-          },
+          -- fzf = {
+          --   fuzzy = true,
+          --   override_generic_sorter = true,
+          --   override_file_sorter = true,
+          --   case_mode = "smart_case",
+          -- },
           fzy_native = {
             override_generic_sorter = true,
             override_file_sorter = true,
           },
           smart_open = {
-            match_algorithm = "fzf",
+            match_algorithm = "fzy",
           },
         },
       }
@@ -559,7 +559,7 @@ return {
       telescope.load_extension("emoji")
       telescope.load_extension("smart_open")
       telescope.load_extension("fzy_native")
-      telescope.load_extension("fzf")
+      -- telescope.load_extension("fzf")
 
       if package.loaded["noice"] then
         telescope.load_extension("noice")
@@ -586,7 +586,7 @@ return {
         desc = "Config dir's filter grep files",
       },
       {
-        "<leader>f.l",
+        "<leader>fl",
         function()
           require("telescope.builtin").find_files({
             cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
@@ -595,7 +595,7 @@ return {
         desc = "Lazy dir's find files",
       },
       {
-        "<leader>f.L",
+        "<leader>fL",
         function()
           require("plugins.telescope.filter_grep").filter_grep({
             cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
