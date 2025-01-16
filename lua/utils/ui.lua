@@ -219,6 +219,10 @@ function M.toggle_focus_mode()
   M.toggle_lsp_references()
   M.toggle_winbar()
 
+  -- if LazyVim.has("lspsaga.nvim") then
+  --   vim.cmd("Lspsaga winbar_toggle")
+  -- end
+
   pcall(function()
     if not vim.g.always_show_gitsigns then
       vim.cmd("Gitsigns toggle_signs")

@@ -606,7 +606,7 @@ return {
     config = function(_, opts)
       local telescope = require("telescope")
 
-      function restore()
+      local function restore()
         if vim.bo.filetype == "TelescopePrompt" then
           require("telescope.actions").close(vim.api.nvim_get_current_buf())
         else
@@ -659,8 +659,8 @@ return {
         end,
         desc = "Filter Grep",
       },
+      { "<leader><cr>", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
       { "<leader>fs", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
-      { "<leader>j", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
       { "<leader>r", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
       {
         "<leader>fC",

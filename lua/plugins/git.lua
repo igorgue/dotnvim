@@ -36,6 +36,10 @@ return {
     init = function()
       vim.api.nvim_create_user_command("Gblame", "Git blame", {})
     end,
+    keys = {
+      { "<esc>", "<cmd>q<cr>", desc = "Quit", ft = "fugitiveblame" },
+      { "q", "<cmd>q<cr>", desc = "Quit", ft = "fugitiveblame" },
+    },
   },
   {
     "lewis6991/gitsigns.nvim",

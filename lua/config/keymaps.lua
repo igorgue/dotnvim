@@ -16,7 +16,7 @@ pcall(vim.api.nvim_del_keymap, "n", "<leader>uh")
 wk.add({
   { "<leader>", group = "leader" },
   { "<SNR>", group = "snr" },
-  { "<leader><cr>", group = "applications" },
+  { "<leader>A", group = "applications" },
   { "<leader>cg", group = "github" },
   { "<leader>m", group = "marks" },
   { "<leader>a", group = "ai", mode = { "n", "v", "i" } },
@@ -37,14 +37,14 @@ wk.add({
 
 -- applications
 wk.add({
-  { "<leader><cr>b", "<cmd>Btop<cr>", desc = "Btop Process Manager" },
-  { "<leader><cr>d", "<cmd>DBUIToggle<cr>", desc = "Dadbod Database Manager" },
-  { "<leader><cr>n", "<cmd>Nap<cr>", desc = "Nap Code Snippets" },
-  { "<leader><cr>y", "<cmd>Yazi<cr>", desc = "Yazi File Manager" },
-  { "<leader><cr>c", "<cmd>Cloc<cr>", desc = "Cloc Count Lines" },
-  { "<leader><cr>g", "<cmd>Lazygit<cr>", desc = "Lazygit" },
-  { "<leader><cr>l", "<cmd>Lazy<cr>", desc = "Lazy" },
-  { "<leader><cr>C", "<cmd>ChessTui<cr>", desc = "Chess TUI" },
+  { "<leader>Ab", "<cmd>Btop<cr>", desc = "Btop Process Manager" },
+  { "<leader>Ad", "<cmd>DBUIToggle<cr>", desc = "Dadbod Database Manager" },
+  { "<leader>An", "<cmd>Nap<cr>", desc = "Nap Code Snippets" },
+  { "<leader>Ay", "<cmd>Yazi<cr>", desc = "Yazi File Manager" },
+  { "<leader>Ac", "<cmd>Cloc<cr>", desc = "Cloc Count Lines" },
+  { "<leader>Ag", "<cmd>Lazygit<cr>", desc = "Lazygit" },
+  { "<leader>Al", "<cmd>Lazy<cr>", desc = "Lazy" },
+  { "<leader>AC", "<cmd>ChessTui<cr>", desc = "Chess TUI" },
 })
 
 -- tab keymaps
@@ -187,7 +187,6 @@ wk.add({
     desc = "Paste from clipboard",
     mode = { "v", "n" },
     icon = { icon = "", color = "grey" },
-    expr = true,
   },
 })
 
