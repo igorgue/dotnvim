@@ -19,13 +19,18 @@ end, {})
 vim.api.nvim_create_user_command("ChessTui", function()
   Snacks.terminal(
     { "chess-tui" },
-    { cwd = Util.root.get(), border = "rounded", args = { "-e", vim.fn.exepath("stockfish") } }
+    {
+      cwd = Util.root.get(),
+      border = "rounded",
+      args = { "-e", vim.fn.exepath("stockfish") },
+    }
   )
 end, {})
 
 vim.api.nvim_create_user_command("Cloc", function()
   vim.schedule(function()
-    local out = vim.fn.system("cloc --quiet --vcs=git --exclude-ext=json,toml,ini,txt")
+    local out =
+      vim.fn.system("cloc --quiet --vcs=git --exclude-ext=json,toml,ini,txt")
     local buf = vim.api.nvim_create_buf(false, true)
 
     vim.api.nvim_buf_call(buf, function()

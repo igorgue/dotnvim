@@ -90,24 +90,82 @@ return {
         config = {
           header = vim.split(logo, "\n"),
           center = {
-            { action = "ene | startinsert", desc = " new file", icon = " ", key = "n" },
+            {
+              action = "ene | startinsert",
+              desc = " new file",
+              icon = " ",
+              key = "n",
+            },
             -- { action = "FzfLua oldfiles", desc = " recent files", icon = " ", key = "r" },
-            { action = "Telescope oldfiles", desc = " recent files", icon = " ", key = "r" },
-            { action = 'lua require("persistence").load()', desc = " restore session", icon = " ", key = "s" },
-            { action = LazyVim.pick("auto"), desc = " find file", icon = " ", key = "f" },
-            { action = "Telescope smart_open", desc = " smart open", icon = " ", key = "o" },
-            { action = LazyVim.pick("live_grep"), desc = " find text", icon = " ", key = "g" },
-            { action = LazyVim.pick.config_files(), desc = " Config", icon = " ", key = "c" },
+            {
+              action = "Telescope oldfiles",
+              desc = " recent files",
+              icon = " ",
+              key = "r",
+            },
+            {
+              action = 'lua require("persistence").load()',
+              desc = " restore session",
+              icon = " ",
+              key = "s",
+            },
+            {
+              action = LazyVim.pick("auto"),
+              desc = " find file",
+              icon = " ",
+              key = "f",
+            },
+            {
+              action = "Telescope smart_open",
+              desc = " smart open",
+              icon = " ",
+              key = "o",
+            },
+            {
+              action = LazyVim.pick("live_grep"),
+              desc = " find text",
+              icon = " ",
+              key = "g",
+            },
+            {
+              action = LazyVim.pick.config_files(),
+              desc = " Config",
+              icon = " ",
+              key = "c",
+            },
             { action = "Lazy", desc = " lazy", icon = "󰒲 ", key = "l" },
-            { action = "LazyExtras", desc = " lazy extras", icon = " ", key = "x" },
-            { action = "lua require('lazyvim.util').terminal.open()", desc = " terminal", icon = " ", key = "t" },
-            { action = "ene | DBUI", desc = " database", icon = " ", key = "d" },
+            {
+              action = "LazyExtras",
+              desc = " lazy extras",
+              icon = " ",
+              key = "x",
+            },
+            {
+              action = "lua require('lazyvim.util').terminal.open()",
+              desc = " terminal",
+              icon = " ",
+              key = "t",
+            },
+            {
+              action = "ene | DBUI",
+              desc = " database",
+              icon = " ",
+              key = "d",
+            },
             { action = "qa", desc = " quit", icon = " ", key = "q" },
           },
           footer = function()
             local stats = require("lazy").stats()
             local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-            return { "⚡ Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms" }
+            return {
+              "⚡ Neovim loaded "
+                .. stats.loaded
+                .. "/"
+                .. stats.count
+                .. " plugins in "
+                .. ms
+                .. "ms",
+            }
           end,
         },
       }
@@ -178,7 +236,12 @@ return {
             {
               "filename",
               path = 0,
-              symbols = { modified = "", readonly = "", new = "", unnamed = "" },
+              symbols = {
+                modified = "",
+                readonly = "",
+                new = "",
+                unnamed = "",
+              },
             },
           },
           lualine_x = {
@@ -215,7 +278,11 @@ return {
   {
     "catgoose/nvim-colorizer.lua",
     event = { "BufReadPost", "BufNewFile" },
-    cmd = { "ColorizerToggle", "ColorizerAttachToBuffer", "ColorizerReloadAllBuffers" },
+    cmd = {
+      "ColorizerToggle",
+      "ColorizerAttachToBuffer",
+      "ColorizerReloadAllBuffers",
+    },
     opts = {
       filetypes = {
         "*",
@@ -312,7 +379,11 @@ return {
             return
           end
 
-          local width = vim.fn.input({ prompt = "Zen mode width: ", default = "100", cancelreturn = "100" })
+          local width = vim.fn.input({
+            prompt = "Zen mode width: ",
+            default = "100",
+            cancelreturn = "100",
+          })
 
           require("zen-mode").toggle({
             window = {
@@ -501,7 +572,16 @@ return {
             cycle_wrap = true,
             limit = 100,
           },
-          borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }, -- rounded
+          borderchars = {
+            "─",
+            "│",
+            "─",
+            "│",
+            "╭",
+            "╮",
+            "╯",
+            "╰",
+          }, -- rounded
           -- borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" }, -- straight
         },
         extensions = {
@@ -530,7 +610,8 @@ return {
         if vim.bo.filetype == "TelescopePrompt" then
           require("telescope.actions").close(vim.api.nvim_get_current_buf())
         else
-          local cached_pickers = require("telescope.state").get_global_key("cached_pickers")
+          local cached_pickers =
+            require("telescope.state").get_global_key("cached_pickers")
 
           if cached_pickers and next(cached_pickers) then
             require("telescope.builtin").resume()
@@ -544,8 +625,18 @@ return {
       -- place for some reason I don't want to investigate...
       if vim.g.lazyvim_picker == "telescope" then
         require("which-key").add({
-          { "<c-cr>", restore, desc = "Telescope Restore / Smart Open", mode = { "n", "i" } },
-          { "<leader><leader>", restore, desc = "Telescope Restore / Smart Open", mode = "n" },
+          {
+            "<c-cr>",
+            restore,
+            desc = "Telescope Restore / Smart Open",
+            mode = { "n", "i" },
+          },
+          {
+            "<leader><leader>",
+            restore,
+            desc = "Telescope Restore / Smart Open",
+            mode = "n",
+          },
         })
       end
 

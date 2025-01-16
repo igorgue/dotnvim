@@ -36,7 +36,13 @@ M.filter_grep = function(opts)
       return vim
         .iter({
           args,
-          { "--color=never", "--no-heading", "--with-filename", "--column", "--smart-case" },
+          {
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--column",
+            "--smart-case",
+          },
         })
         :flatten()
         :totable()

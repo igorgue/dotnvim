@@ -76,11 +76,36 @@ return {
       })
     end,
     keys = {
-      { "<leader>cEp", "<cmd>ElixirToPipe<cr>", desc = "To Pipe", ft = elixir_ft },
-      { "<leader>cEP", "<cmd>ElixirFromPipe<cr>", desc = "From Pipe", ft = elixir_ft },
-      { "<leader>cEm", "<cmd>ElixirExpandMacro<cr>", desc = "Expand Macro", ft = elixir_ft },
-      { "<leader>cEr", "<cmd>ElixirRestart<cr>", desc = "Restart", ft = elixir_ft },
-      { "<leader>cEo", "<cmd>ElixirOutputPanel<cr>", desc = "Output Panel", ft = elixir_ft },
+      {
+        "<leader>cEp",
+        "<cmd>ElixirToPipe<cr>",
+        desc = "To Pipe",
+        ft = elixir_ft,
+      },
+      {
+        "<leader>cEP",
+        "<cmd>ElixirFromPipe<cr>",
+        desc = "From Pipe",
+        ft = elixir_ft,
+      },
+      {
+        "<leader>cEm",
+        "<cmd>ElixirExpandMacro<cr>",
+        desc = "Expand Macro",
+        ft = elixir_ft,
+      },
+      {
+        "<leader>cEr",
+        "<cmd>ElixirRestart<cr>",
+        desc = "Restart",
+        ft = elixir_ft,
+      },
+      {
+        "<leader>cEo",
+        "<cmd>ElixirOutputPanel<cr>",
+        desc = "Output Panel",
+        ft = elixir_ft,
+      },
     },
   },
   {

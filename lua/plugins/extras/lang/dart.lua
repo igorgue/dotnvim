@@ -45,7 +45,11 @@ return {
             local bufnr = vim.api.nvim_get_current_buf()
 
             wk.add({
-              { "<leader>o", "<cmd>FlutterOutlineToggle<cr>", desc = "Flutter Outline" },
+              {
+                "<leader>o",
+                "<cmd>FlutterOutlineToggle<cr>",
+                desc = "Flutter Outline",
+              },
             }, {
               buffer = bufnr,
             })
@@ -53,15 +57,30 @@ return {
             wk.add({
               { "<leader>cD", group = "dart" },
               { "<leader>cDr", "<cmd>FlutterRun<cr>", desc = "Flutter Run" },
-              { "<leader>cDR", "<cmd>FlutterRestart<cr>", desc = "Flutter Restart" },
-              { "<leader>cDp", "<cmd>FlutterPubGet<cr>", desc = "Flutter Pub Get" },
-              { "<leader>cDP", "<cmd>FlutterPubUpgrade<cr>", desc = "Flutter Pub Upgrade" },
+              {
+                "<leader>cDR",
+                "<cmd>FlutterRestart<cr>",
+                desc = "Flutter Restart",
+              },
+              {
+                "<leader>cDp",
+                "<cmd>FlutterPubGet<cr>",
+                desc = "Flutter Pub Get",
+              },
+              {
+                "<leader>cDP",
+                "<cmd>FlutterPubUpgrade<cr>",
+                desc = "Flutter Pub Upgrade",
+              },
             }, {
               buffer = bufnr,
             })
           end
 
-          vim.api.nvim_create_autocmd("FileType", { pattern = "dart", callback = register_keys })
+          vim.api.nvim_create_autocmd(
+            "FileType",
+            { pattern = "dart", callback = register_keys }
+          )
 
           require("telescope").load_extension("flutter")
         end,

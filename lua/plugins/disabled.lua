@@ -44,20 +44,41 @@ return {
   { "nvim-treesitter/nvim-treesitter-textobjects", enabled = enable_ts },
   -- kitty scrollback:
   { "github/copilot.vim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  { "neovim/nvim-lspconfig", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  { "nvim-telescope/telescope.nvim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
+  {
+    "neovim/nvim-lspconfig",
+    enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
+  },
   { "saghen/blink.cmp", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  { "GCBallesteros/jupytext.nvim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  { "nvim-lualine/lualine.nvim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
+  {
+    "GCBallesteros/jupytext.nvim",
+    enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
+  },
   { "chentoast/marks.nvim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
   { "andymass/vim-matchup", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
   { "folke/noice.nvim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
   { "SmiteshP/nvim-navic", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
   { "Rawnly/gist.nvim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  { "HiPhish/rainbow-delimiters.nvim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
+  },
   { "romgrk/todoist.nvim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
   { "tpope/vim-dadbod", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  { "folke/ts-comments.nvim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
+  {
+    "folke/ts-comments.nvim",
+    enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
+  },
   { "jez/vim-ispc", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  { "s1n7ax/nvim-window-picker", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
+  {
+    "s1n7ax/nvim-window-picker",
+    enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
+  },
 }

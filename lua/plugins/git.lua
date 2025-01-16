@@ -6,7 +6,10 @@ local function open_github_repo()
     return
   end
 
-  vim.fn.jobstart({ "xdg-open", "https://github.com/" .. text }, { detach = true })
+  vim.fn.jobstart(
+    { "xdg-open", "https://github.com/" .. text },
+    { detach = true }
+  )
 end
 
 return {
@@ -57,8 +60,16 @@ return {
       },
     },
     keys = {
-      { "<leader>h", "<cmd>lua require('gitsigns').next_hunk()<cr>", desc = "Next Git Hunk" },
-      { "<leader>H", "<cmd>lua require('gitsigns').prev_hunk()<cr>", desc = "Prev Git Hunk" },
+      {
+        "<leader>h",
+        "<cmd>lua require('gitsigns').next_hunk()<cr>",
+        desc = "Next Git Hunk",
+      },
+      {
+        "<leader>H",
+        "<cmd>lua require('gitsigns').prev_hunk()<cr>",
+        desc = "Prev Git Hunk",
+      },
     },
   },
   {
@@ -76,16 +87,46 @@ return {
 
       opts.keymaps = {
         view = {
-          { "n", "<leader>b", actions.focus_files, { desc = "Bring focus to the file panel" } },
-          { "n", "<leader>e", actions.toggle_files, { desc = "Toggle the file panel." } },
+          {
+            "n",
+            "<leader>b",
+            actions.focus_files,
+            { desc = "Bring focus to the file panel" },
+          },
+          {
+            "n",
+            "<leader>e",
+            actions.toggle_files,
+            { desc = "Toggle the file panel." },
+          },
         },
         file_panel = {
-          { "n", "<leader>b", actions.focus_files, { desc = "Bring focus to the file panel" } },
-          { "n", "<leader>e", actions.toggle_files, { desc = "Toggle the file panel." } },
+          {
+            "n",
+            "<leader>b",
+            actions.focus_files,
+            { desc = "Bring focus to the file panel" },
+          },
+          {
+            "n",
+            "<leader>e",
+            actions.toggle_files,
+            { desc = "Toggle the file panel." },
+          },
         },
         file_history_panel = {
-          { "n", "<leader>b", actions.focus_files, { desc = "Bring focus to the file panel" } },
-          { "n", "<leader>e", actions.toggle_files, { desc = "Toggle the file panel." } },
+          {
+            "n",
+            "<leader>b",
+            actions.focus_files,
+            { desc = "Bring focus to the file panel" },
+          },
+          {
+            "n",
+            "<leader>e",
+            actions.toggle_files,
+            { desc = "Toggle the file panel." },
+          },
         },
       }
 
@@ -119,7 +160,11 @@ return {
     cmd = { "OpenInGHRepo", "OpenInGHFile", "OpenInGHFileLines" },
     keys = {
       { "<leader>cgo", "<cmd>OpenInGHFile<CR>", desc = "Open GitHub file" },
-      { "<leader>cgg", "<cmd>OpenInGHFileLines<CR>", desc = "Open GitHub file lines" },
+      {
+        "<leader>cgg",
+        "<cmd>OpenInGHFileLines<CR>",
+        desc = "Open GitHub file lines",
+      },
       { "<leader>cgr", open_github_repo, desc = "Open GitHub repo" },
       { "gh", open_github_repo, desc = "Go to GitHub repo" },
     },
@@ -140,12 +185,28 @@ return {
     keys = {
       { "<leader>cgl", "<cmd>GistsList<cr>", desc = "List gists" },
       { "<leader>cgc", "<cmd>GistCreate<cr>", desc = "Create gist (private)" },
-      { "<leader>cgC", "<cmd>GistCreate public=true<cr>", desc = "Create gist (public)" },
-      { "<leader>cgf", "<cmd>GistCreateFromFile<cr>", desc = "Create gist from file" },
+      {
+        "<leader>cgC",
+        "<cmd>GistCreate public=true<cr>",
+        desc = "Create gist (public)",
+      },
+      {
+        "<leader>cgf",
+        "<cmd>GistCreateFromFile<cr>",
+        desc = "Create gist from file",
+      },
     },
     opts = {
       private = true,
       clipboard = "+",
+    },
+  },
+  {
+    "akinsho/git-conflict.nvim",
+    enabled = not vim.o.diff,
+    lazy = false,
+    opts = {
+      disable_diagnostics = true,
     },
   },
 }

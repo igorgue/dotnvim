@@ -19,9 +19,20 @@ return {
       },
     },
     build = "make tiktoken",
-    cmd = { "CopilotChat", "CopilotChatToggle", "CopilotChatLoad", "CopilotChatSave", "CopilotChatReset" },
+    cmd = {
+      "CopilotChat",
+      "CopilotChatToggle",
+      "CopilotChatLoad",
+      "CopilotChatSave",
+      "CopilotChatReset",
+    },
     keys = {
-      { "<C-;>", "<cmd>CopilotChatToggle<cr>", desc = "Toggle (CopilotChat)", mode = { "n", "v", "i" } },
+      {
+        "<C-;>",
+        "<cmd>CopilotChatToggle<cr>",
+        desc = "Toggle (CopilotChat)",
+        mode = { "n", "v", "i" },
+      },
       {
         "<C-s-;>",
         function()

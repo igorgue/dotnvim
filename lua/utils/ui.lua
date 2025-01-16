@@ -94,12 +94,28 @@ function M.lualine_theme()
 
   local theme = {
     normal = {
-      a = { fg = lualine_colors.darkgray, bg = lualine_colors.black, gui = "bold" },
+      a = {
+        fg = lualine_colors.darkgray,
+        bg = lualine_colors.black,
+        gui = "bold",
+      },
       b = { fg = lualine_colors.darkgray, bg = lualine_colors.black },
-      c = { fg = lualine_colors.darkgray, bg = lualine_colors.black, gui = "bold" },
+      c = {
+        fg = lualine_colors.darkgray,
+        bg = lualine_colors.black,
+        gui = "bold",
+      },
       x = { fg = lualine_colors.darkgray, bg = lualine_colors.black },
-      y = { fg = lualine_colors.darkgray, bg = lualine_colors.black, gui = "bold" },
-      z = { fg = lualine_colors.darkgray, bg = lualine_colors.black, gui = "bold" },
+      y = {
+        fg = lualine_colors.darkgray,
+        bg = lualine_colors.black,
+        gui = "bold",
+      },
+      z = {
+        fg = lualine_colors.darkgray,
+        bg = lualine_colors.black,
+        gui = "bold",
+      },
     },
     insert = {
       a = { fg = lualine_colors.blue, bg = lualine_colors.black, gui = "bold" },
@@ -110,12 +126,28 @@ function M.lualine_theme()
       z = { fg = lualine_colors.blue, bg = lualine_colors.black, gui = "bold" },
     },
     visual = {
-      a = { fg = lualine_colors.lightgray, bg = lualine_colors.black, gui = "bold" },
+      a = {
+        fg = lualine_colors.lightgray,
+        bg = lualine_colors.black,
+        gui = "bold",
+      },
       b = { fg = lualine_colors.lightgray, bg = lualine_colors.black },
-      c = { fg = lualine_colors.lightgray, bg = lualine_colors.black, gui = "bold" },
+      c = {
+        fg = lualine_colors.lightgray,
+        bg = lualine_colors.black,
+        gui = "bold",
+      },
       x = { fg = lualine_colors.lightgray, bg = lualine_colors.black },
-      y = { fg = lualine_colors.lightgray, bg = lualine_colors.black, gui = "bold" },
-      z = { fg = lualine_colors.lightgray, bg = lualine_colors.black, gui = "bold" },
+      y = {
+        fg = lualine_colors.lightgray,
+        bg = lualine_colors.black,
+        gui = "bold",
+      },
+      z = {
+        fg = lualine_colors.lightgray,
+        bg = lualine_colors.black,
+        gui = "bold",
+      },
     },
     replace = {
       a = { fg = lualine_colors.red, bg = lualine_colors.black, gui = "bold" },
@@ -173,7 +205,8 @@ function M.toggle_focus_mode()
   end
 
   if vim.g.loaded_tabby ~= nil then
-    vim.g.tabby_trigger_mode = vim.g.tabby_trigger_mode == "manual" and "auto" or "manual"
+    vim.g.tabby_trigger_mode = vim.g.tabby_trigger_mode == "manual" and "auto"
+      or "manual"
   end
 
   pcall(function()
@@ -218,7 +251,9 @@ end
 function M.toggle_winbar()
   if package.loaded["nvim-navic"] and require("nvim-navic").is_available() then
     ---@diagnostic disable-next-line: undefined-field
-    vim.opt.winbar = vim.opt.winbar:get() == "" and "%{%v:lua.require'nvim-navic'.get_location()%}" or ""
+    vim.opt.winbar = vim.opt.winbar:get() == ""
+        and "%{%v:lua.require'nvim-navic'.get_location()%}"
+      or ""
   end
 end
 

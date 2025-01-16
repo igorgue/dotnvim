@@ -47,7 +47,10 @@ return {
         })
       end
 
-      vim.api.nvim_create_autocmd("BufReadPost", { pattern = "Cargo.toml", callback = register_keys })
+      vim.api.nvim_create_autocmd(
+        "BufReadPost",
+        { pattern = "Cargo.toml", callback = register_keys }
+      )
     end,
     opts = {
       completion = {
@@ -261,7 +264,10 @@ return {
             {
               "K",
               function()
-                if vim.fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() then
+                if
+                  vim.fn.expand("%:t") == "Cargo.toml"
+                  and require("crates").popup_available()
+                then
                   require("crates").show_popup()
                 else
                   vim.lsp.buf.hover()

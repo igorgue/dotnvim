@@ -46,13 +46,37 @@ return {
 
             wk.add({
               { "<leader>cc", group = "c" },
-              { "<leader>ccr", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header" },
+              {
+                "<leader>ccr",
+                "<cmd>ClangdSwitchSourceHeader<cr>",
+                desc = "Switch Source/Header",
+              },
               { "<leader>cca", "<cmd>ClangdAST<cr>", desc = "Display AST" },
-              { "<leader>cch", "<cmd>ClangdToggleInlayHints<cr>", desc = "Toggle Inlay Hints" },
-              { "<leader>cct", "<cmd>ClangdTypeHierarchy<cr>", desc = "Display Type Hierarchy" },
-              { "<leader>ccm", "<cmd>ClangdMemoryUsage<cr>", desc = "Display Memory Usage" },
-              { "<leader>ccs", "<cmd>ClangdSymbolInfo<cr>", desc = "Display Symbol Info" },
-              { "<leader>ccc", "<cmd>ClangdCallHierarchy<cr>", desc = "Display Call Hierarchy" },
+              {
+                "<leader>cch",
+                "<cmd>ClangdToggleInlayHints<cr>",
+                desc = "Toggle Inlay Hints",
+              },
+              {
+                "<leader>cct",
+                "<cmd>ClangdTypeHierarchy<cr>",
+                desc = "Display Type Hierarchy",
+              },
+              {
+                "<leader>ccm",
+                "<cmd>ClangdMemoryUsage<cr>",
+                desc = "Display Memory Usage",
+              },
+              {
+                "<leader>ccs",
+                "<cmd>ClangdSymbolInfo<cr>",
+                desc = "Display Symbol Info",
+              },
+              {
+                "<leader>ccc",
+                "<cmd>ClangdCallHierarchy<cr>",
+                desc = "Display Call Hierarchy",
+              },
             }, {
               buffer = bufnr,
             })
@@ -60,7 +84,10 @@ return {
 
           vim.api.nvim_create_autocmd(
             "FileType",
-            { pattern = { "c", "cpp", "h", "hpp" }, callback = register_keys_and_cmp }
+            {
+              pattern = { "c", "cpp", "h", "hpp" },
+              callback = register_keys_and_cmp,
+            }
           )
 
           return true

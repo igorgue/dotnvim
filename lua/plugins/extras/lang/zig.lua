@@ -24,9 +24,15 @@ return {
             local bin_location = io.popen(command, "r")
 
             if bin_location ~= nil then
-              return vim.fn.getcwd() .. "/" .. bin_location:read("*a"):gsub("[\n\r]", "")
+              return vim.fn.getcwd()
+                .. "/"
+                .. bin_location:read("*a"):gsub("[\n\r]", "")
             else
-              return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+              return vim.fn.input(
+                "Path to executable: ",
+                vim.fn.getcwd() .. "/",
+                "file"
+              )
             end
           end,
           args = function()
@@ -58,9 +64,15 @@ return {
             local bin_location = io.popen(command, "r")
 
             if bin_location ~= nil then
-              return vim.fn.getcwd() .. "/" .. bin_location:read("*a"):gsub("[\n\r]", "")
+              return vim.fn.getcwd()
+                .. "/"
+                .. bin_location:read("*a"):gsub("[\n\r]", "")
             else
-              return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+              return vim.fn.input(
+                "Path to executable: ",
+                vim.fn.getcwd() .. "/",
+                "file"
+              )
             end
           end,
           args = function()

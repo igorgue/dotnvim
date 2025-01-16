@@ -55,13 +55,43 @@ return {
     keys = {
       { "<leader>mi", "<cmd>MoltenInit<cr>", desc = "Molten init" },
       { "<leader>mR", "<cmd>MoltenRestart<cr>", desc = "Molten restart" },
-      { "<leader>mO", "<cmd>MoltenEvaluateOperator<cr>", desc = "Molten evaluate operator" },
-      { "<leader>ml", "<cmd>MoltenEvaluateLine<cr>", desc = "Molten evaluate line" },
-      { "<leader>mc", "<cmd>MoltenReevaluateCell<cr>", desc = "Molten re-evaluate cell" },
-      { "<leader>mr", ":<C-u>MoltenEvaluateVisual<cr>", desc = "Molten evaluate visual", mode = "x" },
-      { "<leader>mo", "<cmd>noautocmd MoltenEnterOutput<cr>", desc = "Molten enter output" },
-      { "<c-cr>", "<cmd>MoltenEvaluateLine<cr>", desc = "Molten evaluate line" },
-      { "<c-cr>", ":<C-u>MoltenEvaluateVisual<cr>gv", desc = "Molten evaluate visual", mode = "x" },
+      {
+        "<leader>mO",
+        "<cmd>MoltenEvaluateOperator<cr>",
+        desc = "Molten evaluate operator",
+      },
+      {
+        "<leader>ml",
+        "<cmd>MoltenEvaluateLine<cr>",
+        desc = "Molten evaluate line",
+      },
+      {
+        "<leader>mc",
+        "<cmd>MoltenReevaluateCell<cr>",
+        desc = "Molten re-evaluate cell",
+      },
+      {
+        "<leader>mr",
+        ":<C-u>MoltenEvaluateVisual<cr>",
+        desc = "Molten evaluate visual",
+        mode = "x",
+      },
+      {
+        "<leader>mo",
+        "<cmd>noautocmd MoltenEnterOutput<cr>",
+        desc = "Molten enter output",
+      },
+      {
+        "<c-cr>",
+        "<cmd>MoltenEvaluateLine<cr>",
+        desc = "Molten evaluate line",
+      },
+      {
+        "<c-cr>",
+        ":<C-u>MoltenEvaluateVisual<cr>gv",
+        desc = "Molten evaluate visual",
+        mode = "x",
+      },
     },
   },
 }

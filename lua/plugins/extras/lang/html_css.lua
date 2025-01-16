@@ -38,7 +38,9 @@ return {
             },
           },
         },
-        cssls = { settings = { css = { lint = { unknownAtRules = "ignore" } } } },
+        cssls = {
+          settings = { css = { lint = { unknownAtRules = "ignore" } } },
+        },
       },
     },
   },

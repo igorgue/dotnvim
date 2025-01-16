@@ -11,7 +11,10 @@ return {
     },
     opts = {
       enabled = function()
-        return not vim.tbl_contains(vim.g.cmp_disabled_filetypes, vim.bo.filetype)
+        return not vim.tbl_contains(
+          vim.g.cmp_disabled_filetypes,
+          vim.bo.filetype
+        )
       end,
       completion = {
         list = {
@@ -108,12 +111,18 @@ return {
       local mappings = {
         ["<C-b>"] = cmp.mapping.scroll_docs(-3),
         ["<C-f>"] = cmp.mapping.scroll_docs(3),
-        ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        ["<C-n>"] = cmp.mapping.select_next_item({
+          behavior = cmp.SelectBehavior.Insert,
+        }),
+        ["<C-p>"] = cmp.mapping.select_prev_item({
+          behavior = cmp.SelectBehavior.Insert,
+        }),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<CR>"] = LazyVim.cmp.confirm({ select = true }),
         ["<C-y>"] = LazyVim.cmp.confirm({ select = true }),
-        ["<S-CR>"] = LazyVim.cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace }),
+        ["<S-CR>"] = LazyVim.cmp.confirm({
+          behavior = cmp.ConfirmBehavior.Replace,
+        }),
         ["<C-CR>"] = function(fallback)
           cmp.abort()
           fallback()
@@ -138,7 +147,8 @@ return {
         end),
       }
 
-      local winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:Search"
+      local winhighlight =
+        "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:Search"
 
       cmp.setup.filetype("gitcommit", {
         sources = cmp.config.sources({
@@ -180,16 +190,26 @@ return {
       })
 
       opts.window = {
-        completion = cmp.config.window.bordered({ winhighlight = winhighlight, border = "rounded" }),
-        documentation = cmp.config.window.bordered({ winhighlight = winhighlight, border = "rounded" }),
-        preview = cmp.config.window.bordered({ winhighlight = winhighlight, border = "rounded" }),
+        completion = cmp.config.window.bordered({
+          winhighlight = winhighlight,
+          border = "rounded",
+        }),
+        documentation = cmp.config.window.bordered({
+          winhighlight = winhighlight,
+          border = "rounded",
+        }),
+        preview = cmp.config.window.bordered({
+          winhighlight = winhighlight,
+          border = "rounded",
+        }),
       }
 
       opts.sources = cmp.config.sources(sources[1], sources[2])
 
       opts.mapping = cmp.mapping.preset.insert(mappings)
       opts.experimental = {}
-      opts.view = { docs = { auto_open = true }, entries = { follow_cursor = true } }
+      opts.view =
+        { docs = { auto_open = true }, entries = { follow_cursor = true } }
       opts.completion = { autocomplete = false }
 
       return opts
