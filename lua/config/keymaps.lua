@@ -101,7 +101,6 @@ wk.add({
   { "<A-g>", "<cmd>Telescope glyph<cr>", desc = "Glyph Select", mode = { "n", "i" } },
   { "<A-s-o>", "{", desc = "{", mode = { "n", "i" } },
   { "<A-s-p>", "}", desc = "}", mode = { "n", "i" } },
-  -- TODO: refactor focus mode, make it a snacks toggle
   { "<C-S-T>", require("utils").ui.open_terminal_tab, desc = "Open Terminal", mode = { "n", "v", "i" } },
   { "<C-g>", require("utils").file_info, desc = "File Info", mode = "n" },
   { "<leader>F", require("utils").ui.toggle_focus_mode, desc = "Focus Mode", mode = "n" },
@@ -113,10 +112,10 @@ wk.add({
   { "<leader>uW", require("utils").ui.toggle_winbar, desc = "Toggle Winbar", mode = "n" },
   { "<leader>uR", require("utils").ui.toggle_lsp_references, desc = "Toggle LspReferences", mode = "n" },
   { "<leader>N", Snacks.notifier.hide, desc = "Clear Notifications", mode = "n" },
-  { "<c-y>", '^v$"+y', desc = "Copy to clipboard", mode = "n", icon = { icon = "", color = "grey" } },
-  { "<c-y>", '"+y', desc = "Copy to clipboard", mode = "v", icon = { icon = "", color = "grey" } },
+  { "<leader>y", '^v$"+y', desc = "Copy to clipboard", mode = "n", icon = { icon = "", color = "grey" } },
+  { "<leader>y", '"+y', desc = "Copy to clipboard", mode = "v", icon = { icon = "", color = "grey" } },
   {
-    "<c-p>",
+    "<leader>p",
     function()
       if vim.tbl_contains({ "qf", "sagafinder", "vim" }, vim.bo.filetype) then
         return "<c-p>"

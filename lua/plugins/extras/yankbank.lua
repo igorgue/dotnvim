@@ -10,7 +10,7 @@ return {
       })
     end,
     keys = {
-      { "<leader>p", "<cmd>YankBank<CR>", desc = "Open YankBank" },
+      { "<leader>P", "<cmd>YankBank<CR>", desc = "Open YankBank" },
     },
   },
 }
