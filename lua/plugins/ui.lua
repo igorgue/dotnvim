@@ -51,6 +51,7 @@ return {
       indent = { enabled = false, only_scope = true, only_current = true },
       input = {},
       picker = {
+        enabled = vim.g.lazyvim_picker == "snacks",
         win = {
           input = {
             keys = {
