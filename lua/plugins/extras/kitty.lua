@@ -30,29 +30,20 @@ end
 
 -- kitty bg support, maybe in the future it could store the kitty bg at start
 if vim.env.KITTY_WINDOW_ID and vim.env.KITTY_SCROLLBACK_NVIM ~= "true" then
-  local bg_color = vim.fn.synIDattr(vim.fn.hlID("Normal"), "bg")
-  vim.g.kitty_bg =
-    vim.fn.system("kitty @ get-colors | grep ^background | awk '{print $2}'")
-
-  vim.fn.system("kitty @ set-colors -a background=" .. bg_color)
+  vim.g.kitty_bg = vim.fn.system("kitty @ get-colors | grep ^background | awk '{print $2}'")
 
   vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
+
       local new_bg_color = vim.fn.synIDattr(vim.fn.hlID("Normal"), "bg")
 
-      vim.fn.jobstart(
-        { "kitty", "@ set-colors -a background=" .. new_bg_color },
-        { detach = true }
-      )
+      vim.fn.system("kitty @ set-colors -a background=" .. new_bg_color)
     end,
   })
 
   vim.api.nvim_create_autocmd("QuitPre", {
     callback = function()
-      vim.fn.jobstart(
-        { "kitty", "@ set-colors -a background=" .. vim.g.kitty_bg },
-        { detach = true }
-      )
+      vim.fn.system("kitty @ set-colors -a background=" .. vim.g.kitty_bg)
     end,
   })
 end
@@ -64,23 +55,13 @@ return {
   event = { "User KittyScrollbackLaunch" },
   config = function(_, opts)
     local default = opts
-    local cmd_output = vim.tbl_deep_extend(
-      "force",
-      default,
-      { kitty_get_text = { extent = "last_cmd_output" } }
-    )
-    local visited_cmd_output = vim.tbl_deep_extend(
-      "force",
-      default,
-      { kitty_get_text = { extent = "last_visited_cmd_output" } }
-    )
+    local cmd_output = vim.tbl_deep_extend("force", default, { kitty_get_text = { extent = "last_cmd_output" } })
+    local visited_cmd_output =
+      vim.tbl_deep_extend("force", default, { kitty_get_text = { extent = "last_visited_cmd_output" } })
 
     -- set default scrollback options
     vim.api.nvim_create_autocmd({ "FileType" }, {
-      group = vim.api.nvim_create_augroup(
-        "KittyScrollbackNvimFileType",
-        { clear = true }
-      ),
+      group = vim.api.nvim_create_augroup("KittyScrollbackNvimFileType", { clear = true }),
       pattern = { "kitty-scrollback" },
       callback = opts.on_open,
     })
