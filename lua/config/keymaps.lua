@@ -250,6 +250,12 @@ if LazyVim.has("luasnip") then
 
         if luasnip.jumpable(-1) then
           luasnip.jump(-1)
+        else
+          if vim.fn.mode() == "i" then
+            vim.api.nvim_input("<C-s-k>")
+          else
+            vim.cmd("wincmd k")
+          end
         end
       end,
       desc = "Jump back with luasnip or move window up",
@@ -264,11 +270,14 @@ else
         if vim.snippet.active({ direction = -1 }) then
           vim.snippet.jump(-1)
         else
-          -- support wrapping around
           if vim.snippet.active({ direction = 1 }) then
             vim.snippet.jump(1)
           else
-            vim.cmd("wincmd k")
+            if vim.fn.mode() == "i" then
+              vim.api.nvim_input("<C-s-k>")
+            else
+              vim.cmd("wincmd k")
+            end
           end
         end
       end,

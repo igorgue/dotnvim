@@ -108,6 +108,8 @@ local function fix_colorschemes()
   if LazyVim.has("todo-comments.nvim") then
     vim.api.nvim_set_hl(0, "Todo", {})
   end
+
+  vim.api.nvim_set_hl(0, "TreesitterContext", { link = "CursorLine" })
 end
 
 -- completes a few colorschemes

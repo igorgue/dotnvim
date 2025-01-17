@@ -229,7 +229,7 @@ return {
   {
     "numToStr/Comment.nvim",
     event = { "BufReadPost", "BufNewFile" },
-    -- FIXME: this doesn't quite  work with kittyscrollback
+    -- FIXME: this doesn't quite work with kittyscrollback
     -- enabled = vim.fn.has("nvim-0.10.0") == 0,
     config = true,
   },

@@ -3,17 +3,8 @@ return {
     "echasnovski/mini.ai",
     optional = true,
     keys = {
-      {
-        "<c-space>",
-        "<cmd>normal vii0<cr>",
-        desc = "Inner Indent Level (No Line Above)",
-      },
-      {
-        "<c-space>",
-        "<cmd>normal ii0<cr>",
-        desc = "Inner Indent Level (No Line Above)",
-        mode = "x",
-      },
+      { "<c-space>", "<cmd>normal vii0<cr>", desc = "Inner Indent Level (No Line Above)" },
+      { "<c-space>", "<cmd>normal ii0<cr>", desc = "Inner Indent Level (No Line Above)", mode = "x" },
     },
   },
   {
@@ -33,23 +24,13 @@ return {
       { "caI", nil, desc = "An Indent Level and Lines Above/Below" },
       { "ciI", nil, desc = "Inner Indent Level (No Lines Above/Below)" },
       { "<c-space>", "<cmd>normal viI<cr>", desc = "Inner Indent Level" },
-      {
-        "<c-space>",
-        "<cmd>normal iI<cr>",
-        desc = "Inner Indent Level",
-        mode = "x",
-      },
+      { "<c-space>", "<cmd>normal iI<cr>", desc = "Inner Indent Level", mode = "x" },
     },
   },
   {
     "echasnovski/mini.surround",
     keys = {
-      {
-        "S",
-        [[:<C-u>lua MiniSurround.add('visual')<CR>]],
-        desc = "Add Surrounding",
-        mode = "x",
-      },
+      { "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], desc = "Add Surrounding", mode = "x" },
     },
   },
   {
@@ -62,17 +43,17 @@ return {
         function()
           local input = vim.fn.input("Mark to delete:")
 
+          if input:gsub("^%s*(.-)%s*$", "%1") == "" then
+            return
+          end
+
           vim.cmd("delmarks " .. input)
         end,
         desc = "Search marks",
       },
       { "<leader>mm", "<cmd>Telescope marks<cr>", desc = "Search marks" },
       { "<leader>md", "<cmd>delmarks!<cr>", desc = "Delete local marks" },
-      {
-        "<leader>mD",
-        "<cmd>delmarks!<cr><cmd>delmarks A-Z<cr>",
-        desc = "Delete all marks",
-      },
+      { "<leader>mD", "<cmd>delmarks!<cr><cmd>delmarks A-Z<cr>", desc = "Delete all marks" },
     },
   },
   {
