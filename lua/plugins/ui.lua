@@ -56,19 +56,19 @@ return {
           input = {
             keys = {
               ["<Esc>"] = { "close", mode = { "n", "i" } },
+              ["<c-cr>"] = { "close", mode = { "n", "i" } },
             },
           },
         },
       },
     },
     keys = {
-      {
-        "<leader><leader>",
-        function()
-          Snacks.picker.resume()
-        end,
-        desc = "Resume",
-      },
+      -- stylua: ignore start
+      { "<leader><leader>", function() Snacks.picker.resume() end, desc = "Resume" },
+      { "<c-cr>", function() Snacks.picker.resume() end, desc = "Resume", mode = { "n", "i" } },
+      { "<leader>fs", function() Snacks.picker.recent() end, desc = "Recent" },
+      { "<leader>r", function() Snacks.picker.recent() end, desc = "Recent" },
+      -- stylua: ignore end
     },
   },
   {
@@ -158,13 +158,7 @@ return {
             local stats = require("lazy").stats()
             local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
             return {
-              "⚡ Neovim loaded "
-                .. stats.loaded
-                .. "/"
-                .. stats.count
-                .. " plugins in "
-                .. ms
-                .. "ms",
+              "⚡ Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms",
             }
           end,
         },
@@ -511,6 +505,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     optional = true,
+    enabled = vim.g.lazyvim_picker == "telescope",
     dependencies = {
       "kkharji/sqlite.lua",
       "nvim-telescope/telescope-smart-history.nvim",
@@ -610,8 +605,7 @@ return {
         if vim.bo.filetype == "TelescopePrompt" then
           require("telescope.actions").close(vim.api.nvim_get_current_buf())
         else
-          local cached_pickers =
-            require("telescope.state").get_global_key("cached_pickers")
+          local cached_pickers = require("telescope.state").get_global_key("cached_pickers")
 
           if cached_pickers and next(cached_pickers) then
             require("telescope.builtin").resume()
