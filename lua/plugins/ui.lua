@@ -63,7 +63,6 @@ return {
                 function()
                   vim.cmd("normal! dd")
                 end,
-                mode = { "n", "i" },
               },
             },
           },
