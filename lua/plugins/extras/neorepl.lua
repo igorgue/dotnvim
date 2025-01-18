@@ -44,6 +44,8 @@ local function toggle()
       if vim.api.nvim_get_mode().mode == "n" then
         vim.api.nvim_command("startinsert")
       end
+
+      vim.api.nvim_set_hl(0, "neoreplValue", {})
     end,
     on_close = function(_)
       if vim.api.nvim_get_mode().mode == "i" then
@@ -76,33 +78,10 @@ return {
     end,
     keys = {
       { "<tab>", "<tab>", mode = "i", ft = "neorepl" },
-      {
-        "<c-space>",
-        "<Plug>(neorepl-complete)",
-        mode = "i",
-        desc = "Trigger completion",
-        ft = "neorepl",
-      },
-      {
-        "<c-s-/>",
-        toggle,
-        mode = { "i", "n" },
-        desc = "Open Neovim's Lua repl",
-      },
-      {
-        "<s-cr>",
-        "<cr>",
-        mode = "i",
-        desc = "Insert new line",
-        ft = "neorepl",
-      },
-      {
-        "<cr>",
-        "<Plug>(neorepl-eval-line)",
-        mode = "n",
-        desc = "Eval line",
-        ft = "neorepl",
-      },
+      { "<c-space>", "<Plug>(neorepl-complete)", mode = "i", desc = "Trigger completion", ft = "neorepl" },
+      { "<c-s-/>", toggle, mode = { "i", "n" }, desc = "Open Neovim's Lua repl" },
+      { "<s-cr>", "<cr>", mode = "i", desc = "Insert new line", ft = "neorepl" },
+      { "<cr>", "<Plug>(neorepl-eval-line)", mode = "n", desc = "Eval line", ft = "neorepl" },
       {
         "<cr>",
         [[pumvisible() ? (complete_info().selected != -1 ? '<c-y>' : '<c-n><c-y>') : '<Plug>(neorepl-eval-line)']],
@@ -115,18 +94,9 @@ return {
       {
         "<cr>",
         function()
-          vim.cmd([[
-          normal J
-        ]])
+          vim.cmd("normal J")
 
-          vim.fn.feedkeys(
-            vim.api.nvim_replace_termcodes(
-              "<Plug>(neorepl-eval-line)<cr>",
-              true,
-              true,
-              true
-            )
-          )
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>(neorepl-eval-line)<cr>", true, true, true))
         end,
         mode = { "v" },
         desc = "Eval block",

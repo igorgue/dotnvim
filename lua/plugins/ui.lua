@@ -18,7 +18,7 @@ return {
             { icon = " ", key = "r", desc = "recent files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
             { icon = " ", key = "s", desc = "restore session", section = "session" },
             { icon = " ", key = "f", desc = "find file", action = ":lua Snacks.dashboard.pick('files')" },
-            { icon = " ", key = "o", desc = "smart open", action = ":Telescope smart_open" },
+            -- { icon = " ", key = "o", desc = "smart open", action = ":Telescope smart_open" },
             { icon = " ", key = "g", desc = "find text", action = function()
               if vim.g.lazyvim_picker == "telescope" then
                 require("plugins.telescope.filter_grep").filter_grep()
@@ -66,8 +66,8 @@ return {
       -- stylua: ignore start
       { "<leader><leader>", function() Snacks.picker.resume() end, desc = "Resume" },
       { "<c-cr>", function() Snacks.picker.resume() end, desc = "Resume", mode = { "n", "i" } },
-      { "<leader>fs", function() Snacks.picker.recent() end, desc = "Recent" },
       { "<leader>r", function() Snacks.picker.recent() end, desc = "Recent" },
+      { "<leader><cr>", function() Snacks.picker.recent() end, desc = "Recent" },
       -- stylua: ignore end
     },
   },
@@ -90,68 +90,17 @@ return {
         config = {
           header = vim.split(logo, "\n"),
           center = {
-            {
-              action = "ene | startinsert",
-              desc = " new file",
-              icon = " ",
-              key = "n",
-            },
-            -- { action = "FzfLua oldfiles", desc = " recent files", icon = " ", key = "r" },
-            {
-              action = "Telescope oldfiles",
-              desc = " recent files",
-              icon = " ",
-              key = "r",
-            },
-            {
-              action = 'lua require("persistence").load()',
-              desc = " restore session",
-              icon = " ",
-              key = "s",
-            },
-            {
-              action = LazyVim.pick("auto"),
-              desc = " find file",
-              icon = " ",
-              key = "f",
-            },
-            {
-              action = "Telescope smart_open",
-              desc = " smart open",
-              icon = " ",
-              key = "o",
-            },
-            {
-              action = LazyVim.pick("live_grep"),
-              desc = " find text",
-              icon = " ",
-              key = "g",
-            },
-            {
-              action = LazyVim.pick.config_files(),
-              desc = " Config",
-              icon = " ",
-              key = "c",
-            },
+            { action = "ene | startinsert", desc = " new file", icon = " ", key = "n" },
+            { action = "Telescope oldfiles", desc = " recent files", icon = " ", key = "r" },
+            { action = 'lua require("persistence").load()', desc = " restore session", icon = " ", key = "s" },
+            { action = LazyVim.pick("auto"), desc = " find file", icon = " ", key = "f" },
+            { action = "Telescope smart_open", desc = " smart open", icon = " ", key = "o" },
+            { action = LazyVim.pick("live_grep"), desc = " find text", icon = " ", key = "g" },
+            { action = LazyVim.pick.config_files(), desc = " Config", icon = " ", key = "c" },
             { action = "Lazy", desc = " lazy", icon = "󰒲 ", key = "l" },
-            {
-              action = "LazyExtras",
-              desc = " lazy extras",
-              icon = " ",
-              key = "x",
-            },
-            {
-              action = "lua require('lazyvim.util').terminal.open()",
-              desc = " terminal",
-              icon = " ",
-              key = "t",
-            },
-            {
-              action = "ene | DBUI",
-              desc = " database",
-              icon = " ",
-              key = "d",
-            },
+            { action = "LazyExtras", desc = " lazy extras", icon = " ", key = "x" },
+            { action = "lua require('lazyvim.util').terminal.open()", desc = " terminal", icon = " ", key = "t" },
+            { action = "ene | DBUI", desc = " database", icon = " ", key = "d" },
             { action = "qa", desc = " quit", icon = " ", key = "q" },
           },
           footer = function()
