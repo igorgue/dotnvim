@@ -25,12 +25,7 @@ local function fix_colorschemes()
       vim.cmd("hi! link VertSplit Type")
     end
 
-    if
-      not vim.tbl_contains(
-        { "zaibatsu", "monokai-pro", "monokai-pro-spectrum" },
-        vim.g.colors_name
-      )
-    then
+    if not vim.tbl_contains({ "zaibatsu", "monokai-pro", "monokai-pro-spectrum" }, vim.g.colors_name) then
       vim.cmd("hi! link WinSeparator Type")
       vim.cmd("hi! link MatchParen CursorLine")
     end
@@ -56,11 +51,7 @@ local function fix_colorschemes()
       vim.api.nvim_set_hl(0, "BlinkCmpMenu", { link = "Normal" })
       vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { link = "CursorLine" })
       vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { link = "FloatBorder" })
-      vim.api.nvim_set_hl(
-        0,
-        "BlinkCmpLabelDeprecated",
-        { bg = "none", fg = "none", strikethrough = true }
-      )
+      vim.api.nvim_set_hl(0, "BlinkCmpLabelDeprecated", { bg = "none", fg = "none", strikethrough = true })
     end
 
     if LazyVim.has("nvim-navic") then
@@ -91,11 +82,7 @@ local function fix_colorschemes()
       vim.api.nvim_set_hl(0, "NavicIconsStruct", { link = "Structure" })
       vim.api.nvim_set_hl(0, "NavicIconsEvent", { link = "Event" })
       vim.api.nvim_set_hl(0, "NavicIconsOperator", { link = "Operator" })
-      vim.api.nvim_set_hl(
-        0,
-        "NavicIconsTypeParameter",
-        { link = "TypeParameter" }
-      )
+      vim.api.nvim_set_hl(0, "NavicIconsTypeParameter", { link = "TypeParameter" })
       vim.api.nvim_set_hl(0, "NavicSeparator", { link = "Delimiter" })
     end
   end

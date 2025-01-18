@@ -82,13 +82,10 @@ return {
             })
           end
 
-          vim.api.nvim_create_autocmd(
-            "FileType",
-            {
-              pattern = { "c", "cpp", "h", "hpp" },
-              callback = register_keys_and_cmp,
-            }
-          )
+          vim.api.nvim_create_autocmd("FileType", {
+            pattern = { "c", "cpp", "h", "hpp" },
+            callback = register_keys_and_cmp,
+          })
 
           return true
         end,

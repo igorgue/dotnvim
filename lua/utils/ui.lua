@@ -205,8 +205,7 @@ function M.toggle_focus_mode()
   end
 
   if vim.g.loaded_tabby ~= nil then
-    vim.g.tabby_trigger_mode = vim.g.tabby_trigger_mode == "manual" and "auto"
-      or "manual"
+    vim.g.tabby_trigger_mode = vim.g.tabby_trigger_mode == "manual" and "auto" or "manual"
   end
 
   pcall(function()
@@ -255,9 +254,7 @@ end
 function M.toggle_winbar()
   if package.loaded["nvim-navic"] and require("nvim-navic").is_available() then
     ---@diagnostic disable-next-line: undefined-field
-    vim.opt.winbar = vim.opt.winbar:get() == ""
-        and "%{%v:lua.require'nvim-navic'.get_location()%}"
-      or ""
+    vim.opt.winbar = vim.opt.winbar:get() == "" and "%{%v:lua.require'nvim-navic'.get_location()%}" or ""
   end
 end
 

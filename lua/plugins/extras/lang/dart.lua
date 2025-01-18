@@ -77,10 +77,7 @@ return {
             })
           end
 
-          vim.api.nvim_create_autocmd(
-            "FileType",
-            { pattern = "dart", callback = register_keys }
-          )
+          vim.api.nvim_create_autocmd("FileType", { pattern = "dart", callback = register_keys })
 
           require("telescope").load_extension("flutter")
         end,

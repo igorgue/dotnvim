@@ -49,11 +49,7 @@ return {
               return vim.g.nim_dap_program
             end
 
-            vim.g.nim_dap_program = vim.fn.input(
-              "Path to executable: ",
-              vim.fn.getcwd() .. "/",
-              "file"
-            )
+            vim.g.nim_dap_program = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
 
             return vim.g.nim_dap_program
           end,
@@ -81,11 +77,7 @@ return {
           type = "gdb",
           request = "launch",
           program = function()
-            vim.g.nim_dap_program = vim.fn.input(
-              "Path to executable: ",
-              vim.fn.getcwd() .. "/",
-              "file"
-            )
+            vim.g.nim_dap_program = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
 
             return vim.g.nim_dap_program
           end,

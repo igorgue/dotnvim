@@ -11,10 +11,7 @@ return {
     },
     opts = {
       enabled = function()
-        return not vim.tbl_contains(
-          vim.g.cmp_disabled_filetypes,
-          vim.bo.filetype
-        )
+        return not vim.tbl_contains(vim.g.cmp_disabled_filetypes, vim.bo.filetype)
       end,
       completion = {
         list = {
@@ -147,8 +144,7 @@ return {
         end),
       }
 
-      local winhighlight =
-        "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:Search"
+      local winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:CursorLine,Search:Search"
 
       cmp.setup.filetype("gitcommit", {
         sources = cmp.config.sources({
@@ -208,8 +204,7 @@ return {
 
       opts.mapping = cmp.mapping.preset.insert(mappings)
       opts.experimental = {}
-      opts.view =
-        { docs = { auto_open = true }, entries = { follow_cursor = true } }
+      opts.view = { docs = { auto_open = true }, entries = { follow_cursor = true } }
       opts.completion = { autocomplete = false }
 
       return opts

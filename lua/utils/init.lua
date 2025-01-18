@@ -16,21 +16,13 @@ function M.file_info()
   M.ui.refresh_ui()
 
   if #file_path > 50 then
-    vim.notify(
-      '"' .. file_path .. '"' .. "\n" .. cursor .. " " .. lines .. " lines",
-      "info",
-      {
-        title = "File Info",
-      }
-    )
+    vim.notify('"' .. file_path .. '"' .. "\n" .. cursor .. " " .. lines .. " lines", "info", {
+      title = "File Info",
+    })
   else
-    vim.notify(
-      '"' .. file_path .. '"' .. " @ " .. cursor .. " " .. lines .. " lines",
-      "info",
-      {
-        title = "File Info",
-      }
-    )
+    vim.notify('"' .. file_path .. '"' .. " @ " .. cursor .. " " .. lines .. " lines", "info", {
+      title = "File Info",
+    })
   end
 end
 

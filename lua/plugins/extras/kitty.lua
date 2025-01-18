@@ -34,7 +34,6 @@ if vim.env.KITTY_WINDOW_ID and vim.env.KITTY_SCROLLBACK_NVIM ~= "true" then
 
   vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
-
       local new_bg_color = vim.fn.synIDattr(vim.fn.hlID("Normal"), "bg")
 
       vim.fn.system("kitty @ set-colors -a background=" .. new_bg_color)

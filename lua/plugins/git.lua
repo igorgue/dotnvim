@@ -6,10 +6,7 @@ local function open_github_repo()
     return
   end
 
-  vim.fn.jobstart(
-    { "xdg-open", "https://github.com/" .. text },
-    { detach = true }
-  )
+  vim.fn.jobstart({ "xdg-open", "https://github.com/" .. text }, { detach = true })
 end
 
 return {
