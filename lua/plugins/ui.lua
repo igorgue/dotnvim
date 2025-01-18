@@ -57,6 +57,20 @@ return {
             keys = {
               ["<Esc>"] = { "close", mode = { "n", "i" } },
               ["<c-cr>"] = { "close", mode = { "n", "i" } },
+              ["<c-j>"] = {
+                "history_back",
+                mode = { "n", "i" },
+              },
+              ["<c-k>"] = {
+                "history_forward",
+                mode = { "n", "i" },
+              },
+              ["<c-u>"] = {
+                function()
+                  vim.cmd("normal! dd")
+                end,
+                mode = { "n", "i" },
+              },
             },
           },
         },
