@@ -57,8 +57,8 @@ return {
             keys = {
               ["<Esc>"] = { "close", mode = { "n", "i" } },
               ["<c-cr>"] = { "close", mode = { "n", "i" } },
-              ["<c-j>"] = { "history_back", mode = { "n", "i" } },
-              ["<c-k>"] = { "history_forward", mode = { "n", "i" } },
+              ["<c-n>"] = { "history_back", mode = { "n", "i" } },
+              ["<c-p>"] = { "history_forward", mode = { "n", "i" } },
               ["<c-u>"] = {
                 function()
                   vim.cmd("normal! dd")
@@ -495,10 +495,12 @@ return {
             i = {
               ["<esc>"] = actions.close,
               ["<C-c>"] = actions.close,
-              ["<C-j>"] = actions.cycle_history_next,
-              ["<C-k>"] = actions.cycle_history_prev,
+              ["<C-n>"] = actions.cycle_history_prev,
+              ["<C-p>"] = actions.cycle_history_next,
               ["<C-b>"] = actions.preview_scrolling_up,
               ["<C-f>"] = actions.preview_scrolling_down,
+              ["<C-k>"] = actions.move_selection_previous,
+              ["<C-j>"] = actions.move_selection_next,
               ["<C-w>"] = function()
                 vim.api.nvim_input("<c-s-w>")
               end,
