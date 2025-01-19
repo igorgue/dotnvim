@@ -101,7 +101,7 @@ return {
     "linux-cultist/venv-selector.nvim",
     branch = "regexp",
     lazy = false,
-    cmd = { "VenvSelect", "VenvSelectCached" },
+    cmd = "VenvSelect",
     config = function()
       require("venv-selector").setup()
     end,
