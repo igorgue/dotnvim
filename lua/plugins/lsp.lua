@@ -16,14 +16,21 @@ return {
       local Keys = require("lazyvim.plugins.lsp.keymaps").get()
 
       -- stylua: ignore
-      vim.list_extend(Keys, {
+      local keys = {
         { "<c-s-k>", function() return vim.lsp.buf.signature_help() end, mode = "i", desc = "Signature Help", has = "signatureHelp" },
-        { "gR", function() require("telescope.builtin").lsp_references({ reuse_win = true }) end, desc = "References" },
-        { "gt", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, desc = "Goto T[y]pe Definition" },
         { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
         { "<leader>cf", function() format({force = true}) end, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
         { "<leader>ci", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-      })
+      }
+
+      if vim.g.lazyvim_picker == "telescope" then
+        vim.list_extend(keys, {
+          { "gR", function() require("telescope.builtin").lsp_references({ reuse_win = true }) end, desc = "References" },
+          { "gt", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = false }) end, desc = "Goto T[y]pe Definition" },
+        })
+      end
+
+      vim.list_extend(Keys, keys)
 
       ui_windows.default_options.border = "rounded"
 
