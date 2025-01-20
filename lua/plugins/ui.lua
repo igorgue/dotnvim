@@ -57,13 +57,10 @@ return {
             keys = {
               ["<Esc>"] = { "close", mode = { "n", "i" } },
               ["<c-cr>"] = { "close", mode = { "n", "i" } },
-              ["<c-n>"] = { "history_back", mode = { "n", "i" } },
-              ["<c-p>"] = { "history_forward", mode = { "n", "i" } },
-              ["<c-u>"] = {
-                function()
-                  vim.cmd("normal! dd")
-                end,
-              },
+              ["<down>"] = { "history_back", mode = { "n", "i" } },
+              ["<up>"] = { "history_forward", mode = { "n", "i" } },
+              -- stylua: ignore
+              ["<c-u>"] = { function() vim.cmd("normal! dd") end, },
             },
           },
         },
@@ -495,25 +492,18 @@ return {
             i = {
               ["<esc>"] = actions.close,
               ["<C-c>"] = actions.close,
-              ["<C-n>"] = actions.cycle_history_prev,
-              ["<C-p>"] = actions.cycle_history_next,
               ["<C-b>"] = actions.preview_scrolling_up,
               ["<C-f>"] = actions.preview_scrolling_down,
               ["<C-k>"] = actions.move_selection_previous,
               ["<C-j>"] = actions.move_selection_next,
-              ["<C-w>"] = function()
-                vim.api.nvim_input("<c-s-w>")
-              end,
-              ["<C-a>"] = function()
-                vim.cmd([[normal! ^i]])
-              end,
-              ["<C-e>"] = function()
-                vim.cmd([[normal! A]])
-                vim.api.nvim_input("<right>")
-              end,
-              ["<C-u>"] = function()
-                vim.cmd([[normal! dd]])
-              end,
+              ["<up>"] = actions.cycle_history_prev,
+              ["<down>"] = actions.cycle_history_next,
+              -- stylua: ignore start
+              ["<C-w>"] = function() vim.api.nvim_input("<c-s-w>") end,
+              ["<C-a>"] = function() vim.cmd([[normal! ^i]]) end,
+              ["<C-e>"] = function() vim.cmd([[normal! A]]) vim.api.nvim_input("<right>") end,
+              ["<C-u>"] = function() vim.cmd([[normal! dd]]) end,
+              -- stylua: ignore end
             },
           },
           layout_config = {
