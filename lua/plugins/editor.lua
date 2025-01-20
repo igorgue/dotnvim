@@ -51,7 +51,17 @@ return {
         end,
         desc = "Search marks",
       },
-      { "<leader>mm", "<cmd>Telescope marks<cr>", desc = "Search marks" },
+      {
+        "<leader>mm",
+        function()
+          if vim.g.lazyvim_picker == "telescope" then
+            vim.cmd("Telescope marks")
+          else
+            Snacks.picker.marks()
+          end
+        end,
+        desc = "Search marks",
+      },
       { "<leader>md", "<cmd>delmarks!<cr>", desc = "Delete local marks" },
       { "<leader>mD", "<cmd>delmarks!<cr><cmd>delmarks A-Z<cr>", desc = "Delete all marks" },
     },
