@@ -19,14 +19,14 @@ local function fix_colorschemes()
     vim.cmd("hi! link WinBarNC Normal")
 
     vim.cmd("hi! link LazyNormal Normal")
-    vim.cmd("hi! link NormalFloat Normal")
+    vim.cmd("hi! link NormalFloat Statement")
 
     if vim.fn.hlexists("VertSplit") ~= 1 then
-      vim.cmd("hi! link VertSplit Type")
+      vim.cmd("hi! link VertSplit Statement")
     end
 
     if not vim.tbl_contains({ "zaibatsu", "monokai-pro", "monokai-pro-spectrum" }, vim.g.colors_name) then
-      vim.cmd("hi! link WinSeparator Type")
+      vim.cmd("hi! link WinSeparator Statement")
       vim.cmd("hi! link MatchParen CursorLine")
     end
 
@@ -42,6 +42,11 @@ local function fix_colorschemes()
       "TelescopeSelection",
       { bold = true, bg = vim.fn.synIDattr(vim.fn.hlID("CursorLine"), "bg") }
     )
+    vim.api.nvim_set_hl(
+      0,
+      "TelescopeBorder",
+      { bg = vim.fn.synIDattr(vim.fn.hlID("Normal"), "bg"), fg = vim.fn.synIDattr(vim.fn.hlID("Statement"), "fg") }
+    )
 
     if LazyVim.has("blink.cmp") then
       if vim.fn.hlexists("FloatBorder") ~= 1 then
@@ -49,9 +54,14 @@ local function fix_colorschemes()
       end
 
       vim.api.nvim_set_hl(0, "BlinkCmpMenu", { link = "Normal" })
+      vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { link = "FloatBorder" })
+      vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { link = "FloatBorder" })
+      vim.api.nvim_set_hl(0, "BlinkCmpSignatureHelpBorder", { link = "FloatBorder" })
       vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { link = "CursorLine" })
       vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { link = "FloatBorder" })
       vim.api.nvim_set_hl(0, "BlinkCmpLabelDeprecated", { bg = "none", fg = "none", strikethrough = true })
+      vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { link = "FloatBorder", bold = true })
+      vim.api.nvim_set_hl(0, "BlinkCmpSignatureHelpActiveParameter", { link = "VertSplit", bold = true })
     end
 
     if LazyVim.has("nvim-navic") then

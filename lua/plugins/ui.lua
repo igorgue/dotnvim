@@ -57,8 +57,8 @@ return {
             keys = {
               ["<Esc>"] = { "close", mode = { "n", "i" } },
               ["<c-cr>"] = { "close", mode = { "n", "i" } },
-              ["<c-n>"] = { "history_back", mode = { "n", "i" } },
-              ["<c-p>"] = { "history_forward", mode = { "n", "i" } },
+              ["<c-j>"] = { "history_back", mode = { "n", "i" } },
+              ["<c-k>"] = { "history_forward", mode = { "n", "i" } },
               -- stylua: ignore
               ["<c-u>"] = { function() vim.cmd("normal! dd") end, },
             },
@@ -494,10 +494,10 @@ return {
               ["<C-c>"] = actions.close,
               ["<C-b>"] = actions.preview_scrolling_up,
               ["<C-f>"] = actions.preview_scrolling_down,
-              ["<C-k>"] = actions.move_selection_previous,
-              ["<C-j>"] = actions.move_selection_next,
-              ["<C-n>"] = actions.cycle_history_prev,
-              ["<C-p>"] = actions.cycle_history_next,
+              ["<C-j>"] = actions.cycle_history_prev,
+              ["<C-k>"] = actions.cycle_history_next,
+              ["<C-p>"] = actions.move_selection_previous,
+              ["<C-n>"] = actions.move_selection_next,
               -- stylua: ignore start
               ["<C-w>"] = function() vim.api.nvim_input("<c-s-w>") end,
               ["<C-a>"] = function() vim.cmd([[normal! ^i]]) end,
@@ -648,9 +648,6 @@ return {
   },
   {
     "folke/which-key.nvim",
-    opts = {
-      preset = "modern",
-    },
     keys = {
       -- stylua: ignore
       { "<leader>?", function() require("which-key").show() end, desc = "Show Which Key", },
