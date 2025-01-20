@@ -59,8 +59,11 @@ return {
               ["<c-cr>"] = { "close", mode = { "n", "i" } },
               ["<c-j>"] = { "history_back", mode = { "n", "i" } },
               ["<c-k>"] = { "history_forward", mode = { "n", "i" } },
-              -- stylua: ignore
-              ["<c-u>"] = { function() vim.cmd("normal! dd") end, },
+              -- stylua: ignore start
+              ["<c-u>"] = { function() vim.cmd("normal! dd") end, mode = { "n", "i" }, },
+              ["<c-a>"] = { function() vim.cmd([[normal! ^i]]) end, mode = { "n", "i" }, },
+              ["<c-e>"] = { function() vim.cmd([[normal! A]]) vim.api.nvim_input("<right>") end, mode = { "n", "i" }, },
+              -- stylua: ignore end
             },
           },
         },
