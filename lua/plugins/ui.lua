@@ -8,6 +8,9 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
+      -- bigfile = {
+      --   size = 200 * 1024, -- 200KB
+      -- },
       dashboard = {
         preset = {
           header = "NVIM " .. require("utils").version(),
@@ -18,7 +21,7 @@ return {
             { icon = " ", key = "r", desc = "recent files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
             { icon = " ", key = "s", desc = "restore session", section = "session" },
             { icon = " ", key = "f", desc = "find file", action = ":lua Snacks.dashboard.pick('files')" },
-            -- { icon = " ", key = "o", desc = "smart open", action = ":Telescope smart_open" },
+            { icon = " ", key = "o", desc = "smart open", action = ":lua Snacks.picker.smart()" },
             { icon = " ", key = "g", desc = "find text", action = function()
               if vim.g.lazyvim_picker == "telescope" then
                 require("plugins.telescope.filter_grep").filter_grep()
@@ -49,7 +52,7 @@ return {
         },
       },
       indent = { enabled = false, only_scope = true, only_current = true },
-      input = {},
+      input = { enabled = true },
       picker = {
         enabled = vim.g.lazyvim_picker == "snacks",
         win = {
@@ -74,7 +77,8 @@ return {
       { "<leader><leader>", function() Snacks.picker.resume() end, desc = "Resume" },
       { "<c-cr>", function() Snacks.picker.resume() end, desc = "Resume", mode = { "n", "i" } },
       { "<leader>r", function() Snacks.picker.recent() end, desc = "Recent" },
-      { "<leader><cr>", function() Snacks.picker.recent() end, desc = "Recent" },
+      { "<leader><cr>", function() Snacks.picker.smart() end, desc = "Smart" },
+      { "<leader>fs", function() Snacks.picker.smart() end, desc = "Smart" },
       -- stylua: ignore end
     },
   },

@@ -18,6 +18,7 @@ wk.add({
   { "<SNR>", group = "snr" },
   { "<leader>A", group = "applications" },
   { "<leader>cg", group = "github" },
+  { "m", group = "marks" },
   { "<leader>m", group = "marks" },
   { "<leader>a", group = "ai", mode = { "n", "v", "i" } },
   { "!", group = "filter", mode = { "n", "v" } },
