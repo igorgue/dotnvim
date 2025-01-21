@@ -4,10 +4,7 @@ return {
     optional = true,
     dependencies = {
       "moyiz/blink-emoji.nvim",
-      {
-        "saghen/blink.compat",
-        version = "*",
-      },
+      { "saghen/blink.compat", version = "*" },
     },
     opts = {
       enabled = function()
@@ -67,6 +64,13 @@ return {
             module = "blink-emoji",
             name = "Emoji",
             score_offset = 15,
+          },
+          snippets = {
+            opts = {
+              extended_filetypes = {
+                jinja = { "html", "djangohtml" },
+              },
+            },
           },
         },
       },
