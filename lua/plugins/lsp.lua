@@ -25,8 +25,20 @@ return {
 
       if vim.g.lazyvim_picker == "telescope" then
         vim.list_extend(keys, {
-          { "gR", function() require("telescope.builtin").lsp_references({ reuse_win = true }) end, desc = "References" },
-          { "gt", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = false }) end, desc = "Goto T[y]pe Definition" },
+          {
+            "gR",
+            function()
+              require("telescope.builtin").lsp_references({ reuse_win = true })
+            end,
+            desc = "References",
+          },
+          {
+            "gt",
+            function()
+              require("telescope.builtin").lsp_type_definitions({ reuse_win = false })
+            end,
+            desc = "Goto T[y]pe Definition",
+          },
         })
       end
 

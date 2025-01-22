@@ -19,7 +19,7 @@ end
 
 enable_ts = has_leetcode or (enable_ts and not vim.o.diff)
 
-return {
+local disabled = {
   { "akinsho/bufferline.nvim", enabled = false },
   { "echasnovski/mini.comment", enabled = false },
   { "echasnovski/mini.indentscope", enabled = false },
@@ -42,43 +42,31 @@ return {
   { "windwp/nvim-ts-autotag", enabled = enable_ts },
   { "nvim-treesitter/nvim-treesitter-context", enabled = enable_ts },
   { "nvim-treesitter/nvim-treesitter-textobjects", enabled = enable_ts },
-  -- kitty scrollback:
-  { "github/copilot.vim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  {
-    "neovim/nvim-lspconfig",
-    enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
-  },
-  {
-    "nvim-telescope/telescope.nvim",
-    enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
-  },
-  { "saghen/blink.cmp", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  {
-    "GCBallesteros/jupytext.nvim",
-    enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
-  },
-  {
-    "nvim-lualine/lualine.nvim",
-    enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
-  },
-  { "chentoast/marks.nvim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  { "andymass/vim-matchup", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  { "folke/noice.nvim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  { "SmiteshP/nvim-navic", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  { "Rawnly/gist.nvim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  {
-    "HiPhish/rainbow-delimiters.nvim",
-    enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
-  },
-  { "romgrk/todoist.nvim", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  { "tpope/vim-dadbod", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  {
-    "folke/ts-comments.nvim",
-    enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
-  },
-  { "jez/vim-ispc", enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true" },
-  {
-    "s1n7ax/nvim-window-picker",
-    enabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true",
-  },
 }
+
+-- kitty scrollback:
+local kitty_scrollback_disabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true"
+    and {
+      { "github/copilot.vim", enabled = false },
+      { "neovim/nvim-lspconfig", enabled = false },
+      { "nvim-telescope/telescope.nvim", enabled = false },
+      { "saghen/blink.cmp", enabled = false },
+      { "GCBallesteros/jupytext.nvim", enabled = false },
+      { "nvim-lualine/lualine.nvim", enabled = false },
+      { "chentoast/marks.nvim", enabled = false },
+      { "andymass/vim-matchup", enabled = false },
+      { "folke/noice.nvim", enabled = false },
+      { "SmiteshP/nvim-navic", enabled = false },
+      { "Rawnly/gist.nvim", enabled = false },
+      { "HiPhish/rainbow-delimiters.nvim", enabled = false },
+      { "romgrk/todoist.nvim", enabled = false },
+      { "tpope/vim-dadbod", enabled = false },
+      { "folke/ts-comments.nvim", enabled = false },
+      { "jez/vim-ispc", enabled = false },
+      { "s1n7ax/nvim-window-picker", enabled = false },
+    }
+  or {}
+
+vim.tbl_extend("force", disabled, kitty_scrollback_disabled)
+
+return disabled

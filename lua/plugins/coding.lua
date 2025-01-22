@@ -48,10 +48,9 @@ return {
         preset = "enter",
         ["<C-space>"] = { "show" },
         ["<C-y>"] = { "show", "select_and_accept", "fallback" },
-        ["<Tab>"] = {},
+        ["<Tab>"] = vim.g.ai_cmp and { "select_and_accept" } or {},
         ["<C-e>"] = { "hide" },
         ["<C-j>"] = {
-          LazyVim.cmp.map({ "snippet_forward", "ai_accept" }),
           "show",
           "select_and_accept",
           "fallback",
