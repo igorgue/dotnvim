@@ -222,7 +222,7 @@ Snacks.toggle({
   set = function(state)
     vim.cmd("Diffview" .. (state and "Open" or "Close"))
   end,
-}):map("<leader>gd")
+}):map("<leader>gD")
 
 -- some special cases:
 pcall(vim.api.nvim_del_keymap, "v", "<C-k>")
