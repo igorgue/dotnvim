@@ -38,9 +38,17 @@ return {
       },
     },
     opts = {
-      provider = "openai",
+      provider = "deepseek",
       openai = {
         model = "o1-preview",
+      },
+      vendors = {
+        deepseek = {
+          __inherited_from = "openai",
+          api_key_name = "DEEPSEEK_API_KEY",
+          endpoint = "https://api.deepseek.com",
+          model = "deepseek-reasoner",
+        },
       },
       hints = { enabled = false },
     },
