@@ -1,3 +1,11 @@
+local function resume_snacks_picker()
+  if not require("snacks.picker.core.picker").last  then
+    Snacks.picker.smart()
+  else
+    Snacks.picker.resume()
+  end
+end
+
 return {
   {
     "nvim-tree/nvim-web-devicons",
@@ -74,8 +82,8 @@ return {
     },
     keys = {
       -- stylua: ignore start
-      { "<leader><leader>", function() Snacks.picker.resume() end, desc = "Resume" },
-      { "<c-cr>", function() Snacks.picker.resume() end, desc = "Resume", mode = { "n", "i" } },
+      { "<leader><leader>", resume_snacks_picker, desc = "Resume" },
+      { "<c-cr>", resume_snacks_picker, desc = "Resume", mode = { "n", "i" } },
       { "<leader>r", function() Snacks.picker.recent() end, desc = "Recent" },
       { "<leader><cr>", function() Snacks.picker.smart() end, desc = "Smart" },
       { "<leader>fs", function() Snacks.picker.smart() end, desc = "Smart" },
