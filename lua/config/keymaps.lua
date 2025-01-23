@@ -104,22 +104,28 @@ wk.add({
   },
   {
     "<A-s>",
-    "<cmd>Telescope symbols<cr>",
+    function()
+      if vim.g.lazyvim_picker == "telescope" then
+        vim.cmd("Telescope symbols")
+      else
+        Snacks.picker.icons()
+      end
+    end,
     desc = "Symbols Select",
     mode = { "n", "i" },
   },
-  {
-    "<A-e>",
-    "<cmd>Telescope emoji<cr>",
-    desc = "Emoji Select",
-    mode = { "n", "i" },
-  },
-  {
-    "<A-g>",
-    "<cmd>Telescope glyph<cr>",
-    desc = "Glyph Select",
-    mode = { "n", "i" },
-  },
+  -- {
+  --   "<A-e>",
+  --   "<cmd>Telescope emoji<cr>",
+  --   desc = "Emoji Select",
+  --   mode = { "n", "i" },
+  -- },
+  -- {
+  --   "<A-g>",
+  --   "<cmd>Telescope glyph<cr>",
+  --   desc = "Glyph Select",
+  --   mode = { "n", "i" },
+  -- },
   { "<A-s-o>", "{", desc = "{", mode = { "n", "i" } },
   { "<A-s-p>", "}", desc = "}", mode = { "n", "i" } },
   {
