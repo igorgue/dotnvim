@@ -15,12 +15,32 @@ return {
       local format = require("lazyvim.util").format.format
       local Keys = require("lazyvim.plugins.lsp.keymaps").get()
 
-      -- stylua: ignore
       local keys = {
+        {
+          "<c-k>",
+          function()
+            if vim.snippet.active({ direction = -1 }) then
+              vim.snippet.jump(-1)
+            else
+              if vim.snippet.active({ direction = 1 }) then
+                vim.snippet.jump(1)
+              else
+                if vim.fn.mode() == "i" then
+                  vim.api.nvim_input("<C-s-k>")
+                else
+                  vim.cmd("wincmd k")
+                end
+              end
+            end
+          end,
+          mode = { "i", "s" },
+        },
+        -- stylua: ignore start
         { "<c-s-k>", function() return vim.lsp.buf.signature_help() end, mode = "i", desc = "Signature Help", has = "signatureHelp" },
         { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
         { "<leader>cf", function() format({force = true}) end, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
         { "<leader>ci", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+        -- stylua: ignore end
       }
 
       if vim.g.lazyvim_picker == "telescope" then
