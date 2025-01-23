@@ -1,5 +1,5 @@
 local function resume_snacks_picker()
-  if not require("snacks.picker.core.picker").last  then
+  if not require("snacks.picker.core.picker").last then
     Snacks.picker.smart()
   else
     Snacks.picker.resume()
@@ -60,9 +60,10 @@ return {
         },
       },
       indent = { enabled = false, only_scope = true, only_current = true },
-      input = { enabled = true },
+      input = {},
       picker = {
         enabled = vim.g.lazyvim_picker == "snacks",
+        ui_select = true,
         win = {
           input = {
             keys = {

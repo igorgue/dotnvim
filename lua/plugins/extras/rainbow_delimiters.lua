@@ -9,11 +9,9 @@ return {
 
     vim.g.rainbow_delimiters = {
       strategy = {
-        [""] = rainbow_delimiters.strategy["global"],
         ["*"] = rainbow_delimiters.strategy["global"],
       },
       query = {
-        [""] = "rainbow-delimiters",
         ["*"] = "rainbow-delimiters",
         jinja = "rainbow-blocks",
         lua = "rainbow-blocks",
