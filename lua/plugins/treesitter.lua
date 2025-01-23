@@ -6,7 +6,7 @@ return {
     -- stylua: ignore
     event = function() return {} end,
     opts = {
-      highlight = { enable = true },
+      highlight = { enable = true, disable = { "copilot.lua" } },
       indent = { enable = false },
       -- I use "michaeljsmith/vim-indent-object" instead
       incremental_selection = {
