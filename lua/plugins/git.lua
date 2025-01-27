@@ -34,8 +34,10 @@ return {
       vim.api.nvim_create_user_command("Gblame", "Git blame", {})
     end,
     keys = {
-      { "<esc>", "<cmd>q<cr>", desc = "Quit", ft = "fugitiveblame" },
-      { "q", "<cmd>q<cr>", desc = "Quit", ft = "fugitiveblame" },
+      -- stylua: ignore start
+      { "<esc>", function() vim.api.nvim_input("gq") end, desc = "Quit", ft = "fugitiveblame", },
+      { "q", function() vim.api.nvim_input("gq") end, desc = "Quit", ft = "fugitiveblame", },
+      -- stylua: ignore end
     },
   },
   {
@@ -61,16 +63,8 @@ return {
       },
     },
     keys = {
-      {
-        "<leader>h",
-        "<cmd>lua require('gitsigns').next_hunk()<cr>",
-        desc = "Next Git Hunk",
-      },
-      {
-        "<leader>H",
-        "<cmd>lua require('gitsigns').prev_hunk()<cr>",
-        desc = "Prev Git Hunk",
-      },
+      { "<leader>h", "<cmd>lua require('gitsigns').next_hunk()<cr>", desc = "Next Git Hunk" },
+      { "<leader>H", "<cmd>lua require('gitsigns').prev_hunk()<cr>", desc = "Prev Git Hunk" },
     },
   },
   {

@@ -40,7 +40,7 @@ if vim.env.KITTY_WINDOW_ID and vim.env.KITTY_SCROLLBACK_NVIM ~= "true" then
     end,
   })
 
-  vim.api.nvim_create_autocmd("QuitPre", {
+  vim.api.nvim_create_autocmd("VimLeavePre", {
     callback = function()
       vim.fn.system("kitty @ set-colors -a background=" .. vim.g.kitty_bg)
     end,
