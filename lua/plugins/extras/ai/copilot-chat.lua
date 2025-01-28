@@ -13,8 +13,8 @@ return {
           insert = "<s-Tab>",
         },
         reset = {
-          insert = "<C-r>",
-          normal = "<C-r>",
+          insert = "<C-del>",
+          normal = "<C-del>",
         },
       },
     },
