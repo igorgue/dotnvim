@@ -663,17 +663,6 @@ return {
     },
   },
   {
-    "folke/which-key.nvim",
-    opts = {
-      preset = "helix",
-      delay = 0,
-    },
-    keys = {
-      -- stylua: ignore
-      { "<leader>?", function() require("which-key").show() end, desc = "Show Which Key", },
-    },
-  },
-  {
     "SmiteshP/nvim-navic",
     optional = true,
     lazy = false,
