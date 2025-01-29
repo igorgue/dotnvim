@@ -72,7 +72,7 @@ function M.lualine_theme()
       lightblue = M.hi_co("CursorLineNr", "bg"),
       yellow = M.hi_co("DiffChange", "bg"),
       gray = M.hi_co("Pmenu", "fg"),
-      darkgray = M.hi_co("Conceal", "fg"),
+      darkgray = M.hi_co("LspCodeLens", "fg"),
       lightgray = M.hi_co("Visual", "bg"),
       inactivegray = M.hi_co("TabLine", "fg"),
     }
@@ -97,24 +97,24 @@ function M.lualine_theme()
       a = {
         fg = lualine_colors.darkgray,
         bg = lualine_colors.black,
-        -- gui = "bold",
+        gui = "bold",
       },
       b = { fg = lualine_colors.darkgray, bg = lualine_colors.black },
       c = {
         fg = lualine_colors.darkgray,
         bg = lualine_colors.black,
-        -- gui = "bold",
+        gui = "bold",
       },
       x = { fg = lualine_colors.darkgray, bg = lualine_colors.black },
       y = {
         fg = lualine_colors.darkgray,
         bg = lualine_colors.black,
-        -- gui = "bold",
+        gui = "bold",
       },
       z = {
         fg = lualine_colors.darkgray,
         bg = lualine_colors.black,
-        -- gui = "bold",
+        gui = "bold",
       },
     },
     insert = {
