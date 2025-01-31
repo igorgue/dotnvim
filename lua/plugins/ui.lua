@@ -72,21 +72,28 @@ return {
               ["<c-j>"] = { "history_back", mode = { "n", "i" } },
               ["<c-k>"] = { "history_forward", mode = { "n", "i" } },
               ["<c-/>"] = { "toggle_focus", mode = { "n", "i" } },
+              ["<c-i>"] = { "toggle_focus", mode = { "n", "i" } },
               -- stylua: ignore start
               ["<c-u>"] = { function() vim.cmd("normal! dd") end, mode = { "n", "i" }, },
               ["<c-a>"] = { function() vim.cmd([[normal! ^i]]) end, mode = { "n", "i" }, },
               ["<c-e>"] = { function() vim.cmd([[normal! A]]) vim.api.nvim_input("<right>") end, mode = { "n", "i" }, },
               -- stylua: ignore end
-              -- replacements
               ["<c-s-a>"] = "select_all",
               ["<c-s-u>"] = { "list_scroll_up", mode = { "i", "n" } },
             },
           },
           list = {
             keys = {
+              o = "confirm",
+              v = "edit_vsplit",
+              s = "edit_split",
+              ["<Esc>"] = { "close", mode = { "n", "i" } },
+              ["<c-cr>"] = { "close", mode = { "n", "i" } },
+              ["<c-o>"] = { "confirm", mode = { "n", "i" } },
+              ["<c-^>"] = { "confirm", mode = { "n", "i" } },
+              ["<c-i>"] = { "toggle_focus", mode = { "n", "i" } },
               ["<c-/>"] = { "toggle_focus", mode = { "n", "i" } },
-              ["v"] = "edit_vsplit",
-              ["s"] = "edit_split",
+              ["<leader><leader>"] = "close",
             },
           },
         },
