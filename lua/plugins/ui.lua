@@ -82,6 +82,13 @@ return {
               ["<c-s-u>"] = { "list_scroll_up", mode = { "i", "n" } },
             },
           },
+          list = {
+            keys = {
+              ["<c-/>"] = { "toggle_focus", mode = { "n", "i" } },
+              ["v"] = "edit_vsplit",
+              ["s"] = "edit_split",
+            },
+          },
         },
       },
     },
