@@ -93,7 +93,6 @@ local function toggle_inlay_hints()
 end
 
 wk.add({
-  { "dm", "<cmd>Delmarks<cr>", desc = "Delete current line marks" },
   { "<esc>", require("utils").ui.refresh_ui, desc = "Refresh UI" },
   { "<A-/>", "<cmd>WhichKey<cr>", desc = "Help", mode = { "n", "i" } },
   {
