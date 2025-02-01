@@ -99,7 +99,6 @@ return {
         },
         sources = {
           explorer = {
-            auto_close = true,
             win = {
               list = {
                 keys = {
