@@ -84,9 +84,9 @@ return {
           },
           list = {
             keys = {
-              o = "confirm",
-              v = "edit_vsplit",
-              s = "edit_split",
+              ["o"] = "confirm",
+              ["v"] = "edit_vsplit",
+              ["s"] = "edit_split",
               ["<Esc>"] = { "close", mode = { "n", "i" } },
               ["<c-cr>"] = { "close", mode = { "n", "i" } },
               ["<c-o>"] = { "confirm", mode = { "n", "i" } },
@@ -94,6 +94,27 @@ return {
               ["<c-i>"] = { "toggle_focus", mode = { "n", "i" } },
               ["<c-/>"] = { "toggle_focus", mode = { "n", "i" } },
               ["<leader><leader>"] = "close",
+            },
+          },
+        },
+        sources = {
+          explorer = {
+            auto_close = true,
+            win = {
+              list = {
+                keys = {
+                  ["o"] = "confirm",
+                  ["v"] = "edit_vsplit",
+                  ["s"] = "edit_split",
+                  ["<Esc>"] = { "close", mode = { "n", "i" } },
+                  ["<c-cr>"] = { "close", mode = { "n", "i" } },
+                  ["<c-o>"] = { "confirm", mode = { "n", "i" } },
+                  ["<c-^>"] = { "confirm", mode = { "n", "i" } },
+                  ["<c-i>"] = { "toggle_focus", mode = { "n", "i" } },
+                  ["<c-/>"] = { "toggle_focus", mode = { "n", "i" } },
+                  ["<leader><leader>"] = "close",
+                },
+              },
             },
           },
         },
