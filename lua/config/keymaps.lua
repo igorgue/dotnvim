@@ -292,3 +292,42 @@ else
     },
   })
 end
+
+-- Marks support with m0..9
+-- which put crazy bad marks on my buffers
+pcall(vim.api.nvim_del_keymap, "n", "m0")
+pcall(vim.api.nvim_del_keymap, "n", "m1")
+pcall(vim.api.nvim_del_keymap, "n", "m2")
+pcall(vim.api.nvim_del_keymap, "n", "m3")
+pcall(vim.api.nvim_del_keymap, "n", "m4")
+pcall(vim.api.nvim_del_keymap, "n", "m5")
+pcall(vim.api.nvim_del_keymap, "n", "m6")
+pcall(vim.api.nvim_del_keymap, "n", "m7")
+pcall(vim.api.nvim_del_keymap, "n", "m8")
+pcall(vim.api.nvim_del_keymap, "n", "m9")
+
+local function toggle_mark(mark)
+  local current_pos = vim.fn.getpos("'" .. mark)
+  local cursor_pos = vim.fn.getpos(".")
+  if current_pos[1] == 0 then
+    vim.cmd("mark " .. mark)
+  elseif current_pos[2] == cursor_pos[2] then
+    vim.cmd("delmarks " .. mark)
+  else
+    vim.fn.setpos("'" .. mark, cursor_pos)
+  end
+end
+
+-- stylua: ignore
+wk.add({
+  { "m1", function() toggle_mark("A") end, desc = "Toggle mark A" },
+  { "m2", function() toggle_mark("B") end, desc = "Toggle mark B" },
+  { "m3", function() toggle_mark("C") end, desc = "Toggle mark C" },
+  { "m4", function() toggle_mark("D") end, desc = "Toggle mark D" },
+  { "m5", function() toggle_mark("E") end, desc = "Toggle mark E" },
+  { "m6", function() toggle_mark("F") end, desc = "Toggle mark F" },
+  { "m7", function() toggle_mark("G") end, desc = "Toggle mark G" },
+  { "m8", function() toggle_mark("H") end, desc = "Toggle mark H" },
+  { "m9", function() toggle_mark("I") end, desc = "Toggle mark I" },
+  { "m0", function() toggle_mark("J") end, desc = "Toggle mark J" },
+})

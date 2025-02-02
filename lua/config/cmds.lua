@@ -52,7 +52,3 @@ end, {})
 vim.api.nvim_create_user_command("Notifications", function()
   vim.schedule(Snacks.notifier.show_history)
 end, {})
-
-vim.cmd([[
-  command! Delmarks silent execute 'delmarks '.join(map(filter(map(split(execute('marks'),"\n"),'split(v:val)'), 'v:val[1]==line(".")'), 'v:val[0]'))
-]])
