@@ -64,6 +64,24 @@ return {
       picker = {
         enabled = vim.g.lazyvim_picker == "snacks",
         ui_select = true,
+        matcher = {
+          sort_empty = true, -- sort results when the search string is empty
+          cwd_bonus = true, -- give bonus for matching files in the cwd
+          frecency = true, -- frecency bonus
+          history_bonus = true, -- give more weight to chronological order
+        },
+        formatter = {
+          file = {
+            filename_first = true, -- display filename before the file path
+          },
+        },
+        jump = {
+          jumplist = true, -- save the current position in the jumplist
+          tagstack = true, -- save the current position in the tagstack
+          reuse_win = true, -- reuse an existing window if the buffer is already open
+          close = true, -- close the picker when jumping/editing to a location (defaults to true)
+          match = true, -- jump to the first match position. (useful for `lines`)
+        },
         win = {
           input = {
             keys = {
@@ -85,8 +103,6 @@ return {
           list = {
             keys = {
               ["o"] = "confirm",
-              ["v"] = "edit_vsplit",
-              ["s"] = "edit_split",
               ["<Esc>"] = { "close", mode = { "n", "i" } },
               ["<c-cr>"] = { "close", mode = { "n", "i" } },
               ["<c-o>"] = { "confirm", mode = { "n", "i" } },
@@ -103,8 +119,6 @@ return {
               list = {
                 keys = {
                   ["o"] = "confirm",
-                  ["v"] = "edit_vsplit",
-                  ["s"] = "edit_split",
                   ["<Esc>"] = { "close", mode = { "n", "i" } },
                   ["<c-cr>"] = { "close", mode = { "n", "i" } },
                   ["<c-o>"] = { "confirm", mode = { "n", "i" } },
@@ -124,6 +138,7 @@ return {
       { "<leader><leader>", resume_snacks_picker, desc = "Resume" },
       { "<c-cr>", resume_snacks_picker, desc = "Resume", mode = { "n", "i" } },
       { "<leader>r", function() Snacks.picker.recent() end, desc = "Recent" },
+      { "<leader>j", function() Snacks.picker.jumps() end, desc = "Jumps" },
       { "<leader><cr>", function() Snacks.picker.smart() end, desc = "Smart" },
       { "<leader>fs", function() Snacks.picker.smart() end, desc = "Smart" },
       -- stylua: ignore end
