@@ -94,15 +94,14 @@ end
 
 wk.add({
   { "<esc>", require("utils").ui.refresh_ui, desc = "Refresh UI" },
-  { "<A-/>", "<cmd>WhichKey<cr>", desc = "Help", mode = { "n", "i" } },
+  { "<M-/>", "<cmd>WhichKey<cr>", desc = "Help", mode = { "n", "i" } },
   {
-    "<A-f>",
+    "<leader>F",
     force_format,
     desc = "Force Format Document",
-    mode = { "n", "v", "i" },
   },
   {
-    "<A-s>",
+    "<M-s>",
     function()
       if vim.g.lazyvim_picker == "telescope" then
         vim.cmd("Telescope symbols")
@@ -113,20 +112,8 @@ wk.add({
     desc = "Symbols Select",
     mode = { "n", "i" },
   },
-  -- {
-  --   "<A-e>",
-  --   "<cmd>Telescope emoji<cr>",
-  --   desc = "Emoji Select",
-  --   mode = { "n", "i" },
-  -- },
-  -- {
-  --   "<A-g>",
-  --   "<cmd>Telescope glyph<cr>",
-  --   desc = "Glyph Select",
-  --   mode = { "n", "i" },
-  -- },
-  { "<A-s-o>", "{", desc = "{", mode = { "n", "i" } },
-  { "<A-s-p>", "}", desc = "}", mode = { "n", "i" } },
+  { "<M-s-o>", "{", desc = "{", mode = { "n", "i" } },
+  { "<M-s-p>", "}", desc = "}", mode = { "n", "i" } },
   {
     "<C-S-T>",
     require("utils").ui.open_terminal_tab,
@@ -135,10 +122,10 @@ wk.add({
   },
   { "<C-g>", require("utils").file_info, desc = "File Info", mode = "n" },
   {
-    "<leader>F",
+    "<M-f>",
     require("utils").ui.toggle_focus_mode,
     desc = "Focus Mode",
-    mode = "n",
+    mode = { "n", "v", "i" },
   },
   { "<leader>X", "<cmd>LazyExtras<cr>", desc = "Lazy Extras" },
   { "<leader>gg", "<cmd>Lazygit<cr>", desc = "Lazygit" },
