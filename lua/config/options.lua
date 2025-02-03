@@ -140,3 +140,4 @@ vim.g.lazyvim_cmp = vim.env.LAZYVIM_CMP or "blink.cmp" -- or "nvim-cmp" for cmp,
 vim.g.lazyvim_blink_main = false
 vim.g.always_show_gitsigns = false
 vim.g.cmp_disabled_filetypes = { "TelescopePrompt", "neorepl", "snacks_picker_input" }
+vim.g.cmp_disabled_files = {}

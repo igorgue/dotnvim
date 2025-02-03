@@ -6,9 +6,31 @@ return {
     -- stylua: ignore
     event = function() return {} end,
     opts = {
-      highlight = { enable = true, disable = { "copilot.lua" } },
-      indent = { enable = false },
-      -- I use "michaeljsmith/vim-indent-object" instead
+      highlight = {
+        enable = true,
+        disable = function(_)
+          local filepath = vim.fn.expand("%:p")
+          for _, pattern in ipairs(vim.g.cmp_disabled_files or {}) do
+            if filepath:match(pattern) then
+              return true
+            end
+          end
+
+          return false
+        end,
+      },
+      indent = {
+        disable = function(_)
+          local filepath = vim.fn.expand("%:p")
+          for _, pattern in ipairs(vim.g.cmp_disabled_files or {}) do
+            if filepath:match(pattern) then
+              return true
+            end
+          end
+
+          return false
+        end,
+      },
       incremental_selection = {
         enable = false,
         keymaps = {
