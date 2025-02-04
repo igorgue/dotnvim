@@ -34,7 +34,7 @@ local function toggle()
     end)
   end
 
-  Snacks.win({ position = "bottom", buf = todoist_buf })
+  Snacks.win({ position = "right", buf = todoist_buf, max_width = 50 })
 end
 
 return {

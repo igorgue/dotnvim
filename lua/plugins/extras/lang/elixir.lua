@@ -1,4 +1,5 @@
 local elixir_ft = { "elixir", "eelixir", "eex", "heex", "surface", "livebook" }
+local elixir_ts_languages = { "elixir", "eex", "heex", "surface" }
 vim.filetype.add({
   extension = {
     ["neex"] = "heex",
@@ -16,6 +17,12 @@ if ok then
 end
 
 return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = elixir_ts_languages,
+    },
+  },
   {
     "neovim/nvim-lspconfig",
     opts = {
