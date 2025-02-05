@@ -106,14 +106,6 @@ vim.cmd([[
 ]])
 
 vim.diagnostic.config(utils.ui.diagnostic_config)
--- vim.lsp.handlers["textDocument/publishDiagnostics"] =
---   vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, utils.ui.diagnostic_config)
---
--- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
--- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
---   vim.lsp.handlers.signature_help,
---   { border = "rounded" }
--- )
 vim.lsp.set_log_level("off") -- change to "debug" to show many logs
 
 if vim.version().minor >= 10 then
@@ -141,3 +133,4 @@ vim.g.lazyvim_blink_main = false
 vim.g.always_show_gitsigns = false
 vim.g.cmp_disabled_filetypes = { "TelescopePrompt", "neorepl", "snacks_picker_input" }
 vim.g.cmp_disabled_files = {}
+vim.g.focus_mode = true

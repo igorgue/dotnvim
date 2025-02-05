@@ -218,22 +218,11 @@ function M.toggle_focus_mode()
   M.toggle_lsp_references()
   M.toggle_winbar()
 
-  -- if LazyVim.has("lspsaga.nvim") then
-  --   vim.cmd("Lspsaga winbar_toggle")
-  -- end
-
   pcall(function()
     if not vim.g.always_show_gitsigns then
       vim.cmd("Gitsigns toggle_signs")
     end
   end)
-
-  -- NOTE: this was annoying, evaluate
-  -- if vim.opt_local.ft:get() == "c" then
-  --   require("clangd_extensions.inlay_hints").toggle_inlay_hints()
-  -- else
-  --   vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(0))
-  -- end
 
   if vim.version().minor >= 10 then
     vim.diagnostic.enable(not vim.diagnostic.is_enabled())
