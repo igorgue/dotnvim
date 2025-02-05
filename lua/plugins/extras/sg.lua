@@ -8,14 +8,7 @@ return {
     },
     opts = {
       sources = {
-        default = { "cody" },
-        providers = {
-          cody = {
-            name = "cody",
-            module = "blink.compat.source",
-            opts = {},
-          },
-        },
+        compat = { "cody" },
       },
     },
   },

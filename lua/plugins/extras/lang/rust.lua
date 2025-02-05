@@ -7,14 +7,7 @@ return {
     },
     opts = {
       sources = {
-        default = { "crates" },
-        providers = {
-          crates = {
-            name = "crates",
-            module = "blink.compat.source",
-            opts = {},
-          },
-        },
+        compat = { "crates" },
       },
     },
   },

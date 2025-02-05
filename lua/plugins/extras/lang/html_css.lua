@@ -12,7 +12,6 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        -- htmx = {},
         html = {
           filetypes = {
             "elixir",

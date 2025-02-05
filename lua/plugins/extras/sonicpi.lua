@@ -32,14 +32,7 @@ return {
     },
     opts = {
       sources = {
-        default = { "sonicpi" },
-        providers = {
-          sonicpi = {
-            name = "sonicpi",
-            module = "blink.compat.source",
-            opts = {},
-          },
-        },
+        compat = { "sonicpi" },
       },
     },
   },
