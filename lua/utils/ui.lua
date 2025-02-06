@@ -216,15 +216,15 @@ function M.toggle_focus_mode(state)
   end)
 
   if vim.version().minor >= 10 then
-    vim.diagnostic.enable(state)
+    vim.diagnostic.enable(not state)
   else
     ---@diagnostic disable-next-line: deprecated
-    if vim.diagnostic.is_disabled(0) then
-      ---@diagnostic disable-next-line: param-type-mismatch
-      vim.diagnostic.enable(0)
-    else
-      ---@diagnostic disable-next-line: deprecated
+    if state then
+      ---@diagnostic disable-next-line: param-type-mismatch, deprecated
       vim.diagnostic.disable(0)
+    else
+      ---@diagnostic disable-next-line: deprecated, param-type-mismatch
+      vim.diagnostic.enable(0)
     end
   end
 

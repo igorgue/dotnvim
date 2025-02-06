@@ -58,7 +58,13 @@ return {
         },
       },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "emoji" },
+        default = function()
+          if vim.g.cmp_disable_sources then
+            return {}
+          end
+
+          return { "lsp", "path", "snippets", "buffer", "emoji" }
+        end,
         providers = {
           emoji = {
             module = "blink-emoji",
