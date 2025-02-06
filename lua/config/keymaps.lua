@@ -121,12 +121,6 @@ wk.add({
     mode = { "n", "v", "i" },
   },
   { "<C-g>", require("utils").file_info, desc = "File Info", mode = "n" },
-  {
-    "<M-f>",
-    require("utils").ui.toggle_focus_mode,
-    desc = "Focus Mode",
-    mode = { "n", "v", "i" },
-  },
   { "<leader>X", "<cmd>LazyExtras<cr>", desc = "Lazy Extras" },
   { "<leader>gg", "<cmd>Lazygit<cr>", desc = "Lazygit" },
   {
@@ -215,6 +209,16 @@ Snacks.toggle({
     vim.cmd("Diffview" .. (state and "Open" or "Close"))
   end,
 }):map("<leader>gD")
+
+Snacks.toggle({
+  name = "Focus Mode",
+  get = function()
+    return vim.g.focus_mode
+  end,
+  set = function(state)
+    require("utils").ui.toggle_focus_mode(state)
+  end,
+}):map("<M-f>", { mode = { "v", "i", "n" } })
 
 -- some special cases:
 pcall(vim.api.nvim_del_keymap, "v", "<C-k>")

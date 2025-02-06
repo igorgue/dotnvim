@@ -13,14 +13,6 @@ M.diagnostic_config = {
   severity_sort = true,
 }
 
-function M.disable_fn(buf)
-  local max_filesize = 100 * 1024 -- 100 KB
-  local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-  if ok and stats and stats.size > max_filesize then
-    return true
-  end
-end
-
 function M.refresh_ui()
   pcall(function()
     vim.cmd([[
@@ -190,22 +182,21 @@ function M.lualine_theme()
   return theme
 end
 
-function M.toggle_focus_mode()
-  ---@diagnostic disable-next-line: undefined-field
-  vim.opt.laststatus = vim.opt.laststatus:get() == 0 and 3 or 0
+--- Toggles focus mode
+--- @param state boolean?
+function M.toggle_focus_mode(state)
+  if state == nil then
+    state = vim.g.focus_mode
+  end
+
+  vim.opt.laststatus = state and 0 or 3
 
   if require("lazy.core.config").plugins["copilot.vim"] ~= nil then
-    if vim.g.copilot_enabled == 0 then
-      vim.cmd("Copilot enable")
-    elseif vim.g.copilot_enabled == 1 then
-      vim.cmd("Copilot disable")
-    else
-      vim.cmd("Copilot disable")
-    end
+    vim.cmd("Copilot " .. (state and "enable" or "disable"))
   end
 
   if vim.g.loaded_tabby ~= nil then
-    vim.g.tabby_trigger_mode = vim.g.tabby_trigger_mode == "manual" and "auto" or "manual"
+    vim.g.tabby_trigger_mode = state and "manual" or "auto"
   end
 
   pcall(function()
@@ -215,8 +206,8 @@ function M.toggle_focus_mode()
   ---@diagnostic disable-next-line: param-type-mismatch
   pcall(vim.cmd, "IlluminateToggle")
 
-  M.toggle_lsp_references()
-  M.toggle_winbar()
+  M.toggle_lsp_references(state)
+  M.toggle_winbar(state)
 
   pcall(function()
     if not vim.g.always_show_gitsigns then
@@ -225,7 +216,7 @@ function M.toggle_focus_mode()
   end)
 
   if vim.version().minor >= 10 then
-    vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+    vim.diagnostic.enable(state)
   else
     ---@diagnostic disable-next-line: deprecated
     if vim.diagnostic.is_disabled(0) then
@@ -238,18 +229,37 @@ function M.toggle_focus_mode()
   end
 
   require("utils.ui").refresh_ui()
+  vim.g.focus_mode = state
 end
 
-function M.toggle_winbar()
-  if package.loaded["nvim-navic"] and require("nvim-navic").is_available() then
+--- Toggles winbar
+--- @param state boolean?
+function M.toggle_winbar(state)
+  if state == nil then
     ---@diagnostic disable-next-line: undefined-field
-    vim.opt.winbar = vim.opt.winbar:get() == "" and "%{%v:lua.require'nvim-navic'.get_location()%}" or ""
+    state = vim.opt.winbar:get() ~= ""
+  end
+
+  if state then
+    vim.opt.winbar = ""
+  else
+    if package.loaded["nvim-navic"] and require("nvim-navic").is_available() then
+      vim.opt.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+    end
   end
 end
 
-function M.toggle_lsp_references()
+--- Toggles LSP references
+--- @param state boolean?
+function M.toggle_lsp_references(state)
   local hl_info = vim.api.nvim_get_hl(0, { name = "LspReferenceRead" })
-  if hl_info.link then
+
+  if state == nil then
+    -- flip the state
+    state = hl_info.link ~= nil
+  end
+
+  if state then
     vim.api.nvim_set_hl(0, "LspReferenceText", {})
     vim.api.nvim_set_hl(0, "LspReferenceRead", {})
     vim.api.nvim_set_hl(0, "LspReferenceWrite", {})
@@ -258,27 +268,6 @@ function M.toggle_lsp_references()
     vim.api.nvim_set_hl(0, "LspReferenceRead", { link = "Visual" })
     vim.api.nvim_set_hl(0, "LspReferenceWrite", { link = "Visual" })
   end
-end
-
--- local function disable_winbar()
---   vim.opt.winbar = ""
--- end
-
-function M.enable_focus_mode()
-  vim.opt.laststatus = 0
-  pcall(function()
-    if require("lazy.core.config").plugins["copilot.vim"] ~= nil then
-      vim.cmd("Copilot disable")
-    end
-  end)
-  pcall(function()
-    vim.cmd("SupermavenStop")
-  end)
-  vim.opt.winbar = ""
-
-  vim.api.nvim_set_hl(0, "LspReferenceText", {})
-  vim.api.nvim_set_hl(0, "LspReferenceRead", {})
-  vim.api.nvim_set_hl(0, "LspReferenceWrite", {})
 end
 
 function M.open_terminal_tab()
@@ -290,20 +279,9 @@ function M.open_terminal_tab()
 end
 
 function M.autostart_focus_mode()
-  if vim.version().minor >= 10 then
-    if not vim.diagnostic.is_enabled() then
-      vim.defer_fn(function()
-        require("utils").ui.enable_focus_mode()
-      end, 1000)
-    end
-  else
-    ---@diagnostic disable-next-line: deprecated
-    if vim.diagnostic.is_disabled() then
-      vim.defer_fn(function()
-        require("utils").ui.enable_focus_mode()
-      end, 1000)
-    end
-  end
+  vim.defer_fn(function()
+    require("utils").ui.toggle_focus_mode(vim.g.focus_mode)
+  end, 100)
 end
 
 return M
