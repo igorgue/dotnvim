@@ -192,7 +192,7 @@ function M.toggle_focus_mode(state)
   vim.opt.laststatus = state and 0 or 3
 
   if require("lazy.core.config").plugins["copilot.vim"] ~= nil then
-    vim.cmd("Copilot " .. (state and "enable" or "disable"))
+    vim.cmd("Copilot " .. (state and "disable" or "enable"))
   end
 
   if vim.g.loaded_tabby ~= nil then
