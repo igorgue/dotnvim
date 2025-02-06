@@ -220,6 +220,16 @@ Snacks.toggle({
   end,
 }):map("<M-f>", { mode = { "v", "i", "n" } })
 
+Snacks.toggle({
+  name = "Blink",
+  get = function()
+    return not vim.g.cmp_disable_sources
+  end,
+  set = function(state)
+    vim.g.cmp_disable_sources = not state
+  end,
+}):map("<M-b>", { mode = { "v", "i", "n" } })
+
 -- some special cases:
 pcall(vim.api.nvim_del_keymap, "v", "<C-k>")
 pcall(vim.api.nvim_del_keymap, "i", "<C-k>")
