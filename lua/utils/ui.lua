@@ -186,7 +186,7 @@ end
 --- @param state boolean?
 function M.toggle_focus_mode(state)
   if state == nil then
-    state = vim.g.focus_mode
+    state = not vim.g.focus_mode
   end
 
   vim.opt.laststatus = state and 0 or 3
@@ -206,27 +206,14 @@ function M.toggle_focus_mode(state)
   ---@diagnostic disable-next-line: param-type-mismatch
   pcall(vim.cmd, "IlluminateToggle")
 
-  M.toggle_lsp_references(state)
-  M.toggle_winbar(state)
+  M.toggle_lsp_references(not state)
+  M.toggle_winbar(not state)
 
   pcall(function()
-    if not vim.g.always_show_gitsigns then
-      vim.cmd("Gitsigns toggle_signs")
-    end
+    require("gitsigns").toggle_signs(vim.g.always_show_gitsigns and true or not state)
   end)
 
-  if vim.version().minor >= 10 then
-    vim.diagnostic.enable(not state)
-  else
-    ---@diagnostic disable-next-line: deprecated
-    if state then
-      ---@diagnostic disable-next-line: param-type-mismatch, deprecated
-      vim.diagnostic.disable(0)
-    else
-      ---@diagnostic disable-next-line: deprecated, param-type-mismatch
-      vim.diagnostic.enable(0)
-    end
-  end
+  vim.diagnostic.enable(not state)
 
   require("utils.ui").refresh_ui()
   vim.g.focus_mode = state
@@ -237,15 +224,15 @@ end
 function M.toggle_winbar(state)
   if state == nil then
     ---@diagnostic disable-next-line: undefined-field
-    state = vim.opt.winbar:get() ~= ""
+    state = vim.opt.winbar:get() == ""
   end
 
   if state then
-    vim.opt.winbar = ""
-  else
     if package.loaded["nvim-navic"] and require("nvim-navic").is_available() then
       vim.opt.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
     end
+  else
+    vim.opt.winbar = ""
   end
 end
 
@@ -255,18 +242,17 @@ function M.toggle_lsp_references(state)
   local hl_info = vim.api.nvim_get_hl(0, { name = "LspReferenceRead" })
 
   if state == nil then
-    -- flip the state
-    state = hl_info.link ~= nil
+    state = hl_info.link == nil
   end
 
   if state then
-    vim.api.nvim_set_hl(0, "LspReferenceText", {})
-    vim.api.nvim_set_hl(0, "LspReferenceRead", {})
-    vim.api.nvim_set_hl(0, "LspReferenceWrite", {})
-  else
     vim.api.nvim_set_hl(0, "LspReferenceText", { link = "Visual" })
     vim.api.nvim_set_hl(0, "LspReferenceRead", { link = "Visual" })
     vim.api.nvim_set_hl(0, "LspReferenceWrite", { link = "Visual" })
+  else
+    vim.api.nvim_set_hl(0, "LspReferenceText", {})
+    vim.api.nvim_set_hl(0, "LspReferenceRead", {})
+    vim.api.nvim_set_hl(0, "LspReferenceWrite", {})
   end
 end
 

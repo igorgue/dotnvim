@@ -137,18 +137,6 @@ wk.add({
   },
   { "<leader>uh", toggle_inlay_hints, desc = "Toggle Inlay Hints", mode = "n" },
   {
-    "<leader>uW",
-    require("utils").ui.toggle_winbar,
-    desc = "Toggle Winbar",
-    mode = "n",
-  },
-  {
-    "<leader>uR",
-    require("utils").ui.toggle_lsp_references,
-    desc = "Toggle LspReferences",
-    mode = "n",
-  },
-  {
     "<leader>N",
     Snacks.notifier.hide,
     desc = "Clear Notifications",
@@ -219,6 +207,26 @@ Snacks.toggle({
     require("utils").ui.toggle_focus_mode(state)
   end,
 }):map("<M-f>", { mode = { "v", "i", "n" } })
+
+Snacks.toggle({
+  name = "LSP References",
+  get = function()
+    return vim.api.nvim_get_hl(0, { name = "LspReferenceRead" }).link ~= nil
+  end,
+  set = function(state)
+    require("utils").ui.toggle_lsp_references(state)
+  end,
+}):map("<leader>uR")
+
+Snacks.toggle({
+  name = "Winbar",
+  get = function()
+    return vim.opt.winbar:get() ~= ""
+  end,
+  set = function(state)
+    require("utils").ui.toggle_winbar(state)
+  end,
+}):map("<leader>uW")
 
 Snacks.toggle({
   name = "Blink",

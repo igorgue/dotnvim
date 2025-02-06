@@ -27,4 +27,13 @@ function M.file_info()
   end
 end
 
+--- @param source string
+function M.cmp_append_default_source(source)
+  local cmp_default_sources = vim.g.cmp_default_sources
+
+  table.insert(cmp_default_sources, source)
+
+  vim.g.cmp_default_sources = cmp_default_sources
+end
+
 return M

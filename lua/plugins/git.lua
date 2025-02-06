@@ -44,7 +44,7 @@ return {
     "lewis6991/gitsigns.nvim",
     enabled = not vim.o.diff,
     opts = {
-      signcolumn = not not vim.g.always_show_gitsigns,
+      signcolumn = true,
       signs = {
         add = { text = "▌" },
         change = { text = "▌" },

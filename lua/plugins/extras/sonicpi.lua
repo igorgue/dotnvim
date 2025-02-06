@@ -1,3 +1,5 @@
+require("utils").cmp_append_default_source("sonicpi")
+
 local function get_server_path()
   local exepath = vim.fn.exepath("sonic-pi")
   ---@diagnostic disable-next-line: undefined-field

@@ -63,7 +63,7 @@ return {
             return {}
           end
 
-          return { "lsp", "path", "snippets", "buffer", "emoji" }
+          return vim.g.cmp_default_sources
         end,
         providers = {
           emoji = {

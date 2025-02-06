@@ -1,3 +1,5 @@
+require("utils").cmp_append_default_source("crates")
+
 return {
   {
     "saghen/blink.cmp",
