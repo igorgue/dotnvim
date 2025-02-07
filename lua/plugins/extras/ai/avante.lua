@@ -37,13 +37,10 @@ return {
       },
     },
     opts = {
-      provider = "deepseek",
+      provider = "openai",
       file_selector = {
         provider = "snacks",
         provider_opts = {},
-      },
-      openai = {
-        model = "o1-preview",
       },
       vendors = {
         deepseek = {

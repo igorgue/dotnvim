@@ -83,6 +83,14 @@ return {
           match = true, -- jump to the first match position. (useful for `lines`)
         },
         win = {
+          preview = {
+            wo = {
+              foldcolumn = "0",
+              number = false,
+              relativenumber = false,
+              signcolumn = "no",
+            },
+          },
           input = {
             keys = {
               ["<Esc>"] = { "close", mode = { "n", "i" } },
