@@ -35,6 +35,8 @@ local function fix_colorschemes()
     if vim.tbl_contains({ "zaibatsu", "vim" }, vim.g.colors_name) then
       vim.cmd("hi! link LazyNormal Normal")
       vim.cmd("hi! link NormalFloat Normal")
+      local normal_bg = vim.fn.synIDattr(vim.fn.hlID("Normal"), "bg")
+      vim.cmd("hi! MatchParenCur guibg=" .. normal_bg)
     end
 
     vim.api.nvim_set_hl(
