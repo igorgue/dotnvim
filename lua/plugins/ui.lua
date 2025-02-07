@@ -736,6 +736,7 @@ return {
     "s1n7ax/nvim-window-picker",
     name = "window-picker",
     event = "VeryLazy",
+    optional = true,
     config = function()
       require("window-picker").setup()
     end,
