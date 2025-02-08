@@ -36,7 +36,7 @@ local function fix_colorschemes()
       vim.cmd("hi! link LazyNormal Normal")
       vim.cmd("hi! link NormalFloat Normal")
       local normal_bg = vim.fn.synIDattr(vim.fn.hlID("Normal"), "bg")
-      vim.cmd("hi! MatchParenCur guibg=" .. normal_bg)
+      vim.cmd("hi! MatchParenCur guibg=#" .. normal_bg)
     end
 
     vim.api.nvim_set_hl(
