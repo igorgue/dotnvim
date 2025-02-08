@@ -8,14 +8,6 @@ return {
     local rainbow_delimiters = require("rainbow-delimiters")
 
     vim.g.rainbow_delimiters = {
-      strategy = {
-        ["*"] = rainbow_delimiters.strategy["global"],
-      },
-      query = {
-        ["*"] = "rainbow-delimiters",
-        jinja = "rainbow-blocks",
-        lua = "rainbow-blocks",
-      },
       highlight = {
         "RainbowDelimiterRed",
         "RainbowDelimiterYellow",
