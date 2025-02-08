@@ -9,6 +9,7 @@ pcall(vim.api.nvim_del_keymap, "n", ">")
 pcall(vim.api.nvim_del_keymap, "v", "<")
 pcall(vim.api.nvim_del_keymap, "v", ">")
 pcall(vim.api.nvim_del_keymap, "n", "<leader>gg")
+pcall(vim.api.nvim_del_keymap, "n", "<leader>gd")
 pcall(vim.api.nvim_del_keymap, "n", "<leader>ul")
 pcall(vim.api.nvim_del_keymap, "n", "<leader>uh")
 
@@ -20,6 +21,7 @@ wk.add({
   { "<leader>cg", group = "github" },
   { "m", group = "marks" },
   { "<leader>m", group = "marks" },
+  { "<leader>gd", group = "diff" }, -- git/diff
   { "<leader>a", group = "ai", mode = { "n", "v", "i" } },
   { "!", group = "filter", mode = { "n", "v" } },
   { "<", group = "indent/left", mode = { "n", "v" } },
@@ -123,6 +125,7 @@ wk.add({
   { "<C-g>", require("utils").file_info, desc = "File Info", mode = "n" },
   { "<leader>X", "<cmd>LazyExtras<cr>", desc = "Lazy Extras" },
   { "<leader>gg", "<cmd>Lazygit<cr>", desc = "Lazygit" },
+  { "<leader>gdh", function() Snacks.picker.git_diff() end, desc = "Git Diff (hunks)" },
   {
     "<leader>=",
     force_format,
@@ -196,7 +199,7 @@ Snacks.toggle({
   set = function(state)
     vim.cmd("Diffview" .. (state and "Open" or "Close"))
   end,
-}):map("<leader>gD")
+}):map("<leader>gdd")
 
 Snacks.toggle({
   name = "Focus Mode",
