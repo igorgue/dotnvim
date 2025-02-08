@@ -72,12 +72,14 @@ return {
             },
           },
         },
-        credo = { enable = false },
+        credo = { enable = true },
         elixirls = {
-          enable = false,
+          enable = true,
           settings = elixirls.settings({
             dialyzerEnabled = true,
-            fetchDeps = false,
+            fetchDeps = true,
+            enableTestLenses = true,
+            suggestSpecs = true,
           }),
         },
       })
