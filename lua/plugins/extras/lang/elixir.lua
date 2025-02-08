@@ -64,22 +64,22 @@ return {
             },
             extensions = {
               credo = {
-                enable = true,
+                enable = false,
               },
               elixir = {
-                enable = true,
+                enable = false,
               },
             },
           },
         },
-        credo = { enable = true },
+        credo = { enable = false },
         elixirls = {
-          enable = true,
+          enable = false,
           settings = elixirls.settings({
-            dialyzerEnabled = true,
-            fetchDeps = true,
-            enableTestLenses = true,
-            suggestSpecs = true,
+            dialyzerEnabled = false,
+            fetchDeps = false,
+            enableTestLenses = false,
+            suggestSpecs = false,
           }),
         },
       })
