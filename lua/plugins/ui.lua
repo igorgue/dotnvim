@@ -41,7 +41,7 @@ return {
             { icon = " ", key = "c", desc = "config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
             { icon = "󰒲 ", key = "l", desc = "lazy", action = ":Lazy" },
             { icon = " ", key = "x", desc = "lazy extras", action = ":LazyExtras" },
-            { icon = " ", key = "t", desc = "terminal", action = ":lua Snacks.terminal()" },
+            { icon = " ", key = "t", desc = "terminal", action = ":ene | :lua Snacks.terminal()" },
             { icon = " ", key = "d", desc = "database", action = ":ene | DBUI" },
             { icon = " ", key = "q", desc = "quit", action = ":qa" },
           },
