@@ -19,6 +19,7 @@ return {
       -- bigfile = {
       --   size = 200 * 1024, -- 200KB
       -- },
+      image = {},
       dashboard = {
         preset = {
           header = "NVIM " .. require("utils").version(),
