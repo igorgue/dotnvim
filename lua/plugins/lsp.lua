@@ -39,7 +39,7 @@ return {
         { "<c-s-k>", function() return vim.lsp.buf.signature_help() end, mode = "i", desc = "Signature Help", has = "signatureHelp" },
         { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
         { "<leader>cf", function() format({force = true}) end, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
-        { "<leader>ci", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+        { "<leader>ci", function() Snacks.picker.lsp_config() end, desc = "Lsp Info" },
         -- stylua: ignore end
       }
 
