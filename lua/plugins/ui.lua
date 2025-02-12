@@ -16,9 +16,9 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
-      -- bigfile = {
-      --   size = 200 * 1024, -- 200KB
-      -- },
+      bigfile = {
+        size = 200 * 1024, -- 200KB
+      },
       image = {},
       dashboard = {
         preset = {
