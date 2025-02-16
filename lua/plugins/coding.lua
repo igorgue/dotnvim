@@ -44,17 +44,37 @@ return {
           border = "rounded",
         },
       },
+
       keymap = {
         preset = "enter",
         ["<C-space>"] = { "show" },
-        ["<C-y>"] = { "show", "select_and_accept", "fallback" },
         ["<Tab>"] = vim.g.ai_cmp and { "select_and_accept" } or {},
         ["<C-e>"] = { "hide" },
         ["<C-j>"] = {
-          LazyVim.cmp.map({ "snippet_forward", "ai_accept" }),
-          "show",
-          "select_and_accept",
-          "fallback",
+          LazyVim.cmp.map(vim.g.ai_cmp and { "snippet_forward", "ai_accept" } or { "snippet_forward" }),
+          function(cmp)
+            cmp.show({
+              providers = { "snippets" },
+              callback = function()
+                local line = vim.api.nvim_get_current_line()
+                local col = vim.fn.col(".")
+                local start_col = col
+                local end_col = col
+
+                while start_col > 1 and line:sub(start_col - 1, start_col - 1):match("%w") do
+                  start_col = start_col - 1
+                end
+                while end_col <= #line and line:sub(end_col, end_col):match("%w") do
+                  end_col = end_col + 1
+                end
+
+                local word = line:sub(start_col, end_col - 1)
+                if #word >= 1 then
+                  cmp.accept()
+                end
+              end,
+            })
+          end,
         },
       },
       sources = {
