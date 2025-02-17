@@ -8,7 +8,7 @@ return {
     },
     opts = {
       enabled = function()
-        return not vim.tbl_contains(vim.g.cmp_disabled_filetypes, vim.bo.filetype)
+        return not vim.g.cmp_disabled and not vim.tbl_contains(vim.g.cmp_disabled_filetypes, vim.bo.filetype)
       end,
       completion = {
         list = {
@@ -78,13 +78,7 @@ return {
         },
       },
       sources = {
-        default = function()
-          if vim.g.cmp_disable_sources then
-            return {}
-          end
-
-          return vim.g.cmp_default_sources
-        end,
+        default = { "lsp", "path", "snippets", "buffer", "omni", "emoji" },
         providers = {
           emoji = {
             module = "blink-emoji",

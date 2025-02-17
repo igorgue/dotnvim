@@ -1,5 +1,3 @@
-require("utils").cmp_append_default_source("cody")
-
 return {
   desc = "Sourcegraph",
   {

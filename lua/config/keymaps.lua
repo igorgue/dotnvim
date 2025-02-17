@@ -234,10 +234,10 @@ Snacks.toggle({
 Snacks.toggle({
   name = "Blink",
   get = function()
-    return not vim.g.cmp_disable_sources
+    return not vim.g.cmp_disabled
   end,
   set = function(state)
-    vim.g.cmp_disable_sources = not state
+    vim.g.cmp_disabled = not state
   end,
 }):map("<M-b>", { mode = { "v", "i", "n" } })
 

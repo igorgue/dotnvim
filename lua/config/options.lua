@@ -131,7 +131,6 @@ vim.g.lazyvim_picker = vim.env.LAZYVIM_PICKER or "snacks" -- "telescope", "fzf",
 vim.g.lazyvim_cmp = vim.env.LAZYVIM_CMP or "blink.cmp" -- or "nvim-cmp" for cmp, "blink.cmp" for blink, "auto" for default
 vim.g.lazyvim_blink_main = false
 vim.g.always_show_gitsigns = false
-vim.g.cmp_disable_sources = false
-vim.g.cmp_default_sources = { "lsp", "path", "snippets", "buffer", "omni", "emoji" }
+vim.g.cmp_disabled = false
 vim.g.cmp_disabled_filetypes = { "TelescopePrompt", "neorepl", "snacks_picker_input" }
 vim.g.focus_mode = vim.env.LAZYVIM_DISABLE_FOCUS_MODE == nil and true or false
