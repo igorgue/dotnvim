@@ -3,8 +3,9 @@ return {
     "CopilotC-Nvim/CopilotChat.nvim",
     opts = {
       show_help = false,
-      chat_autocomplete = false,
-      -- model = "o1",
+      chat_autocomplete = true,
+      log_level = "error",
+      model = "o3-mini",
       mappings = {
         submit_prompt = {
           insert = "<C-CR>",
@@ -19,13 +20,25 @@ return {
       },
     },
     build = "make tiktoken",
-    cmd = {
-      "CopilotChat",
-      "CopilotChatToggle",
-      "CopilotChatLoad",
-      "CopilotChatSave",
-      "CopilotChatReset",
-    },
+    cmd = { "CopilotChat", "CopilotChatToggle", "CopilotChatLoad", "CopilotChatSave", "CopilotChatReset" },
+    init = function()
+      LazyVim.on_very_lazy(function()
+        vim.cmd("CopilotChatLoad default")
+      end)
+
+      vim.api.nvim_create_autocmd("BufWinLeave", {
+        pattern = "copilot-chat",
+        callback = function()
+          vim.cmd("CopilotChatSave default")
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("VimLeavePre", {
+        callback = function()
+          vim.cmd("CopilotChatSave default")
+        end,
+      })
+    end,
     keys = {
       {
         "<C-;>",
@@ -57,6 +70,7 @@ return {
         desc = "Completion (Copilot)",
         mode = "i",
         expr = true,
+        silent = true,
         replace_keycodes = false,
         ft = "copilot-chat",
       },
