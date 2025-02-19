@@ -125,7 +125,13 @@ wk.add({
   { "<C-g>", require("utils").file_info, desc = "File Info", mode = "n" },
   { "<leader>X", "<cmd>LazyExtras<cr>", desc = "Lazy Extras" },
   { "<leader>gg", "<cmd>Lazygit<cr>", desc = "Lazygit" },
-  { "<leader>gdh", function() Snacks.picker.git_diff() end, desc = "Git Diff (hunks)" },
+  {
+    "<leader>gdh",
+    function()
+      Snacks.picker.git_diff()
+    end,
+    desc = "Git Diff (hunks)",
+  },
   {
     "<leader>=",
     force_format,
