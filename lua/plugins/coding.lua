@@ -44,10 +44,9 @@ return {
           border = "rounded",
         },
       },
-
       keymap = {
         preset = "enter",
-        ["<C-space>"] = { "show" },
+        ["<C-space>"] = { "show", function() end },
         ["<Tab>"] = vim.g.ai_cmp and { "select_and_accept" } or {},
         ["<C-e>"] = { "hide" },
         ["<C-j>"] = {
