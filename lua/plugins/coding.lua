@@ -77,7 +77,8 @@ return {
         },
       },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "omni", "emoji" },
+        -- default = { "lsp", "path", "snippets", "buffer", "omni", "emoji" },
+        default = { "lsp", "path", "snippets", "buffer", "emoji" },
         providers = {
           emoji = {
             module = "blink-emoji",
