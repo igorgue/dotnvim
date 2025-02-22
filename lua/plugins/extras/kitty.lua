@@ -30,7 +30,7 @@ end
 
 -- kitty bg support, maybe in the future it could store the kitty bg at start
 if vim.env.KITTY_WINDOW_ID and vim.env.KITTY_SCROLLBACK_NVIM ~= "true" then
-  vim.g.kitty_bg = vim.fn.system("kitty @ get-colors | grep ^background | awk '{print $2}'")
+  vim.g.kitty_bg = vim.g.kitty_bg or vim.fn.system("kitty @ get-colors | grep ^background | awk '{print $2}'")
 
   vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
