@@ -5,6 +5,7 @@ return {
       show_help = false,
       chat_autocomplete = true,
       log_level = "error",
+      -- model = "DeepSeek-R1",
       model = "o3-mini",
       mappings = {
         submit_prompt = {
