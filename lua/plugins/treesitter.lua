@@ -29,7 +29,8 @@ return {
             end
           end
 
-          return false
+          -- PERF: doesn't perform well on large files
+          return vim.fn.getfsize(filepath) > 100 * 1024
         end,
       },
       incremental_selection = {
