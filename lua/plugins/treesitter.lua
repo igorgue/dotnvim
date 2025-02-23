@@ -56,6 +56,7 @@ return {
       },
       matchup = {
         enable = true,
+        include_match_words = true,
         disable = function(_)
           local filepath = vim.fn.expand("%:p")
           for _, pattern in ipairs(vim.g.cmp_disabled_files or {}) do
@@ -64,8 +65,8 @@ return {
             end
           end
 
-          -- PERF: doesn't perform well on large files
-          return vim.fn.getfsize(filepath) > 200 * 1024
+          -- PERF: doesn't perform well on "large" files
+          return vim.fn.getfsize(filepath) > 32 * 1024
         end,
       },
     },
