@@ -4,10 +4,7 @@ return {
     dependencies = {
       "brianhuster/nvim-treesitter-endwise",
     },
-    lazy = false,
     cmd = { "TSEnable", "TSBufEnable" },
-    -- stylua: ignore
-    event = function() return {} end,
     opts = {
       highlight = {
         enable = true,
@@ -67,7 +64,8 @@ return {
             end
           end
 
-          return false
+          -- PERF: doesn't perform well on large files
+          return vim.fn.getfsize(filepath) > 200 * 1024
         end,
       },
     },

@@ -16,9 +16,6 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
-      bigfile = {
-        size = 200 * 1024, -- 200KB
-      },
       image = {},
       dashboard = {
         preset = {
@@ -338,7 +335,8 @@ return {
         tailwind_opts = {
           update_names = true,
         },
-        sass = { enable = true, parsers = { "css" } },
+        -- PERF: this feature is very slow
+        sass = { enable = false, parsers = { "css" } },
         always_update = true,
       },
     },
