@@ -349,3 +349,16 @@ wk.add({
   { "m9", function() toggle_mark("I") end, desc = "Toggle mark I" },
   { "m0", function() toggle_mark("J") end, desc = "Toggle mark J" },
 })
+
+wk.add({
+  { "`1", "`A", desc = "Go to mark A" },
+  { "`2", "`B", desc = "Go to mark B" },
+  { "`3", "`C", desc = "Go to mark C" },
+  { "`4", "`D", desc = "Go to mark D" },
+  { "`5", "`E", desc = "Go to mark E" },
+  { "`6", "`F", desc = "Go to mark F" },
+  { "`7", "`G", desc = "Go to mark G" },
+  { "`8", "`H", desc = "Go to mark H" },
+  { "`9", "`I", desc = "Go to mark I" },
+  { "`0", "`J", desc = "Go to mark J" },
+})
