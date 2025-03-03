@@ -25,6 +25,12 @@ return {
         menu = {
           border = "rounded",
           auto_show = false,
+          draw = {
+            columns = {
+              { "kind_icon", "label", gap = 1 },
+              { "label_description", "source_id" },
+            },
+          },
         },
         documentation = {
           window = {
@@ -60,15 +66,18 @@ return {
                 local start_col = col
                 local end_col = col
 
-                while start_col > 1 and line:sub(start_col - 1, start_col - 1):match("%w") do
+                while start_col > 1 and line:sub(start_col - 1, start_col - 1):match("[%w_]") do
                   start_col = start_col - 1
                 end
-                while end_col <= #line and line:sub(end_col, end_col):match("%w") do
+
+                while end_col <= #line and line:sub(end_col, end_col):match("[%w_]") do
                   end_col = end_col + 1
                 end
 
                 local word = line:sub(start_col, end_col - 1)
-                if #word >= 1 then
+                local items = require("blink.cmp").get_items()
+
+                if #items > 0 and word == items[1].label then
                   cmp.accept()
                 end
               end,
