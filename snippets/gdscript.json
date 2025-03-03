@@ -1,0 +1,16 @@
+{
+  "_physics_process method of Node": {
+    "prefix": "physics",
+    "body": ["func _physics_process(delta):", "\t${1:pass}"]
+  },
+  "GDScript wait": {
+    "prefix": ["wait", "timer"],
+    "body": ["await get_tree().create_timer($1).timeout"],
+    "description": "Waits for a given amount of seconds"
+  },
+  "GDScript quit": {
+    "prefix": ["quit", "on_quit"],
+    "body": ["func _on_quit_pressed():", "\tget_tree().quit()"],
+    "description": "Waits for a given amount of seconds"
+  }
+}
