@@ -1,10 +1,42 @@
+require("blink.cmp")
+
+--- Triggers a snippet if full snippet label is typed
+--- else just show the completion menu with only snippets
+--- useful for ctrl+j and probably <Tab> but I cannot
+--- get to keymap that, I don't know how to override its behavior
+--- @param cmp blink.cmp.API
+local function trigger_snippet(cmp)
+  cmp.show({
+    providers = { "snippets" },
+    callback = function()
+      local line = vim.api.nvim_get_current_line()
+      local col = vim.fn.col(".")
+      local start_col = col
+      local end_col = col
+
+      while start_col > 1 and line:sub(start_col - 1, start_col - 1):match("[%w_]") do
+        start_col = start_col - 1
+      end
+
+      while end_col <= #line and line:sub(end_col, end_col):match("[%w_]") do
+        end_col = end_col + 1
+      end
+
+      local items = cmp.get_items()
+      local word = line:sub(start_col, end_col - 1)
+      if #items > 0 and word == items[1].label then
+        cmp.accept()
+      end
+    end,
+  })
+end
+
 return {
   {
     "saghen/blink.cmp",
     optional = true,
     dependencies = {
-      "moyiz/blink-emoji.nvim",
-      { "saghen/blink.compat", version = "*" },
+      { "saghen/blink.compat", version = not vim.g.lazyvim_blink_main and "*" },
     },
     opts = {
       enabled = function()
@@ -52,54 +84,36 @@ return {
       },
       keymap = {
         preset = "enter",
-        ["<C-space>"] = { "show", function() end },
-        ["<Tab>"] = vim.g.ai_cmp and { "select_and_accept" } or {},
-        ["<C-e>"] = { "hide" },
-        ["<C-j>"] = {
-          LazyVim.cmp.map(vim.g.ai_cmp and { "snippet_forward", "ai_accept" } or { "snippet_forward" }),
-          function(cmp)
-            cmp.show({
-              providers = { "snippets" },
-              callback = function()
-                local line = vim.api.nvim_get_current_line()
-                local col = vim.fn.col(".")
-                local start_col = col
-                local end_col = col
-
-                while start_col > 1 and line:sub(start_col - 1, start_col - 1):match("[%w_]") do
-                  start_col = start_col - 1
-                end
-
-                while end_col <= #line and line:sub(end_col, end_col):match("[%w_]") do
-                  end_col = end_col + 1
-                end
-
-                local word = line:sub(start_col, end_col - 1)
-                local items = require("blink.cmp").get_items()
-
-                if #items > 0 and word == items[1].label then
-                  cmp.accept()
-                end
-              end,
-            })
-          end,
-        },
+        ["<C-p>"] = { "select_prev", "fallback" },
+        ["<C-n>"] = { "select_next", "fallback" },
+        ["<C-j>"] = { "snippet_forward", trigger_snippet },
       },
       sources = {
-        -- default = { "lsp", "path", "snippets", "buffer", "omni", "emoji" },
-        default = { "lsp", "path", "snippets", "buffer", "emoji" },
         providers = {
-          emoji = {
-            module = "blink-emoji",
-            name = "Emoji",
-            score_offset = -15,
-          },
           snippets = {
             opts = {
               extended_filetypes = {
                 jinja = { "html", "djangohtml" },
               },
             },
+          },
+        },
+      },
+    },
+  },
+  {
+    "saghen/blink.cmp",
+    dependencies = {
+      "moyiz/blink-emoji.nvim",
+    },
+    opts = {
+      sources = {
+        default = { "emoji" },
+        providers = {
+          emoji = {
+            module = "blink-emoji",
+            name = "Emoji",
+            score_offset = -15,
           },
         },
       },
