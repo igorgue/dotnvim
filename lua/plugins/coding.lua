@@ -1,9 +1,8 @@
-require("blink.cmp")
-
 --- Triggers a snippet if full snippet label is typed
 --- else just show the completion menu with only snippets
 --- useful for ctrl+j and probably <Tab> but I cannot
 --- get to keymap that, I don't know how to override its behavior
+--- @module "blink.cmp"
 --- @param cmp blink.cmp.API
 local function trigger_snippet(cmp)
   cmp.show({
