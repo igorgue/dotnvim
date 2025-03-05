@@ -26,16 +26,6 @@ return {
           vim.b.workspace_folder = vim.fn.getcwd()
         end,
       })
-
-      Snacks.toggle({
-        name = "Github Copilot (official)",
-        get = function()
-          return vim.api.nvim_call_function("g:copilot#Enabled", {}) ~= 0
-        end,
-        set = function(state)
-          vim.cmd("Copilot " .. (state and "enable" or "disable"))
-        end,
-      }):map("<leader>aC")
     end,
     keys = {
       {

@@ -247,6 +247,22 @@ Snacks.toggle({
   end,
 }):map("<M-b>", { mode = { "v", "i", "n" } })
 
+Snacks.toggle({
+  name = "Github Copilot",
+  get = function()
+    if require("lazy.core.config").plugins["copilot.vim"] ~= nil then
+      return vim.api.nvim_call_function("g:copilot#Enabled", {}) ~= 0
+    else
+      if require("lazy.core.config").plugins["copilot.lua"] ~= nil then
+        return not require("copilot.client").is_disabled()
+      end
+    end
+  end,
+  set = function(state)
+    vim.cmd("Copilot " .. (state and "enable" or "disable"))
+  end,
+}):map("<leader>aC")
+
 -- some special cases:
 pcall(vim.api.nvim_del_keymap, "v", "<C-k>")
 pcall(vim.api.nvim_del_keymap, "i", "<C-k>")
