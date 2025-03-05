@@ -1,7 +1,3 @@
-vim.g.clue_options = {
-  default_handler = "popup",
-}
-
 return {
   {
     "KabbAmine/zeavim.vim",
@@ -12,10 +8,5 @@ return {
       { "<leader>z", "<Plug>ZVVisSelection", "Search Zeal", mode = "v" },
       { "gz", "<Plug>ZVOperator", "Zeal Operator" },
     },
-  },
-  {
-    "vimpostor/vim-clue",
-    config = false,
-    lazy = false,
   },
 }
