@@ -250,10 +250,10 @@ Snacks.toggle({
 Snacks.toggle({
   name = "Github Copilot",
   get = function()
-    if require("lazy.core.config").plugins["copilot.vim"] ~= nil then
+    if LazyVim.has("copilot.vim") then
       return vim.api.nvim_call_function("g:copilot#Enabled", {}) ~= 0
     else
-      if require("lazy.core.config").plugins["copilot.lua"] ~= nil then
+      if LazyVim.has("copilot.lua") then
         return not require("copilot.client").is_disabled()
       end
     end
