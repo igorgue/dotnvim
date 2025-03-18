@@ -1,3 +1,6 @@
+-- FIXME: it doesn't work because of how focus mode works
+-- it sets the global diagnostic.enable and that takes,
+-- priority over the buffer local diagnostic.enable
 vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = "*.env",
   callback = function()

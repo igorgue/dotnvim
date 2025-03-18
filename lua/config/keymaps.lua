@@ -215,7 +215,9 @@ Snacks.toggle({
   set = function(state)
     require("utils").ui.toggle_focus_mode(state)
   end,
-}):map("<M-f>", { mode = { "v", "i", "n" } })
+})
+  :map("<M-f>", { mode = { "v", "i", "n" } })
+  :map("<leader>u.f")
 
 Snacks.toggle({
   name = "LSP References",
