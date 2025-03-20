@@ -66,6 +66,13 @@ return {
           model = "deepseek-coder-v2:16b",
         },
       },
+      mappings = {
+        --- @class AvanteConflictMappings
+        submit = {
+          normal = "<CR>",
+          insert = "<S-CR>",
+        },
+      },
       hints = { enabled = false },
     },
   },

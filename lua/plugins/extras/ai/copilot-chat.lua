@@ -9,10 +9,10 @@ return {
       model = "o3-mini",
       mappings = {
         submit_prompt = {
-          insert = "<C-CR>",
+          insert = "<S-CR>",
         },
         complete = {
-          insert = "<s-Tab>",
+          insert = "<S-Tab>",
         },
         reset = {
           insert = "<C-del>",
