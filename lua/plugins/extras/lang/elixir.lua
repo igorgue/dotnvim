@@ -64,10 +64,10 @@ return {
             },
             extensions = {
               credo = {
-                enable = false,
+                enable = true,
               },
               elixir = {
-                enable = false,
+                enable = true,
               },
             },
           },
@@ -122,7 +122,7 @@ return {
     optional = true,
     config = function()
       local elixir_ls = os.getenv("HOME")
-        .. "/.cache/nvim/elixir-tools.nvim/installs/elixir-lsp/elixir-ls/v0.26.2/1.18.1-27"
+        .. "/.cache/nvim/elixir-tools.nvim/installs/elixir-lsp/elixir-ls/tags_v0.22.0/1.18.1-27"
       local dap = require("dap")
 
       dap.adapters.elixir = {
