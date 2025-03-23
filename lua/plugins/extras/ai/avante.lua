@@ -70,7 +70,7 @@ return {
         --- @class AvanteConflictMappings
         submit = {
           normal = "<CR>",
-          insert = "<S-CR>",
+          insert = "<CR>",
         },
       },
       hints = { enabled = false },
