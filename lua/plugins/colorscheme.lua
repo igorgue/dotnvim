@@ -109,6 +109,11 @@ local function fix_colorschemes()
   end
 
   vim.api.nvim_set_hl(0, "TreesitterContext", { link = "CursorLine" })
+  vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "none" })
+  vim.api.nvim_set_hl(0, "PmenuKind", { bg = "none" })
+  vim.api.nvim_set_hl(0, "BlinkCmpSource", { bg = "none", link = "Statement" })
+  vim.api.nvim_set_hl(0, "BlinkCmpKind", { bg = "none", link = "Identifier"})
+  vim.api.nvim_set_hl(0, "BlinkCmpLabelDeprecated", { bg = "none" })
 end
 
 -- completes a few colorschemes
