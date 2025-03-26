@@ -165,13 +165,6 @@ wk.add({
     mode = "v",
     icon = { icon = "", color = "grey" },
   },
-  {
-    "<leader>p",
-    '"+p',
-    desc = "Paste from clipboard",
-    mode = { "v", "n" },
-    icon = { icon = "", color = "grey" },
-  },
 })
 
 -- Snacks' toggles
@@ -247,7 +240,9 @@ Snacks.toggle({
   set = function(state)
     vim.g.cmp_disabled = not state
   end,
-}):map("<M-b>", { mode = { "v", "i", "n" } })
+})
+  :map("<M-b>", { mode = { "v", "i", "n" } })
+  :map("<leader>cb")
 
 Snacks.toggle({
   name = "Github Copilot",

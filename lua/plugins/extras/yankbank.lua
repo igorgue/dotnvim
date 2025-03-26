@@ -3,14 +3,13 @@ return {
     "ptdewey/yankbank-nvim",
     dependencies = "kkharji/sqlite.lua",
     event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("yankbank").setup({
-        persist_type = "sqlite",
-        num_behavior = "jump",
-      })
-    end,
+    opts = {
+      persist_type = "sqlite",
+      num_behavior = "jump",
+      max_entries = 100,
+    },
     keys = {
-      { "<leader>P", "<cmd>YankBank<CR>", desc = "Open YankBank" },
+      { "<leader>p", "<cmd>YankBank<CR>", desc = "Open YankBank" },
     },
   },
 }

@@ -6,7 +6,7 @@ return {
       chat_autocomplete = true,
       log_level = "error",
       -- model = "DeepSeek-R1",
-      model = "o3-mini",
+      -- model = "o3-mini",
       mappings = {
         submit_prompt = {
           insert = "<CR>",

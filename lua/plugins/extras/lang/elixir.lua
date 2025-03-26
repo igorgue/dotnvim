@@ -64,10 +64,10 @@ return {
             },
             extensions = {
               credo = {
-                enable = true,
+                enable = false,
               },
               elixir = {
-                enable = true,
+                enable = false,
               },
             },
           },
