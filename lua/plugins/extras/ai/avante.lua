@@ -1,5 +1,24 @@
 return {
   {
+    "saghen/blink.cmp",
+    optional = true,
+    dependencies = {
+      "Kaiser-Yang/blink-cmp-avante",
+    },
+    opts = {
+      sources = {
+        default = { "avante" },
+        providers = {
+          avante = {
+            module = "blink-cmp-avante",
+            name = "Avante",
+            opts = {},
+          },
+        },
+      },
+    },
+  },
+  {
     "CopilotC-Nvim/CopilotChat.nvim",
     -- still accessible via ctrl+; and the rest of the keys actually work
     -- this is the only way to make `<leader>aa` work for avante
