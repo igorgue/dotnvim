@@ -8,6 +8,7 @@ return {
     "olimorris/codecompanion.nvim",
     dependencies = { "j-hui/fidget.nvim" },
     config = true,
+    cmd = "CodeCompanion",
     opts = {
       strategies = {
         chat = {
@@ -63,9 +64,7 @@ return {
         inline = { adapter = "copilot" },
       },
       display = {
-        action_palette = {
-          provider = "default",
-        },
+        action_palette = { provider = "default" },
         chat = {
           show_references = true,
           show_header_separator = true,
@@ -77,18 +76,8 @@ return {
       vim.cmd([[cab cc CodeCompanion]])
     end,
     keys = {
-      {
-        "<C-;>",
-        "<cmd>CodeCompanionChat Toggle<cr>",
-        desc = "Toggle (CodeCompanion Chat)",
-        mode = { "n", "v", "i" },
-      },
-      {
-        "<leader>ac",
-        "<cmd>CodeCompanionChat Toggle<CR>",
-        desc = "Toggle CodeCompanion Chat",
-        mode = { "n", "v" },
-      },
+      { "<C-;>", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle (CopilotChatToggle)", mode = { "n", "v", "i" } },
+      { "<leader>ac", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion Chat", mode = { "n", "v" } },
     },
   },
 }

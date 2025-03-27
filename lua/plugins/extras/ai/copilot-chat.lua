@@ -41,23 +41,23 @@ return {
       })
     end,
     keys = {
-      {
-        "<C-;>",
-        "<cmd>CopilotChatToggle<cr>",
-        desc = "Toggle (CopilotChat)",
-        mode = { "n", "v", "i" },
-      },
-      {
-        "<C-s-;>",
-        function()
-          vim.cmd([[
-            CopilotChatLoad default
-            CopilotChatToggle
-          ]])
-        end,
-        desc = "Reload (CopilotChat)",
-        mode = { "n", "v", "i" },
-      },
+      -- {
+      --   "<C-;>",
+      --   "<cmd>CopilotChatToggle<cr>",
+      --   desc = "Toggle (CopilotChat)",
+      --   mode = { "n", "v", "i" },
+      -- },
+      -- {
+      --   "<C-s-;>",
+      --   function()
+      --     vim.cmd([[
+      --       CopilotChatLoad default
+      --       CopilotChatToggle
+      --     ]])
+      --   end,
+      --   desc = "Reload (CopilotChat)",
+      --   mode = { "n", "v", "i" },
+      -- },
       {
         "<C-s>",
         "<cmd>CopilotChatSave default<cr>",
