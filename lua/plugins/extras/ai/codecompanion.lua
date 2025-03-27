@@ -105,8 +105,8 @@ return {
 
       local function create_progress_handle(request)
         return progress.handle.create({
-          title = "  Sending...",
-          message = "Requesting assistance (" .. request.data.strategy .. ")",
+          title = "",
+          message = "  Sending... (" .. request.data.strategy .. ")",
           lsp_client = {
             name = llm_role_title(request.data.adapter),
           },
