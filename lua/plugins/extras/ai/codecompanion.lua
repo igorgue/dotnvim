@@ -11,9 +11,20 @@ return {
     },
     cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
     opts = {
+      adapters = {
+        gemini = function()
+          return require("codecompanion.adapters").extend("gemini", {
+            schema = {
+              model = {
+                default = "gemini-2.5-pro-exp-03-25",
+              },
+            },
+          })
+        end,
+      },
       strategies = {
         chat = {
-          adapter = "copilot",
+          adapter = "gemini",
           roles = {
             user = "igorgue",
           },
