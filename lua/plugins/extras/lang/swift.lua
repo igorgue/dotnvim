@@ -24,30 +24,36 @@ return {
           type = "swift",
           request = "launch",
           program = function()
-            vim.fn.system("swift build -Xswiftc -g")
+            vim.notify("Building Swift project...", vim.log.levels.INFO)
+            vim.fn.system("swift_dap build -Xswiftc -g")
+            require("utils").ui.refresh_ui()
+            vim.notify("Build complete", vim.log.levels.INFO)
 
-            if vim.b.swift_executable then
-              return vim.b.swift_executable
+            if vim.g.swift_dap_executable then
+              return vim.g.swift_dap_executable
             else
-              vim.b.swift_executable = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/.build/debug/", "file")
+              vim.g.swift_dap_executable = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/.build/debug/", "file")
             end
 
-            return vim.b.swift_executable
+            return vim.g.swift_dap_executable
           end,
           cwd = "${workspaceFolder}",
           stopOnEntry = false,
           args = function()
-            if vim.b.swift_args then
-              return vim.b.swift_args
-            else
-              vim.b.swift_args = { vim.fn.input("Arguments: ", "", "file") }
+            if vim.g.swift_dap_argv ~= nil then
+              return vim.g.swift_dap_argv
             end
 
-            if vim.b.swift_args == "" then
-              return {}
-            else
-              return vim.split(vim.b.swift_args, " ")
+            local argv = {}
+            local arg = vim.fn.input(string.format("Arguments: ", "", "file"))
+
+            for a in string.gmatch(arg, "%S+") do
+              table.insert(argv, a)
             end
+
+            vim.g.swift_dap_argv = argv
+
+            return argv
           end,
         },
       }
