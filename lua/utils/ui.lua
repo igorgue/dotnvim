@@ -273,7 +273,7 @@ end
 function M.autostart_focus_mode()
   vim.defer_fn(function()
     require("utils").ui.toggle_focus_mode(vim.g.focus_mode)
-  end, 100)
+  end, 250)
 end
 
 return M
