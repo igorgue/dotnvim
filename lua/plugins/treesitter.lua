@@ -2,7 +2,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
-      "brianhuster/nvim-treesitter-endwise",
+      "RRethy/nvim-treesitter-endwise",
     },
     cmd = { "TSEnable", "TSBufEnable" },
     opts = {
