@@ -24,15 +24,13 @@ return {
           type = "swift",
           request = "launch",
           program = function()
-            vim.notify("Building Swift project...", vim.log.levels.INFO)
-            vim.fn.system("swift_dap build -Xswiftc -g")
-            require("utils").ui.refresh_ui()
-            vim.notify("Build complete", vim.log.levels.INFO)
+            vim.fn.system("swift build -Xswiftc -g")
 
             if vim.g.swift_dap_executable then
               return vim.g.swift_dap_executable
             else
-              vim.g.swift_dap_executable = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/.build/debug/", "file")
+              vim.g.swift_dap_executable =
+                vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/.build/debug/", "file")
             end
 
             return vim.g.swift_dap_executable

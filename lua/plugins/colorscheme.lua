@@ -101,7 +101,7 @@ local function fix_colorschemes()
       vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "none" })
       vim.api.nvim_set_hl(0, "PmenuKind", { bg = "none" })
       vim.api.nvim_set_hl(0, "BlinkCmpSource", { bg = "none", link = "Statement" })
-      vim.api.nvim_set_hl(0, "BlinkCmpKind", { bg = "none", link = "Identifier"})
+      vim.api.nvim_set_hl(0, "BlinkCmpKind", { bg = "none", link = "Identifier" })
       vim.api.nvim_set_hl(0, "BlinkCmpLabelDeprecated", { bg = "none" })
     end
   end
