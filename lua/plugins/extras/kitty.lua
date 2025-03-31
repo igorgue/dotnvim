@@ -73,7 +73,7 @@ return {
   end,
   opts = {
     status_window = {
-      enabled = false,
+      enabled = true,
       autoclose = true,
     },
     paste_window = {
@@ -89,5 +89,8 @@ return {
 
       return true
     end,
+  },
+  keys = {
+    { "<esc>", "<Plug>(KsbCloseOrQuitAll)", desc = "Quit kitty scrollback", ft = "kitty-scrollback" },
   },
 }
