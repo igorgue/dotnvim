@@ -10,6 +10,7 @@ return {
       },
     },
     cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
+    lazy = false,
     opts = {
       adapters = {
         gemini = function()
