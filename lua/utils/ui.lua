@@ -26,6 +26,11 @@ function M.refresh_ui()
     pcall(function() vim.cmd("DBUIHideNotifications") end)
   end
 
+  vim.cmd[[
+    cd ~
+    cd -
+  ]]
+
   -- stylua: ignore
   pcall(Snacks.notifier.hide)
 end

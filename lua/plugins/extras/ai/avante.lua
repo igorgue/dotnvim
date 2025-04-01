@@ -56,8 +56,14 @@ return {
       },
     },
     opts = {
-      provider = "openai",
+      provider = "gemini",
+      -- provider = "openai",
       -- provider = "deepseek",
+      gemini = {
+        model = "gemini-2.5-pro-exp-03-25",
+        max_tokens = 1000000,
+        timeout = 60000,
+      },
       file_selector = {
         provider = "snacks",
         provider_opts = {},
@@ -72,8 +78,10 @@ return {
           endpoint = "https://api.deepseek.com/v1",
           model = "deepseek-reasoner",
           disable_tools = true,
-          stream = true,
+          temperature = 0,
           timeout = 60000,
+          max_tokens = 8192,
+          stream = true,
         },
         ollama = {
           __inherited_from = "openai",
@@ -92,8 +100,21 @@ return {
           normal = "<CR>",
           insert = "<CR>",
         },
+        sidebar = {
+          close = "q",
+        },
       },
       hints = { enabled = false },
+    },
+    keys = {
+      -- { "<C-;>", "<cmd>AvanteToggle<cr>", desc = "Toggle (Avante)", mode = { "n", "v", "i" } },
+      {
+        "<C-del>",
+        "<cmd>AvanteClear<cr>",
+        desc = "Clear (Avante)",
+        mode = { "n", "v", "i" },
+        ft = { "AvanteInput", "AvanteSelectedFiles", "Avante" },
+      },
     },
   },
 }
