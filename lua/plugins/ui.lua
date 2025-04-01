@@ -315,6 +315,7 @@ return {
         "!neorepl",
         "!TelescopePrompt",
         "!TelescopeResults",
+        "!codecompanion",
       },
       buftypes = {
         "*",
