@@ -27,7 +27,6 @@ local disabled = {
   { "echasnovski/mini.icons", enabled = false },
   { "echasnovski/mini.ai", enabled = false },
   { "nvim-tree/nvim-web-devicons", enabled = vim.env.SSH_TTY == nil },
-  { "gbprod/yanky.nvim", enabled = vim.env.SSH_TTY == nil },
   { "ggandor/flit.nvim", enabled = false },
   { "ggandor/leap.nvim", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },

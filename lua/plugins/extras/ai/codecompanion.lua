@@ -3,17 +3,16 @@ return {
     "olimorris/codecompanion.nvim",
     dependencies = {
       "j-hui/fidget.nvim",
-      { "nvim-lua/plenary.nvim" },
-      {
-        "echasnovski/mini.nvim",
-        config = function()
-          local diff = require("mini.diff")
-          diff.setup({
-            -- Disabled by default
-            source = diff.gen_source.none(),
-          })
-        end,
-      },
+      -- {
+      --   "echasnovski/mini.nvim",
+      --   config = function()
+      --     local diff = require("mini.diff")
+      --     diff.setup({
+      --       -- Disabled by default
+      --       source = diff.gen_source.none(),
+      --     })
+      --   end,
+      -- },
       {
         "Davidyz/VectorCode",
         dependencies = { "nvim-lua/plenary.nvim" },
@@ -95,9 +94,9 @@ return {
           show_settings = false,
           render_headers = false,
         },
-        diff = {
-          provider = "mini_diff",
-        },
+        -- diff = {
+        --   provider = "mini_diff",
+        -- },
       },
     },
     init = function()
