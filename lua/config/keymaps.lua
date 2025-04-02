@@ -126,6 +126,13 @@ wk.add({
   { "<leader>X", "<cmd>LazyExtras<cr>", desc = "Lazy Extras" },
   { "<leader>gg", "<cmd>Lazygit<cr>", desc = "Lazygit" },
   {
+    "gl",
+    function()
+      vim.diagnostic.open_float(nil, { scope = "cursor" })
+    end,
+    desc = "Open diagnostic float",
+  },
+  {
     "<leader>gdh",
     function()
       Snacks.picker.git_diff()
