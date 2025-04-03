@@ -45,7 +45,9 @@ return {
         list = {
           selection = {
             preselect = true,
-            auto_insert = false,
+            auto_insert = function()
+              return not vim.g.focus_mode
+            end,
           },
         },
         accept = {
@@ -55,7 +57,9 @@ return {
         },
         menu = {
           border = "rounded",
-          auto_show = false,
+          auto_show = function()
+            return not vim.g.focus_mode
+          end,
           draw = {
             columns = {
               { "kind_icon", "label", gap = 1 },
@@ -270,8 +274,6 @@ return {
   {
     "numToStr/Comment.nvim",
     event = { "BufReadPost", "BufNewFile" },
-    -- FIXME: this doesn't quite work with kittyscrollback
-    -- enabled = vim.fn.has("nvim-0.10.0") == 0,
     config = true,
   },
   {

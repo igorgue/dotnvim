@@ -62,6 +62,7 @@ local kitty_scrollback_disabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true"
       { "romgrk/todoist.nvim", enabled = false },
       { "tpope/vim-dadbod", enabled = false },
       { "folke/ts-comments.nvim", enabled = false },
+      { "numToStr/Comment.nvim", enabled = false },
       { "jez/vim-ispc", enabled = false },
       { "s1n7ax/nvim-window-picker", enabled = false },
     }

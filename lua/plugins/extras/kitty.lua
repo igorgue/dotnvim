@@ -87,6 +87,10 @@ return {
       vim.opt.relativenumber = false
       vim.opt.syntax = "off"
 
+      vim.api.nvim_set_keymap("n", "gcc", "", {})
+      vim.api.nvim_set_keymap("v", "gc", "", {})
+      vim.api.nvim_set_keymap("x", "gc", "", {})
+
       return true
     end,
   },
