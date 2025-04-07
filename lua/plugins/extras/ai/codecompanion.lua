@@ -17,10 +17,20 @@ return {
             },
           })
         end,
+        openai = function()
+          return require("codecompanion.adapters").extend("openai", {
+            schema = {
+              model = {
+                default = "o3-mini-2025-01-31",
+              },
+            },
+          })
+        end,
       },
       strategies = {
         chat = {
-          adapter = "gemini",
+          adapter = "openai",
+          -- adapter = "gemini",
           -- adapter = "deepseek",
           roles = {
             user = "igorgue",
@@ -70,10 +80,14 @@ return {
             },
           },
         },
-        inline = { adapter = "copilot" },
+        -- inline = { adapter = "openai" },
       },
       display = {
-        action_palette = { provider = "default" },
+        -- action_palette = { provider = "default" },
+        action_palette = {
+          provider = "default",
+          show_default_prompt_library = false,
+        },
         chat = {
           show_references = true,
           show_header_separator = true,
@@ -85,17 +99,18 @@ return {
         -- },
       },
       prompt_library = {
-        ["Generate commit message"] = {
-          strategy = "chat",
+        ["Write Commit Message"] = {
+          strategy = "inline",
           description = "Generates a commit message on git commit file",
+          opts = {
+            adapter = {
+              name = "openai",
+            },
+          },
           prompts = {
             {
-              role = "system",
-              content = "You are an experienced developer with any language, you know git very well, you always write good commit messages",
-            },
-            {
               role = "user",
-              content = "#buffer @editor can you please write a commit message for me, change the current buffer please",
+              content = "#buffer @editor write the commit message for me",
             },
           },
         },
@@ -133,7 +148,7 @@ return {
       local function create_progress_handle(request)
         return progress.handle.create({
           title = "",
-          message = "  Sending... (" .. request.data.strategy .. ")",
+          message = "  " .. request.data.strategy,
           lsp_client = {
             name = llm_role_title(request.data.adapter),
           },
