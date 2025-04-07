@@ -64,6 +64,9 @@ return {
                 n = { "gx", "<C-del>" },
               },
             },
+            close = {
+              modes = { n = {}, i = {} },
+            },
           },
           slash_commands = {
             ["buffer"] = {
