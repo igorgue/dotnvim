@@ -3,17 +3,15 @@ return {
     "olimorris/codecompanion.nvim",
     dependencies = {
       "j-hui/fidget.nvim",
+      "echasnovski/mini.diff",
       { "Davidyz/VectorCode", cmd = "VectorCode" },
       {
-        "echasnovski/mini.diff", -- Inline and better diff over the default
-        config = true,
-        -- config = function()
-        --   local diff = require("mini.diff")
-        --   diff.setup({
-        --     -- Disabled by default
-        --     source = diff.gen_source.none(),
-        --   })
-        -- end,
+        "ravitemer/mcphub.nvim",
+        cmd = "MCPHub",
+        build = "bundled_build.lua",
+        opts = {
+          use_bundled_binary = true,
+        },
       },
     },
     cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
@@ -94,6 +92,12 @@ return {
               callback = function()
                 return require("vectorcode.integrations").codecompanion.chat.make_tool()
               end,
+            },
+            mcp = {
+              callback = function()
+                return require("mcphub.extensions.codecompanion")
+              end,
+              description = "Call tools and resources from the MCP Servers",
             },
           },
         },
@@ -225,9 +229,8 @@ return {
         })
       end
 
-      init_spinner()
-
       require("codecompanion").setup(opts)
+      init_spinner()
     end,
     keys = {
       { "<C-;>", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle (CopilotChatToggle)", mode = { "n", "v", "i" } },
