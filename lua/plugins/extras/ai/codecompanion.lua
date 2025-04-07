@@ -16,9 +16,9 @@ return {
     },
     cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
     init = function()
-      vim.cmd([[cab cc CodeCompanion]])
-      vim.cmd([[cab ccc CodeCompanionChat]])
-      vim.cmd([[cab cca CodeCompanionActions]])
+      vim.cmd("cab cc CodeCompanion")
+      vim.cmd("cab ccc CodeCompanionChat")
+      vim.cmd("cab cca CodeCompanionActions")
     end,
     config = function(_, opts)
       require("codecompanion").setup(opts)
@@ -47,11 +47,9 @@ return {
       },
       strategies = {
         chat = {
-          adapter = "openai",
-          -- adapter = "gemini",
-          -- adapter = "deepseek",
+          adapter = vim.g.codecompanion_adapter,
           roles = {
-            user = "igor",
+            user = vim.env.USERNAME,
           },
           keymaps = {
             send = {
@@ -110,10 +108,9 @@ return {
             },
           },
         },
-        inline = { adapter = "openai" },
+        inline = { adapter = vim.g.codecompanion_adapter },
       },
       display = {
-        -- action_palette = { provider = "default" },
         action_palette = {
           provider = "default",
           opts = {

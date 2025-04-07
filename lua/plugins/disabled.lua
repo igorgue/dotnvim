@@ -1,6 +1,6 @@
 -- NOTE: Treesitter is known (at least to me) to be very slow,
 -- so it can be toggled with an env variable
-local enable_ts = vim.env.NVIM_TS_ENABLE ~= nil
+local enable_ts = vim.env.NVIM_TS_DISABLE == nil
 
 -- NOTE: Noice is awesome but some plugins when they install
 -- they use something to capture input from the bottom status

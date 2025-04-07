@@ -566,7 +566,7 @@ return {
         },
         defaults = {
           preview = {
-            treesitter = vim.env.NVIM_TS_ENABLE ~= nil,
+            treesitter = vim.env.NVIM_TS_DISABLE == nil,
           },
           prompt_prefix = " ",
           selection_caret = "▌ ",

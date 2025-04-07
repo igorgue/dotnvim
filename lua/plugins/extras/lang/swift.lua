@@ -1,3 +1,10 @@
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "swift",
+  callback = function()
+    vim.opt_local.makeprg = "swift build -Xswiftc -g"
+  end,
+})
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -26,7 +33,7 @@ return {
           type = "swift",
           request = "launch",
           program = function()
-            vim.fn.system("swift build -Xswiftc -g")
+            vim.cmd("make")
 
             if vim.g.swift_dap_executable then
               return vim.g.swift_dap_executable

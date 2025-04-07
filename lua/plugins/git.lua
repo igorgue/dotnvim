@@ -32,12 +32,14 @@ return {
     },
     init = function()
       vim.api.nvim_create_user_command("Gblame", "Git blame", {})
+      vim.cmd("cab gb Gblame")
     end,
     keys = {
       -- stylua: ignore start
-      { "<esc>", function() vim.api.nvim_input("gq") end, desc = "Quit", ft = "fugitiveblame", },
-      { "q", function() vim.api.nvim_input("gq") end, desc = "Quit", ft = "fugitiveblame", },
+      { "<esc>", function() vim.api.nvim_input("gq") end, desc = "Quit (Fugitive)", ft = "fugitiveblame" },
+      { "q", function() vim.api.nvim_input("gq") end, desc = "Quit (Fugitive)", ft = "fugitiveblame" },
       -- stylua: ignore end
+      { "<leader>gdb", "<cmd>Gblame<cr>", desc = "Git Blame (Fugitive)" },
     },
   },
   {
