@@ -42,7 +42,7 @@ return {
           -- adapter = "gemini",
           -- adapter = "deepseek",
           roles = {
-            user = "igorgue",
+            user = "igor",
           },
           keymaps = {
             send = {
@@ -113,10 +113,12 @@ return {
           },
         },
         chat = {
+          intro_message = "",
           show_references = true,
           show_header_separator = true,
           show_settings = false,
-          render_headers = true,
+          render_headers = false,
+          start_in_insert_mode = true,
         },
         diff = {
           provider = "mini_diff",
