@@ -94,7 +94,7 @@ return {
         chat = {
           show_references = true,
           show_header_separator = true,
-          show_settings = true,
+          show_settings = false,
           render_headers = true,
         },
         -- diff = {
@@ -165,8 +165,8 @@ return {
 
       local function create_progress_handle(request)
         return progress.handle.create({
-          title = "",
-          message = "  " .. request.data.strategy,
+          title = "  CodeCompanion",
+          message = "Generating " .. request.data.strategy .. "...",
           lsp_client = {
             name = llm_role_title(request.data.adapter),
           },
