@@ -80,13 +80,16 @@ return {
             },
           },
         },
-        -- inline = { adapter = "openai" },
+        inline = { adapter = "openai" },
       },
       display = {
         -- action_palette = { provider = "default" },
         action_palette = {
           provider = "default",
-          show_default_prompt_library = false,
+          opts = {
+            show_default_actions = false,
+            show_default_prompt_library = false,
+          },
         },
         chat = {
           show_references = true,
@@ -102,12 +105,16 @@ return {
         ["Write Commit Message"] = {
           strategy = "inline",
           description = "Generates a commit message on git commit file",
-          opts = {
-            adapter = {
-              name = "openai",
-            },
-          },
+          -- opts = {
+          --   adapter = {
+          --     name = "openai",
+          --   },
+          -- },
           prompts = {
+            {
+              role = "system",
+              content = "You're an assistant dedicated to write commit messages based on the current buffer",
+            },
             {
               role = "user",
               content = "#buffer @editor write the commit message for me",
