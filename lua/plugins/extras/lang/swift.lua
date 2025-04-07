@@ -1,6 +1,9 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    cond = function()
+      return vim.fn.executable("sourcekit-lsp") == 1
+    end,
     opts = {
       servers = {
         sourcekit = {},

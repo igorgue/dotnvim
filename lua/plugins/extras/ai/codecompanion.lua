@@ -3,24 +3,9 @@ return {
     "olimorris/codecompanion.nvim",
     dependencies = {
       "j-hui/fidget.nvim",
-      -- {
-      --   "echasnovski/mini.nvim",
-      --   config = function()
-      --     local diff = require("mini.diff")
-      --     diff.setup({
-      --       -- Disabled by default
-      --       source = diff.gen_source.none(),
-      --     })
-      --   end,
-      -- },
-      {
-        "Davidyz/VectorCode",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        cmd = "VectorCode",
-      },
+      { "Davidyz/VectorCode", cmd = "VectorCode" },
     },
     cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
-    lazy = false,
     opts = {
       adapters = {
         gemini = function()
@@ -36,6 +21,7 @@ return {
       strategies = {
         chat = {
           adapter = "gemini",
+          -- adapter = "deepseek",
           roles = {
             user = "igorgue",
           },
@@ -97,6 +83,22 @@ return {
         -- diff = {
         --   provider = "mini_diff",
         -- },
+      },
+      prompt_library = {
+        ["Generate commit message"] = {
+          strategy = "chat",
+          description = "Generates a commit message on git commit file",
+          prompts = {
+            {
+              role = "system",
+              content = "You are an experienced developer with any language, you know git very well, you always write good commit messages",
+            },
+            {
+              role = "user",
+              content = "#buffer @editor can you please write a commit message for me, change the current buffer please",
+            },
+          },
+        },
       },
     },
     init = function()
