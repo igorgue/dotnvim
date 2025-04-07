@@ -87,41 +87,41 @@ return {
         action_palette = {
           provider = "default",
           opts = {
-            show_default_actions = false,
-            show_default_prompt_library = false,
+            show_default_actions = true,
+            show_default_prompt_library = true,
           },
         },
         chat = {
           show_references = true,
           show_header_separator = true,
-          show_settings = false,
-          render_headers = false,
+          show_settings = true,
+          render_headers = true,
         },
         -- diff = {
         --   provider = "mini_diff",
         -- },
       },
-      prompt_library = {
-        ["Write Commit Message"] = {
-          strategy = "inline",
-          description = "Generates a commit message on git commit file",
-          -- opts = {
-          --   adapter = {
-          --     name = "openai",
-          --   },
-          -- },
-          prompts = {
-            {
-              role = "system",
-              content = "You're an assistant dedicated to write commit messages based on the current buffer",
-            },
-            {
-              role = "user",
-              content = "#buffer @editor write the commit message for me",
-            },
-          },
-        },
-      },
+    --   prompt_library = {
+    --     ["Write Commit Message"] = {
+    --       strategy = "inline",
+    --       description = "Generates a commit message on git commit file",
+    --       -- opts = {
+    --       --   adapter = {
+    --       --     name = "openai",
+    --       --   },
+    --       -- },
+    --       prompts = {
+    --         {
+    --           role = "system",
+    --           content = "You're an assistant dedicated to write commit messages based on the current buffer",
+    --         },
+    --         {
+    --           role = "user",
+    --           content = "#buffer @editor write the commit message for me",
+    --         },
+    --       },
+    --     },
+    --   },
     },
     init = function()
       vim.cmd([[cab cc CodeCompanion]])
