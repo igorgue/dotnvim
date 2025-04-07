@@ -42,6 +42,12 @@ return {
                 n = "<CR>",
               },
             },
+            clear = {
+              modes = {
+                i = "<C-del>",
+                n = { "gx", "<C-del>" },
+              },
+            },
           },
           slash_commands = {
             ["buffer"] = {
