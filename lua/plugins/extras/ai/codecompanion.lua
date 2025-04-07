@@ -4,6 +4,17 @@ return {
     dependencies = {
       "j-hui/fidget.nvim",
       { "Davidyz/VectorCode", cmd = "VectorCode" },
+      {
+        "echasnovski/mini.diff", -- Inline and better diff over the default
+        config = true,
+        -- config = function()
+        --   local diff = require("mini.diff")
+        --   diff.setup({
+        --     -- Disabled by default
+        --     source = diff.gen_source.none(),
+        --   })
+        -- end,
+      },
     },
     cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
     opts = {
@@ -103,14 +114,14 @@ return {
           show_settings = false,
           render_headers = true,
         },
-        -- diff = {
-        --   provider = "mini_diff",
-        -- },
+        diff = {
+          provider = "mini_diff",
+        },
       },
       prompt_library = {
-        ["Write a Commit Message"] = {
+        ["Write Commit Message"] = {
           strategy = "inline",
-          description = "Writes a commit message in the current buffer",
+          description = "Writes commit message on gitcommit buffer",
           opts = {
             index = 10,
             is_default = true,
