@@ -1,14 +1,13 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    cond = function()
-      return vim.fn.executable("sourcekit-lsp") == 1
+    opts = function(_, opts)
+      if vim.fn.executable("sourcekit-lsp") ~= 1 then
+        return
+      end
+
+      opts.servers.sourcekit = {}
     end,
-    opts = {
-      servers = {
-        sourcekit = {},
-      },
-    },
   },
   {
     "mfussenegger/nvim-dap",

@@ -316,6 +316,7 @@ return {
         "!TelescopePrompt",
         "!TelescopeResults",
         "!codecompanion",
+        "!snacks_picker_list",
       },
       buftypes = {
         "*",

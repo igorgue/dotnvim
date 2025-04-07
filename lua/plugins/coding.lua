@@ -30,6 +30,19 @@ local function trigger_snippet(cmp)
   })
 end
 
+-- NOTE: Disable default <c-n> and <c-p> to make blink handle this menu only
+vim.api.nvim_set_keymap("i", "<C-n>", "<Nop>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("i", "<C-p>", "<Nop>", { noremap = true, silent = true })
+
+--- Opens next buffer or prev buffer with <c-n> and <c-p>
+--- @module "blink.cmp"
+--- @param cmp blink.cmp.API
+local function simple_complete(cmp)
+  cmp.show({
+    providers = { "buffer", "path" },
+  })
+end
+
 return {
   {
     "saghen/blink.cmp",
@@ -87,8 +100,8 @@ return {
       },
       keymap = {
         preset = "enter",
-        ["<C-p>"] = { "select_prev", "fallback" },
-        ["<C-n>"] = { "select_next", "fallback" },
+        ["<C-p>"] = { "select_prev", simple_complete, "fallback" },
+        ["<C-n>"] = { "select_next", simple_complete, "fallback" },
         ["<C-j>"] = { "snippet_forward", trigger_snippet },
       },
       sources = {
