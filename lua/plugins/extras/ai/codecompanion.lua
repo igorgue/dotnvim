@@ -1,3 +1,6 @@
+vim.g.codecompanion_initial_adapter = vim.env.LAZYVIM_CODECOMPANION_ADAPTER or "gemini"
+vim.g.codecompanion_auto_tool_mode = true
+
 return {
   {
     "olimorris/codecompanion.nvim",
@@ -57,7 +60,7 @@ return {
       },
       strategies = {
         chat = {
-          adapter = "copilot",
+          adapter = vim.g.codecompanion_initial_adapter,
           roles = {
             user = vim.env.USERNAME,
           },
@@ -121,7 +124,7 @@ return {
             },
           },
         },
-        inline = { adapter = "copilot" },
+        inline = { adapter = vim.g.codecompanion_initial_adapter },
       },
       display = {
         action_palette = {
