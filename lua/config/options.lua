@@ -135,4 +135,3 @@ vim.g.always_show_gitsigns = false
 vim.g.cmp_disabled = false
 vim.g.cmp_disabled_filetypes = { "TelescopePrompt", "neorepl", "snacks_picker_input" }
 vim.g.focus_mode = vim.env.LAZYVIM_DISABLE_FOCUS_MODE == nil and true or false
--- vim.g.codecompanion_adapter = vim.env.LAZYVIM_CODECOMPANION_ADAPTER or "gemini"

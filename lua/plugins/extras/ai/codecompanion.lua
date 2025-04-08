@@ -1,7 +1,6 @@
 return {
   {
     "olimorris/codecompanion.nvim",
-    version = "14.7.1",
     dependencies = {
       "j-hui/fidget.nvim",
       "echasnovski/mini.diff",
