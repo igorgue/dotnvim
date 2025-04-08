@@ -28,12 +28,7 @@ return {
       })
     end,
     keys = {
-      {
-        "<C-l>",
-        "<Plug>(copilot-suggest)",
-        desc = "Copilot manual trigger",
-        mode = "i",
-      },
+      { "<C-l>", "<Plug>(copilot-suggest)", desc = "Copilot manual trigger", mode = "i" },
     },
   },
 }
