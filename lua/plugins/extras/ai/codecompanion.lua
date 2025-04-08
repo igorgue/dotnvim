@@ -13,6 +13,13 @@ return {
           use_bundled_binary = true,
         },
       },
+      {
+        "MeanderingProgrammer/render-markdown.nvim",
+        opts = {
+          file_types = { "markdown", "codecompanion" },
+        },
+        ft = { "markdown", "codecompanion" },
+      },
     },
     cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
     init = function()
@@ -47,7 +54,7 @@ return {
       },
       strategies = {
         chat = {
-          adapter = vim.g.codecompanion_adapter,
+          adapter = "copilot",
           roles = {
             user = vim.env.USERNAME,
           },
@@ -111,7 +118,7 @@ return {
             },
           },
         },
-        inline = { adapter = vim.g.codecompanion_adapter },
+        inline = { adapter = "copilot" },
       },
       display = {
         action_palette = {
