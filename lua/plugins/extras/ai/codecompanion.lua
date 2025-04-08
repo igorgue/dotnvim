@@ -1,6 +1,3 @@
-vim.g.codecompanion_initial_adapter = vim.env.LAZYVIM_CODECOMPANION_ADAPTER or "gemini"
-vim.g.codecompanion_auto_tool_mode = true
-
 return {
   {
     "olimorris/codecompanion.nvim",
