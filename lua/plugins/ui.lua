@@ -317,6 +317,9 @@ return {
         "!TelescopeResults",
         "!codecompanion",
         "!snacks_picker_list",
+        "!mason",
+        "!noice",
+        "!noice_popup",
       },
       buftypes = {
         "*",

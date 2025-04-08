@@ -31,8 +31,25 @@ local function trigger_snippet(cmp)
 end
 
 -- NOTE: Disable default <c-n> and <c-p> to make blink handle this menu only
-vim.api.nvim_set_keymap("i", "<C-n>", "<Nop>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "<C-p>", "<Nop>", { noremap = true, silent = true })
+local excluded_filetypes = { "dap-repl", "dapui_console", "dapui_hover" }
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    local ft = vim.bo.filetype
+    -- Apply the mapping only if the filetype is not excluded.
+    local skip_mapping = false
+    for _, excluded in ipairs(excluded_filetypes) do
+      if ft == excluded then
+        skip_mapping = true
+        break
+      end
+    end
+    if not skip_mapping then
+      vim.api.nvim_buf_set_keymap(0, "i", "<C-n>", "<Nop>", { noremap = true, silent = true })
+      vim.api.nvim_buf_set_keymap(0, "i", "<C-p>", "<Nop>", { noremap = true, silent = true })
+    end
+  end,
+})
 
 --- Opens next buffer or prev buffer with <c-n> and <c-p>
 --- @module "blink.cmp"

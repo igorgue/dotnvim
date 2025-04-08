@@ -1,6 +1,7 @@
 return {
   {
     "olimorris/codecompanion.nvim",
+    version = "14.7.1",
     dependencies = {
       "j-hui/fidget.nvim",
       "echasnovski/mini.diff",
@@ -11,6 +12,9 @@ return {
         build = "bundled_build.lua",
         opts = {
           use_bundled_binary = true,
+        },
+        keys = {
+          { "<leader>am", "<cmd>MCPHub<cr>", desc = "Open MCPHub" },
         },
       },
       {
@@ -23,9 +27,9 @@ return {
     },
     cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
     init = function()
-      vim.cmd("cab cc CodeCompanion")
-      vim.cmd("cab ccc CodeCompanionChat")
-      vim.cmd("cab cca CodeCompanionActions")
+      vim.cmd([[cab cc CodeCompanion]])
+      vim.cmd([[cab ccc CodeCompanionChat]])
+      vim.cmd([[cab cca CodeCompanionActions]])
     end,
     config = function(_, opts)
       require("codecompanion").setup(opts)
@@ -54,25 +58,25 @@ return {
       },
       strategies = {
         chat = {
-          adapter = "copilot",
+          adapter = "gemini",
           roles = {
             user = vim.env.USERNAME,
           },
           keymaps = {
             send = {
-              modes = {
-                i = "<CR>",
-                n = "<CR>",
-              },
+              modes = { i = "<CR>", n = "<CR>" },
             },
             clear = {
               modes = {
                 i = "<C-del>",
-                n = { "gx", "<C-del>" },
+                n = "<C-del>",
               },
             },
             close = {
               modes = { n = {}, i = {} },
+            },
+            stop = {
+              modes = { n = "<C-c>", i = "<C-c>" },
             },
           },
           slash_commands = {
@@ -118,7 +122,7 @@ return {
             },
           },
         },
-        inline = { adapter = "copilot" },
+        inline = { adapter = "gemini" },
       },
       display = {
         action_palette = {
@@ -153,7 +157,7 @@ return {
           },
           prompts = {
             {
-              role = "user",
+              role = vim.env.USERNAME,
               content = function()
                 return string.format(
                   [[You are an expert at following the Conventional Commit specification. Given the git diff listed below, please @editor generate a commit message for me inside of the current buffer #buffer:
