@@ -58,7 +58,7 @@ return {
       },
       strategies = {
         chat = {
-          adapter = "gemini",
+          adapter = "copilot",
           roles = {
             user = vim.env.USERNAME,
           },
@@ -122,7 +122,7 @@ return {
             },
           },
         },
-        inline = { adapter = "gemini" },
+        inline = { adapter = "copilot" },
       },
       display = {
         action_palette = {
@@ -157,7 +157,7 @@ return {
           },
           prompts = {
             {
-              role = vim.env.USERNAME,
+              role = "user",
               content = function()
                 return string.format(
                   [[You are an expert at following the Conventional Commit specification. Given the git diff listed below, please @editor generate a commit message for me inside of the current buffer #buffer:
