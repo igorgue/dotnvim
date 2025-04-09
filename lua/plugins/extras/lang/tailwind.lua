@@ -1,6 +1,7 @@
 return {
   {
     "echasnovski/mini.hipatterns",
+    optional = true,
     opts = {
       tailwind = {
         ft = { "jinja", "htmldjango" },
