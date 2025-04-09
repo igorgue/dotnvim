@@ -318,6 +318,7 @@ return {
         "!codecompanion",
         "!snacks_picker_list",
         "!mason",
+        "!lazy",
         "!noice",
         "!noice_popup",
       },
@@ -325,6 +326,7 @@ return {
         "*",
         "!prompt",
         "!popup",
+        "!nofile",
       },
       user_default_options = {
         RGB = true,
