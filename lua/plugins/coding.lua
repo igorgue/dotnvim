@@ -292,6 +292,7 @@ return {
   },
   {
     "nvim-pack/nvim-spectre",
+    optional = true,
     opts = {
       highlight = {
         ui = "String",
