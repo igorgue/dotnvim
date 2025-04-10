@@ -7,6 +7,18 @@ vim.api.nvim_create_autocmd("FileType", {
 
 return {
   {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = { "swift" },
+    },
+  },
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = { "swiftlint", "xcbeautify" },
+    },
+  },
+  {
     "neovim/nvim-lspconfig",
     opts = function(_, opts)
       if vim.fn.executable("sourcekit-lsp") ~= 1 then
