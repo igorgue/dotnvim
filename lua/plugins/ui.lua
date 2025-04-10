@@ -68,6 +68,9 @@ return {
           frecency = true, -- frecency bonus
           history_bonus = true, -- give more weight to chronological order
         },
+        sort = {
+          fields = { "score:desc" },
+        },
         formatter = {
           file = {
             filename_first = true, -- display filename before the file path
