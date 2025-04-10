@@ -1,9 +1,7 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = {
-      "RRethy/nvim-treesitter-endwise",
-    },
+    dependencies = { "RRethy/nvim-treesitter-endwise" },
     cmd = { "TSEnable", "TSBufEnable" },
     opts = {
       highlight = {

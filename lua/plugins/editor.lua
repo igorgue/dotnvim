@@ -1,13 +1,5 @@
 return {
   {
-    "echasnovski/mini.ai",
-    optional = true,
-    keys = {
-      { "<c-space>", "<cmd>normal vii0<cr>", desc = "Inner Indent Level (No Line Above)" },
-      { "<c-space>", "<cmd>normal ii0<cr>", desc = "Inner Indent Level (No Line Above)", mode = "x" },
-    },
-  },
-  {
     "michaeljsmith/vim-indent-object",
     event = { "BufReadPost", "BufNewFile" },
     keys = {

@@ -164,9 +164,6 @@ return {
       kitty = false,
     },
   },
-  { "loctvl842/monokai-pro.nvim", config = true },
-  "projekt0n/caret.nvim",
-  { "rose-pine/neovim", name = "rose-pine" },
 
   -- oldschool colorschemes
   "igorgue/candy.vim",

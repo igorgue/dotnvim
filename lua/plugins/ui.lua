@@ -158,394 +158,6 @@ return {
     },
   },
   {
-    "nvimdev/dashboard-nvim",
-    event = "VimEnter",
-    optional = true,
-    opts = function()
-      local logo = "NVIM " .. require("utils").version()
-
-      logo = string.rep("\n", 10) .. logo .. "\n\n"
-
-      local opts = {
-        theme = "doom",
-        hide = {
-          -- this is taken care of by lualine
-          -- enabling this messes up the actual laststatus setting after loading a file
-          statusline = false,
-        },
-        config = {
-          header = vim.split(logo, "\n"),
-          center = {
-            { action = "ene | startinsert", desc = " new file", icon = " ", key = "n" },
-            { action = "Telescope oldfiles", desc = " recent files", icon = " ", key = "r" },
-            { action = 'lua require("persistence").load()', desc = " restore session", icon = " ", key = "s" },
-            { action = LazyVim.pick("auto"), desc = " find file", icon = " ", key = "f" },
-            { action = "Telescope smart_open", desc = " smart open", icon = " ", key = "o" },
-            { action = LazyVim.pick("live_grep"), desc = " find text", icon = " ", key = "g" },
-            { action = LazyVim.pick.config_files(), desc = " Config", icon = " ", key = "c" },
-            { action = "Lazy", desc = " lazy", icon = "󰒲 ", key = "l" },
-            { action = "LazyExtras", desc = " lazy extras", icon = " ", key = "x" },
-            { action = "lua require('lazyvim.util').terminal.open()", desc = " terminal", icon = " ", key = "t" },
-            { action = "ene | DBUI", desc = " database", icon = " ", key = "d" },
-            { action = "qa", desc = " quit", icon = " ", key = "q" },
-          },
-          footer = function()
-            local stats = require("lazy").stats()
-            local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-            return {
-              "⚡ Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms",
-            }
-          end,
-        },
-      }
-
-      for _, button in ipairs(opts.config.center) do
-        button.desc = button.desc .. string.rep(" ", 43 - #button.desc)
-      end
-
-      -- close Lazy and re-open when the dashboard is ready
-      if vim.o.filetype == "lazy" then
-        vim.cmd.close()
-        vim.api.nvim_create_autocmd("User", {
-          pattern = "DashboardLoaded",
-          callback = function()
-            require("lazy").show()
-          end,
-        })
-      end
-
-      return opts
-    end,
-  },
-  {
-    "nvim-lualine/lualine.nvim",
-    opts = function(_)
-      local icons = require("lazyvim.config").icons
-      local utils = require("utils")
-
-      return {
-        options = {
-          theme = utils.ui.lualine_theme(),
-          disabled_filetypes = { statusline = { "dashboard", "lazy", "alpha" } },
-          component_separators = "",
-          section_separators = { left = "", right = "" },
-          globalstatus = true,
-        },
-        sections = {
-          lualine_a = {
-            {
-              "mode",
-              fmt = function(str)
-                return str:lower():sub(1, 1)
-              end,
-            },
-          },
-          lualine_b = {
-            "branch",
-            {
-              "diff",
-              symbols = {
-                added = icons.git.added,
-                modified = icons.git.modified,
-                removed = icons.git.removed,
-              },
-            },
-            {
-              "diagnostics",
-              symbols = {
-                error = icons.diagnostics.Error,
-                warn = icons.diagnostics.Warn,
-                info = icons.diagnostics.Info,
-                hint = icons.diagnostics.Hint,
-              },
-            },
-          },
-          lualine_c = {
-            "%=",
-            {
-              "filename",
-              path = 0,
-              symbols = {
-                modified = "",
-                readonly = "",
-                new = "",
-                unnamed = "",
-              },
-            },
-          },
-          lualine_x = {
-            -- stylua: ignore
-            {
-              ---@diagnostic disable-next-line: undefined-field
-              function() return require("noice").api.status.command.get() end,
-              ---@diagnostic disable-next-line: undefined-field
-              cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-            },
-            -- stylua: ignore
-            {
-              ---@diagnostic disable-next-line: undefined-field
-              function() return require("noice").api.status.mode.get() end,
-              ---@diagnostic disable-next-line: undefined-field
-              cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
-            },
-            {
-              require("lazy.status").updates,
-              cond = require("lazy.status").has_updates,
-            },
-            {
-              "filetype",
-              icon_only = true,
-            },
-          },
-          lualine_y = { "location" },
-          lualine_z = { "progress" },
-        },
-        extensions = { "neo-tree" },
-      }
-    end,
-  },
-  {
-    "catgoose/nvim-colorizer.lua",
-    event = { "BufReadPost", "BufNewFile" },
-    cmd = {
-      "ColorizerToggle",
-      "ColorizerAttachToBuffer",
-      "ColorizerReloadAllBuffers",
-    },
-    opts = {
-      filetypes = {
-        "*",
-        "!neorepl",
-        "!TelescopePrompt",
-        "!TelescopeResults",
-        "!codecompanion",
-        "!snacks_picker_list",
-        "!mason",
-        "!lazy",
-        "!noice",
-        "!noice_popup",
-      },
-      buftypes = {
-        "*",
-        "!prompt",
-        "!popup",
-        "!nofile",
-      },
-      user_default_options = {
-        RGB = true,
-        RRGGBB = true,
-        names = true,
-        RRGGBBAA = true,
-        rgb_fn = true,
-        hsl_fn = true,
-        css = true,
-        css_fn = true,
-        mode = "background",
-        tailwind = true,
-        tailwind_opts = {
-          update_names = true,
-        },
-        -- PERF: this feature is very slow
-        sass = { enable = false, parsers = { "css" } },
-        always_update = true,
-      },
-    },
-  },
-  {
-    "ziontee113/color-picker.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    config = true,
-    keys = {
-      { "<M-c>", "<cmd>PickColor<cr>", desc = "Pick Color" },
-      { "<M-c>", "<cmd>PickColorInsert<cr>", desc = "Pick Color", mode = "i" },
-    },
-  },
-  {
-    "folke/zen-mode.nvim",
-    optional = true,
-    dependencies = {
-      {
-        "folke/twilight.nvim",
-        event = { "BufReadPost", "BufNewFile" },
-        cmd = { "Twilight", "TwilightEnable" },
-        opts = {
-          dimming = {
-            inactive = true,
-          },
-        },
-        keys = {
-          {
-            "<leader>ut", -- Enable Twilight
-            function()
-              require("twilight").toggle()
-            end,
-            desc = "Toggle Twilight",
-          },
-        },
-      },
-    },
-    event = { "BufReadPost", "BufNewFile" },
-    cmd = "ZenMode",
-    keys = {
-      {
-        "<leader>uz",
-        function()
-          if require("zen-mode.view").is_open() then
-            require("zen-mode").toggle()
-            return
-          end
-
-          if vim.g.zen_mode_width then
-            require("zen-mode").toggle({
-              window = {
-                width = tonumber(vim.g.zen_mode_width),
-              },
-            })
-            return
-          end
-
-          require("zen-mode").toggle()
-        end,
-        desc = "Toggle Zen Mode",
-      },
-      {
-        "<leader>uZ",
-        function()
-          if require("zen-mode.view").is_open() then
-            require("zen-mode").toggle()
-            return
-          end
-
-          local width = vim.fn.input({
-            prompt = "Zen mode width: ",
-            default = "100",
-            cancelreturn = "100",
-          })
-
-          require("zen-mode").toggle({
-            window = {
-              width = tonumber(width),
-            },
-          })
-
-          vim.g.zen_mode_width = width
-        end,
-        desc = "Toggle Zen Mode With Custom Width",
-      },
-    },
-    opts = {
-      window = {
-        width = 80,
-        options = {
-          -- signcolumn = "no", -- disable signcolumn
-          number = false, -- disable number column
-          relativenumber = false, -- disable relative numbers
-          cursorline = false, -- disable cursorline
-          cursorcolumn = false, -- disable cursor column
-          foldcolumn = "0", -- disable fold column
-          list = false, -- disable whitespace characters
-        },
-      },
-      plugins = {
-        options = {
-          enabled = true,
-          ruler = true,
-          showcmd = true,
-        },
-        twilight = {
-          enabled = false,
-        },
-        gitsigns = {
-          enabled = true,
-        },
-        kitty = {
-          enabled = false, -- messes up with other windows
-          font = "+1",
-        },
-        alacritty = {
-          enabled = false, -- I suspect the same as kitty
-          font = "+1",
-        },
-      },
-      on_open = function(_)
-        -- vim.opt.laststatus = 0
-        vim.o.winbar = ""
-      end,
-      -- on_close = function()
-      --   vim.opt.laststatus = 3
-      -- end,
-    },
-  },
-  {
-    "folke/noice.nvim",
-    opts = {
-      lsp = {
-        hover = {
-          silent = true,
-        },
-        override = {
-          ["cmp.entry.get_documentation"] = true,
-        },
-        signature = {
-          auto_open = {
-            enabled = false,
-          },
-        },
-      },
-      cmdline = {
-        enabled = true,
-      },
-      presets = {
-        bottom_search = false,
-        command_palette = true,
-        long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = false, -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = true,
-      },
-      -- views = {
-      --   cmdline_popup = {
-      --     border = { style = "single" },
-      --   },
-      --   notify = {
-      --     border = { style = "single" },
-      --   },
-      --   popup = {
-      --     border = { style = "single" },
-      --   },
-      --   confirm = {
-      --     border = { style = "single" },
-      --   },
-      --   hover = {
-      --     border = { style = "single" },
-      --   },
-      --   popupmenu = {
-      --     border = { style = "single" },
-      --   },
-      -- },
-    },
-  },
-  {
-    "ibhagwan/fzf-lua",
-    optional = true,
-    opts = {
-      previewers = {
-        builtin = {
-          extensions = {
-            -- neovim terminal only supports `viu` block output
-            ["png"] = { "viu", "-b" },
-            -- by default the filename is added as last argument
-            -- if required, use `{file}` for argument positioning
-            ["svg"] = { "chafa", "{file}" },
-            ["jpg"] = { "ueberzug" },
-          },
-        },
-      },
-    },
-    keys = {
-      { "<leader>r", "<cmd>FzfLua oldfiles<cr>", desc = "Recent" },
-    },
-  },
-  {
     "nvim-telescope/telescope.nvim",
     optional = true,
     enabled = vim.g.lazyvim_picker == "telescope",
@@ -724,6 +336,177 @@ return {
     },
   },
   {
+    "nvim-lualine/lualine.nvim",
+    opts = function(_)
+      local icons = require("lazyvim.config").icons
+      local utils = require("utils")
+
+      return {
+        options = {
+          theme = utils.ui.lualine_theme(),
+          disabled_filetypes = { statusline = { "dashboard", "lazy", "alpha" } },
+          component_separators = "",
+          section_separators = { left = "", right = "" },
+          globalstatus = true,
+        },
+        sections = {
+          lualine_a = {
+            {
+              "mode",
+              fmt = function(str)
+                return str:lower():sub(1, 1)
+              end,
+            },
+          },
+          lualine_b = {
+            "branch",
+            {
+              "diff",
+              symbols = {
+                added = icons.git.added,
+                modified = icons.git.modified,
+                removed = icons.git.removed,
+              },
+            },
+            {
+              "diagnostics",
+              symbols = {
+                error = icons.diagnostics.Error,
+                warn = icons.diagnostics.Warn,
+                info = icons.diagnostics.Info,
+                hint = icons.diagnostics.Hint,
+              },
+            },
+          },
+          lualine_c = {
+            "%=",
+            {
+              "filename",
+              path = 0,
+              symbols = {
+                modified = "",
+                readonly = "",
+                new = "",
+                unnamed = "",
+              },
+            },
+          },
+          lualine_x = {
+            -- stylua: ignore
+            {
+              ---@diagnostic disable-next-line: undefined-field
+              function() return require("noice").api.status.command.get() end,
+              ---@diagnostic disable-next-line: undefined-field
+              cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
+            },
+            -- stylua: ignore
+            {
+              ---@diagnostic disable-next-line: undefined-field
+              function() return require("noice").api.status.mode.get() end,
+              ---@diagnostic disable-next-line: undefined-field
+              cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+            },
+            {
+              require("lazy.status").updates,
+              cond = require("lazy.status").has_updates,
+            },
+            {
+              "filetype",
+              icon_only = true,
+            },
+          },
+          lualine_y = { "location" },
+          lualine_z = { "progress" },
+        },
+        extensions = { "neo-tree" },
+      }
+    end,
+  },
+  {
+    "catgoose/nvim-colorizer.lua",
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = {
+      "ColorizerToggle",
+      "ColorizerAttachToBuffer",
+      "ColorizerReloadAllBuffers",
+    },
+    opts = {
+      filetypes = {
+        "*",
+        "!neorepl",
+        "!TelescopePrompt",
+        "!TelescopeResults",
+        "!codecompanion",
+        "!snacks_picker_list",
+        "!mason",
+        "!lazy",
+        "!noice",
+        "!noice_popup",
+      },
+      buftypes = {
+        "*",
+        "!prompt",
+        "!popup",
+        "!nofile",
+      },
+      user_default_options = {
+        RGB = true,
+        RRGGBB = true,
+        names = true,
+        RRGGBBAA = true,
+        rgb_fn = true,
+        hsl_fn = true,
+        css = true,
+        css_fn = true,
+        mode = "background",
+        tailwind = true,
+        tailwind_opts = {
+          update_names = true,
+        },
+        -- PERF: this feature is very slow
+        sass = { enable = false, parsers = { "css" } },
+        always_update = true,
+      },
+    },
+  },
+  {
+    "ziontee113/color-picker.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    config = true,
+    keys = {
+      { "<M-c>", "<cmd>PickColor<cr>", desc = "Pick Color" },
+      { "<M-c>", "<cmd>PickColorInsert<cr>", desc = "Pick Color", mode = "i" },
+    },
+  },
+  {
+    "folke/noice.nvim",
+    opts = {
+      lsp = {
+        hover = {
+          silent = true,
+        },
+        override = {
+          ["cmp.entry.get_documentation"] = true,
+        },
+        signature = {
+          auto_open = {
+            enabled = false,
+          },
+        },
+      },
+      cmdline = {
+        enabled = true,
+      },
+      presets = {
+        bottom_search = false,
+        command_palette = true,
+        long_message_to_split = true, -- long messages will be sent to a split
+        inc_rename = false, -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = true,
+      },
+    },
+  },
+  {
     "williamboman/mason.nvim",
     opts = {
       pip = {
@@ -738,7 +521,6 @@ return {
   },
   {
     "SmiteshP/nvim-navic",
-    optional = true,
     lazy = false,
     config = function(_, opts)
       require("nvim-navic").setup(opts)
@@ -748,18 +530,5 @@ return {
     opts = {
       click = true,
     },
-  },
-  {
-    "mattn/webapi-vim",
-    event = { "BufReadPost", "BufNewFile" },
-  },
-  {
-    "s1n7ax/nvim-window-picker",
-    name = "window-picker",
-    event = "VeryLazy",
-    optional = true,
-    config = function()
-      require("window-picker").setup()
-    end,
   },
 }
