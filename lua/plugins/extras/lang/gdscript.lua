@@ -1,3 +1,7 @@
+if lazyvim_docs then
+  -- start Neovim with `--listen /tmp/godot.pipe` to use.
+end
+
 return {
   desc = "Godot",
   {
