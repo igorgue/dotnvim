@@ -159,13 +159,43 @@ return {
               role = "user",
               content = function()
                 return string.format(
-                  [[You are an expert at following the Conventional Commit specification. Given the git diff listed below, please @editor generate a commit message for me inside of the current buffer #buffer:
+                  [[You are an expert at following the Conventional Commit specification. Given the git diff listed below, please @editor generate a commit message for me inside of the current #buffer:
 
                   ```diff
                   %s
                   ```
                   ]],
                   vim.fn.system("git diff --no-ext-diff --staged")
+                )
+              end,
+              opts = {
+                contains_code = true,
+              },
+            },
+          },
+        },
+        ["Diff Review"] = {
+          strategy = "chat",
+          description = "Review current diff",
+          opts = {
+            index = 10,
+            is_default = true,
+            is_slash_cmd = true,
+            short_name = "review_diff",
+            auto_submit = true,
+          },
+          prompts = {
+            {
+              role = "user",
+              content = function()
+                return string.format(
+                  [[You are an expert at programmer. Given the `git diff` listed below, please give me a review of the changes:
+
+                  ```diff
+                  %s
+                  ```
+                  ]],
+                  vim.fn.system("git diff --no-ext-diff")
                 )
               end,
               opts = {
