@@ -10,15 +10,6 @@ vim.g.lazyvim_python_lsp = "basedpyright"
 
 return {
   {
-    "L3MON4D3/LuaSnip",
-    optional = true,
-    ft = { "htmldjango", "jinja" },
-    config = function()
-      require("luasnip").filetype_extend("htmldjango", { "html" })
-      require("luasnip").filetype_extend("jinja", { "html" })
-    end,
-  },
-  {
     "raimon49/requirements.txt.vim",
     event = "BufReadPre requirements*.txt",
   },
@@ -26,7 +17,13 @@ return {
     "saghen/blink.cmp",
     optional = true,
     dependencies = {
-      "vrslev/cmp-pypi",
+      {
+        "vrslev/cmp-pypi",
+        dependencies = {
+          "nvim-lua/plenary.nvim",
+        },
+        event = "BufReadPost pyproject.toml",
+      },
     },
     opts = {
       sources = {
@@ -42,28 +39,6 @@ return {
         },
       },
     },
-  },
-  {
-    "hrsh7th/nvim-cmp",
-    optional = true,
-    dependencies = {
-      "vrslev/cmp-pypi",
-    },
-    opts = function(_, opts)
-      local cmp = require("cmp")
-      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
-        { name = "pypi", keyword_length = 4 },
-      }))
-
-      return opts
-    end,
-  },
-  {
-    "vrslev/cmp-pypi",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    event = "BufReadPost pyproject.toml",
   },
   {
     "williamboman/mason.nvim",
@@ -105,10 +80,5 @@ return {
     config = function()
       require("venv-selector").setup()
     end,
-  },
-  {
-    "igorgue/vim-python-enhanced-syntax",
-    -- dir = "~/Code/vim-python-enhanced-syntax",
-    ft = "python",
   },
 }

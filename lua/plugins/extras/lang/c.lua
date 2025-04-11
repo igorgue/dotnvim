@@ -7,7 +7,6 @@ return {
   },
   {
     "williamboman/mason.nvim",
-    optional = true,
     opts = {
       ensure_installed = { "clangd", "clang-format", "codelldb" },
     },
@@ -22,27 +21,6 @@ return {
           local register_keys_and_cmp = function()
             local wk = require("which-key")
             local bufnr = vim.api.nvim_get_current_buf()
-
-            ---@diagnostic disable-next-line: missing-fields
-            if LazyVim.has("cmp") then
-              local cmp = require("cmp")
-
-              cmp.setup({
-                ---@diagnostic disable-next-line: missing-fields
-                sorting = {
-                  comparators = {
-                    cmp.config.compare.offset,
-                    cmp.config.compare.exact,
-                    cmp.config.compare.recently_used,
-                    require("clangd_extensions.cmp_scores"),
-                    cmp.config.compare.kind,
-                    cmp.config.compare.sort_text,
-                    cmp.config.compare.length,
-                    cmp.config.compare.order,
-                  },
-                },
-              })
-            end
 
             wk.add({
               { "<leader>cc", group = "c" },
@@ -118,12 +96,6 @@ return {
               detail = "CopilotSuggestion",
             },
           },
-          -- memory_usage = {
-          --   border = "single",
-          -- },
-          -- symbol_info = {
-          --   border = "single",
-          -- },
         },
       },
     },

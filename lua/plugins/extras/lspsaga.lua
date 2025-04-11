@@ -1,9 +1,9 @@
 local keys = { quit = { "<esc>", "q" }, toggle_or_jump = { "<cr>", "o" } }
 
 return {
-  desc = "LSP Saga plugin collection",
   {
     "nvimdev/lspsaga.nvim",
+    desc = "LSP Saga plugin collection",
     cmd = { "Lspsaga" },
     event = "BufReadPost",
     opts = {
@@ -43,17 +43,6 @@ return {
         "<leader>cO",
         "<Cmd>Lspsaga outgoing_calls<CR>",
         desc = "Lspsaga outgoing_calls",
-      },
-    },
-  },
-  {
-    "RRethy/vim-illuminate",
-    opts = {
-      filetypes_denylist = {
-        "sagafinder",
-        "sagacallhierarchy",
-        "sagaincomingcalls",
-        "sagapeekdefinition",
       },
     },
   },

@@ -1,7 +1,6 @@
 return {
   {
     "saghen/blink.cmp",
-    optional = true,
     dependencies = {
       "Saecki/crates.nvim",
     },
@@ -10,19 +9,6 @@ return {
         compat = { "crates" },
       },
     },
-  },
-  {
-    "hrsh7th/nvim-cmp",
-    optional = true,
-    dependencies = {
-      "Saecki/crates.nvim",
-    },
-    opts = function(_, opts)
-      local cmp = require("cmp")
-      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
-        { name = "crates" },
-      }))
-    end,
   },
   {
     "Saecki/crates.nvim",

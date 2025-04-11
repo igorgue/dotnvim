@@ -1,13 +1,7 @@
 return {
-  desc = "Github Copilot (official)",
-  {
-    "L3MON4D3/LuaSnip",
-    optional = true,
-    -- stylua: ignore
-    keys = function() return {} end,
-  },
   {
     "github/copilot.vim",
+    desc = "Github Copilot (official)",
     cmd = "Copilot",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
