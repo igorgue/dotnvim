@@ -151,7 +151,7 @@ return {
             index = 10,
             is_default = true,
             is_slash_cmd = true,
-            short_name = "commit",
+            short_name = "write_commit",
             auto_submit = true,
           },
           prompts = {
@@ -161,9 +161,9 @@ return {
                 return string.format(
                   [[You are an expert at following the Conventional Commit specification. Given the git diff listed below, please @editor generate a commit message for me inside of the current #buffer:
 
-                  ```diff
-                  %s
-                  ```
+```diff
+%s
+```
                   ]],
                   vim.fn.system("git diff --no-ext-diff --staged")
                 )
@@ -191,9 +191,9 @@ return {
                 return string.format(
                   [[You are an expert at programmer. Given the `git diff` listed below, please give me a review of the changes:
 
-                  ```diff
-                  %s
-                  ```
+```diff
+%s
+```
                   ]],
                   vim.fn.system("git diff --no-ext-diff")
                 )
