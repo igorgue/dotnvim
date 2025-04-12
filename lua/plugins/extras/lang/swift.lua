@@ -1,8 +1,19 @@
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "swift",
   callback = function()
-    vim.opt_local.makeprg = "swift build -Xswiftc -g"
+    local build_cmd = "swift build -Xswiftc -g"
+    if vim.opt_local.makeprg == build_cmd then
+      return
+    end
+
+    vim.opt_local.makeprg = build_cmd
   end,
+})
+
+vim.filetype.add({
+  filename = {
+    [".swift-format"] = "json",
+  },
 })
 
 return {
@@ -15,7 +26,36 @@ return {
   {
     "williamboman/mason.nvim",
     opts = {
-      ensure_installed = { "swiftlint", "xcbeautify" },
+      ensure_installed = { "xcbeautify" },
+    },
+  },
+  {
+    "mfussenegger/nvim-lint",
+    opts = {
+      linters_by_ft = {
+        swift = { "swift-format" },
+      },
+      linters = {
+        ["swift-format"] = function()
+          return {
+            cmd = "swift-format",
+            args = { "lint" },
+            parser = require("lint.parser").from_pattern(
+              "^([^:]+):(%d+):(%d+): (%w+): (.*)$",
+              { "filename", "lnum", "col", "severity", "message" },
+              {
+                error = vim.diagnostic.severity.ERROR,
+                hint = vim.diagnostic.severity.HINT,
+                info = vim.diagnostic.severity.INFO,
+                warning = vim.diagnostic.severity.WARN,
+              },
+              { ["source"] = "swift-format" }
+            ),
+            stream = "both",
+            ignore_exitcode = true,
+          }
+        end,
+      },
     },
   },
   {

@@ -40,6 +40,7 @@ return {
         jsonc = { "prettier" },
         json = { "prettier" },
         typescript = { "prettier" },
+        swift = { "swift_format" },
         zsh = { "shfmt" },
         sh = { "shfmt" },
         lua = { "stylua" },
