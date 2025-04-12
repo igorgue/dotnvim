@@ -85,7 +85,7 @@ return {
         --- @class AvanteConflictMappings
         submit = {
           normal = "<CR>",
-          insert = "<CR>",
+          insert = "<S-CR>",
         },
         sidebar = {
           close = "q",

@@ -63,7 +63,7 @@ return {
           },
           keymaps = {
             send = {
-              modes = { i = "<CR>", n = "<CR>" },
+              modes = { i = "<S-CR>", n = "<CR>" },
             },
             clear = {
               modes = {
