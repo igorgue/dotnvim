@@ -35,7 +35,7 @@ if vim.lsp.inlay_hint ~= nil then
       local client = vim.lsp.get_client_by_id(args.data.client_id)
 
       -- clangd has its own implementation, check c.lua extra
-      if client.name == "clangd" then
+      if client and client.name == "clangd" then
         return
       end
 
@@ -61,5 +61,11 @@ if vim.env.NVIM_TERMINAL ~= nil then
 
   vim.cmd("terminal")
 end
+
+vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged", "TextChangedI" }, {
+  callback = function()
+    require("lint").try_lint()
+  end,
+})
 
 -- plugins.extras.* includes more autocmds, specific for certain files

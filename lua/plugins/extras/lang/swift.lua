@@ -39,7 +39,8 @@ return {
         ["swift-format"] = function()
           return {
             cmd = "swift-format",
-            args = { "lint" },
+            args = { "lint", "-" },
+            stdin = true,
             parser = require("lint.parser").from_pattern(
               "^([^:]+):(%d+):(%d+): (%w+): (.*)$",
               { "filename", "lnum", "col", "severity", "message" },
