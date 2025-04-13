@@ -40,8 +40,10 @@ function M:pop_progress_handle(id)
 end
 
 function M:create_progress_handle(request)
+  local suffix = request.data.strategy and " (" .. request.data.strategy .. ")" or ""
+
   return progress.handle.create({
-    title = " CodeCompanion (" .. request.data.strategy .. ")",
+    title = " CodeCompanion" .. suffix,
     message = "In progress...",
     lsp_client = {
       name = M:llm_role_title(request.data.adapter),
