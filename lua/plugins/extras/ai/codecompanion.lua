@@ -60,6 +60,9 @@ return {
           adapter = vim.g.codecompanion_initial_adapter,
           roles = {
             user = vim.env.USERNAME,
+            llm = function(adapter)
+              return "CodeCompanion (" .. adapter.formatted_name .. ":" .. adapter.schema.model.default .. ")"
+            end,
           },
           keymaps = {
             send = {
