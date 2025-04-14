@@ -363,9 +363,11 @@ return {
               "branch",
               fmt = function(str)
                 local max_len = 40
+
                 if #str > max_len then
                   return str:sub(1, max_len - 3) .. "..."
                 end
+
                 return str
               end,
             },
