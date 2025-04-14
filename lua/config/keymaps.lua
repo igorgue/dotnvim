@@ -265,7 +265,9 @@ Snacks.toggle({
   set = function(state)
     vim.cmd("Copilot " .. (state and "enable" or "disable"))
   end,
-}):map("<leader>aC")
+})
+  :map("<leader>aC")
+  :map("<m-a>")
 
 -- some special cases:
 pcall(vim.api.nvim_del_keymap, "v", "<C-k>")
