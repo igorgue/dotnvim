@@ -117,8 +117,8 @@ return {
       },
       keymap = {
         preset = "enter",
-        ["<C-p>"] = { "select_prev", simple_complete, "fallback" },
-        ["<C-n>"] = { "select_next", simple_complete, "fallback" },
+        ["<C-p>"] = { "select_prev", simple_complete, "fallback_to_mappings" },
+        ["<C-n>"] = { "select_next", simple_complete, "fallback_to_mappings" },
         ["<C-j>"] = { "snippet_forward", trigger_snippet },
       },
       sources = {

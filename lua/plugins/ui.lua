@@ -63,7 +63,7 @@ return {
         enabled = vim.g.lazyvim_picker == "snacks",
         ui_select = true,
         matcher = {
-          sort_empty = true, -- sort results when the search string is empty
+          sort_empty = false, -- sort results when the search string is empty
           cwd_bonus = true, -- give bonus for matching files in the cwd
           frecency = true, -- frecency bonus
           history_bonus = true, -- give more weight to chronological order
