@@ -95,6 +95,15 @@ return {
             },
           })
         end,
+        deepseek = function()
+          return require("codecompanion.adapters").extend("deepseek", {
+            schema = {
+              model = {
+                default = "deepseek-chat",
+              },
+            },
+          })
+        end,
         openai = function()
           return require("codecompanion.adapters").extend("openai", {
             schema = {
