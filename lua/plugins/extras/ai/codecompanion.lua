@@ -270,6 +270,24 @@ return {
     },
     keys = {
       { "<C-;>", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle (CopilotChatToggle)", mode = { "n", "v", "i" } },
+      {
+        "<M-;>",
+        function()
+          if vim.bo.ft == "codecompanion" then
+            if Snacks.zen.win and Snacks.zen.win:valid() then
+              Snacks.zen.zoom()
+            end
+
+            vim.cmd("CodeCompanionChat Toggle")
+            return
+          end
+
+          vim.cmd("CodeCompanionChat")
+          Snacks.zen.zoom()
+        end,
+        desc = "Open Code Companion Chat Zoomed In",
+        mode = { "n", "v", "i" },
+      },
       { "<leader>ac", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion Chat", mode = { "n", "v" } },
       -- stylua: ignore
       { "<leader>af", function() Snacks.picker.files({ cwd = vim.fn.stdpath("data") .. "/codecompanion" }) end, desc = "Find Previous Chats" },
