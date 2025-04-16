@@ -178,6 +178,7 @@ wk.add({
 Snacks.toggle({
   name = "Line Numbers",
   get = function()
+    ---@diagnostic disable-next-line: undefined-field
     return vim.opt.number:get()
   end,
   set = function(state)
@@ -232,6 +233,7 @@ Snacks.toggle({
 Snacks.toggle({
   name = "Winbar",
   get = function()
+    ---@diagnostic disable-next-line: undefined-field
     return vim.opt.winbar:get() ~= ""
   end,
   set = function(state)
@@ -248,7 +250,7 @@ Snacks.toggle({
     vim.g.cmp_disabled = not state
   end,
 })
-  :map("<M-b>", { mode = { "v", "i", "n" } })
+  :map("<M-b>", { mode = { "n", "v", "i" } })
   :map("<leader>cb")
 
 Snacks.toggle({
@@ -261,13 +263,15 @@ Snacks.toggle({
         return not require("copilot.client").is_disabled()
       end
     end
+
+    return false
   end,
   set = function(state)
     vim.cmd("Copilot " .. (state and "enable" or "disable"))
   end,
 })
   :map("<leader>aC")
-  :map("<m-a>")
+  :map("<m-a>", { mode = { "n", "v", "i" } })
 
 -- some special cases:
 pcall(vim.api.nvim_del_keymap, "v", "<C-k>")
