@@ -29,17 +29,27 @@ return {
             { icon = " ", key = "f", desc = "find file", action = ":lua Snacks.dashboard.pick('files')" },
             { icon = " ", key = "o", desc = "smart open", action = ":lua Snacks.picker.smart()" },
             { icon = " ", key = "g", desc = "find text", action = function()
-              if vim.g.lazyvim_picker == "telescope" then
-                require("plugins.telescope.filter_grep").filter_grep()
-              else
-                Snacks.dashboard.pick('live_grep')
-              end
-            end},
-            { icon = " ", key = "c", desc = "config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+                if vim.g.lazyvim_picker == "telescope" then
+                  require("plugins.telescope.filter_grep").filter_grep()
+                else
+                  Snacks.dashboard.pick("live_grep")
+                end
+              end,
+            },
+            { icon = " ", key = "c", desc = "config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})", },
             { icon = "󰒲 ", key = "l", desc = "lazy", action = ":Lazy" },
             { icon = " ", key = "x", desc = "lazy extras", action = ":LazyExtras" },
-            { icon = " ", key = "t", desc = "terminal", action = ":ene | :lua Snacks.terminal()" },
+            { icon = " ", key = "t", desc = "terminal", action = function()
+                Snacks.terminal()
+                Snacks.zen.zoom()
+              end,
+            },
             { icon = " ", key = "d", desc = "database", action = ":ene | DBUI" },
+            { icon = "󱋊 ", key = "a", desc = "ai chat", action = function()
+                vim.cmd("CodeCompanionChat")
+                Snacks.zen.zoom()
+              end
+            },
             { icon = " ", key = "q", desc = "quit", action = ":qa" },
           },
         },
