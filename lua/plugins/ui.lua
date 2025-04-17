@@ -40,14 +40,19 @@ return {
             { icon = "󰒲 ", key = "l", desc = "lazy", action = ":Lazy" },
             { icon = " ", key = "x", desc = "lazy extras", action = ":LazyExtras" },
             { icon = " ", key = "t", desc = "terminal", action = function()
-              Snacks.terminal()
-              Snacks.zen.zoom()
+              vim.cmd[[
+                terminal
+                only
+                startinsert
+              ]]
             end },
             { icon = " ", key = "d", desc = "database", action = ":ene | DBUI" },
             { icon = "󱋊 ", key = "a", desc = "ai chat", action = function()
-              vim.cmd("CodeCompanionChat")
-              Snacks.zen.zoom()
-              vim.cmd("startinsert")
+              vim.cmd[[
+                CodeCompanionChat
+                only
+                startinsert
+              ]]
             end },
             { icon = " ", key = "q", desc = "quit", action = ":qa" },
           },
