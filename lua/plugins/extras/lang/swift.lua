@@ -13,6 +13,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.filetype.add({
   filename = {
     [".swift-format"] = "json",
+    ["Package.resolved"] = "json",
   },
 })
 
