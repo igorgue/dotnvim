@@ -183,7 +183,7 @@ return {
             },
           },
         },
-        inline = { adapter = vim.g.codecompanion_initial_adapter },
+        inline = { adapter = vim.g.codecompanion_initial_inline_adapter },
       },
       display = {
         action_palette = {
