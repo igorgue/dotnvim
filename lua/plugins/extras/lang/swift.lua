@@ -67,7 +67,9 @@ return {
         return
       end
 
-      opts.servers.sourcekit = {}
+      opts.servers.sourcekit = {
+        filetypes = { "swift", "objc", "objcpp" },
+      }
     end,
   },
   {
