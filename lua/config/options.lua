@@ -68,42 +68,31 @@ if vim.o.diff ~= false then
 end
 
 -- sets the tabline to not show x, a very simple tabline
-vim.cmd([[
-  function NoXTabLine()
-    let s = ''
-    for i in range(tabpagenr('$'))
-      " select the highlighting
-      if i + 1 == tabpagenr()
-        let s ..= '%#TabLineSel#'
-      else
-        let s ..= '%#TabLine#'
-      endif
-      " set the tab page number (for mouse clicks)
-      let s ..= '%' .. (i + 1) .. 'T'
-      " the label is made by NoXTabLabel()
-      let s ..= ' %{NoXTabLabel(' .. (i + 1) .. ')} '
-    endfor
-    " after the last tab fill with TabLineFill and reset tab page nr
-    let s ..= '%#TabLineFill#%T'
-    " right-align the label to close the current tab page
-    if tabpagenr('$') > 1
-      " Does not include the close button
-      let s ..= '%=%#TabLine#%999X'
-    endif
-    return s
-  endfunction
-  function NoXTabLabel(n)
-    let buflist = tabpagebuflist(a:n)
-    let winnr = tabpagewinnr(a:n)
-    let name = fnamemodify(bufname(buflist[winnr - 1]), ":t")
-    " Modification for no name...
-    if name == ''
-      return '[No Name]'
-    endif
-    return name
-  endfunction
-  set tabline=%!NoXTabLine()
-]])
+local function nox_tab_label(n)
+  local buflist = vim.fn.tabpagebuflist(n)
+  local winnr = vim.fn.tabpagewinnr(n)
+  local name = vim.fn.fnamemodify(vim.fn.bufname(buflist[winnr]), ":t")
+  if name == "" then
+    return "[No Name]"
+  end
+  return name
+end
+
+function _G.NoXTabLine()
+  local s = ""
+  local total = vim.fn.tabpagenr("$")
+  local current = vim.fn.tabpagenr()
+  for i = 1, total do
+    s = s .. (i == current and "%#TabLineSel#" or "%#TabLine#") .. "%" .. i .. "T " .. nox_tab_label(i) .. " "
+  end
+  s = s .. "%#TabLineFill#%T"
+  if total > 1 then
+    s = s .. "%=%#TabLine#%999X"
+  end
+  return s
+end
+
+vim.o.tabline = "%!v:lua.NoXTabLine()"
 
 vim.diagnostic.config(utils.ui.diagnostic_config)
 vim.lsp.set_log_level("off") -- change to "debug" to show many logs

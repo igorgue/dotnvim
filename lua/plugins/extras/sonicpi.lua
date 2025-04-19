@@ -27,22 +27,12 @@ return {
   {
     "saghen/blink.cmp",
     optional = true,
-    dependencies = {
-      "magicmonty/sonicpi.nvim",
-    },
+    dependencies = { "magicmonty/sonicpi.nvim" },
     opts = {
       sources = {
         compat = { "sonicpi" },
       },
     },
-  },
-  {
-    "L3MON4D3/LuaSnip",
-    optional = true,
-    ft = "sonicpi",
-    config = function()
-      require("luasnip").filetype_extend("sonicpi", { "ruby" })
-    end,
   },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -62,7 +52,6 @@ return {
   },
   {
     "stevearc/conform.nvim",
-    ft = { "sonicpi" },
     optional = true,
     opts = {
       formatters_by_ft = {
@@ -73,6 +62,10 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
+      setup = {
+        -- stylua: ignore
+        ruby_lsp = function() return true end,
+      },
       servers = {
         ruby_lsp = {
           filetypes = { "ruby", "sonicpi" },
@@ -94,7 +87,6 @@ return {
   },
   {
     "magicmonty/sonicpi.nvim",
-    -- dir = "~/Code/sonicpi.nvim",
     ft = { "sonicpi" },
     dependencies = {
       "kyazdani42/nvim-web-devicons",
