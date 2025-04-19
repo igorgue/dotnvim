@@ -120,6 +120,10 @@ return {
           roles = {
             user = vim.env.USERNAME,
             llm = function(adapter)
+              if not (adapter and adapter.schema and adapter.schema.model) then
+                return "CodeCompanion"
+              end
+
               return "CodeCompanion (" .. adapter.formatted_name .. ":" .. adapter.schema.model.default .. ")"
             end,
           },
