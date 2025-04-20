@@ -54,13 +54,26 @@ return {
     dependencies = {
       "j-hui/fidget.nvim",
       "echasnovski/mini.diff",
-      { "Davidyz/VectorCode", cmd = "VectorCode" },
+      -- { "Davidyz/VectorCode", cmd = "VectorCode" },
       {
         "ravitemer/mcphub.nvim",
         cmd = "MCPHub",
         build = "bundled_build.lua",
         opts = {
-          use_bundled_binary = true,
+          use_bundled_binary = false,
+          extensions = {
+            codecompanion = {
+              show_result_in_chat = true,
+              make_vars = true,
+              make_slash_commands = true,
+            },
+          },
+          log = {
+            level = vim.log.levels.INFO,
+            to_file = false,
+            file_path = nil,
+            prefix = "MCPHub",
+          },
         },
         keys = {
           { "<leader>am", "<cmd>MCPHub<cr>", desc = "Open MCPHub" },
@@ -173,12 +186,12 @@ return {
             },
           },
           tools = {
-            vectorcode = {
-              description = "Run VectorCode to retrieve the project context.",
-              callback = function()
-                return require("vectorcode.integrations").codecompanion.chat.make_tool()
-              end,
-            },
+            -- vectorcode = {
+            --   description = "Run VectorCode to retrieve the project context.",
+            --   callback = function()
+            --     return require("vectorcode.integrations").codecompanion.chat.make_tool()
+            --   end,
+            -- },
             mcp = {
               callback = function()
                 return require("mcphub.extensions.codecompanion")
