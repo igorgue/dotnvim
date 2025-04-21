@@ -3,6 +3,7 @@ local function get_server_path()
   ---@diagnostic disable-next-line: undefined-field
   local realpath = vim.loop.fs_realpath(exepath)
   local pkg_root = vim.fn.fnamemodify(realpath, ":h:h")
+
   return pkg_root .. "/app/server"
 end
 
@@ -103,37 +104,35 @@ return {
     config = function(_, opts)
       local wk = require("which-key")
 
-      -- local mappings = {
-      --   {
-      --     "n",
-      --     "<M-s>",
-      --     require("sonicpi.remote").stop,
-      --     { desc = "Sonic Pi Stop" },
-      --   },
-      --   {
-      --     "i",
-      --     "<M-s>",
-      --     require("sonicpi.remote").stop,
-      --     { desc = "Sonic Pi Stop" },
-      --   },
-      --   {
-      --     "n",
-      --     "<M-r>",
-      --     require("sonicpi.remote").run_current_buffer,
-      --     { desc = "Sonic Pi Run" },
-      --   },
-      --   {
-      --     "i",
-      --     "<M-r>",
-      --     require("sonicpi.remote").run_current_buffer,
-      --     { desc = "Sonic Pi Run" },
-      --   },
-      -- }
-      -- opts = vim.tbl_extend("force", opts, { mappings = mappings })
-      --
-      -- require("sonicpi").setup(opts)
+      local mappings = {
+        {
+          "n",
+          "<M-s>",
+          require("sonicpi.remote").stop,
+          { desc = "Sonic Pi Stop" },
+        },
+        {
+          "i",
+          "<M-s>",
+          require("sonicpi.remote").stop,
+          { desc = "Sonic Pi Stop" },
+        },
+        {
+          "n",
+          "<M-r>",
+          require("sonicpi.remote").run_current_buffer,
+          { desc = "Sonic Pi Run" },
+        },
+        {
+          "i",
+          "<M-r>",
+          require("sonicpi.remote").run_current_buffer,
+          { desc = "Sonic Pi Run" },
+        },
+      }
+      opts = vim.tbl_extend("force", opts, { mappings = mappings })
 
-      require("sonicpi").setup({ mappings = {} })
+      require("sonicpi").setup(opts)
 
       wk.add({
         {
@@ -149,6 +148,26 @@ return {
       lsp_diagnostics = true,
     },
     keys = {
+      {
+        "<leader>;s",
+        "<cmd>SonicPiStartDaemon<cr>",
+        ft = "sonicpi",
+      },
+      {
+        "<leader>;S",
+        "<cmd>SonicPiStopDaemon<cr>",
+        ft = "sonicpi",
+      },
+      {
+        "<leader>;l",
+        "<cmd>SonicPiShowLogs<cr>",
+        ft = "sonicpi",
+      },
+      {
+        "<leader>;h",
+        "<cmd>SonicPiHideLogs<cr>",
+        ft = "sonicpi",
+      },
       {
         "<cr>",
         "<cmd>SonicPiSendBuffer<CR>",
