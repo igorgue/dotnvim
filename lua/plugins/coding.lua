@@ -36,6 +36,7 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
   callback = function()
     local ft = vim.bo.filetype
+
     -- Apply the mapping only if the filetype is not excluded.
     local skip_mapping = false
     for _, excluded in ipairs(excluded_filetypes) do
@@ -44,6 +45,7 @@ vim.api.nvim_create_autocmd("FileType", {
         break
       end
     end
+
     if not skip_mapping then
       vim.api.nvim_buf_set_keymap(0, "i", "<C-n>", "<Nop>", { noremap = true, silent = true })
       vim.api.nvim_buf_set_keymap(0, "i", "<C-p>", "<Nop>", { noremap = true, silent = true })
@@ -120,6 +122,24 @@ return {
         ["<C-p>"] = { "select_prev", simple_complete, "fallback_to_mappings" },
         ["<C-n>"] = { "select_next", simple_complete, "fallback_to_mappings" },
         ["<C-j>"] = { "snippet_forward", trigger_snippet },
+        ["<Tab>"] = {
+          function(cmp)
+            if LazyVim.has("copilot-lsp") and vim.b[vim.api.nvim_get_current_buf()].nes_state then
+              cmp.hide()
+              return require("copilot-lsp.nes").apply_pending_nes()
+            end
+
+            if Snacks.toggle.copilot:get() then
+              cmp.hide()
+
+              return
+            end
+
+            return cmp.select_and_accept()
+          end,
+          vim.g.ai_cmp and LazyVim.cmp.map({ "ai_accept", "fallback" }) or "fallback",
+        },
+        ["<S-Tab>"] = { "fallback" },
       },
       sources = {
         providers = {
