@@ -175,7 +175,7 @@ wk.add({
 })
 
 -- Snacks' toggles
-Snacks.toggle({
+Snacks.toggle["line_numbers"] = Snacks.toggle({
   name = "Line Numbers",
   get = function()
     ---@diagnostic disable-next-line: undefined-field
@@ -188,7 +188,7 @@ Snacks.toggle({
   end,
 }):map("<leader>ul")
 
-Snacks.toggle({
+Snacks.toggle["status_line"] = Snacks.toggle({
   name = "Status Line",
   get = function()
     return vim.api.nvim_get_option_value("laststatus", {}) ~= 0
@@ -198,9 +198,10 @@ Snacks.toggle({
   end,
 }):map("<leader>u.l")
 
-Snacks.toggle({
+Snacks.toggle["invisibles"] = Snacks.toggle({
   name = "Invisibles",
   get = function()
+    ---@diagnostic disable-next-line: undefined-field
     return vim.opt.list:get()
   end,
   set = function(state)
@@ -208,7 +209,7 @@ Snacks.toggle({
   end,
 }):map("<leader>u.i")
 
-Snacks.toggle({
+Snacks.toggle["diffview"] = Snacks.toggle({
   name = "Diffview",
   get = function()
     return require("diffview.lib").get_current_view() ~= nil
@@ -218,7 +219,7 @@ Snacks.toggle({
   end,
 }):map("<leader>gdd")
 
-Snacks.toggle({
+Snacks.toggle["focus_mode"] = Snacks.toggle({
   name = "Focus Mode",
   get = function()
     return vim.g.focus_mode
@@ -230,7 +231,7 @@ Snacks.toggle({
   :map("<M-f>", { mode = { "v", "i", "n" } })
   :map("<leader>u.f")
 
-Snacks.toggle({
+Snacks.toggle["lsp_references"] = Snacks.toggle({
   name = "LSP References",
   get = function()
     return vim.api.nvim_get_hl(0, { name = "LspReferenceRead" }).link ~= nil
@@ -240,7 +241,7 @@ Snacks.toggle({
   end,
 }):map("<leader>uR")
 
-Snacks.toggle({
+Snacks.toggle["winbar"] = Snacks.toggle({
   name = "Winbar",
   get = function()
     ---@diagnostic disable-next-line: undefined-field
@@ -251,7 +252,7 @@ Snacks.toggle({
   end,
 }):map("<leader>uW")
 
-Snacks.toggle({
+Snacks.toggle["blink"] = Snacks.toggle({
   name = "Blink",
   get = function()
     return not vim.g.cmp_disabled
@@ -263,7 +264,7 @@ Snacks.toggle({
   :map("<M-b>", { mode = { "n", "v", "i" } })
   :map("<leader>cb")
 
-Snacks.toggle({
+Snacks.toggle["copilot"] = Snacks.toggle({
   name = "Github Copilot",
   get = function()
     if LazyVim.has("copilot.vim") then
@@ -278,6 +279,7 @@ Snacks.toggle({
   end,
   set = function(state)
     vim.cmd("Copilot " .. (state and "enable" or "disable"))
+    vim.g.ai_cmp = state
   end,
 })
   :map("<leader>aC")
