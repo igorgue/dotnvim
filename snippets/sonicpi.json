@@ -1,0 +1,64 @@
+{
+  "SonicPi Clock Loop": {
+    "prefix": "clocks",
+    "body": [
+      "live_loop :clock, auto_cue: false, delay: 0.01 do",
+      "\tcue((\"clock\" + (tick % 8).to_s).to_sym)",
+      "\tsleep 1",
+      "end",
+      "",
+      "$0"
+    ],
+    "description": "SonicPi Clock live_loop"
+  },
+  "SonicPi Echo FX": {
+    "prefix": "echo",
+    "body": [
+      "with_fx(:echo, decay: ${1:2.0}, mix: ${2:1.0}, phase: ${3:0.25}) do",
+      "\t$0",
+      "end"
+    ],
+    "description": "SonicPi Echo effect wrapper"
+  },
+  "SonicPi Bass Drum Loop": {
+    "prefix": "bd",
+    "body": [
+      "live_loop :bd, sync: :clock${1:0} do",
+      "\ttick",
+      "\tsample ${2::bd_haus} if spread(${3:4}, ${4:16}).look",
+      "\t$0",
+      "\tsleep 0.25",
+      "end"
+    ],
+    "description": "SonicPi Bass drum live_loop"
+  },
+  "SonicPi Generic FX": {
+    "prefix": "fx",
+    "body": ["with_fx(:$1) do", "\t$0", "end"],
+    "description": "SonicPi Generic FX wrapper"
+  },
+  "SonicPi Simple Live Loop": {
+    "prefix": "ll",
+    "body": ["live_loop :$1 do", "\t$0", "\tsleep ${2:1}", "end"],
+    "description": "SonicPi Simple live_loop"
+  },
+  "SonicPi Clock-Synced Live Loop": {
+    "prefix": "llc",
+    "body": [
+      "live_loop :$1, sync: :clock${2:0} do",
+      "\t$0",
+      "\tsleep ${3:1}",
+      "end"
+    ],
+    "description": "SonicPi Clock-synced live_loop"
+  },
+  "SonicPi Reverb FX": {
+    "prefix": "reverb",
+    "body": [
+      "with_fx(:reverb, room: ${1:0.8}, mix: ${2:0.7}, damp: ${3:0.5}) do",
+      "\t$0",
+      "end"
+    ],
+    "description": "SonicPi Reverb effect wrapper"
+  }
+}
