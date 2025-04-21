@@ -17,9 +17,7 @@ end)
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   pattern = { "*.sonicpi" },
   callback = function()
-    if require("sonicpi.opts").remote.lifecycle.daemon_started == 1 then
-      vim.cmd("SonicPiSendBuffer")
-    end
+    vim.cmd("SonicPiSendBuffer")
   end,
 })
 
@@ -105,39 +103,41 @@ return {
     config = function(_, opts)
       local wk = require("which-key")
 
-      local mappings = {
-        {
-          "n",
-          "<M-s>",
-          require("sonicpi.remote").stop,
-          { desc = "Sonic Pi Stop" },
-        },
-        {
-          "i",
-          "<M-s>",
-          require("sonicpi.remote").stop,
-          { desc = "Sonic Pi Stop" },
-        },
-        {
-          "n",
-          "<M-r>",
-          require("sonicpi.remote").run_current_buffer,
-          { desc = "Sonic Pi Run" },
-        },
-        {
-          "i",
-          "<M-r>",
-          require("sonicpi.remote").run_current_buffer,
-          { desc = "Sonic Pi Run" },
-        },
-      }
-      opts = vim.tbl_extend("force", opts, { mappings = mappings })
+      -- local mappings = {
+      --   {
+      --     "n",
+      --     "<M-s>",
+      --     require("sonicpi.remote").stop,
+      --     { desc = "Sonic Pi Stop" },
+      --   },
+      --   {
+      --     "i",
+      --     "<M-s>",
+      --     require("sonicpi.remote").stop,
+      --     { desc = "Sonic Pi Stop" },
+      --   },
+      --   {
+      --     "n",
+      --     "<M-r>",
+      --     require("sonicpi.remote").run_current_buffer,
+      --     { desc = "Sonic Pi Run" },
+      --   },
+      --   {
+      --     "i",
+      --     "<M-r>",
+      --     require("sonicpi.remote").run_current_buffer,
+      --     { desc = "Sonic Pi Run" },
+      --   },
+      -- }
+      -- opts = vim.tbl_extend("force", opts, { mappings = mappings })
+      --
+      -- require("sonicpi").setup(opts)
 
-      require("sonicpi").setup(opts)
+      require("sonicpi").setup({ mappings = {} })
 
       wk.add({
         {
-          "<leader>S",
+          "<leader>;",
           group = "sonicpi",
           icon = { icon = " ", color = "pink" },
         },
@@ -164,19 +164,7 @@ return {
         ft = "sonicpi",
       },
       {
-        "<leader>Ss",
-        "<cmd>SonicPiStartDaemon<CR>",
-        desc = "Sonic Pi start daemon",
-        ft = "sonicpi",
-      },
-      {
-        "<leader>SS",
-        "<cmd>SonicPiStopDaemon<CR>",
-        desc = "Sonic Pi stop daemon",
-        ft = "sonicpi",
-      },
-      {
-        "<leader>;",
+        "<s-c-cr>",
         function()
           require("sonicpi.remote").stop()
           require("sonicpi.remote").run_current_buffer()
