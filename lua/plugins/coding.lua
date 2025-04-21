@@ -31,7 +31,7 @@ local function trigger_snippet(cmp)
 end
 
 -- NOTE: Disable default <c-n> and <c-p> to make blink handle this menu only
-local excluded_filetypes = { "dap-repl", "dapui_console", "dapui_hover" }
+local excluded_filetypes = { "dap-repl", "dapui_console", "dapui_hover", "neorepl" }
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
   callback = function()
