@@ -1,5 +1,8 @@
+vim.g.ai_cmp = true
+
 return {
-  desc = "Github Copilot.lua (unofficial)",
+  desc = "Copilot Native Lua",
+  { "folke/lazy.nvim" },
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
@@ -13,17 +16,7 @@ return {
         markdown = true,
         gitcommit = true,
         gitrebase = true,
-      },
-    },
-    -- FIXME: this doesn't work
-    keys = {
-      {
-        "<C-l>",
-        function()
-          vim.notify("test")
-        end,
-        desc = "Copilot manual trigger",
-        mode = "i",
+        codecompanion = true,
       },
     },
   },

@@ -1,7 +1,8 @@
 return {
+  desc = "Github Copilot (official)",
+  { "folke/lazy.nvim" },
   {
     "github/copilot.vim",
-    desc = "Github Copilot (official)",
     cmd = "Copilot",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
