@@ -199,6 +199,16 @@ Snacks.toggle({
 }):map("<leader>u.l")
 
 Snacks.toggle({
+  name = "Invisibles",
+  get = function()
+    return vim.opt.list:get()
+  end,
+  set = function(state)
+    vim.opt.list = state
+  end,
+}):map("<leader>u.i")
+
+Snacks.toggle({
   name = "Diffview",
   get = function()
     return require("diffview.lib").get_current_view() ~= nil
