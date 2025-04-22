@@ -31,25 +31,28 @@ local function trigger_snippet(cmp)
 end
 
 -- NOTE: Disable default <c-n> and <c-p> to make blink handle this menu only
-local excluded_filetypes = { "dap-repl", "dapui_console", "dapui_hover", "neorepl" }
+local excluded_filetypes = {
+  "dap-repl",
+  "dapui_console",
+  "dapui_hover",
+  "dapui_scopes",
+  "dapui_stacks",
+  "dapui_watches",
+  "neorepl",
+}
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
   callback = function()
     local ft = vim.bo.filetype
 
-    -- Apply the mapping only if the filetype is not excluded.
-    local skip_mapping = false
     for _, excluded in ipairs(excluded_filetypes) do
       if ft == excluded then
-        skip_mapping = true
-        break
+        return
       end
     end
 
-    if not skip_mapping then
-      vim.api.nvim_buf_set_keymap(0, "i", "<C-n>", "<Nop>", { noremap = true, silent = true })
-      vim.api.nvim_buf_set_keymap(0, "i", "<C-p>", "<Nop>", { noremap = true, silent = true })
-    end
+    vim.api.nvim_buf_set_keymap(0, "i", "<C-n>", "<Nop>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(0, "i", "<C-p>", "<Nop>", { noremap = true, silent = true })
   end,
 })
 
