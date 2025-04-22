@@ -94,7 +94,4 @@ return {
       return true
     end,
   },
-  keys = {
-    { "<esc>", "<Plug>(KsbCloseOrQuitAll)", desc = "Quit kitty scrollback", ft = "kitty-scrollback" },
-  },
 }
