@@ -304,8 +304,25 @@ return {
         mode = { "n", "v", "i" },
       },
       { "<leader>ac", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion Chat", mode = { "n", "v" } },
-      -- stylua: ignore
-      { "<leader>af", function() Snacks.picker.files({ cwd = vim.fn.stdpath("data") .. "/codecompanion" }) end, desc = "Find Previous Chats" },
+      {
+        "<leader>af",
+        function()
+          Snacks.picker.files({
+            cwd = vim.fn.stdpath("data") .. "/codecompanion",
+            sort = function(a, b)
+              if a and a.text and b and b.text then
+                return a.text > b.text
+              end
+
+              return false
+            end,
+            matcher = {
+              sort_empty = true,
+            },
+          })
+        end,
+        desc = "Find Previous Chats",
+      },
     },
   },
 }
