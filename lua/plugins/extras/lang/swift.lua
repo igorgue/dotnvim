@@ -32,33 +32,33 @@ return {
   },
   {
     "mfussenegger/nvim-lint",
-    opts = {
-      linters_by_ft = {
-        swift = { "swift-format" },
-      },
-      linters = {
-        ["swift-format"] = function()
-          return {
-            cmd = "swift-format",
-            args = { "lint", "-" },
-            stdin = true,
-            parser = require("lint.parser").from_pattern(
-              "^([^:]+):(%d+):(%d+): (%w+): (.*)$",
-              { "filename", "lnum", "col", "severity", "message" },
-              {
-                error = vim.diagnostic.severity.ERROR,
-                hint = vim.diagnostic.severity.HINT,
-                info = vim.diagnostic.severity.INFO,
-                warning = vim.diagnostic.severity.WARN,
-              },
-              { ["source"] = "swift-format" }
-            ),
-            stream = "both",
-            ignore_exitcode = true,
-          }
-        end,
-      },
-    },
+    opts = function(_, opts)
+      if vim.fn.executable("swift-format") ~= 1 then
+        return
+      end
+
+      opts.linters_by_ft.swift = { "swift-format" }
+      opts.linters["swift-format"] = function()
+        return {
+          cmd = "swift-format",
+          args = { "lint", "-" },
+          stdin = true,
+          parser = require("lint.parser").from_pattern(
+            "^([^:]+):(%d+):(%d+): (%w+): (.*)$",
+            { "filename", "lnum", "col", "severity", "message" },
+            {
+              error = vim.diagnostic.severity.ERROR,
+              hint = vim.diagnostic.severity.HINT,
+              info = vim.diagnostic.severity.INFO,
+              warning = vim.diagnostic.severity.WARN,
+            },
+            { ["source"] = "swift-format" }
+          ),
+          stream = "both",
+          ignore_exitcode = true,
+        }
+      end
+    end,
   },
   {
     "neovim/nvim-lspconfig",
