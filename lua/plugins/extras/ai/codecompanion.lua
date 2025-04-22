@@ -121,7 +121,7 @@ return {
           return require("codecompanion.adapters").extend("openai", {
             schema = {
               model = {
-                default = "gpt-4.5-preview",
+                default = "o4-mini-high",
               },
             },
           })
