@@ -94,4 +94,11 @@ return {
       return true
     end,
   },
+  keys = {
+    -- { "<esc>", "<Plug>(KsbCloseOrQuitAll)", desc = "Quit kitty scrollback", ft = "kitty-scrollback" },
+    { "a", "<Nop>", desc = "Menu is disabled", ft = "kitty-scrollback" },
+    { "A", "<Nop>", desc = "Menu is disabled", ft = "kitty-scrollback" },
+    { "i", "<Nop>", desc = "Menu is disabled", ft = "kitty-scrollback" },
+    { "I", "<Nop>", desc = "Menu is disabled", ft = "kitty-scrollback" },
+  },
 }
