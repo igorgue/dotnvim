@@ -6,8 +6,6 @@ vim.filetype.add({
   },
 })
 
-vim.g.lazyvim_python_lsp = "basedpyright"
-
 return {
   {
     "raimon49/requirements.txt.vim",
@@ -47,35 +45,15 @@ return {
     },
   },
   {
-    "neovim/nvim-lspconfig",
+    "nvim-treesitter/nvim-treesitter",
     opts = {
-      setup = {
-        -- stylua: ignore
-        pyright = function() return true end,
-      },
-      servers = {
-        basedpyright = {},
-        jinja_lsp = {},
-        djlsp = {},
-      },
+      ensure_installed = { "jinja", "jinja_inline", "htmldjango" },
     },
-  },
-  {
-    "mfussenegger/nvim-dap",
-    dependencies = {
-      "mfussenegger/nvim-dap-python",
-    },
-    opts = function()
-      local path = require("mason-registry").get_package("debugpy"):get_install_path()
-
-      require("dap").configurations.python = {}
-      require("dap-python").setup(path .. "/venv/bin/python")
-    end,
   },
   {
     "linux-cultist/venv-selector.nvim",
     branch = "regexp",
-    lazy = false,
+    enabled = true,
     cmd = "VenvSelect",
     config = function()
       require("venv-selector").setup()

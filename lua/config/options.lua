@@ -127,3 +127,5 @@ vim.g.focus_mode = vim.env.LAZYVIM_DISABLE_FOCUS_MODE == nil and true or false
 vim.g.codecompanion_initial_adapter = vim.env.LAZYVIM_CODECOMPANION_ADAPTER or "deekpseek"
 vim.g.codecompanion_initial_inline_adapter = vim.env.LAZYVIM_CODECOMPANION_INLINE_ADAPTER or "deepseek"
 vim.g.codecompanion_auto_tool_mode = nil
+vim.g.lazyvim_python_lsp = "basedpyright"
+
