@@ -1,4 +1,6 @@
 return {
+  { import = "lazyvim.plugins.extras.lang.json" },
+  { import = "plugins.extras.lang.html_css" },
   {
     "echasnovski/mini.hipatterns",
     optional = true,
