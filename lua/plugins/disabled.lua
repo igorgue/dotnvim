@@ -29,8 +29,6 @@ local disabled = {
   { "nvim-tree/nvim-web-devicons", enabled = vim.env.SSH_TTY == nil },
   { "ggandor/flit.nvim", enabled = false },
   { "ggandor/leap.nvim", enabled = false },
-  { "lukas-reineke/indent-blankline.nvim", enabled = false },
-  { "RRethy/vim-illuminate", enabled = false },
   { "L3MON4D3/LuaSnip", enabled = vim.g.lazyvim_cmp == "nvim-cmp" },
   { "stevearc/conform.nvim", enabled = not vim.o.diff },
   { "folke/noice.nvim", enabled = enable_noice },
