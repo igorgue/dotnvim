@@ -219,6 +219,7 @@ return {
           start_in_insert_mode = false,
         },
         diff = {
+          enabled = true,
           provider = "mini_diff",
         },
       },

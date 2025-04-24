@@ -183,7 +183,7 @@ return {
         ft = "sonicpi",
       },
       {
-        "<s-c-cr>",
+        "<leader>;r",
         function()
           require("sonicpi.remote").stop()
           require("sonicpi.remote").run_current_buffer()
