@@ -556,4 +556,11 @@ return {
       click = true,
     },
   },
+
+  {
+    "folke/which-key.nvim",
+    opts = {
+      sort = { "alphanum" },
+    },
+  },
 }
