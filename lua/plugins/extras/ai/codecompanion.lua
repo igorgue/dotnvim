@@ -53,11 +53,10 @@ return {
     dependencies = {
       "j-hui/fidget.nvim",
       {
-        "echasnovski/mini.diff", -- Inline and better diff over the default
+        "echasnovski/mini.diff",
         config = function()
           local diff = require("mini.diff")
           diff.setup({
-            -- Disabled by default
             source = diff.gen_source.none(),
           })
         end,
@@ -106,6 +105,10 @@ return {
       require("plugins.codecompanion.fidget-spinner"):init()
     end,
     opts = {
+      -- Global `opts`
+      opts = {
+        system_prompt = require("plugins.codecompanion.system-prompt"),
+      },
       adapters = {
         gemini = function()
           return require("codecompanion.adapters").extend("gemini", {
