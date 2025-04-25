@@ -5,7 +5,7 @@ vim.bo.expandtab = true
 
 vim.lsp.start({
   init_options = {},
-  name = "mojo-lsp-server",
+  name = "mojo",
   filetypes = { "mojo" },
   cmd = { "mojo-lsp-server" },
   root_dir = vim.fn.getcwd(),
