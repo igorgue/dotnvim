@@ -122,4 +122,15 @@ return {
       }
     end,
   },
+  -- XXX: this does not work (on Linux at least), try late
+  -- {
+  --   "nvim-neotest/neotest",
+  --   optional = true,
+  --   dependencies = { "mmllr/neotest-swift-testing" },
+  --   opts = {
+  --     adapters = {
+  --       ["neotest-swift-testing"] = {},
+  --     },
+  --   },
+  -- },
 }
