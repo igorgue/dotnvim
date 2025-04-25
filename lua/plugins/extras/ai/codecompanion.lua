@@ -3,7 +3,6 @@ local autocmd = vim.api.nvim_create_autocmd
 local codecompanion_group = augroup("CodeCompanionAutoSave", { clear = true })
 
 local function save_codecompanion_buffer(bufnr)
-  local data_path = vim.fn.stdpath("data")
   local save_dir = vim.fn.stdpath("data") .. "/codecompanion"
 
   vim.fn.mkdir(save_dir, "p")
@@ -53,7 +52,16 @@ return {
     "olimorris/codecompanion.nvim",
     dependencies = {
       "j-hui/fidget.nvim",
-      "echasnovski/mini.diff",
+      {
+        "echasnovski/mini.diff", -- Inline and better diff over the default
+        config = function()
+          local diff = require("mini.diff")
+          diff.setup({
+            -- Disabled by default
+            source = diff.gen_source.none(),
+          })
+        end,
+      },
       -- { "Davidyz/VectorCode", cmd = "VectorCode" },
       {
         "ravitemer/mcphub.nvim",
@@ -200,7 +208,20 @@ return {
             },
           },
         },
-        inline = { adapter = vim.g.codecompanion_initial_inline_adapter },
+        inline = {
+          adapter = vim.g.codecompanion_initial_inline_adapter,
+          layout = "vertical",
+          keymaps = {
+            accept_change = {
+              modes = { n = "<leader>aa" },
+              description = "Accept the suggested change",
+            },
+            reject_change = {
+              modes = { n = "<leader>ar" },
+              description = "Reject the suggested change",
+            },
+          },
+        },
       },
       display = {
         action_palette = {
@@ -219,7 +240,6 @@ return {
           start_in_insert_mode = false,
         },
         diff = {
-          enabled = true,
           provider = "mini_diff",
         },
       },
