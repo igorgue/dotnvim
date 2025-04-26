@@ -127,7 +127,8 @@ return {
     optional = true,
     dependencies = {
       {
-        "mmllr/neotest-swift-testing",
+        "igorgue/neotest-swift-testing",
+        branch = "fix-check-for-current-dir",
       },
     },
     opts = {
