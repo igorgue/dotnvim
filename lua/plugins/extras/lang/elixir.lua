@@ -1,5 +1,4 @@
 local elixir_ft = { "elixir", "eelixir", "eex", "heex", "surface", "livebook" }
-local elixir_ts_languages = { "elixir", "eex", "heex", "surface" }
 vim.filetype.add({
   extension = {
     ["neex"] = "heex",
@@ -17,23 +16,7 @@ if ok then
 end
 
 return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = elixir_ts_languages,
-    },
-  },
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      setup = {
-        -- stylua: ignore start
-        elixirls = function() return true end,
-        nextls = function() return true end,
-        -- stylua: ignore end
-      },
-    },
-  },
+  { import = "lazyvim.plugins.extras.lang.elixir" },
   {
     "elixir-tools/elixir-tools.nvim",
     dependencies = {
@@ -42,7 +25,6 @@ return {
     },
     -- stylua: ignore
     enabled = not vim.o.diff,
-    ft = elixir_ft,
     config = function()
       local elixir = require("elixir")
       local elixirls = require("elixir.elixirls")
@@ -121,13 +103,12 @@ return {
     "mfussenegger/nvim-dap",
     optional = true,
     config = function()
-      local elixir_ls = os.getenv("HOME")
-        .. "/.cache/nvim/elixir-tools.nvim/installs/elixir-lsp/elixir-ls/tags_v0.22.0/1.18.1-27"
       local dap = require("dap")
+      local adapter = LazyVim.get_pkg_path("elixir-ls", "debug_adapter.sh")
 
       dap.adapters.elixir = {
         type = "executable",
-        command = elixir_ls .. "/debug_adapter.sh",
+        command = adapter,
         args = {},
       }
 
@@ -143,6 +124,16 @@ return {
         },
       }
     end,
+  },
+  -- do not overwrite the dap adapter setup
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    optional = true,
+    opts = {
+      handlers = {
+        elixir = function() end,
+      },
+    },
   },
   {
     "SmiteshP/nvim-navic",
