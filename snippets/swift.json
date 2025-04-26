@@ -1,0 +1,22 @@
+{
+  "Swift Testing's Test": {
+    "prefix": "tfile",
+    "body": [
+      "import Testing",
+      "",
+      "struct ${1:Test} {",
+      "\t@Test func ${2:testCase}() {",
+      "\t\t$0",
+      "\t}",
+      "}"
+    ]
+  },
+  "Swift Testing's Testcase": {
+    "prefix": ["tcase", "test"],
+    "body": [
+      "@Test func ${2:testCase}() {",
+      "\t$0",
+      "}"
+    ]
+  }
+}
