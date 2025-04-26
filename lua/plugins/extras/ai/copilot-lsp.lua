@@ -14,16 +14,25 @@ return {
     init = function()
       vim.g.copilot_nes_debounce = 500
       vim.lsp.enable("copilot")
-      vim.keymap.set("n", "<tab>", function()
-        require("copilot-lsp.nes").apply_pending_nes()
-      end)
     end,
     keys = {
       {
-        "<tab>",
+        "<leader><tab>a",
         function()
           require("copilot-lsp.nes").apply_pending_nes()
         end,
+        desc = "Copilot Next Edit Completion",
+      },
+      {
+        "<leader><tab>r",
+        function()
+          local ns = vim.api.nvim_get_namespaces()["copilot-nes"]
+          local nes_ui = require("copilot-lsp.nes.ui")
+          local bufnr = vim.api.nvim_get_current_buf()
+
+          nes_ui.clear_suggestion(bufnr, ns)
+        end,
+        desc = "Copilot Next Edit Completion",
       },
     },
   },
