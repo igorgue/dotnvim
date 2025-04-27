@@ -61,7 +61,7 @@ return {
           })
         end,
       },
-      { "Davidyz/VectorCode", cmd = "VectorCode" },
+      -- { "Davidyz/VectorCode", cmd = "VectorCode" },
       {
         "ravitemer/mcphub.nvim",
         cmd = "MCPHub",
@@ -206,12 +206,12 @@ return {
             },
           },
           tools = {
-            vectorcode = {
-              description = "Run VectorCode to retrieve the project context.",
-              callback = function()
-                return require("vectorcode.integrations").codecompanion.chat.make_tool()
-              end,
-            },
+            -- vectorcode = {
+            --   description = "Run VectorCode to retrieve the project context.",
+            --   callback = function()
+            --     return require("vectorcode.integrations").codecompanion.chat.make_tool()
+            --   end,
+            -- },
             mcp = {
               callback = function()
                 return require("mcphub.extensions.codecompanion")
@@ -338,7 +338,7 @@ return {
         mode = { "n", "v", "i" },
       },
       { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "Open actions" },
-      { "<leader>ac", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion Chat", mode = { "n", "v" } },
+      { "<leader>ac", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion Chat" },
       {
         "<leader>af",
         function()
