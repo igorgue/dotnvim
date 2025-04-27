@@ -342,19 +342,7 @@ return {
       {
         "<leader>af",
         function()
-          Snacks.picker.grep({
-            cwd = vim.fn.stdpath("data") .. "/codecompanion",
-            sort = function(a, b)
-              if a and a.text and b and b.text then
-                return a.text > b.text
-              end
-
-              return false
-            end,
-            matcher = {
-              sort_empty = true,
-            },
-          })
+          Snacks.picker.grep({ cwd = vim.fn.stdpath("data") .. "/codecompanion", ft = "markdown" })
         end,
         desc = "Find Previous Chats",
       },
