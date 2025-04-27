@@ -310,7 +310,6 @@ return {
     keys = {
       { "<C-;>", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle (CodeCompanionChat)", mode = { "n", "i" } },
       { "<C-;>", "<cmd>CodeCompanionChat Add<cr>", desc = "Toggle Adding (CodeCompanionChat Add)", mode = "v" },
-      { "<C-a>", "<cmd>CodeCompanionActions<cr>", desc = "Open actions", mode = { "n", "i", "v" } },
       {
         "<M-;>",
         function()
@@ -329,6 +328,7 @@ return {
         desc = "Open Code Companion Chat Zoomed In",
         mode = { "n", "v", "i" },
       },
+      { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "Open actions", mode = "n" },
       { "<leader>ac", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion Chat", mode = { "n", "v" } },
       {
         "<leader>af",
