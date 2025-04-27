@@ -546,7 +546,7 @@ return {
   },
   {
     "SmiteshP/nvim-navic",
-    lazy = false,
+    event = "VeryLazy",
     config = function(_, opts)
       require("nvim-navic").setup(opts)
 

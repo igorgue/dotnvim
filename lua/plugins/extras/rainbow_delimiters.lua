@@ -2,7 +2,7 @@ return {
   desc = "Rainbow delimiters for treesitter",
   "HiPhish/rainbow-delimiters.nvim",
   dependencies = { "nvim-treesitter/nvim-treesitter" },
-  lazy = false,
+  event = "BufReadPost",
   init = function()
     -- This module contains a number of default definitions
     local rainbow_delimiters = require("rainbow-delimiters")

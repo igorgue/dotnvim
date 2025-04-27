@@ -192,7 +192,7 @@ return {
   {
     "akinsho/git-conflict.nvim",
     enabled = not vim.o.diff,
-    lazy = false,
+    event = "BufReadPre",
     opts = {
       disable_diagnostics = true,
     },

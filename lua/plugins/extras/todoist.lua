@@ -41,7 +41,7 @@ return {
   "romgrk/todoist.nvim",
   build = ":TodoistInstall",
   desc = "Integration with Todoist",
-  lazy = false,
+  lazy = "VeryLazy",
   keys = {
     { "<m-t>", toggle, mode = { "i", "n" }, desc = "Todoist toggle" },
   },
