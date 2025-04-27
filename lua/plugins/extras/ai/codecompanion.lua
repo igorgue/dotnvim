@@ -342,7 +342,7 @@ return {
       {
         "<leader>af",
         function()
-          Snacks.picker.files({
+          Snacks.picker.grep({
             cwd = vim.fn.stdpath("data") .. "/codecompanion",
             sort = function(a, b)
               if a and a.text and b and b.text then
