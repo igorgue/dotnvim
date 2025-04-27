@@ -337,7 +337,7 @@ return {
         desc = "Open Code Companion Chat Zoomed In",
         mode = { "n", "v", "i" },
       },
-      { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "Open actions", mode = "n" },
+      { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "Open actions" },
       { "<leader>ac", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion Chat", mode = { "n", "v" } },
       {
         "<leader>af",
@@ -358,6 +358,7 @@ return {
         end,
         desc = "Find Previous Chats",
       },
+      { "<leader>gc", "<cmd>CodeCompanion /write_commit<cr>", desc = "Write the git commit for you", ft = "gitcommit" },
     },
   },
 }
