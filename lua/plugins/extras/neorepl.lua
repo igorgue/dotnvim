@@ -77,11 +77,9 @@ return {
       vim.tbl_extend("force", vim.g.cmp_disabled_filetypes, { "neorepl" })
     end,
     keys = {
+      { "<c-\\>", toggle, mode = { "i", "n" }, desc = "Open Neovim's Lua repl" },
       { "<tab>", "<tab>", mode = "i", ft = "neorepl" },
       { "<c-space>", "<Plug>(neorepl-complete)", mode = "i", desc = "Trigger completion", ft = "neorepl" },
-      { "<c-s-/>", toggle, mode = { "i", "n" }, desc = "Open Neovim's Lua repl" },
-      { "<s-cr>", "<cr>", mode = "i", desc = "Insert new line", ft = "neorepl" },
-      { "<cr>", "<Plug>(neorepl-eval-line)", mode = "n", desc = "Eval line", ft = "neorepl" },
       {
         "<cr>",
         [[pumvisible() ? (complete_info().selected != -1 ? '<c-y>' : '<c-n><c-y>') : '<Plug>(neorepl-eval-line)']],
@@ -91,6 +89,7 @@ return {
         expr = true,
         replace_keycodes = false,
       },
+      { "<cr>", "<Plug>(neorepl-eval-line)", mode = "n", desc = "Eval line", ft = "neorepl" },
       {
         "<cr>",
         function()
@@ -102,6 +101,7 @@ return {
         desc = "Eval block",
         ft = "neorepl",
       },
+      { "<s-cr>", "<cr>", mode = "i", desc = "Insert new line", ft = "neorepl" },
     },
   },
 }

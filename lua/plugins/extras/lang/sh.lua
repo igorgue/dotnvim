@@ -4,7 +4,9 @@
 vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = "*.env",
   callback = function()
-    vim.diagnostic.enable(false, { bufnr = 0 })
+    vim.defer_fn(function()
+      vim.diagnostic.enable(false, { bufnr = 0 })
+    end, 1000)
   end,
 })
 
