@@ -100,5 +100,6 @@ return {
     { "A", "<Nop>", desc = "Menu is disabled", ft = "kitty-scrollback" },
     { "i", "<Nop>", desc = "Menu is disabled", ft = "kitty-scrollback" },
     { "I", "<Nop>", desc = "Menu is disabled", ft = "kitty-scrollback" },
+    { "<c-a>", "a", desc = "Show Kitty Scrollback Menu", ft = "kitty-scrollback" },
   },
 }
