@@ -126,10 +126,7 @@ return {
     "nvim-neotest/neotest",
     optional = true,
     dependencies = {
-      {
-        "igorgue/neotest-swift-testing",
-        branch = "fix-check-for-current-dir",
-      },
+      { "mmllr/neotest-swift-testing" },
     },
     opts = {
       adapters = {

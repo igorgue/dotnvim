@@ -46,17 +46,17 @@ return {
             },
             extensions = {
               credo = {
-                enable = false,
+                enable = true,
               },
               elixir = {
-                enable = false,
+                enable = true,
               },
             },
           },
         },
-        credo = { enable = false },
+        credo = { enable = true },
         elixirls = {
-          enable = false,
+          enable = true,
           settings = elixirls.settings({
             dialyzerEnabled = false,
             fetchDeps = false,
