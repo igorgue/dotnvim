@@ -121,6 +121,19 @@ return {
         },
       }
     end,
+    keys = {
+      {
+        "<leader><F5>",
+        function()
+          vim.g.swift_dap_executable = nil
+          vim.g.swift_dap_argv = nil
+
+          require("dap").continue()
+        end,
+        desc = "Debug Start/Continue",
+        ft = "swift",
+      },
+    },
   },
   {
     "nvim-neotest/neotest",
