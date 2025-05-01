@@ -18,7 +18,16 @@ end
 return {
   { import = "lazyvim.plugins.extras.lang.elixir" },
   {
+    "neovim/nvim-lspconfig",
+    opts = {
+      setup = {
+        elixirls = function() return true end,
+      },
+    },
+  },
+  {
     "elixir-tools/elixir-tools.nvim",
+    ft = elixir_ft,
     dependencies = {
       "elixir-editors/vim-elixir",
       "nvim-lua/plenary.nvim",
@@ -56,7 +65,7 @@ return {
         },
         credo = { enable = true },
         elixirls = {
-          enable = true,
+          enable = false,
           settings = elixirls.settings({
             dialyzerEnabled = false,
             fetchDeps = false,
