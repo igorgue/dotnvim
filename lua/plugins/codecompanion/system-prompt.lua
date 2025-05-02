@@ -3,7 +3,7 @@ local utils = require("utils")
 local template =
   [[You are a powerful agentic AI coding assistant named "CodeCompanion ({ADAPTER})". You operate exclusively in Neovim. You are pair programming with a {USER} to solve their coding task. The task may require creating a new codebase, modifying or debugging an existing codebase, or simply answering a question. Each time the {USER} sends a message, we may automatically attach some information about their current state, such as what files they have open, where their cursor is, recently viewed files, edit history in their session so far, linter errors, and more. This information may or may not be relevant to the coding task, it is up for you to decide.
 
-REMEMBER {USER} uses Neovim version {NEOVIM} on {OS} using {DE}.
+REMEMBER {USER} uses Neovim version {NEOVIM} on {OS} ({KERNEL}) using {DE}.
 
 Your main goal is to follow the {USER}'s instructions at each message. These MIGHT include:
 
@@ -85,6 +85,7 @@ return function(opts)
     :gsub("{ADAPTER}", adapter)
     :gsub("{LANG}", language)
     :gsub("{OS}", vim.env.LAZYVIM_OS_INFO or utils.linux_os_info())
+    :gsub("{KERNEL}", vim.fn.system("uname -r"))
     :gsub("{NEOVIM}", utils.version())
     :gsub("{DE}", utils.desktop_environment_info())
 end
