@@ -275,8 +275,14 @@ return {
 
 ```diff
 %s
+```
+
+And the previous 10 commits, just in case they're related to the current changes:
+```gitcommit
+%s
 ```]],
-                  vim.fn.system("git diff --no-ext-diff --staged")
+                  vim.fn.system("git diff --no-ext-diff --staged"),
+                  vim.fn.system("git log -n 10")
                 )
               end,
               opts = {
@@ -304,8 +310,13 @@ return {
 
 ```diff
 %s
+```
+And the previous 10 commits, just in case they're related to the current changes:
+```gitcommit
+%s
 ```]],
-                  vim.fn.system("git diff --no-ext-diff")
+                  vim.fn.system("git diff --no-ext-diff"),
+                  vim.fn.system("git log -n 10")
                 )
               end,
               opts = {
