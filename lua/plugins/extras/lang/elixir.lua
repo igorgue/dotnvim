@@ -63,7 +63,7 @@ return {
             },
           },
         },
-        credo = { enable = true },
+        credo = { enable = false },
         elixirls = {
           enable = false,
           settings = elixirls.settings({
