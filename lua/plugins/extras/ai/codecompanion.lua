@@ -329,7 +329,27 @@ And the previous 10 commits, just in case they're related to the current changes
     },
     keys = {
       { "<C-;>", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle (CodeCompanionChat)", mode = { "n", "i" } },
-      { "<C-;>", "<cmd>CodeCompanionChat Add<cr>", desc = "Toggle Adding (CodeCompanionChat Add)", mode = "v" },
+      {
+        "<C-;>",
+        function()
+          local found = false
+          local bufs = vim.api.nvim_list_bufs()
+          for i = #bufs, 1, -1 do
+            local buf = bufs[i]
+            if vim.bo[buf].filetype == "codecompanion" then
+              found = true
+            end
+          end
+
+          if found then
+            vim.cmd("CodeCompanionChat Add")
+          else
+            vim.cmd("CodeCompanionChat Toggle")
+          end
+        end,
+        desc = "Toggle Adding (CodeCompanionChat Add)",
+        mode = "v",
+      },
       {
         "<M-;>",
         function()
