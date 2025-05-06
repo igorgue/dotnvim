@@ -45,9 +45,9 @@ return {
     opts = {
       system_prompt = require("plugins.ai.system-prompt")({ name = "Avante" }),
       provider = "gemini",
-      auto_suggestions_provider = "gemini",
-      cursor_provider = "gemini",
-      memory_summary_provider = "gemini",
+      auto_suggestions_provider = "copilot",
+      cursor_provider = "copilot",
+      memory_summary_provider = "copilot",
       gemini = {
         model = "gemini-2.5-pro-exp-03-25",
         max_tokens = 1000000,
@@ -92,7 +92,7 @@ return {
           __inherited_from = "openai",
           api_key_name = "DEEPSEEK_API_KEY",
           endpoint = "https://api.deepseek.com/v1",
-          model = "deepseek-reasoner",
+          model = "deepseek-chat",
           disable_tools = true,
           temperature = 0,
           timeout = 60000,
