@@ -30,10 +30,6 @@ return {
     event = "VeryLazy",
     build = "make",
     dependencies = {
-      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      --- The below is optional, make sure to setup it properly if you have lazy=true
       {
         "MeanderingProgrammer/render-markdown.nvim",
         opts = {
@@ -44,7 +40,7 @@ return {
     },
     opts = {
       system_prompt = require("plugins.ai.system-prompt")({ name = "Avante" }),
-      provider = "gemini",
+      provider = "copilot",
       auto_suggestions_provider = "copilot",
       cursor_provider = "copilot",
       memory_summary_provider = "copilot",
