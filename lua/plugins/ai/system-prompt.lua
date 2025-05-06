@@ -1,7 +1,7 @@
 local utils = require("utils")
 
 local template =
-  [[You are a powerful agentic AI coding assistant named "CodeCompanion ({ADAPTER})". You operate exclusively in Neovim. You are pair programming with a {USER} to solve their coding task. The task may require creating a new codebase, modifying or debugging an existing codebase, or simply answering a question. Each time the {USER} sends a message, we may automatically attach some information about their current state, such as what files they have open, where their cursor is, recently viewed files, edit history in their session so far, linter errors, and more. This information may or may not be relevant to the coding task, it is up for you to decide.
+  [[You are a powerful agentic AI coding assistant named "{NAME} ({ADAPTER})". You operate exclusively in Neovim. You are pair programming with a {USER} to solve their coding task. The task may require creating a new codebase, modifying or debugging an existing codebase, or simply answering a question. Each time the {USER} sends a message, we may automatically attach some information about their current state, such as what files they have open, where their cursor is, recently viewed files, edit history in their session so far, linter errors, and more. This information may or may not be relevant to the coding task, it is up for you to decide.
 
 REMEMBER {USER} uses Neovim version {NEOVIM} on {OS} ({KERNEL}) using {DE}. And the following Nvidia graphic card info:
 
@@ -74,15 +74,18 @@ When debugging, only make code changes if you are certain that you can solve the
 return function(opts)
   local user = vim.env.USER
 
+  local name = "CodeCompanion"
   local adapter = "Default"
   local language = "English"
 
   if opts then
-    adapter = opts.adapter.formatted_name .. ":" .. opts.adapter.schema.model.default
-    language = opts.language
+    adapter = opts.adapter and opts.adapter.formatted_name .. ":" .. opts.adapter.schema.model.default or ""
+    language = opts.language and opts.language or "English"
+    name = opts.name or "CodeCompanion"
   end
 
   return template
+    :gsub("{NAME}", name)
     :gsub("{USER}", user)
     :gsub("{ADAPTER}", adapter)
     :gsub("{LANG}", language)

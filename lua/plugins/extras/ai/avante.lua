@@ -43,9 +43,11 @@ return {
       },
     },
     opts = {
+      system_prompt = require("plugins.ai.system-prompt")({ name = "Avante" }),
       provider = "gemini",
-      -- provider = "openai",
-      -- provider = "deepseek",
+      auto_suggestions_provider = "gemini",
+      cursor_provider = "gemini",
+      memory_summary_provider = "gemini",
       gemini = {
         model = "gemini-2.5-pro-exp-03-25",
         max_tokens = 1000000,
@@ -57,6 +59,33 @@ return {
       },
       openai = {
         timeout = 60000,
+      },
+      windows = {
+        edit = {
+          start_insert = false,
+        },
+      },
+      rag_service = {
+        enabled = false,
+      },
+      dual_boost = {
+        enabled = true,
+        first_provider = "gemini",
+        second_provider = "openai",
+      },
+      behaviour = {
+        auto_focus_sidebar = true,
+        auto_suggestions = true, -- Experimental stage
+        auto_suggestions_respect_ignore = false,
+        auto_set_highlight_group = true,
+        auto_set_keymaps = true,
+        auto_apply_diff_after_generation = false,
+        jump_result_buffer_on_finish = true,
+        support_paste_from_clipboard = true,
+        minimize_diff = true,
+        enable_token_counting = true,
+        use_cwd_as_project_root = true,
+        auto_focus_on_diff_view = true,
       },
       vendors = {
         deepseek = {
@@ -91,10 +120,10 @@ return {
           close = "q",
         },
       },
-      hints = { enabled = false },
+      hints = { enabled = true },
     },
     keys = {
-      -- { "<C-;>", "<cmd>AvanteToggle<cr>", desc = "Toggle (Avante)", mode = { "n", "v", "i" } },
+      { "<C-;>", "<cmd>AvanteToggle<cr>", desc = "Toggle (Avante)", mode = { "n", "v", "i" } },
       {
         "<C-del>",
         "<cmd>AvanteClear<cr>",

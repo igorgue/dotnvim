@@ -107,7 +107,7 @@ return {
     opts = {
       -- Global `opts`
       opts = {
-        system_prompt = require("plugins.codecompanion.system-prompt"),
+        system_prompt = require("plugins.ai.system-prompt"),
       },
       adapters = {
         copilot = function()
@@ -328,48 +328,48 @@ And the previous 10 commits, just in case they're related to the current changes
       },
     },
     keys = {
-      { "<C-;>", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle (CodeCompanionChat)", mode = { "n", "i" } },
-      {
-        "<C-;>",
-        function()
-          local found = false
-          local bufs = vim.api.nvim_list_bufs()
-          for i = #bufs, 1, -1 do
-            local buf = bufs[i]
-            if vim.bo[buf].filetype == "codecompanion" then
-              found = true
-            end
-          end
-
-          if found then
-            vim.cmd("CodeCompanionChat Add")
-          else
-            vim.cmd("CodeCompanionChat Toggle")
-          end
-        end,
-        desc = "Toggle Adding (CodeCompanionChat Add)",
-        mode = "v",
-      },
-      {
-        "<M-;>",
-        function()
-          if vim.bo.ft == "codecompanion" then
-            if Snacks.zen.win and Snacks.zen.win:valid() then
-              Snacks.zen.zoom()
-            end
-
-            vim.cmd("CodeCompanionChat Toggle")
-            return
-          end
-
-          vim.cmd("CodeCompanionChat")
-          Snacks.zen.zoom()
-        end,
-        desc = "Open Code Companion Chat Zoomed In",
-        mode = { "n", "v", "i" },
-      },
-      { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "Open actions" },
-      { "<leader>ac", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion Chat" },
+      -- { "<C-;>", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle (CodeCompanionChat)", mode = { "n", "i" } },
+      -- {
+      --   "<C-;>",
+      --   function()
+      --     local found = false
+      --     local bufs = vim.api.nvim_list_bufs()
+      --     for i = #bufs, 1, -1 do
+      --       local buf = bufs[i]
+      --       if vim.bo[buf].filetype == "codecompanion" then
+      --         found = true
+      --       end
+      --     end
+      --
+      --     if found then
+      --       vim.cmd("CodeCompanionChat Add")
+      --     else
+      --       vim.cmd("CodeCompanionChat Toggle")
+      --     end
+      --   end,
+      --   desc = "Toggle Adding (CodeCompanionChat Add)",
+      --   mode = "v",
+      -- },
+      -- {
+      --   "<M-;>",
+      --   function()
+      --     if vim.bo.ft == "codecompanion" then
+      --       if Snacks.zen.win and Snacks.zen.win:valid() then
+      --         Snacks.zen.zoom()
+      --       end
+      --
+      --       vim.cmd("CodeCompanionChat Toggle")
+      --       return
+      --     end
+      --
+      --     vim.cmd("CodeCompanionChat")
+      --     Snacks.zen.zoom()
+      --   end,
+      --   desc = "Open Code Companion Chat Zoomed In",
+      --   mode = { "n", "v", "i" },
+      -- },
+      -- { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "Open actions" },
+      -- { "<leader>ac", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion Chat" },
       {
         "<leader>af",
         function()
