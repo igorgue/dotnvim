@@ -61,8 +61,16 @@ return {
         timeout = 60000,
       },
       windows = {
+        width = 40,
         edit = {
           start_insert = false,
+        },
+        ask = {
+          start_insert = false,
+        },
+        sidebar_header = {
+          align = "left",
+          rounded = false,
         },
       },
       rag_service = {
