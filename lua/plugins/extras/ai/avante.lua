@@ -1,3 +1,5 @@
+vim.g.lazyvim_ai_assistant = vim.env.LAZYVIM_AI_ASSISTANT or "avante"
+
 return {
   {
     "saghen/blink.cmp",
@@ -49,9 +51,11 @@ return {
         max_tokens = 1000000,
         timeout = 60000,
       },
-      file_selector = {
+      selector = {
         provider = "snacks",
-        provider_opts = {},
+        provider_opts = {
+          ignore_gitignore = false, -- Hypothetical option to disable respecting .gitignore
+        },
       },
       openai = {
         timeout = 60000,
@@ -118,15 +122,22 @@ return {
       },
       hints = { enabled = true },
     },
-    keys = {
-      { "<C-;>", "<cmd>AvanteToggle<cr>", desc = "Toggle (Avante)", mode = { "n", "v", "i" } },
-      {
-        "<C-del>",
-        "<cmd>AvanteClear<cr>",
-        desc = "Clear (Avante)",
-        mode = { "n", "v", "i" },
-        ft = { "AvanteInput", "AvanteSelectedFiles", "Avante" },
-      },
-    },
+    keys = function()
+      local k = {
+        {
+          "<C-del>",
+          "<cmd>AvanteClear<cr>",
+          desc = "Clear (Avante)",
+          mode = { "n", "v", "i" },
+          ft = { "AvanteInput", "AvanteSelectedFiles", "Avante" },
+        },
+      }
+
+      if vim.g.lazyvim_ai_assistant == "avante" then
+        table.insert(k, { "<C-;>", "<cmd>AvanteToggle<cr>", desc = "Toggle (Avante)", mode = { "n", "v", "i" } })
+      end
+
+      return k
+    end,
   },
 }

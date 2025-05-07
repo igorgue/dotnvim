@@ -1,3 +1,5 @@
+vim.g.lazyvim_ai_assistant = vim.env.LAZYVIM_AI_ASSISTANT or "avante"
+
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local codecompanion_group = augroup("CodeCompanionAutoSave", { clear = true })
@@ -327,57 +329,71 @@ And the previous 10 commits, just in case they're related to the current changes
         },
       },
     },
-    keys = {
-      -- { "<C-;>", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle (CodeCompanionChat)", mode = { "n", "i" } },
-      -- {
-      --   "<C-;>",
-      --   function()
-      --     local found = false
-      --     local bufs = vim.api.nvim_list_bufs()
-      --     for i = #bufs, 1, -1 do
-      --       local buf = bufs[i]
-      --       if vim.bo[buf].filetype == "codecompanion" then
-      --         found = true
-      --       end
-      --     end
-      --
-      --     if found then
-      --       vim.cmd("CodeCompanionChat Add")
-      --     else
-      --       vim.cmd("CodeCompanionChat Toggle")
-      --     end
-      --   end,
-      --   desc = "Toggle Adding (CodeCompanionChat Add)",
-      --   mode = "v",
-      -- },
-      -- {
-      --   "<M-;>",
-      --   function()
-      --     if vim.bo.ft == "codecompanion" then
-      --       if Snacks.zen.win and Snacks.zen.win:valid() then
-      --         Snacks.zen.zoom()
-      --       end
-      --
-      --       vim.cmd("CodeCompanionChat Toggle")
-      --       return
-      --     end
-      --
-      --     vim.cmd("CodeCompanionChat")
-      --     Snacks.zen.zoom()
-      --   end,
-      --   desc = "Open Code Companion Chat Zoomed In",
-      --   mode = { "n", "v", "i" },
-      -- },
-      -- { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "Open actions" },
-      -- { "<leader>ac", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion Chat" },
-      {
-        "<leader>af",
-        function()
-          Snacks.picker.grep({ cwd = vim.fn.stdpath("data") .. "/codecompanion", ft = "markdown" })
-        end,
-        desc = "Find Previous Chats",
-      },
-      { "<leader>gc", "<cmd>CodeCompanion /write_commit<cr>", desc = "Write the git commit for you", ft = "gitcommit" },
-    },
+    keys = function()
+      local k = {
+        {
+          "<leader>af",
+          function()
+            Snacks.picker.grep({ cwd = vim.fn.stdpath("data") .. "/codecompanion", ft = "markdown" })
+          end,
+          desc = "Find Previous Chats",
+        },
+        {
+          "<leader>gc",
+          "<cmd>CodeCompanion /write_commit<cr>",
+          desc = "Write the git commit for you",
+          ft = "gitcommit",
+        },
+      }
+
+      if vim.g.lazyvim_ai_assistant == "codecompanion" then
+        k = vim.tbl_extend("force", k, {
+          { "<C-;>", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle (CodeCompanionChat)", mode = { "n", "i" } },
+          {
+            "<C-;>",
+            function()
+              local found = false
+              local bufs = vim.api.nvim_list_bufs()
+              for i = #bufs, 1, -1 do
+                local buf = bufs[i]
+                if vim.bo[buf].filetype == "codecompanion" then
+                  found = true
+                end
+              end
+
+              if found then
+                vim.cmd("CodeCompanionChat Add")
+              else
+                vim.cmd("CodeCompanionChat Toggle")
+              end
+            end,
+            desc = "Toggle Adding (CodeCompanionChat Add)",
+            mode = "v",
+          },
+          {
+            "<M-;>",
+            function()
+              if vim.bo.ft == "codecompanion" then
+                if Snacks.zen.win and Snacks.zen.win:valid() then
+                  Snacks.zen.zoom()
+                end
+
+                vim.cmd("CodeCompanionChat Toggle")
+                return
+              end
+
+              vim.cmd("CodeCompanionChat")
+              Snacks.zen.zoom()
+            end,
+            desc = "Open Code Companion Chat Zoomed In",
+            mode = { "n", "v", "i" },
+          },
+          { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "Open actions" },
+          { "<leader>ac", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion Chat" },
+        })
+      end
+
+      return k
+    end,
   },
 }
