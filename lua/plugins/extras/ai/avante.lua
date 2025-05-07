@@ -39,15 +39,41 @@ return {
         },
         ft = { "markdown", "Avante" },
       },
+      {
+        "ravitemer/mcphub.nvim",
+        opts = {
+          extensions = {
+            avante = {
+              make_slash_commands = true,
+            },
+          },
+        },
+      },
     },
     opts = {
-      system_prompt = require("plugins.ai.system-prompt")({ name = "Avante" }),
+      system_prompt = function()
+        local prompt = require("plugins.ai.system-prompt")({ name = "Avante" })
+        local hub = require("mcphub").get_hub_instance()
+
+        return prompt .. "\n\nMCP Hub:\n\n" .. hub:get_active_servers_prompt()
+      end,
       provider = "copilot",
       auto_suggestions_provider = "copilot",
       cursor_provider = "copilot",
       memory_summary_provider = "copilot",
+      custom_tools = function()
+        return {
+          require("mcphub.extensions.avante").mcp_tool(),
+        }
+      end,
       gemini = {
         model = "gemini-2.5-pro-exp-03-25",
+        max_tokens = 1000000,
+        timeout = 60000,
+      },
+      copilot = {
+        endpoint = "https://api.githubcopilot.com",
+        model = "gpt-4.1",
         max_tokens = 1000000,
         timeout = 60000,
       },
@@ -66,6 +92,7 @@ return {
           start_insert = false,
         },
         ask = {
+          floating = true,
           start_insert = false,
         },
         sidebar_header = {
@@ -91,7 +118,7 @@ return {
         jump_result_buffer_on_finish = true,
         support_paste_from_clipboard = true,
         minimize_diff = true,
-        enable_token_counting = true,
+        enable_token_counting = false,
         use_cwd_as_project_root = true,
         auto_focus_on_diff_view = true,
       },
@@ -126,6 +153,7 @@ return {
         },
         sidebar = {
           close = "q",
+          close_from_input = { normal = "q", insert = "<C-d>" },
         },
       },
       hints = { enabled = true },
@@ -138,6 +166,15 @@ return {
           desc = "Clear (Avante)",
           mode = { "n", "v", "i" },
           ft = { "AvanteInput", "AvanteSelectedFiles", "Avante" },
+        },
+        {
+          "<c-y>",
+          function()
+            vim.api.nvim_input("iYes<esc><cr>")
+          end,
+          desc = "Yes Yes Yes (Avante)",
+          mode = { "n" },
+          ft = { "AvanteInput" },
         },
       }
 
