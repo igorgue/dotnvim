@@ -79,9 +79,6 @@ return {
       },
       selector = {
         provider = "snacks",
-        provider_opts = {
-          ignore_gitignore = false, -- Hypothetical option to disable respecting .gitignore
-        },
       },
       openai = {
         timeout = 60000,
