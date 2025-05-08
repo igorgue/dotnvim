@@ -2,6 +2,11 @@
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
 
+-- NOTE: vscode plugin don't need to do this...
+if vim.g.vscode then
+  return
+end
+
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
     vim.opt_local.cursorline = false
@@ -64,6 +69,7 @@ end
 
 vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged", "TextChangedI" }, {
   callback = function()
+
     require("lint").try_lint()
   end,
 })
