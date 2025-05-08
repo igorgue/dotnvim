@@ -89,11 +89,16 @@ return {
       windows = {
         width = 40,
         edit = {
+          border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
           start_insert = false,
         },
         ask = {
           floating = true,
+          border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
           start_insert = false,
+        },
+        sidebar = {
+          border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
         },
         sidebar_header = {
           align = "left",
@@ -104,7 +109,7 @@ return {
         enabled = false,
       },
       dual_boost = {
-        enabled = true,
+        enabled = false,
         first_provider = "gemini",
         second_provider = "openai",
       },
