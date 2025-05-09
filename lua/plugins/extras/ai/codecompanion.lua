@@ -390,6 +390,19 @@ And the previous 10 commits, just in case they're related to the current changes
           },
           { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "Open actions" },
           { "<leader>ac", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion Chat" },
+          {
+            "<leader>af",
+            function()
+              Snacks.picker.grep({ cwd = vim.fn.stdpath("data") .. "/codecompanion", ft = "markdown" })
+            end,
+            desc = "Find Previous Chats",
+          },
+          {
+            "<leader>gc",
+            "<cmd>CodeCompanion /write_commit<cr>",
+            desc = "Write the git commit for you",
+            ft = "gitcommit",
+          },
         })
       end
 
