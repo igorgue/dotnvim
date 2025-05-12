@@ -68,6 +68,7 @@ return {
         "ravitemer/mcphub.nvim",
         cmd = "MCPHub",
         build = "bundled_build.lua",
+        enabled = false,
         opts = {
           use_bundled_binary = false,
           extensions = {
@@ -214,12 +215,12 @@ return {
             --     return require("vectorcode.integrations").codecompanion.chat.make_tool()
             --   end,
             -- },
-            mcp = {
-              callback = function()
-                return require("mcphub.extensions.codecompanion")
-              end,
-              description = "Call tools and resources from the MCP Servers",
-            },
+            -- mcp = {
+            --   callback = function()
+            --     return require("mcphub.extensions.codecompanion")
+            --   end,
+            --   description = "Call tools and resources from the MCP Servers",
+            -- },
           },
         },
         inline = {

@@ -63,6 +63,10 @@ local kitty_scrollback_disabled = vim.env.KITTY_SCROLLBACK_NVIM ~= "true"
       { "numToStr/Comment.nvim", enabled = false },
       { "jez/vim-ispc", enabled = false },
       { "s1n7ax/nvim-window-picker", enabled = false },
+      { "s1n7ax/nvim-window-picker", enabled = false },
+      { "olimorris/codecompanion.nvin", enabled = false },
+      { "yetone/avante.nvim", enabled = false },
+      { "ravitemer/mcphub.nvim", enabled = false },
     }
   or {}
 

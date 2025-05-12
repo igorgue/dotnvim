@@ -41,6 +41,7 @@ return {
       },
       {
         "ravitemer/mcphub.nvim",
+        enabled = false,
         opts = {
           extensions = {
             avante = {
@@ -52,10 +53,11 @@ return {
     },
     opts = {
       system_prompt = function()
-        local prompt = require("plugins.ai.system-prompt")({ name = "Avante" })
-        local hub = require("mcphub").get_hub_instance()
-
-        return prompt .. "\n\nMCP Hub:\n\n" .. hub:get_active_servers_prompt()
+        -- local prompt = require("plugins.ai.system-prompt")({ name = "Avante" })
+        -- local hub = require("mcphub").get_hub_instance()
+        --
+        -- return prompt .. "\n\nMCP Hub:\n\n" .. hub:get_active_servers_prompt()
+        return require("plugins.ai.system-prompt")({ name = "Avante" })
       end,
       provider = "copilot",
       auto_suggestions_provider = "copilot",
