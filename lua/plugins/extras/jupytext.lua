@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = {
       ensure_installed = { "jupytext" },
     },

@@ -1,7 +1,7 @@
 return {
   desc = "Copilot LSP (Next Edit Completion)",
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = {
       ensure_installed = {
         "copilot-language-server",
