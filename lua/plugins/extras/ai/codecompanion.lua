@@ -113,42 +113,44 @@ return {
         system_prompt = require("plugins.ai.system-prompt"),
       },
       adapters = {
-        copilot = function()
-          return require("codecompanion.adapters").extend("copilot", {
-            schema = {
-              model = {
-                default = "gpt-4.1",
-              },
-            },
-          })
-        end,
-        gemini = function()
-          return require("codecompanion.adapters").extend("gemini", {
-            schema = {
-              model = {
-                default = "gemini-2.5-pro-exp-03-25",
-              },
-            },
-          })
-        end,
-        deepseek = function()
-          return require("codecompanion.adapters").extend("deepseek", {
-            schema = {
-              model = {
-                default = "deepseek-chat",
-              },
-            },
-          })
-        end,
-        openai = function()
-          return require("codecompanion.adapters").extend("openai", {
-            schema = {
-              model = {
-                default = "o4-mini",
-              },
-            },
-          })
-        end,
+        -- TODO: this doesn't work, I reported the bug
+        --
+        -- copilot = function()
+        --   return require("codecompanion.adapters").extend("copilot", {
+        --     schema = {
+        --       model = {
+        --         default = "gpt-4.1",
+        --       },
+        --     },
+        --   })
+        -- end,
+        -- gemini = function()
+        --   return require("codecompanion.adapters").extend("gemini", {
+        --     schema = {
+        --       model = {
+        --         default = "gemini-2.5-pro-exp-03-25",
+        --       },
+        --     },
+        --   })
+        -- end,
+        -- deepseek = function()
+        --   return require("codecompanion.adapters").extend("deepseek", {
+        --     schema = {
+        --       model = {
+        --         default = "deepseek-chat",
+        --       },
+        --     },
+        --   })
+        -- end,
+        -- openai = function()
+        --   return require("codecompanion.adapters").extend("openai", {
+        --     schema = {
+        --       model = {
+        --         default = "o4-mini",
+        --       },
+        --     },
+        --   })
+        -- end,
       },
       strategies = {
         chat = {
@@ -208,20 +210,20 @@ return {
               },
             },
           },
-          tools = {
-            -- vectorcode = {
-            --   description = "Run VectorCode to retrieve the project context.",
-            --   callback = function()
-            --     return require("vectorcode.integrations").codecompanion.chat.make_tool()
-            --   end,
-            -- },
-            -- mcp = {
-            --   callback = function()
-            --     return require("mcphub.extensions.codecompanion")
-            --   end,
-            --   description = "Call tools and resources from the MCP Servers",
-            -- },
-          },
+          -- tools = {
+          --   vectorcode = {
+          --     description = "Run VectorCode to retrieve the project context.",
+          --     callback = function()
+          --       return require("vectorcode.integrations").codecompanion.chat.make_tool()
+          --     end,
+          --   },
+          --   mcp = {
+          --     callback = function()
+          --       return require("mcphub.extensions.codecompanion")
+          --     end,
+          --     description = "Call tools and resources from the MCP Servers",
+          --   },
+          -- },
         },
         inline = {
           adapter = vim.g.codecompanion_initial_inline_adapter,
