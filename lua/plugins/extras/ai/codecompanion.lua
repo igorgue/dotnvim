@@ -113,44 +113,34 @@ return {
         system_prompt = require("plugins.ai.system-prompt"),
       },
       adapters = {
-        -- TODO: this doesn't work, I reported the bug
-        --
-        -- copilot = function()
-        --   return require("codecompanion.adapters").extend("copilot", {
-        --     schema = {
-        --       model = {
-        --         default = "gpt-4.1",
-        --       },
-        --     },
-        --   })
-        -- end,
-        -- gemini = function()
-        --   return require("codecompanion.adapters").extend("gemini", {
-        --     schema = {
-        --       model = {
-        --         default = "gemini-2.5-pro-exp-03-25",
-        --       },
-        --     },
-        --   })
-        -- end,
-        -- deepseek = function()
-        --   return require("codecompanion.adapters").extend("deepseek", {
-        --     schema = {
-        --       model = {
-        --         default = "deepseek-chat",
-        --       },
-        --     },
-        --   })
-        -- end,
-        -- openai = function()
-        --   return require("codecompanion.adapters").extend("openai", {
-        --     schema = {
-        --       model = {
-        --         default = "o4-mini",
-        --       },
-        --     },
-        --   })
-        -- end,
+        copilot = function()
+          return require("codecompanion.adapters").extend("copilot", {
+            model = {
+              default = "gpt-4.1",
+            },
+          })
+        end,
+        gemini = function()
+          return require("codecompanion.adapters").extend("gemini", {
+            model = {
+              default = "gemini-2.5-pro-exp-03-25",
+            },
+          })
+        end,
+        deepseek = function()
+          return require("codecompanion.adapters").extend("deepseek", {
+            model = {
+              default = "deepseek-chat",
+            },
+          })
+        end,
+        openai = function()
+          return require("codecompanion.adapters").extend("openai", {
+            model = {
+              default = "o4-mini",
+            },
+          })
+        end,
       },
       strategies = {
         chat = {
