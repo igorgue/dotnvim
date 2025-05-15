@@ -115,29 +115,37 @@ return {
       adapters = {
         copilot = function()
           return require("codecompanion.adapters").extend("copilot", {
-            model = {
-              default = "gpt-4.1",
+            schema = {
+              model = {
+                default = "gpt-4o",
+              },
             },
           })
         end,
         gemini = function()
           return require("codecompanion.adapters").extend("gemini", {
-            model = {
-              default = "gemini-2.5-pro-exp-03-25",
+            schema = {
+              model = {
+                default = "gemini-2.5-pro-exp-03-25",
+              },
             },
           })
         end,
         deepseek = function()
           return require("codecompanion.adapters").extend("deepseek", {
-            model = {
-              default = "deepseek-chat",
+            schema = {
+              model = {
+                default = "deepseek-chat",
+              },
             },
           })
         end,
         openai = function()
           return require("codecompanion.adapters").extend("openai", {
-            model = {
-              default = "o4-mini",
+            schema = {
+              model = {
+                default = "gpt-4.1",
+              },
             },
           })
         end,
@@ -256,10 +264,10 @@ return {
           description = "Writes commit message on gitcommit buffer",
           opts = {
             index = 10,
-            is_default = true,
-            is_slash_cmd = true,
+            is_default = false,
+            is_slash_cmd = false,
             short_name = "write_commit",
-            auto_submit = true,
+            auto_submit = false,
           },
           prompts = {
             {
@@ -281,7 +289,7 @@ And the previous 10 commits, just in case they're related to the current changes
                 )
               end,
               opts = {
-                contains_code = true,
+                contains_code = false,
               },
             },
           },
