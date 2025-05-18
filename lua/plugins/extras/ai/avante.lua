@@ -63,11 +63,11 @@ return {
       auto_suggestions_provider = "copilot",
       cursor_provider = "copilot",
       memory_summary_provider = "copilot",
-      custom_tools = function()
-        return {
-          require("mcphub.extensions.avante").mcp_tool(),
-        }
-      end,
+      -- custom_tools = function()
+      --   return {
+      --     require("mcphub.extensions.avante").mcp_tool(),
+      --   }
+      -- end,
       gemini = {
         model = "gemini-2.5-pro-exp-03-25",
         max_tokens = 1000000,
