@@ -135,6 +135,8 @@ return {
       view = {
         default = {
           winbar_info = true,
+          disable_diagnostics = true,
+          winbar_info = true,
         },
       },
       hooks = {
