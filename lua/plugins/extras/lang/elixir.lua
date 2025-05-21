@@ -18,93 +18,26 @@ end
 return {
   { import = "lazyvim.plugins.extras.lang.elixir" },
   {
-    "neovim/nvim-lspconfig",
+    "mason-org/mason.nvim",
     opts = {
-      setup = {
-        elixirls = function() return true end,
+      ensure_installed = {
+        "lexical",
       },
     },
   },
   {
-    "elixir-tools/elixir-tools.nvim",
-    ft = elixir_ft,
-    dependencies = {
-      "elixir-editors/vim-elixir",
-      "nvim-lua/plenary.nvim",
-    },
-    -- stylua: ignore
-    enabled = not vim.o.diff,
-    config = function()
-      local elixir = require("elixir")
-      local elixirls = require("elixir.elixirls")
-      local wk = require("which-key")
-
-      wk.add({
-        { "<leader>cE", group = "elixir" },
-      })
-
-      elixir.setup({
-        nextls = {
-          enable = true,
-          spitfire = true,
-          init_options = {
-            experimental = {
-              completions = {
-                enable = true,
-              },
-            },
-            extensions = {
-              credo = {
-                enable = true,
-              },
-              elixir = {
-                enable = true,
-              },
-            },
-          },
-        },
-        credo = { enable = false },
-        elixirls = {
-          enable = false,
-          settings = elixirls.settings({
-            dialyzerEnabled = false,
-            fetchDeps = false,
-            enableTestLenses = false,
-            suggestSpecs = false,
-          }),
-        },
-      })
-    end,
-    keys = {
-      {
-        "<leader>cEp",
-        "<cmd>ElixirToPipe<cr>",
-        desc = "To Pipe",
-        ft = elixir_ft,
+    "neovim/nvim-lspconfig",
+    opts = {
+      setup = {
+        elixirls = function()
+          return true
+        end,
+        nextls = function()
+          return true
+        end,
       },
-      {
-        "<leader>cEP",
-        "<cmd>ElixirFromPipe<cr>",
-        desc = "From Pipe",
-        ft = elixir_ft,
-      },
-      {
-        "<leader>cEm",
-        "<cmd>ElixirExpandMacro<cr>",
-        desc = "Expand Macro",
-        ft = elixir_ft,
-      },
-      {
-        "<leader>cEr",
-        "<cmd>ElixirRestart<cr>",
-        desc = "Restart",
-        ft = elixir_ft,
-      },
-      {
-        "<leader>cEo",
-        "<cmd>ElixirOutputPanel<cr>",
-        desc = "Output Panel",
-        ft = elixir_ft,
+      servers = {
+        lexical = {},
       },
     },
   },
@@ -113,7 +46,7 @@ return {
     optional = true,
     config = function()
       local dap = require("dap")
-      local adapter = LazyVim.get_pkg_path("elixir-ls", "debug_adapter.sh")
+      local adapter = LazyVim.get_pkg_path("lexical", "libexec/lexical/bin/debug_shell.sh")
 
       dap.adapters.elixir = {
         type = "executable",
@@ -136,20 +69,22 @@ return {
   },
   -- do not overwrite the dap adapter setup
   {
-    "jay-babu/mason-nvim-dap.nvim",
-    optional = true,
-    opts = {
-      handlers = {
-        elixir = function() end,
-      },
-    },
-  },
-  {
     "SmiteshP/nvim-navic",
     optional = true,
+    dependencies = {
+      {
+        "jay-babu/mason-nvim-dap.nvim",
+        optional = true,
+        opts = {
+          handlers = {
+            elixir = function() end,
+          },
+        },
+      },
+    },
     opts = {
       lsp = {
-        preference = { "nextls" },
+        preference = { "lexical" },
       },
     },
   },
