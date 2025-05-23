@@ -1,7 +1,7 @@
 vim.g.lazyvim_aider_model = vim.env.LAZYVIM_AIDER_MODEL
 
 local function open()
-  local options = "--analytics-disable --notifications --editor nvim --code-theme solarized-dark"
+  local options = "--analytics-disable --notifications --no-auto-commits --editor nvim --code-theme solarized-dark"
 
   if vim.g.lazyvim_aider_model ~= nil then
     options = options .. ' --model "' .. vim.g.lazyvim_aider_model .. '"'
