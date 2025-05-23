@@ -162,12 +162,11 @@ return {
     },
     keys = {
       -- stylua: ignore start
-      { "<leader><leader>", resume_snacks_picker, desc = "Resume" },
       { "<c-cr>", resume_snacks_picker, desc = "Resume", mode = { "n", "i" } },
+      { "<leader><cr>", resume_snacks_picker, desc = "Resume" },
       { "<leader>r", function() Snacks.picker.recent() end, desc = "Recent" },
       { "<leader>j", function() Snacks.picker.jumps() end, desc = "Jumps" },
-      { "<leader><cr>", function() Snacks.picker.smart() end, desc = "Smart" },
-      { "<leader>fs", function() Snacks.picker.smart() end, desc = "Smart" },
+      { "<leader><leader>", function() Snacks.picker.smart() end, desc = "Smart" },
       -- stylua: ignore end
     },
   },
