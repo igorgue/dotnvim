@@ -63,7 +63,8 @@ return {
 
       vim.list_extend(Keys, keys)
 
-      ui_windows.default_options.border = "rounded"
+      -- ui_windows.default_options.border = "rounded"
+      ui_windows.default_options.border = "none"
 
       opts.format = { timeout_ms = 5000 }
       opts.inlay_hints = { enabled = false }

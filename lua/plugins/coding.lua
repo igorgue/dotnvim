@@ -92,7 +92,7 @@ return {
           },
         },
         menu = {
-          border = "rounded",
+          -- border = "rounded",
           auto_show = function()
             return not vim.g.focus_mode
           end,
@@ -105,7 +105,7 @@ return {
         },
         documentation = {
           window = {
-            border = "rounded",
+            -- border = "rounded",
           },
         },
         trigger = {
@@ -118,7 +118,7 @@ return {
           show_on_insert_on_trigger_character = false,
         },
         window = {
-          border = "rounded",
+          -- border = "rounded",
         },
       },
       keymap = {

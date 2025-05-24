@@ -17,6 +17,9 @@ return {
     "folke/snacks.nvim",
     opts = {
       image = {},
+      notifier = {
+        style = "minimal",
+      },
       dashboard = {
         preset = {
           header = "NVIM " .. require("utils").version(),
@@ -75,6 +78,36 @@ return {
       input = {},
       picker = {
         enabled = vim.g.lazyvim_picker == "snacks",
+        layout = { preset = "noborder" },
+        layouts = {
+          noborder = {
+            layout = {
+              box = "horizontal",
+              backdrop = true,
+              width = 0.9,
+              height = 0.9,
+              border = "none",
+              {
+                box = "vertical",
+                {
+                  win = "input",
+                  height = 1,
+                  border = "none",
+                  title = "{title} {live} {flags}",
+                  title_pos = "center",
+                },
+                { win = "list", title = " Results ", title_pos = "center", border = "none" },
+              },
+              {
+                win = "preview",
+                title = "{preview:Preview}",
+                width = 0.60,
+                border = "none",
+                title_pos = "center",
+              },
+            },
+          },
+        },
         ui_select = true,
         matcher = {
           sort_empty = false, -- sort results when the search string is empty
@@ -139,6 +172,9 @@ return {
           },
         },
         sources = {
+          symbols = {
+            layout = { preset = "noborder" },
+          },
           explorer = {
             win = {
               list = {
@@ -505,6 +541,13 @@ return {
   {
     "folke/noice.nvim",
     opts = {
+      win_options = {
+        winhighlight = {
+          Normal = "NormalFloat",
+          FloatBorder = "NormalFloat",
+          -- FloatBorder = "FloatBorder",
+        },
+      },
       lsp = {
         hover = {
           silent = true,
@@ -526,7 +569,7 @@ return {
         command_palette = true,
         long_message_to_split = true, -- long messages will be sent to a split
         inc_rename = false, -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = true,
+        lsp_doc_border = false,
       },
     },
   },
@@ -538,7 +581,8 @@ return {
       },
       ui = {
         -- border = "single",
-        border = "rounded",
+        -- border = "rounded",
+        border = "none",
         winhighlight = "Normal:Normal,FloatBorder:VertSplit,CursorLine:CursorLine,Search:Search",
       },
     },
@@ -559,6 +603,7 @@ return {
   {
     "folke/which-key.nvim",
     opts = {
+      preset = "classic",
       sort = { "alphanum" },
     },
   },
