@@ -158,6 +158,7 @@ return {
   {
     "igorgue/danger",
     -- dir = "~/Code/danger",
+    branch = "no-border",
     opts = {
       style = "dark",
       alacritty = true,

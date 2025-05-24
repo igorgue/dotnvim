@@ -83,6 +83,8 @@ return {
           noborder = {
             layout = {
               box = "horizontal",
+              title = "{title}",
+              title_pos = "center",
               backdrop = true,
               width = 0.9,
               height = 0.9,
