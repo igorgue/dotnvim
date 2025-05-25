@@ -51,6 +51,16 @@ if vim.lsp.inlay_hint ~= nil then
   })
 end
 
+vim.api.nvim_set_hl(0, "MyTermBg", { link = Normal })
+
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    vim.opt_local.winhighlight = "NormalFloat:MyTermBg"
+
+    vim.cmd("startinsert")
+  end,
+})
+
 if vim.env.NVIM_TERMINAL ~= nil then
   vim.api.nvim_create_autocmd("TermOpen", {
     callback = function()
@@ -69,7 +79,6 @@ end
 
 vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged", "TextChangedI" }, {
   callback = function()
-
     require("lint").try_lint()
   end,
 })
