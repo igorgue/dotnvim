@@ -41,8 +41,6 @@ local function toggle()
     minimal = false,
     ft = "lua",
     on_win = function(_)
-      vim.opt_local.winhighlight = "NormalFloat:MyTermBg"
-
       if vim.api.nvim_get_mode().mode == "n" then
         vim.api.nvim_command("startinsert")
       end
