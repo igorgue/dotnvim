@@ -1,57 +1,61 @@
-local augroup = vim.api.nvim_create_augroup
-local autocmd = vim.api.nvim_create_autocmd
-local codecompanion_group = augroup("CodeCompanionAutoSave", { clear = true })
+vim.g.codecompanion_auto_tool_mode = true
+vim.g.mcphub_auto_approve = true
 
-local function save_codecompanion_buffer(bufnr)
-  local save_dir = vim.fn.stdpath("data") .. "/codecompanion"
+-- local augroup = vim.api.nvim_create_augroup
+-- local autocmd = vim.api.nvim_create_autocmd
+-- local codecompanion_group = augroup("CodeCompanionAutoSave", { clear = true })
 
-  vim.fn.mkdir(save_dir, "p")
+-- local function save_codecompanion_buffer(bufnr)
+--   local save_dir = vim.fn.stdpath("data") .. "/codecompanion"
+--
+--   vim.fn.mkdir(save_dir, "p")
+--
+--   if not vim.api.nvim_buf_is_valid(bufnr) then
+--     return
+--   end
+--
+--   local bufname = vim.api.nvim_buf_get_name(bufnr)
+--
+--   -- Extract the unique ID from the buffer name
+--   local id = bufname:match("%[CodeCompanion%] (%d+)")
+--   local date = os.date("%Y-%m-%d")
+--   local save_path
+--
+--   if id then
+--     -- Use date plus ID to ensure uniqueness
+--     save_path = save_dir .. "/" .. date .. "_codecompanion_" .. id .. ".md"
+--   else
+--     -- Fallback with timestamp to ensure uniqueness if no ID
+--     save_path = save_dir .. "/" .. date .. "_codecompanion_" .. os.date("%H%M%S") .. ".md"
+--   end
+--
+--   -- Write buffer content to file
+--   local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+--   local file = io.open(save_path, "w")
+--   if file then
+--     file:write(table.concat(lines, "\n"))
+--     file:close()
+--   end
+-- end
 
-  if not vim.api.nvim_buf_is_valid(bufnr) then
-    return
-  end
-
-  local bufname = vim.api.nvim_buf_get_name(bufnr)
-
-  -- Extract the unique ID from the buffer name
-  local id = bufname:match("%[CodeCompanion%] (%d+)")
-  local date = os.date("%Y-%m-%d")
-  local save_path
-
-  if id then
-    -- Use date plus ID to ensure uniqueness
-    save_path = save_dir .. "/" .. date .. "_codecompanion_" .. id .. ".md"
-  else
-    -- Fallback with timestamp to ensure uniqueness if no ID
-    save_path = save_dir .. "/" .. date .. "_codecompanion_" .. os.date("%H%M%S") .. ".md"
-  end
-
-  -- Write buffer content to file
-  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-  local file = io.open(save_path, "w")
-  if file then
-    file:write(table.concat(lines, "\n"))
-    file:close()
-  end
-end
-
-autocmd({ "InsertLeave", "TextChanged", "BufLeave", "FocusLost" }, {
-  group = codecompanion_group,
-  callback = function(args)
-    local bufnr = args.buf
-    local bufname = vim.api.nvim_buf_get_name(bufnr)
-
-    if bufname:match("%[CodeCompanion%]") then
-      save_codecompanion_buffer(bufnr)
-    end
-  end,
-})
+-- autocmd({ "InsertLeave", "TextChanged", "BufLeave", "FocusLost" }, {
+--   group = codecompanion_group,
+--   callback = function(args)
+--     local bufnr = args.buf
+--     local bufname = vim.api.nvim_buf_get_name(bufnr)
+--
+--     if bufname:match("%[CodeCompanion%]") then
+--       save_codecompanion_buffer(bufnr)
+--     end
+--   end,
+-- })
 
 return {
   {
     "olimorris/codecompanion.nvim",
     dependencies = {
       "j-hui/fidget.nvim",
+      "ravitemer/codecompanion-history.nvim",
       {
         "echasnovski/mini.diff",
         config = function()
@@ -66,8 +70,11 @@ return {
         "ravitemer/mcphub.nvim",
         cmd = "MCPHub",
         build = "bundled_build.lua",
-        enabled = false,
+        enabled = true,
         opts = {
+          config = vim.fn.expand("~/.config/mcphub/servers.json"),
+          auto_approve = true,
+          auto_toggle_mcp_servers = true,
           use_bundled_binary = false,
           extensions = {
             codecompanion = {
@@ -81,6 +88,11 @@ return {
             to_file = false,
             file_path = nil,
             prefix = "MCPHub",
+          },
+          ui = {
+            window = {
+              border = "none",
+            },
           },
         },
         keys = {
@@ -115,7 +127,7 @@ return {
           return require("codecompanion.adapters").extend("copilot", {
             schema = {
               model = {
-                default = "gpt-4.1",
+                default = "gpt-4o",
               },
             },
           })
@@ -215,20 +227,20 @@ return {
               },
             },
           },
-          -- tools = {
-          --   vectorcode = {
-          --     description = "Run VectorCode to retrieve the project context.",
-          --     callback = function()
-          --       return require("vectorcode.integrations").codecompanion.chat.make_tool()
-          --     end,
-          --   },
-          --   mcp = {
-          --     callback = function()
-          --       return require("mcphub.extensions.codecompanion")
-          --     end,
-          --     description = "Call tools and resources from the MCP Servers",
-          --   },
-          -- },
+          tools = {
+            -- vectorcode = {
+            --   description = "Run VectorCode to retrieve the project context.",
+            --   callback = function()
+            --     return require("vectorcode.integrations").codecompanion.chat.make_tool()
+            --   end,
+            -- },
+            mcp = {
+              callback = function()
+                return require("mcphub.extensions.codecompanion")
+              end,
+              description = "Call tools and resources from the MCP Servers",
+            },
+          },
         },
         inline = {
           adapter = vim.g.codecompanion_initial_inline_adapter,
@@ -336,6 +348,39 @@ And the previous 10 commits, just in case they're related to the current changes
           },
         },
       },
+      extensions = {
+        history = {
+          enabled = true,
+          opts = {
+            -- Keymap to open history from chat buffer (default: gh)
+            keymap = "gh",
+            -- Keymap to save the current chat manually (when auto_save is disabled)
+            save_chat_keymap = "sc",
+            -- Save all chats by default (disable to save only manually using 'sc')
+            auto_save = true,
+            -- Number of days after which chats are automatically deleted (0 to disable)
+            expiration_days = 0,
+            -- Picker interface (auto resolved to a valid picker)
+            picker = "snacks", --- ("telescope", "snacks", "fzf-lua", or "default")
+            ---Automatically generate titles for new chats
+            auto_generate_title = true,
+            title_generation_opts = {
+              ---Adapter for generating titles (defaults to current chat adapter)
+              adapter = nil, -- "copilot"
+              ---Model for generating titles (defaults to current chat model)
+              model = nil, -- "gpt-4o"
+            },
+            ---On exiting and entering neovim, loads the last chat on opening chat
+            continue_last_chat = false,
+            ---When chat is cleared with `gx` delete the chat from history
+            delete_on_clearing_chat = false,
+            ---Directory path to save the chats
+            dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
+            ---Enable detailed logging for history extension
+            enable_logging = false,
+          },
+        },
+      },
     },
     keys = {
       {
@@ -393,13 +438,13 @@ And the previous 10 commits, just in case they're related to the current changes
       },
       { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "Open actions" },
       { "<leader>ac", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion Chat" },
-      {
-        "<leader>af",
-        function()
-          Snacks.picker.grep({ cwd = vim.fn.stdpath("data") .. "/codecompanion", ft = "markdown" })
-        end,
-        desc = "Find Previous Chats",
-      },
+      -- {
+      --   "<leader>af",
+      --   function()
+      --     Snacks.picker.grep({ cwd = vim.fn.stdpath("data") .. "/codecompanion", ft = "markdown" })
+      --   end,
+      --   desc = "Find Previous Chats",
+      -- },
       {
         "<leader>gc",
         "<cmd>CodeCompanion /write_commit<cr>",

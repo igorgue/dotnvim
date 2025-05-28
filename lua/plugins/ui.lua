@@ -95,7 +95,7 @@ return {
                 {
                   win = "input",
                   height = 1,
-                  border = "bottom",
+                  border = "none",
                   title = "{title} {live} {flags}",
                   title_pos = "center",
                 },
