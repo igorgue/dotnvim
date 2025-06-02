@@ -1,55 +1,6 @@
 vim.g.codecompanion_auto_tool_mode = true
 vim.g.mcphub_auto_approve = true
 
--- local augroup = vim.api.nvim_create_augroup
--- local autocmd = vim.api.nvim_create_autocmd
--- local codecompanion_group = augroup("CodeCompanionAutoSave", { clear = true })
-
--- local function save_codecompanion_buffer(bufnr)
---   local save_dir = vim.fn.stdpath("data") .. "/codecompanion"
---
---   vim.fn.mkdir(save_dir, "p")
---
---   if not vim.api.nvim_buf_is_valid(bufnr) then
---     return
---   end
---
---   local bufname = vim.api.nvim_buf_get_name(bufnr)
---
---   -- Extract the unique ID from the buffer name
---   local id = bufname:match("%[CodeCompanion%] (%d+)")
---   local date = os.date("%Y-%m-%d")
---   local save_path
---
---   if id then
---     -- Use date plus ID to ensure uniqueness
---     save_path = save_dir .. "/" .. date .. "_codecompanion_" .. id .. ".md"
---   else
---     -- Fallback with timestamp to ensure uniqueness if no ID
---     save_path = save_dir .. "/" .. date .. "_codecompanion_" .. os.date("%H%M%S") .. ".md"
---   end
---
---   -- Write buffer content to file
---   local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
---   local file = io.open(save_path, "w")
---   if file then
---     file:write(table.concat(lines, "\n"))
---     file:close()
---   end
--- end
-
--- autocmd({ "InsertLeave", "TextChanged", "BufLeave", "FocusLost" }, {
---   group = codecompanion_group,
---   callback = function(args)
---     local bufnr = args.buf
---     local bufname = vim.api.nvim_buf_get_name(bufnr)
---
---     if bufname:match("%[CodeCompanion%]") then
---       save_codecompanion_buffer(bufnr)
---     end
---   end,
--- })
-
 return {
   {
     "olimorris/codecompanion.nvim",
@@ -65,7 +16,13 @@ return {
           })
         end,
       },
-      -- { "Davidyz/VectorCode", cmd = "VectorCode" },
+      {
+        "Davidyz/VectorCode",
+        version = "*", -- optional, depending on whether you're on nightly or release
+        build = "pipx upgrade vectorcode", -- optional but recommended. This keeps your CLI up-to-date.
+        dependencies = { "nvim-lua/plenary.nvim" },
+        cmd = "VectorCode",
+      },
       {
         "ravitemer/mcphub.nvim",
         cmd = "MCPHub",
@@ -136,7 +93,7 @@ return {
           return require("codecompanion.adapters").extend("gemini", {
             schema = {
               model = {
-                default = "gemini-2.5-pro-exp-03-25",
+                default = "gemini-2.5-pro-preview-05-06",
               },
             },
           })
@@ -216,20 +173,6 @@ return {
               opts = {
                 provider = "snacks",
               },
-            },
-          },
-          tools = {
-            -- vectorcode = {
-            --   description = "Run VectorCode to retrieve the project context.",
-            --   callback = function()
-            --     return require("vectorcode.integrations").codecompanion.chat.make_tool()
-            --   end,
-            -- },
-            mcp = {
-              callback = function()
-                return require("mcphub.extensions.codecompanion")
-              end,
-              description = "Call tools and resources from the MCP Servers",
             },
           },
         },
@@ -340,6 +283,19 @@ And the previous 10 commits, just in case they're related to the current changes
         },
       },
       extensions = {
+        vectorcode = {
+          opts = {
+            add_tool = true,
+          },
+        },
+        mcphub = {
+          callback = "mcphub.extensions.codecompanion",
+          opts = {
+            show_result_in_chat = true, -- Show mcp tool results in chat
+            make_vars = true, -- Convert resources to #variables
+            make_slash_commands = true, -- Add prompts as /slash commands
+          },
+        },
         history = {
           enabled = true,
           opts = {
