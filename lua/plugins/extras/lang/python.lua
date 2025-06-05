@@ -6,11 +6,30 @@ vim.filetype.add({
   },
 })
 
+-- NOTE: this is too early to use right now
+-- shows errors I don't think are correct
+-- and the completion, it was missing builtins
+-- vim.lsp.enable("pyrefly")
+
 return {
   { import = "lazyvim.plugins.extras.lang.python" },
   {
     "raimon49/requirements.txt.vim",
     event = "BufReadPre requirements*.txt",
+  },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      setup = {
+        pyright = function()
+          return true
+        end,
+        -- NOTE: use when you would want to use pyrefly
+        -- basedpyright = function()
+        --   return true
+        -- end,
+      },
+    },
   },
   {
     "saghen/blink.cmp",
@@ -42,7 +61,7 @@ return {
   {
     "mason-org/mason.nvim",
     opts = {
-      ensure_installed = { "isort", "black", "ruff", "debugpy", "basedpyright" },
+      ensure_installed = { "isort", "black", "ruff", "debugpy", "basedpyright", "pyrefly" },
     },
   },
   {
@@ -56,8 +75,8 @@ return {
     branch = "regexp",
     enabled = true,
     cmd = "VenvSelect",
-    config = function()
-      require("venv-selector").setup()
+    config = function(_, opts)
+      require("venv-selector").setup(opts)
     end,
   },
 }
