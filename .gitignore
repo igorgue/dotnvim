@@ -4,6 +4,5 @@ node_modules
 repro.lua
 .repro
 lazyvim.json
-lazy-lock.json
 package.json
 package-lock.json
