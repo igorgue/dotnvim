@@ -17,9 +17,9 @@ return {
     "folke/snacks.nvim",
     opts = {
       image = {},
-      notifier = {
-        style = "minimal",
-      },
+      -- notifier = {
+      --   style = "minimal",
+      -- },
       dashboard = {
         preset = {
           header = "NVIM " .. require("utils").version(),
