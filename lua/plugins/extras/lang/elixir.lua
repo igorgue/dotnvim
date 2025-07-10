@@ -32,12 +32,15 @@ return {
         elixirls = function()
           return true
         end,
-        nextls = function()
+        -- nextls = function()
+        --   return true
+        -- end,
+        lexical = function()
           return true
         end,
       },
       servers = {
-        lexical = {},
+        nextls = {},
       },
     },
   },

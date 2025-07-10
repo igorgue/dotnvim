@@ -128,7 +128,7 @@ wk.add({
     desc = "Open Terminal",
     mode = { "n", "v", "i" },
   },
-  { "<C-g>", require("utils").file_info, desc = "File Info", mode = "n" },
+  { "<C-g>", require("utils").copy_file_path, desc = "Copy File Path", mode = "n" },
   { "<leader>X", "<cmd>LazyExtras<cr>", desc = "Lazy Extras" },
   { "<leader>gg", "<cmd>Lazygit<cr>", desc = "Lazygit" },
   {
