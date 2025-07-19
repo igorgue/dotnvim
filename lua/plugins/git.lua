@@ -198,5 +198,13 @@ return {
     opts = {
       disable_diagnostics = true,
     },
+    -- keys = {
+    --   { 'co', '<Plug>(git-conflict-ours)', desc = 'Choose ours (git conflict)' },
+    --   { 'ct', '<Plug>(git-conflict-theirs)', desc = 'Choose theirs (git conflict)' },
+    --   { 'cb', '<Plug>(git-conflict-both)', desc = 'Choose both (git conflict)' },
+    --   { 'c0', '<Plug>(git-conflict-none)', desc = 'Choose none (git conflict)' },
+    --   { '[x', '<Plug>(git-conflict-prev-conflict)', desc = 'Prev conflict (git conflict)' },
+    --   { ']x', '<Plug>(git-conflict-next-conflict)', desc = 'Next conflict (git conflict)' },
+    -- }
   },
 }

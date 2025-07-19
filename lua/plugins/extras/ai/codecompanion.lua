@@ -116,6 +116,21 @@ return {
             },
           })
         end,
+        moonshot = function()
+          return require("codecompanion.adapters").extend("openai_compatible", {
+            name = "moonshot",
+            formatted_name = "MoonshotAI",
+            env = {
+              url = "https://api.moonshot.ai",
+              api_key = "MOONSHOTAI_API_KEY",
+            },
+            schema = {
+              model = {
+                default = "kimi-k2-0711-preview",
+              },
+            },
+          })
+        end,
       },
       strategies = {
         chat = {

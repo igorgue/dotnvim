@@ -1,4 +1,3 @@
-local elixir_ft = { "elixir", "eelixir", "eex", "heex", "surface", "livebook" }
 vim.filetype.add({
   extension = {
     ["neex"] = "heex",
@@ -32,15 +31,22 @@ return {
         elixirls = function()
           return true
         end,
-        -- nextls = function()
-        --   return true
-        -- end,
-        lexical = function()
+        nextls = function()
           return true
         end,
+        -- lexical = function()
+        --   return true
+        -- end,
       },
       servers = {
-        nextls = {},
+        -- nextls = {},
+        lexical = {
+          settings = {
+            lexical = {
+              clear_diagnostics_on_save = false,
+            },
+          },
+        },
       },
     },
   },
