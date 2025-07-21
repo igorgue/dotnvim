@@ -128,6 +128,12 @@ return {
               model = {
                 default = "kimi-k2-0711-preview",
               },
+              temperature = {
+                default = 0.6,
+              },
+              max_tokens = {
+                default = -1,
+              },
             },
           })
         end,
