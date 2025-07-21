@@ -407,6 +407,25 @@ And the previous 10 commits, just in case they're related to the current changes
         desc = "Write the git commit for you",
         ft = "gitcommit",
       },
+      {
+        "<leader>ay",
+        function()
+          vim.cmd("startinsert")
+          vim.api.nvim_input("@{full_stack_dev} please make the change for me!<esc><cr>")
+        end,
+        ft = "codecompanion",
+        desc = "Ask AI to make changes with all tools",
+        mode = "n",
+      },
+      {
+        "<m-y>",
+        function()
+          vim.api.nvim_input("@{full_stack_dev} please make the change for me!<esc><cr>")
+        end,
+        ft = "codecompanion",
+        desc = "Ask AI to make changes with all tools",
+        mode = "i",
+      },
     },
   },
 }
