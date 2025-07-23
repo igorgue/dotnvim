@@ -116,10 +116,14 @@ return {
             },
           })
         end,
+        -- Configuration with OpenAI endpoint
         moonshot = function()
           return require("codecompanion.adapters").extend("openai_compatible", {
             name = "moonshot",
             formatted_name = "MoonshotAI",
+            opts = {
+              vision = false,
+            },
             env = {
               url = "https://api.moonshot.ai",
               api_key = "MOONSHOTAI_API_KEY",
@@ -129,7 +133,7 @@ return {
                 default = "kimi-k2-0711-preview",
               },
               temperature = {
-                default = 0.6,
+                default = 0.2,
               },
               max_tokens = {
                 default = -1,
@@ -137,6 +141,27 @@ return {
             },
           })
         end,
+        -- moonshot = function()
+        --   return require("codecompanion.adapters").extend("anthropic", {
+        --     name = "moonshot",
+        --     formatted_name = "MoonshotAI",
+        --     env = {
+        --       url = "https://api.moonshot.ai/anthropic",
+        --       api_key = "MOONSHOTAI_API_KEY",
+        --     },
+        --     schema = {
+        --       model = {
+        --         default = "kimi-k2-0711-preview",
+        --       },
+        --       temperature = {
+        --         default = 0.6,
+        --       },
+        --       max_tokens = {
+        --         default = -1,
+        --       },
+        --     },
+        --   })
+        -- end,
       },
       strategies = {
         chat = {
@@ -394,13 +419,6 @@ And the previous 10 commits, just in case they're related to the current changes
       },
       { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "Open actions" },
       { "<leader>ac", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion Chat" },
-      -- {
-      --   "<leader>af",
-      --   function()
-      --     Snacks.picker.grep({ cwd = vim.fn.stdpath("data") .. "/codecompanion", ft = "markdown" })
-      --   end,
-      --   desc = "Find Previous Chats",
-      -- },
       {
         "<leader>gc",
         "<cmd>CodeCompanion /write_commit<cr>",

@@ -4,6 +4,6 @@ return {
   config = true,
   cmd = "ClaudeCode",
   keys = {
-    { "al", "<cmd>ClaudeCode<cr>", desc = "Toggle ClaudeCode" },
+    { "<leader>al", "<cmd>ClaudeCode<cr>", desc = "Toggle ClaudeCode" },
   },
 }

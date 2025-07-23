@@ -11,4 +11,18 @@ return {
       },
     },
   },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = { "odin" },
+    },
+  },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        odin = { "odinfmt" },
+      },
+    },
+  },
 }

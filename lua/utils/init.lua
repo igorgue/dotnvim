@@ -107,13 +107,21 @@ function M.copy_file_path()
   M.ui.refresh_ui()
 
   if #path > 50 then
-    vim.notify('"' .. path .. '"' .. "\n" .. cursor .. " " .. lines .. " lines\n" .. "Filepath copied to the clipboard.", vim.log.levels.INFO, {
-      title = filename,
-    })
+    vim.notify(
+      '"' .. path .. '"' .. "\n" .. cursor .. " " .. lines .. " lines\n" .. "Filepath copied to the clipboard.",
+      vim.log.levels.INFO,
+      {
+        title = filename,
+      }
+    )
   else
-    vim.notify('"' .. path .. '"' .. " @ " .. cursor .. " " .. lines .. " lines\n" .. "Filepath copied to the clipboard.", vim.log.levels.INFO, {
-      title = filename,
-    })
+    vim.notify(
+      '"' .. path .. '"' .. " @ " .. cursor .. " " .. lines .. " lines\n" .. "Filepath copied to the clipboard.",
+      vim.log.levels.INFO,
+      {
+        title = filename,
+      }
+    )
   end
 end
 
