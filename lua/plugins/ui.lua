@@ -70,7 +70,16 @@ return {
         },
         win = {
           style = {
-            backdrop = { transparent = true, blend = 10 },
+            backdrop = { transparent = false, blend = 99 },
+          },
+        },
+      },
+      terminal = {
+        win = {
+          style = {
+            wo = {
+              winhighlight = "Normal:Normal",
+            },
           },
         },
       },
@@ -206,6 +215,7 @@ return {
       { "<leader>r", function() Snacks.picker.recent() end, desc = "Recent" },
       { "<leader>j", function() Snacks.picker.jumps() end, desc = "Jumps" },
       { "<leader><leader>", function() Snacks.picker.smart() end, desc = "Smart" },
+      { "<leader>fl", function() Snacks.picker.files({ cwd = vim.fn.stdpath("data") }) end, desc = "Open local nvim data directory", },
       -- stylua: ignore end
     },
   },
