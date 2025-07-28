@@ -95,8 +95,8 @@ return {
               title = "{title}",
               title_pos = "center",
               backdrop = 60,
-              width = 0.9,
-              height = 0.9,
+              width = 0.94,
+              height = 0.7,
               border = "none",
               {
                 box = "vertical",
