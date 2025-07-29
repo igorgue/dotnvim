@@ -95,8 +95,8 @@ return {
               title = "{title}",
               title_pos = "center",
               backdrop = 60,
-              width = 0.6,
-              height = 0.6,
+              width = 0.9,
+              height = 0.9,
               border = "none",
               {
                 box = "vertical",
@@ -612,7 +612,6 @@ return {
       click = true,
     },
   },
-
   {
     "folke/which-key.nvim",
     opts = {
