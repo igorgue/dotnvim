@@ -29,11 +29,6 @@ return {
       vim.api.nvim_create_autocmd("BufReadPost", { pattern = "Cargo.toml", callback = register_keys })
     end,
     opts = {
-      completion = {
-        cmp = {
-          enabled = true,
-        },
-      },
       popup = {
         autofocus = true,
         hide_on_select = true,
