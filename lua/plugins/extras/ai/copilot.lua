@@ -24,6 +24,7 @@ return {
     end,
     keys = {
       { "<C-l>", "<Plug>(copilot-suggest)", desc = "Copilot manual trigger", mode = "i" },
+      { "<M-left>", "<C-w>", desc = "Remove last word", mode = "i" },
     },
   },
 }
