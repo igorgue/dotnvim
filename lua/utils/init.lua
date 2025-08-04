@@ -76,27 +76,8 @@ function M.desktop_environment_info()
   end
 end
 
-function M.file_info()
-  local path = vim.fn.expand("%:~:.")
-  local filename = vim.fn.expand("%:t")
-  local cursor = vim.fn.line(".") .. ":" .. vim.fn.col(".")
-  local lines = vim.fn.line("$")
-
-  M.ui.refresh_ui()
-
-  if #path > 50 then
-    vim.notify('"' .. path .. '"' .. "\n" .. cursor .. " " .. lines .. " lines", vim.log.levels.INFO, {
-      title = filename,
-    })
-  else
-    vim.notify('"' .. path .. '"' .. " @ " .. cursor .. " " .. lines .. " lines", vim.log.levels.INFO, {
-      title = filename,
-    })
-  end
-end
-
 function M.copy_file_path()
-  local path = vim.fn.expand("%:p")
+  local path = vim.fn.expand("%:~:.")
 
   vim.fn.setreg("+", path)
 
