@@ -152,11 +152,27 @@ return {
             },
           })
         end,
-        openrouter = function()
-          -- local openrouter = require("plugins.ai.openrouter")
-          --
-          -- return require("codecompanion.adapters").extend(openrouter, {
+        dashscope = function()
           return require("codecompanion.adapters").extend("openai_compatible", {
+            name = "dashscope",
+            formatted_name = "DashScope (Alibaba Cloud)",
+            env = {
+              url = "https://dashscope-intl.aliyuncs.com/compatible-mode",
+              api_key = "DASHSCOPE_API_KEY",
+            },
+            schema = {
+              model = {
+                default = "qwen3-coder-plus",
+              },
+            },
+          })
+        end,
+        openrouter = function()
+          -- use this to use basic open ai compatible
+          -- return require("codecompanion.adapters").extend("openai_compatible", {
+          local openrouter = require("plugins.ai.openrouter")
+
+          return require("codecompanion.adapters").extend(openrouter, {
             name = "openrouter",
             formatted_name = "OpenRouter",
             env = {
