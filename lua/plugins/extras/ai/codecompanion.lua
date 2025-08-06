@@ -1,9 +1,20 @@
 vim.g.codecompanion_auto_tool_mode = true
 vim.g.mcphub_auto_approve = true
 
+-- CodeCompanion Configuration
+-- This file configures the CodeCompanion plugin, which provides AI-powered coding assistance
+-- directly within Neovim. It integrates with multiple AI providers and offers features like
+-- chat interfaces, inline code suggestions, and automated code reviews.
+
+-- Global configuration variables
+-- These settings enable automatic tool mode and MCP hub auto-approval
+
 return {
   {
     "olimorris/codecompanion.nvim",
+
+    -- Main plugin configuration
+    -- Defines dependencies, commands, initialization, and setup options
     dependencies = {
       "j-hui/fidget.nvim",
       "ravitemer/codecompanion-history.nvim",
@@ -141,27 +152,27 @@ return {
             },
           })
         end,
-        -- moonshot = function()
-        --   return require("codecompanion.adapters").extend("anthropic", {
-        --     name = "moonshot",
-        --     formatted_name = "MoonshotAI",
-        --     env = {
-        --       url = "https://api.moonshot.ai/anthropic",
-        --       api_key = "MOONSHOTAI_API_KEY",
-        --     },
-        --     schema = {
-        --       model = {
-        --         default = "kimi-k2-0711-preview",
-        --       },
-        --       temperature = {
-        --         default = 0.6,
-        --       },
-        --       max_tokens = {
-        --         default = -1,
-        --       },
-        --     },
-        --   })
-        -- end,
+        openrouter = function()
+          -- local openrouter = require("plugins.ai.openrouter")
+          --
+          -- return require("codecompanion.adapters").extend(openrouter, {
+          return require("codecompanion.adapters").extend("openai_compatible", {
+            name = "openrouter",
+            formatted_name = "OpenRouter",
+            env = {
+              url = "https://openrouter.ai/api",
+              api_key = "OPENROUTER_API_KEY",
+            },
+            schema = {
+              model = {
+                default = "qwen/qwen3-coder",
+              },
+              max_tokens = {
+                default = -1,
+              },
+            },
+          })
+        end,
       },
       strategies = {
         chat = {
