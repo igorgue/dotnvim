@@ -189,6 +189,20 @@ return {
             },
           })
         end,
+        ollama = function()
+          return require("codecompanion.adapters").extend("ollama", {
+            name = "ollama",
+            formatted_name = "Ollama",
+            schema = {
+              model = {
+                -- default = "qwen3-coder",
+                -- default = "gpt-oss:20b",
+                default = "codellama:7b",
+                -- default = "gemma3:12b",
+              },
+            },
+          })
+        end,
       },
       strategies = {
         chat = {
@@ -196,7 +210,7 @@ return {
           roles = {
             user = vim.env.USERNAME,
             llm = function(adapter)
-              if not (adapter and adapter.schema and adapter.schema.model) then
+              if not adapter or not adapter.schema or not adapter.schema.model then
                 return "CodeCompanion"
               end
 
