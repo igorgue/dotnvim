@@ -170,9 +170,10 @@ return {
         openrouter = function()
           -- use this to use basic open ai compatible
           -- return require("codecompanion.adapters").extend("openai_compatible", {
-          local openrouter = require("plugins.ai.openrouter")
-
-          return require("codecompanion.adapters").extend(openrouter, {
+          -- local openrouter = require("plugins.ai.openrouter")
+          --
+          -- return require("codecompanion.adapters").extend(openrouter, {
+          return require("codecompanion.adapters").extend("openai_compatible", {
             name = "openrouter",
             formatted_name = "OpenRouter",
             env = {
@@ -181,11 +182,12 @@ return {
             },
             schema = {
               model = {
-                default = "qwen/qwen3-coder",
+                -- default = "qwen/qwen3-coder",
+                default = "openai/gpt-5",
               },
-              max_tokens = {
-                default = -1,
-              },
+              -- max_tokens = {
+              --   default = -1,
+              -- },
             },
           })
         end,
@@ -459,7 +461,7 @@ And the previous 10 commits, just in case they're related to the current changes
         mode = { "n", "v", "i" },
       },
       { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "Open actions" },
-      { "<leader>ac", "<cmd>CodeCompanionChat Toggle<CR>", desc = "Toggle CodeCompanion Chat" },
+      { "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle CodeCompanion Chat" },
       {
         "<leader>gc",
         "<cmd>CodeCompanion /write_commit<cr>",
@@ -470,7 +472,7 @@ And the previous 10 commits, just in case they're related to the current changes
         "<leader>ay",
         function()
           vim.cmd("startinsert")
-          vim.api.nvim_input("@{full_stack_dev} please make the change for me!<esc><cr>")
+          vim.api.nvim_input("@{full_stack_dev}<cr><cr>please make the change for me!")
         end,
         ft = "codecompanion",
         desc = "Ask AI to make changes with all tools",
@@ -479,7 +481,7 @@ And the previous 10 commits, just in case they're related to the current changes
       {
         "<m-y>",
         function()
-          vim.api.nvim_input("@{full_stack_dev} please make the change for me!<esc><cr>")
+          vim.api.nvim_input("@{full_stack_dev}<cr><cr>please make the change for me!")
         end,
         ft = "codecompanion",
         desc = "Ask AI to make changes with all tools",
