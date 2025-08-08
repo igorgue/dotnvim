@@ -170,10 +170,10 @@ return {
         openrouter = function()
           -- use this to use basic open ai compatible
           -- return require("codecompanion.adapters").extend("openai_compatible", {
-          -- local openrouter = require("plugins.ai.openrouter")
-          --
-          -- return require("codecompanion.adapters").extend(openrouter, {
-          return require("codecompanion.adapters").extend("openai_compatible", {
+
+          local openrouter = require("plugins.ai.openrouter")
+
+          return require("codecompanion.adapters").extend(openrouter, {
             name = "openrouter",
             formatted_name = "OpenRouter",
             env = {
@@ -182,12 +182,17 @@ return {
             },
             schema = {
               model = {
-                -- default = "qwen/qwen3-coder",
-                default = "openai/gpt-5",
+                default = "openai/gpt-5-chat",
+                choices = {
+                  ["openai/gpt-5"] = { opts = { can_reason = true, can_use_tools = true } },
+                  ["openai/gpt-5-chat"] = { opts = { can_reason = true, can_use_tools = true } },
+                  ["openai/gpt-5-mini"] = { opts = { can_reason = true, can_use_tools = true } },
+                  ["openai/gpt-5-nano"] = { opts = { can_reason = true, can_use_tools = true } },
+                  ["openai/gpt-oss-120b"] = { opts = { can_reason = true, can_use_tools = true } },
+                  ["openai/gpt-oss-20b"] = { opts = { can_reason = true, can_use_tools = true } },
+                  ["openai/gpt-oss-20b:free"] = { opts = { can_reason = true, can_use_tools = true } },
+                },
               },
-              -- max_tokens = {
-              --   default = -1,
-              -- },
             },
           })
         end,
@@ -380,6 +385,7 @@ And the previous 10 commits, just in case they're related to the current changes
         mcphub = {
           callback = "mcphub.extensions.codecompanion",
           opts = {
+            auto_approve = true, -- Auto approve mcp tool calls
             show_result_in_chat = true, -- Show mcp tool results in chat
             make_vars = true, -- Convert resources to #variables
             make_slash_commands = true, -- Add prompts as /slash commands
@@ -407,13 +413,6 @@ And the previous 10 commits, just in case they're related to the current changes
       },
     },
     keys = {
-      {
-        "<leader>af",
-        function()
-          Snacks.picker.grep({ cwd = vim.fn.stdpath("data") .. "/codecompanion", ft = "markdown" })
-        end,
-        desc = "Find Previous Chats",
-      },
       {
         "<leader>gc",
         "<cmd>CodeCompanion /write_commit<cr>",
