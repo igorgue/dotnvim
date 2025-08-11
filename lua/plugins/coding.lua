@@ -21,11 +21,13 @@ local function trigger_snippet(cmp)
         end_col = end_col + 1
       end
 
-      local items = cmp.get_items()
-      local word = line:sub(start_col, end_col - 1)
-      if #items > 0 and word == items[1].label then
-        cmp.accept()
-      end
+      vim.schedule(function()
+        local items = cmp.get_items()
+        local word = line:sub(start_col, end_col - 1)
+        if #items > 0 and word == items[1].label then
+          cmp.accept()
+        end
+      end)
     end,
   })
 end
