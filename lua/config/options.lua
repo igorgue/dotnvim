@@ -95,11 +95,17 @@ end
 vim.o.tabline = "%!v:lua.NoXTabLine()"
 
 vim.diagnostic.config(utils.ui.diagnostic_config)
-vim.lsp.set_log_level("off") -- change to "debug" to show many logs
 
-if vim.version().minor >= 10 then
+if vim.version().minor >= 12 then
+  vim.lsp.log.set_level("off")
+  vim.diagnostic.enable(false)
+elseif vim.version().minor >= 10 or vim.version.minor == 11 then
+  ---@diagnostic disable-next-line: deprecated
+  vim.lsp.set_log_level("off")
   vim.diagnostic.enable(false)
 else
+  ---@diagnostic disable-next-line: deprecated
+  vim.lsp.set_log_level("off")
   ---@diagnostic disable-next-line: deprecated
   vim.diagnostic.disable()
 end
