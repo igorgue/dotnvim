@@ -182,7 +182,7 @@ return {
             },
             schema = {
               model = {
-                default = "openai/gpt-5-chat",
+                default = "openai/gpt-5",
                 choices = {
                   ["openai/gpt-5"] = { opts = { can_reason = true, can_use_tools = true } },
                   ["openai/gpt-5-chat"] = { opts = { can_reason = true, can_use_tools = false } },
