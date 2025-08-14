@@ -429,10 +429,10 @@ And the previous 10 commits, just in case they're related to the current changes
             picker = "snacks",
             auto_generate_title = true,
             title_generation_opts = {
-              adapter = nil, -- "copilot"
-              model = nil, -- "gpt-4o"
+              adapter = "openrouter_inline",
+              model = "openai/gpt-oss-20b:free"
             },
-            continue_last_chat = false,
+            continue_last_chat = true,
             delete_on_clearing_chat = false,
             dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
             enable_logging = false,
