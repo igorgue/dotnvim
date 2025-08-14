@@ -38,7 +38,7 @@ return {
         "ravitemer/mcphub.nvim",
         cmd = "MCPHub",
         build = "bundled_build.lua",
-        enabled = true,
+        lazy = false,
         opts = {
           config = vim.fn.expand("~/.config/mcphub/servers.json"),
           auto_approve = true,
@@ -290,6 +290,11 @@ return {
               opts = {
                 provider = "snacks",
               },
+            },
+          },
+          tools = {
+            opts = {
+              default_tools = { "mcp", "mcphub", "full_stack_dev", "desktop_commander" },
             },
           },
         },

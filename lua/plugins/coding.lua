@@ -34,30 +34,30 @@ end
 
 -- FIXME: This does not work sometimes it stops showing the blink.cmp menu
 -- NOTE: Disable default <c-n> and <c-p> to make blink handle this menu only
-local excluded_filetypes = {
-  "dap-repl",
-  "dapui_console",
-  "dapui_hover",
-  "dapui_scopes",
-  "dapui_stacks",
-  "dapui_watches",
-  "neorepl",
-}
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "*",
-  callback = function()
-    local ft = vim.bo.filetype
-
-    for _, excluded in ipairs(excluded_filetypes) do
-      if ft == excluded then
-        return
-      end
-    end
-
-    vim.api.nvim_buf_set_keymap(0, "i", "<C-n>", "<Nop>", { noremap = true, silent = true })
-    vim.api.nvim_buf_set_keymap(0, "i", "<C-p>", "<Nop>", { noremap = true, silent = true })
-  end,
-})
+-- local excluded_filetypes = {
+--   "dap-repl",
+--   "dapui_console",
+--   "dapui_hover",
+--   "dapui_scopes",
+--   "dapui_stacks",
+--   "dapui_watches",
+--   "neorepl",
+-- }
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "*",
+--   callback = function()
+--     local ft = vim.bo.filetype
+--
+--     for _, excluded in ipairs(excluded_filetypes) do
+--       if ft == excluded then
+--         return
+--       end
+--     end
+--
+--     vim.api.nvim_buf_set_keymap(0, "i", "<C-n>", "<Nop>", { noremap = true, silent = true })
+--     vim.api.nvim_buf_set_keymap(0, "i", "<C-p>", "<Nop>", { noremap = true, silent = true })
+--   end,
+-- })
 
 --- Opens next buffer or prev buffer with <c-n> and <c-p>
 --- @module "blink.cmp"
@@ -126,10 +126,10 @@ return {
       keymap = {
         preset = "enter",
         -- FIXME: this doesn't work sometimes...
-        ["<C-p>"] = { "select_prev", simple_complete, "fallback" },
-        ["<C-n>"] = { "select_next", simple_complete, "fallback" },
-        -- ["<C-p>"] = { "select_prev", "fallback" },
-        -- ["<C-n>"] = { "select_next", "fallback" },
+        -- ["<C-p>"] = { "select_prev", simple_complete, "fallback" },
+        -- ["<C-n>"] = { "select_next", simple_complete, "fallback" },
+        ["<C-p>"] = { "select_prev", "fallback" },
+        ["<C-n>"] = { "select_next", "fallback" },
         ["<C-j>"] = { "snippet_forward", trigger_snippet },
         ["<Tab>"] = {
           function(cmp)
