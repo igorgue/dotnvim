@@ -95,7 +95,10 @@ return {
           return require("codecompanion.adapters").extend("copilot", {
             schema = {
               model = {
-                default = "gpt-4.1",
+                default = "gpt-5",
+                choices = {
+                  ["gpt-5"] = { opts = { can_reason = true, can_use_tools = true } },
+                },
               },
             },
           })
@@ -167,6 +170,26 @@ return {
             },
           })
         end,
+        openrouter_inline = function()
+          local openrouter = require("plugins.ai.openrouter")
+
+          return require("codecompanion.adapters").extend(openrouter, {
+            name = "openrouter-inline",
+            formatted_name = "OpenRouter (inline, free default)",
+            env = {
+              url = "https://openrouter.ai/api",
+              api_key = "OPENROUTER_API_KEY",
+            },
+            schema = {
+              model = {
+                default = "openai/gpt-oss-20b:free",
+                choices = {
+                  ["openai/gpt-oss-20b:free"] = { opts = { can_reason = true, can_use_tools = true } },
+                },
+              },
+            },
+          })
+        end,
         openrouter = function()
           -- use this to use basic open ai compatible
           -- return require("codecompanion.adapters").extend("openai_compatible", {
@@ -182,7 +205,7 @@ return {
             },
             schema = {
               model = {
-                default = "openai/gpt-5",
+                default = "openai/gpt-5-nano",
                 choices = {
                   ["openai/gpt-5"] = { opts = { can_reason = true, can_use_tools = true } },
                   ["openai/gpt-5-chat"] = { opts = { can_reason = true, can_use_tools = false } },
