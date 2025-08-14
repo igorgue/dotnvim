@@ -5,7 +5,11 @@ M.ui = require("utils.ui")
 function M.version()
   local ver = vim.version()
 
-  return ver.major .. "." .. ver.minor .. "." .. ver.patch
+  if ver.api_prerelease then
+    return ver.major .. "." .. ver.minor .. "." .. ver.patch .. "\n" .. ver.prerelease
+  else
+    return ver.major .. "." .. ver.minor .. "." .. ver.patch
+  end
 end
 
 function M.linux_os_info()
