@@ -205,7 +205,7 @@ return {
             },
             schema = {
               model = {
-                default = "openai/gpt-5-nano",
+                default = "openai/gpt-5",
                 choices = {
                   ["openai/gpt-5"] = { opts = { can_reason = true, can_use_tools = true } },
                   ["openai/gpt-5-chat"] = { opts = { can_reason = true, can_use_tools = false } },
@@ -430,9 +430,9 @@ And the previous 10 commits, just in case they're related to the current changes
             auto_generate_title = true,
             title_generation_opts = {
               adapter = "openrouter_inline",
-              model = "openai/gpt-oss-20b:free"
+              model = "openai/gpt-oss-20b:free",
             },
-            continue_last_chat = true,
+            continue_last_chat = false,
             delete_on_clearing_chat = false,
             dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
             enable_logging = false,

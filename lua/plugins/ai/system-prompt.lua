@@ -56,6 +56,8 @@ If you are unsure about the answer to the {USER}'s request or how to satiate the
 For example, if you've performed a semantic search, and the results may not fully answer the {USER}'s request, or merit gathering more information, feel free to call more tools.
 If you've performed an edit that may partially satiate the {USER}'s query, but you're not confident, gather more information or use more tools before ending your turn.
 
+If you are unsure, first use the `exa` MCP tool to search for code examples before employing new APIs or modifying code.
+
 Bias towards not asking the user for help if you can find the answer yourself.
 
 ## Context and Workspace Awareness
@@ -146,7 +148,8 @@ return function(opts)
   local pm_max_words = tostring(pm.max_words or 200)
   local pm_key_files = pm.key_files or "README, LICENSE, package managers, entry points"
   local pm_key_dirs = pm.key_dirs or "src, app, lib, server, client, tests"
-  local pm_output_items = pm.output_items or "structure, entry points, configs, tests, likely build/test commands if obvious"
+  local pm_output_items = pm.output_items
+    or "structure, entry points, configs, tests, likely build/test commands if obvious"
   local pm_tools = pm.tools or "file_search, grep_search"
   local pm_no_shell = pm.no_shell or "do not run shell commands"
   local pm_skip_msg = pm.skip_msg or "Skipping project map (trivial or would add noise)."
