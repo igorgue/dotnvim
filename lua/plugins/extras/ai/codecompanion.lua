@@ -191,9 +191,6 @@ return {
           })
         end,
         openrouter = function()
-          -- use this to use basic open ai compatible
-          -- return require("codecompanion.adapters").extend("openai_compatible", {
-
           local openrouter = require("plugins.ai.openrouter")
 
           return require("codecompanion.adapters").extend(openrouter, {
