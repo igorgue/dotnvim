@@ -326,15 +326,18 @@ return {
               requires_approval = false,
             },
             opts = {
-              default_tools = { "mcp", "mcphub", "full_stack_dev", "insert_edit_into_file", "desktop_commander" },
+              default_tools = {
+                "mcp",
+                "mcphub",
+                "full_stack_dev",
+                "insert_edit_into_file",
+                "desktop_commander",
+                "search_web",
+                "vectorcode_query",
+              },
               requires_approval = false,
-              auto_submit_errors = true, -- Send any errors to the LLM automatically?
-              auto_submit_success = true, -- Send any successful output to the LLM automatically?
-              ---Decorate the user message before it's sent to the LLM
-              ---@param message string
-              ---@param adapter CodeCompanion.Adapter
-              ---@param context table
-              ---@return string
+              auto_submit_errors = true,
+              auto_submit_success = true,
               prompt_decorator = function(message, adapter, context)
                 return string.format([[<prompt>%s</prompt>]], message)
               end,
