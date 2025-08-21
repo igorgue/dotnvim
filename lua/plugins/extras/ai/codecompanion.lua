@@ -19,6 +19,19 @@ return {
       "j-hui/fidget.nvim",
       "ravitemer/codecompanion-history.nvim",
       {
+        "HakonHarnes/img-clip.nvim",
+        opts = {
+          filetypes = {
+            codecompanion = {
+              prompt_for_file_name = false,
+              template = "[Image]($FILE_PATH)",
+              use_absolute_path = true,
+            },
+          },
+        },
+      },
+      { "nvim-lua/plenary.nvim", branch = "master" },
+      {
         "echasnovski/mini.diff",
         config = function()
           local diff = require("mini.diff")
@@ -89,6 +102,8 @@ return {
       -- Global `opts`
       opts = {
         system_prompt = require("plugins.ai.system-prompt"),
+        language = "English",
+        send_code = true,
       },
       adapters = {
         copilot = function()
@@ -220,6 +235,7 @@ return {
                   ["openai/gpt-oss-120b"] = { opts = { can_reason = true, can_use_tools = true } },
                   ["openai/gpt-oss-20b"] = { opts = { can_reason = false, can_use_tools = false } },
                   ["openai/gpt-oss-20b:free"] = { opts = { can_reason = true, can_use_tools = true } },
+                  ["deepseek/deepseek-chat-v3.1"] = { opts = { can_reason = true, can_use_tools = true } },
                 },
               },
             },
@@ -270,6 +286,13 @@ return {
               modes = { n = "<C-c>", i = "<C-c>" },
             },
           },
+          variables = {
+            ["buffer"] = {
+              opts = {
+                default_params = "pin",
+              },
+            },
+          },
           slash_commands = {
             ["buffer"] = {
               opts = {
@@ -299,8 +322,22 @@ return {
             },
           },
           tools = {
+            ["cmd_runner"] = {
+              requires_approval = false,
+            },
             opts = {
-              default_tools = { "mcp", "mcphub", "full_stack_dev", "desktop_commander" },
+              default_tools = { "mcp", "mcphub", "full_stack_dev", "insert_edit_into_file", "desktop_commander" },
+              requires_approval = false,
+              auto_submit_errors = true, -- Send any errors to the LLM automatically?
+              auto_submit_success = true, -- Send any successful output to the LLM automatically?
+              ---Decorate the user message before it's sent to the LLM
+              ---@param message string
+              ---@param adapter CodeCompanion.Adapter
+              ---@param context table
+              ---@return string
+              prompt_decorator = function(message, adapter, context)
+                return string.format([[<prompt>%s</prompt>]], message)
+              end,
             },
           },
         },
@@ -332,11 +369,17 @@ return {
           show_references = true,
           show_header_separator = true,
           show_settings = false,
+          show_context = true,
+          show_token_count = true,
           render_headers = false,
           start_in_insert_mode = false,
+          icons = {
+            chat_context = "", -- You can also apply an icon to the fold
+          },
+          fold_context = true,
         },
         diff = {
-          provider = "mini_diff",
+          provider = "inline",
         },
       },
       prompt_library = {
@@ -355,7 +398,7 @@ return {
               role = "user",
               content = function()
                 return string.format(
-                  [[You are an expert at following the Conventional Commit specification. Given the git diff listed below, please @editor generate a commit message for me inside of the current #buffer:
+                  [[@{editor} #{buffer} You are an expert at following the Conventional Commit specification. Given the git diff listed below, generate a commit message for me inside of the current buffer:
 
 ```diff
 %s
