@@ -103,6 +103,15 @@ return {
             },
           })
         end,
+        copilot_inline = function()
+          return require("codecompanion.adapters").extend("copilot", {
+            schema = {
+              model = {
+                default = "gpt-4.1",
+              },
+            },
+          })
+        end,
         gemini = function()
           return require("codecompanion.adapters").extend("gemini", {
             schema = {
@@ -426,8 +435,8 @@ And the previous 10 commits, just in case they're related to the current changes
             picker = "snacks",
             auto_generate_title = true,
             title_generation_opts = {
-              adapter = "openrouter_inline",
-              model = "openai/gpt-oss-20b:free",
+              adapter = "copilot",
+              model = "gpt-4.1",
             },
             continue_last_chat = false,
             delete_on_clearing_chat = false,
