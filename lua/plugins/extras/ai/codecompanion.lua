@@ -510,8 +510,10 @@ And the previous 10 commits, just in case they're related to the current changes
               create_summary_keymap = "gcs",
               browse_summaries_keymap = "gbs",
               generation_opts = {
+                adapter = "copilot",
+                model = "gpt-4.1",
                 context_size = 128000,
-                include_references = false,
+                include_references = true,
                 include_tool_outputs = false,
               },
             },
