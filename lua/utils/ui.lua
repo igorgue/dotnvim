@@ -193,12 +193,14 @@ function M.toggle_focus_mode(state)
   vim.opt.laststatus = state and 0 or 3
 
   if LazyVim.has("copilot.vim") or LazyVim.has("copilot.lua") then
-    vim.cmd("Copilot " .. (state and "disable" or "enable"))
+    if not vim.g.focus_mode_no_copilot then
+      vim.cmd("Copilot " .. (state and "disable" or "enable"))
 
-    if LazyVim.has("copilot.lua") then
-      vim.defer_fn(function()
-        require("utils.ui").refresh_ui()
-      end, 100)
+      if LazyVim.has("copilot.lua") then
+        vim.defer_fn(function()
+          require("utils.ui").refresh_ui()
+        end, 100)
+      end
     end
   end
 

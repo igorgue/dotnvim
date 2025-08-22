@@ -130,6 +130,7 @@ vim.g.always_show_gitsigns = false
 vim.g.cmp_disabled = false
 vim.g.cmp_disabled_filetypes = { "TelescopePrompt", "neorepl", "snacks_picker_input" }
 vim.g.focus_mode = vim.env.LAZYVIM_DISABLE_FOCUS_MODE == nil and true or false
+vim.g.focus_mode_no_copilot = vim.env.LAZYVIM_DISABLE_FOCUS_MODE_COPILOT == nil or vim.env.LAZYVIM_DISABLE_FOCUS_MODE_COPILOT == "true"
 vim.g.codecompanion_initial_adapter = vim.env.LAZYVIM_CODECOMPANION_ADAPTER or "copilot"
 vim.g.codecompanion_initial_inline_adapter = vim.env.LAZYVIM_CODECOMPANION_INLINE_ADAPTER or "copilot"
 vim.g.codecompanion_auto_tool_mode = nil
