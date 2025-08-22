@@ -371,6 +371,28 @@ return {
           icons = {
             chat_context = "", -- You can also apply an icon to the fold
           },
+          window = {
+            layout = "vertical", -- float|vertical|horizontal|buffer
+            position = nil, -- left|right|top|bottom (nil will default depending on vim.opt.splitright|vim.opt.splitbelow)
+            border = "none",
+            height = 1.0,
+            width = 0.5,
+            relative = "editor",
+            full_height = true, -- when set to false, vsplit will be used to open the chat buffer vs. botright/topleft vsplit
+            sticky = true, -- when set to true and `layout` is not `"buffer"`, the chat buffer will remain opened when switching tabs
+            opts = {
+              breakindent = true,
+              cursorcolumn = false,
+              cursorline = false,
+              foldcolumn = "0",
+              linebreak = true,
+              list = false,
+              numberwidth = 1,
+              signcolumn = "no",
+              spell = true,
+              wrap = true,
+            },
+          },
           fold_context = true,
         },
         diff = {
@@ -386,7 +408,7 @@ return {
             is_default = false,
             is_slash_cmd = false,
             short_name = "write_commit",
-            auto_submit = false,
+            auto_submit = true,
           },
           prompts = {
             {
@@ -476,7 +498,7 @@ And the previous 10 commits, just in case they're related to the current changes
               adapter = "copilot",
               model = "gpt-4.1",
             },
-            continue_last_chat = false,
+            continue_last_chat = true,
             delete_on_clearing_chat = false,
             dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
             enable_logging = false,

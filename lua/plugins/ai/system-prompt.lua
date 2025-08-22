@@ -128,6 +128,9 @@ When debugging, only make code changes if you are certain that you can solve the
 
 ## Github usage
 1. For questions regarding pull requests, issues you can use `gh` command instead of searching the current codebase or using an mcp tool. 
+
+## Asking for `run`
+1. Do not ask to run a command, just run it.
 ]]
 
 --- System prompt for CodeCompanion
