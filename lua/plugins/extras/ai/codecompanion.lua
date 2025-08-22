@@ -111,9 +111,6 @@ return {
             schema = {
               model = {
                 default = "gpt-5",
-                choices = {
-                  ["gpt-5"] = { opts = { can_reason = true, can_use_tools = true } },
-                },
               },
             },
           })
@@ -328,10 +325,7 @@ return {
             opts = {
               default_tools = {
                 "mcp",
-                "mcphub",
                 "full_stack_dev",
-                "insert_edit_into_file",
-                "search_web",
               },
               requires_approval = false,
               auto_submit_errors = true,
