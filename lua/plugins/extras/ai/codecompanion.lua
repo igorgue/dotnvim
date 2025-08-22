@@ -17,7 +17,10 @@ return {
     -- Defines dependencies, commands, initialization, and setup options
     dependencies = {
       "j-hui/fidget.nvim",
-      "ravitemer/codecompanion-history.nvim",
+      {
+        "ravitemer/codecompanion-history.nvim",
+        lazy = false,
+      },
       {
         "HakonHarnes/img-clip.nvim",
         opts = {
@@ -31,15 +34,15 @@ return {
         },
       },
       { "nvim-lua/plenary.nvim", branch = "master" },
-      {
-        "echasnovski/mini.diff",
-        config = function()
-          local diff = require("mini.diff")
-          diff.setup({
-            source = diff.gen_source.none(),
-          })
-        end,
-      },
+      -- {
+      --   "echasnovski/mini.diff",
+      --   config = function()
+      --     local diff = require("mini.diff")
+      --     diff.setup({
+      --       source = diff.gen_source.none(),
+      --     })
+      --   end,
+      -- },
       {
         "Davidyz/VectorCode",
         version = "*", -- optional, depending on whether you're on nightly or release
@@ -326,6 +329,7 @@ return {
               default_tools = {
                 "mcp",
                 "full_stack_dev",
+                "memory",
               },
               requires_approval = false,
               auto_submit_errors = true,
@@ -498,10 +502,28 @@ And the previous 10 commits, just in case they're related to the current changes
               adapter = "copilot",
               model = "gpt-4.1",
             },
-            continue_last_chat = true,
+            continue_last_chat = false,
             delete_on_clearing_chat = false,
             dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
             enable_logging = false,
+            summary = {
+              create_summary_keymap = "gcs",
+              browse_summaries_keymap = "gbs",
+              generation_opts = {
+                context_size = 128000,
+                include_references = false,
+                include_tool_outputs = false,
+              },
+            },
+            memory = {
+              auto_create_memories_on_summary_generation = true,
+              vectorcode_exe = "vectorcode",
+              tool_opts = {
+                default_num = 10,
+              },
+              notify = true,
+              index_on_startup = false,
+            },
           },
         },
       },
