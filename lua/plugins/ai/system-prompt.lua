@@ -1,5 +1,92 @@
 local utils = require("utils")
 
+--- Get OS uname information with fallback for older Neovim versions
+--- @return table OS information
+local function get_uname()
+  if vim.uv and vim.uv.os_uname then
+    return vim.uv.os_uname()
+  elseif vim.loop and vim.loop.os_uname then
+    return vim.loop.os_uname()
+  else
+    return { sysname = "Unknown", release = "Unknown" }
+  end
+end
+
+--- Safely execute a system command and return the output or a fallback value
+--- @param cmd string The command to execute
+--- @param fallback string? The fallback value if command fails
+--- @return string The command output or fallback
+local function safe_system_cmd(cmd, fallback)
+  local ok, result = pcall(vim.fn.system, cmd .. " 2>/dev/null")
+  if ok and vim.v.shell_error == 0 and result and result ~= "" then
+    return (result:gsub("[\r\n]+$", ""))
+  end
+  return fallback or "N/A"
+end
+
+local function get_os_info()
+  if vim.env.LAZYVIM_OS_INFO then
+    return vim.env.LAZYVIM_OS_INFO
+  end
+
+  local uname = get_uname()
+  local os_name = uname.sysname
+  if os_name == "Linux" then
+    return utils.linux_os_info()
+  elseif os_name == "Darwin" then
+    local version = safe_system_cmd("sw_vers -productVersion", "Unknown Version")
+    return "macOS " .. version
+  elseif os_name == "Windows_NT" then
+    local version = safe_system_cmd("wmic os get Caption /value | findstr Caption", "Unknown Version")
+    if version ~= "N/A" then
+      version = version:match("Caption=(.+)")
+    end
+    return version ~= "N/A" and version or "Windows"
+  else
+    return os_name
+  end
+end
+
+--- Get kernel version in a cross-platform way
+--- @return string Kernel version
+local function get_kernel_info()
+  local uname = get_uname()
+  local os_name = uname.sysname
+  if os_name == "Linux" or os_name == "Darwin" then
+    return safe_system_cmd("uname -r", "N/A")
+  elseif os_name == "Windows_NT" then
+    return safe_system_cmd("ver", "N/A")
+  else
+    return uname.release or "N/A"
+  end
+end
+
+--- Get desktop environment info in a cross-platform way
+--- @return string Desktop environment information
+local function get_de_info()
+  local uname = get_uname()
+  local os_name = uname.sysname
+  if os_name == "Linux" then
+    return utils.desktop_environment_info()
+  elseif os_name == "Darwin" then
+    return "macOS Desktop"
+  elseif os_name == "Windows_NT" then
+    return "Windows Desktop"
+  else
+    return "N/A"
+  end
+end
+
+--- Get NVIDIA version info safely
+--- @return string NVIDIA version information or N/A
+local function get_nvidia_info()
+  local nvidia_info = safe_system_cmd("nvidia-smi --version")
+  if nvidia_info and nvidia_info ~= "N/A" then
+    return nvidia_info
+  end
+  return "N/A"
+end
+
 local template =
   [[You are "{NAME} ({ADAPTER})", an AI coding assistant in Neovim ({NEOVIM}), pair programming with {USER} on {OS} ({KERNEL}) using {DE} and {NVIDIA_VERSION_INFO}.
 
@@ -67,11 +154,11 @@ return function(opts)
     :gsub("{PROJECT_MAP_TOOLS}", pm_tools)
     :gsub("{PROJECT_MAP_NO_SHELL}", pm_no_shell)
     :gsub("{PROJECT_MAP_SKIP_MSG}", pm_skip_msg)
-    :gsub("{OS}", vim.env.LAZYVIM_OS_INFO or utils.linux_os_info())
-    :gsub("{KERNEL}", vim.fn.system("uname -r"))
+    :gsub("{OS}", get_os_info())
+    :gsub("{KERNEL}", get_kernel_info())
     :gsub("{NEOVIM}", utils.version():gsub("[\r\n]+$", "."))
-    :gsub("{DE}", utils.desktop_environment_info())
-    :gsub("{NVIDIA_VERSION_INFO}", vim.fn.system("nvidia-smi --version 2>&1"))
+    :gsub("{DE}", get_de_info())
+    :gsub("{NVIDIA_VERSION_INFO}", get_nvidia_info())
 end
 
 -- vim: wrap:
