@@ -275,8 +275,8 @@ return {
             },
             clear = {
               modes = {
-                i = "<C-del>",
-                n = "<C-del>",
+                -- i = "<C-del>",
+                -- n = "<C-del>",
               },
             },
             close = {
@@ -334,7 +334,7 @@ return {
               requires_approval = false,
               auto_submit_errors = true,
               auto_submit_success = true,
-              prompt_decorator = function(message, adapter, context)
+              prompt_decorator = function(message, _adapter, _context)
                 return string.format([[<prompt>%s</prompt>]], message)
               end,
             },
@@ -536,6 +536,65 @@ And the previous 10 commits, just in case they're related to the current changes
         "<cmd>CodeCompanion /write_commit<cr>",
         desc = "Write the git commit for you",
         ft = "gitcommit",
+      },
+      {
+        "<C-del>",
+        function()
+          -- Only works in codecompanion buffers
+          if vim.bo.filetype ~= "codecompanion" then
+            return
+          end
+
+          -- Get the current chat instance
+          local Chat = require("codecompanion.strategies.chat")
+          local chat = Chat.buf_get_chat(vim.api.nvim_get_current_buf())
+
+          if not chat then
+            return
+          end
+
+          -- Clear the chat first
+          chat:clear()
+
+          -- Add initial content after a small delay to ensure clearing is complete
+          vim.defer_fn(function()
+            -- Get to the end of the buffer and enter insert mode
+            local bufnr = vim.api.nvim_get_current_buf()
+
+            -- Check if buffer has content and remove empty lines at the end
+            local line_count = vim.api.nvim_buf_line_count(bufnr)
+            local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+
+            -- Find the last non-empty line
+            local last_content_line = line_count
+            for i = line_count, 1, -1 do
+              if lines[i] and lines[i]:match("%S") then
+                last_content_line = i
+                break
+              end
+            end
+
+            -- Move cursor to the end of the buffer
+            vim.api.nvim_win_set_cursor(0, { last_content_line, 0 })
+
+            -- Add your initial content here - customize this as needed
+            local initial_content = {
+              "@{full_stack_dev} @{mcp} @{memory} #{buffer}",
+              "",
+              "",
+            }
+
+            -- Insert the content after the last content line
+            vim.api.nvim_buf_set_lines(bufnr, last_content_line + 1, -1, false, initial_content)
+
+            -- Move cursor to the end and enter insert mode
+            local new_line_count = vim.api.nvim_buf_line_count(bufnr)
+            vim.api.nvim_win_set_cursor(0, { new_line_count, 0 })
+            vim.cmd("startinsert!")
+          end, 100)
+        end,
+        desc = "Clear chat and add initial content",
+        mode = { "n", "i" },
       },
       { "<C-;>", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle (CodeCompanionChat)", mode = { "n", "i" } },
       {
