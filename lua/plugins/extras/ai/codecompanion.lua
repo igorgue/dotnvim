@@ -540,11 +540,6 @@ And the previous 10 commits, just in case they're related to the current changes
       {
         "<C-del>",
         function()
-          -- Only works in codecompanion buffers
-          if vim.bo.filetype ~= "codecompanion" then
-            return
-          end
-
           -- Get the current chat instance
           local Chat = require("codecompanion.strategies.chat")
           local chat = Chat.buf_get_chat(vim.api.nvim_get_current_buf())
@@ -595,6 +590,7 @@ And the previous 10 commits, just in case they're related to the current changes
         end,
         desc = "Clear chat and add initial content",
         mode = { "n", "i" },
+        ft = "codecompanion",
       },
       { "<C-;>", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle (CodeCompanionChat)", mode = { "n", "i" } },
       {
