@@ -383,7 +383,7 @@ return {
             width = 0.5,
             relative = "editor",
             full_height = true, -- when set to false, vsplit will be used to open the chat buffer vs. botright/topleft vsplit
-            sticky = true, -- when set to true and `layout` is not `"buffer"`, the chat buffer will remain opened when switching tabs
+            sticky = false, -- when set to true and `layout` is not `"buffer"`, the chat buffer will remain opened when switching tabs
             opts = {
               breakindent = true,
               cursorcolumn = false,
@@ -502,7 +502,7 @@ And the previous 10 commits, just in case they're related to the current changes
               adapter = "copilot",
               model = "gpt-4.1",
             },
-            continue_last_chat = false,
+            continue_last_chat = true,
             delete_on_clearing_chat = false,
             dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
             enable_logging = false,
@@ -513,7 +513,7 @@ And the previous 10 commits, just in case they're related to the current changes
                 adapter = "copilot",
                 model = "gpt-4.1",
                 context_size = 128000,
-                include_references = true,
+                include_references = false,
                 include_tool_outputs = false,
               },
             },
