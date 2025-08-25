@@ -16,13 +16,14 @@ return {
     -- Main plugin configuration
     -- Defines dependencies, commands, initialization, and setup options
     dependencies = {
-      "j-hui/fidget.nvim",
+      { "j-hui/fidget.nvim", lazy = false },
       {
         "ravitemer/codecompanion-history.nvim",
         lazy = false,
       },
       {
         "HakonHarnes/img-clip.nvim",
+        lazy = false,
         opts = {
           filetypes = {
             codecompanion = {
@@ -32,19 +33,15 @@ return {
             },
           },
         },
+        keys = {
+          -- Sounds like a good idea but rather just call img paste
+          { "<s-c-v>", nil, desc = "Paste from clipboard", mode = { "n", "i", "v" } },
+        },
       },
       { "nvim-lua/plenary.nvim", branch = "master" },
-      -- {
-      --   "echasnovski/mini.diff",
-      --   config = function()
-      --     local diff = require("mini.diff")
-      --     diff.setup({
-      --       source = diff.gen_source.none(),
-      --     })
-      --   end,
-      -- },
       {
         "Davidyz/VectorCode",
+        lazy = false,
         version = "*", -- optional, depending on whether you're on nightly or release
         build = "pipx upgrade vectorcode", -- optional but recommended. This keeps your CLI up-to-date.
         dependencies = { "nvim-lua/plenary.nvim" },
@@ -91,6 +88,7 @@ return {
         ft = { "markdown", "codecompanion" },
       },
     },
+    lazy = false,
     cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
     init = function()
       vim.cmd([[cab cc CodeCompanion]])
