@@ -579,7 +579,7 @@ And the previous 10 commits, just in case they're related to the current changes
 
             -- Add your initial content here - customize this as needed
             local initial_content = {
-              "@{full_stack_dev} @{mcp} @{memory} @{vectorcode_toolbox} #{buffer}",
+              "@{full_stack_dev} @{mcp} @{memory} @{vectorcode_toolbox}",
               "",
               "",
             }
