@@ -11,7 +11,7 @@ vim.cmd([[
 ]])
 
 -- Add specific words to spell exceptions
-vim.cmd("silent! spellgood " .. vim.env.USERNAME)
+vim.cmd("silent! spellgood " .. (vim.env.USERNAME or ""))
 
 -- Optional: Add more words you commonly use
 local common_exceptions = {
