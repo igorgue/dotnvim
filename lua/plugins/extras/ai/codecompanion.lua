@@ -9,6 +9,7 @@ vim.g.mcphub_auto_approve = true
 -- Global configuration variables
 -- These settings enable automatic tool mode and MCP hub auto-approval
 
+-- Auto command to add username to spell good words
 return {
   {
     "olimorris/codecompanion.nvim",
@@ -506,7 +507,7 @@ And the previous 10 commits, just in case they're related to the current changes
               adapter = "copilot",
               model = "gpt-4.1",
             },
-            continue_last_chat = true,
+            continue_last_chat = false,
             delete_on_clearing_chat = false,
             dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
             enable_logging = false,

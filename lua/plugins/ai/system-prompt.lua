@@ -111,7 +111,8 @@ local template =
 - **Refactoring:** Update usages/tests/docs together, keep style consistent, add migration notes for breaking changes.
 - **External APIs:** Use best suited/version-compatible APIs/packages. Warn about API keys, never hardcode.
 - **GitHub:** Use `gh` for PRs/issues.
-- **Run Policy:** Do not ask to run, just run commands.]]
+- **Run Policy:** Do not ask to run, just run commands.
+- **Writing Technical Terms:** We have spellchecker enabled, so when writing technical terms, wrap them in "`".]]
 
 --- System prompt for CodeCompanion
 --- @param opts table?
