@@ -25,6 +25,7 @@ local common_exceptions = {
   "MCPHub",
   "Neovim",
   "vectorcode",
+  "lsp",
 }
 
 for _, word in ipairs(common_exceptions) do

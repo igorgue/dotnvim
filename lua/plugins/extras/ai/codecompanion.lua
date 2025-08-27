@@ -17,14 +17,10 @@ return {
     -- Main plugin configuration
     -- Defines dependencies, commands, initialization, and setup options
     dependencies = {
-      { "j-hui/fidget.nvim", lazy = false },
-      {
-        "ravitemer/codecompanion-history.nvim",
-        lazy = false,
-      },
+      "j-hui/fidget.nvim",
+      "ravitemer/codecompanion-history.nvim",
       {
         "HakonHarnes/img-clip.nvim",
-        lazy = false,
         opts = {
           filetypes = {
             codecompanion = {
@@ -36,13 +32,12 @@ return {
         },
         keys = {
           -- Sounds like a good idea but rather just call img paste
-          { "<s-c-v>", nil, desc = "Paste from clipboard", mode = { "n", "i", "v" } },
+          { "<s-c-v>", nil, desc = "Paste from clipboard", mode = { "n", "i", "v", "t" } },
         },
       },
       { "nvim-lua/plenary.nvim", branch = "master" },
       {
         "Davidyz/VectorCode",
-        lazy = false,
         version = "*", -- optional, depending on whether you're on nightly or release
         build = "pipx upgrade vectorcode", -- optional but recommended. This keeps your CLI up-to-date.
         dependencies = { "nvim-lua/plenary.nvim" },
@@ -52,7 +47,6 @@ return {
         "ravitemer/mcphub.nvim",
         cmd = "MCPHub",
         build = "bundled_build.lua",
-        lazy = false,
         opts = {
           config = vim.fn.expand("~/.config/mcphub/servers.json"),
           auto_approve = true,
@@ -89,7 +83,6 @@ return {
         ft = { "markdown", "codecompanion" },
       },
     },
-    lazy = false,
     cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
     init = function()
       vim.cmd([[cab cc CodeCompanion]])
@@ -205,9 +198,11 @@ return {
             },
             schema = {
               model = {
-                default = "openai/gpt-oss-20b:free",
+                -- default = "openai/gpt-oss-20b:free",
+                default = "qwen/qwen3-coder:free",
                 choices = {
-                  ["openai/gpt-oss-20b:free"] = { opts = { can_reason = true, can_use_tools = true } },
+                  ["openai/gpt-oss-20b:free"] = { opts = { can_reason = false, can_use_tools = false } },
+                  ["qwen/qwen3-coder:free"] = {},
                 },
               },
             },
