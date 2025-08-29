@@ -47,6 +47,7 @@ return {
         "ravitemer/mcphub.nvim",
         cmd = "MCPHub",
         build = "bundled_build.lua",
+        event = "VeryLazy",
         opts = {
           config = vim.fn.expand("~/.config/mcphub/servers.json"),
           auto_approve = true,
@@ -644,7 +645,7 @@ And the previous 10 commits, just in case they're related to the current changes
         "<leader>ay",
         function()
           vim.cmd("startinsert")
-          vim.api.nvim_input("@{full_stack_dev}<cr><cr>please make the change for me!")
+          vim.api.nvim_input("Please make the change for me!")
         end,
         ft = "codecompanion",
         desc = "Ask AI to make changes with all tools",
@@ -653,7 +654,7 @@ And the previous 10 commits, just in case they're related to the current changes
       {
         "<m-y>",
         function()
-          vim.api.nvim_input("@{full_stack_dev}<cr><cr>please make the change for me!")
+          vim.api.nvim_input("Please make the change for me!")
         end,
         ft = "codecompanion",
         desc = "Ask AI to make changes with all tools",
