@@ -112,7 +112,7 @@ return {
     },
     opts = {
       lsp = {
-        preference = { "lexical" },
+        preference = { "expert" },
       },
     },
   },
