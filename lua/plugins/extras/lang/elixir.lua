@@ -40,12 +40,15 @@ return {
       },
       servers = {
         -- nextls = {},
+        -- lexical = {
+        --   settings = {
+        --     lexical = {
+        --       clear_diagnostics_on_save = false,
+        --     },
+        --   },
+        -- },
         lexical = {
-          settings = {
-            lexical = {
-              clear_diagnostics_on_save = false,
-            },
-          },
+          cmd = { "expert" },
         },
       },
     },
