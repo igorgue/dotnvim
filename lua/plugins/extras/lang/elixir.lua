@@ -14,16 +14,24 @@ if ok then
   })
 end
 
+vim.lsp.config("expert", {
+  cmd = { "expert" },
+  root_markers = { "mix.exs", ".git" },
+  filetypes = { "elixir", "eelixir", "heex" },
+})
+
+vim.lsp.enable("expert")
+
 return {
   { import = "lazyvim.plugins.extras.lang.elixir" },
-  {
-    "mason-org/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "lexical",
-      },
-    },
-  },
+  -- {
+  --   "mason-org/mason.nvim",
+  --   opts = {
+  --     ensure_installed = {
+  --       "lexical",
+  --     },
+  --   },
+  -- },
   {
     "neovim/nvim-lspconfig",
     opts = {
@@ -34,9 +42,12 @@ return {
         nextls = function()
           return true
         end,
-        -- lexical = function()
-        --   return true
-        -- end,
+        expert = function()
+          return true
+        end,
+        lexical = function()
+          return true
+        end,
       },
       servers = {
         -- nextls = {},
@@ -47,9 +58,14 @@ return {
         --     },
         --   },
         -- },
-        lexical = {
-          cmd = { "expert" },
-        },
+        -- expert = {
+        --   cmd = { "expert" },
+        --   root_dir = function(fname)
+        --     return require("lspconfig").util.root_pattern("mix.exs", ".git")(fname) or vim.fn.getcwd()
+        --   end,
+        --   filetypes = { "elixir", "eelixir", "heex" },
+        --   settings = {},
+        -- },
       },
     },
   },
