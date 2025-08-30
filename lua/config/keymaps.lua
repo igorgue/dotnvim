@@ -307,10 +307,10 @@ Snacks.toggle["prompt_enhancement"] = Snacks.toggle({
       end
       config.strategies.chat.opts.prompt_enhancement.enabled = state
     end
-    
+
     -- Also update the global variable for persistence
     vim.g.codecompanion_prompt_enhancement = state
-    
+
     -- Notify the user
     local status = state and "enabled" or "disabled"
     vim.notify(string.format("Prompt enhancement %s", status), vim.log.levels.INFO)

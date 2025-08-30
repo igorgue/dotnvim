@@ -9,12 +9,12 @@ local M = {}
 function M.extract_code_blocks(text)
   local code_blocks = {}
   local block_counter = 0
-  
+
   -- First, handle triple backtick code blocks
   -- This pattern is more robust and handles multiline code blocks
   local modified_text = text
   local pattern = "```[^\n]*\n(.-)\n```"
-  
+
   -- Use a while loop to find all code blocks
   local start_pos = 1
   while true do
@@ -22,20 +22,22 @@ function M.extract_code_blocks(text)
     if not block_start then
       break
     end
-    
+
     block_counter = block_counter + 1
     local placeholder_key = string.format("__CODE_BLOCK_%d__", block_counter)
-    
+
     -- Store the entire code block including the backticks
     code_blocks[placeholder_key] = string.sub(modified_text, block_start, block_end)
-    
+
     -- Replace the code block with placeholder
-    modified_text = string.sub(modified_text, 1, block_start - 1) .. placeholder_key .. string.sub(modified_text, block_end + 1)
-    
+    modified_text = string.sub(modified_text, 1, block_start - 1)
+      .. placeholder_key
+      .. string.sub(modified_text, block_end + 1)
+
     -- Update start position for next search
     start_pos = block_start + #placeholder_key
   end
-  
+
   -- Also handle inline code (single backticks) if they're substantial
   modified_text = modified_text:gsub("`([^`]+)`", function(code_content)
     -- Only extract inline code if it's longer than 30 characters
@@ -50,7 +52,7 @@ function M.extract_code_blocks(text)
       return string.format("`%s`", code_content)
     end
   end)
-  
+
   return modified_text, code_blocks
 end
 
@@ -59,9 +61,9 @@ function M.restore_code_blocks(text, code_blocks)
   if not code_blocks or vim.tbl_isempty(code_blocks) then
     return text
   end
-  
+
   local restored_text = text
-  
+
   -- Replace each placeholder with its original code block
   for placeholder, code_block in pairs(code_blocks) do
     -- Use plain string replacement to avoid pattern matching issues
@@ -69,7 +71,7 @@ function M.restore_code_blocks(text, code_blocks)
       return code_block
     end)
   end
-  
+
   return restored_text
 end
 
@@ -93,6 +95,7 @@ Guidelines:
 6. Don't make it overly verbose
 7. Preserve tool calling like @{toolname} if present in the original prompt also #{variables} and / (slash commands), add tools if you can.
 8. Do not modify the code in the prompt or providing an answer, code is usually wrapped between ``` (triple backticks), and single lines with ` (single backtick), unless the user specifically asks for code changes, focus on improving the prompt itself.
+9. If the prompt includes a tool without call it, for example "Wikipedia" then you can replace that with the tool "@{wikipedia}".
 
 Original prompt:
 
@@ -100,7 +103,7 @@ Original prompt:
 %s
 ```
 
-You have access to the following tools: search_web, use_mcp_tool, access_mcp_resource, grep_search, vectorcode_vectorise, vectorcode_ls, read_file, get_changed_files, vectorcode_query, create_file, insert_edit_into_file, file_search, cmd_runner, list_code_usages, memory, multi_tool_use.parallel, that you can add by using the @{toolname} syntax.
+You have access to the @{wikipedia} and @{search} tools, feel free to replace any mention of "Wikipedia" or "search" in the original prompt with the appropriate tool call.
 
 Return ONLY the enhanced prompt without any explanation or additional text.
 ]],
@@ -155,11 +158,17 @@ function M.enhance_prompt(prompt, config)
 
   -- Extract code blocks before enhancement to avoid sending them to the LLM
   local prompt_without_code, code_blocks = M.extract_code_blocks(prompt)
-  
+
   if config.debug then
     if next(code_blocks) then
-      vim.notify(string.format("Extracted %d code blocks before enhancement", vim.tbl_count(code_blocks)), vim.log.levels.INFO)
-      vim.notify(string.format("Original length: %d, Stripped length: %d", #prompt, #prompt_without_code), vim.log.levels.INFO)
+      vim.notify(
+        string.format("Extracted %d code blocks before enhancement", vim.tbl_count(code_blocks)),
+        vim.log.levels.INFO
+      )
+      vim.notify(
+        string.format("Original length: %d, Stripped length: %d", #prompt, #prompt_without_code),
+        vim.log.levels.INFO
+      )
     else
       vim.notify("No code blocks found to extract", vim.log.levels.INFO)
     end
@@ -197,7 +206,7 @@ function M.enhance_prompt(prompt, config)
     local ok, json = pcall(vim.json.decode, response.body)
     if ok and json.response then
       local enhanced = vim.trim(json.response)
-      
+
       -- Restore code blocks to the enhanced prompt
       enhanced = M.restore_code_blocks(enhanced, code_blocks)
 
@@ -239,9 +248,12 @@ function M.enhance_prompt_async(prompt, config, callback)
 
   -- Extract code blocks before enhancement to avoid sending them to the LLM
   local prompt_without_code, code_blocks = M.extract_code_blocks(prompt)
-  
+
   if config.debug and next(code_blocks) then
-    vim.notify(string.format("Async: Extracted %d code blocks before enhancement", vim.tbl_count(code_blocks)), vim.log.levels.INFO)
+    vim.notify(
+      string.format("Async: Extracted %d code blocks before enhancement", vim.tbl_count(code_blocks)),
+      vim.log.levels.INFO
+    )
   end
 
   -- Run in a separate thread to avoid blocking
@@ -276,7 +288,7 @@ function M.enhance_prompt_async(prompt, config, callback)
           local ok, json = pcall(vim.json.decode, response.body)
           if ok and json.response then
             local enhanced = vim.trim(json.response)
-            
+
             -- Restore code blocks to the enhanced prompt
             enhanced = M.restore_code_blocks(enhanced, code_blocks)
 
@@ -317,7 +329,7 @@ function M.check_ollama_status()
   end
 
   local response = curl_lib.get("http://localhost:11434/api/tags", {
-    timeout = 1000,
+    timeout = M.config.timeout,
   })
 
   return response and response.status == 200
@@ -331,7 +343,7 @@ function M.list_models()
   end
 
   local response = curl_lib.get("http://localhost:11434/api/tags", {
-    timeout = 2000,
+    timeout = M.config.timeout,
   })
 
   if response and response.status == 200 and response.body then

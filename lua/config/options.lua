@@ -137,5 +137,7 @@ vim.g.codecompanion_initial_inline_adapter = vim.env.LAZYVIM_CODECOMPANION_INLIN
 vim.g.codecompanion_auto_tool_mode = nil
 -- Parse prompt enhancement env var - accepts "true", "yes", "1", etc.
 local prompt_env = vim.env.LAZYVIM_PROMPT_ENHANCEMENT
-vim.g.codecompanion_prompt_enhancement = prompt_env and (prompt_env == "true" or prompt_env == "yes" or prompt_env == "1") or false
+vim.g.codecompanion_prompt_enhancement = prompt_env
+    and (prompt_env == "true" or prompt_env == "yes" or prompt_env == "1")
+  or false
 vim.g.lazyvim_python_lsp = "basedpyright"

@@ -16,10 +16,18 @@ function M.toggle_enhancement()
   local new_state = not current
 
   -- Update the configuration
-  if not config.strategies then config.strategies = {} end
-  if not config.strategies.chat then config.strategies.chat = {} end
-  if not config.strategies.chat.opts then config.strategies.chat.opts = {} end
-  if not config.strategies.chat.opts.prompt_enhancement then config.strategies.chat.opts.prompt_enhancement = {} end
+  if not config.strategies then
+    config.strategies = {}
+  end
+  if not config.strategies.chat then
+    config.strategies.chat = {}
+  end
+  if not config.strategies.chat.opts then
+    config.strategies.chat.opts = {}
+  end
+  if not config.strategies.chat.opts.prompt_enhancement then
+    config.strategies.chat.opts.prompt_enhancement = {}
+  end
   config.strategies.chat.opts.prompt_enhancement.enabled = new_state
 
   local status = new_state and "enabled" or "disabled"
@@ -29,10 +37,18 @@ end
 -- Set the enhancement model
 function M.set_enhancement_model(model)
   local config = require("codecompanion.config")
-  if not config.strategies then config.strategies = {} end
-  if not config.strategies.chat then config.strategies.chat = {} end
-  if not config.strategies.chat.opts then config.strategies.chat.opts = {} end
-  if not config.strategies.chat.opts.prompt_enhancement then config.strategies.chat.opts.prompt_enhancement = {} end
+  if not config.strategies then
+    config.strategies = {}
+  end
+  if not config.strategies.chat then
+    config.strategies.chat = {}
+  end
+  if not config.strategies.chat.opts then
+    config.strategies.chat.opts = {}
+  end
+  if not config.strategies.chat.opts.prompt_enhancement then
+    config.strategies.chat.opts.prompt_enhancement = {}
+  end
   config.strategies.chat.opts.prompt_enhancement.model = model
   vim.notify(string.format("Prompt enhancement model set to: %s", model), vim.log.levels.INFO)
 end
@@ -44,12 +60,20 @@ function M.set_timeout(timeout_str)
     vim.notify("Invalid timeout value. Please provide a positive number in milliseconds.", vim.log.levels.ERROR)
     return
   end
-  
+
   local config = require("codecompanion.config")
-  if not config.strategies then config.strategies = {} end
-  if not config.strategies.chat then config.strategies.chat = {} end
-  if not config.strategies.chat.opts then config.strategies.chat.opts = {} end
-  if not config.strategies.chat.opts.prompt_enhancement then config.strategies.chat.opts.prompt_enhancement = {} end
+  if not config.strategies then
+    config.strategies = {}
+  end
+  if not config.strategies.chat then
+    config.strategies.chat = {}
+  end
+  if not config.strategies.chat.opts then
+    config.strategies.chat.opts = {}
+  end
+  if not config.strategies.chat.opts.prompt_enhancement then
+    config.strategies.chat.opts.prompt_enhancement = {}
+  end
   config.strategies.chat.opts.prompt_enhancement.timeout = timeout
   vim.notify(string.format("Prompt enhancement timeout set to: %d ms", timeout), vim.log.levels.INFO)
 end
@@ -64,10 +88,18 @@ function M.toggle_debug()
   end
 
   local new_state = not current
-  if not config.strategies then config.strategies = {} end
-  if not config.strategies.chat then config.strategies.chat = {} end
-  if not config.strategies.chat.opts then config.strategies.chat.opts = {} end
-  if not config.strategies.chat.opts.prompt_enhancement then config.strategies.chat.opts.prompt_enhancement = {} end
+  if not config.strategies then
+    config.strategies = {}
+  end
+  if not config.strategies.chat then
+    config.strategies.chat = {}
+  end
+  if not config.strategies.chat.opts then
+    config.strategies.chat.opts = {}
+  end
+  if not config.strategies.chat.opts.prompt_enhancement then
+    config.strategies.chat.opts.prompt_enhancement = {}
+  end
   config.strategies.chat.opts.prompt_enhancement.debug = new_state
 
   local status = new_state and "enabled" or "disabled"
@@ -217,7 +249,7 @@ function M.setup()
   vim.api.nvim_create_user_command("CCPromptEnhanceTest", M.test_enhancement, {
     desc = "Test prompt enhancement with a sample prompt",
   })
-  
+
   vim.api.nvim_create_user_command("CCPromptEnhanceTimeout", function(opts)
     if opts.args == "" then
       local config = require("codecompanion.config")
@@ -230,11 +262,11 @@ function M.setup()
     nargs = "?",
     desc = "Set or show the timeout for prompt enhancement (in milliseconds)",
   })
-  
+
   -- Test code block extraction
   vim.api.nvim_create_user_command("CCPromptTestExtraction", function()
     local enhancer = require("plugins.ai.prompt-enhancer")
-    
+
     -- Get user input
     vim.ui.input({
       prompt = "Enter text with code blocks to test extraction: ",
@@ -248,10 +280,10 @@ And some inline `code here` too.]],
       if not input or input == "" then
         return
       end
-      
+
       -- Test extraction
       local stripped, blocks = enhancer.extract_code_blocks(input)
-      
+
       -- Show results
       local lines = {
         "=== Code Block Extraction Test ===",
@@ -264,21 +296,21 @@ And some inline `code here` too.]],
         "",
         "Extracted blocks:",
       }
-      
+
       for placeholder, code in pairs(blocks) do
         table.insert(lines, string.format("%s -> %s", placeholder, vim.inspect(code)))
       end
-      
+
       -- Display in a floating window
       local buf = vim.api.nvim_create_buf(false, true)
       vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
       vim.api.nvim_buf_set_option(buf, "modifiable", false)
-      
+
       local width = 80
       local height = math.min(30, #lines)
       local row = math.floor((vim.o.lines - height) / 2)
       local col = math.floor((vim.o.columns - width) / 2)
-      
+
       vim.api.nvim_open_win(buf, true, {
         relative = "editor",
         width = width,
@@ -290,7 +322,7 @@ And some inline `code here` too.]],
         title = " Code Extraction Test ",
         title_pos = "center",
       })
-      
+
       -- Close window on key press
       vim.api.nvim_buf_set_keymap(buf, "n", "<Esc>", ":close<CR>", { noremap = true, silent = true })
       vim.api.nvim_buf_set_keymap(buf, "n", "q", ":close<CR>", { noremap = true, silent = true })

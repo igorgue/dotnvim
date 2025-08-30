@@ -276,7 +276,7 @@ return {
               -- Get the current configuration dynamically
               local config = require("codecompanion.config")
               local runtime_config = vim.tbl_get(config, "strategies", "chat", "opts", "prompt_enhancement") or {}
-              
+
               -- Merge with defaults
               local enhancement_config = vim.tbl_extend("force", {
                 enabled = true,
@@ -284,12 +284,12 @@ return {
                 timeout = 8000,
                 debug = false,
               }, runtime_config)
-              
+
               -- Check if enhancement is enabled (can be toggled at runtime)
               if not enhancement_config.enabled then
                 return string.format([[<prompt>%s</prompt>]], message)
               end
-              
+
               -- Log what we're about to enhance
               if enhancement_config.debug then
                 vim.notify(string.format("Enhancing prompt: %s", message), vim.log.levels.INFO)
@@ -297,7 +297,7 @@ return {
 
               -- Enhance the prompt synchronously (for simplicity)
               local enhanced_message = enhancer.enhance_prompt(message, enhancement_config)
-              
+
               -- Log the result
               if enhancement_config.debug and enhanced_message ~= message then
                 vim.notify(string.format("Enhanced to: %s", enhanced_message), vim.log.levels.INFO)
