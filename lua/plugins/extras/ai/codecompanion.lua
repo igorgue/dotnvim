@@ -93,6 +93,8 @@ return {
     config = function(_, opts)
       require("codecompanion").setup(opts)
       require("plugins.codecompanion.fidget-spinner"):init()
+      -- Load prompt enhancer commands
+      require("plugins.ai.prompt-enhancer-commands")
     end,
     opts = {
       -- Global `opts`
@@ -254,8 +256,55 @@ return {
       strategies = {
         chat = {
           opts = {
+            -- Prompt enhancement configuration
+            prompt_enhancement = {
+              enabled = vim.g.codecompanion_prompt_enhancement or false, -- Use env var or default to false
+              model = "gemma3:12b", -- Model to use for enhancement (using gemma3:12b for better quality)
+              timeout = 8000, -- Timeout in milliseconds (increased for larger model)
+              debug = false, -- Debug logging disabled by default (use :CCPromptEnhanceDebug to toggle)
+              -- Custom enhancement prompt (optional)
+              -- enhancement_prompt = "Your custom enhancement instructions here"
+            },
             prompt_decorator = function(message, adapter, context)
-              return string.format([[<prompt>%s</prompt>]], message)
+              -- Load the prompt enhancer module
+              local ok, enhancer = pcall(require, "plugins.ai.prompt-enhancer")
+              if not ok then
+                -- Fallback to original formatting if enhancer not available
+                return string.format([[<prompt>%s</prompt>]], message)
+              end
+
+              -- Get the current configuration dynamically
+              local config = require("codecompanion.config")
+              local runtime_config = vim.tbl_get(config, "strategies", "chat", "opts", "prompt_enhancement") or {}
+              
+              -- Merge with defaults
+              local enhancement_config = vim.tbl_extend("force", {
+                enabled = true,
+                model = "gemma3:12b",
+                timeout = 8000,
+                debug = false,
+              }, runtime_config)
+              
+              -- Check if enhancement is enabled (can be toggled at runtime)
+              if not enhancement_config.enabled then
+                return string.format([[<prompt>%s</prompt>]], message)
+              end
+              
+              -- Log what we're about to enhance
+              if enhancement_config.debug then
+                vim.notify(string.format("Enhancing prompt: %s", message), vim.log.levels.INFO)
+              end
+
+              -- Enhance the prompt synchronously (for simplicity)
+              local enhanced_message = enhancer.enhance_prompt(message, enhancement_config)
+              
+              -- Log the result
+              if enhancement_config.debug and enhanced_message ~= message then
+                vim.notify(string.format("Enhanced to: %s", enhanced_message), vim.log.levels.INFO)
+              end
+
+              -- Wrap in prompt tags
+              return string.format([[<prompt>%s</prompt>]], enhanced_message)
             end,
           },
           adapter = vim.g.codecompanion_initial_adapter,

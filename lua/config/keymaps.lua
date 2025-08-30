@@ -291,6 +291,34 @@ Snacks.toggle["copilot"] = Snacks.toggle({
   :map("<leader>aC")
   :map("<m-a>", { mode = { "n", "v", "i" } })
 
+Snacks.toggle["prompt_enhancement"] = Snacks.toggle({
+  name = "Prompt Enhancement (Ollama)",
+  get = function()
+    local config = require("codecompanion.config")
+    local enabled = vim.tbl_get(config, "strategies", "chat", "opts", "prompt_enhancement", "enabled")
+    return enabled == true
+  end,
+  set = function(state)
+    local config = require("codecompanion.config")
+    -- Properly set the nested value
+    if config.strategies and config.strategies.chat and config.strategies.chat.opts then
+      if not config.strategies.chat.opts.prompt_enhancement then
+        config.strategies.chat.opts.prompt_enhancement = {}
+      end
+      config.strategies.chat.opts.prompt_enhancement.enabled = state
+    end
+    
+    -- Also update the global variable for persistence
+    vim.g.codecompanion_prompt_enhancement = state
+    
+    -- Notify the user
+    local status = state and "enabled" or "disabled"
+    vim.notify(string.format("Prompt enhancement %s", status), vim.log.levels.INFO)
+  end,
+})
+  :map("<leader>aP")
+  :map("<leader>u.p")
+
 -- some special cases:
 pcall(vim.api.nvim_del_keymap, "v", "<C-k>")
 pcall(vim.api.nvim_del_keymap, "i", "<C-k>")
