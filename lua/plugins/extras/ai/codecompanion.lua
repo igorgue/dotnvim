@@ -260,7 +260,7 @@ return {
             prompt_enhancement = {
               enabled = vim.g.codecompanion_prompt_enhancement or false, -- Use env var or default to false
               model = "gemma3:12b", -- Model to use for enhancement (using gemma3:12b for better quality)
-              timeout = 8000, -- Timeout in milliseconds (increased for larger model)
+              timeout = 30000, -- Timeout in milliseconds (increased for larger model)
               debug = false, -- Debug logging disabled by default (use :CCPromptEnhanceDebug to toggle)
               -- Custom enhancement prompt (optional)
               -- enhancement_prompt = "Your custom enhancement instructions here"
@@ -281,7 +281,7 @@ return {
               local enhancement_config = vim.tbl_extend("force", {
                 enabled = true,
                 model = "gemma3:12b",
-                timeout = 8000,
+                timeout = 30000,
                 debug = false,
               }, runtime_config)
 
