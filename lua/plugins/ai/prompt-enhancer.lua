@@ -103,8 +103,6 @@ Original prompt:
 %s
 ```
 
-You have access to the @{wikipedia} and @{search} tools, feel free to replace any mention of "Wikipedia" or "search" in the original prompt with the appropriate tool call.
-
 Return ONLY the enhanced prompt without any explanation or additional text.
 ]],
 
