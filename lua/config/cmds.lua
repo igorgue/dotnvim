@@ -8,10 +8,6 @@ vim.api.nvim_create_user_command("Nap", function()
   Snacks.terminal("nap", { border = "rounded" })
 end, {})
 
-vim.api.nvim_create_user_command("Yazi", function()
-  Snacks.terminal({ "yazi" }, { cwd = Util.root.get(), border = "rounded" })
-end, {})
-
 vim.api.nvim_create_user_command("Lazygit", function()
   Snacks.terminal({ "lazygit" }, { cwd = Util.root.get(), border = "none" })
 end, {})

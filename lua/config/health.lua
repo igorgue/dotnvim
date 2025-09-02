@@ -9,7 +9,7 @@ function M.check()
     vim.health.error("Neovim >= 0.9.0 is required")
   end
 
-  for _, cmd in ipairs({ "yazi", "nap", "cloc", "btop" }) do
+  for _, cmd in ipairs({ "nap", "cloc", "btop" }) do
     local name = type(cmd) == "string" and cmd or vim.inspect(cmd)
     local commands = type(cmd) == "string" and { cmd } or cmd
     ---@cast commands string[]
