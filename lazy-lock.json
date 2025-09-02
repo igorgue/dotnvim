@@ -13,7 +13,7 @@
   "cmake-tools.nvim": { "branch": "master", "commit": "88e07c6bff838a5bda2f461e9c1122b79ff0829f" },
   "cmp-pypi": { "branch": "main", "commit": "14e6624bf86e77d017431e87a3272b5c9d0b2eaa" },
   "codecompanion-history.nvim": { "branch": "main", "commit": "b9f1afb77f1a8805e686f89ac38338a9ca588579" },
-  "codecompanion.nvim": { "branch": "main", "commit": "2b5aea7a371af96a08e984b42795ce8f5ae70e49" },
+  "codecompanion.nvim": { "branch": "main", "commit": "7eb2f67b69a578daf01bea79aed09f1f0131584e" },
   "color-picker.nvim": { "branch": "master", "commit": "06cb5f853535dea529a523e9a0e8884cdf9eba4d" },
   "conform.nvim": { "branch": "master", "commit": "b4aab989db276993ea5dcb78872be494ce546521" },
   "copilot.vim": { "branch": "release", "commit": "f3d66c148aa60ad04c0a21d3e0a776459de09eb2" },
