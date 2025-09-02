@@ -72,7 +72,7 @@ return {
   },
   {
     "linux-cultist/venv-selector.nvim",
-    branch = "regexp",
+    branch = "main",
     enabled = true,
     cmd = "VenvSelect",
     config = function(_, opts)
