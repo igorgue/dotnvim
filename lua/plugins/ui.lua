@@ -27,7 +27,7 @@ return {
           ---@type snacks.dashboard.Item[]
           keys = {
             { icon = " ", key = "n", desc = "new file", action = ":ene | startinsert" },
-            { icon = " ", key = "r", desc = "recent files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+            { icon = " ", key = "r", desc = "recent files", action = ":lua Snacks.picker.recent({ filter = { cwd = true }})" },
             { icon = " ", key = "s", desc = "restore session", section = "session" },
             { icon = " ", key = "f", desc = "find file", action = ":lua Snacks.dashboard.pick('files')" },
             { icon = " ", key = "o", desc = "smart open", action = ":lua Snacks.picker.smart()" },
@@ -223,7 +223,11 @@ return {
       -- stylua: ignore start
       { "<c-cr>", resume_snacks_picker, desc = "Resume", mode = { "n", "i" } },
       { "<leader><cr>", resume_snacks_picker, desc = "Resume" },
-      { "<leader>r", function() Snacks.picker.recent() end, desc = "Recent" },
+      { "<leader>r", function() Snacks.picker.recent({ filter = { cwd = true }}) end, desc = "Recent (cwd)" },
+      { "<leader>ff", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
+      { "<leader>fF", LazyVim.pick("files"), desc = "Find Files (Root Dir)" },
+      { "<leader>fr", function() Snacks.picker.recent({ filter = { cwd = true }}) end, desc = "Recent (cwd)" },
+      { "<leader>fR", LazyVim.pick("oldfiles"), desc = "Recent" },
       { "<leader>j", function() Snacks.picker.jumps() end, desc = "Jumps" },
       { "<leader><leader>", function() Snacks.picker.smart() end, desc = "Smart" },
       { "<leader>fl", function() Snacks.picker.files({ cwd = vim.fn.stdpath("data") }) end, desc = "Open local nvim data directory", },
