@@ -30,10 +30,6 @@ return {
             },
           },
         },
-        keys = {
-          -- Sounds like a good idea but rather just call img paste
-          { "<s-c-v>", nil, desc = "Paste from clipboard", mode = { "n", "i", "v", "t" } },
-        },
       },
       { "nvim-lua/plenary.nvim", branch = "master" },
       {
