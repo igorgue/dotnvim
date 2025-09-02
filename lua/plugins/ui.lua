@@ -80,6 +80,7 @@ return {
         },
         win = {
           style = {
+            width = 100,
             backdrop = { transparent = false, blend = 99 },
           },
         },
