@@ -25,6 +25,16 @@ return {
     keys = {
       { "<C-l>", "<Plug>(copilot-suggest)", desc = "Copilot manual trigger", mode = "i" },
       { "<M-left>", "<C-w>", desc = "Remove last word", mode = "i" },
+      {
+        "<M-up>",
+        'copilot#Accept("\\<CR>")',
+        desc = "Accept suggestion",
+        mode = "i",
+        expr = true,
+        silent = true,
+        replace_keycodes = false,
+      },
+      { "<M-down>", "<C-o>u", desc = "Undo", mode = "i" },
     },
   },
 }
