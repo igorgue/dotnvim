@@ -372,8 +372,12 @@ return {
             },
             opts = {
               default_tools = {
-                "mcp",
-                "full_stack_dev",
+                "cmd_runner",
+                -- "create_file",
+                -- "read_file",
+                "insert_edit_into_file",
+                -- "file_search",
+                -- "grep_search",
               },
               requires_approval = false,
               auto_submit_errors = true,
@@ -618,7 +622,8 @@ And the previous 10 commits, just in case they're related to the current changes
 
             -- Add your initial content here - customize this as needed
             local initial_content = {
-              "@{full_stack_dev} @{mcp}",
+              -- "@{cmd_runner} @{create_file} @{read_file} @{insert_edit_into_file} @{file_search} @{grep_search}",
+              "@{cmd_runner} @{insert_edit_into_file}",
               "",
               "",
             }
