@@ -374,8 +374,6 @@ return {
               default_tools = {
                 "mcp",
                 "full_stack_dev",
-                "memory",
-                "vectorcode_toolbox",
               },
               requires_approval = false,
               auto_submit_errors = true,
@@ -620,7 +618,7 @@ And the previous 10 commits, just in case they're related to the current changes
 
             -- Add your initial content here - customize this as needed
             local initial_content = {
-              "@{full_stack_dev} @{mcp} @{memory} @{vectorcode_toolbox}",
+              "@{full_stack_dev} @{mcp}",
               "",
               "",
             }
