@@ -4,7 +4,7 @@ return {
   {
     "github/copilot.vim",
     cmd = "Copilot",
-    event = { "BufReadPost", "BufNewFile" },
+    event = { "VeryLazy" },
     config = function()
       vim.g.copilot_no_tab_remap = false
       vim.g.copilot_assume_mapped = true

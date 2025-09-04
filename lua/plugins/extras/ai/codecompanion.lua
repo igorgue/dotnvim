@@ -417,12 +417,16 @@ return {
           layout = "vertical",
           keymaps = {
             accept_change = {
-              modes = { n = "<leader>aa" },
-              description = "Accept the suggested change",
+              modes = { n = "1" },
+              description = "Accept",
             },
             reject_change = {
-              modes = { n = "<leader>ar" },
-              description = "Reject the suggested change",
+              modes = { n = "2" },
+              description = "Reject",
+            },
+            always_accept = {
+              modes = { n = "3" },
+              description = "Always Accept",
             },
           },
         },
