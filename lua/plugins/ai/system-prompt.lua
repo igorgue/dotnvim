@@ -142,7 +142,12 @@ return function(opts)
   local language = "English"
 
   if opts then
-    adapter = opts.adapter and opts.adapter.formatted_name .. ":" .. opts.adapter.schema.model.default or ""
+    adapter = opts.adapter and opts.adapter.formatted_name
+
+    if opts.schema and opts.schema.model and opts.schema.model.default then
+      adapter = adapter .. ":" .. opts.schema.model.default
+    end
+
     language = opts.language and opts.language or "English"
     name = opts.name or "CodeCompanion"
   end

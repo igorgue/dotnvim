@@ -100,6 +100,19 @@ return {
         send_code = true,
       },
       adapters = {
+        acp = {
+          claude_code = function()
+            return require("codecompanion.adapters").extend("claude_code", {})
+          end,
+          gemini_cli = function()
+            return require("codecompanion.adapters").extend("gemini_cli", {
+              defaults = {
+                auth_method = "gemini-api-key",
+                timeout = 60000,
+              },
+            })
+          end,
+        },
         copilot = function()
           return require("codecompanion.adapters").extend("copilot", {
             schema = {
@@ -307,11 +320,15 @@ return {
           roles = {
             user = vim.env.USERNAME,
             llm = function(adapter)
-              if not adapter or not adapter.schema or not adapter.schema.model then
+              if not adapter then
                 return "CodeCompanion"
               end
 
-              return "CodeCompanion (" .. adapter.formatted_name .. ":" .. adapter.schema.model.default .. ")"
+              if adapter.schema and adapter.schema.model then
+                return "CodeCompanion (" .. adapter.formatted_name .. ":" .. adapter.schema.model.default .. ")"
+              else
+                return "CodeCompanion (" .. adapter.formatted_name .. ")"
+              end
             end,
           },
           keymaps = {
