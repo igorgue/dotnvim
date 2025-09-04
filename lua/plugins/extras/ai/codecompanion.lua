@@ -219,10 +219,11 @@ return {
             },
             schema = {
               model = {
-                -- default = "openai/gpt-oss-20b:free",
-                default = "qwen/qwen3-coder:free",
+                default = "openai/gpt-oss-120b:free",
+                -- default = "qwen/qwen3-coder:free",
                 choices = {
-                  ["openai/gpt-oss-20b:free"] = { opts = { can_reason = false, can_use_tools = false } },
+                  ["openai/gpt-oss-120b:free"] = {},
+                  ["openai/gpt-oss-20b:free"] = {},
                   ["qwen/qwen3-coder:free"] = {},
                 },
               },
