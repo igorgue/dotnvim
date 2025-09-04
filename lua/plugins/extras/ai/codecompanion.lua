@@ -102,7 +102,13 @@ return {
       adapters = {
         acp = {
           claude_code = function()
-            return require("codecompanion.adapters").extend("claude_code", {})
+            return require("codecompanion.adapters").extend("claude_code", {
+              env = {
+                ANTHROPIC_MODEL = "kimi-k2-turbo-preview",
+                DISABLE_TELEMETRY = "1",
+                DISABLE_AUTOUPDATER = "1",
+              },
+            })
           end,
           gemini_cli = function()
             return require("codecompanion.adapters").extend("gemini_cli", {
