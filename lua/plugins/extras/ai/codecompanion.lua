@@ -102,7 +102,16 @@ return {
       adapters = {
         acp = {
           claude_code = function()
-            return require("codecompanion.adapters").extend("claude_code", {})
+            return require("codecompanion.adapters").extend("claude_code", {
+              parameters = {
+                clientCapabilities = {
+                  fs = {
+                    readTextFile = false,
+                    writeTextFile = false,
+                  },
+                },
+              },
+            })
           end,
           gemini_cli = function()
             return require("codecompanion.adapters").extend("gemini_cli", {
