@@ -91,21 +91,24 @@ local function direnv_on_term(args)
     return
   end
 
-  -- Determine if this terminal is an interactive shell (avoid TUIs like lazygit)
   local name = vim.api.nvim_buf_get_name(buf) or ""
-  -- term://{cwd}:{pid}:{cmd}
-  local term_cmd = name:match("term://.-:%d+:(.*)$") or ""
-  local first_tok = term_cmd:match("^%S+") or ""
-  local shells = { "bash", "zsh", "fish", "nu", "elvish", "xonsh", "sh" }
+  local term_cmd = name:match("term://.-//%d+:(.*)$") or ""
+
+  -- Extract just the binary name from the full path
+  local binary_name = term_cmd:match("([^/]+)$") or term_cmd
+  local shells = { "bash", "zsh", "fish", "sh", "nu", "elvish", "xonsh" }
   local is_shell = term_cmd == ""
+
+  -- Check if the binary name is a known shell
   if not is_shell then
-    for _, s in ipairs(shells) do
-      if first_tok:find(s, 1, true) or term_cmd:find("/" .. s, 1, true) then
+    for _, shell in ipairs(shells) do
+      if binary_name == shell then
         is_shell = true
         break
       end
     end
   end
+
   if not is_shell then
     return
   end
