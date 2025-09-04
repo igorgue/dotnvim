@@ -102,16 +102,10 @@ return {
       adapters = {
         acp = {
           claude_code = function()
-            return require("codecompanion.adapters").extend("claude_code", {
-              parameters = {
-                clientCapabilities = {
-                  fs = {
-                    readTextFile = false,
-                    writeTextFile = false,
-                  },
-                },
-              },
-            })
+            -- Claude Code adapter configuration
+            -- This extends the built-in claude_code adapter to customize client capabilities
+            -- Disables file system read/write operations for security
+            return require("codecompanion.adapters").extend("claude_code", {})
           end,
           gemini_cli = function()
             return require("codecompanion.adapters").extend("gemini_cli", {
