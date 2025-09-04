@@ -178,7 +178,7 @@ return {
             },
             schema = {
               model = {
-                default = "kimi-k2-0711-preview",
+                default = "kimi-k2-turbo-preview",
               },
               temperature = {
                 default = 0.2,
