@@ -53,18 +53,10 @@ return {
             { icon = "󱋊 ", key = "a", desc = "ai chat", action = function()
                 vim.cmd("CodeCompanionChat")
                 vim.schedule(function()
-                  -- trigger LazyVim zen toggle keymap
-                    vim.cmd("only")
-                    -- ensure we're in normal mode before invoking a normal-mode mapping
-                    vim.api.nvim_input(vim.keycode("<Esc>"))
-                    local keys = vim.api.nvim_replace_termcodes("<leader>uz", true, false, true)
-                    vim.api.nvim_feedkeys(keys, "m", false)
-                    -- re-enter insert mode a bit later so the mapping isn't swallowed
-                    vim.defer_fn(function()
-                      if vim.bo.filetype == "codecompanion" then
-                        vim.cmd("startinsert")
-                      end
-                    end, 30)
+                  vim.cmd("only")
+                  vim.defer_fn(function()
+                    vim.cmd("startinsert")
+                  end, 30)
                 end)
               end },
             { icon = " ", key = "q", desc = "quit", action = ":qa" },

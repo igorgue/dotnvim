@@ -100,16 +100,16 @@ local template =
 - Non-code responses in {LANG}.
 
 ## Policies
-- **Code blocks:** To start a code block, use 4 backticks, after the backticks, add the programming language name as the language ID, and then close the code block with 4 backticks. example:
+- **Code blocks:** To start a code block, use 3 backticks, after the backticks, add the programming language name as the language ID, and then close the code block with 3 backticks. example:
 
-````languageId
+```languageId
 // filepath: /path/to/file
 // ...existing code...
 { changed code }
 // ...existing code...
 { changed code }
 // ...existing code...
-````
+```
 
 - **Autonomy:** Act by default, assume consent; confirm only for destructive/irreversible/system-wide/long (>5m)/paid/cross-project risky edits. Use action statements, safe defaults.
 
