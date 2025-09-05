@@ -131,23 +131,24 @@ return {
         ["<C-p>"] = { "select_prev", "fallback" },
         ["<C-n>"] = { "select_next", "fallback" },
         ["<C-j>"] = { "snippet_forward", trigger_snippet },
-        ["<Tab>"] = {
-          function(cmp)
-            if LazyVim.has("copilot-lsp") and vim.b[vim.api.nvim_get_current_buf()].nes_state then
-              cmp.hide()
-              return require("copilot-lsp.nes").apply_pending_nes()
-            end
-
-            if Snacks.toggle.copilot:get() then
-              cmp.hide()
-
-              return
-            end
-
-            return cmp.select_and_accept()
-          end,
-          vim.g.ai_cmp and LazyVim.cmp.map({ "ai_accept", "fallback" }) or "fallback",
-        },
+        -- NOTE: Disabled for now, we use the regular mapping of copilot
+        -- ["<Tab>"] = {
+        --   function(cmp)
+        --     if LazyVim.has("copilot-lsp") and vim.b[vim.api.nvim_get_current_buf()].nes_state then
+        --       cmp.hide()
+        --       return require("copilot-lsp.nes").apply_pending_nes()
+        --     end
+        --
+        --     if Snacks.toggle.copilot:get() then
+        --       cmp.hide()
+        --
+        --       return
+        --     end
+        --
+        --     return cmp.select_and_accept()
+        --   end,
+        --   vim.g.ai_cmp and LazyVim.cmp.map({ "ai_accept", "fallback" }) or "fallback",
+        -- },
         ["<S-Tab>"] = { "fallback" },
       },
       sources = {
