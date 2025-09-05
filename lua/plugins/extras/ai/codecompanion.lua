@@ -1,5 +1,6 @@
 vim.g.codecompanion_auto_tool_mode = true
 vim.g.mcphub_auto_approve = true
+vim.g.codecompanion_yolo_mode = true
 
 -- CodeCompanion Configuration
 -- This file configures the CodeCompanion plugin, which provides AI-powered coding assistance
@@ -98,13 +99,16 @@ return {
         system_prompt = require("plugins.ai.system-prompt"),
         language = "English",
         send_code = true,
+        folds = {
+          enable = true,
+        },
       },
       adapters = {
         acp = {
           claude_code = function()
             return require("codecompanion.adapters").extend("claude_code", {
               env = {
-                ANTHROPIC_MODEL = "kimi-k2-turbo-preview",
+                ANTHROPIC_MODEL = "kimi-k2-0905-preview",
                 DISABLE_TELEMETRY = "1",
                 DISABLE_AUTOUPDATER = "1",
               },
@@ -178,7 +182,7 @@ return {
             },
             schema = {
               model = {
-                default = "kimi-k2-turbo-preview",
+                default = "kimi-k2-0905-preview",
               },
               temperature = {
                 default = 0.2,
@@ -441,6 +445,7 @@ return {
         },
         chat = {
           intro_message = "",
+          separtor = "---",
           show_references = true,
           show_header_separator = true,
           show_settings = false,
