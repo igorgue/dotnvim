@@ -361,6 +361,22 @@ return {
             stop = {
               modes = { n = "<C-c>", i = "<C-c>" },
             },
+            _acp_allow_always = {
+              modes = { n = "0" },
+              description = "Allow Always",
+            },
+            _acp_allow_once = {
+              modes = { n = "1" },
+              description = "Allow Once",
+            },
+            _acp_reject_once = {
+              modes = { n = "2" },
+              description = "Reject Once",
+            },
+            _acp_reject_always = {
+              modes = { n = "3" },
+              description = "Reject Always",
+            },
           },
           variables = {
             ["buffer"] = {
@@ -417,15 +433,15 @@ return {
           layout = "vertical",
           keymaps = {
             accept_change = {
-              modes = { n = "<c-s>" },
+              modes = { n = "1" },
               description = "Accept",
             },
             reject_change = {
-              modes = { n = "<c-c>" },
+              modes = { n = "2" },
               description = "Reject",
             },
             always_accept = {
-              modes = { n = "<c-a>" },
+              modes = { n = "0" },
               description = "Always Accept",
             },
           },
