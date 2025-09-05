@@ -2,6 +2,15 @@ vim.g.codecompanion_auto_tool_mode = true
 vim.g.mcphub_auto_approve = true
 vim.g.codecompanion_yolo_mode = true
 
+local default_tools = {
+  "desktop_commander",
+  "cmd_runner",
+  -- "create_file",
+  "read_file",
+  "insert_edit_into_file",
+  -- "file_search",
+  -- "grep_search",
+}
 -- CodeCompanion Configuration
 -- This file configures the CodeCompanion plugin, which provides AI-powered coding assistance
 -- directly within Neovim. It integrates with multiple AI providers and offers features like
@@ -108,7 +117,7 @@ return {
           claude_code = function()
             return require("codecompanion.adapters").extend("claude_code", {
               env = {
-                ANTHROPIC_MODEL = "kimi-k2-0905-preview",
+                ANTHROPIC_MODEL = "kimi-k2-turbo-preview",
                 DISABLE_TELEMETRY = "1",
                 DISABLE_AUTOUPDATER = "1",
               },
@@ -182,11 +191,12 @@ return {
             },
             schema = {
               model = {
-                default = "kimi-k2-0905-preview",
+                -- default = "kimi-k2-0905-preview",
+                default = "kimi-k2-turbo-preview",
               },
-              temperature = {
-                default = 0.2,
-              },
+              -- temperature = {
+              --   default = 0.2,
+              -- },
               max_tokens = {
                 default = -1,
               },
@@ -286,45 +296,38 @@ return {
               -- enhancement_prompt = "Your custom enhancement instructions here"
             },
             prompt_decorator = function(message, adapter, context)
-              -- Load the prompt enhancer module
-              local ok, enhancer = pcall(require, "plugins.ai.prompt-enhancer")
-              if not ok then
-                -- Fallback to original formatting if enhancer not available
-                return string.format([[<prompt>%s</prompt>]], message)
-              end
-
-              -- Get the current configuration dynamically
-              local config = require("codecompanion.config")
-              local runtime_config = vim.tbl_get(config, "strategies", "chat", "opts", "prompt_enhancement") or {}
-
-              -- Merge with defaults
-              local enhancement_config = vim.tbl_extend("force", {
-                enabled = true,
-                model = "gemma3:12b",
-                timeout = 30000,
-                debug = false,
-              }, runtime_config)
-
-              -- Check if enhancement is enabled (can be toggled at runtime)
-              if not enhancement_config.enabled then
-                return string.format([[<prompt>%s</prompt>]], message)
-              end
-
-              -- Log what we're about to enhance
-              if enhancement_config.debug then
-                vim.notify(string.format("Enhancing prompt: %s", message), vim.log.levels.INFO)
-              end
-
-              -- Enhance the prompt synchronously (for simplicity)
-              local enhanced_message = enhancer.enhance_prompt(message, enhancement_config)
-
-              -- Log the result
-              if enhancement_config.debug and enhanced_message ~= message then
-                vim.notify(string.format("Enhanced to: %s", enhanced_message), vim.log.levels.INFO)
-              end
+              -- -- Get the current configuration dynamically
+              -- local config = require("codecompanion.config")
+              -- local runtime_config = vim.tbl_get(config, "strategies", "chat", "opts", "prompt_enhancement") or {}
+              --
+              -- -- Merge with defaults
+              -- local enhancement_config = vim.tbl_extend("force", {
+              --   enabled = true,
+              --   model = "gemma3:12b",
+              --   timeout = 30000,
+              --   debug = false,
+              -- }, runtime_config)
+              --
+              -- -- Check if enhancement is enabled (can be toggled at runtime)
+              -- if not enhancement_config.enabled then
+              --   return string.format([[<prompt>%s</prompt>]], message)
+              -- end
+              --
+              -- -- Log what we're about to enhance
+              -- if enhancement_config.debug then
+              --   vim.notify(string.format("Enhancing prompt: %s", message), vim.log.levels.INFO)
+              -- end
+              --
+              -- -- Enhance the prompt synchronously (for simplicity)
+              -- local enhanced_message = enhancer.enhance_prompt(message, enhancement_config)
+              --
+              -- -- Log the result
+              -- if enhancement_config.debug and enhanced_message ~= message then
+              --   vim.notify(string.format("Enhanced to: %s", enhanced_message), vim.log.levels.INFO)
+              -- end
 
               -- Wrap in prompt tags
-              return string.format([[<prompt>%s</prompt>]], enhanced_message)
+              return string.format([[<prompt>%s</prompt>]], message)
             end,
           },
           adapter = vim.g.codecompanion_initial_adapter,
@@ -399,17 +402,10 @@ return {
               requires_approval = false,
             },
             opts = {
-              default_tools = {
-                "cmd_runner",
-                -- "create_file",
-                -- "read_file",
-                "insert_edit_into_file",
-                -- "file_search",
-                -- "grep_search",
-              },
+              default_tools = default_tools,
               requires_approval = false,
-              auto_submit_errors = true,
-              auto_submit_success = true,
+              auto_submit_errors = false,
+              auto_submit_success = false,
               prompt_decorator = function(message, _adapter, _context)
                 return string.format([[<prompt>%s</prompt>]], message)
               end,
@@ -554,6 +550,23 @@ And the previous 10 commits, just in case they're related to the current changes
             },
           },
         },
+        ["Improve Prompt"] = {
+          strategy = "inline",
+          description = "Improve prompt",
+          opts = {
+            index = 10,
+            is_default = false,
+            is_slash_cmd = false,
+            short_name = "improve_prompt",
+            auto_submit = true,
+          },
+          prompts = {
+            {
+              role = "user",
+              content = "Improve the following prompt to be more effective and efficient with LLMs",
+            },
+          },
+        },
       },
       extensions = {
         vectorcode = {
@@ -613,6 +626,63 @@ And the previous 10 commits, just in case they're related to the current changes
     },
     keys = {
       {
+        "<leader><leader>",
+        function()
+          require("codecompanion").prompt("improve_prompt")
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+        end,
+        mode = "v",
+        desc = "Improve the selected prompt",
+        ft = "codecompanion",
+      },
+      {
+        "<leader><leader>",
+        function()
+          -- Get current cursor position
+          local cursor_pos = vim.api.nvim_win_get_cursor(0)
+          local current_line = cursor_pos[1]
+
+          -- Find the start of the current block (empty line or start of file)
+          local start_line = 1
+          for i = current_line, 1, -1 do
+            local line = vim.api.nvim_buf_get_lines(0, i - 1, i, false)[1]
+            if line:match("^%s*$") then -- Empty line
+              start_line = i + 1
+              break
+            elseif i == 1 then
+              start_line = 1
+              break
+            end
+          end
+
+          -- Find the end of the current block (empty line or end of file)
+          local total_lines = vim.api.nvim_buf_line_count(0)
+          local end_line = total_lines
+          for i = current_line, total_lines do
+            local line = vim.api.nvim_buf_get_lines(0, i - 1, i, false)[1]
+            if line:match("^%s*$") and i > current_line then -- Empty line after current line
+              end_line = i - 1
+              break
+            elseif i == total_lines then
+              end_line = total_lines
+              break
+            end
+          end
+
+          -- Select the block visually
+          vim.api.nvim_win_set_cursor(0, { start_line, 0 })
+          vim.cmd("normal! V")
+          vim.api.nvim_win_set_cursor(0, { end_line, 0 })
+
+          -- Execute the improve_prompt function
+          require("codecompanion").prompt("improve_prompt")
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+        end,
+        mode = "n",
+        desc = "Improve the current block of text",
+        ft = "codecompanion",
+      },
+      {
         "<leader>gc",
         "<cmd>CodeCompanion /write_commit<cr>",
         desc = "Write the git commit for you",
@@ -655,8 +725,12 @@ And the previous 10 commits, just in case they're related to the current changes
 
             -- Add your initial content here - customize this as needed
             local initial_content = {
-              -- "@{cmd_runner} @{create_file} @{read_file} @{insert_edit_into_file} @{file_search} @{grep_search}",
-              "@{cmd_runner} @{insert_edit_into_file}",
+              table.concat(
+                vim.tbl_map(function(tool)
+                  return "@{" .. tool .. "}"
+                end, default_tools),
+                " "
+              ),
               "",
               "",
             }

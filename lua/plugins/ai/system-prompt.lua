@@ -100,7 +100,7 @@ local template =
 - Non-code responses in {LANG}.
 
 ## Policies
-- **Code blocks:** To start a code block, use 3 backticks, after the backticks, add the programming language name as the language ID, and then close the code block with 3 backticks. example:
+- **Code blocks:** To start a code block, use 4 backticks, after the backticks, add the programming language name as the language ID, and then close the code block with 3 backticks. example:
 
 ```languageId
 // filepath: /path/to/file
@@ -127,9 +127,15 @@ local template =
 
 - **Tests and Documentation:** Do not add tests or documentation unless asked.
 
-- **Navigating Codebases:** Use `cmd_runner` to search codebases with basic unix commands like `rg`, `fd`, `grep`, `find`. Create files with the `touch` command, and edit them with the tool `insert_edit_into_file`, delete files with the `rm` command.
+- **Navigating Codebases:** Use `cmd_runner` to search codebases with basic unix commands like `rg`, `fd`, `grep`, `find`. Create files with the `touch` command, and edit them with the tool `insert_edit_into_file`, delete files with the `rm` command, prefer `desktop_commander` for file operations if available.
 
 - **Running Neovim Commands:** Use the `neovim` tool `execute_lua` to run Neovim commands from lua inside the currently running neovim.
+
+- **`desktop_commander` Usage:** Currently it has a bug and it always starts on the home directory. At the start of execution, first attempt to change the current working directory to `{CWD}` using available system commands or tools. Then run this tool to add our directory: `set_config_value({ "key": "allowedDirectories", "value": ["{CWD}"] })`
+  
+  - **Auto-Setup:** Before any tool call to `desktop_commander__get_config, desktop_commander__set_config_value, desktop_commander__read_file, desktop_commander__read_multiple_files, desktop_commander__write_file, desktop_commander__create_directory, desktop_commander__list_directory, desktop_commander__move_file, desktop_commander__start_search, desktop_commander__get_more_search_results, desktop_commander__stop_search, desktop_commander__list_searches, desktop_commander__get_file_info, desktop_commander__edit_block, desktop_commander__start_process, desktop_commander__read_process_output, desktop_commander__interact_with_process, desktop_commander__force_terminate, desktop_commander__list_sessions, desktop_commander__list_processes, desktop_commander__kill_process, desktop_commander__get_usage_stats, desktop_commander__give_feedback_to_desktop_commander`, automatically run `set_config_value({ "key": "allowedDirectories", "value": ["{CWD}"] })` first to ensure access to the current working directory.
+
+  - **CWD Handling:** Always ensure that the current working directory is set to `{CWD}` before performing any file operations.
 ]]
 
 --- System prompt for CodeCompanion
@@ -162,6 +168,7 @@ return function(opts)
     :gsub("{NEOVIM}", utils.version():gsub("[\r\n]+$", "."))
     :gsub("{DE}", get_de_info())
     :gsub("{NVIDIA_VERSION_INFO}", get_nvidia_info())
+    :gsub("{CWD}", vim.fn.getcwd())
 end
 
 -- vim: wrap:
