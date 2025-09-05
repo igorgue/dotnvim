@@ -417,15 +417,15 @@ return {
           layout = "vertical",
           keymaps = {
             accept_change = {
-              modes = { n = "1" },
+              modes = { n = "<c-s>" },
               description = "Accept",
             },
             reject_change = {
-              modes = { n = "2" },
+              modes = { n = "<c-c>" },
               description = "Reject",
             },
             always_accept = {
-              modes = { n = "3" },
+              modes = { n = "<c-a>" },
               description = "Always Accept",
             },
           },
