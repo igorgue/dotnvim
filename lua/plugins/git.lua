@@ -193,8 +193,8 @@ return {
   },
   {
     "akinsho/git-conflict.nvim",
-    enabled = not vim.o.diff,
-    event = { "VeryLazy" },
+    enabled = true,
+    lazy = false,
     opts = {
       disable_diagnostics = true,
     },
