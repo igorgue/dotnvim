@@ -110,8 +110,8 @@ return {
           claude_code = function()
             return require("codecompanion.adapters").extend("claude_code", {
               env = {
-                ANTHROPIC_MODEL = "kimi-k2-turbo-preview",
-                -- ANTHROPIC_MODEL = "kimi-k2-0905-preview",
+                -- ANTHROPIC_MODEL = "kimi-k2-turbo-preview",
+                ANTHROPIC_MODEL = "kimi-k2-0905-preview",
                 DISABLE_TELEMETRY = "1",
                 DISABLE_AUTOUPDATER = "1",
               },
