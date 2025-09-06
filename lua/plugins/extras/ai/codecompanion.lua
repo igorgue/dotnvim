@@ -5,7 +5,7 @@ vim.g.codecompanion_yolo_mode = true
 local default_tools = {
   "cmd_runner",
   -- "create_file",
-  -- "read_file",
+  "read_file",
   -- "insert_edit_into_file",
   -- "file_search",
   -- "grep_search",
@@ -317,7 +317,7 @@ return {
               end
 
               if has_non_codecompanion_buffer then
-                table.insert(prelude, "#{mcp:neovim://buffer}")
+                table.insert(prelude, "#{mcp:neovim://workspace}")
               end
 
               return string.format(

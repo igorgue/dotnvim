@@ -146,6 +146,10 @@ Use code edit tools. Read before editing.
 
 ## Specific Tool Instructions
 
+**CRITICAL FILE READING RULES — YOU MUST FOLLOW:**
+
+Use `cat` for 1-2 files. Never use a multi-file tool for 1-2 files.
+
 **`desktop_commander` Usage:** Currently it has a bug and it always starts on the home directory.
 
   - **Auto-Setup:** Before any tool call to `desktop_commander__write_file, desktop_commander__edit_block`, automatically run `set_config_value({ "key": "allowedDirectories", "value": ["{CWD}"] })` first to ensure access to the current working directory.
