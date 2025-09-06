@@ -93,7 +93,7 @@
   "vim-fugitive": { "branch": "master", "commit": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4" },
   "vim-git": { "branch": "master", "commit": "485e38f29494e46a9998100e707c755d114155f1" },
   "vim-indent-object": { "branch": "master", "commit": "8ab36d5ec2a3a60468437a95e142ce994df598c6" },
-  "vim-matchup": { "branch": "master", "commit": "347c890d51ae8e63239e92c935d2297c94975538" },
+  "vim-matchup": { "branch": "master", "commit": "b23ba393ee600f4f637999f2c02b06a17838e2f0" },
   "which-key.nvim": { "branch": "main", "commit": "370ec46f710e058c9c1646273e6b225acf47cbed" },
   "yankbank-nvim": { "branch": "main", "commit": "0d97b474bc2be2583bcc3d66a7fb020d30065693" },
   "zig.vim": { "branch": "master", "commit": "987902a2c753bfaa38569b46903b21664299ace9" }
