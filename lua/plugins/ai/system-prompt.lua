@@ -147,6 +147,10 @@ Use code edit tools. Read before editing.
   - **Auto-Setup:** Before any tool call to `desktop_commander__write_file, desktop_commander__edit_block`, automatically run `set_config_value({ "key": "allowedDirectories", "value": ["{CWD}"] })` first to ensure access to the current working directory.
 
   - **CWD Handling:** Always ensure that the current working directory is set to `{CWD}` before performing any file operations.
+
+**`insert_edit_into_file` Usage:**
+
+  - **Context Around**: **always** try with more context around the section you want to edit.
 </toolUseInstructions>
 
 <outputFormatting>
