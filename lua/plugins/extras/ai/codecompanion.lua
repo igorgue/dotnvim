@@ -176,7 +176,7 @@ return {
             name = "moonshot",
             formatted_name = "MoonshotAI",
             opts = {
-              vision = false,
+              vision = true,
             },
             env = {
               url = "https://api.moonshot.ai",
@@ -189,6 +189,7 @@ return {
               },
               temperature = {
                 default = 0.3,
+                -- default = 0.6, -- for 0905
               },
               max_tokens = {
                 default = -1,
@@ -292,6 +293,8 @@ return {
               local prelude = {
                 "@{neovim__edit_file}",
                 "@{neovim__write_file}",
+                "@{neovim__read_multiple_files}",
+                "@{neovim__execute_lua}",
                 -- "@{desktop_commander__write_file}",
                 -- "@{desktop_commander__edit_block}",
                 -- "@{desktop_commander__set_config_value}",
@@ -313,7 +316,10 @@ return {
                 table.insert(prelude, "#{mcp:neovim://buffer}")
               end
 
-              return string.format(table.concat(prelude, " ") .. " (do not mention these in your response)" .. "<prompt>%s</prompt>", message)
+              return string.format(
+                table.concat(prelude, " ") .. " (do not mention these in your response)" .. "<prompt>%s</prompt>",
+                message
+              )
             end,
           },
           adapter = vim.g.codecompanion_initial_adapter,
@@ -336,9 +342,7 @@ return {
               modes = { i = "<C-CR>", n = "<CR>" },
             },
             clear = {
-              modes = {
-                -- i = "<C-del>",
-                -- n = "<C-del>",
+              modes = { --[[ This is provided via a keymap below ]]
               },
             },
             close = {
