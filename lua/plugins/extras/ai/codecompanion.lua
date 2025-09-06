@@ -307,8 +307,12 @@ return {
               for i = #bufs, 1, -1 do
                 local buf = bufs[i]
                 if vim.bo[buf].filetype ~= "codecompanion" and vim.api.nvim_buf_is_loaded(buf) then
-                  has_non_codecompanion_buffer = true
-                  break
+                  local buf_name = vim.api.nvim_buf_get_name(buf)
+
+                  if buf_name and buf_name ~= "" then
+                    has_non_codecompanion_buffer = true
+                    break
+                  end
                 end
               end
 

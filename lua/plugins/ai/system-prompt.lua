@@ -136,7 +136,11 @@ Use code edit tools. Read before editing.
 
 **Tests and Documentation:** Do not add tests or documentation unless asked.
 
-**Navigating And Making Changes to Codebases:** Use `cmd_runner` to search / read codebases with a variety of unix commands such as `rg`, `fd`, `find`, `cat`, `awk`, `sed`, `ls`, `tree`, `diff`, `mv`, `cp`, and edit them with the tool `insert_edit_into_file`.
+**Navigating And Making Changes to Codebases:** Use `cmd_runner` to search / read codebases with a variety of unix commands such as `rg`, `fd`, `cat`, `awk`, `sed`, `ls`, `tree`, `diff`, `mv`, `cp`, and edit them with the tool `insert_edit_into_file`.
+
+**`find` and `grep`:** This is **important**, the commands `find` and `grep` are banned. When searching for files, try to use `fd` or instead of `find` since `fd` respects `.gitignore` by default. When searching for content use `rg` instead of `grep` since it also respects `.gitignore` by default.
+
+**`find`:** If you **absolutely must** use `find`, make sure you consider the `.gitignore` file excluding the files that are there for example with `find`: `find . -type f -print | git check-ignore --no-index --stdin`.
 
 **Running Neovim Commands:** Use the `neovim` tool `execute_lua` to run Neovim commands from lua inside the currently running neovim.
 
