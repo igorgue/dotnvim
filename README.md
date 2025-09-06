@@ -150,17 +150,6 @@ This config includes many LazyVim extras for enhanced functionality:
 - Advanced editor features (Navic, Dial, Snacks Explorer)
 - Code formatting and linting
 
-## AI Integration Details
-
-## Philosophy
-
-This configuration embraces:
-
-- **Minimalist Aesthetics** - Clean, focused interface
-- **Multi-Language Flexibility** - One config for all your projects
-- **Modern Tooling** - Latest Neovim features and plugins
-- **Developer Productivity** - Reduce friction, increase flow
-
 ## Learning Resources
 
 - [LazyVim Documentation](https://lazyvim.github.io/)

@@ -3,23 +3,15 @@ vim.g.mcphub_auto_approve = true
 vim.g.codecompanion_yolo_mode = true
 
 local default_tools = {
-  "desktop_commander",
-  -- "cmd_runner",
+  "cmd_runner",
   -- "create_file",
-  "read_file",
-  "insert_edit_into_file",
+  -- "read_file",
+  -- "insert_edit_into_file",
   -- "file_search",
   -- "grep_search",
+  "fast_apply",
 }
--- CodeCompanion Configuration
--- This file configures the CodeCompanion plugin, which provides AI-powered coding assistance
--- directly within Neovim. It integrates with multiple AI providers and offers features like
--- chat interfaces, inline code suggestions, and automated code reviews.
 
--- Global configuration variables
--- These settings enable automatic tool mode and MCP hub auto-approval
-
--- Auto command to add username to spell good words
 return {
   {
     "olimorris/codecompanion.nvim",
@@ -49,11 +41,12 @@ return {
         dependencies = { "nvim-lua/plenary.nvim" },
         cmd = "VectorCode",
       },
+      "e2r2fx/codecompanion-fast-apply.nvim",
       {
         "ravitemer/mcphub.nvim",
         cmd = "MCPHub",
         build = "bundled_build.lua",
-        lazy = false,
+        event = { "VeryLazy" },
         opts = {
           config = vim.fn.expand("~/.config/mcphub/servers.json"),
           auto_approve = true,
@@ -117,8 +110,8 @@ return {
           claude_code = function()
             return require("codecompanion.adapters").extend("claude_code", {
               env = {
-                -- ANTHROPIC_MODEL = "kimi-k2-turbo-preview",
-                ANTHROPIC_MODEL = "kimi-k2-0905-preview",
+                ANTHROPIC_MODEL = "kimi-k2-turbo-preview",
+                -- ANTHROPIC_MODEL = "kimi-k2-0905-preview",
                 DISABLE_TELEMETRY = "1",
                 DISABLE_AUTOUPDATER = "1",
               },
@@ -178,7 +171,6 @@ return {
             },
           })
         end,
-        -- Configuration with OpenAI endpoint
         moonshot = function()
           return require("codecompanion.adapters").extend("openai_compatible", {
             name = "moonshot",
@@ -192,12 +184,12 @@ return {
             },
             schema = {
               model = {
-                default = "kimi-k2-0905-preview",
-                -- default = "kimi-k2-turbo-preview",
+                -- default = "kimi-k2-0905-preview",
+                default = "kimi-k2-turbo-preview",
               },
-              -- temperature = {
-              --   default = 0.2,
-              -- },
+              temperature = {
+                default = 0.3,
+              },
               max_tokens = {
                 default = -1,
               },
@@ -297,38 +289,11 @@ return {
               -- enhancement_prompt = "Your custom enhancement instructions here"
             },
             prompt_decorator = function(message, adapter, context)
-              -- -- Get the current configuration dynamically
-              -- local config = require("codecompanion.config")
-              -- local runtime_config = vim.tbl_get(config, "strategies", "chat", "opts", "prompt_enhancement") or {}
-              --
-              -- -- Merge with defaults
-              -- local enhancement_config = vim.tbl_extend("force", {
-              --   enabled = true,
-              --   model = "gemma3:12b",
-              --   timeout = 30000,
-              --   debug = false,
-              -- }, runtime_config)
-              --
-              -- -- Check if enhancement is enabled (can be toggled at runtime)
-              -- if not enhancement_config.enabled then
-              --   return string.format([[<prompt>%s</prompt>]], message)
-              -- end
-              --
-              -- -- Log what we're about to enhance
-              -- if enhancement_config.debug then
-              --   vim.notify(string.format("Enhancing prompt: %s", message), vim.log.levels.INFO)
-              -- end
-              --
-              -- -- Enhance the prompt synchronously (for simplicity)
-              -- local enhanced_message = enhancer.enhance_prompt(message, enhancement_config)
-              --
-              -- -- Log the result
-              -- if enhancement_config.debug and enhanced_message ~= message then
-              --   vim.notify(string.format("Enhanced to: %s", enhanced_message), vim.log.levels.INFO)
-              -- end
-
               -- Wrap in prompt tags
-              return string.format([[<prompt>%s</prompt>]], message)
+              return string.format([[#{mcp:neovim://buffer}
+
+              <prompt>%s</prompt>]], message)
+              -- return string.format([[@{desktop_commander}<prompt>%s</prompt>]], message)
             end,
           },
           adapter = vim.g.codecompanion_initial_adapter,
@@ -421,8 +386,8 @@ return {
             opts = {
               default_tools = default_tools,
               requires_approval = false,
-              auto_submit_errors = false,
-              auto_submit_success = false,
+              auto_submit_errors = true,
+              auto_submit_success = true,
               prompt_decorator = function(message, _adapter, _context)
                 return string.format([[<prompt>%s</prompt>]], message)
               end,
@@ -586,56 +551,65 @@ And the previous 10 commits, just in case they're related to the current changes
         },
       },
       extensions = {
+        fast_apply = {
+          enabled = true,
+          opts = {
+            adapter = "openai_compatible",
+            model = "morph-v3-large",
+            url = "https://api.morphllm.com",
+            api_key = "MORPH_API_KEY",
+          },
+        },
         vectorcode = {
           opts = {
-            add_tool = true,
+            add_tool = true,  -- Enable VectorCode as a tool in the chat interface
           },
         },
         mcphub = {
-          callback = "mcphub.extensions.codecompanion",
+          callback = "mcphub.extensions.codecompanion",  -- Callback function for MCP integration
           opts = {
-            auto_approve = true, -- Auto approve mcp tool calls
-            show_result_in_chat = true, -- Show mcp tool results in chat
-            make_vars = true, -- Convert resources to #variables
-            make_slash_commands = true, -- Add prompts as /slash commands
+            auto_approve = true,        -- Automatically approve MCP tool calls
+            show_result_in_chat = true, -- Display MCP tool results in the chat
+            make_vars = true,           -- Convert MCP resources to #variables
+            make_slash_commands = true, -- Add MCP prompts as /slash commands
           },
         },
         history = {
-          enabled = true,
+          enabled = true,  -- Enable chat history functionality
           opts = {
-            keymap = "gh",
-            save_chat_keymap = "sc",
-            auto_save = true,
-            expiration_days = 0,
-            picker = "snacks",
-            auto_generate_title = true,
+            keymap = "gh",                    -- Keymap to open history picker
+            save_chat_keymap = "sc",          -- Keymap to save current chat
+            auto_save = true,                 -- Automatically save chats
+            expiration_days = 0,              -- Never expire chats (0 = no expiration)
+            picker = "snacks",                -- Use Snacks picker for history
+            auto_generate_title = true,       -- Automatically generate chat titles
             title_generation_opts = {
-              adapter = "copilot",
-              model = "gpt-4.1",
+              adapter = "copilot",            -- Use Copilot for title generation
+              model = "gpt-4.1",              -- Specific model for title generation
             },
-            continue_last_chat = false,
-            delete_on_clearing_chat = false,
-            dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
-            enable_logging = false,
+            continue_last_chat = false,       -- Don't auto-continue previous chats
+            delete_on_clearing_chat = false, -- Don't delete history when clearing chat
+            dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",  -- History storage location
+            enable_logging = false,           -- Disable debug logging
             summary = {
-              create_summary_keymap = "gcs",
-              browse_summaries_keymap = "gbs",
+              create_summary_keymap = "gcs",     -- Keymap to create chat summaries
+              browse_summaries_keymap = "gbs",   -- Keymap to browse summaries
               generation_opts = {
-                adapter = "copilot",
-                model = "gpt-4.1",
-                context_size = 128000,
-                include_references = false,
-                include_tool_outputs = false,
+                adapter = "copilot",             -- Use Copilot for summary generation
+                model = "gpt-4.1",               -- Specific model for summaries
+                context_size = 128000,           -- Maximum context size for summaries
+                include_references = false,      -- Don't include code references
+                include_tool_outputs = false,    -- Don't include tool outputs
               },
             },
             memory = {
-              auto_create_memories_on_summary_generation = true,
-              vectorcode_exe = "vectorcode",
+              auto_create_memories_on_summary_generation = true,  -- Auto-create memories from summaries
+              vectorcode_exe = "vectorcode",                      -- VectorCode executable for memory indexing
               tool_opts = {
-                default_num = 10,
+                default_num = 10,  -- Default number of memories to retrieve
               },
-              notify = true,
-              index_on_startup = false,
+              notify = true,       -- Show notifications for memory operations
+              index_on_startup = false,  -- Don't index on startup (performance)
             },
           },
         },
