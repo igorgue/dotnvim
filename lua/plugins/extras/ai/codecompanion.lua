@@ -4,7 +4,7 @@ vim.g.codecompanion_yolo_mode = true
 
 local default_tools = {
   "desktop_commander",
-  "cmd_runner",
+  -- "cmd_runner",
   -- "create_file",
   "read_file",
   "insert_edit_into_file",
@@ -53,7 +53,7 @@ return {
         "ravitemer/mcphub.nvim",
         cmd = "MCPHub",
         build = "bundled_build.lua",
-        event = "VeryLazy",
+        lazy = false,
         opts = {
           config = vim.fn.expand("~/.config/mcphub/servers.json"),
           auto_approve = true,
@@ -117,7 +117,8 @@ return {
           claude_code = function()
             return require("codecompanion.adapters").extend("claude_code", {
               env = {
-                ANTHROPIC_MODEL = "kimi-k2-turbo-preview",
+                -- ANTHROPIC_MODEL = "kimi-k2-turbo-preview",
+                ANTHROPIC_MODEL = "kimi-k2-0905-preview",
                 DISABLE_TELEMETRY = "1",
                 DISABLE_AUTOUPDATER = "1",
               },
@@ -191,8 +192,8 @@ return {
             },
             schema = {
               model = {
-                -- default = "kimi-k2-0905-preview",
-                default = "kimi-k2-turbo-preview",
+                default = "kimi-k2-0905-preview",
+                -- default = "kimi-k2-turbo-preview",
               },
               -- temperature = {
               --   default = 0.2,

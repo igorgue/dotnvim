@@ -5,15 +5,16 @@
 ![rust-btw](https://user-images.githubusercontent.com/7014/219984419-84b6829f-2926-4576-96b6-cbe20708b007.png)
 _Multi-language support, minimalist design, and advanced developer tools_
 
-## ✨ Key Features
+## 🔑 Key Features
 
-- **Web Development**: HTML/CSS, JavaScript, Tailwind CSS
-- **Backend**: Python, Elixir, Ruby, Java, SQL
-- **Mobile**: Swift, Dart (Flutter)
-- **Functional**: Clojure, Standard ML
-- **Creative Coding**: SonicPi (music programming)
-- **Emerging**: Nim, Mojo, V, QBE IR, ISPC
-- **DevOps**: Docker, CMake, Nix, Shell scripting
+- **🚀 Zero Configuration** - Works out of the box with automatic plugin installation
+- **🎯 Minimalist Design** - Clean, distraction-free interface with auto-hiding elements
+- **🌐 Multi-Language Support** - 20+ languages including Rust, Python, JavaScript, Swift, and more
+- **🤖 Optional AI Integration** - CodeCompanion with multiple provider support (OpenAI, Anthropic, Gemini)
+- **🔧 Advanced Development Tools** - Built-in debugging, testing, git integration, and LSP support
+- **📦 LazyVim Based** - Modular architecture for easy customization and extension
+- **🎨 Extensive Theming** - Multiple colorschemes with custom fixes and responsive UI
+- **⚡ Performance Optimized** - Fast startup with lazy-loading and efficient plugin management
 
 ### **Minimalist Design Philosophy**
 
