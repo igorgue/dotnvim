@@ -9,7 +9,7 @@ local default_tools = {
   -- "insert_edit_into_file",
   -- "file_search",
   -- "grep_search",
-  "fast_apply",
+  -- "fast_apply",
 }
 
 return {
@@ -289,11 +289,26 @@ return {
               -- enhancement_prompt = "Your custom enhancement instructions here"
             },
             prompt_decorator = function(message, adapter, context)
-              -- Wrap in prompt tags
-              return string.format([[#{mcp:neovim://buffer}
+              local prelude = {
+                "@{desktop_commander}",
+              }
 
-              <prompt>%s</prompt>]], message)
-              -- return string.format([[@{desktop_commander}<prompt>%s</prompt>]], message)
+              -- check if we have any open buffers that are not codecompanion, to add the buffer var
+              local bufs = vim.api.nvim_list_bufs()
+              local has_non_codecompanion_buffer = false
+              for i = #bufs, 1, -1 do
+                local buf = bufs[i]
+                if vim.bo[buf].filetype ~= "codecompanion" and vim.api.nvim_buf_is_loaded(buf) then
+                  has_non_codecompanion_buffer = true
+                  break
+                end
+              end
+
+              if has_non_codecompanion_buffer then
+                table.insert(prelude, "#{mcp:neovim://buffer}")
+              end
+
+              return string.format(table.concat(prelude, " ") .. "<prompt>%s</prompt>", message)
             end,
           },
           adapter = vim.g.codecompanion_initial_adapter,
@@ -562,54 +577,54 @@ And the previous 10 commits, just in case they're related to the current changes
         },
         vectorcode = {
           opts = {
-            add_tool = true,  -- Enable VectorCode as a tool in the chat interface
+            add_tool = true, -- Enable VectorCode as a tool in the chat interface
           },
         },
         mcphub = {
-          callback = "mcphub.extensions.codecompanion",  -- Callback function for MCP integration
+          callback = "mcphub.extensions.codecompanion", -- Callback function for MCP integration
           opts = {
-            auto_approve = true,        -- Automatically approve MCP tool calls
+            auto_approve = true, -- Automatically approve MCP tool calls
             show_result_in_chat = true, -- Display MCP tool results in the chat
-            make_vars = true,           -- Convert MCP resources to #variables
+            make_vars = true, -- Convert MCP resources to #variables
             make_slash_commands = true, -- Add MCP prompts as /slash commands
           },
         },
         history = {
-          enabled = true,  -- Enable chat history functionality
+          enabled = true, -- Enable chat history functionality
           opts = {
-            keymap = "gh",                    -- Keymap to open history picker
-            save_chat_keymap = "sc",          -- Keymap to save current chat
-            auto_save = true,                 -- Automatically save chats
-            expiration_days = 0,              -- Never expire chats (0 = no expiration)
-            picker = "snacks",                -- Use Snacks picker for history
-            auto_generate_title = true,       -- Automatically generate chat titles
+            keymap = "gh", -- Keymap to open history picker
+            save_chat_keymap = "sc", -- Keymap to save current chat
+            auto_save = true, -- Automatically save chats
+            expiration_days = 0, -- Never expire chats (0 = no expiration)
+            picker = "snacks", -- Use Snacks picker for history
+            auto_generate_title = true, -- Automatically generate chat titles
             title_generation_opts = {
-              adapter = "copilot",            -- Use Copilot for title generation
-              model = "gpt-4.1",              -- Specific model for title generation
+              adapter = "copilot", -- Use Copilot for title generation
+              model = "gpt-4.1", -- Specific model for title generation
             },
-            continue_last_chat = false,       -- Don't auto-continue previous chats
+            continue_last_chat = false, -- Don't auto-continue previous chats
             delete_on_clearing_chat = false, -- Don't delete history when clearing chat
-            dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",  -- History storage location
-            enable_logging = false,           -- Disable debug logging
+            dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history", -- History storage location
+            enable_logging = false, -- Disable debug logging
             summary = {
-              create_summary_keymap = "gcs",     -- Keymap to create chat summaries
-              browse_summaries_keymap = "gbs",   -- Keymap to browse summaries
+              create_summary_keymap = "gcs", -- Keymap to create chat summaries
+              browse_summaries_keymap = "gbs", -- Keymap to browse summaries
               generation_opts = {
-                adapter = "copilot",             -- Use Copilot for summary generation
-                model = "gpt-4.1",               -- Specific model for summaries
-                context_size = 128000,           -- Maximum context size for summaries
-                include_references = false,      -- Don't include code references
-                include_tool_outputs = false,    -- Don't include tool outputs
+                adapter = "copilot", -- Use Copilot for summary generation
+                model = "gpt-4.1", -- Specific model for summaries
+                context_size = 128000, -- Maximum context size for summaries
+                include_references = false, -- Don't include code references
+                include_tool_outputs = false, -- Don't include tool outputs
               },
             },
             memory = {
-              auto_create_memories_on_summary_generation = true,  -- Auto-create memories from summaries
-              vectorcode_exe = "vectorcode",                      -- VectorCode executable for memory indexing
+              auto_create_memories_on_summary_generation = true, -- Auto-create memories from summaries
+              vectorcode_exe = "vectorcode", -- VectorCode executable for memory indexing
               tool_opts = {
-                default_num = 10,  -- Default number of memories to retrieve
+                default_num = 10, -- Default number of memories to retrieve
               },
-              notify = true,       -- Show notifications for memory operations
-              index_on_startup = false,  -- Don't index on startup (performance)
+              notify = true, -- Show notifications for memory operations
+              index_on_startup = false, -- Don't index on startup (performance)
             },
           },
         },

@@ -1,3 +1,5 @@
+-- System prompt generator for CodeCompanion AI assistant
+-- This module creates dynamic system prompts with system information for AI interactions
 local utils = require("utils")
 
 --- Get OS uname information with fallback for older Neovim versions
@@ -124,19 +126,19 @@ local template =
 
 - **Tests and Documentation:** Do not add tests or documentation unless asked.
 
-- **Navigating And Making Changes to Codebases:** Use `cmd_runner` to search codebases with a variety of unix commands such as `rg`, `fd`, `find`, `cat`, `awk`, `sed`, `ls`, `tree`, `diff`, `mv`, `cp`, and edit them with the tool `fast_apply`. Delete files with the `rm` command, and prefer `desktop_commander__write_file` for file editing operations if available.
+- **Navigating And Making Changes to Codebases:** Use `cmd_runner` to search codebases with a variety of unix commands such as `rg`, `fd`, `find`, `cat`, `awk`, `sed`, `ls`, `tree`, `diff`, `mv`, `cp`, and edit them with the tool `desktop_commander__write_file`. Delete files with the `rm` command.
 
 - **Running Neovim Commands:** Use the `neovim` tool `execute_lua` to run Neovim commands from lua inside the currently running neovim.
 
 ## Specific Tool Instructions
 
-- **`fast_apply` Usage:** When using `fast_apply` make sure it uses relative paths.
-
-- **`desktop_commander` Usage:** Currently it has a bug and it always starts on the home directory. At the start of execution, first attempt to change the current working directory to `{CWD}` using available system commands or tools. Then run this tool to add our directory: `set_config_value({ "key": "allowedDirectories", "value": ["{CWD}"] })`
+- **`desktop_commander` Usage:** Currently it has a bug and it always starts on the home directory.
   
   - **Auto-Setup:** Before any tool call to `desktop_commander__get_config, desktop_commander__set_config_value, desktop_commander__read_file, desktop_commander__read_multiple_files, desktop_commander__write_file, desktop_commander__create_directory, desktop_commander__list_directory, desktop_commander__move_file, desktop_commander__start_search, desktop_commander__get_more_search_results, desktop_commander__stop_search, desktop_commander__list_searches, desktop_commander__get_file_info, desktop_commander__edit_block, desktop_commander__start_process, desktop_commander__read_process_output, desktop_commander__interact_with_process, desktop_commander__force_terminate, desktop_commander__list_sessions, desktop_commander__list_processes, desktop_commander__kill_process, desktop_commander__get_usage_stats, desktop_commander__give_feedback_to_desktop_commander`, automatically run `set_config_value({ "key": "allowedDirectories", "value": ["{CWD}"] })` first to ensure access to the current working directory.
 
   - **CWD Handling:** Always ensure that the current working directory is set to `{CWD}` before performing any file operations.
+
+  - **Other Operations:** Prefer other tools for other operations that is not **edit** files, for example to read a file prefer `cmd_runner` with `cat` instead of `desktop_commander__read_file`, to search for files prefer `cmd_runner` with `rg` or `fd` instead of `desktop_commander__start_search`.
 ]]
 
 --- System prompt for CodeCompanion
