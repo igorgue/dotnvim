@@ -6,7 +6,7 @@ local default_tools = {
   "cmd_runner",
   -- "create_file",
   -- "read_file",
-  -- "insert_edit_into_file",
+  "insert_edit_into_file",
   -- "file_search",
   -- "grep_search",
   -- "fast_apply",
@@ -290,7 +290,10 @@ return {
             },
             prompt_decorator = function(message, adapter, context)
               local prelude = {
-                "@{desktop_commander}",
+                -- "@{desktop_commander__write_file}",
+                -- "@{desktop_commander__edit_block}",
+                -- "@{desktop_commander__set_config_value}",
+                -- "@{desktop_commander}",
               }
 
               -- check if we have any open buffers that are not codecompanion, to add the buffer var
@@ -308,7 +311,7 @@ return {
                 table.insert(prelude, "#{mcp:neovim://buffer}")
               end
 
-              return string.format(table.concat(prelude, " ") .. "<prompt>%s</prompt>", message)
+              return string.format("<prompt>" .. table.concat(prelude, " ") .. "%s</prompt>", message)
             end,
           },
           adapter = vim.g.codecompanion_initial_adapter,
