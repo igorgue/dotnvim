@@ -19,6 +19,18 @@ return {
     -- Main plugin configuration
     -- Defines dependencies, commands, initialization, and setup options
     dependencies = {
+      {
+        "neovim/nvim-lspconfig",
+        opts = {
+          servers = {
+            marksman = {
+              autostart = function(bufnr)
+                return vim.bo[bufnr].filetype ~= "codecompanion"
+              end,
+            },
+          },
+        },
+      },
       "j-hui/fidget.nvim",
       "ravitemer/codecompanion-history.nvim",
       {
