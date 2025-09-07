@@ -91,6 +91,9 @@ return {
         "MeanderingProgrammer/render-markdown.nvim",
         opts = {
           file_types = { "markdown", "codecompanion" },
+          code = {
+            disable_background = true,
+          },
         },
         ft = { "markdown", "codecompanion" },
       },
@@ -142,7 +145,7 @@ return {
           return require("codecompanion.adapters").extend("copilot", {
             schema = {
               model = {
-                default = "gpt-4.1",
+                default = "gpt-5",
               },
             },
           })
@@ -178,7 +181,7 @@ return {
           return require("codecompanion.adapters").extend("openai", {
             schema = {
               model = {
-                default = "gpt-4.1",
+                default = "gpt-5",
               },
             },
           })
@@ -492,7 +495,7 @@ return {
               list = false,
               numberwidth = 1,
               signcolumn = "no",
-              spell = true,
+              spell = false,
               wrap = true,
             },
           },
