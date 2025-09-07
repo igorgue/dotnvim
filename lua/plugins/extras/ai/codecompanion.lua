@@ -5,8 +5,7 @@ vim.g.codecompanion_yolo_mode = true
 local default_tools = {
   "cmd_runner",
   -- "create_file",
-  "read_file",
-  "neovim",
+  -- "read_file",
   -- "insert_edit_into_file",
   -- "file_search",
   -- "grep_search",
@@ -109,7 +108,7 @@ return {
       require("codecompanion").setup(opts)
       require("plugins.codecompanion.fidget-spinner"):init()
       -- Load prompt enhancer commands
-      require("plugins.ai.prompt-enhancer-commands")
+      -- require("plugins.ai.prompt-enhancer-commands")
     end,
     opts = {
       -- Global `opts`
@@ -223,7 +222,8 @@ return {
             },
             schema = {
               model = {
-                default = "qwen3-coder-plus",
+                -- default = "qwen3-coder-plus",
+                default = "qwen3-max-preview",
               },
             },
           })
