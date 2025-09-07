@@ -3,7 +3,7 @@ vim.g.mcphub_auto_approve = true
 vim.g.codecompanion_yolo_mode = true
 
 local default_tools = {
-  "cmd_runner",
+  -- "cmd_runner",
   -- "create_file",
   -- "read_file",
   -- "insert_edit_into_file",
