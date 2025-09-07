@@ -89,6 +89,17 @@ local function get_nvidia_info()
   return "N/A"
 end
 
+-- NOTE: Add this code to the system prompt template if you want to use desktop_commander.
+-- **`desktop_commander` Usage:** Currently it has a bug and it always starts on the home directory.
+--
+--   - **Auto-Setup:** Before any tool call to `desktop_commander__write_file, desktop_commander__edit_block`, automatically run `set_config_value({ "key": "allowedDirectories", "value": ["{CWD}"] })` first to ensure access to the current working directory.
+--
+--   - **CWD Handling:** Always ensure that the current working directory is set to `{CWD}` before performing any file operations.
+--
+-- **`insert_edit_into_file` Usage:**
+--
+--   - **Context Around**: **always** try with more context around the section you want to edit.
+
 local template =
   [[<instructions>You are "{NAME} ({ADAPTER})", an AI coding assistant in Neovim ({NEOVIM}), pair programming with {USER} on {OS} ({KERNEL}) using {DE} and {NVIDIA_VERSION_INFO}.
 
@@ -144,21 +155,9 @@ Use code edit tools. Read before editing.
 
 **Running Neovim Commands:** Use the `neovim` tool `execute_lua` to run Neovim commands from lua inside the currently running neovim.
 
-## Specific Tool Instructions
+**CRITICAL FILE READING RULES - YOU MUST FOLLOW:**
 
-**CRITICAL FILE READING RULES — YOU MUST FOLLOW:**
-
-Use `cat` for 1-2 files. Never use a multi-file tool for 1-2 files.
-
-**`desktop_commander` Usage:** Currently it has a bug and it always starts on the home directory.
-
-  - **Auto-Setup:** Before any tool call to `desktop_commander__write_file, desktop_commander__edit_block`, automatically run `set_config_value({ "key": "allowedDirectories", "value": ["{CWD}"] })` first to ensure access to the current working directory.
-
-  - **CWD Handling:** Always ensure that the current working directory is set to `{CWD}` before performing any file operations.
-
-**`insert_edit_into_file` Usage:**
-
-  - **Context Around**: **always** try with more context around the section you want to edit.
+Use `cat` to read 1-2 files. Never use a multi-file tool to read 1-2 files.
 </toolUseInstructions>
 
 <outputFormatting>

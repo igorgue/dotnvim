@@ -6,6 +6,7 @@ local default_tools = {
   "cmd_runner",
   -- "create_file",
   "read_file",
+  "neovim",
   -- "insert_edit_into_file",
   -- "file_search",
   -- "grep_search",
@@ -306,14 +307,15 @@ return {
             },
             prompt_decorator = function(message, adapter, context)
               local prelude = {
-                "@{neovim__edit_file}",
-                "@{neovim__write_file}",
-                "@{neovim__read_multiple_files}",
-                "@{neovim__execute_lua}",
+                "@{neovim}",
+                -- "@{neovim__edit_file}",
+                -- "@{neovim__write_file}",
+                -- "@{neovim__read_multiple_files}",
+                -- "@{neovim__execute_lua}",
+                -- "@{desktop_commander}",
                 -- "@{desktop_commander__write_file}",
                 -- "@{desktop_commander__edit_block}",
                 -- "@{desktop_commander__set_config_value}",
-                -- "@{desktop_commander}",
               }
 
               -- check if we have any open buffers that are not codecompanion, to add the buffer var
