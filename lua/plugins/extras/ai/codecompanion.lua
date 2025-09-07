@@ -3,6 +3,7 @@ vim.g.mcphub_auto_approve = true
 vim.g.codecompanion_yolo_mode = true
 
 local default_tools = {
+  -- "programmer",
   -- "cmd_runner",
   -- "create_file",
   -- "read_file",
@@ -58,7 +59,7 @@ return {
         "ravitemer/mcphub.nvim",
         cmd = "MCPHub",
         build = "bundled_build.lua",
-        event = { "VeryLazy" },
+        lazy = false,
         opts = {
           config = vim.fn.expand("~/.config/mcphub/servers.json"),
           auto_approve = true,
@@ -307,7 +308,7 @@ return {
             },
             prompt_decorator = function(message, adapter, context)
               local prelude = {
-                "@{neovim}",
+                "@{programmer}",
                 -- "@{neovim__edit_file}",
                 -- "@{neovim__write_file}",
                 -- "@{neovim__read_multiple_files}",
@@ -425,6 +426,19 @@ return {
             },
           },
           tools = {
+            groups = {
+              ["programmer"] = {
+                description = "Programmer Tools",
+                tools = {
+                  "cmd_runner",
+                  "neovim__edit_file",
+                  "neovim__write_file",
+                  "neovim__read_multiple_files",
+                  "neovim__execute_lua",
+                  "neovim__execute_command",
+                },
+              },
+            },
             ["cmd_runner"] = {
               requires_approval = false,
             },
