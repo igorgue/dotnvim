@@ -59,7 +59,7 @@ return {
         "ravitemer/mcphub.nvim",
         cmd = "MCPHub",
         build = "bundled_build.lua",
-        lazy = false,
+        event = "VeryLazy",
         opts = {
           config = vim.fn.expand("~/.config/mcphub/servers.json"),
           auto_approve = true,
@@ -435,7 +435,6 @@ return {
                   "neovim__write_file",
                   "neovim__read_multiple_files",
                   "neovim__execute_lua",
-                  "neovim__execute_command",
                 },
               },
             },
