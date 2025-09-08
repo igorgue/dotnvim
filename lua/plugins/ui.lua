@@ -569,6 +569,16 @@ return {
           -- FloatBorder = "FloatBorder",
         },
       },
+      -- Make LSP hover windows wrap text
+      views = {
+        hover = {
+          win_options = {
+            wrap = false,
+            linebreak = false,
+            breakindent = false,
+          },
+        },
+      },
       lsp = {
         hover = {
           silent = true,

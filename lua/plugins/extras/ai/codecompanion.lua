@@ -667,7 +667,7 @@ And the previous 10 commits, just in case they're related to the current changes
                 default_num = 10, -- Default number of memories to retrieve
               },
               notify = true, -- Show notifications for memory operations
-              index_on_startup = false, -- Don't index on startup (performance)
+              index_on_startup = true, -- Don't index on startup (performance)
             },
           },
         },
