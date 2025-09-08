@@ -175,12 +175,4 @@ return {
       signs = false,
     },
   },
-  -- {
-  --   "NotAShelf/direnv.nvim",
-  --   lazy = false,
-  --   opts = {
-  --     autoload_direnv = true,
-  --     keybindings = {},
-  --   },
-  -- },
 }
