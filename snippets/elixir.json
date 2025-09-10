@@ -5,6 +5,6 @@
   },
   "dbg": {
     "prefix": "dbg",
-    "body": "|> dbg()\n$0"
+    "body": "|> dbg()$0"
   }
 }

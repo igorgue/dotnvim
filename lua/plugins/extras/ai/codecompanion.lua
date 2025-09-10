@@ -264,8 +264,10 @@ return {
             },
             schema = {
               model = {
-                default = "openai/gpt-oss-120b",
+                -- default = "openai/gpt-oss-120b",
+                default = "nvidia/nemotron-nano-9b-v2",
                 choices = {
+                  ["nvidia/nemotron-nano-9b-v2"] = {},
                   ["openai/gpt-5"] = {},
                   ["openai/gpt-5-chat"] = {},
                   ["openai/gpt-5-mini"] = {},
@@ -364,7 +366,9 @@ return {
               modes = { i = "<C-CR>", n = "<CR>" },
             },
             clear = {
-              modes = { --[[ This is provided via a keymap below ]]
+              modes = {
+                i = "<C-Del>",
+                n = "<C-Del>",
               },
             },
             close = {
@@ -432,9 +436,7 @@ return {
                 tools = {
                   "cmd_runner",
                   "neovim__edit_file",
-                  "neovim__write_file",
                   "neovim__read_multiple_files",
-                  "neovim__execute_lua",
                 },
               },
             },
@@ -667,7 +669,7 @@ And the previous 10 commits, just in case they're related to the current changes
                 default_num = 10, -- Default number of memories to retrieve
               },
               notify = true, -- Show notifications for memory operations
-              index_on_startup = true, -- Don't index on startup (performance)
+              index_on_startup = false, -- Don't index on startup (performance)
             },
           },
         },
@@ -737,66 +739,66 @@ And the previous 10 commits, just in case they're related to the current changes
         desc = "Write the git commit for you",
         ft = "gitcommit",
       },
-      {
-        "<C-del>",
-        function()
-          -- Get the current chat instance
-          local Chat = require("codecompanion.strategies.chat")
-          local chat = Chat.buf_get_chat(vim.api.nvim_get_current_buf())
-
-          if not chat then
-            return
-          end
-
-          -- Clear the chat first
-          chat:clear()
-
-          -- Add initial content after a small delay to ensure clearing is complete
-          vim.defer_fn(function()
-            -- Get to the end of the buffer and enter insert mode
-            local bufnr = vim.api.nvim_get_current_buf()
-
-            -- Check if buffer has content and remove empty lines at the end
-            local line_count = vim.api.nvim_buf_line_count(bufnr)
-            local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-
-            -- Find the last non-empty line
-            local last_content_line = line_count
-            for i = line_count, 1, -1 do
-              if lines[i] and lines[i]:match("%S") then
-                last_content_line = i
-                break
-              end
-            end
-
-            -- Move cursor to the end of the buffer
-            vim.api.nvim_win_set_cursor(0, { last_content_line, 0 })
-
-            -- Add your initial content here - customize this as needed
-            local initial_content = {
-              table.concat(
-                vim.tbl_map(function(tool)
-                  return "@{" .. tool .. "}"
-                end, default_tools),
-                " "
-              ),
-              "",
-              "",
-            }
-
-            -- Insert the content after the last content line
-            vim.api.nvim_buf_set_lines(bufnr, last_content_line + 1, -1, false, initial_content)
-
-            -- Move cursor to the end and enter insert mode
-            local new_line_count = vim.api.nvim_buf_line_count(bufnr)
-            vim.api.nvim_win_set_cursor(0, { new_line_count, 0 })
-            vim.cmd("startinsert!")
-          end, 100)
-        end,
-        desc = "Clear chat and add initial content",
-        mode = { "n", "i" },
-        ft = "codecompanion",
-      },
+      -- {
+      --   "<C-del>",
+      --   function()
+      --     -- Get the current chat instance
+      --     local Chat = require("codecompanion.strategies.chat")
+      --     local chat = Chat.buf_get_chat(vim.api.nvim_get_current_buf())
+      --
+      --     if not chat then
+      --       return
+      --     end
+      --
+      --     -- Clear the chat first
+      --     chat:clear()
+      --
+      --     -- Add initial content after a small delay to ensure clearing is complete
+      --     vim.defer_fn(function()
+      --       -- Get to the end of the buffer and enter insert mode
+      --       local bufnr = vim.api.nvim_get_current_buf()
+      --
+      --       -- Check if buffer has content and remove empty lines at the end
+      --       local line_count = vim.api.nvim_buf_line_count(bufnr)
+      --       local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+      --
+      --       -- Find the last non-empty line
+      --       local last_content_line = line_count
+      --       for i = line_count, 1, -1 do
+      --         if lines[i] and lines[i]:match("%S") then
+      --           last_content_line = i
+      --           break
+      --         end
+      --       end
+      --
+      --       -- Move cursor to the end of the buffer
+      --       vim.api.nvim_win_set_cursor(0, { last_content_line, 0 })
+      --
+      --       -- Add your initial content here - customize this as needed
+      --       local initial_content = {
+      --         table.concat(
+      --           vim.tbl_map(function(tool)
+      --             return "@{" .. tool .. "}"
+      --           end, default_tools),
+      --           " "
+      --         ),
+      --         "",
+      --         "",
+      --       }
+      --
+      --       -- Insert the content after the last content line
+      --       vim.api.nvim_buf_set_lines(bufnr, last_content_line + 1, -1, false, initial_content)
+      --
+      --       -- Move cursor to the end and enter insert mode
+      --       local new_line_count = vim.api.nvim_buf_line_count(bufnr)
+      --       vim.api.nvim_win_set_cursor(0, { new_line_count, 0 })
+      --       vim.cmd("startinsert!")
+      --     end, 100)
+      --   end,
+      --   desc = "Clear chat and add initial content",
+      --   mode = { "n", "i" },
+      --   ft = "codecompanion",
+      -- },
       { "<C-;>", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle (CodeCompanionChat)", mode = { "n", "i" } },
       {
         "<C-;>",
