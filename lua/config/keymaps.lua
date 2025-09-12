@@ -318,6 +318,16 @@ Snacks.toggle["prompt_enhancement"] = Snacks.toggle({
   :map("<leader>aP")
   :map("<leader>u.p")
 
+Snacks.toggle["prompt_decorator"] = Snacks.toggle({
+  name = "Prompt Decorator",
+  get = function()
+    return vim.g.codecompanion_prompt_decorator == true
+  end,
+  set = function(state)
+    vim.g.codecompanion_prompt_decorator = state
+  end,
+}):map("<leader>ad")
+
 -- some special cases:
 pcall(vim.api.nvim_del_keymap, "v", "<C-k>")
 pcall(vim.api.nvim_del_keymap, "i", "<C-k>")

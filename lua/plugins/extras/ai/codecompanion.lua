@@ -1,9 +1,10 @@
 vim.g.codecompanion_auto_tool_mode = true
-vim.g.mcphub_auto_approve = true
 vim.g.codecompanion_yolo_mode = true
+vim.g.codecompanion_prompt_decorator = true
+
+vim.g.mcphub_auto_approve = true
 
 local default_tools = {
-  -- "programmer",
   -- "cmd_runner",
   -- "create_file",
   -- "read_file",
@@ -287,11 +288,14 @@ return {
             formatted_name = "Ollama",
             schema = {
               model = {
-                -- default = "qwen3-coder",
+                default = "qwen3:8b",
                 -- default = "gpt-oss:20b",
-                default = "codellama:7b",
+                -- default = "codellama:7b",
                 -- default = "gemma3:12b",
               },
+              choices = {
+                ["codellama:7b"] = { use_tools = false },
+              }
             },
           })
         end,
@@ -309,6 +313,10 @@ return {
               -- enhancement_prompt = "Your custom enhancement instructions here"
             },
             prompt_decorator = function(message, adapter, context)
+              if not vim.g.codecompanion_prompt_decorator then
+                return string.format([[<prompt>%s</prompt>]], message)
+              end
+
               local prelude = {
                 "@{programmer}",
                 -- "@{neovim__edit_file}",
