@@ -346,6 +346,7 @@ return {
 
               if has_non_codecompanion_buffer then
                 table.insert(prelude, "#{mcp:neovim://workspace}")
+                table.insert(prelude, "#{mcp:neovim://diagnostics/workspace}")
               end
 
               return string.format(
@@ -457,7 +458,7 @@ return {
               auto_submit_errors = true,
               auto_submit_success = true,
               prompt_decorator = function(message, _adapter, _context)
-                return string.format([[<prompt>%s</prompt>]], message)
+                return string.format([[<tools>%s</tools>]], message)
               end,
             },
           },
