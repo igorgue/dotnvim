@@ -295,7 +295,7 @@ return {
               },
               choices = {
                 ["codellama:7b"] = { use_tools = false },
-              }
+              },
             },
           })
         end,
@@ -660,6 +660,7 @@ And the previous 10 commits, just in case they're related to the current changes
             dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history", -- History storage location
             enable_logging = false, -- Disable debug logging
             summary = {
+              enabled = false,
               create_summary_keymap = "gcs", -- Keymap to create chat summaries
               browse_summaries_keymap = "gbs", -- Keymap to browse summaries
               generation_opts = {
@@ -671,6 +672,7 @@ And the previous 10 commits, just in case they're related to the current changes
               },
             },
             memory = {
+              enabled = false,
               auto_create_memories_on_summary_generation = true, -- Auto-create memories from summaries
               vectorcode_exe = "vectorcode", -- VectorCode executable for memory indexing
               tool_opts = {
@@ -679,6 +681,13 @@ And the previous 10 commits, just in case they're related to the current changes
               notify = true, -- Show notifications for memory operations
               index_on_startup = false, -- Don't index on startup (performance)
             },
+          },
+        },
+      },
+      memory = {
+        opts = {
+          chat = {
+            enabled = true,
           },
         },
       },
