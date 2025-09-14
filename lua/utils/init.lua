@@ -80,9 +80,9 @@ end
 -- Prioritizes Hyprland detection, then XDG standards, then Wayland
 function M.desktop_environment_info()
   -- Standard environment variables for desktop detection
-  local xdg_desktop = os.getenv("XDG_CURRENT_DESKTOP")    -- Current desktop name
-  local xdg_session = os.getenv("XDG_SESSION_DESKTOP")    -- Session desktop name
-  local wayland_session = os.getenv("WAYLAND_DISPLAY")    -- Wayland session indicator
+  local xdg_desktop = os.getenv("XDG_CURRENT_DESKTOP") -- Current desktop name
+  local xdg_session = os.getenv("XDG_SESSION_DESKTOP") -- Session desktop name
+  local wayland_session = os.getenv("WAYLAND_DISPLAY") -- Wayland session indicator
   local hyprland_env = os.getenv("HYPRLAND_INSTANCE_SIGNATURE") -- Hyprland-specific env var
 
   -- Hyprland detection: check both specific env var and desktop name
@@ -114,9 +114,9 @@ function M.copy_file_path()
   vim.fn.setreg("+", path)
 
   -- Gather file info for notification
-  local filename = vim.fn.expand("%:t")                    -- Just filename
+  local filename = vim.fn.expand("%:t") -- Just filename
   local cursor = vim.fn.line(".") .. ":" .. vim.fn.col(".") -- Current position (line:col)
-  local lines = vim.fn.line("$")                           -- Total lines in file
+  local lines = vim.fn.line("$") -- Total lines in file
 
   -- Refresh UI to ensure clean state for notification
   M.ui.refresh_ui()
