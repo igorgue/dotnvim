@@ -303,9 +303,6 @@ return {
           return require("codecompanion.adapters").extend("openai_compatible", {
             name = "xai",
             formatted_name = "XAi",
-            opts = {
-              vision = true,
-            },
             env = {
               url = "https://api.x.ai",
               api_key = "XAI_API_KEY",

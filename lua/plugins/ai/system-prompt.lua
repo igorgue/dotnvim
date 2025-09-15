@@ -153,8 +153,6 @@ Use code edit tools. Read before editing.
 
 **`find`:** If you **absolutely must** use `find`, make sure you consider the `.gitignore` file excluding the files that are there for example with `find`: `find . -type f -print | git check-ignore --no-index --stdin`.
 
-**Running Neovim Commands:** Use the `neovim` tool `execute_lua` to run Neovim commands from lua inside the currently running neovim.
-
 **CRITICAL FILE READING RULES - YOU MUST FOLLOW:**
 
 Use `cat` to read 1-2 files. Never use a multi-file tool to read 1-2 files.
