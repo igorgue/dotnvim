@@ -127,8 +127,8 @@ return {
           claude_code = function()
             return require("codecompanion.adapters").extend("claude_code", {
               env = {
-                -- ANTHROPIC_MODEL = "kimi-k2-turbo-preview",
-                ANTHROPIC_MODEL = "kimi-k2-0905-preview",
+                ANTHROPIC_MODEL = "kimi-k2-turbo-preview",
+                -- ANTHROPIC_MODEL = "kimi-k2-0905-preview",
                 DISABLE_TELEMETRY = "1",
                 DISABLE_AUTOUPDATER = "1",
               },
@@ -295,6 +295,24 @@ return {
               },
               choices = {
                 ["codellama:7b"] = { use_tools = false },
+              },
+            },
+          })
+        end,
+        xai = function()
+          return require("codecompanion.adapters").extend("openai_compatible", {
+            name = "xai",
+            formatted_name = "XAi",
+            opts = {
+              vision = true,
+            },
+            env = {
+              url = "https://api.x.ai",
+              api_key = "XAI_API_KEY",
+            },
+            schema = {
+              model = {
+                default = "grok-code-fast-1",
               },
             },
           })
