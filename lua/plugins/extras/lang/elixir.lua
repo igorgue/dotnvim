@@ -28,6 +28,7 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
+        elixirls = false,
         nextls = false,
         lexical = false,
       },
