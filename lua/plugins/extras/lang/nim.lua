@@ -2,9 +2,8 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      setup = {
-        -- stylua: ignore start
-        nim_langserver = function() return true end,
+      servers = {
+        nim_langserver = false,
       },
     },
   },

@@ -3,9 +3,8 @@ return {
     "neovim/nvim-lspconfig",
     ft = { "dart" },
     opts = {
-      setup = {
-        -- stylua: ignore
-        dartls = function() return true end,
+      servers = {
+        dartls = false,
       },
     },
   },

@@ -20,15 +20,9 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      setup = {
-        pyright = function()
-          return true
-        end,
-        -- NOTE: use when you would want to use pyrefly
-        -- basedpyright = function()
-        --   return true
-        -- end,
-      },
+      servers = {
+        pyright = false,
+      }
     },
   },
   {
