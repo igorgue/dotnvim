@@ -21,11 +21,11 @@ enable_ts = has_leetcode or (enable_ts and not vim.o.diff)
 
 local disabled = {
   { "akinsho/bufferline.nvim", enabled = false },
-  { "echasnovski/mini.comment", enabled = false },
-  { "echasnovski/mini.indentscope", enabled = false },
-  { "echasnovski/mini.pairs", enabled = false },
-  { "echasnovski/mini.icons", enabled = false },
-  { "echasnovski/mini.ai", enabled = false },
+  { "nvim-mini/mini.comment", enabled = false },
+  { "nvim-mini/mini.indentscope", enabled = false },
+  { "nvim-mini/mini.pairs", enabled = false },
+  { "nvim-mini/mini.icons", enabled = false },
+  { "nvim-mini/mini.ai", enabled = false },
   { "nvim-tree/nvim-web-devicons", enabled = vim.env.SSH_TTY == nil },
   { "ggandor/flit.nvim", enabled = false },
   { "ggandor/leap.nvim", enabled = false },

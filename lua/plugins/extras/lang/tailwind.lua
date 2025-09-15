@@ -2,7 +2,7 @@ return {
   { import = "lazyvim.plugins.extras.lang.json" },
   { import = "plugins.extras.lang.html_css" },
   {
-    "echasnovski/mini.hipatterns",
+    "nvim-mini/mini.hipatterns",
     optional = true,
     opts = {
       tailwind = {
