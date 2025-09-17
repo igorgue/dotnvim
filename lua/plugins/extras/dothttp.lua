@@ -6,7 +6,7 @@ return {
     opts = function(_, opts)
       vim.treesitter.language.register("http", "http")
 
-      opts.highlight.additional_vim_regex_highlighting = true
+      -- opts.highlight.additional_vim_regex_highlighting = true
 
       return opts
     end,

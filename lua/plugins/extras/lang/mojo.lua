@@ -20,7 +20,7 @@ return {
       vim.treesitter.language.register("python", "mojo")
 
       opts.indent = { disable = true }
-      opts.highlight.additional_vim_regex_highlighting = true
+      -- opts.highlight.additional_vim_regex_highlighting = true
 
       return opts
     end,

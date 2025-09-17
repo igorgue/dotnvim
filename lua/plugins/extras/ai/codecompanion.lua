@@ -240,12 +240,14 @@ return {
             },
             schema = {
               model = {
-                default = "openai/gpt-oss-120b:free",
+                -- default = "openai/gpt-oss-120b:free",
+                default = "moonshotai/kimi-k2:free",
                 -- default = "qwen/qwen3-coder:free",
                 choices = {
                   ["openai/gpt-oss-120b:free"] = {},
                   ["openai/gpt-oss-20b:free"] = {},
                   ["qwen/qwen3-coder:free"] = {},
+                  ["moonshotai/kimi-k2:free"] = {},
                 },
               },
             },
@@ -264,8 +266,10 @@ return {
             schema = {
               model = {
                 -- default = "openai/gpt-oss-120b",
-                default = "nvidia/nemotron-nano-9b-v2",
+                -- default = "nvidia/nemotron-nano-9b-v2",
+                default = "moonshotai/kimi-k2:free",
                 choices = {
+                  ["moonshotai/kimi-k2:free"] = {},
                   ["nvidia/nemotron-nano-9b-v2"] = {},
                   ["openai/gpt-5"] = {},
                   ["openai/gpt-5-chat"] = {},

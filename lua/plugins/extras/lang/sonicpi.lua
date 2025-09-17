@@ -54,7 +54,7 @@ return {
         enable = true,
         disable = false,
       }
-      opts.highlight.additional_vim_regex_highlighting = true
+      -- opts.highlight.additional_vim_regex_highlighting = true
 
       return opts
     end,
