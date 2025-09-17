@@ -109,8 +109,6 @@ return {
     config = function(_, opts)
       require("codecompanion").setup(opts)
       require("plugins.codecompanion.fidget-spinner"):init()
-      -- Load prompt enhancer commands
-      -- require("plugins.ai.prompt-enhancer-commands")
     end,
     opts = {
       -- Global `opts`
@@ -318,15 +316,6 @@ return {
       strategies = {
         chat = {
           opts = {
-            -- Prompt enhancement configuration
-            prompt_enhancement = {
-              enabled = vim.g.codecompanion_prompt_enhancement or false, -- Use env var or default to false
-              model = "gemma3:12b", -- Model to use for enhancement (using gemma3:12b for better quality)
-              timeout = 30000, -- Timeout in milliseconds (increased for larger model)
-              debug = false, -- Debug logging disabled by default (use :CCPromptEnhanceDebug to toggle)
-              -- Custom enhancement prompt (optional)
-              -- enhancement_prompt = "Your custom enhancement instructions here"
-            },
             prompt_decorator = function(message, adapter, context)
               if not vim.g.codecompanion_prompt_decorator then
                 return string.format([[<prompt>%s</prompt>]], message)
@@ -616,20 +605,20 @@ And the previous 10 commits, just in case they're related to the current changes
             },
           },
         },
-        ["Improve Prompt"] = {
+        ["Enhance Prompt"] = {
           strategy = "inline",
-          description = "Improve prompt",
+          description = "Enhance prompt",
           opts = {
             index = 10,
             is_default = false,
             is_slash_cmd = false,
-            short_name = "improve_prompt",
+            short_name = "enhance",
             auto_submit = true,
           },
           prompts = {
             {
               role = "user",
-              content = "Improve the following prompt to be more effective and efficient with LLMs",
+              content = "Improve the following prompt to be more effective and efficient with LLMs:",
             },
           },
         },
@@ -712,7 +701,7 @@ And the previous 10 commits, just in case they're related to the current changes
       {
         "<leader><leader>",
         function()
-          require("codecompanion").prompt("improve_prompt")
+          require("codecompanion").prompt("enhance")
           vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
         end,
         mode = "v",
@@ -758,8 +747,8 @@ And the previous 10 commits, just in case they're related to the current changes
           vim.cmd("normal! V")
           vim.api.nvim_win_set_cursor(0, { end_line, 0 })
 
-          -- Execute the improve_prompt function
-          require("codecompanion").prompt("improve_prompt")
+          -- Execute the enhance function
+          require("codecompanion").prompt("enhance")
           vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
         end,
         mode = "n",
