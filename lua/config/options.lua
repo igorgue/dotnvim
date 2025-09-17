@@ -55,6 +55,7 @@ vim.opt.fillchars = {
 vim.opt.writebackup = true
 vim.opt.undofile = true
 vim.opt.isfname:append(":")
+vim.opt.smoothscroll = false
 
 vim.opt.clipboard = ""
 
@@ -135,9 +136,4 @@ vim.g.focus_mode_no_copilot = vim.env.LAZYVIM_DISABLE_FOCUS_MODE_COPILOT == nil
 vim.g.codecompanion_initial_adapter = vim.env.LAZYVIM_CODECOMPANION_ADAPTER or "copilot"
 vim.g.codecompanion_initial_inline_adapter = vim.env.LAZYVIM_CODECOMPANION_INLINE_ADAPTER or "copilot"
 vim.g.codecompanion_auto_tool_mode = nil
--- Parse prompt enhancement env var - accepts "true", "yes", "1", etc.
-local prompt_env = vim.env.LAZYVIM_PROMPT_ENHANCEMENT
-vim.g.codecompanion_prompt_enhancement = prompt_env
-    and (prompt_env == "true" or prompt_env == "yes" or prompt_env == "1")
-  or false
 vim.g.lazyvim_python_lsp = "basedpyright"
