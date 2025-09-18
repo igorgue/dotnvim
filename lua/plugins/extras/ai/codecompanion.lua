@@ -114,7 +114,6 @@ return {
       -- Global `opts`
       opts = {
         system_prompt = require("plugins.ai.system-prompt"),
-        log_level = "DEBUG", -- or "TRACE"
         language = "English",
         send_code = true,
         folds = {
@@ -155,8 +154,7 @@ return {
           return require("codecompanion.adapters").extend("copilot", {
             schema = {
               model = {
-                -- default = "gpt-4.1",
-                default = "gemini-2.0-flash-001",
+                default = "gpt-4.1",
               },
             },
           })
