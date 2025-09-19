@@ -224,6 +224,8 @@ return {
       { "<leader>j", function() Snacks.picker.jumps() end, desc = "Jumps" },
       { "<leader><leader>", function() Snacks.picker.smart() end, desc = "Smart" },
       { "<leader>fl", function() Snacks.picker.files({ cwd = vim.fn.stdpath("data") }) end, desc = "Open local nvim data directory", },
+      { "<M-z>", function() Snacks.zen.zoom() end, desc = "Zen Zoom" },
+      { "<M-s-z>", function() Snacks.zen.zen() end, desc = "Zen" },
       -- stylua: ignore end
     },
   },
