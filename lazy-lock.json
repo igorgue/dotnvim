@@ -12,7 +12,7 @@
   "cmp-pypi": { "branch": "main", "commit": "14e6624bf86e77d017431e87a3272b5c9d0b2eaa" },
   "codecompanion-fast-apply.nvim": { "branch": "main", "commit": "086ba9c81d8ae07092644a92badb5dc5e9cf7398" },
   "codecompanion-history.nvim": { "branch": "main", "commit": "eb99d256352144cf3b6a1c45608ec25544a0813d" },
-  "codecompanion.nvim": { "branch": "main", "commit": "8d55059b63bcf53e8b4d3d0885c37b2282d6fa2d" },
+  "codecompanion.nvim": { "branch": "main", "commit": "6e7cbbd523d6c63d13e6cc8cc6cdeb342ac5391c" },
   "color-picker.nvim": { "branch": "master", "commit": "06cb5f853535dea529a523e9a0e8884cdf9eba4d" },
   "conform.nvim": { "branch": "master", "commit": "b4aab989db276993ea5dcb78872be494ce546521" },
   "copilot.vim": { "branch": "release", "commit": "dfe0a3a1c256167d181488a73ec6ccab8d8931a9" },

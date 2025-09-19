@@ -331,7 +331,8 @@ return {
               model = {
                 -- default = "openai/gpt-oss-120b",
                 -- default = "nvidia/nemotron-nano-9b-v2",
-                default = "moonshotai/kimi-k2:free",
+                -- default = "moonshotai/kimi-k2:free",
+                default = "openrouter/sonoma-sky-alpha",
                 choices = {
                   ["moonshotai/kimi-k2:free"] = {},
                   ["nvidia/nemotron-nano-9b-v2"] = {},
@@ -343,6 +344,9 @@ return {
                   ["openai/gpt-oss-20b"] = {},
                   ["openai/gpt-oss-20b:free"] = {},
                   ["deepseek/deepseek-chat-v3.1"] = {},
+                  ["openrouter/sonoma-sky-alpha"] = {},
+                  ["openrouter/sonoma-dusk-alpha"] = {},
+                  ["openrouter/auto"] = {},
                 },
               },
             },
