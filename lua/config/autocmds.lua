@@ -113,12 +113,12 @@ local function direnv_on_term(args)
     return
   end
 
-  vim.schedule(function()
-    vim.notify(
-      string.format("Direnv: found .envrc in %s, reloading in terminal", vim.fn.getcwd()),
-      vim.log.levels.DEBUG
-    )
-  end)
+  -- vim.schedule(function()
+  --   vim.notify(
+  --     string.format("Direnv: found .envrc in %s, reloading in terminal", vim.fn.getcwd()),
+  --     vim.log.levels.DEBUG
+  --   )
+  -- end)
 
   -- Try to send debug command and then direnv reload once the shell is ready
   local function try_send(delay)
@@ -126,8 +126,8 @@ local function direnv_on_term(args)
       local job = vim.b[buf].terminal_job_id
       if job ~= nil then
         pcall(vim.fn.chansend, job, "direnv reload\r")
-      else
-        vim.notify("DirenvReloadOnTermOpen: no terminal job id found", vim.log.levels.DEBUG)
+      -- else
+      --   vim.notify("DirenvReloadOnTermOpen: no terminal job id found", vim.log.levels.DEBUG)
       end
     end, delay)
   end
