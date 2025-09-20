@@ -1,15 +1,15 @@
 local Util = require("lazyvim.util")
 
 vim.api.nvim_create_user_command("Btop", function()
-  Snacks.terminal("btop", { border = "none" })
+  Snacks.terminal("btop", { border = "none", auto_insert = true, start_insert = true })
 end, {})
 
 vim.api.nvim_create_user_command("Nap", function()
-  Snacks.terminal("nap", { border = "rounded" })
+  Snacks.terminal("nap", { border = "rounded", auto_insert = true, start_insert = true })
 end, {})
 
 vim.api.nvim_create_user_command("Lazygit", function()
-  Snacks.terminal({ "lazygit" }, { cwd = Util.root.get(), border = "none" })
+  Snacks.terminal({ "lazygit" }, { cwd = Util.root.get(), border = "none", auto_insert = true, start_insert = true })
 end, {})
 
 vim.api.nvim_create_user_command("ChessTui", function()
@@ -17,6 +17,8 @@ vim.api.nvim_create_user_command("ChessTui", function()
     cwd = Util.root.get(),
     border = "rounded",
     args = { "-e", vim.fn.exepath("stockfish") },
+    auto_insert = true,
+    start_insert = true,
   })
 end, {})
 

@@ -78,6 +78,8 @@ return {
         },
       },
       terminal = {
+        auto_insert = false,
+        start_insert = false,
         win = {
           style = {
             wo = {
