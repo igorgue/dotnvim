@@ -30,9 +30,9 @@ return {
     tool = "tool",
   },
   opts = {
-    stream = true,
+    stream = false,
     tools = true,
-    vision = true,
+    vision = false,
   },
   features = {
     text = true,
@@ -40,7 +40,7 @@ return {
   },
   url = "${url}${chat_url}",
   env = {
-    api_key = "OPENAI_API_KEY",
+    api_key = "OPENROUTER_API_KEY",
     url = "https://openrouter.ai/api",
     chat_url = "/v1/chat/completions",
     models_endpoint = "/v1/models",
@@ -311,17 +311,18 @@ return {
         can_reason = true
       end
 
-      if can_reason and delta.reasoning then
-        output.reasoning = output.reasoning or {}
-        output.reasoning.content = (output.reasoning.content or "") .. delta.reasoning
+      if delta.role then
         output.role = delta.role
-        return { status = "success", output = output }
-      end
-
-      if delta.content then
-        output.role = delta.role
-        output.content = delta.content
-        return { status = "success", output = output }
+        if delta.content then
+          output.content = delta.content
+        end
+        if can_reason and delta.reasoning then
+          output.reasoning = output.reasoning or {}
+          output.reasoning.content = (output.reasoning.content or "") .. delta.reasoning
+        end
+        if output.content or output.reasoning then
+          return { status = "success", output = output }
+        end
       end
 
       return nil

@@ -38,6 +38,10 @@ return {
       {
         "HakonHarnes/img-clip.nvim",
         opts = {
+          verbose = false,
+          drag_and_drop = {
+            enabled = false,
+          },
           filetypes = {
             codecompanion = {
               prompt_for_file_name = false,
@@ -291,61 +295,29 @@ return {
             },
           })
         end,
-        openrouter_inline = function()
-          local openrouter = require("plugins.ai.openrouter")
-
-          return require("codecompanion.adapters").extend(openrouter, {
-            name = "openrouter-inline",
-            formatted_name = "OpenRouter (inline, free default)",
-            env = {
-              url = "https://openrouter.ai/api",
-              api_key = "OPENROUTER_API_KEY",
-            },
-            schema = {
-              model = {
-                -- default = "openai/gpt-oss-120b:free",
-                default = "moonshotai/kimi-k2:free",
-                -- default = "qwen/qwen3-coder:free",
-                choices = {
-                  ["openai/gpt-oss-120b:free"] = {},
-                  ["openai/gpt-oss-20b:free"] = {},
-                  ["qwen/qwen3-coder:free"] = {},
-                  ["moonshotai/kimi-k2:free"] = {},
-                },
-              },
-            },
-          })
-        end,
         openrouter = function()
           local openrouter = require("plugins.ai.openrouter")
 
           return require("codecompanion.adapters").extend(openrouter, {
             name = "openrouter",
             formatted_name = "OpenRouter",
-            env = {
-              url = "https://openrouter.ai/api",
-              api_key = "OPENROUTER_API_KEY",
-            },
             schema = {
               model = {
-                -- default = "openai/gpt-oss-120b",
-                -- default = "nvidia/nemotron-nano-9b-v2",
-                -- default = "moonshotai/kimi-k2:free",
-                default = "openrouter/sonoma-sky-alpha",
+                default = "x-ai/grok-4-fast:free",
+                -- default = "x-ai/grok-code-fast-1",
                 choices = {
-                  ["moonshotai/kimi-k2:free"] = {},
-                  ["nvidia/nemotron-nano-9b-v2"] = {},
-                  ["openai/gpt-5"] = {},
-                  ["openai/gpt-5-chat"] = {},
-                  ["openai/gpt-5-mini"] = {},
-                  ["openai/gpt-5-nano"] = {},
-                  ["openai/gpt-oss-120b"] = {},
-                  ["openai/gpt-oss-20b"] = {},
-                  ["openai/gpt-oss-20b:free"] = {},
-                  ["deepseek/deepseek-chat-v3.1"] = {},
-                  ["openrouter/sonoma-sky-alpha"] = {},
-                  ["openrouter/sonoma-dusk-alpha"] = {},
-                  ["openrouter/auto"] = {},
+                  "moonshotai/kimi-k2:free",
+                  "nvidia/nemotron-nano-9b-v2",
+                  "openai/gpt-5",
+                  "openai/gpt-5-chat",
+                  "openai/gpt-5-mini",
+                  "openai/gpt-5-nano",
+                  "openai/gpt-oss-120b",
+                  "openai/gpt-oss-20b",
+                  "openai/gpt-oss-20b:free",
+                  "deepseek/deepseek-chat-v3.1",
+                  "x-ai/grok-code-fast-1",
+                  "x-ai/grok-4-fast:free",
                 },
               },
             },
