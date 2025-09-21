@@ -22,7 +22,7 @@ return {
     opts = {
       servers = {
         pyright = false,
-      }
+      },
     },
   },
   {

@@ -126,8 +126,8 @@ local function direnv_on_term(args)
       local job = vim.b[buf].terminal_job_id
       if job ~= nil then
         pcall(vim.fn.chansend, job, "direnv reload\r")
-      -- else
-      --   vim.notify("DirenvReloadOnTermOpen: no terminal job id found", vim.log.levels.DEBUG)
+        -- else
+        --   vim.notify("DirenvReloadOnTermOpen: no terminal job id found", vim.log.levels.DEBUG)
       end
     end, delay)
   end
