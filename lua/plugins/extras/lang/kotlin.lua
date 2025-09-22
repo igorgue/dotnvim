@@ -1,4 +1,4 @@
--- vim.lsp.enable("kotlin_lsp")
+vim.lsp.enable("kotlin_lsp", false)
 
 return {
   { import = "lazyvim.plugins.extras.lang.kotlin" },
@@ -6,9 +6,12 @@ return {
   --   "neovim/nvim-lspconfig",
   --   opts = {
   --     setup = {
-  --       kotlin_language_server = function()
+  --       kotlin_lsp = function()
   --         return true
   --       end,
+  --     },
+  --     servers = {
+  --       kotlin_lsp = false,
   --     },
   --   },
   -- },

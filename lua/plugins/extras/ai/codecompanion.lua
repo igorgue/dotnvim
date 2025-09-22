@@ -5,10 +5,10 @@ vim.g.codecompanion_prompt_decorator = true
 vim.g.mcphub_auto_approve = true
 
 local default_tools = {
-  -- "cmd_runner",
+  "cmd_runner",
   -- "create_file",
   -- "read_file",
-  -- "insert_edit_into_file",
+  "insert_edit_into_file",
   -- "file_search",
   -- "grep_search",
   -- "fast_apply",
@@ -365,7 +365,7 @@ return {
               end
 
               local prelude = {
-                "@{programmer}",
+                -- "@{programmer}",
                 -- "@{neovim__edit_file}",
                 -- "@{neovim__write_file}",
                 -- "@{neovim__read_multiple_files}",
