@@ -22,6 +22,15 @@ return {
     -- Defines dependencies, commands, initialization, and setup options
     dependencies = {
       {
+        "mfussenegger/nvim-lint",
+        optional = true,
+        opts = {
+          linters_by_ft = {
+            codecompanion = {},
+          },
+        },
+      },
+      {
         "neovim/nvim-lspconfig",
         opts = {
           servers = {
