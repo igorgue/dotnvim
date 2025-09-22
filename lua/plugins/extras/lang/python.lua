@@ -6,10 +6,7 @@ vim.filetype.add({
   },
 })
 
--- NOTE: this is too early to use right now
--- shows errors I don't think are correct
--- and the completion, it was missing builtins
--- vim.lsp.enable("pyrefly")
+vim.lsp.enable("pyrefly")
 
 return {
   { import = "lazyvim.plugins.extras.lang.python" },
@@ -22,6 +19,7 @@ return {
     opts = {
       servers = {
         pyright = false,
+        basedpyright = false,
       },
     },
   },
@@ -67,10 +65,6 @@ return {
   {
     "linux-cultist/venv-selector.nvim",
     branch = "main",
-    enabled = true,
     cmd = "VenvSelect",
-    config = function(_, opts)
-      require("venv-selector").setup(opts)
-    end,
   },
 }
