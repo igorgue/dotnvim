@@ -192,11 +192,9 @@ return {
     },
   },
   {
-    "akinsho/git-conflict.nvim",
-    enabled = true,
-    lazy = false,
+    "konradmalik/git-conflict.nvim",
     opts = {
-      disable_diagnostics = true,
+      enable_diagnostics = false,
     },
     -- keys = {
     --   { 'co', '<Plug>(git-conflict-ours)', desc = 'Choose ours (git conflict)' },
