@@ -1,6 +1,6 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "e30b7f2008e52442154b66f7c519bfd2f1e32acb" },
-  "LazyVim": { "branch": "main", "commit": "21518ae8a32cc56cfd8eefbbe33b8fe801d5bb3a" },
+  "LazyVim": { "branch": "main", "commit": "8a760984611cd9df0971a9f36a94838b9e32453f" },
   "SchemaStore.nvim": { "branch": "main", "commit": "22f0c2f7c727a15b45b7bfcbbab533720223b840" },
   "VectorCode": { "branch": "main", "commit": "5ac5502369cdfc8b1541c87d51ee540f8d92e7af" },
   "blink.cmp": { "branch": "main", "commit": "327fff91fe6af358e990be7be1ec8b78037d2138" },
