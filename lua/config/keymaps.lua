@@ -274,17 +274,26 @@ Snacks.toggle["copilot"] = Snacks.toggle({
   get = function()
     if LazyVim.has("copilot.vim") then
       return vim.api.nvim_call_function("g:copilot#Enabled", {}) ~= 0
-    else
-      if LazyVim.has("copilot.lua") then
-        return not require("copilot.client").is_disabled()
-      end
     end
 
-    return false
+    if LazyVim.has("copilot.lua") then
+      return not require("copilot.client").is_disabled()
+    end
+
+    return vim.lsp.inline_completion.is_enabled()
   end,
   set = function(state)
-    vim.cmd("Copilot " .. (state and "enable" or "disable"))
-    vim.g.ai_cmp = state
+    if LazyVim.has("copilot.vim") then
+      vim.cmd("Copilot " .. (state and "enable" or "disable"))
+      return
+    end
+
+    if LazyVim.has("copilot.lua") then
+      vim.g.ai_cmp = state
+      return
+    end
+
+    vim.lsp.inline_completion.enable(state)
   end,
 })
   :map("<leader>aC")

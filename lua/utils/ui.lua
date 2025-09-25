@@ -204,6 +204,8 @@ function M.toggle_focus_mode(state)
     end
   end
 
+  vim.lsp.inline_completion.enable(not state)
+
   if vim.g.loaded_tabby ~= nil then
     vim.g.tabby_trigger_mode = state and "manual" or "auto"
   end
