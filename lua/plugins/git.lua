@@ -193,7 +193,8 @@ return {
   },
   {
     "akinsho/git-conflict.nvim",
-    enabled = not vim.o.diff,
+    -- enabled = not vim.o.diff,
+    enabled = false, -- not working on 0.12
     lazy = false,
     opts = {
       enable_diagnostics = false,
