@@ -1,4 +1,4 @@
-if vim.fn.has("nvim-0.12") == 0 then
+if vim.fn.has("nvim-0.12") == 1 then
   return {
     desc = "GitHub Copilot with Neovim 0.12+ native LSP",
     { import = "lazyvim.plugins.extras.ai.copilot-native" },
@@ -7,8 +7,7 @@ if vim.fn.has("nvim-0.12") == 0 then
       cmd = "Copilot",
       lazy = false,
       config = function()
-        vim.g.copilot_no_tab_remap = false
-        vim.g.copilot_assume_mapped = false
+        vim.g.copilot_no_tab_map = true
         vim.g.copilot_filetypes = {
           codecompanion = true,
         }
@@ -21,10 +20,8 @@ if vim.fn.has("nvim-0.12") == 0 then
         })
       end,
       keys = {
-        { "<C-l>", "<Plug>(copilot-suggest)", desc = "Copilot manual trigger", mode = "i", ft = "codecompanion" },
-        { "<M-left>", "<C-w>", desc = "Remove last word", mode = "i", ft = "codecompanion" },
         {
-          "<M-up>",
+          "<Tab>",
           'copilot#Accept("\\<CR>")',
           desc = "Accept suggestion",
           mode = "i",
@@ -33,7 +30,9 @@ if vim.fn.has("nvim-0.12") == 0 then
           replace_keycodes = false,
           ft = "codecompanion",
         },
-        { "<M-down>", "<C-o>u", desc = "Undo", mode = "i", ft = "codecompanion" },
+        { "<M-[", "<Plug>(copilot-previous)", desc = "Previous suggestion", mode = "i", ft = "codecompanion" },
+        { "<M-]>", "<Plug>(copilot-next)", desc = "Next suggestion", mode = "i", ft = "codecompanion" },
+        { "<C-]>", "<Plug>(copilot-dismiss)", desc = "Dismiss suggestion", mode = "i", ft = "codecompanion" },
       },
     },
   }
