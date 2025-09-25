@@ -137,3 +137,4 @@ vim.g.codecompanion_initial_adapter = vim.env.LAZYVIM_CODECOMPANION_ADAPTER or "
 vim.g.codecompanion_initial_inline_adapter = vim.env.LAZYVIM_CODECOMPANION_INLINE_ADAPTER or "copilot"
 vim.g.codecompanion_auto_tool_mode = nil
 vim.g.lazyvim_python_lsp = "basedpyright"
+vim.g.copilot_nes = true
