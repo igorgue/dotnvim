@@ -272,25 +272,25 @@ Snacks.toggle["blink"] = Snacks.toggle({
 Snacks.toggle["copilot"] = Snacks.toggle({
   name = "Github Copilot",
   get = function()
+    local copilot_vim = false
     if LazyVim.has("copilot.vim") then
-      return vim.api.nvim_call_function("g:copilot#Enabled", {}) ~= 0
+      copilot_vim = vim.api.nvim_call_function("g:copilot#Enabled", {}) ~= 0
     end
 
+    local copilot_lua = false
     if LazyVim.has("copilot.lua") then
-      return not require("copilot.client").is_disabled()
+      copilot_lua = not require("copilot.client").is_disabled()
     end
 
-    return vim.lsp.inline_completion.is_enabled()
+    return copilot_vim or copilot_lua or vim.lsp.inline_completion.is_enabled()
   end,
   set = function(state)
     if LazyVim.has("copilot.vim") then
       vim.cmd("Copilot " .. (state and "enable" or "disable"))
-      return
     end
 
     if LazyVim.has("copilot.lua") then
       vim.g.ai_cmp = state
-      return
     end
 
     vim.lsp.inline_completion.enable(state)
@@ -316,7 +316,7 @@ Snacks.toggle["prompt_enhancement"] = Snacks.toggle({
       config.strategies.chat.opts.prompt_enhancement.enabled = state
     end
 
-    -- Also update the global variable for persistence
+    -- Also set the global variable for immediate effect
     vim.g.codecompanion_prompt_enhancement = state
 
     -- Notify the user

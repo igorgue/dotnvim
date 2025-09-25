@@ -204,7 +204,9 @@ function M.toggle_focus_mode(state)
     end
   end
 
-  vim.lsp.inline_completion.enable(not state)
+  if not vim.g.focus_mode_no_copilot then
+    vim.lsp.inline_completion.enable(not state)
+  end
 
   if vim.g.loaded_tabby ~= nil then
     vim.g.tabby_trigger_mode = state and "manual" or "auto"
@@ -277,6 +279,26 @@ end
 
 function M.autostart_focus_mode()
   vim.defer_fn(function()
+    if vim.g.focus_mode_no_copilot then
+      vim.lsp.inline_completion.enable(true)
+
+      if LazyVim.has("copilot.vim") or LazyVim.has("copilot.lua") then
+        vim.cmd("Copilot enable")
+      end
+    else
+      vim.lsp.inline_completion.enable(vim.g.focus_mode)
+
+      if LazyVim.has("copilot.vim") or LazyVim.has("copilot.lua") then
+        vim.cmd("Copilot " .. (vim.g.focus_mode and "disable" or "enable"))
+      end
+    end
+
+    if LazyVim.has("copilot.lua") then
+      vim.defer_fn(function()
+        require("utils.ui").refresh_ui()
+      end, 100)
+    end
+
     require("utils").ui.toggle_focus_mode(vim.g.focus_mode)
   end, 500)
 end
