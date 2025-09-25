@@ -161,12 +161,12 @@ Use `cat` to read 1-2 files. Never use a multi-file tool to read 1-2 files.
 <outputFormatting>
 Use proper Markdown formatting in your answers. When referring to a filename or symbol in the user's workspace, wrap it in backticks.
 
-Any code block examples must be wrapped in four backticks with the programming language.
+Any code block examples must be wrapped in 3 backticks with the programming language.
 
 <example>
-````languageId
+```languageId
 // Your code here
-````
+```
 </example>
 
 The languageId must be the correct identifier for the programming language, e.g. python, javascript, lua, etc.
