@@ -282,7 +282,11 @@ Snacks.toggle["copilot"] = Snacks.toggle({
       copilot_lua = not require("copilot.client").is_disabled()
     end
 
-    return copilot_vim or copilot_lua or vim.lsp.inline_completion.is_enabled()
+    if vim.fn.has("nvim-0.12") == 1 then
+      return copilot_vim or copilot_lua or vim.lsp.inline_completion.is_enabled()
+    else
+      return copilot_vim or copilot_lua
+    end
   end,
   set = function(state)
     if LazyVim.has("copilot.vim") then
@@ -293,7 +297,9 @@ Snacks.toggle["copilot"] = Snacks.toggle({
       vim.g.ai_cmp = state
     end
 
-    vim.lsp.inline_completion.enable(state)
+    if vim.fn.has("nvim-0.12") == 1 then
+      vim.lsp.inline_completion.enable(state)
+    end
   end,
 })
   :map("<leader>aC")

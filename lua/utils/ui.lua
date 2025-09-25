@@ -204,7 +204,7 @@ function M.toggle_focus_mode(state)
     end
   end
 
-  if not vim.g.focus_mode_no_copilot then
+  if not vim.g.focus_mode_no_copilot and vim.fn.has("nvim-0.12") == 1 then
     vim.lsp.inline_completion.enable(not state)
   end
 
@@ -280,13 +280,17 @@ end
 function M.autostart_focus_mode()
   vim.defer_fn(function()
     if vim.g.focus_mode_no_copilot then
-      vim.lsp.inline_completion.enable(true)
+      if vim.fn.has("nvim-0.12") == 1 then
+        vim.lsp.inline_completion.enable(true)
+      end
 
       if LazyVim.has("copilot.vim") or LazyVim.has("copilot.lua") then
         vim.cmd("Copilot enable")
       end
     else
-      vim.lsp.inline_completion.enable(vim.g.focus_mode)
+      if vim.fn.has("nvim-0.12") == 1 then
+        vim.lsp.inline_completion.enable(vim.g.focus_mode)
+      end
 
       if LazyVim.has("copilot.vim") or LazyVim.has("copilot.lua") then
         vim.cmd("Copilot " .. (vim.g.focus_mode and "disable" or "enable"))
