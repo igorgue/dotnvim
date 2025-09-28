@@ -123,6 +123,9 @@ vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DapBreakpo
 vim.g.autoformat = false
 vim.g.snacks_animate = false
 vim.g.snacks_scope = false
+vim.g.sidekick_nes = true
+vim.b.sidekick_nes = true
+vim.g.copilot_nes = true
 vim.g.ai_cmp = vim.env.LAZYVIM_AI_CMP ~= nil
 vim.g.lazyvim_picker = vim.env.LAZYVIM_PICKER or "snacks" -- "telescope", "fzf", or "snacks"
 vim.g.lazyvim_cmp = vim.env.LAZYVIM_CMP or "blink.cmp" -- or "nvim-cmp" for cmp, "blink.cmp" for blink, "auto" for default
@@ -137,4 +140,3 @@ vim.g.codecompanion_initial_adapter = vim.env.LAZYVIM_CODECOMPANION_ADAPTER or "
 vim.g.codecompanion_initial_inline_adapter = vim.env.LAZYVIM_CODECOMPANION_INLINE_ADAPTER or "copilot"
 vim.g.codecompanion_auto_tool_mode = nil
 vim.g.lazyvim_python_lsp = "basedpyright"
-vim.g.copilot_nes = true
