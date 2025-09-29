@@ -305,11 +305,29 @@ return {
           })
         end,
         openrouter = function()
-          local openrouter = require("plugins.ai.openrouter")
-
-          return require("codecompanion.adapters").extend(openrouter, {
+          return require("codecompanion.adapters").extend("openai_compatible", {
             name = "openrouter",
             formatted_name = "OpenRouter",
+            roles = {
+              llm = "assistant",
+              user = "user",
+              tool = "tool",
+            },
+            opts = {
+              stream = true,
+              tools = true,
+              vision = true,
+            },
+            features = {
+              text = true,
+              tokens = true,
+            },
+            env = {
+              api_key = "OPENROUTER_API_KEY",
+              url = "https://openrouter.ai/api",
+              chat_url = "/v1/chat/completions",
+              models_endpoint = "/v1/models",
+            },
             schema = {
               model = {
                 default = "x-ai/grok-4-fast:free",
