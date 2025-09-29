@@ -873,33 +873,10 @@ And the previous 10 commits, just in case they're related to the current changes
         desc = "Open Code Companion Chat Zoomed In",
         mode = { "n", "v", "i" },
       },
-      { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "Open actions" },
-      { "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle CodeCompanion Chat" },
-      {
-        "<leader>gc",
-        "<cmd>CodeCompanion /write_commit<cr>",
-        desc = "Write the git commit for you",
-        ft = "gitcommit",
-      },
-      {
-        "<leader>ay",
-        function()
-          vim.cmd("startinsert")
-          vim.api.nvim_input("Please make the change for me!")
-        end,
-        ft = "codecompanion",
-        desc = "Ask AI to make changes with all tools",
-        mode = "n",
-      },
-      {
-        "<m-y>",
-        function()
-          vim.api.nvim_input("Please make the change for me!")
-        end,
-        ft = "codecompanion",
-        desc = "Ask AI to make changes with all tools",
-        mode = "i",
-      },
+      { "<leader>ac", "", desc = "+codecompanion", mode = { "n", "v" } },
+      { "<leader>aca", "<cmd>CodeCompanionActions<cr>", desc = "Open actions" },
+      { "<leader>acc", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle CodeCompanion Chat" },
+      { "<leader>gc", "<cmd>CodeCompanion /write_commit<cr>", desc = "Write the git commit for you", ft = "gitcommit" },
     },
   },
 }
