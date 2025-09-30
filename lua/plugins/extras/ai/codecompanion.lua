@@ -4,14 +4,10 @@ vim.g.codecompanion_prompt_decorator = true
 
 vim.g.mcphub_auto_approve = true
 
-local default_tools = {
+local programmer_tools = {
   "cmd_runner",
-  -- "create_file",
-  -- "read_file",
+  "read_file",
   "insert_edit_into_file",
-  -- "file_search",
-  -- "grep_search",
-  -- "fast_apply",
 }
 
 return {
@@ -423,10 +419,14 @@ return {
                 table.insert(prelude, "#{mcp:neovim://diagnostics/workspace}")
               end
 
-              return string.format(
-                table.concat(prelude, " ") .. " (do not mention these in your response)" .. "<prompt>%s</prompt>",
-                message
-              )
+              if #prelude > 0 then
+                return string.format(
+                  table.concat(prelude, " ") .. " (do not mention these in your response)" .. "<prompt>%s</prompt>",
+                  message
+                )
+              else
+                return string.format("<prompt>%s</prompt>", message)
+              end
             end,
           },
           adapter = vim.g.codecompanion_initial_adapter,
@@ -516,10 +516,27 @@ return {
             groups = {
               ["programmer"] = {
                 description = "Programmer Tools",
+                tools = programmer_tools,
+              },
+              ["writer"] = {
+                description = "Writer Tools",
                 tools = {
-                  "cmd_runner",
-                  "neovim__edit_file",
-                  "neovim__read_multiple_files",
+                  "dreamtap",
+                },
+              },
+              ["web"] = {
+                description = "Search the Web",
+                tools = {
+                  "exa",
+                  "wikipedia",
+                  "context7",
+                },
+              },
+              ["docs"] = {
+                description = "Documentation Tools",
+                tools = {
+                  "context7",
+                  "nixos",
                 },
               },
             },
@@ -527,7 +544,7 @@ return {
               requires_approval = false,
             },
             opts = {
-              default_tools = default_tools,
+              default_tools = programmer_tools,
               requires_approval = false,
               auto_submit_errors = true,
               auto_submit_success = true,
