@@ -326,8 +326,9 @@ return {
             },
             schema = {
               model = {
-                default = "x-ai/grok-4-fast:free",
-                -- default = "x-ai/grok-code-fast-1",
+                default = "z-ai/glm-4.5-air:free",
+                -- default = "x-ai/grok-4-fast:free",
+                -- default = "z-ai/glm-4.5-air:free",
                 choices = {
                   "moonshotai/kimi-k2:free",
                   "nvidia/nemotron-nano-9b-v2",
@@ -341,6 +342,7 @@ return {
                   "deepseek/deepseek-chat-v3.1",
                   "x-ai/grok-code-fast-1",
                   "x-ai/grok-4-fast:free",
+                  "z-ai/glm-4.5-air:free",
                 },
               },
             },
