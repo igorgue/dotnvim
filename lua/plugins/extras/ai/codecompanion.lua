@@ -343,6 +343,7 @@ return {
                   "x-ai/grok-code-fast-1",
                   "x-ai/grok-4-fast:free",
                   "z-ai/glm-4.5-air:free",
+                  "z-ai/glm-4.6",
                 },
               },
             },
