@@ -1,6 +1,6 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "e30b7f2008e52442154b66f7c519bfd2f1e32acb" },
-  "LazyVim": { "branch": "main", "commit": "2f76d572a2b172e5e7e236d3e972443242c36b66" },
+  "LazyVim": { "branch": "main", "commit": "aabc03f88d30b0424926d9d894adc5c91eb84ec2" },
   "SchemaStore.nvim": { "branch": "main", "commit": "c8af3f44c68757344b4dcb82e2ac48892b1be765" },
   "VectorCode": { "branch": "main", "commit": "e4c17b5536482a3303392b7ecc0eb05f6255dd75" },
   "blink.cmp": { "branch": "main", "commit": "327fff91fe6af358e990be7be1ec8b78037d2138" },
@@ -78,7 +78,7 @@
   "render-markdown.nvim": { "branch": "main", "commit": "9ab9dade85d8c7d411cc89b592028da3d1b7955a" },
   "requirements.txt.vim": { "branch": "master", "commit": "d55452136a162ac31b15876ab98c00bd1b6c312f" },
   "rustaceanvim": { "branch": "master", "commit": "7c9271934d926969e920f7da932da6ba234b1e5a" },
-  "sidekick.nvim": { "branch": "main", "commit": "8c940476cae4e2ba779ed6c73080d097694e406c" },
+  "sidekick.nvim": { "branch": "main", "commit": "77432d9e7907563103566ddcaa804683b4f18a1e" },
   "snacks.nvim": { "branch": "main", "commit": "bfe8c26dbd83f7c4fbc222787552e29b4eccfcc0" },
   "sonicpi.nvim": { "branch": "main", "commit": "9204aec1461520ccb42deb6354a514ecf7eadad8" },
   "sqlite.lua": { "branch": "master", "commit": "50092d60feb242602d7578398c6eb53b4a8ffe7b" },
