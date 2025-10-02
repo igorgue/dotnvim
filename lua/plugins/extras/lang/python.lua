@@ -57,7 +57,7 @@ return {
   {
     "mason-org/mason.nvim",
     opts = {
-      ensure_installed = { "isort", "black", "ruff", "debugpy", "basedpyright", "pyrefly" },
+      ensure_installed = { "isort", "black", "ruff", "debugpy", "pyrefly" },
     },
   },
   {
