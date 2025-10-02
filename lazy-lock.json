@@ -78,7 +78,7 @@
   "render-markdown.nvim": { "branch": "main", "commit": "06c7598471911742e8816617a2afb9b2f29a808d" },
   "requirements.txt.vim": { "branch": "master", "commit": "d55452136a162ac31b15876ab98c00bd1b6c312f" },
   "rustaceanvim": { "branch": "master", "commit": "7c9271934d926969e920f7da932da6ba234b1e5a" },
-  "sidekick.nvim": { "branch": "main", "commit": "52a6ed40d312726a45ffc191fdc81791c4d928f5" },
+  "sidekick.nvim": { "branch": "main", "commit": "ffd09d0dd7798d06dce99fe37c2d98da2dfbe090" },
   "snacks.nvim": { "branch": "main", "commit": "bfe8c26dbd83f7c4fbc222787552e29b4eccfcc0" },
   "sonicpi.nvim": { "branch": "main", "commit": "9204aec1461520ccb42deb6354a514ecf7eadad8" },
   "sqlite.lua": { "branch": "master", "commit": "50092d60feb242602d7578398c6eb53b4a8ffe7b" },

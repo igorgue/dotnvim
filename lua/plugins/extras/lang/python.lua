@@ -11,6 +11,10 @@ vim.lsp.enable("pyrefly")
 return {
   { import = "lazyvim.plugins.extras.lang.python" },
   {
+    "mfussenegger/nvim-dap-python",
+    build = false,
+  },
+  {
     "raimon49/requirements.txt.vim",
     event = "BufReadPre requirements*.txt",
   },

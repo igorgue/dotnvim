@@ -139,7 +139,7 @@ return {
     "nvim-neotest/neotest",
     optional = true,
     dependencies = {
-      { "mmllr/neotest-swift-testing" },
+      { "mmllr/neotest-swift-testing", build = false },
     },
     opts = {
       adapters = {
