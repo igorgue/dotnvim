@@ -386,6 +386,8 @@ return {
         chat = {
           opts = {
             prompt_decorator = function(message, adapter, context)
+              return string.format([[<prompt>%s</prompt>]], message)
+              
               if not vim.g.codecompanion_prompt_decorator then
                 return string.format([[<prompt>%s</prompt>]], message)
               end
@@ -547,7 +549,7 @@ return {
               requires_approval = false,
             },
             opts = {
-              default_tools = programmer_tools,
+              -- default_tools = programmer_tools,
               requires_approval = false,
               auto_submit_errors = true,
               auto_submit_success = true,
