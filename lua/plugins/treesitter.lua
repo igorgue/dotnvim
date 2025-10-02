@@ -3,6 +3,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     dependencies = { "RRethy/nvim-treesitter-endwise" },
     cmd = { "TSEnable", "TSBufEnable" },
+    ft = { "shortcake" },
     opts = {
       highlight = {
         enable = true,

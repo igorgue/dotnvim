@@ -10,7 +10,7 @@ return {
           enabled = true,
         },
         tools = {
-          claude = { cmd = { "ccr", "code" }, url = "https://github.com/musistudio/claude-code-router" },
+          ccr = { cmd = { "ccr", "code" }, url = "https://github.com/musistudio/claude-code-router" },
         },
       },
     },

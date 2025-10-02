@@ -197,11 +197,11 @@ return {
           },
           claude_code = function()
             return require("codecompanion.adapters").extend("claude_code", {
-              env = {
-                ANTHROPIC_BASE_URL = "http://127.0.0.1:3456",
-                DISABLE_TELEMETRY = "1",
-                DISABLE_AUTOUPDATER = "1",
-              },
+              -- env = {
+              --   ANTHROPIC_BASE_URL = "http://127.0.0.1:3456",
+              --   DISABLE_TELEMETRY = "1",
+              --   DISABLE_AUTOUPDATER = "1",
+              -- },
             })
           end,
           gemini_cli = function()
