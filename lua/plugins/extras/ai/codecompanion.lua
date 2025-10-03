@@ -301,36 +301,22 @@ return {
           })
         end,
         zai = function()
-          return require("codecompanion.adapters").extend("openai_compatible", {
+          return require("codecompanion.adapters").extend("anthropic", {
             name = "zai",
             formatted_name = "Z.AI",
-            roles = {
-              llm = "assistant",
-              user = "user",
-              tool = "tool",
-            },
-            opts = {
-              stream = true,
-              tools = true,
-              vision = true,
-            },
-            features = {
-              text = true,
-              tokens = true,
-            },
+            url = "https://api.z.ai/api/anthropic/v1/messages",
             env = {
               api_key = "ZAI_API_KEY",
-              url = "https://api.z.ai/api/coding/paas",
-              chat_url = "/v4/chat/completions",
-              models_endpoint = "/v4/models",
             },
             schema = {
               model = {
                 default = "glm-4.6",
                 choices = {
-                  "glm-4.6",
-                  "glm-4.5",
-                  "glm-4.5-air",
+                  ["glm-4.6"] = { opts = { can_reason = true, has_vision = true, has_token_efficient_tools = true } },
+                  ["glm-4.5"] = { opts = { can_reason = true, has_vision = true, has_token_efficient_tools = true } },
+                  ["glm-4.5-air"] = {
+                    opts = { can_reason = false, has_vision = true, has_token_efficient_tools = true },
+                  },
                 },
               },
             },
