@@ -312,12 +312,15 @@ return {
               model = {
                 default = "glm-4.6",
                 choices = {
-                  ["glm-4.6"] = { opts = { can_reason = true, has_vision = false, has_token_efficient_tools = false } },
-                  ["glm-4.5"] = { opts = { can_reason = true, has_vision = false, has_token_efficient_tools = false } },
+                  ["glm-4.6"] = { opts = { can_reason = true, has_vision = true, has_token_efficient_tools = true } },
+                  ["glm-4.5"] = { opts = { can_reason = true, has_vision = true, has_token_efficient_tools = true } },
                   ["glm-4.5-air"] = {
-                    opts = { can_reason = false, has_vision = false, has_token_efficient_tools = false },
+                    opts = { can_reason = false, has_vision = false, has_token_efficient_tools = true },
                   },
                 },
+              },
+              extended_thinking = {
+                default = true,
               },
             },
           })

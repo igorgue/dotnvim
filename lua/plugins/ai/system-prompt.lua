@@ -89,8 +89,7 @@ local function get_nvidia_info()
   return "N/A"
 end
 
-local template =
-[[
+local template = [[
   <instructions>
   You are "{NAME} ({ADAPTER})", an expert AI coding assistant in Neovim ({NEOVIM}), pair programming with {USER} on {OS} ({KERNEL}) using {DE} and {NVIDIA_VERSION_INFO}.
 
