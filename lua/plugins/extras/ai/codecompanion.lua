@@ -8,6 +8,7 @@ local programmer_tools = {
   "cmd_runner",
   "read_file",
   "insert_edit_into_file",
+  "fast_apply",
 }
 
 return {
@@ -312,10 +313,10 @@ return {
               model = {
                 default = "glm-4.6",
                 choices = {
-                  ["glm-4.6"] = { opts = { can_reason = true, has_vision = true, has_token_efficient_tools = true } },
-                  ["glm-4.5"] = { opts = { can_reason = true, has_vision = true, has_token_efficient_tools = true } },
+                  ["glm-4.6"] = { opts = { can_reason = true, has_vision = false, has_token_efficient_tools = false } },
+                  ["glm-4.5"] = { opts = { can_reason = true, has_vision = false, has_token_efficient_tools = false } },
                   ["glm-4.5-air"] = {
-                    opts = { can_reason = false, has_vision = true, has_token_efficient_tools = true },
+                    opts = { can_reason = false, has_vision = false, has_token_efficient_tools = false },
                   },
                 },
               },
@@ -745,7 +746,7 @@ And the previous 10 commits, just in case they're related to the current changes
           enabled = true,
           opts = {
             adapter = "openai_compatible",
-            model = "morph-v3-large",
+            model = "auto",
             url = "https://api.morphllm.com",
             api_key = "MORPH_API_KEY",
           },

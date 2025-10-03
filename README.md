@@ -32,11 +32,13 @@ _Multi-language support, minimalist design, and advanced developer tools._
 - **Code Quality** – Formatting, linting, and static analysis
 - **Documentation** – Docsets integration and help systems
 
-### **Optional AI Features**
+### **AI-Powered Development Tools** *(Optional)*
 
-- **CodeCompanion** – Chat, inline code suggestions, and automated workflows
-- **Multiple Providers** – OpenAI, Anthropic, Google Gemini, and more (optional)
-- **Semantic Code Search** – Enhanced navigation and analysis
+- **Intelligent Code Assistance** – Context-aware code completion, suggestions, and refactoring powered by multiple AI providers
+- **Multi-Provider Support** – Flexible integration with OpenAI GPT, Anthropic Claude, Google Gemini, and other leading AI models
+- **Advanced Code Analysis** – Semantic search, code explanation, and intelligent navigation through complex codebases
+- **Automated Workflows** – Smart code generation, documentation creation, and development task automation
+- **Natural Language Interface** – Chat directly with your codebase using plain English queries and commands
 
 ### **Comprehensive Language Support**
 
