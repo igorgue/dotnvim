@@ -386,8 +386,11 @@ return {
         chat = {
           opts = {
             prompt_decorator = function(message, adapter, context)
-              return string.format([[<prompt>%s</prompt>]], message)
-              
+              -- NOTE: disable for now since I use Claude
+              if true then
+                return string.format([[<prompt>%s</prompt>]], message)
+              end
+
               if not vim.g.codecompanion_prompt_decorator then
                 return string.format([[<prompt>%s</prompt>]], message)
               end

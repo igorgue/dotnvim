@@ -10,7 +10,14 @@ return {
           enabled = true,
         },
         tools = {
-          ccr = { cmd = { "ccr", "code" }, url = "https://github.com/musistudio/claude-code-router" },
+          claude = {
+            cmd = { "claude", "--dangerously-skip-permissions", "-c" },
+            url = "https://github.com/anthropics/claude-code",
+          },
+          ccr = {
+            cmd = { "ccr", "code", "--dangerously-skip-permissions", "-c" },
+            url = "https://github.com/musistudio/claude-code-router",
+          },
         },
       },
     },
