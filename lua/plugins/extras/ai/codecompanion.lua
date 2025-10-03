@@ -1,6 +1,6 @@
 vim.g.codecompanion_auto_tool_mode = true
 vim.g.codecompanion_yolo_mode = true
-vim.g.codecompanion_prompt_decorator = true
+vim.g.codecompanion_prompt_decorator = false
 
 vim.g.mcphub_auto_approve = true
 
