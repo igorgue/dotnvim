@@ -8,7 +8,6 @@ local programmer_tools = {
   "cmd_runner",
   "read_file",
   "insert_edit_into_file",
-  "fast_apply",
 }
 
 return {
