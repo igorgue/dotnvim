@@ -300,6 +300,42 @@ return {
             },
           })
         end,
+        zai = function()
+          return require("codecompanion.adapters").extend("openai_compatible", {
+            name = "zai",
+            formatted_name = "Z.AI",
+            roles = {
+              llm = "assistant",
+              user = "user",
+              tool = "tool",
+            },
+            opts = {
+              stream = true,
+              tools = true,
+              vision = true,
+            },
+            features = {
+              text = true,
+              tokens = true,
+            },
+            env = {
+              api_key = "ZAI_API_KEY",
+              url = "https://api.z.ai/api/coding/paas",
+              chat_url = "/v4/chat/completions",
+              models_endpoint = "/v4/models",
+            },
+            schema = {
+              model = {
+                default = "glm-4.6",
+                choices = {
+                  "glm-4.6",
+                  "glm-4.5",
+                  "glm-4.5-air",
+                },
+              },
+            },
+          })
+        end,
         openrouter = function()
           return require("codecompanion.adapters").extend("openai_compatible", {
             name = "openrouter",
@@ -387,9 +423,9 @@ return {
           opts = {
             prompt_decorator = function(message, adapter, context)
               -- NOTE: disable for now since I use Claude
-              if true then
-                return string.format([[<prompt>%s</prompt>]], message)
-              end
+              -- if true then
+              --   return string.format([[<prompt>%s</prompt>]], message)
+              -- end
 
               if not vim.g.codecompanion_prompt_decorator then
                 return string.format([[<prompt>%s</prompt>]], message)
@@ -552,7 +588,7 @@ return {
               requires_approval = false,
             },
             opts = {
-              -- default_tools = programmer_tools,
+              default_tools = programmer_tools,
               requires_approval = false,
               auto_submit_errors = true,
               auto_submit_success = true,
