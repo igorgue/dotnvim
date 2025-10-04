@@ -785,7 +785,7 @@ And the previous 10 commits, just in case they're related to the current changes
             dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history", -- History storage location
             enable_logging = false, -- Disable debug logging
             summary = {
-              enabled = false,
+              enabled = true,
               create_summary_keymap = "gcs", -- Keymap to create chat summaries
               browse_summaries_keymap = "gbs", -- Keymap to browse summaries
               generation_opts = {
@@ -797,7 +797,7 @@ And the previous 10 commits, just in case they're related to the current changes
               },
             },
             memory = {
-              enabled = false,
+              enabled = true,
               auto_create_memories_on_summary_generation = true, -- Auto-create memories from summaries
               vectorcode_exe = "vectorcode", -- VectorCode executable for memory indexing
               tool_opts = {
