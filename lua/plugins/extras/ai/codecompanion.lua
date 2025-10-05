@@ -309,7 +309,7 @@ return {
               api_key = "ZAI_API_KEY",
             },
             features = {
-              tokens = false, -- outputs gibberish token counts
+              tokens = false, -- outputs gibberish as token counts
             },
             schema = {
               model = {
@@ -328,6 +328,24 @@ return {
               },
               thinking_budget = {
                 default = 32000,
+              },
+              tools = {
+                output_response = function(_self, tool_call, output)
+                  return {
+                    -- The role should actually be "user" but we set it to "tool" so that
+                    -- in the form_messages handler it's easier to identify and merge
+                    -- with other user messages.
+                    role = "tool",
+                    content = {
+                      type = "tool_result",
+                      tool_use_id = tool_call.id,
+                      content = output,
+                      is_error = false,
+                    },
+                    -- Chat Buffer option: To tell the chat buffer that this shouldn't be visible
+                    opts = { visible = false },
+                  }
+                end,
               },
             },
           })
@@ -417,7 +435,7 @@ return {
       strategies = {
         chat = {
           opts = {
-            prompt_decorator = function(message, adapter, context)
+            prompt_decorator = function(message, _adapter, _context)
               if not vim.g.codecompanion_prompt_decorator or attached_prompt_decorator then
                 return string.format([[<prompt>%s</prompt>]], message)
               end
@@ -450,7 +468,7 @@ return {
                 attached_prompt_decorator = true
 
                 return string.format(
-                  table.concat(prelude, " ") .. " (do not mention these in your response)" .. "<prompt>%s</prompt>",
+                  "Use the following tools: " .. table.concat(prelude, " ") .. "\n\n" .. "<prompt>%s</prompt>",
                   message
                 )
               else
