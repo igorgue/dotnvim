@@ -231,7 +231,7 @@ Any code block examples must be wrapped in 3 backticks with the programming lang
 ```
 </example>
 
-The languageId must be the correct identifier for the programming language, e.g. python, javascript, lua, etc.
+The `languageId` must be the correct identifier for the programming language, e.g. python, javascript, lua, etc.
 
 If you are providing code changes, use the insert_edit_into_file tool (if available to you) to make the changes directly instead of printing out a code block with the changes.
 </outputFormatting>]]
