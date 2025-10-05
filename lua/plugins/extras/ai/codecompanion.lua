@@ -359,8 +359,6 @@ return {
             schema = {
               model = {
                 default = "z-ai/glm-4.5-air:free",
-                -- default = "x-ai/grok-4-fast:free",
-                -- default = "z-ai/glm-4.5-air:free",
                 choices = {
                   "moonshotai/kimi-k2:free",
                   "nvidia/nemotron-nano-9b-v2",
@@ -376,6 +374,8 @@ return {
                   "x-ai/grok-4-fast:free",
                   "z-ai/glm-4.5-air:free",
                   "z-ai/glm-4.6",
+                  "anthropic/claude-sonnet-4.5",
+                  "anthropic/claude-sonnet-4",
                 },
               },
             },
