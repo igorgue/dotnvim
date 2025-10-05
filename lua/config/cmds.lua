@@ -1,5 +1,10 @@
 local Util = require("lazyvim.util")
 
+-- NOTE: vscode plugin don't need to do this...
+if vim.g.vscode then
+  return
+end
+
 vim.api.nvim_create_user_command("Btop", function()
   Snacks.terminal("btop", { border = "none", auto_insert = true, start_insert = true })
 end, {})

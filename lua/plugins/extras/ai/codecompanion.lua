@@ -1,15 +1,13 @@
 vim.g.codecompanion_auto_tool_mode = true
 vim.g.codecompanion_yolo_mode = true
 vim.g.codecompanion_prompt_decorator = true
-
-local attached_prompt_decorator = false
-
 vim.g.mcphub_auto_approve = true
 
+local attached_prompt_decorator = false
 local programmer_tools = {
   "cmd_runner",
   "read_file",
-  "insert_edit_into_file",
+  "desktop_commander",
 }
 
 return {
@@ -425,7 +423,7 @@ return {
               end
 
               local prelude = {
-                "@{desktop_commander}",
+                "@{programmer}",
               }
 
               -- check if we have any open buffers that are not codecompanion, to add the buffer var
@@ -575,7 +573,7 @@ return {
               requires_approval = false,
             },
             opts = {
-              default_tools = programmer_tools,
+              -- default_tools = programmer_tools,
               requires_approval = false,
               auto_submit_errors = false,
               auto_submit_success = false,
