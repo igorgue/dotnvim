@@ -1,6 +1,8 @@
 vim.g.codecompanion_auto_tool_mode = true
 vim.g.codecompanion_yolo_mode = true
-vim.g.codecompanion_prompt_decorator = false
+vim.g.codecompanion_prompt_decorator = true
+
+local attached_prompt_decorator = false
 
 vim.g.mcphub_auto_approve = true
 
@@ -418,25 +420,12 @@ return {
         chat = {
           opts = {
             prompt_decorator = function(message, adapter, context)
-              -- NOTE: disable for now since I use Claude
-              -- if true then
-              --   return string.format([[<prompt>%s</prompt>]], message)
-              -- end
-
-              if not vim.g.codecompanion_prompt_decorator then
+              if not vim.g.codecompanion_prompt_decorator or attached_prompt_decorator then
                 return string.format([[<prompt>%s</prompt>]], message)
               end
 
               local prelude = {
-                -- "@{programmer}",
-                -- "@{neovim__edit_file}",
-                -- "@{neovim__write_file}",
-                -- "@{neovim__read_multiple_files}",
-                -- "@{neovim__execute_lua}",
-                -- "@{desktop_commander}",
-                -- "@{desktop_commander__write_file}",
-                -- "@{desktop_commander__edit_block}",
-                -- "@{desktop_commander__set_config_value}",
+                "@{desktop_commander}",
               }
 
               -- check if we have any open buffers that are not codecompanion, to add the buffer var
@@ -460,6 +449,8 @@ return {
               end
 
               if #prelude > 0 then
+                attached_prompt_decorator = true
+
                 return string.format(
                   table.concat(prelude, " ") .. " (do not mention these in your response)" .. "<prompt>%s</prompt>",
                   message

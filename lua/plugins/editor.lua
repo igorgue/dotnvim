@@ -66,4 +66,45 @@ return {
       vim.g.matchup_transmute_enabled = 1
     end,
   },
+  {
+    "jiaoshijie/undotree",
+    ---@module 'undotree.collector'
+    ---@type UndoTreeCollector.Opts
+    opts = {
+      float_diff = false, -- using float window previews diff, set this `true` will disable layout option
+      layout = "left_bottom", -- "left_bottom", "left_left_bottom"
+      position = "left", -- "right", "bottom"
+      ignore_filetype = {
+        "undotree",
+        "undotreeDiff",
+        "codecompanion",
+        "qf",
+      },
+      keymaps = {
+        j = "move_next",
+        k = "move_prev",
+        gj = "move2parent",
+        J = "move_change_next",
+        K = "move_change_prev",
+        ["<cr>"] = "action_enter",
+        p = "enter_diffbuf",
+        q = "quit",
+      },
+      window = {
+        winblend = 5,
+        border = "none", -- The string values are the same as those described in 'winborder'.
+      },
+    },
+    keys = { -- load the plugin only when using it's keybinding:
+      { "<leader>U", "<cmd>lua require('undotree').toggle()<cr>" },
+    },
+    init = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "undotreeDiff",
+        callback = function()
+          vim.opt.cursorline = false
+        end,
+      })
+    end,
+  },
 }
