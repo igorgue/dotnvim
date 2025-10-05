@@ -490,8 +490,8 @@ return {
             },
             clear = {
               modes = {
-                i = "<C-Del>",
-                n = "<C-Del>",
+                i = { "<C-Del>", "<C-Backspace>" },
+                n = { "<C-Del>", "<C-Backspace>" },
               },
             },
             close = {
@@ -586,8 +586,8 @@ return {
             opts = {
               default_tools = programmer_tools,
               requires_approval = false,
-              auto_submit_errors = true,
-              auto_submit_success = true,
+              auto_submit_errors = false,
+              auto_submit_success = false,
               prompt_decorator = function(message, _adapter, _context)
                 return string.format([[<tools>%s</tools>]], message)
               end,
@@ -888,27 +888,7 @@ And the previous 10 commits, just in case they're related to the current changes
         desc = "Write the git commit for you",
         ft = "gitcommit",
       },
-      {
-        "<C-;>",
-        function()
-          local found = false
-          local bufs = vim.api.nvim_list_bufs()
-          for i = #bufs, 1, -1 do
-            local buf = bufs[i]
-            if vim.bo[buf].filetype == "codecompanion" then
-              found = true
-            end
-          end
-
-          if found then
-            vim.cmd("CodeCompanionChat Toggle")
-          else
-            vim.cmd("CodeCompanionChat")
-          end
-        end,
-        desc = "Toggle (CodeCompanionChat)",
-        mode = { "n", "i" },
-      },
+      { "<C-;>", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle (CodeCompanionChat)", mode = { "n", "i" } },
       {
         "<C-;>",
         function()
@@ -951,6 +931,7 @@ And the previous 10 commits, just in case they're related to the current changes
       { "<leader>ac", "", desc = "+codecompanion", mode = { "n", "v" } },
       { "<leader>aca", "<cmd>CodeCompanionActions<cr>", desc = "Open actions" },
       { "<leader>acc", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle CodeCompanion Chat" },
+      { "<leader>acn", "<cmd>CodeCompanionChat<cr>", desc = "New CodeCompanion Chat" },
       { "<leader>gc", "<cmd>CodeCompanion /write_commit<cr>", desc = "Write the git commit for you", ft = "gitcommit" },
     },
   },
