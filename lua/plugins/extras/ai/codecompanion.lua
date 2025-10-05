@@ -308,19 +308,26 @@ return {
             env = {
               api_key = "ZAI_API_KEY",
             },
+            features = {
+              tokens = false, -- outputs gibberish token counts
+            },
             schema = {
               model = {
                 default = "glm-4.6",
                 choices = {
-                  ["glm-4.6"] = { opts = { can_reason = true, has_vision = true, has_token_efficient_tools = true } },
-                  ["glm-4.5"] = { opts = { can_reason = true, has_vision = true, has_token_efficient_tools = true } },
-                  ["glm-4.5-air"] = {
-                    opts = { can_reason = false, has_vision = false, has_token_efficient_tools = true },
-                  },
+                  ["glm-4.6"] = { opts = { can_reason = true, has_vision = true } },
+                  ["glm-4.5"] = { opts = { can_reason = true, has_vision = true } },
+                  ["glm-4.5-air"] = { opts = { can_reason = false, has_vision = true } },
                 },
               },
-              extended_thinking = {
-                default = true,
+              max_tokens = {
+                default = 200000,
+                validate = function(n)
+                  return n > 0 and n <= 200000, "Must be between 0 and 200000"
+                end,
+              },
+              thinking_budget = {
+                default = 32000,
               },
             },
           })
