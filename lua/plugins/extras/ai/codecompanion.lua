@@ -309,7 +309,7 @@ return {
               api_key = "ZAI_API_KEY",
             },
             features = {
-              tokens = false, -- outputs gibberish as token counts
+              tokens = true, -- outputs gibberish as token counts
             },
             schema = {
               model = {
@@ -332,9 +332,6 @@ return {
               tools = {
                 output_response = function(_self, tool_call, output)
                   return {
-                    -- The role should actually be "user" but we set it to "tool" so that
-                    -- in the form_messages handler it's easier to identify and merge
-                    -- with other user messages.
                     role = "tool",
                     content = {
                       type = "tool_result",
@@ -342,7 +339,50 @@ return {
                       content = output,
                       is_error = false,
                     },
-                    -- Chat Buffer option: To tell the chat buffer that this shouldn't be visible
+                    opts = { visible = false },
+                  }
+                end,
+              },
+            },
+          })
+        end,
+        zai_inline = function()
+          return require("codecompanion.adapters").extend("anthropic", {
+            name = "zai_inline",
+            formatted_name = "Z.AI (inline)",
+            url = "https://api.z.ai/api/anthropic/v1/messages",
+            env = {
+              api_key = "ZAI_API_KEY",
+            },
+            features = {
+              tokens = true, -- outputs gibberish as token counts
+            },
+            schema = {
+              model = {
+                default = "glm-4.5-air",
+                choices = {
+                  ["glm-4.5-air"] = { opts = { can_reason = false, has_vision = false } },
+                },
+              },
+              max_tokens = {
+                default = 130000,
+                validate = function(n)
+                  return n > 0 and n <= 130000, "Must be between 0 and 200000"
+                end,
+              },
+              thinking_budget = {
+                default = 32000,
+              },
+              tools = {
+                output_response = function(_self, tool_call, output)
+                  return {
+                    role = "tool",
+                    content = {
+                      type = "tool_result",
+                      tool_use_id = tool_call.id,
+                      content = output,
+                      is_error = false,
+                    },
                     opts = { visible = false },
                   }
                 end,
@@ -468,7 +508,11 @@ return {
                 attached_prompt_decorator = true
 
                 return string.format(
-                  "Use the following tools: " .. table.concat(prelude, " ") .. "\n\n" .. "Use @{desktop_commander} to edit files" .. "<prompt>%s</prompt>",
+                  "Use the following tools: "
+                    .. table.concat(prelude, " ")
+                    .. "\n\n"
+                    .. "Use @{desktop_commander} to edit files"
+                    .. "<prompt>%s</prompt>",
                   message
                 )
               else
