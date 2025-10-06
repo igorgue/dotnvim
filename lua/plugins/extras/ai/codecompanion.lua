@@ -355,23 +355,34 @@ return {
               api_key = "ZAI_API_KEY",
             },
             features = {
-              tokens = true, -- outputs gibberish as token counts
+              tokens = false, -- outputs gibberish as token counts
             },
             schema = {
               model = {
                 default = "glm-4.5-air",
                 choices = {
-                  ["glm-4.5-air"] = { opts = { can_reason = false, has_vision = false } },
+                  ["glm-4.5-air"] = {
+                    opts = { can_reason = false, has_vision = false, has_token_efficient_tools = false },
+                  },
                 },
               },
+              temperature = {
+                default = 0,
+              },
               max_tokens = {
-                default = 130000,
+                default = 10000,
                 validate = function(n)
-                  return n > 0 and n <= 130000, "Must be between 0 and 200000"
+                  return n > 0 and n <= 10000, "Must be between 0 and 10000"
                 end,
               },
+              extended_thinking = {
+                default = false,
+              },
+              extended_thinking = {
+                default = false,
+              },
               thinking_budget = {
-                default = 32000,
+                default = 0,
               },
               tools = {
                 output_response = function(_self, tool_call, output)
