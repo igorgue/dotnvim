@@ -468,7 +468,7 @@ return {
                 attached_prompt_decorator = true
 
                 return string.format(
-                  "Use the following tools: " .. table.concat(prelude, " ") .. "\n\n" .. "<prompt>%s</prompt>",
+                  "Use the following tools: " .. table.concat(prelude, " ") .. "\n\n" .. "Use @{desktop_commander} to edit files" .. "<prompt>%s</prompt>",
                   message
                 )
               else
