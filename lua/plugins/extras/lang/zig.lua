@@ -1,14 +1,6 @@
 return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = { "zig" },
-    },
-  },
-  {
-    "ziglang/zig.vim",
-    ft = "zig",
-  },
+  { import = "lazyvim.plugins.extras.lang.zig" },
+  { "ziglang/zig.vim", ft = "zig" },
   {
     "mfussenegger/nvim-dap",
     opts = function()
@@ -84,55 +76,8 @@ return {
           name = "Attach to process",
           pid = require("dap.utils").pick_process,
           cwd = "${workspaceFolder}",
-        },
+       },
       }
     end,
   },
-  {
-    "nvim-neotest/neotest",
-    optional = true,
-    dependencies = {
-      "lawrence-laz/neotest-zig",
-    },
-    opts = {
-      adapters = {
-        ["neotest-zig"] = {},
-      },
-    },
-  },
-  -- TODO: Use these when Zig 0.12 is released
-  -- {
-  --   "mason-org/mason.nvim",
-  --   optional = true,
-  --   opts = function(_, opts)
-  --     if type(opts.ensure_installed) == "table" then
-  --       vim.list_extend(opts.ensure_installed, { "zls", "codelldb" })
-  --     end
-  --   end,
-  -- },
-  -- {
-  --   "neovim/nvim-lspconfig",
-  --   opts = {
-  --     servers = {
-  --       zls = {},
-  --       -- settings = {
-  --       --   semantic_tokens = "full",
-  --       --   warn_style = false,
-  --       --   highlight_global_var_declarations = false,
-  --       --   -- NOTE: never seen an inlay hint
-  --       --   -- and I don't know what record_session does
-  --       --   -- nor dangerous_comptime_experiments_do_not_enable...
-  --       --   -- enable_inlay_hints = true,
-  --       --   -- inlay_hints_show_builtin = true,
-  --       --   -- inlay_hints_exclude_single_argument = true,
-  --       --   -- inlay_hints_hide_redundant_param_names = true,
-  --       --   -- inlay_hints_hide_redundant_param_names_last_token = true,
-  --       --   -- dangerous_comptime_experiments_do_not_enable = true,
-  --       --   -- skip_std_references = true,
-  --       --   -- record_session = true,
-  --       -- },
-  --       -- },
-  --     },
-  --   },
-  -- },
 }
