@@ -24,7 +24,7 @@ return {
     opts = {
       default_format_opts = {
         timeout_ms = 5000,
-        async = false,
+        async = true,
         lsp_fallback = true,
         quiet = true,
       },

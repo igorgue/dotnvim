@@ -341,7 +341,7 @@ Snacks.toggle["prompt_decorator"] = Snacks.toggle({
   set = function(state)
     vim.g.codecompanion_prompt_decorator = state
   end,
-}):map("<leader>ad")
+}):map("<leader>acd")
 
 -- some special cases:
 pcall(vim.api.nvim_del_keymap, "v", "<C-k>")

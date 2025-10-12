@@ -1,6 +1,15 @@
 return {
+  desc = "Zig language support",
   { import = "lazyvim.plugins.extras.lang.zig" },
   { "ziglang/zig.vim", ft = "zig" },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        zig = { "zigfmt", lsp_format = "fallback" },
+      },
+    },
+  },
   {
     "mfussenegger/nvim-dap",
     opts = function()
@@ -76,7 +85,7 @@ return {
           name = "Attach to process",
           pid = require("dap.utils").pick_process,
           cwd = "${workspaceFolder}",
-       },
+        },
       }
     end,
   },

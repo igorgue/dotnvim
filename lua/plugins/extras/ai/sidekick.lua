@@ -6,7 +6,7 @@ return {
     opts = {
       cli = {
         mux = {
-          backend = "zellij",
+          backend = "tmux",
           enabled = true,
         },
         tools = {

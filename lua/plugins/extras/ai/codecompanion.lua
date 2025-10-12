@@ -521,8 +521,9 @@ return {
                 return string.format(
                   "Use the following tools: "
                     .. table.concat(prelude, " ")
+                    .. "\n"
+                    .. "Use desktop_commander to edit files."
                     .. "\n\n"
-                    .. "Use @{desktop_commander} to edit files"
                     .. "<prompt>%s</prompt>",
                   message
                 )
