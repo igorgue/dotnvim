@@ -69,7 +69,6 @@ return {
         "ravitemer/mcphub.nvim",
         cmd = "MCPHub",
         build = "bundled_build.lua",
-        event = "VeryLazy",
         opts = {
           config = vim.fn.expand("~/.config/mcphub/servers.json"),
           auto_approve = true,
@@ -309,7 +308,7 @@ return {
               api_key = "ZAI_API_KEY",
             },
             features = {
-              tokens = true, -- outputs gibberish as token counts
+              tokens = false, -- outputs gibberish as token counts
             },
             schema = {
               model = {
