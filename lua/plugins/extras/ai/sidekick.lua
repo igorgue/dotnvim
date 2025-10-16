@@ -10,6 +10,10 @@ return {
           enabled = true,
         },
         tools = {
+          amp = {
+            cmd = { "amp", "thread", "continue" },
+            url = "https://ampcode.com",
+          },
           claude = {
             cmd = { "claude", "--dangerously-skip-permissions", "-c" },
             url = "https://github.com/anthropics/claude-code",

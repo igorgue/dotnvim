@@ -1,3 +1,5 @@
+vim.g.copilot_native = true
+
 if vim.fn.has("nvim-0.12") == 1 then
   return {
     desc = "GitHub Copilot with Neovim 0.12+ native LSP",

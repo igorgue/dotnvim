@@ -1,3 +1,5 @@
+vim.g.copilot_native = false
+
 return {
   desc = "Github Copilot (official)",
   { "folke/lazy.nvim" },

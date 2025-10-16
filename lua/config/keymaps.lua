@@ -282,7 +282,7 @@ Snacks.toggle["copilot"] = Snacks.toggle({
       copilot_lua = not require("copilot.client").is_disabled()
     end
 
-    if vim.fn.has("nvim-0.12") == 1 then
+    if vim.fn.has("nvim-0.12") == 1 and vim.g.copilot_native then
       return copilot_vim or copilot_lua or vim.lsp.inline_completion.is_enabled()
     else
       return copilot_vim or copilot_lua
@@ -297,7 +297,7 @@ Snacks.toggle["copilot"] = Snacks.toggle({
       vim.g.ai_cmp = state
     end
 
-    if vim.fn.has("nvim-0.12") == 1 then
+    if vim.fn.has("nvim-0.12") == 1 and vim.g.copilot_native then
       vim.lsp.inline_completion.enable(state)
     end
   end,
