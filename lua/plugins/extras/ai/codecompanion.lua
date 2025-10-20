@@ -511,7 +511,8 @@ return {
 
               if has_non_codecompanion_buffer then
                 table.insert(prelude, "#{mcp:neovim://workspace}")
-                table.insert(prelude, "#{mcp:neovim://diagnostics/workspace}")
+                -- NOTE: sometimes this is too much information for our context window
+                -- table.insert(prelude, "#{mcp:neovim://diagnostics/workspace}")
               end
 
               if #prelude > 0 then
@@ -521,7 +522,7 @@ return {
                   "Use the following tools: "
                     .. table.concat(prelude, " ")
                     .. "\n"
-                    .. "Use desktop_commander to edit files."
+                    .. "Use desktop_commander to edit files, don't forget to initialize it."
                     .. "\n\n"
                     .. "<prompt>%s</prompt>",
                   message
@@ -807,7 +808,7 @@ And the previous 10 commits, just in case they're related to the current changes
           prompts = {
             {
               role = "user",
-              content = "Improve the following prompt to be more effective and efficient with LLMs:",
+              content = "Rewrite the following prompt, improving it to be more effective and efficient to be read by an LLMs:",
             },
           },
         },
@@ -888,17 +889,16 @@ And the previous 10 commits, just in case they're related to the current changes
     },
     keys = {
       {
-        "<leader><leader>",
+        "<leader>ae",
         function()
           require("codecompanion").prompt("enhance")
           vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
         end,
         mode = "v",
-        desc = "Improve the selected prompt",
-        ft = "codecompanion",
+        desc = "Enhance the selected text",
       },
       {
-        "<leader><leader>",
+        "<leader>ae",
         function()
           -- Get current cursor position
           local cursor_pos = vim.api.nvim_win_get_cursor(0)
@@ -941,8 +941,7 @@ And the previous 10 commits, just in case they're related to the current changes
           vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
         end,
         mode = "n",
-        desc = "Improve the current block of text",
-        ft = "codecompanion",
+        desc = "Enhance the current block",
       },
       {
         "<leader>gc",
