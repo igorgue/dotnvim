@@ -625,20 +625,22 @@ return {
                 description = "Writer Tools",
                 tools = {
                   "dreamtap",
+                  "wikipedia",
                 },
               },
               ["web"] = {
                 description = "Search the Web",
                 tools = {
                   "exa",
-                  "wikipedia",
                   "context7",
+                  "deepwiki",
                 },
               },
               ["docs"] = {
                 description = "Documentation Tools",
                 tools = {
                   "context7",
+                  "deepwiki",
                   "nixos",
                 },
               },
