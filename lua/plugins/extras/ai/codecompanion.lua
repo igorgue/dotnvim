@@ -4,11 +4,11 @@ vim.g.codecompanion_prompt_decorator = true
 vim.g.mcphub_auto_approve = true
 
 local attached_prompt_decorator = false
-local programmer_tools = {
-  "cmd_runner",
-  "read_file",
-  "desktop_commander",
-}
+-- local programmer_tools = {
+--   "cmd_runner",
+--   "read_file",
+--   "desktop_commander",
+-- }
 
 return {
   {
@@ -491,7 +491,9 @@ return {
               end
 
               local prelude = {
-                "@{programmer}",
+                "@{cmd_runner}",
+                "@{read_file}",
+                "@{desktop_commander}",
               }
 
               -- check if we have any open buffers that are not codecompanion, to add the buffer var
@@ -511,8 +513,7 @@ return {
 
               if has_non_codecompanion_buffer then
                 table.insert(prelude, "#{mcp:neovim://workspace}")
-                -- NOTE: sometimes this is too much information for our context window
-                -- table.insert(prelude, "#{mcp:neovim://diagnostics/workspace}")
+                table.insert(prelude, "#{mcp:neovim://diagnostics/workspace}")
               end
 
               if #prelude > 0 then
@@ -522,7 +523,7 @@ return {
                   "Use the following tools: "
                     .. table.concat(prelude, " ")
                     .. "\n"
-                    .. "Use desktop_commander to edit files, don't forget to initialize it."
+                    .. "Use desktop_commander__edit_block to edit files and desktop_commander__write_file to make new files or append to files, don't forget to initialize desktop commander with desktop_commander__set_config_value as explained in the system prompt."
                     .. "\n\n"
                     .. "<prompt>%s</prompt>",
                   message
@@ -616,35 +617,37 @@ return {
             },
           },
           tools = {
-            groups = {
-              ["programmer"] = {
-                description = "Programmer Tools",
-                tools = programmer_tools,
-              },
-              ["writer"] = {
-                description = "Writer Tools",
-                tools = {
-                  "dreamtap",
-                  "wikipedia",
-                },
-              },
-              ["web"] = {
-                description = "Search the Web",
-                tools = {
-                  "exa",
-                  "context7",
-                  "deepwiki",
-                },
-              },
-              ["docs"] = {
-                description = "Documentation Tools",
-                tools = {
-                  "context7",
-                  "deepwiki",
-                  "nixos",
-                },
-              },
-            },
+            -- FIXME: these don't work with mcphub right now
+            --
+            -- groups = {
+            --   ["programmer"] = {
+            --     description = "Programmer Tools",
+            --     tools = programmer_tools,
+            --   },
+            --   ["writer"] = {
+            --     description = "Writer Tools",
+            --     tools = {
+            --       "dreamtap",
+            --       "wikipedia",
+            --     },
+            --   },
+            --   ["web"] = {
+            --     description = "Search the Web",
+            --     tools = {
+            --       "exa",
+            --       "context7",
+            --       "deepwiki",
+            --     },
+            --   },
+            --   ["docs"] = {
+            --     description = "Documentation Tools",
+            --     tools = {
+            --       "context7",
+            --       "deepwiki",
+            --       "nixos",
+            --     },
+            --   },
+            -- },
             ["cmd_runner"] = {
               requires_approval = false,
             },
