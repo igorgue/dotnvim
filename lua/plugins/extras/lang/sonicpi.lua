@@ -9,12 +9,6 @@ end
 
 local server_path = get_server_path()
 
-require("lazyvim.util").lsp.on_attach(function(client, _)
-  if client.name == "solargraph" then
-    require("sonicpi").lsp_on_init(client, { server_dir = server_path })
-  end
-end)
-
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   pattern = { "*.sonicpi" },
   callback = function()
@@ -93,6 +87,13 @@ return {
         },
       },
     },
+    init = function()
+      require("snacks").util.lsp.on(function(buf, client)
+        if client.name == "ruby_lsp" then
+          require("sonicpi").lsp_on_init(client, { server_dir = server_path })
+        end
+      end)
+    end,
   },
   {
     "magicmonty/sonicpi.nvim",
