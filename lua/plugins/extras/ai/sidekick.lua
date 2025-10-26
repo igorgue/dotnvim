@@ -22,6 +22,10 @@ return {
             cmd = { "ccr", "code", "--dangerously-skip-permissions", "-c" },
             url = "https://github.com/musistudio/claude-code-router",
           },
+          copilot = {
+            cmd = { "copilot", "--allow-all-tools" },
+            url = "https://github.com/github/copilot-cli",
+          },
         },
       },
     },
