@@ -89,6 +89,18 @@ local function get_nvidia_info()
   return "N/A"
 end
 
+-- NOTE: add these instructions to use desktop_commander properly, currently I've decided, it's
+-- not worth it to me to send my info to them so they can run a command locally, it's kinda annoying.
+--
+-- **`desktop_commander` Usage:** Currently it has a bug and it always starts on the home directory.
+--   - **Auto-Setup:** Before any tool call to `desktop_commander__write_file`, `desktop_commander__edit_block`, automatically run `set_config_value({ "key": "allowedDirectories", "value": ["{CWD}"] })` first to ensure access to the current working directory.
+--   - **CWD Handling:** Always ensure that the current working directory is set to `{CWD}` before performing any file operations.
+--   - Only use when added to as a tool to the context window.
+--
+-- ... 
+--
+-- If you are providing code changes, use the `desktop_commander` tools to make the changes directly instead of printing out a code block with the changes.
+
 local template = [[
   <instructions>
   You are "{NAME} ({ADAPTER})", an expert AI coding assistant in Neovim ({NEOVIM}), pair programming with {USER} on {OS} ({KERNEL}) using {DE} and {NVIDIA_VERSION_INFO}.
@@ -159,11 +171,6 @@ Use code edit tools. Read before editing if the file was not sent in the context
 
 **Navigating Codebases:** Use `cmd_runner` to search codebases with a variety of unix commands such as `rg`, `fd`, `awk`, `ls`, `tree`, `diff`, read files with the `read_file` tool.
 
-**`desktop_commander` Usage:** Currently it has a bug and it always starts on the home directory.
-  - **Auto-Setup:** Before any tool call to `desktop_commander__write_file`, `desktop_commander__edit_block`, automatically run `set_config_value({ "key": "allowedDirectories", "value": ["{CWD}"] })` first to ensure access to the current working directory.
-  - **CWD Handling:** Always ensure that the current working directory is set to `{CWD}` before performing any file operations.
-  - Only use when added to as a tool to the context window.
-
 <sequentialThinkingInstructions>
   **Sequential Thinking Usage Guide:**
 
@@ -216,8 +223,6 @@ Any code block examples must be wrapped in 3 backticks with the programming lang
 </example>
 
 The `languageId` must be the correct identifier for the programming language, e.g. python, javascript, lua, etc.
-
-If you are providing code changes, use the `desktop_commander` tools to make the changes directly instead of printing out a code block with the changes.
 </outputFormatting>]]
 
 --- System prompt for CodeCompanion

@@ -4,11 +4,11 @@ vim.g.codecompanion_prompt_decorator = true
 vim.g.mcphub_auto_approve = true
 
 local attached_prompt_decorator = false
--- local programmer_tools = {
---   "cmd_runner",
---   "read_file",
---   "desktop_commander",
--- }
+local programmer_tools = {
+  "cmd_runner",
+  "read_file",
+  "insert_edit_into_file",
+}
 
 return {
   {
@@ -490,11 +490,12 @@ return {
                 return string.format([[<prompt>%s</prompt>]], message)
               end
 
-              local prelude = {
-                "@{cmd_runner}",
-                "@{read_file}",
-                "@{desktop_commander}",
-              }
+              -- local prelude = {
+              --   "@{cmd_runner}",
+              --   "@{read_file}",
+              --   "@{desktop_commander}",
+              -- }
+              local prelude = {}
 
               -- check if we have any open buffers that are not codecompanion, to add the buffer var
               local bufs = vim.api.nvim_list_bufs()
@@ -522,8 +523,8 @@ return {
                 return string.format(
                   "Use the following tools: "
                     .. table.concat(prelude, " ")
-                    .. "\n"
-                    .. "Use desktop_commander__edit_block to edit files and desktop_commander__write_file to make new files or append to files, don't forget to initialize desktop commander with desktop_commander__set_config_value as explained in the system prompt."
+                    -- .. "\n"
+                    -- .. "Use desktop_commander__edit_block to edit files and desktop_commander__write_file to make new files or append to files, don't forget to initialize desktop commander with desktop_commander__set_config_value as explained in the system prompt."
                     .. "\n\n"
                     .. "<prompt>%s</prompt>",
                   message
@@ -652,7 +653,7 @@ return {
               requires_approval = false,
             },
             opts = {
-              -- default_tools = programmer_tools,
+              default_tools = programmer_tools,
               requires_approval = false,
               auto_submit_errors = false,
               auto_submit_success = false,
