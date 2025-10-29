@@ -53,4 +53,12 @@ return {
     -- stylua: ignore
     keys = function() return {} end,
   },
+  {
+    "mfussenegger/nvim-lint",
+    opts = {
+      linters_by_ft = {
+        markdown = {}, -- disable markdown linting, it performs poorly
+      },
+    },
+  },
 }

@@ -16,16 +16,6 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   end,
 })
 
--- local ok, icons = pcall(require, "nvim-web-devicons")
--- if ok then
---   icons.set_icon({
---     [".sonicpi"] = { icon = " ", color = "#ff00ff", name = "SonicPI" },
---   })
---   icons.set_icon({
---     sonicpi = { icon = " ", color = "#ff00ff", name = "SonicPI" },
---   })
--- end
-
 return {
   {
     "saghen/blink.cmp",

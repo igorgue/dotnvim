@@ -1,35 +1,36 @@
 return {
   "grddavies/tidal.nvim",
-  lazy = false,
+  event = "VeryLazy",
   opts = {
     mappings = {
-      send_line = { mode = { "n" }, key = "<CR>" },
-      send_visual = { mode = { "x" }, key = "<CR>" },
-      send_block = { mode = { "n", "x" }, key = "<S-CR>" },
-      send_node = { mode = "n", key = "<leader><S-CR>" },
+      send_line = { mode = { "n" }, key = "<cr>" },
+      send_visual = { mode = { "x" }, key = "<cr>" },
+      send_block = { mode = { "n", "x" }, key = "<s-cr>" },
+      send_node = { mode = "n", key = "<leader><s-cr>" },
       send_silence = { mode = "n", key = "<leader>0" },
-      send_hush = { mode = "n", key = "<leader><Esc>" },
+      send_hush = { mode = "n", key = "<leader><esc>" },
     },
     boot = {
-      -- tidal = {
-      -- cmd = "ghci",
-      -- args = {
-      --   "-v0",
-      -- },
-      -- file = vim.api.nvim_get_runtime_file("bootfiles/BootTidal.hs", false)[1],
-      -- enabled = true,
-      -- },
       sclang = {
-        -- cmd = "sclang",
-        -- args = {},
-        -- file = vim.api.nvim_get_runtime_file("bootfiles/BootSuperDirt.scd", false)[1],
         enabled = true,
       },
-      split = "v",
     },
   },
+  cmd = { "TidalLaunch", "TidalQuit" },
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
     opts = { ensure_installed = { "haskell", "supercollider" } },
+  },
+  keys = {
+    {
+      "<leader>;;",
+      "<cmd>TidalLaunch<cr>",
+      ft = "haskell",
+    },
+    {
+      "<leader>;:",
+      "<cmd>TidalQuit<cr>",
+      ft = "haskell",
+    },
   },
 }
