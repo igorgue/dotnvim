@@ -7,6 +7,7 @@ local attached_prompt_decorator = false
 local programmer_tools = {
   "cmd_runner",
   "read_file",
+  "create_file",
   "insert_edit_into_file",
 }
 

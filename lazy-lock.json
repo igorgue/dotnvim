@@ -80,7 +80,7 @@
   "requirements.txt.vim": { "branch": "master", "commit": "d55452136a162ac31b15876ab98c00bd1b6c312f" },
   "rustaceanvim": { "branch": "master", "commit": "be0d1d14b8504c1c0965b608dc7ed39f2d588c91" },
   "sidekick.nvim": { "branch": "main", "commit": "6c53e5fb5430821634062e034e3004a9cbea24e6" },
-  "snacks.nvim": { "branch": "main", "commit": "5eea5f94280ef9034c7da8bbb5ec12dc71b6916f" },
+  "snacks.nvim": { "branch": "main", "commit": "ba529d4f5d409639e082aff916c9b8e71b480531" },
   "sonicpi.nvim": { "branch": "main", "commit": "9204aec1461520ccb42deb6354a514ecf7eadad8" },
   "sqlite.lua": { "branch": "master", "commit": "50092d60feb242602d7578398c6eb53b4a8ffe7b" },
   "tailwind-tools.nvim": { "branch": "master", "commit": "fbe982901d4508b0dcd80e07addf0fcb6dab6c49" },
