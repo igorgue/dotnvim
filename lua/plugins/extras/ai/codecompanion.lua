@@ -490,12 +490,13 @@ return {
                 return string.format([[<prompt>%s</prompt>]], message)
               end
 
-              -- local prelude = {
+              -- local prelude_tools = {
               --   "@{cmd_runner}",
               --   "@{read_file}",
               --   "@{desktop_commander}",
               -- }
-              local prelude = {}
+              local prelude_tools = {}
+              local prelude = prelude_tools
 
               -- check if we have any open buffers that are not codecompanion, to add the buffer var
               local bufs = vim.api.nvim_list_bufs()
@@ -520,15 +521,19 @@ return {
               if #prelude > 0 then
                 attached_prompt_decorator = true
 
-                return string.format(
-                  "Use the following tools: "
-                    .. table.concat(prelude, " ")
-                    -- .. "\n"
-                    -- .. "Use desktop_commander__edit_block to edit files and desktop_commander__write_file to make new files or append to files, don't forget to initialize desktop commander with desktop_commander__set_config_value as explained in the system prompt."
-                    .. "\n\n"
-                    .. "<prompt>%s</prompt>",
-                  message
-                )
+                if #prelude_tools then
+                  return string.format(
+                    "Use the following tools: "
+                      .. table.concat(prelude, " ")
+                      -- .. "\n"
+                      -- .. "Use desktop_commander__edit_block to edit files and desktop_commander__write_file to make new files or append to files, don't forget to initialize desktop commander with desktop_commander__set_config_value as explained in the system prompt."
+                      .. "\n\n"
+                      .. "<prompt>%s</prompt>",
+                    message
+                  )
+                else
+                  return string.format(table.concat(prelude, " ") .. "\n\n" .. "<prompt>%s</prompt>", message)
+                end
               else
                 return string.format("<prompt>%s</prompt>", message)
               end

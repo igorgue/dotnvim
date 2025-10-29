@@ -16,15 +16,15 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   end,
 })
 
-local ok, icons = pcall(require, "nvim-web-devicons")
-if ok then
-  icons.set_icon({
-    [".sonicpi"] = { icon = " ", color = "#ff00ff", name = "SonicPI" },
-  })
-  icons.set_icon({
-    sonicpi = { icon = " ", color = "#ff00ff", name = "SonicPI" },
-  })
-end
+-- local ok, icons = pcall(require, "nvim-web-devicons")
+-- if ok then
+--   icons.set_icon({
+--     [".sonicpi"] = { icon = " ", color = "#ff00ff", name = "SonicPI" },
+--   })
+--   icons.set_icon({
+--     sonicpi = { icon = " ", color = "#ff00ff", name = "SonicPI" },
+--   })
+-- end
 
 return {
   {
@@ -43,12 +43,6 @@ return {
     optional = true,
     opts = function(_, opts)
       vim.treesitter.language.register("ruby", "sonicpi")
-
-      opts.indent = {
-        enable = true,
-        disable = false,
-      }
-      -- opts.highlight.additional_vim_regex_highlighting = true
 
       return opts
     end,
@@ -91,6 +85,7 @@ return {
       require("snacks").util.lsp.on(function(buf, client)
         if client.name == "ruby_lsp" then
           require("sonicpi").lsp_on_init(client, { server_dir = server_path })
+          vim.notify("this happens")
         end
       end)
     end,
@@ -150,12 +145,12 @@ return {
     },
     keys = {
       {
-        "<leader>;s",
+        "<leader>;;",
         "<cmd>SonicPiStartDaemon<cr>",
         ft = "sonicpi",
       },
       {
-        "<leader>;S",
+        "<leader>;:",
         "<cmd>SonicPiStopDaemon<cr>",
         ft = "sonicpi",
       },
