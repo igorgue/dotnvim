@@ -1,6 +1,6 @@
 return {
   "grddavies/tidal.nvim",
-  event = "VeryLazy",
+  lazy = false,
   opts = {
     mappings = {
       send_line = { mode = { "n" }, key = "<cr>" },
