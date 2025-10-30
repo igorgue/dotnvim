@@ -97,7 +97,7 @@ end
 --   - **CWD Handling:** Always ensure that the current working directory is set to `{CWD}` before performing any file operations.
 --   - Only use when added to as a tool to the context window.
 --
--- ... 
+-- ...
 -- If you are providing code changes, use the `desktop_commander` tools to make the changes directly instead of printing out a code block with the changes.
 
 -- When editing files, always provide sufficient context in patches:
@@ -142,7 +142,6 @@ When responding:
 When editing files, always provide sufficient context in patches:
 - Include at least 3 lines of context before and after changes
 - Ensure exact whitespace and indentation matching
-- Use the full patch format with Begin/End markers
 - When unsure, provide more unique context rather than less
 - Read the file first if you need to understand the surrounding structure
 

@@ -2,14 +2,25 @@ vim.g.codecompanion_auto_tool_mode = true
 vim.g.codecompanion_yolo_mode = true
 vim.g.codecompanion_prompt_decorator = true
 vim.g.mcphub_auto_approve = true
+vim.g.codecompanion_attached_prompt_decorator = false
 
-local attached_prompt_decorator = false
 local programmer_tools = {
-  "cmd_runner",
   "read_file",
-  "create_file",
-  "insert_edit_into_file",
+  "cmd_runner",
+  "neovim__read_multiple_files",
+  "neovim__write_file",
+  "neovim__edit_file",
 }
+
+local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
+
+vim.api.nvim_create_autocmd({ "User" }, {
+  pattern = "CodeCompanionChatCleared",
+  group = group,
+  callback = function(request)
+    vim.g.codecompanion_attached_prompt_decorator = false
+  end,
+})
 
 return {
   {
@@ -487,16 +498,21 @@ return {
         chat = {
           opts = {
             prompt_decorator = function(message, _adapter, _context)
-              if not vim.g.codecompanion_prompt_decorator or attached_prompt_decorator then
+              if not vim.g.codecompanion_prompt_decorator or vim.g.codecompanion_attached_prompt_decorator then
                 return string.format([[<prompt>%s</prompt>]], message)
               end
 
+              -- local prelude_tools = {}
+              local prelude_tools = {
+                "@{programmer}",
+              }
               -- local prelude_tools = {
               --   "@{cmd_runner}",
               --   "@{read_file}",
-              --   "@{desktop_commander}",
+              --   "@{neovim__read_multiple_files}",
+              --   "@{neovim__write_file}",
+              --   "@{neovim__edit_file}",
               -- }
-              local prelude_tools = {}
               local prelude = prelude_tools
 
               -- check if we have any open buffers that are not codecompanion, to add the buffer var
@@ -520,7 +536,7 @@ return {
               end
 
               if #prelude > 0 then
-                attached_prompt_decorator = true
+                vim.g.codecompanion_attached_prompt_decorator = true
 
                 if #prelude_tools then
                   return string.format(
@@ -624,6 +640,18 @@ return {
             },
           },
           tools = {
+            groups = {
+              ["programmer"] = {
+                description = "Programmer Tools",
+                tools = {
+                  "neovim__read_multiple_files",
+                  "neovim__write_file",
+                  "neovim__edit_file",
+                  "cmd_runner",
+                  "read_file",
+                },
+              },
+            },
             -- FIXME: these don't work with mcphub right now
             --
             -- groups = {
@@ -659,7 +687,7 @@ return {
               requires_approval = false,
             },
             opts = {
-              default_tools = programmer_tools,
+              -- default_tools = programmer_tools,
               requires_approval = false,
               auto_submit_errors = false,
               auto_submit_success = false,
@@ -847,6 +875,7 @@ And the previous 10 commits, just in case they're related to the current changes
             show_result_in_chat = true, -- Display MCP tool results in the chat
             make_vars = true, -- Convert MCP resources to #variables
             make_slash_commands = true, -- Add MCP prompts as /slash commands
+            make_tools = true, -- Add MCP prompts as tools
           },
         },
         history = {
@@ -862,7 +891,7 @@ And the previous 10 commits, just in case they're related to the current changes
               adapter = "copilot", -- Use Copilot for title generation
               model = "gpt-4.1", -- Specific model for title generation
             },
-            continue_last_chat = false, -- Don't auto-continue previous chats
+            continue_last_chat = true, -- Don't auto-continue previous chats
             delete_on_clearing_chat = false, -- Don't delete history when clearing chat
             dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history", -- History storage location
             enable_logging = false, -- Disable debug logging
@@ -871,8 +900,8 @@ And the previous 10 commits, just in case they're related to the current changes
               create_summary_keymap = "gcs", -- Keymap to create chat summaries
               browse_summaries_keymap = "gbs", -- Keymap to browse summaries
               generation_opts = {
-                adapter = "copilot", -- Use Copilot for summary generation
-                model = "gpt-4.1", -- Specific model for summaries
+                adapter = "zai_inline", -- Use Copilot for summary generation
+                model = "glm-4.5-air", -- Specific model for summaries
                 context_size = 128000, -- Maximum context size for summaries
                 include_references = false, -- Don't include code references
                 include_tool_outputs = false, -- Don't include tool outputs

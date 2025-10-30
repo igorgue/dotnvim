@@ -2,7 +2,6 @@
 
 **A modular, multi-language development environment powered by LazyVim**
 
-![rust-btw](https://user-images.githubusercontent.com/7014/219984419-84b6829f-2926-4576-96b6-cbe20708b007.png)
 _Multi-language support, minimalist design, and advanced developer tools._
 
 ## Key Features
