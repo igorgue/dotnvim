@@ -321,7 +321,7 @@ return {
               api_key = "ZAI_API_KEY",
             },
             features = {
-              tokens = false, -- outputs gibberish as token counts
+              tokens = true, -- outputs gibberish as token counts
             },
             schema = {
               model = {
