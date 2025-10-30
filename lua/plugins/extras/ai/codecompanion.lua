@@ -1,8 +1,9 @@
 vim.g.codecompanion_auto_tool_mode = true
 vim.g.codecompanion_yolo_mode = true
 vim.g.codecompanion_prompt_decorator = true
-vim.g.mcphub_auto_approve = true
 vim.g.codecompanion_attached_prompt_decorator = false
+
+vim.g.mcphub_auto_approve = true
 
 local programmer_tools = {
   "read_file",
@@ -643,46 +644,32 @@ return {
             groups = {
               ["programmer"] = {
                 description = "Programmer Tools",
+                tools = programmer_tools,
+              },
+              ["writer"] = {
+                description = "Writer Tools",
                 tools = {
-                  "neovim__read_multiple_files",
-                  "neovim__write_file",
-                  "neovim__edit_file",
-                  "cmd_runner",
-                  "read_file",
+                  "dreamtap",
+                  "wikipedia",
+                },
+              },
+              ["web"] = {
+                description = "Search the Web",
+                tools = {
+                  "exa",
+                  "context7",
+                  "deepwiki",
+                },
+              },
+              ["docs"] = {
+                description = "Documentation Tools",
+                tools = {
+                  "context7",
+                  "deepwiki",
+                  "nixos",
                 },
               },
             },
-            -- FIXME: these don't work with mcphub right now
-            --
-            -- groups = {
-            --   ["programmer"] = {
-            --     description = "Programmer Tools",
-            --     tools = programmer_tools,
-            --   },
-            --   ["writer"] = {
-            --     description = "Writer Tools",
-            --     tools = {
-            --       "dreamtap",
-            --       "wikipedia",
-            --     },
-            --   },
-            --   ["web"] = {
-            --     description = "Search the Web",
-            --     tools = {
-            --       "exa",
-            --       "context7",
-            --       "deepwiki",
-            --     },
-            --   },
-            --   ["docs"] = {
-            --     description = "Documentation Tools",
-            --     tools = {
-            --       "context7",
-            --       "deepwiki",
-            --       "nixos",
-            --     },
-            --   },
-            -- },
             ["cmd_runner"] = {
               requires_approval = false,
             },
