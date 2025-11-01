@@ -23,7 +23,9 @@ return {
         tidal = {
           file = (function()
             local f = vim.fn.findfile("BootTidal.hs", ".;")
-            if f ~= "" then return f end
+            if f ~= "" then
+              return f
+            end
             return vim.api.nvim_get_runtime_file("bootfiles/BootTidal.hs", false)[1]
           end)(),
           highlight = {
@@ -64,7 +66,9 @@ return {
         sclang = {
           file = (function()
             local f = vim.fn.findfile("BootSuperDirt.scd", ".;")
-            if f ~= "" then return f end
+            if f ~= "" then
+              return f
+            end
             return vim.api.nvim_get_runtime_file("bootfiles/BootSuperDirt.scd", false)[1]
           end)(),
           enabled = true,
@@ -159,6 +163,16 @@ return {
           tidal_samples = {
             name = "tidal_samples",
             module = "blink.compat.source",
+            -- FIXME: we also need the default sample path in addition to this one.
+            -- opts = {
+            --   dirt_samples = (function()
+            --     local f = vim.fn.finddir("Dirt/samples", ".;")
+            --     if f ~= "" then
+            --       return f
+            --     end
+            --     return nil
+            --   end)(),
+            -- },
           },
         },
       },
