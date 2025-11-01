@@ -75,7 +75,6 @@ return {
       require("snacks").util.lsp.on(function(buf, client)
         if client.name == "ruby_lsp" then
           require("sonicpi").lsp_on_init(client, { server_dir = server_path })
-          vim.notify("this happens")
         end
       end)
     end,

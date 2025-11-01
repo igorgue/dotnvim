@@ -1,3 +1,19 @@
+vim.filetype.add({
+  extension = {
+    ["tidal"] = "tidal",
+  },
+})
+
+local ok, icons = pcall(require, "nvim-web-devicons")
+if ok then
+  icons.set_icon({
+    [".tidal"] = { icon = "󰘧 ", color = "#25C2A0", name = "TidalCycles" },
+  })
+  icons.set_icon({
+    tidal = { icon = "󰘧 ", color = "#25C2A0", name = "TidalCycles" },
+  })
+end
+
 return {
   description = "TidalCycles integration for Neovim",
   {
@@ -8,7 +24,14 @@ return {
     lazy = false,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
-      opts = { ensure_installed = { "haskell", "supercollider" } },
+      opts = function(_, opts)
+        vim.treesitter.language.register("haskell", "tidal")
+
+        opts.ensure_installed = opts.ensure_installed or {}
+        vim.list_extend(opts.ensure_installed, { "haskell", "supercollider" })
+
+        return opts
+      end,
     },
     opts = {
       mappings = {
@@ -74,6 +97,7 @@ return {
           enabled = true,
         },
       },
+      filetype = "tidal",
     },
     keys = {
       {
@@ -87,7 +111,7 @@ return {
           ]])
           vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<c-w>w", true, false, true), "n", false)
         end,
-        ft = "haskell",
+        ft = "tidal",
         desc = "Tidal Launch",
       },
       {
@@ -98,18 +122,18 @@ return {
             TidalQuit
           ]])
         end,
-        ft = "haskell",
+        ft = "tidal",
         desc = "Tidal Quit",
       },
       {
         "<leader>;t",
         "<cmd>TidalNotification<cr>",
-        ft = "haskell",
+        ft = "tidal",
       },
       {
         "<leader>;s",
         "<cmd>SuperColliderNotification<cr>",
-        ft = "haskell",
+        ft = "tidal",
       },
       {
         "<c-s-a>",
@@ -117,7 +141,7 @@ return {
           require("dial.map").manipulate("increment", "normal")
           require("tidal").api.send_block()
         end,
-        ft = "haskell",
+        ft = "tidal",
         desc = "Tidal Increment and Send Line",
       },
       {
@@ -126,7 +150,7 @@ return {
           require("dial.map").manipulate("decrement", "normal")
           require("tidal").api.send_block()
         end,
-        ft = "haskell",
+        ft = "tidal",
         desc = "Tidal Decrement and Send Line",
       },
       {
@@ -134,7 +158,7 @@ return {
         function()
           require("tidal").api.send_block()
         end,
-        ft = "haskell",
+        ft = "tidal",
         mode = { "i" },
         desc = "Tidal Send Block",
       },
@@ -163,16 +187,15 @@ return {
           tidal_samples = {
             name = "tidal_samples",
             module = "blink.compat.source",
-            -- FIXME: we also need the default sample path in addition to this one.
-            -- opts = {
-            --   dirt_samples = (function()
-            --     local f = vim.fn.finddir("Dirt/samples", ".;")
-            --     if f ~= "" then
-            --       return f
-            --     end
-            --     return nil
-            --   end)(),
-            -- },
+            opts = {
+              custom_samples = (function()
+                local f = vim.fn.finddir("Dirt/samples", ".;")
+                if f ~= "" then
+                  return {f}
+                end
+                return {}
+              end)(),
+            },
           },
         },
       },
