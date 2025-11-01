@@ -878,7 +878,7 @@ And the previous 10 commits, just in case they're related to the current changes
               adapter = "copilot", -- Use Copilot for title generation
               model = "gpt-4.1", -- Specific model for title generation
             },
-            continue_last_chat = true, -- Don't auto-continue previous chats
+            continue_last_chat = false, -- Don't auto-continue previous chats
             delete_on_clearing_chat = false, -- Don't delete history when clearing chat
             dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history", -- History storage location
             enable_logging = false, -- Disable debug logging
