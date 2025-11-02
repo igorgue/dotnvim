@@ -139,7 +139,7 @@ return {
         "<c-s-a>",
         function()
           require("dial.map").manipulate("increment", "normal")
-          require("tidal").api.send_block()
+          require("tidal").api.send_line()
         end,
         ft = "tidal",
         desc = "Tidal Increment and Send Line",
@@ -148,7 +148,7 @@ return {
         "<c-s-x>",
         function()
           require("dial.map").manipulate("decrement", "normal")
-          require("tidal").api.send_block()
+          require("tidal").api.send_line()
         end,
         ft = "tidal",
         desc = "Tidal Decrement and Send Line",
@@ -173,10 +173,22 @@ return {
         dependencies = {
           "nvim-lua/plenary.nvim",
         },
-        event = "BufReadPost *.tidal",
+        ft = "tidal",
       },
     },
     opts = {
+      completion = {
+        accept = {
+          auto_brackets = {
+            kind_resolution = {
+              blocked_filetypes = { "tidal" },
+            },
+            semantic_token_resolution = {
+              blocked_filetypes = { "tidal" },
+            },
+          },
+        },
+      },
       sources = {
         default = { "tidal", "tidal_samples" },
         providers = {
@@ -191,7 +203,7 @@ return {
               custom_samples = (function()
                 local f = vim.fn.finddir("Dirt/samples", ".;")
                 if f ~= "" then
-                  return {f}
+                  return { f }
                 end
                 return {}
               end)(),
