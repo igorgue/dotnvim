@@ -17,9 +17,7 @@ end
 return {
   description = "TidalCycles integration for Neovim",
   {
-    -- "grddavies/tidal.nvim",
-    "thgrund/tidal.nvim",
-    dir = "~/Code/tidal.nvim",
+    "igorgue/tidal.nvim",
     branch = "develop",
     lazy = false,
     dependencies = {
@@ -168,8 +166,7 @@ return {
     "saghen/blink.cmp",
     dependencies = {
       {
-        "l00sed/cmp-tidal",
-        dir = "~/Code/cmp-tidal",
+        "igorgue/cmp-tidal",
         dependencies = {
           "nvim-lua/plenary.nvim",
         },
