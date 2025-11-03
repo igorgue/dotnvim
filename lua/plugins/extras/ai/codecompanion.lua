@@ -922,8 +922,8 @@ And the previous 10 commits, just in case they're related to the current changes
         history = {
           enabled = true, -- Enable chat history functionality
           opts = {
-            keymap = "gh", -- Keymap to open history picker
-            save_chat_keymap = "sc", -- Keymap to save current chat
+            keymap = "gh", -- Keymap to open [h]istory picker
+            save_chat_keymap = "sc", -- Keymap to [s]ave [c]urrent chat
             auto_save = true, -- Automatically save chats
             expiration_days = 0, -- Never expire chats (0 = no expiration)
             picker = "snacks", -- Use Snacks picker for history
@@ -938,8 +938,8 @@ And the previous 10 commits, just in case they're related to the current changes
             enable_logging = false, -- Disable debug logging
             summary = {
               enabled = true,
-              create_summary_keymap = "gcs", -- Keymap to create chat summaries
-              browse_summaries_keymap = "gbs", -- Keymap to browse summaries
+              create_summary_keymap = "<leader>acs", -- Keymap to create chat [s]ummaries
+              browse_summaries_keymap = "<leader>acb", -- Keymap to [b]rowse summaries
               generation_opts = {
                 adapter = "zai_inline", -- Use Copilot for summary generation
                 model = "glm-4.5-air", -- Specific model for summaries

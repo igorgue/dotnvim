@@ -12,6 +12,7 @@ return {
       vim.g.copilot_assume_mapped = false
       vim.g.copilot_filetypes = {
         ["*"] = true,
+        codecompanion = true,
         neorepl = false,
         TelescopeResults = false,
         TelescopePrompt = false,
