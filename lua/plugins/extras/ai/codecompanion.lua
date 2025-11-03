@@ -225,140 +225,141 @@ return {
             })
           end,
         },
-          copilot = function()
-            return require("codecompanion.adapters").extend("copilot", {
-              schema = {
-                model = {
-                  default = "claude-sonnet-4.5",
-                  choices = {
-                    ["claude-sonnet-4.5"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
-                  },
+        copilot = function()
+          return require("codecompanion.adapters").extend("copilot", {
+            schema = {
+              model = {
+                default = "claude-sonnet-4.5",
+                choices = {
+                  ["claude-sonnet-4.5"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
+                  ["gpt-4.1"] = {},
                 },
               },
-            })
-          end,
-          copilot_inline = function()
-            return require("codecompanion.adapters").extend("copilot", {
-              schema = {
-                model = {
-                  default = "gpt-4.1",
-                  choices = {
-                    ["gpt-4.1"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
-                  },
+            },
+          })
+        end,
+        copilot_inline = function()
+          return require("codecompanion.adapters").extend("copilot", {
+            schema = {
+              model = {
+                default = "gpt-4.1",
+                choices = {
+                  ["gpt-4.1"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
                 },
               },
-            })
-          end,
-          gemini = function()
-            return require("codecompanion.adapters").extend("gemini", {
-              schema = {
-                model = {
-                  default = "gemini-2.5-pro-preview-05-06",
-                  choices = {
-                    ["gemini-2.5-pro-preview-05-06"] = {},
-                  },
+            },
+          })
+        end,
+        gemini = function()
+          return require("codecompanion.adapters").extend("gemini", {
+            schema = {
+              model = {
+                default = "gemini-2.5-pro-preview-05-06",
+                choices = {
+                  ["gemini-2.5-pro-preview-05-06"] = {},
                 },
               },
-            })
-          end,
-          deepseek = function()
-            return require("codecompanion.adapters").extend("deepseek", {
-              schema = {
-                model = {
-                  default = "deepseek-chat",
-                  choices = {
-                    ["deepseek-chat"] = {},
-                    ["deepseek-coder"] = {},
-                  },
+            },
+          })
+        end,
+        deepseek = function()
+          return require("codecompanion.adapters").extend("deepseek", {
+            schema = {
+              model = {
+                default = "deepseek-chat",
+                choices = {
+                  ["deepseek-chat"] = {},
+                  ["deepseek-coder"] = {},
                 },
               },
-            })
-          end,
-          openai = function()
-            return require("codecompanion.adapters").extend("openai", {
-              schema = {
-                model = {
-                  default = "gpt-5",
-                  choices = {
-                    ["gpt-5"] = {},
-                    ["gpt-4o"] = {},
-                    ["gpt-4o-mini"] = {},
-                  },
+            },
+          })
+        end,
+        openai = function()
+          return require("codecompanion.adapters").extend("openai", {
+            schema = {
+              model = {
+                default = "gpt-5",
+                choices = {
+                  ["gpt-5"] = {},
+                  ["gpt-4o"] = {},
+                  ["gpt-4o-mini"] = {},
                 },
               },
-            })
-          end,
-          moonshot = function()
-            return require("codecompanion.adapters").extend("openai_compatible", {
-              name = "moonshot",
-              formatted_name = "MoonshotAI",
-              opts = {
-                vision = true,
-              },
-              env = {
-                url = "https://api.moonshot.ai",
-                api_key = "MOONSHOTAI_API_KEY",
-              },
-              schema = {
-                model = {
-                  -- default = "kimi-k2-0905-preview",
-                  default = "kimi-k2-turbo-preview",
-                  choices = {
-                    ["kimi-k2-turbo-preview"] = {},
-                    ["kimi-k2-0905-preview"] = {},
-                  },
-                },
-                temperature = {
-                  default = 0.3,
-                  -- default = 0.6, -- for 0905
-                },
-                max_tokens = {
-                  default = -1,
+            },
+          })
+        end,
+        moonshot = function()
+          return require("codecompanion.adapters").extend("openai_compatible", {
+            name = "moonshot",
+            formatted_name = "MoonshotAI",
+            opts = {
+              vision = true,
+            },
+            env = {
+              url = "https://api.moonshot.ai",
+              api_key = "MOONSHOTAI_API_KEY",
+            },
+            schema = {
+              model = {
+                -- default = "kimi-k2-0905-preview",
+                default = "kimi-k2-turbo-preview",
+                choices = {
+                  ["kimi-k2-turbo-preview"] = {},
+                  ["kimi-k2-0905-preview"] = {},
                 },
               },
-            })
-          end,
-          dashscope = function()
-            return require("codecompanion.adapters").extend("openai_compatible", {
-              name = "dashscope",
-              formatted_name = "DashScope (Alibaba Cloud)",
-              env = {
-                url = "https://dashscope-intl.aliyuncs.com/compatible-mode",
-                api_key = "DASHSCOPE_API_KEY",
+              temperature = {
+                default = 0.3,
+                -- default = 0.6, -- for 0905
               },
-              schema = {
-                model = {
-                  -- default = "qwen3-coder-plus",
-                  default = "qwen3-max-preview",
-                  choices = {
-                    ["qwen3-max-preview"] = {},
-                    ["qwen3-coder-plus"] = {},
-                  },
+              max_tokens = {
+                default = -1,
+              },
+            },
+          })
+        end,
+        dashscope = function()
+          return require("codecompanion.adapters").extend("openai_compatible", {
+            name = "dashscope",
+            formatted_name = "DashScope (Alibaba Cloud)",
+            env = {
+              url = "https://dashscope-intl.aliyuncs.com/compatible-mode",
+              api_key = "DASHSCOPE_API_KEY",
+            },
+            schema = {
+              model = {
+                -- default = "qwen3-coder-plus",
+                default = "qwen3-max-preview",
+                choices = {
+                  ["qwen3-max-preview"] = {},
+                  ["qwen3-coder-plus"] = {},
                 },
               },
-            })
-          end,
-          minimax = function()
-            return require("codecompanion.adapters").extend("anthropic", {
-              name = "minimax",
-              formatted_name = "Minimax",
-              url = "https://api.minimax.io/anthropic/v1/messages",
-              env = {
-                api_key = "MINIMAX_API_KEY",
-              },
-              features = {
-                tokens = true,
-              },
-              schema = {
-                model = {
-                  default = "minimax-m2",
-                  choices = {
-                    ["minimax-m2"] = {},
-                  },
+            },
+          })
+        end,
+        minimax = function()
+          return require("codecompanion.adapters").extend("anthropic", {
+            name = "minimax",
+            formatted_name = "Minimax",
+            url = "https://api.minimax.io/anthropic/v1/messages",
+            env = {
+              api_key = "MINIMAX_API_KEY",
+            },
+            features = {
+              tokens = true,
+            },
+            schema = {
+              model = {
+                default = "minimax-m2",
+                choices = {
+                  ["minimax-m2"] = {},
                 },
               },
-            })
-          end,
+            },
+          })
+        end,
         zai = function()
           return require("codecompanion.adapters").extend("anthropic", {
             name = "zai",
@@ -457,92 +458,92 @@ return {
             },
           })
         end,
-          openrouter = function()
-            return require("codecompanion.adapters").extend("openai_compatible", {
-              name = "openrouter",
-              formatted_name = "OpenRouter",
-              roles = {
-                llm = "assistant",
-                user = "user",
-                tool = "tool",
-              },
-              opts = {
-                stream = true,
-                tools = true,
-                vision = true,
-              },
-              features = {
-                text = true,
-                tokens = true,
-              },
-              env = {
-                api_key = "OPENROUTER_API_KEY",
-                url = "https://openrouter.ai/api",
-                chat_url = "/v1/chat/completions",
-                models_endpoint = "/v1/models",
-              },
-              schema = {
-                model = {
-                  default = "z-ai/glm-4.5-air:free",
-                  choices = {
-                    ["moonshotai/kimi-k2:free"] = {},
-                    ["nvidia/nemotron-nano-9b-v2"] = {},
-                    ["openai/gpt-5"] = {},
-                    ["openai/gpt-5-chat"] = {},
-                    ["openai/gpt-5-mini"] = {},
-                    ["openai/gpt-5-nano"] = {},
-                    ["openai/gpt-oss-120b"] = {},
-                    ["openai/gpt-oss-20b"] = {},
-                    ["openai/gpt-oss-20b:free"] = {},
-                    ["deepseek/deepseek-chat-v3.1"] = {},
-                    ["x-ai/grok-code-fast-1"] = {},
-                    ["x-ai/grok-4-fast:free"] = {},
-                    ["z-ai/glm-4.5-air:free"] = {},
-                    ["z-ai/glm-4.6"] = {},
-                    ["anthropic/claude-sonnet-4.5"] = {},
-                    ["anthropic/claude-sonnet-4"] = {},
-                    ["minimax/minimax-m2"] = {},
-                  },
+        openrouter = function()
+          return require("codecompanion.adapters").extend("openai_compatible", {
+            name = "openrouter",
+            formatted_name = "OpenRouter",
+            roles = {
+              llm = "assistant",
+              user = "user",
+              tool = "tool",
+            },
+            opts = {
+              stream = true,
+              tools = true,
+              vision = true,
+            },
+            features = {
+              text = true,
+              tokens = true,
+            },
+            env = {
+              api_key = "OPENROUTER_API_KEY",
+              url = "https://openrouter.ai/api",
+              chat_url = "/v1/chat/completions",
+              models_endpoint = "/v1/models",
+            },
+            schema = {
+              model = {
+                default = "z-ai/glm-4.5-air:free",
+                choices = {
+                  ["moonshotai/kimi-k2:free"] = {},
+                  ["nvidia/nemotron-nano-9b-v2"] = {},
+                  ["openai/gpt-5"] = {},
+                  ["openai/gpt-5-chat"] = {},
+                  ["openai/gpt-5-mini"] = {},
+                  ["openai/gpt-5-nano"] = {},
+                  ["openai/gpt-oss-120b"] = {},
+                  ["openai/gpt-oss-20b"] = {},
+                  ["openai/gpt-oss-20b:free"] = {},
+                  ["deepseek/deepseek-chat-v3.1"] = {},
+                  ["x-ai/grok-code-fast-1"] = {},
+                  ["x-ai/grok-4-fast:free"] = {},
+                  ["z-ai/glm-4.5-air:free"] = {},
+                  ["z-ai/glm-4.6"] = {},
+                  ["anthropic/claude-sonnet-4.5"] = {},
+                  ["anthropic/claude-sonnet-4"] = {},
+                  ["minimax/minimax-m2"] = {},
                 },
               },
-            })
-          end,
-          ollama = function()
-            return require("codecompanion.adapters").extend("ollama", {
-              name = "ollama",
-              formatted_name = "Ollama",
-              schema = {
-                model = {
-                  default = "qwen3:8b",
-                  choices = {
-                    ["qwen3:8b"] = {},
-                    ["gpt-oss:20b"] = {},
-                    ["codellama:7b"] = {},
-                    ["gemma3:12b"] = {},
-                  },
+            },
+          })
+        end,
+        ollama = function()
+          return require("codecompanion.adapters").extend("ollama", {
+            name = "ollama",
+            formatted_name = "Ollama",
+            schema = {
+              model = {
+                default = "qwen3:8b",
+                choices = {
+                  ["qwen3:8b"] = {},
+                  ["gpt-oss:20b"] = {},
+                  ["codellama:7b"] = {},
+                  ["gemma3:12b"] = {},
                 },
               },
-            })
-          end,
-          xai = function()
-            return require("codecompanion.adapters").extend("openai_compatible", {
-              name = "xai",
-              formatted_name = "XAi",
-              env = {
-                url = "https://api.x.ai",
-                api_key = "XAI_API_KEY",
-              },
-              schema = {
-                model = {
-                  default = "grok-code-fast-1",
-                  choices = {
-                    ["grok-code-fast-1"] = {},
-                  },
+            },
+          })
+        end,
+        xai = function()
+          return require("codecompanion.adapters").extend("openai_compatible", {
+            name = "xai",
+            formatted_name = "XAi",
+            env = {
+              url = "https://api.x.ai",
+              api_key = "XAI_API_KEY",
+            },
+            schema = {
+              model = {
+                default = "grok-code-fast-1",
+                choices = {
+                  ["grok-code-fast-1"] = {},
                 },
               },
-            })
-          end,
-        },
+            },
+          })
+        end,
+      },
       strategies = {
         chat = {
           opts = {

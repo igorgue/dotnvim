@@ -1,11 +1,3 @@
-local function resume_snacks_picker()
-  if not require("snacks.picker.core.picker").last then
-    Snacks.picker.smart()
-  else
-    Snacks.picker.resume()
-  end
-end
-
 return {
   {
     "nvim-tree/nvim-web-devicons",
@@ -215,8 +207,8 @@ return {
     },
     keys = {
       -- stylua: ignore start
-      { "<c-cr>", resume_snacks_picker, desc = "Resume", mode = { "n", "i" } },
-      { "<leader><cr>", resume_snacks_picker, desc = "Resume" },
+      { "<c-cr>", function() Snacks.picker.resume() end, desc = "Resume", mode = { "n", "i" } },
+      { "<leader><cr>", function() Snacks.picker.resume() end, desc = "Resume" },
       { "<leader>r", function() Snacks.picker.recent({ filter = { cwd = true }}) end, desc = "Recent (cwd)" },
       { "<leader>R", function() Snacks.picker.recent() end, desc = "Recent (Global)" },
       { "<leader>ff", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
