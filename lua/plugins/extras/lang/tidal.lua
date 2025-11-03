@@ -50,6 +50,7 @@ return {
             return vim.api.nvim_get_runtime_file("bootfiles/BootTidal.hs", false)[1]
           end)(),
           highlight = {
+            autostart = true,
             styles = {
               osc = {
                 ip = "127.0.0.1",
@@ -85,6 +86,7 @@ return {
           },
         },
         sclang = {
+          enabled = true,
           file = (function()
             local f = vim.fn.findfile("BootSuperDirt.scd", ".;")
             if f ~= "" then
@@ -92,47 +94,22 @@ return {
             end
             return vim.api.nvim_get_runtime_file("bootfiles/BootSuperDirt.scd", false)[1]
           end)(),
-          enabled = true,
+          midi = {
+            enabled = true,
+            device_name = "Virtual Raw MIDI 4-0",
+            port_name = "VirMIDI 4-0",
+            latency = 0.0,
+            symbol = "midi",
+          },
         },
       },
       filetype = "tidal",
     },
     keys = {
-      {
-        "<leader>;;",
-        function()
-          vim.cmd([[
-            TidalLaunch
-            TidalNotification
-            SuperColliderNotification
-            TidalStartEventHighlighting
-          ]])
-          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<c-w>w", true, false, true), "n", false)
-        end,
-        ft = "tidal",
-        desc = "Tidal Launch",
-      },
-      {
-        "<leader>;:",
-        function()
-          vim.cmd([[
-            TidalStopEventHighlighting
-            TidalQuit
-          ]])
-        end,
-        ft = "tidal",
-        desc = "Tidal Quit",
-      },
-      {
-        "<leader>;t",
-        "<cmd>TidalNotification<cr>",
-        ft = "tidal",
-      },
-      {
-        "<leader>;s",
-        "<cmd>SuperColliderNotification<cr>",
-        ft = "tidal",
-      },
+      { "<leader>;;", "<cmd>TidalLaunch<cr>", desc = "Tidal Launch", ft = "tidal" },
+      { "<leader>;:", "<cmd>TidalQuit<cr>", ft = { "tidal", "tidal_post", "sc_post" } },
+      { "<leader>;t", "<cmd>TidalNotification<cr>", ft = { "tidal", "sc_post" } },
+      { "<leader>;s", "<cmd>SuperColliderNotification<cr>", ft = { "tidal", "tidal_post" } },
       {
         "<c-s-a>",
         function()
@@ -198,7 +175,7 @@ return {
             module = "blink.compat.source",
             opts = {
               custom_samples = (function()
-                local f = vim.fn.finddir("Dirt/samples", ".;")
+                local f = vim.fn.finddir("samples", ".;")
                 if f ~= "" then
                   return { f }
                 end

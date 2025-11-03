@@ -229,7 +229,7 @@ return {
           return require("codecompanion.adapters").extend("copilot", {
             schema = {
               model = {
-                default = "grok-code-fast-1",
+                default = "claude-sonnet-4.5",
               },
             },
           })
@@ -312,6 +312,33 @@ return {
             },
           })
         end,
+        minimax = function()
+          return require("codecompanion.adapters").extend("anthropic", {
+            name = "minimax",
+            formatted_name = "Minimax",
+            url = "https://api.minimax.io/anthropic/v1/messages",
+            env = {
+              api_key = "MINIMAX_API_KEY",
+            },
+            features = {
+              tokens = true,
+            },
+            schema = {
+              model = {
+                default = "minimax-m2",
+                choices = {
+                  "minimax-m2",
+                },
+              },
+              max_tokens = {
+                default = 204800,
+                validate = function(n)
+                  return n > 0 and n <= 204800, "Must be between 0 and 204800"
+                end,
+              },
+            },
+          })
+        end,
         zai = function()
           return require("codecompanion.adapters").extend("anthropic", {
             name = "zai",
@@ -338,9 +365,9 @@ return {
                   return n > 0 and n <= 200000, "Must be between 0 and 200000"
                 end,
               },
-              thinking_budget = {
-                default = 32000,
-              },
+              -- thinking_budget = {
+              --   default = 32000,
+              -- },
               tools = {
                 output_response = function(_self, tool_call, output)
                   return {
@@ -386,9 +413,6 @@ return {
                 validate = function(n)
                   return n > 0 and n <= 10000, "Must be between 0 and 10000"
                 end,
-              },
-              extended_thinking = {
-                default = false,
               },
               extended_thinking = {
                 default = false,
@@ -457,6 +481,7 @@ return {
                   "z-ai/glm-4.6",
                   "anthropic/claude-sonnet-4.5",
                   "anthropic/claude-sonnet-4",
+                  "minimax/minimax-m2",
                 },
               },
             },
