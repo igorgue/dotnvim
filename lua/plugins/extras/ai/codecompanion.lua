@@ -11,6 +11,9 @@ local programmer_tools = {
   "neovim__read_multiple_files",
   "neovim__write_file",
   "neovim__edit_file",
+  "deepwiki",
+  "context7",
+  "exa",
 }
 
 local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
