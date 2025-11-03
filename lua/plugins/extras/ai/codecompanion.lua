@@ -695,29 +695,34 @@ return {
                 description = "Programmer Tools",
                 tools = programmer_tools,
               },
-              ["writer"] = {
-                description = "Writer Tools",
-                tools = {
-                  "dreamtap",
-                  "wikipedia",
-                },
-              },
-              ["web"] = {
-                description = "Search the Web",
-                tools = {
-                  "exa",
-                  "context7",
-                  "deepwiki",
-                },
-              },
-              ["docs"] = {
-                description = "Documentation Tools",
-                tools = {
-                  "context7",
-                  "deepwiki",
-                  "nixos",
-                },
-              },
+              -- XXX: These don't work... wtf? but the one on top does!
+              --
+              -- ["writer"] = {
+              --   description = "Writer Tools",
+              --   tools = {
+              --     "read_file",
+              --     "dreamtap",
+              --     "wikipedia",
+              --   },
+              -- },
+              -- ["web"] = {
+              --   description = "Search the Web",
+              --   tools = {
+              --     "read_file",
+              --     "exa",
+              --     "context7",
+              --     "deepwiki",
+              --   },
+              -- },
+              -- ["docs"] = {
+              --   description = "Documentation Tools",
+              --   tools = {
+              --     "read_file",
+              --     "context7",
+              --     "deepwiki",
+              --     "nixos",
+              --   },
+              -- },
             },
             ["cmd_runner"] = {
               requires_approval = false,

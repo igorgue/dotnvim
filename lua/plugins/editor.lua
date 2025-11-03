@@ -1,5 +1,13 @@
 return {
   {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        marksman = false,
+      },
+    },
+  },
+  {
     "michaeljsmith/vim-indent-object",
     event = { "BufReadPost", "BufNewFile" },
     keys = {
