@@ -95,7 +95,7 @@ return {
             return vim.api.nvim_get_runtime_file("bootfiles/BootSuperDirt.scd", false)[1]
           end)(),
           midi = {
-            enabled = true,
+            enabled = false,
             device_name = "Virtual Raw MIDI 4-0",
             port_name = "VirMIDI 4-0",
             latency = 0.0,
