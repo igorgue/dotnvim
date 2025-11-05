@@ -85,7 +85,7 @@
   "sonicpi.nvim": { "branch": "main", "commit": "9204aec1461520ccb42deb6354a514ecf7eadad8" },
   "sqlite.lua": { "branch": "master", "commit": "50092d60feb242602d7578398c6eb53b4a8ffe7b" },
   "tailwind-tools.nvim": { "branch": "master", "commit": "fbe982901d4508b0dcd80e07addf0fcb6dab6c49" },
-  "tidal.nvim": { "branch": "develop", "commit": "3e6ec980efe3c7a512eafb8cf6a96a8efa7fafa7" },
+  "tidal.nvim": { "branch": "develop", "commit": "ebfea554c2380b4b7cfe1b9ca79921e2d0677515" },
   "todo-comments.nvim": { "branch": "main", "commit": "411503d3bedeff88484de572f2509c248e499b38" },
   "tokyonight.nvim": { "branch": "main", "commit": "b13cfc1286d2aa8bda6ce137b79e857d5a3d5739" },
   "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" },
