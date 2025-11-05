@@ -14,7 +14,7 @@
   "cmp-tidal": { "branch": "main", "commit": "9aa10df0147e5e638dcff7679979de648ac8aa8c" },
   "codecompanion-fast-apply.nvim": { "branch": "main", "commit": "086ba9c81d8ae07092644a92badb5dc5e9cf7398" },
   "codecompanion-history.nvim": { "branch": "main", "commit": "eb99d256352144cf3b6a1c45608ec25544a0813d" },
-  "codecompanion.nvim": { "branch": "main", "commit": "31f870579124a379eaf9c74b30d8a4870da29e62" },
+  "codecompanion.nvim": { "branch": "main", "commit": "5b454ce8cba1e2f252c5880081d464c27dada836" },
   "color-picker.nvim": { "branch": "master", "commit": "06cb5f853535dea529a523e9a0e8884cdf9eba4d" },
   "conform.nvim": { "branch": "master", "commit": "26c02e1155a4980900bdccabca4516f4c712aae9" },
   "copilot.vim": { "branch": "release", "commit": "da369d90cfd6c396b1d0ec259836a1c7222fb2ea" },

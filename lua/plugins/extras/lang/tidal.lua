@@ -18,6 +18,7 @@ return {
   description = "TidalCycles integration for Neovim",
   {
     "igorgue/tidal.nvim",
+    -- dir = "~/Code/tidal.nvim",
     branch = "develop",
     lazy = false,
     dependencies = {
@@ -87,6 +88,7 @@ return {
         },
         sclang = {
           enabled = true,
+          pw_jack = true,
           file = (function()
             local f = vim.fn.findfile("BootSuperDirt.scd", ".;")
             if f ~= "" then
