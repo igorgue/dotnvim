@@ -5,15 +5,20 @@ vim.g.codecompanion_attached_prompt_decorator = false
 
 vim.g.mcphub_auto_approve = true
 
-local programmer_tools = {
+local default_tools = {
   "read_file",
   "cmd_runner",
-  "neovim__read_multiple_files",
-  "neovim__write_file",
-  "neovim__edit_file",
+}
+
+local default_groups = {
+  "neovim",
+  "sequentialthinking",
   "deepwiki",
   "context7",
+  "chrome-devtools-mcp",
   "exa",
+  "wikipedia",
+  "time",
 }
 
 local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
@@ -21,7 +26,7 @@ local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
 vim.api.nvim_create_autocmd({ "User" }, {
   pattern = "CodeCompanionChatCleared",
   group = group,
-  callback = function(request)
+  callback = function()
     vim.g.codecompanion_attached_prompt_decorator = false
   end,
 })
@@ -372,7 +377,18 @@ return {
               api_key = "ZAI_API_KEY",
             },
             features = {
-              tokens = true, -- outputs gibberish as token counts
+              tokens = true,
+              text = true,
+            },
+            opts = {
+              stream = true,
+              tools = true,
+              has_token_efficient_tools = true,
+            },
+            temp = {
+              extended_output = true,
+              extended_thinking = true,
+              thinking_budget = 3000,
             },
             schema = {
               model = {
@@ -389,9 +405,6 @@ return {
                   return n > 0 and n <= 200000, "Must be between 0 and 200000"
                 end,
               },
-              -- thinking_budget = {
-              --   default = 32000,
-              -- },
               tools = {
                 output_response = function(_self, tool_call, output)
                   return {
@@ -551,24 +564,25 @@ return {
         chat = {
           opts = {
             prompt_decorator = function(message, _adapter, _context)
+              -- Reset flag at the beginning of each message to allow tools to be re-attached
+              vim.g.codecompanion_attached_prompt_decorator = false
+
               if not vim.g.codecompanion_prompt_decorator or vim.g.codecompanion_attached_prompt_decorator then
-                return string.format([[<prompt>%s</prompt>]], message)
+                return string.format("<prompt>\n%s\n</prompt>", message)
               end
 
-              -- local prelude_tools = {}
-              local prelude_tools = {
-                "@{programmer}",
-              }
-              -- local prelude_tools = {
-              --   "@{cmd_runner}",
-              --   "@{read_file}",
-              --   "@{neovim__read_multiple_files}",
-              --   "@{neovim__write_file}",
-              --   "@{neovim__edit_file}",
-              -- }
+              local prelude_tools = {}
+
+              for _, tool in ipairs(default_tools) do
+                prelude_tools[#prelude_tools + 1] = "@{" .. tool .. "}"
+              end
+
+              for _, group in ipairs(default_groups) do
+                prelude_tools[#prelude_tools + 1] = "@{" .. group .. "}"
+              end
+
               local prelude = prelude_tools
 
-              -- check if we have any open buffers that are not codecompanion, to add the buffer var
               local bufs = vim.api.nvim_list_bufs()
               local has_non_codecompanion_buffer = false
               for i = #bufs, 1, -1 do
@@ -593,19 +607,17 @@ return {
 
                 if #prelude_tools then
                   return string.format(
-                    "Use the following tools: "
-                      .. table.concat(prelude, " ")
-                      -- .. "\n"
-                      -- .. "Use desktop_commander__edit_block to edit files and desktop_commander__write_file to make new files or append to files, don't forget to initialize desktop commander with desktop_commander__set_config_value as explained in the system prompt."
-                      .. "\n\n"
-                      .. "<prompt>%s</prompt>",
+                    "<prompt>\n%s\n</prompt>\n\n" .. "<tools>\n" .. table.concat(prelude, " ") .. "\n</tools>",
                     message
                   )
                 else
-                  return string.format(table.concat(prelude, " ") .. "\n\n" .. "<prompt>%s</prompt>", message)
+                  return string.format(
+                    "<prompt>\n%s\n</prompt>\n\n<tools>\n" .. table.concat(prelude, " ") .. "\n</tools>",
+                    message
+                  )
                 end
               else
-                return string.format("<prompt>%s</prompt>", message)
+                return string.format("<prompt>\n%s\n</prompt>", message)
               end
             end,
           },
@@ -696,42 +708,48 @@ return {
             groups = {
               ["programmer"] = {
                 description = "Programmer Tools",
-                tools = programmer_tools,
+                tools = {
+                  "read_file",
+                  "cmd_runner",
+                  "neovim__execute_lua",
+                  "neovim__read_multiple_files",
+                  "neovim__write_file",
+                  "neovim__edit_file",
+                },
               },
-              -- XXX: These don't work... wtf? but the one on top does!
-              --
-              -- ["writer"] = {
-              --   description = "Writer Tools",
-              --   tools = {
-              --     "read_file",
-              --     "dreamtap",
-              --     "wikipedia",
-              --   },
-              -- },
-              -- ["web"] = {
-              --   description = "Search the Web",
-              --   tools = {
-              --     "read_file",
-              --     "exa",
-              --     "context7",
-              --     "deepwiki",
-              --   },
-              -- },
-              -- ["docs"] = {
-              --   description = "Documentation Tools",
-              --   tools = {
-              --     "read_file",
-              --     "context7",
-              --     "deepwiki",
-              --     "nixos",
-              --   },
-              -- },
+              ["writer"] = {
+                description = "Writer Tools",
+                tools = {
+                  "read_file",
+                  "dreamtap__get_inspirations",
+                  "wikipedia__extract_key_facts",
+                  "wikipedia__get_article",
+                  "wikipedia__links",
+                  "wikipedia__sections",
+                  "wikipedia__summary",
+                  "wikipedia__search_wikipedia",
+                  "wikipedia__summarize_article_for_query",
+                  "wikipedia__summarize_article_section",
+                },
+              },
+              ["web"] = {
+                description = "Search the Web",
+                tools = {
+                  "read_file",
+                  "exa__web_search_exa",
+                  "context7__get_library_docs",
+                  "context7__resolve_library_id",
+                  "deepwiki__read_wiki_structure",
+                  "deepwiki__read_wiki_contents",
+                  "deepwiki__ask_question",
+                },
+              },
             },
             ["cmd_runner"] = {
               requires_approval = false,
             },
             opts = {
-              -- default_tools = programmer_tools,
+              -- default_tools = {},
               requires_approval = false,
               auto_submit_errors = false,
               auto_submit_success = false,

@@ -159,6 +159,7 @@ Best practices for file editing:
 2. **NEVER CONCATENATE JSON** - Never put multiple JSON objects together. This is INVALID and will break the system.
 3. **SEQUENTIAL CALLS ONLY** - To use multiple tools, make ONE call, receive response, THEN make next call.
 4. **USE ONLY AVAILABLE TOOLS** - Restrict tool usage to those listed in the context window.
+5. **USER REQUEST A TOOL USAGE** - Use the tool the user indicates in their prompt, as much as possible even if you have other tools available.
 
 ❌ INVALID - THIS WILL FAIL (concatenated JSON):
 {"query": "search1", "numResults": 5}{"query": "search2", "tokensNum": "dynamic"}{"libraryName": "SomeLib"}
