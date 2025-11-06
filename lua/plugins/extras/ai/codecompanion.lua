@@ -16,6 +16,7 @@ local default_groups = {
   "deepwiki",
   "context7",
   "chrome-devtools-mcp",
+  "linkup",
   "exa",
   "wikipedia",
   "time",
@@ -552,9 +553,9 @@ return {
             schema = {
               model = {
                 default = "grok-code-fast-1",
-                choices = {
-                  ["grok-code-fast-1"] = {},
-                },
+                -- choices = {
+                --   ["grok-code-fast-1"] = {},
+                -- },
               },
             },
           })
@@ -564,9 +565,6 @@ return {
         chat = {
           opts = {
             prompt_decorator = function(message, _adapter, _context)
-              -- Reset flag at the beginning of each message to allow tools to be re-attached
-              vim.g.codecompanion_attached_prompt_decorator = false
-
               if not vim.g.codecompanion_prompt_decorator or vim.g.codecompanion_attached_prompt_decorator then
                 return string.format("<prompt>\n%s\n</prompt>", message)
               end
