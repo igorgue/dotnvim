@@ -312,8 +312,10 @@ return {
             schema = {
               model = {
                 -- default = "kimi-k2-0905-preview",
-                default = "kimi-k2-turbo-preview",
+                -- default = "kimi-k2-turbo-preview",
+                default = "kimi-k2-thinking",
                 choices = {
+                  ["kimi-k2-thinking"] = {},
                   ["kimi-k2-turbo-preview"] = {},
                   ["kimi-k2-0905-preview"] = {},
                 },
