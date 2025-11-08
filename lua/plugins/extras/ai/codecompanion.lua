@@ -9,7 +9,7 @@ local default_tools = {
   "read_file",
   "create_file",
   "cmd_runner",
-  "insert_edit_into_file"
+  "insert_edit_into_file",
 }
 
 local default_groups = {
@@ -303,33 +303,30 @@ return {
           })
         end,
         moonshot = function()
-          return require("codecompanion.adapters").extend("openai_compatible", {
+          return require("codecompanion.adapters").extend("deepseek", {
             name = "moonshot",
             formatted_name = "MoonshotAI",
             opts = {
-              vision = true,
+              vision = false,
+              stream = true,
+              tools = true,
             },
+            url = "https://api.moonshot.ai/v1/chat/completions",
             env = {
-              url = "https://api.moonshot.ai",
               api_key = "MOONSHOTAI_API_KEY",
             },
             schema = {
               model = {
-                -- default = "kimi-k2-0905-preview",
-                -- default = "kimi-k2-turbo-preview",
                 default = "kimi-k2-thinking",
                 choices = {
-                  ["kimi-k2-thinking"] = {},
-                  ["kimi-k2-turbo-preview"] = {},
-                  ["kimi-k2-0905-preview"] = {},
+                  ["kimi-k2-thinking"] = { can_reason = true, has_vision = false },
                 },
               },
               temperature = {
-                default = 0.3,
-                -- default = 0.6, -- for 0905
+                default = 1,
               },
               max_tokens = {
-                default = -1,
+                default = 1024 * 32,
               },
             },
           })
@@ -821,7 +818,7 @@ return {
           separtor = "---",
           show_references = true,
           show_header_separator = false,
-          show_settings = true,
+          show_settings = false,
           show_context = true,
           show_token_count = true,
           render_headers = false,
