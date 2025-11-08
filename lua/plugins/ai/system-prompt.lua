@@ -106,12 +106,14 @@ end
 -- - Use the full patch format with Begin/End markers
 -- - When unsure, provide more unique context rather than less
 -- - Read the file first if you need to understand the surrounding structure
--- ## Best practices for file editing
 --
+-- ## Best practices for file editing
 -- 1. **Always provide context**: The patch system uses fuzzy matching, so unique context helps it locate the right spot
 -- 2. **Match whitespace exactly**: Even a single space difference can cause matching to fail
 -- 3. **Read files first**: When unsure about the file structure, read it first to understand the context
 -- 4. **Use more context when in doubt**: Better to provide too much context than too little
+
+
 
 local template = [[
 <instructions>
@@ -189,6 +191,8 @@ If you need to use multiple tools:
 When invoking a tool that takes a file path, always use the file path you have been given by the user or by the output of a tool.
 
 Use code edit tools. Read before editing if the file was not sent in the context.
+
+**Reading Files:** When using the `read_file` tool, always provide a start line, which must be a valid number and it's required!
 
 **Git and GitHub:** Use `git` for git and `gh` for PRs/issues with `cmd_runner`.
 

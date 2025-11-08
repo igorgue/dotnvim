@@ -7,7 +7,9 @@ vim.g.mcphub_auto_approve = true
 
 local default_tools = {
   "read_file",
+  "create_file",
   "cmd_runner",
+  "insert_edit_into_file"
 }
 
 local default_groups = {
@@ -98,9 +100,11 @@ return {
           use_bundled_binary = false,
           extensions = {
             codecompanion = {
-              show_result_in_chat = true,
-              make_vars = true,
-              make_slash_commands = true,
+              auto_approve = true, -- Automatically approve MCP tool calls
+              show_result_in_chat = true, -- Display MCP tool results in the chat
+              make_vars = true, -- Convert MCP resources to #variables
+              make_slash_commands = true, -- Add MCP prompts as /slash commands
+              make_tools = true, -- Add MCP prompts as tools
             },
           },
           log = {
@@ -358,6 +362,17 @@ return {
             env = {
               api_key = "MINIMAX_API_KEY",
             },
+            opts = {
+              stream = true,
+              tools = true,
+              has_token_efficient_tools = true,
+              reasoning_split = true,
+            },
+            temp = {
+              extended_output = true,
+              extended_thinking = true,
+              thinking_budget = -1,
+            },
             features = {
               tokens = true,
             },
@@ -368,6 +383,20 @@ return {
                   ["minimax-m2"] = {},
                 },
               },
+            },
+            tools = {
+              output_response = function(_self, tool_call, output)
+                return {
+                  role = "tool",
+                  content = {
+                    type = "tool_result",
+                    tool_use_id = tool_call.id,
+                    content = output,
+                    is_error = false,
+                  },
+                  opts = { visible = false },
+                }
+              end,
             },
           })
         end,
@@ -711,10 +740,11 @@ return {
                 tools = {
                   "read_file",
                   "cmd_runner",
+                  "insert_edit_into_file",
+                  -- "neovim__write_file",
+                  -- "neovim__edit_file",
                   "neovim__execute_lua",
                   "neovim__read_multiple_files",
-                  "neovim__write_file",
-                  "neovim__edit_file",
                 },
               },
               ["writer"] = {
@@ -751,8 +781,8 @@ return {
             opts = {
               -- default_tools = {},
               requires_approval = false,
-              auto_submit_errors = false,
-              auto_submit_success = false,
+              auto_submit_errors = true,
+              auto_submit_success = true,
               prompt_decorator = function(message, _adapter, _context)
                 return string.format([[<tools>%s</tools>]], message)
               end,
@@ -790,8 +820,8 @@ return {
           intro_message = "",
           separtor = "---",
           show_references = true,
-          show_header_separator = true,
-          show_settings = false,
+          show_header_separator = false,
+          show_settings = true,
           show_context = true,
           show_token_count = true,
           render_headers = false,
