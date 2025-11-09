@@ -13,15 +13,8 @@ local default_tools = {
 }
 
 local default_groups = {
-  "neovim",
   "sequentialthinking",
-  "deepwiki",
-  "context7",
-  "chrome-devtools-mcp",
   "linkup",
-  "exa",
-  "wikipedia",
-  "time",
 }
 
 local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
@@ -37,6 +30,7 @@ vim.api.nvim_create_autocmd({ "User" }, {
 return {
   {
     "olimorris/codecompanion.nvim",
+    -- dir = "~/Code/codecompanion.nvim",
 
     -- Main plugin configuration
     -- Defines dependencies, commands, initialization, and setup options
@@ -243,10 +237,6 @@ return {
             schema = {
               model = {
                 default = "claude-sonnet-4.5",
-                choices = {
-                  ["claude-sonnet-4.5"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
-                  ["gpt-4.1"] = {},
-                },
               },
             },
           })
@@ -599,12 +589,12 @@ return {
 
               local prelude_tools = {}
 
-              for _, tool in ipairs(default_tools) do
-                prelude_tools[#prelude_tools + 1] = "@{" .. tool .. "}"
+              for _, dtool in ipairs(default_tools) do
+                prelude_tools[#prelude_tools + 1] = "@{" .. dtool .. "}"
               end
 
-              for _, group in ipairs(default_groups) do
-                prelude_tools[#prelude_tools + 1] = "@{" .. group .. "}"
+              for _, dgroup in ipairs(default_groups) do
+                prelude_tools[#prelude_tools + 1] = "@{" .. dgroup .. "}"
               end
 
               local prelude = prelude_tools
@@ -630,18 +620,7 @@ return {
 
               if #prelude > 0 then
                 vim.g.codecompanion_attached_prompt_decorator = true
-
-                if #prelude_tools then
-                  return string.format(
-                    "<prompt>\n%s\n</prompt>\n\n" .. "<tools>\n" .. table.concat(prelude, " ") .. "\n</tools>",
-                    message
-                  )
-                else
-                  return string.format(
-                    "<prompt>\n%s\n</prompt>\n\n<tools>\n" .. table.concat(prelude, " ") .. "\n</tools>",
-                    message
-                  )
-                end
+                return string.format("<prompt>\n" .. table.concat(prelude, " ") .. "\n\n%s\n</prompt>", message)
               else
                 return string.format("<prompt>\n%s\n</prompt>", message)
               end
