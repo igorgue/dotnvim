@@ -15,6 +15,7 @@ local default_tools = {
 local default_groups = {
   "sequentialthinking",
   "linkup",
+  "neovim",
 }
 
 local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
@@ -717,9 +718,6 @@ return {
                   "read_file",
                   "cmd_runner",
                   "insert_edit_into_file",
-                  -- "neovim__write_file",
-                  -- "neovim__edit_file",
-                  "neovim__execute_lua",
                   "neovim__read_multiple_files",
                 },
               },
@@ -742,7 +740,8 @@ return {
                 description = "Search the Web",
                 tools = {
                   "read_file",
-                  "exa__web_search_exa",
+                  "linkup__linkup_fetch",
+                  "linkup__linkup_search",
                   "context7__get_library_docs",
                   "context7__resolve_library_id",
                   "deepwiki__read_wiki_structure",
