@@ -238,6 +238,10 @@ return {
             schema = {
               model = {
                 default = "claude-sonnet-4.5",
+                choices = {
+                  ["claude-sonnet-4.5"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
+                  ["grok-code-fast-1"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
+                },
               },
             },
           })
