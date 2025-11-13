@@ -7,14 +7,15 @@ vim.g.mcphub_auto_approve = true
 
 local default_tools = {
   "read_file",
-  "create_file",
+  -- "create_file",
   "cmd_runner",
   "insert_edit_into_file",
 }
 
 local default_groups = {
   "sequentialthinking",
-  "linkup",
+  -- "linkup",
+  "exa",
   "neovim",
 }
 
@@ -237,8 +238,9 @@ return {
           return require("codecompanion.adapters").extend("copilot", {
             schema = {
               model = {
-                default = "claude-sonnet-4.5",
+                default = "gpt-5.1",
                 choices = {
+                  ["gpt-5.1"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
                   ["claude-sonnet-4.5"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
                   ["grok-code-fast-1"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
                 },
@@ -625,7 +627,7 @@ return {
 
               if #prelude > 0 then
                 vim.g.codecompanion_attached_prompt_decorator = true
-                return string.format("<prompt>\n" .. table.concat(prelude, " ") .. "\n\n%s\n</prompt>", message)
+                return string.format("<prompt>\n" .. table.concat(prelude, "\n") .. "\n\n%s\n</prompt>", message)
               else
                 return string.format("<prompt>\n%s\n</prompt>", message)
               end
