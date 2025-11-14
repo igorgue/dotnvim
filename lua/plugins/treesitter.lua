@@ -2,8 +2,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = { "RRethy/nvim-treesitter-endwise" },
-    cmd = { "TSEnable", "TSBufEnable" },
-    ft = { "shortcake" },
+    lazy = false,
     opts = {
       highlight = {
         enable = true,
@@ -42,7 +41,7 @@ return {
         },
       },
       endwise = {
-        enable = true,
+        enable = false,
         disable = function(_)
           local filepath = vim.fn.expand("%:p")
           for _, pattern in ipairs(vim.g.cmp_disabled_files or {}) do
@@ -55,7 +54,8 @@ return {
         end,
       },
       matchup = {
-        enable = true,
+        -- XXX: this is breaking for some files... disable for now
+        enable = false,
         include_match_words = true,
         disable = function(_)
           local filepath = vim.fn.expand("%:p")

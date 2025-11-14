@@ -7,15 +7,14 @@ vim.g.mcphub_auto_approve = true
 
 local default_tools = {
   "read_file",
-  -- "create_file",
+  "create_file",
   "cmd_runner",
   "insert_edit_into_file",
 }
 
 local default_groups = {
   "sequentialthinking",
-  -- "linkup",
-  "exa",
+  "linkup",
   "neovim",
 }
 
@@ -241,6 +240,7 @@ return {
                 default = "gpt-5.1",
                 choices = {
                   ["gpt-5.1"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
+                  ["gpt-5.1-codex"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
                   ["claude-sonnet-4.5"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
                   ["grok-code-fast-1"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
                 },

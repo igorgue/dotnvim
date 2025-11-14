@@ -1,1 +1,2 @@
-vim.b.autoformat = true
+-- NOTE: SQL files are usually very large, so autoformatting them on save can be slow / make the editor unresponsive.
+-- vim.b.autoformat = true
