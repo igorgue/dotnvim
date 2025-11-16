@@ -627,7 +627,7 @@ return {
 
               if #prelude > 0 then
                 vim.g.codecompanion_attached_prompt_decorator = true
-                return string.format("<prompt>\n" .. table.concat(prelude, "\n") .. "\n\n%s\n</prompt>", message)
+                return string.format("<tools>\n" .. table.concat(prelude, "\n") .. "\n</tools>\n\n<prompt>\n" .. "%s\n</prompt>", message)
               else
                 return string.format("<prompt>\n%s\n</prompt>", message)
               end
