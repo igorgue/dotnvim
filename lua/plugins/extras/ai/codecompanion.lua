@@ -122,8 +122,17 @@ return {
         "MeanderingProgrammer/render-markdown.nvim",
         opts = {
           file_types = { "markdown", "codecompanion" },
+          preset = "lazy",
           code = {
             disable_background = true,
+          },
+          restart_highlighter = true,
+          completions = {
+            blink = { enabled = true },
+            lsp = { enabled = true },
+          },
+          heading = {
+            icons = false,
           },
         },
         ft = { "markdown", "codecompanion" },
