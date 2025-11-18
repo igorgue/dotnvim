@@ -319,12 +319,12 @@ return {
                   ["kimi-k2-thinking"] = { can_reason = true, has_vision = false },
                 },
               },
-              temperature = {
-                default = 1,
-              },
-              max_tokens = {
-                default = 1024 * 32,
-              },
+              -- temperature = {
+              --   default = 1,
+              -- },
+              -- max_tokens = {
+              --   default = 1024 * 32,
+              -- },
             },
           })
         end,
@@ -501,54 +501,11 @@ return {
           })
         end,
         openrouter = function()
-          return require("codecompanion.adapters").extend("openai_compatible", {
-            name = "openrouter",
-            formatted_name = "OpenRouter",
-            roles = {
-              llm = "assistant",
-              user = "user",
-              tool = "tool",
-            },
-            opts = {
-              stream = true,
-              tools = true,
-              vision = true,
-            },
-            features = {
-              text = true,
-              tokens = true,
-            },
-            env = {
-              api_key = "OPENROUTER_API_KEY",
-              url = "https://openrouter.ai/api",
-              chat_url = "/v1/chat/completions",
-              models_endpoint = "/v1/models",
-            },
-            schema = {
-              model = {
-                default = "z-ai/glm-4.5-air:free",
-                choices = {
-                  ["moonshotai/kimi-k2:free"] = {},
-                  ["nvidia/nemotron-nano-9b-v2"] = {},
-                  ["openai/gpt-5"] = {},
-                  ["openai/gpt-5-chat"] = {},
-                  ["openai/gpt-5-mini"] = {},
-                  ["openai/gpt-5-nano"] = {},
-                  ["openai/gpt-oss-120b"] = {},
-                  ["openai/gpt-oss-20b"] = {},
-                  ["openai/gpt-oss-20b:free"] = {},
-                  ["deepseek/deepseek-chat-v3.1"] = {},
-                  ["x-ai/grok-code-fast-1"] = {},
-                  ["x-ai/grok-4-fast:free"] = {},
-                  ["z-ai/glm-4.5-air:free"] = {},
-                  ["z-ai/glm-4.6"] = {},
-                  ["anthropic/claude-sonnet-4.5"] = {},
-                  ["anthropic/claude-sonnet-4"] = {},
-                  ["minimax/minimax-m2"] = {},
-                },
-              },
-            },
-          })
+          local adapter = require("plugins.ai.openrouter")
+
+          adapter.schema.model.default = "openrouter/sherlock-think-alpha"
+
+          return adapter
         end,
         ollama = function()
           return require("codecompanion.adapters").extend("ollama", {
@@ -627,7 +584,10 @@ return {
 
               if #prelude > 0 then
                 vim.g.codecompanion_attached_prompt_decorator = true
-                return string.format("<tools>\n" .. table.concat(prelude, "\n") .. "\n</tools>\n\n<prompt>\n" .. "%s\n</prompt>", message)
+                return string.format(
+                  "<tools>\n" .. table.concat(prelude, "\n") .. "\n</tools>\n\n<prompt>\n" .. "%s\n</prompt>",
+                  message
+                )
               else
                 return string.format("<prompt>\n%s\n</prompt>", message)
               end
