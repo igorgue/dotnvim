@@ -587,6 +587,7 @@ return {
               end
 
               if has_non_codecompanion_buffer then
+                table.insert(prelude, "#{viewport}")
                 table.insert(prelude, "#{mcp:neovim://workspace}")
                 table.insert(prelude, "#{mcp:neovim://diagnostics/workspace}")
               end
