@@ -15,6 +15,7 @@ local default_tools = {
 local default_groups = {
   "sequentialthinking",
   "linkup",
+  "exa",
   "neovim",
 }
 
