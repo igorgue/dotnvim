@@ -126,7 +126,7 @@ return {
           code = {
             disable_background = true,
           },
-          restart_highlighter = true,
+          restart_highlighter = false,
           completions = {
             blink = { enabled = true },
             lsp = { enabled = true },
@@ -424,15 +424,14 @@ return {
               extended_thinking = true,
               thinking_budget = 8000,
             },
-            available_tools = {},
             schema = {
               model = {
                 default = "glm-4.6",
                 choices = {
-                  ["glm-4.6"] = { opts = { can_reason = true, has_vision = true, has_token_efficient_tools = false } },
-                  ["glm-4.5"] = { opts = { can_reason = true, has_vision = true, has_token_efficient_tools = false } },
+                  ["glm-4.6"] = { opts = { can_reason = true, has_vision = true, has_token_efficient_tools = true } },
+                  ["glm-4.5"] = { opts = { can_reason = true, has_vision = true, has_token_efficient_tools = true } },
                   ["glm-4.5-air"] = {
-                    opts = { can_reason = false, has_vision = true, has_token_efficient_tools = false },
+                    opts = { can_reason = false, has_vision = false, has_token_efficient_tools = true },
                   },
                 },
               },
@@ -463,16 +462,15 @@ return {
               thinking_budget = 0,
             },
             opts = {
-              stream = false,
+              stream = true,
               tools = false,
             },
-            available_tools = {},
             schema = {
               model = {
                 default = "glm-4.5-air",
                 choices = {
                   ["glm-4.5-air"] = {
-                    opts = { can_reason = false, has_vision = false, has_token_efficient_tools = false },
+                    opts = { can_reason = false, has_vision = false, has_token_efficient_tools = true },
                   },
                 },
               },
@@ -669,6 +667,7 @@ return {
                 tools = {
                   "read_file",
                   "cmd_runner",
+                  "create_file",
                   "insert_edit_into_file",
                   "neovim__read_multiple_files",
                 },
@@ -676,7 +675,6 @@ return {
               ["writer"] = {
                 description = "Writer Tools",
                 tools = {
-                  "read_file",
                   "dreamtap__get_inspirations",
                   "wikipedia__extract_key_facts",
                   "wikipedia__get_article",
@@ -691,7 +689,6 @@ return {
               ["web"] = {
                 description = "Search the Web",
                 tools = {
-                  "read_file",
                   "linkup__linkup_fetch",
                   "linkup__linkup_search",
                   "context7__get_library_docs",
