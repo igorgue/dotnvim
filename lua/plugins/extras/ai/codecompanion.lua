@@ -404,111 +404,152 @@ return {
           })
         end,
         zai = function()
-          return require("codecompanion.adapters").extend("anthropic", {
+          return require("codecompanion.adapters").extend("openai_compatible", {
             name = "zai",
             formatted_name = "Z.AI",
-            url = "https://api.z.ai/api/anthropic/v1/messages",
             env = {
+              url = "https://api.z.ai/api/coding/paas",
               api_key = "ZAI_API_KEY",
-            },
-            features = {
-              tokens = true,
-              text = true,
+              chat_url = "/v4/chat/completions",
+              models_endpoint = "/v4/models",
             },
             opts = {
               stream = true,
-              tools = true,
-              has_token_efficient_tools = true,
-            },
-            temp = {
-              extended_output = true,
-              extended_thinking = true,
-              thinking_budget = 3000,
             },
             schema = {
               model = {
                 default = "glm-4.6",
-                choices = {
-                  ["glm-4.6"] = { opts = { can_reason = true, has_vision = true } },
-                  ["glm-4.5"] = { opts = { can_reason = true, has_vision = true } },
-                  ["glm-4.5-air"] = { opts = { can_reason = false, has_vision = true } },
-                },
-              },
-              max_tokens = {
-                default = 200000,
-                validate = function(n)
-                  return n > 0 and n <= 200000, "Must be between 0 and 200000"
-                end,
-              },
-              tools = {
-                output_response = function(_self, tool_call, output)
-                  return {
-                    role = "tool",
-                    content = {
-                      type = "tool_result",
-                      tool_use_id = tool_call.id,
-                      content = output,
-                      is_error = false,
-                    },
-                    opts = { visible = false },
-                  }
-                end,
               },
             },
           })
         end,
         zai_inline = function()
-          return require("codecompanion.adapters").extend("anthropic", {
+          return require("codecompanion.adapters").extend("openai_compatible", {
             name = "zai_inline",
-            formatted_name = "Z.AI (inline)",
-            url = "https://api.z.ai/api/anthropic/v1/messages",
+            formatted_name = "Z.AI (Inline)",
             env = {
+              url = "https://api.z.ai/api/coding/paas",
               api_key = "ZAI_API_KEY",
+              chat_url = "/v4/chat/completions",
+              models_endpoint = "/v4/models",
             },
-            features = {
-              tokens = false, -- outputs gibberish as token counts
+            opts = {
+              stream = false,
             },
             schema = {
               model = {
                 default = "glm-4.5-air",
-                choices = {
-                  ["glm-4.5-air"] = {
-                    opts = { can_reason = false, has_vision = false, has_token_efficient_tools = false },
-                  },
-                },
-              },
-              temperature = {
-                default = 0,
-              },
-              max_tokens = {
-                default = 10000,
-                validate = function(n)
-                  return n > 0 and n <= 10000, "Must be between 0 and 10000"
-                end,
-              },
-              extended_thinking = {
-                default = false,
-              },
-              thinking_budget = {
-                default = 0,
-              },
-              tools = {
-                output_response = function(_self, tool_call, output)
-                  return {
-                    role = "tool",
-                    content = {
-                      type = "tool_result",
-                      tool_use_id = tool_call.id,
-                      content = output,
-                      is_error = false,
-                    },
-                    opts = { visible = false },
-                  }
-                end,
               },
             },
           })
         end,
+        -- NOTE: this uses the anthropic API, doesn't output usable token counts
+        -- zai = function()
+        --   return require("codecompanion.adapters").extend("anthropic", {
+        --     name = "zai",
+        --     formatted_name = "Z.AI",
+        --     url = "https://api.z.ai/api/anthropic/v1/messages",
+        --     env = {
+        --       api_key = "ZAI_API_KEY",
+        --     },
+        --     features = {
+        --       tokens = true,
+        --       text = true,
+        --     },
+        --     opts = {
+        --       stream = true,
+        --       tools = true,
+        --       -- has_token_efficient_tools = true,
+        --     },
+        --     -- temp = {
+        --     --   extended_output = true,
+        --     --   extended_thinking = true,
+        --     --   thinking_budget = 3000,
+        --     -- },
+        --     schema = {
+        --       model = {
+        --         default = "glm-4.6",
+        --         choices = {
+        --           ["glm-4.6"] = { opts = { can_reason = true, has_vision = true } },
+        --           ["glm-4.5"] = { opts = { can_reason = true, has_vision = true } },
+        --           ["glm-4.5-air"] = { opts = { can_reason = false, has_vision = true } },
+        --         },
+        --       },
+        --       -- max_tokens = {
+        --       --   default = 200000,
+        --       --   validate = function(n)
+        --       --     return n > 0 and n <= 200000, "Must be between 0 and 200000"
+        --       --   end,
+        --       -- },
+        --       -- tools = {
+        --       --   output_response = function(_self, tool_call, output)
+        --       --     return {
+        --       --       role = "tool",
+        --       --       content = {
+        --       --         type = "tool_result",
+        --       --         tool_use_id = tool_call.id,
+        --       --         content = output,
+        --       --         is_error = false,
+        --       --       },
+        --       --       opts = { visible = false },
+        --       --     }
+        --       --   end,
+        --       -- },
+        --     },
+        --   })
+        -- end,
+        -- zai_inline = function()
+        --   return require("codecompanion.adapters").extend("anthropic", {
+        --     name = "zai_inline",
+        --     formatted_name = "Z.AI (inline)",
+        --     url = "https://api.z.ai/api/anthropic/v1/messages",
+        --     env = {
+        --       api_key = "ZAI_API_KEY",
+        --     },
+        --     features = {
+        --       tokens = false, -- outputs gibberish as token counts
+        --     },
+        --     schema = {
+        --       model = {
+        --         default = "glm-4.5-air",
+        --         choices = {
+        --           ["glm-4.5-air"] = {
+        --             opts = { can_reason = false, has_vision = false, has_token_efficient_tools = false },
+        --           },
+        --         },
+        --       },
+        --       temperature = {
+        --         default = 0,
+        --       },
+        --       max_tokens = {
+        --         default = 10000,
+        --         validate = function(n)
+        --           return n > 0 and n <= 10000, "Must be between 0 and 10000"
+        --         end,
+        --       },
+        --       extended_thinking = {
+        --         default = false,
+        --       },
+        --       thinking_budget = {
+        --         default = 0,
+        --       },
+        --       tools = {
+        --         output_response = function(_self, tool_call, output)
+        --           return {
+        --             role = "tool",
+        --             content = {
+        --               type = "tool_result",
+        --               tool_use_id = tool_call.id,
+        --               content = output,
+        --               is_error = false,
+        --             },
+        --             opts = { visible = false },
+        --           }
+        --         end,
+        --       },
+        --     },
+        --   })
+        -- end,
         openrouter = function()
           local adapter = require("plugins.ai.openrouter")
 
