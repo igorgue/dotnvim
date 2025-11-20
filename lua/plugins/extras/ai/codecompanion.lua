@@ -462,13 +462,17 @@ return {
               extended_thinking = false,
               thinking_budget = 0,
             },
+            opts = {
+              stream = false,
+              tools = false,
+            },
             available_tools = {},
             schema = {
               model = {
                 default = "glm-4.5-air",
                 choices = {
                   ["glm-4.5-air"] = {
-                    opts = { can_reason = false, has_vision = true, has_token_efficient_tools = false },
+                    opts = { can_reason = false, has_vision = false, has_token_efficient_tools = false },
                   },
                 },
               },
