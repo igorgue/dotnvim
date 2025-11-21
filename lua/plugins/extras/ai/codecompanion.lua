@@ -586,9 +586,9 @@ return {
               end
 
               if adapter.schema and adapter.schema.model then
-                return "CodeCompanion (" .. adapter.formatted_name .. ":" .. adapter.schema.model.default .. ")"
+                return "CodeCompanion (" .. adapter.name .. "/" .. adapter.schema.model.default .. ")"
               else
-                return "CodeCompanion (" .. adapter.formatted_name .. ")"
+                return "CodeCompanion (" .. adapter.name .. ")"
               end
             end,
           },
