@@ -2,6 +2,8 @@ vim.g.codecompanion_auto_tool_mode = true
 vim.g.codecompanion_yolo_mode = true
 vim.g.codecompanion_prompt_decorator = true
 vim.g.codecompanion_attached_prompt_decorator = false
+vim.g.codecompanion_local_tools = {}
+vim.g.codecompanion_local_groups = {}
 
 vim.g.mcphub_auto_approve = true
 
@@ -540,8 +542,16 @@ return {
                 prelude_tools[#prelude_tools + 1] = "@{" .. dtool .. "}"
               end
 
+              for _, dltool in ipairs(vim.g.codecompanion_local_tools) do
+                prelude_tools[#prelude_tools + 1] = "@{" .. dltool .. "}"
+              end
+
               for _, dgroup in ipairs(default_groups) do
                 prelude_tools[#prelude_tools + 1] = "@{" .. dgroup .. "}"
+              end
+
+              for _, dlgroup in ipairs(vim.g.codecompanion_local_groups) do
+                prelude_tools[#prelude_tools + 1] = "@{" .. dlgroup .. "}"
               end
 
               local prelude = prelude_tools
