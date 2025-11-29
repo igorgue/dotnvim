@@ -13,23 +13,49 @@ return {
       },
     },
   },
-  -- {
-  --   "MeanderingProgrammer/render-markdown.nvim",
-  --   opts = {
-  --     file_types = { "markdown", "codecompanion", "agent-prompt" },
-  --     preset = "lazy",
-  --     code = {
-  --       disable_background = true,
-  --     },
-  --     restart_highlighter = false,
-  --     completions = {
-  --       blink = { enabled = true },
-  --       lsp = { enabled = true },
-  --     },
-  --     heading = {
-  --       icons = false,
-  --     },
-  --   },
-  --   ft = { "markdown", "codecompanion", "agent-prompt" },
-  -- },
+  {
+    "saghen/blink.cmp",
+    dependencies = {
+      {
+        "igorgue/agent.nvim",
+        dir = "~/Code/agent.nvim",
+      },
+    },
+    opts = {
+      completion = {
+        accept = {
+          auto_brackets = {
+            kind_resolution = {
+              blocked_filetypes = { "agent-prompt", "agent-content" },
+            },
+            semantic_token_resolution = {
+              blocked_filetypes = { "agent-prompt", "agent-content" },
+            },
+          },
+        },
+      },
+      sources = {
+        default = { "agent_files", "agent_commands" },
+        providers = {
+          -- agent.nvim file completions (@ mentions)
+          agent_files = {
+            name = "Agent Files",
+            module = "agent_nvim.blink.files",
+            enabled = function()
+              return vim.bo.filetype == "agent-prompt"
+            end,
+          },
+
+          -- agent.nvim command completions (/ commands)
+          agent_commands = {
+            name = "Agent Commands",
+            module = "agent_nvim.blink.commands",
+            enabled = function()
+              return vim.bo.filetype == "agent-prompt"
+            end,
+          },
+        },
+      },
+    },
+  },
 }
