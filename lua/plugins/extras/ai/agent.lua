@@ -3,7 +3,6 @@ return {
     "igorgue/agent.nvim",
     dir = "~/Code/agent.nvim",
     build = ":UpdateRemotePlugins",
-    lazy = false,
     keys = {
       {
         "<C-c>",
@@ -37,7 +36,6 @@ return {
       sources = {
         default = { "agent_files", "agent_commands" },
         providers = {
-          -- agent.nvim file completions (@ mentions)
           agent_files = {
             name = "Agent Files",
             module = "agent_nvim.blink.files",
@@ -45,8 +43,6 @@ return {
               return vim.bo.filetype == "agent-prompt"
             end,
           },
-
-          -- agent.nvim command completions (/ commands)
           agent_commands = {
             name = "Agent Commands",
             module = "agent_nvim.blink.commands",
