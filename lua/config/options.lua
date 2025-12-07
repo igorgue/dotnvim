@@ -98,15 +98,15 @@ vim.o.tabline = "%!v:lua.NoXTabLine()"
 vim.diagnostic.config(utils.ui.diagnostic_config)
 
 if vim.version().minor >= 12 then
-  vim.lsp.log.set_level("off")
+  -- vim.lsp.log.set_level("off")
   vim.diagnostic.enable(false)
 elseif vim.version().minor >= 10 or vim.version.minor == 11 then
   ---@diagnostic disable-next-line: deprecated
-  vim.lsp.set_log_level("off")
+  -- vim.lsp.set_log_level("off")
   vim.diagnostic.enable(false)
 else
   ---@diagnostic disable-next-line: deprecated
-  vim.lsp.set_log_level("off")
+  -- vim.lsp.set_log_level("off")
   ---@diagnostic disable-next-line: deprecated
   vim.diagnostic.disable()
 end
@@ -141,3 +141,4 @@ vim.g.codecompanion_initial_adapter = vim.env.LAZYVIM_CODECOMPANION_ADAPTER or "
 vim.g.codecompanion_initial_inline_adapter = vim.env.LAZYVIM_CODECOMPANION_INLINE_ADAPTER or "copilot"
 vim.g.codecompanion_auto_tool_mode = nil
 vim.g.lazyvim_python_lsp = "basedpyright"
+vim.g.render_markdown_fts = { "markdown", "codecompanion", "anya-chat" }

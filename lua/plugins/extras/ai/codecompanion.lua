@@ -120,25 +120,26 @@ return {
           { "<leader>am", "<cmd>MCPHub<cr>", desc = "Open MCPHub" },
         },
       },
-      {
-        "MeanderingProgrammer/render-markdown.nvim",
-        opts = {
-          file_types = { "markdown", "codecompanion" },
-          preset = "lazy",
-          code = {
-            disable_background = true,
-          },
-          restart_highlighter = false,
-          completions = {
-            blink = { enabled = true },
-            lsp = { enabled = true },
-          },
-          heading = {
-            icons = false,
-          },
-        },
-        ft = { "markdown", "codecompanion" },
-      },
+      -- {
+      --   "MeanderingProgrammer/render-markdown.nvim",
+      --   lazy = false,
+      --   opts = {
+      --     file_types = { "markdown", "codecompanion" },
+      --     preset = "lazy",
+      --     code = {
+      --       disable_background = true,
+      --     },
+      --     restart_highlighter = true,
+      --     completions = {
+      --       blink = { enabled = false },
+      --       lsp = { enabled = false },
+      --     },
+      --     heading = {
+      --       icons = false,
+      --     },
+      --   },
+      --   ft = { "markdown", "codecompanion" },
+      -- },
     },
     cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
     init = function()
@@ -1016,7 +1017,7 @@ And the previous 10 commits, just in case they're related to the current changes
         desc = "Write the git commit for you",
         ft = "gitcommit",
       },
-      { "<C-;>", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle (CodeCompanionChat)", mode = { "n", "i" } },
+      -- { "<C-;>", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle (CodeCompanionChat)", mode = { "n", "i" } },
       {
         "<C-;>",
         function()
