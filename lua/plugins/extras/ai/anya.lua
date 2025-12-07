@@ -6,8 +6,9 @@ return {
     -- TODO: to make it lazy, we need to figure out the loading issue we have sometimes
     -- where we are oblicated to run :UpdateRemotePlugins again after startup to make it update
     lazy = false,
-    cmd = { "Anya" },
+    cmd = { "Anya", "Anya history", "Anya cancel" },
     dependencies = {
+      "j-hui/fidget.nvim",
       {
         "MeanderingProgrammer/render-markdown.nvim",
         lazy = false,
