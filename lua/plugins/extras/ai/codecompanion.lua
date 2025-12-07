@@ -33,6 +33,7 @@ vim.api.nvim_create_autocmd({ "User" }, {
 return {
   {
     "olimorris/codecompanion.nvim",
+    version = "v17.33.0",
     -- dir = "~/Code/codecompanion.nvim",
 
     -- Main plugin configuration
