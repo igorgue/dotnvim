@@ -471,9 +471,12 @@ return {
             },
             schema = {
               model = {
-                default = "glm-4.5-air",
+                default = "glm-4.5-flash",
                 choices = {
                   ["glm-4.5-air"] = {
+                    opts = { can_reason = false, has_vision = false, has_token_efficient_tools = true },
+                  },
+                  ["glm-4.5-flash"] = {
                     opts = { can_reason = false, has_vision = false, has_token_efficient_tools = true },
                   },
                 },
