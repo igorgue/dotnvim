@@ -33,7 +33,7 @@ vim.api.nvim_create_autocmd({ "User" }, {
 return {
   {
     "olimorris/codecompanion.nvim",
-    version = "v17.33.0",
+    -- version = "v17.33.0",
     -- dir = "~/Code/codecompanion.nvim",
 
     -- Main plugin configuration
@@ -246,294 +246,299 @@ return {
             })
           end,
         },
-        copilot = function()
-          return require("codecompanion.adapters").extend("copilot", {
-            schema = {
-              model = {
-                default = "gpt-5.1",
-                choices = {
-                  ["gpt-5.1"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
-                  ["gpt-5.1-codex"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
-                  ["claude-sonnet-4.5"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
-                  ["grok-code-fast-1"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
-                },
-              },
-            },
-          })
-        end,
-        copilot_inline = function()
-          return require("codecompanion.adapters").extend("copilot", {
-            schema = {
-              model = {
-                default = "gpt-4.1",
-                choices = {
-                  ["gpt-4.1"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
-                },
-              },
-            },
-          })
-        end,
-        gemini = function()
-          return require("codecompanion.adapters").extend("gemini", {
-            schema = {
-              model = {
-                default = "gemini-2.5-pro-preview-05-06",
-                choices = {
-                  ["gemini-2.5-pro-preview-05-06"] = {},
-                },
-              },
-            },
-          })
-        end,
-        deepseek = function()
-          return require("codecompanion.adapters").extend("deepseek", {
-            schema = {
-              model = {
-                default = "deepseek-chat",
-                choices = {
-                  ["deepseek-chat"] = {},
-                  ["deepseek-coder"] = {},
-                },
-              },
-            },
-          })
-        end,
-        openai = function()
-          return require("codecompanion.adapters").extend("openai", {
-            schema = {
-              model = {
-                default = "gpt-5",
-                choices = {
-                  ["gpt-5"] = {},
-                  ["gpt-4o"] = {},
-                  ["gpt-4o-mini"] = {},
-                },
-              },
-            },
-          })
-        end,
-        moonshot = function()
-          return require("codecompanion.adapters").extend("deepseek", {
-            name = "moonshot",
-            formatted_name = "MoonshotAI",
-            opts = {
-              vision = false,
-              stream = true,
-              tools = true,
-            },
-            url = "https://api.moonshot.ai/v1/chat/completions",
-            env = {
-              api_key = "MOONSHOTAI_API_KEY",
-            },
-            schema = {
-              model = {
-                default = "kimi-k2-thinking",
-                choices = {
-                  ["kimi-k2-thinking"] = { can_reason = true, has_vision = false },
-                },
-              },
-              -- temperature = {
-              --   default = 1,
-              -- },
-              -- max_tokens = {
-              --   default = 1024 * 32,
-              -- },
-            },
-          })
-        end,
-        dashscope = function()
-          return require("codecompanion.adapters").extend("openai_compatible", {
-            name = "dashscope",
-            formatted_name = "DashScope (Alibaba Cloud)",
-            env = {
-              url = "https://dashscope-intl.aliyuncs.com/compatible-mode",
-              api_key = "DASHSCOPE_API_KEY",
-            },
-            schema = {
-              model = {
-                -- default = "qwen3-coder-plus",
-                default = "qwen3-max-preview",
-                choices = {
-                  ["qwen3-max-preview"] = {},
-                  ["qwen3-coder-plus"] = {},
-                },
-              },
-            },
-          })
-        end,
-        minimax = function()
-          return require("codecompanion.adapters").extend("anthropic", {
-            name = "minimax",
-            formatted_name = "Minimax",
-            url = "https://api.minimax.io/anthropic/v1/messages",
-            env = {
-              api_key = "MINIMAX_API_KEY",
-            },
-            opts = {
-              stream = true,
-              tools = true,
-              has_token_efficient_tools = true,
-              reasoning_split = true,
-            },
-            temp = {
-              extended_output = true,
-              extended_thinking = true,
-              thinking_budget = -1,
-            },
-            features = {
-              tokens = true,
-            },
-            schema = {
-              model = {
-                default = "minimax-m2",
-                choices = {
-                  ["minimax-m2"] = {},
-                },
-              },
-            },
-            tools = {
-              output_response = function(_self, tool_call, output)
-                return {
-                  role = "tool",
-                  content = {
-                    type = "tool_result",
-                    tool_use_id = tool_call.id,
-                    content = output,
-                    is_error = false,
-                  },
-                  opts = { visible = false },
-                }
-              end,
-            },
-          })
-        end,
-        zai = function()
-          return require("codecompanion.adapters").extend("anthropic", {
-            name = "zai",
-            formatted_name = "Z.AI",
-            url = "https://api.z.ai/api/anthropic/v1/messages",
-            env = {
-              api_key = "ZAI_API_KEY",
-            },
-            features = {
-              tokens = false,
-              text = true,
-            },
-            opts = {
-              stream = true,
-              tools = true,
-            },
-            temp = {
-              extended_output = true,
-              extended_thinking = true,
-              thinking_budget = 8000,
-            },
-            schema = {
-              model = {
-                default = "glm-4.6",
-                choices = {
-                  ["glm-4.6"] = { opts = { can_reason = true, has_vision = true, has_token_efficient_tools = true } },
-                  ["glm-4.5"] = { opts = { can_reason = true, has_vision = true, has_token_efficient_tools = true } },
-                  ["glm-4.5-air"] = {
-                    opts = { can_reason = false, has_vision = false, has_token_efficient_tools = true },
+        http = {
+          copilot = function()
+            return require("codecompanion.adapters").extend("copilot", {
+              schema = {
+                model = {
+                  default = "gpt-5.1",
+                  choices = {
+                    ["gpt-5.1"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
+                    ["gpt-5.1-codex"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
+                    ["claude-sonnet-4.5"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
+                    ["grok-code-fast-1"] = { opts = { can_stream = true, can_use_tools = true, has_vision = true } },
                   },
                 },
               },
-              max_tokens = {
-                default = 202752,
-                validate = function(n)
-                  return n > 0 and n <= 202752, "Must be between 0 and 202752"
-                end,
-              },
-            },
-          })
-        end,
-        zai_inline = function()
-          return require("codecompanion.adapters").extend("anthropic", {
-            name = "zai_inline",
-            formatted_name = "Z.AI (inline)",
-            url = "https://api.z.ai/api/anthropic/v1/messages",
-            env = {
-              api_key = "ZAI_API_KEY",
-            },
-            features = {
-              tokens = false,
-              text = true,
-            },
-            temp = {
-              extended_output = false,
-              extended_thinking = false,
-              thinking_budget = 0,
-            },
-            opts = {
-              stream = true,
-              tools = false,
-            },
-            schema = {
-              model = {
-                default = "glm-4.5-flash",
-                choices = {
-                  ["glm-4.5-air"] = {
-                    opts = { can_reason = false, has_vision = false, has_token_efficient_tools = true },
-                  },
-                  ["glm-4.5-flash"] = {
-                    opts = { can_reason = false, has_vision = false, has_token_efficient_tools = true },
+            })
+          end,
+          copilot_inline = function()
+            return require("codecompanion.adapters").extend("copilot", {
+              schema = {
+                model = {
+                  default = "gpt-4.1",
+                  choices = {
+                    ["gpt-4.1"] = {
+                      opts = { can_stream = true, can_use_tools = false, has_vision = false, can_reason = false },
+                    },
                   },
                 },
               },
-              max_tokens = {
-                default = 131072,
-                validate = function(n)
-                  return n > 0 and n <= 131072, "Must be between 0 and 131072"
-                end,
-              },
-            },
-          })
-        end,
-        openrouter = function()
-          local adapter = require("plugins.ai.openrouter")
-
-          adapter.schema.model.default = "openrouter/sherlock-think-alpha"
-
-          return adapter
-        end,
-        ollama = function()
-          return require("codecompanion.adapters").extend("ollama", {
-            name = "ollama",
-            formatted_name = "Ollama",
-            schema = {
-              model = {
-                default = "qwen3:8b",
-                choices = {
-                  ["qwen3:8b"] = {},
-                  ["gpt-oss:20b"] = {},
-                  ["codellama:7b"] = {},
-                  ["gemma3:12b"] = {},
+            })
+          end,
+          gemini = function()
+            return require("codecompanion.adapters").extend("gemini", {
+              schema = {
+                model = {
+                  default = "gemini-2.5-pro-preview-05-06",
+                  choices = {
+                    ["gemini-2.5-pro-preview-05-06"] = {},
+                  },
                 },
               },
-            },
-          })
-        end,
-        xai = function()
-          return require("codecompanion.adapters").extend("openai_compatible", {
-            name = "xai",
-            formatted_name = "XAi",
-            env = {
-              url = "https://api.x.ai",
-              api_key = "XAI_API_KEY",
-            },
-            schema = {
-              model = {
-                default = "grok-code-fast-1",
-                -- choices = {
-                --   ["grok-code-fast-1"] = {},
+            })
+          end,
+          deepseek = function()
+            return require("codecompanion.adapters").extend("deepseek", {
+              schema = {
+                model = {
+                  default = "deepseek-chat",
+                  choices = {
+                    ["deepseek-chat"] = {},
+                    ["deepseek-coder"] = {},
+                  },
+                },
+              },
+            })
+          end,
+          openai = function()
+            return require("codecompanion.adapters").extend("openai", {
+              schema = {
+                model = {
+                  default = "gpt-5",
+                  choices = {
+                    ["gpt-5"] = {},
+                    ["gpt-4o"] = {},
+                    ["gpt-4o-mini"] = {},
+                  },
+                },
+              },
+            })
+          end,
+          moonshot = function()
+            return require("codecompanion.adapters").extend("deepseek", {
+              name = "moonshot",
+              formatted_name = "MoonshotAI",
+              opts = {
+                vision = false,
+                stream = true,
+                tools = true,
+              },
+              url = "https://api.moonshot.ai/v1/chat/completions",
+              env = {
+                api_key = "MOONSHOTAI_API_KEY",
+              },
+              schema = {
+                model = {
+                  default = "kimi-k2-thinking",
+                  choices = {
+                    ["kimi-k2-thinking"] = { can_reason = true, has_vision = false },
+                  },
+                },
+                -- temperature = {
+                --   default = 1,
+                -- },
+                -- max_tokens = {
+                --   default = 1024 * 32,
                 -- },
               },
-            },
-          })
-        end,
+            })
+          end,
+          dashscope = function()
+            return require("codecompanion.adapters").extend("openai_compatible", {
+              name = "dashscope",
+              formatted_name = "DashScope (Alibaba Cloud)",
+              env = {
+                url = "https://dashscope-intl.aliyuncs.com/compatible-mode",
+                api_key = "DASHSCOPE_API_KEY",
+              },
+              schema = {
+                model = {
+                  -- default = "qwen3-coder-plus",
+                  default = "qwen3-max-preview",
+                  choices = {
+                    ["qwen3-max-preview"] = {},
+                    ["qwen3-coder-plus"] = {},
+                  },
+                },
+              },
+            })
+          end,
+          minimax = function()
+            return require("codecompanion.adapters").extend("anthropic", {
+              name = "minimax",
+              formatted_name = "Minimax",
+              url = "https://api.minimax.io/anthropic/v1/messages",
+              env = {
+                api_key = "MINIMAX_API_KEY",
+              },
+              opts = {
+                stream = true,
+                tools = true,
+                has_token_efficient_tools = true,
+                reasoning_split = true,
+              },
+              temp = {
+                extended_output = true,
+                extended_thinking = true,
+                thinking_budget = -1,
+              },
+              features = {
+                tokens = true,
+              },
+              schema = {
+                model = {
+                  default = "minimax-m2",
+                  choices = {
+                    ["minimax-m2"] = {},
+                  },
+                },
+              },
+              tools = {
+                output_response = function(_self, tool_call, output)
+                  return {
+                    role = "tool",
+                    content = {
+                      type = "tool_result",
+                      tool_use_id = tool_call.id,
+                      content = output,
+                      is_error = false,
+                    },
+                    opts = { visible = false },
+                  }
+                end,
+              },
+            })
+          end,
+          zai = function()
+            return require("codecompanion.adapters").extend("anthropic", {
+              name = "zai",
+              formatted_name = "Z.AI",
+              url = "https://api.z.ai/api/anthropic/v1/messages",
+              env = {
+                api_key = "ZAI_API_KEY",
+              },
+              features = {
+                tokens = false,
+                text = true,
+              },
+              opts = {
+                stream = true,
+                tools = true,
+              },
+              temp = {
+                extended_output = true,
+                extended_thinking = true,
+                thinking_budget = 8000,
+              },
+              schema = {
+                model = {
+                  default = "glm-4.7",
+                  choices = {
+                    ["glm-4.7"] = { opts = { can_reason = true, has_vision = true, has_token_efficient_tools = true } },
+                    ["glm-4.6"] = { opts = { can_reason = true, has_vision = true, has_token_efficient_tools = true } },
+                    ["glm-4.5"] = { opts = { can_reason = true, has_vision = true, has_token_efficient_tools = true } },
+                    ["glm-4.5-air"] = {
+                      opts = { can_reason = false, has_vision = false, has_token_efficient_tools = true },
+                    },
+                  },
+                },
+                max_tokens = {
+                  default = 202752,
+                  validate = function(n)
+                    return n > 0 and n <= 202752, "Must be between 0 and 202752"
+                  end,
+                },
+              },
+            })
+          end,
+          zai_inline = function()
+            return require("codecompanion.adapters").extend("anthropic", {
+              name = "zai_inline",
+              formatted_name = "Z.AI (inline)",
+              url = "https://api.z.ai/api/anthropic/v1/messages",
+              env = {
+                api_key = "ZAI_API_KEY",
+              },
+              features = {
+                tokens = false,
+                text = true,
+              },
+              temp = {
+                extended_output = false,
+                extended_thinking = false,
+                thinking_budget = 0,
+              },
+              opts = {
+                stream = true,
+                tools = false,
+              },
+              schema = {
+                model = {
+                  default = "glm-4.5-flash",
+                  choices = {
+                    ["glm-4.5-air"] = {
+                      opts = { can_reason = false, has_vision = false, has_token_efficient_tools = true },
+                    },
+                    ["glm-4.5-flash"] = {
+                      opts = { can_reason = false, has_vision = false, has_token_efficient_tools = true },
+                    },
+                  },
+                },
+                max_tokens = {
+                  default = 131072,
+                  validate = function(n)
+                    return n > 0 and n <= 131072, "Must be between 0 and 131072"
+                  end,
+                },
+              },
+            })
+          end,
+          openrouter = function()
+            local adapter = require("plugins.ai.openrouter")
+
+            adapter.schema.model.default = "openrouter/sherlock-think-alpha"
+
+            return adapter
+          end,
+          ollama = function()
+            return require("codecompanion.adapters").extend("ollama", {
+              name = "ollama",
+              formatted_name = "Ollama",
+              schema = {
+                model = {
+                  default = "qwen3:8b",
+                  choices = {
+                    ["qwen3:8b"] = {},
+                    ["gpt-oss:20b"] = {},
+                    ["codellama:7b"] = {},
+                    ["gemma3:12b"] = {},
+                  },
+                },
+              },
+            })
+          end,
+          xai = function()
+            return require("codecompanion.adapters").extend("openai_compatible", {
+              name = "xai",
+              formatted_name = "XAi",
+              env = {
+                url = "https://api.x.ai",
+                api_key = "XAI_API_KEY",
+              },
+              schema = {
+                model = {
+                  default = "grok-code-fast-1",
+                  -- choices = {
+                  --   ["grok-code-fast-1"] = {},
+                  -- },
+                },
+              },
+            })
+          end,
+        },
       },
-      strategies = {
+      interactions = {
         chat = {
           opts = {
             prompt_decorator = function(message, _adapter, _context)
@@ -805,6 +810,7 @@ return {
             is_default = false,
             is_slash_cmd = false,
             short_name = "write_commit",
+            alias = "write_commit",
             auto_submit = true,
           },
           prompts = {
@@ -840,6 +846,7 @@ And the previous 10 commits, just in case they're related to the current changes
             is_default = true,
             is_slash_cmd = true,
             short_name = "review_diff",
+            alias = "review_diff",
             auto_submit = true,
           },
           prompts = {
@@ -1022,27 +1029,27 @@ And the previous 10 commits, just in case they're related to the current changes
         ft = "gitcommit",
       },
       -- { "<C-;>", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle (CodeCompanionChat)", mode = { "n", "i" } },
-      {
-        "<C-;>",
-        function()
-          local found = false
-          local bufs = vim.api.nvim_list_bufs()
-          for i = #bufs, 1, -1 do
-            local buf = bufs[i]
-            if vim.bo[buf].filetype == "codecompanion" then
-              found = true
-            end
-          end
-
-          if found then
-            vim.cmd("CodeCompanionChat Add")
-          else
-            vim.cmd("CodeCompanionChat Toggle")
-          end
-        end,
-        desc = "Toggle Adding (CodeCompanionChat Add)",
-        mode = "v",
-      },
+      -- {
+      --   "<C-;>",
+      --   function()
+      --     local found = false
+      --     local bufs = vim.api.nvim_list_bufs()
+      --     for i = #bufs, 1, -1 do
+      --       local buf = bufs[i]
+      --       if vim.bo[buf].filetype == "codecompanion" then
+      --         found = true
+      --       end
+      --     end
+      --
+      --     if found then
+      --       vim.cmd("CodeCompanionChat Add")
+      --     else
+      --       vim.cmd("CodeCompanionChat Toggle")
+      --     end
+      --   end,
+      --   desc = "Toggle Adding (CodeCompanionChat Add)",
+      --   mode = "v",
+      -- },
       {
         "<M-;>",
         function()

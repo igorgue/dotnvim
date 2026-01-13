@@ -49,4 +49,7 @@ require("lazy").setup({
 -- post lazy init...
 require("config.cmds")
 require("config.spell")
-require("utils.ui").autostart_focus_mode()
+
+if vim.g.disable_focus_mode ~= true then
+  require("utils.ui").autostart_focus_mode()
+end

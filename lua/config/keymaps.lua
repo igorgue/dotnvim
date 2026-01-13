@@ -99,6 +99,97 @@ local function toggle_inlay_hints()
   end
 end
 
+local function snacks_smart_references()
+  local word = vim.fn.expand("<cword>")
+  local buf = vim.api.nvim_get_current_buf()
+  local win = vim.api.nvim_get_current_win()
+
+  local function fallback()
+    -- First try LSP workspace symbols
+    local clients = vim.lsp.get_clients({ bufnr = buf })
+    local has_lsp = clients and #clients > 0
+
+    if has_lsp then
+      local params = { query = word }
+      vim.lsp.buf_request_all(buf, "workspace/symbol", params, function(responses)
+        local count = 0
+        for _, resp in pairs(responses or {}) do
+          local result = resp and resp.result
+          if result and not vim.tbl_isempty(result) then
+            count = count + #result
+          end
+        end
+
+        if count > 0 then
+          -- Found symbols, show them
+          Snacks.picker.lsp_workspace_symbols({ search = word })
+        else
+          -- No symbols, fall back to grep
+          Snacks.picker.grep({ search = word, regex = false, live = false })
+        end
+      end)
+    else
+      -- No LSP at all, go straight to grep
+      Snacks.picker.grep({ search = word, regex = false, live = false })
+    end
+  end
+
+  -- No LSP attached? Just fall back to grep.
+  local clients = vim.lsp.get_clients({ bufnr = buf })
+  if clients == nil or #clients == 0 then
+    return fallback()
+  end
+
+  local params = vim.lsp.util.make_position_params(win, clients[1].offset_encoding)
+  params.context = { includeDeclaration = true }
+
+  vim.lsp.buf_request_all(buf, "textDocument/references", params, function(responses)
+    local count = 0
+    for _, resp in pairs(responses or {}) do
+      local result = resp and resp.result
+      if result and not vim.tbl_isempty(result) then
+        count = count + #result
+      end
+    end
+
+    if count > 0 then
+      Snacks.picker.lsp_references()
+    else
+      fallback()
+    end
+  end)
+end
+
+-- NOTE: LazyVim/LSP sets a buffer-local `gr` on LspAttach.
+-- Make ours buffer-local too (and set it after attach) so it wins.
+local function set_smart_gr(bufnr)
+  vim.keymap.set(
+    "n",
+    "gR",
+    snacks_smart_references,
+    { buffer = bufnr, nowait = true, desc = "References (LSP/RG)" }
+  )
+end
+
+-- Global fallback (for buffers without LSP attached)
+vim.keymap.set("n", "gr", snacks_smart_references, { nowait = true, desc = "References (LSP/RG)" })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(ev)
+    set_smart_gr(ev.buf)
+  end,
+})
+
+-- Also apply to already-attached buffers (in case this file loads late)
+for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+  if vim.api.nvim_buf_is_loaded(bufnr) then
+    local ok, clients = pcall(vim.lsp.get_clients, { bufnr = bufnr })
+    if ok and clients and #clients > 0 then
+      set_smart_gr(bufnr)
+    end
+  end
+end
+
 wk.add({
   { "<esc>", require("utils").ui.refresh_ui, desc = "Refresh UI" },
   { "<M-/>", "<cmd>WhichKey<cr>", desc = "Help", mode = { "n", "i" } },
