@@ -66,6 +66,9 @@ return {
         },
       },
     },
+    opts = {
+      start_in_insert = true,
+    },
     keys = {
       {
         "<C-;>",

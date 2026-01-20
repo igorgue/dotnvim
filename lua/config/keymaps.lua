@@ -18,6 +18,9 @@ pcall(vim.api.nvim_del_keymap, "n", "<leader>gg")
 pcall(vim.api.nvim_del_keymap, "n", "<leader>gd")
 pcall(vim.api.nvim_del_keymap, "n", "<leader>ul")
 pcall(vim.api.nvim_del_keymap, "n", "<leader>uh")
+-- Remove LazyVim's C-Up/C-Down window resize to allow buffer-local overrides (e.g., Anya prompt resize)
+pcall(vim.api.nvim_del_keymap, "n", "<C-Up>")
+pcall(vim.api.nvim_del_keymap, "n", "<C-Down>")
 
 -- group names
 wk.add({
@@ -259,14 +262,14 @@ wk.add({
     '^v$"+y',
     desc = "Copy to clipboard",
     mode = "n",
-    icon = { icon = "", color = "grey" },
+    icon = { icon = "", color = "grey" },
   },
   {
     "<leader>y",
     '"+y',
     desc = "Copy to clipboard",
     mode = "v",
-    icon = { icon = "", color = "grey" },
+    icon = { icon = "", color = "grey" },
   },
 })
 
