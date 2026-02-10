@@ -70,18 +70,18 @@ return {
       start_in_insert = true,
     },
     keys = {
-      {
-        "<C-;>",
-        "<cmd>Anya pane<cr>",
-        desc = "Toggle Anya pane (right)",
-      },
-      {
-        "<C-;>",
-        ":Anya pane<cr>",
-        desc = "Add code to Anya prompt in the pane",
-        mode = "v",
-        silent = true,
-      },
+      -- {
+      --   "<C-;>",
+      --   "<cmd>Anya pane<cr>",
+      --   desc = "Toggle Anya pane (right)",
+      -- },
+      -- {
+      --   "<C-;>",
+      --   ":Anya pane<cr>",
+      --   desc = "Add code to Anya prompt in the pane",
+      --   mode = "v",
+      --   silent = true,
+      -- },
     },
   },
 }
