@@ -160,7 +160,7 @@ return {
     -- dir = "~/Code/danger",
     opts = {
       style = "dark",
-      alacritty = true,
+      alacritty = false,
       kitty = false,
     },
   },
