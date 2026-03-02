@@ -527,22 +527,39 @@ return {
         "!popup",
         "!nofile",
       },
-      user_default_options = {
-        RGB = true,
-        RRGGBB = true,
-        names = true,
-        RRGGBBAA = true,
-        rgb_fn = true,
-        hsl_fn = true,
-        css = true,
-        css_fn = true,
-        mode = "background",
-        tailwind = true,
-        tailwind_opts = {
+      options = {
+        css = true, -- preset: enables names, hex, rgb, hsl, oklch
+        css_fn = true, -- preset: enables rgb, hsl, oklch
+        names = {
+          enable = true,
+          lowercase = true,
+          camelcase = true,
+          uppercase = true,
+          strip_digits = true,
+          custom = true, -- table|function|false
+        },
+        hex = {
+          default = true, -- default value for format keys (see above)
+          rgb = true, -- #RGB
+          rgba = true, -- #RGBA
+          rrggbb = true, -- #RRGGBB
+          rrggbbaa = true, -- #RRGGBBAA
+          aarrggbb = true, -- 0xAARRGGBB
+        },
+        rgb = { enable = true },
+        hsl = { enable = true },
+        oklch = { enable = true },
+        tailwind = {
+          enable = true, -- parse Tailwind color names
+          lsp = true, -- use Tailwind LSP documentColor
           update_names = true,
         },
-        -- PERF: this feature is very slow
-        sass = { enable = false, parsers = { "css" } },
+        sass = {
+          enable = false,
+          parsers = { css = true },
+          variable_pattern = "^%$([%w_-]+)",
+        },
+        mode = "background",
         always_update = true,
       },
     },
