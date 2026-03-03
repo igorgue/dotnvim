@@ -6,7 +6,7 @@ vim.filetype.add({
   },
 })
 
-vim.lsp.enable("pyrefly")
+vim.lsp.enable("ty")
 
 return {
   { import = "lazyvim.plugins.extras.lang.python" },
@@ -23,6 +23,7 @@ return {
     opts = {
       servers = {
         pyright = false,
+        pyrefly = false,
         basedpyright = false,
       },
     },
@@ -57,7 +58,7 @@ return {
   {
     "mason-org/mason.nvim",
     opts = {
-      ensure_installed = { "isort", "black", "ruff", "debugpy", "pyrefly" },
+      ensure_installed = { "isort", "black", "ruff", "debugpy", "pyrefly", "ty" },
     },
   },
   {
