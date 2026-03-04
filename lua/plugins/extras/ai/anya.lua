@@ -82,6 +82,13 @@ return {
         mode = "v",
         silent = true,
       },
+      {
+        "<leader>gc",
+        ':Anya do "You are an expert at following the Conventional Commit specification. Given the gitcommit buffer. Generate a commit message for me, write your commit top of the file at the header level. Make sure to preseve the whole content of the current buffer, so just prepend your content."<cr>',
+        desc = "Generate a commit message with Anya",
+        mode = "n",
+        silent = true,
+      },
     },
   },
 }
