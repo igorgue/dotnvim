@@ -73,7 +73,8 @@ return {
       {
         "<C-;>",
         "<cmd>Anya pane<cr>",
-        desc = "Toggle Anya pane (right)",
+        desc = "Toggle Anya pane",
+        mode = { "n", "i" },
       },
       {
         "<C-;>",
@@ -90,9 +91,9 @@ return {
             .. "Here is the git commit message draft buffer content:\n\n"
             .. buf_content
             .. "\n\nGenerate a commit message for me, write your commit top of the file at the header level. "
+            .. "Do not read any other file, use the content it was provided in the prompt for you here. "
             .. "Make sure to preserve the whole content of the current buffer, so just prepend your content."
-          
-          -- Call AnyaDo function directly to avoid command-line parsing issues
+
           vim.fn.AnyaDo(prompt)
         end,
         desc = "Generate a commit message with Anya",
