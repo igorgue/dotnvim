@@ -3,10 +3,13 @@ return {
     "igorgue/anya",
     dir = "~/Code/anya",
     build = ":UpdateRemotePlugins",
-    -- TODO: to make it lazy, we need to figure out the loading issue we have sometimes
-    -- where we are oblicated to run :UpdateRemotePlugins again after startup to make it update
-    lazy = false,
-    cmd = { "Anya" },
+    lazy = true,
+    config = function(_, opts)
+      require("anya").setup(opts)
+    end,
+    opts = {
+      -- start_in_insert = true,
+    },
     dependencies = {
       "j-hui/fidget.nvim",
       {
@@ -65,9 +68,6 @@ return {
         },
       },
     },
-    -- opts = {
-    --   start_in_insert = true,
-    -- },
     keys = {
       {
         "<C-;>",
