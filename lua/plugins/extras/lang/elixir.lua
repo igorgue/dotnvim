@@ -7,10 +7,10 @@ vim.filetype.add({
 local ok, icons = pcall(require, "nvim-web-devicons")
 if ok then
   icons.set_icon({
-    [".neex"] = { icon = "", color = "#916AB2", name = "Neex" },
+    [".neex"] = { icon = "", color = "#916AB2", name = "Neex" },
   })
   icons.set_icon({
-    neex = { icon = "", color = "#916AB2", name = "Neex" },
+    neex = { icon = "", color = "#916AB2", name = "Neex" },
   })
 end
 
@@ -21,6 +21,15 @@ vim.lsp.config("expert", {
 })
 
 vim.lsp.enable("expert")
+
+vim.lsp.config("erlangls", {
+  cmd = { "erlang_ls" },
+  root_markers = { "rebar.config", "erlang.mk", ".git", "mix.exs", ".git" },
+  filetypes = { "erlang", "elixir", "eelixir", "heex" },
+  single_file_support = true,
+})
+
+vim.lsp.enable("erlangls")
 
 return {
   { import = "lazyvim.plugins.extras.lang.elixir" },
@@ -82,3 +91,4 @@ return {
     },
   },
 }
+
