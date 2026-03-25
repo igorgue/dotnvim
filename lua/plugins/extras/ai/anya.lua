@@ -3,7 +3,7 @@ return {
     "igorgue/anya",
     dir = "~/Code/anya",
     build = ":UpdateRemotePlugins",
-    lazy = true,
+    lazy = false,
     config = function(_, opts)
       require("anya").setup(opts)
     end,
