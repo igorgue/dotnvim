@@ -6,6 +6,17 @@ return {
     },
   },
   {
+    "j-hui/fidget.nvim",
+    opts = {
+      notification = {
+        window = {
+          x_padding = 0,
+          align = "top",
+        },
+      },
+    },
+  },
+  {
     "folke/snacks.nvim",
     opts = {
       image = {},
