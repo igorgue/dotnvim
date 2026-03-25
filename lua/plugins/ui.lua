@@ -616,6 +616,9 @@ return {
             enabled = false,
           },
         },
+        progress = {
+          enabled = false,
+        },
       },
       cmdline = {
         enabled = true,
