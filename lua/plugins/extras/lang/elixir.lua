@@ -24,8 +24,8 @@ vim.lsp.enable("expert")
 
 vim.lsp.config("erlangls", {
   cmd = { "erlang_ls" },
-  root_markers = { "rebar.config", "erlang.mk", ".git", "mix.exs", ".git" },
-  filetypes = { "erlang", "elixir", "eelixir", "heex" },
+  root_markers = { "rebar.config", "erlang.mk", ".git", "mix.exs" },
+  filetypes = { "erlang" },
   single_file_support = true,
 })
 
