@@ -1,7 +1,7 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "e30b7f2008e52442154b66f7c519bfd2f1e32acb" },
   "LazyVim": { "branch": "main", "commit": "999700997f72227187d49d8b92667183dc7fc809" },
-  "SchemaStore.nvim": { "branch": "main", "commit": "9ec57eeac6e2e14b7b9b9e74dc8b0ca4954a684b" },
+  "SchemaStore.nvim": { "branch": "main", "commit": "7fca30f2890a6acf9d21d194876c6ac960d92070" },
   "blink.cmp": { "branch": "main", "commit": "78336bc89ee5365633bcf754d93df01678b5c08f" },
   "blink.compat": { "branch": "main", "commit": "2ed6d9a28b07fa6f3bface818470605f8896408c" },
   "candy.vim": { "branch": "master", "commit": "2a8348a0f76c36bffef20cafdc4b37f947e5f099" },
@@ -38,7 +38,7 @@
   "nvim-dap-python": { "branch": "master", "commit": "1808458eba2b18f178f990e01376941a42c7f93b" },
   "nvim-dap-ruby": { "branch": "main", "commit": "fa73da2f5124d10a4cd09ce589441b5901df706a" },
   "nvim-lint": { "branch": "master", "commit": "f6230a5c06ba59e6059c14637f1dbe29a7978b9b" },
-  "nvim-lspconfig": { "branch": "master", "commit": "ac062d0d01c019c0dbdb798968f3e5d8b35c3853" },
+  "nvim-lspconfig": { "branch": "master", "commit": "45a3a444b710511c39abca3b60bb6e23a21e3de5" },
   "nvim-navic": { "branch": "master", "commit": "455808fd0fae06e6d70fadfd61432275db8f34ce" },
   "nvim-treesitter": { "branch": "main", "commit": "7caec274fd19c12b55902a5b795100d21531391f" },
   "nvim-treesitter-context": { "branch": "master", "commit": "6daca3ad780f045550b820f262002f35175a6c04" },
